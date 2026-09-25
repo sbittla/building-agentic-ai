@@ -1,0 +1,1078 @@
+#!/opt/venv/bin/python
+"""course: run every exercise of "Building Agentic AI" inside the course container.
+
+You normally call this through the wrapper on your computer:
+    ./course.sh <command>        (macOS / Linux)
+    .\\course.cmd <command>       (Windows)
+"""
+import importlib
+import json
+import os
+import re
+import shutil
+import subprocess
+import sys
+import textwrap
+import time
+from pathlib import Path
+
+COURSE = Path("/opt/course")
+PRISTINE = COURSE / "code"
+WS = Path(os.environ.get("COURSE_WORKSPACE", "/workspace"))
+EXERCISES = json.loads((COURSE / "exercises.json").read_text())
+STARTERS = COURSE / "starters"          # starter files with signatures and examples
+CHECKS = COURSE / "checks"              # ./course.sh check <id>
+CHECK_TARGET = {"2.4": "ch02_calculator_agent.py", "3.4": "ch03_tools.py"}   # checked in place
+BY_ID = {e["id"]: e for e in EXERCISES}
+# Which model each exercise needs: none | any (qwen3.5:9b or Claude) | claude-rec | claude | desktop
+_NEEDS = COURSE / "model_needs.json"
+for _id_, _need in (json.loads(_NEEDS.read_text()) if _NEEDS.exists() else {}).items():
+    if _id_ in BY_ID:
+        BY_ID[_id_].update(model=_need["model"], model_note=_need.get("note"))
+MODEL_LABEL = {"none": "no model", "any": "qwen3.5:9b or Claude", "claude-rec": "Claude recommended",
+               "claude": "Claude only", "desktop": "Claude Desktop app"}
+
+# ---------------------------------------------------------------- model provider
+# PROVIDER=claude (default) uses the Claude API with your key. PROVIDER=local uses a free
+# model (qwen3.5:9b) served by Ollama, through the local adapter (./course.sh local up).
+LOCAL_DEFAULT_MODEL = "qwen3.5:9b"
+OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://local-model:11434").rstrip("/")
+ADAPTER_URL = os.environ.get("LOCAL_ADAPTER_URL", "http://local-adapter:8787").rstrip("/")
+
+def is_local():
+    return os.environ.get("PROVIDER", "claude").strip().lower() in ("local", "ollama")
+
+def apply_provider():
+    """Point every program this command starts at the local model, if PROVIDER=local."""
+    if not is_local():
+        return
+    model = os.environ.get("LOCAL_MODEL") or LOCAL_DEFAULT_MODEL
+    os.environ.update({
+        "ANTHROPIC_BASE_URL": ADAPTER_URL, "ANTHROPIC_API_URL": ADAPTER_URL,   # SDK, LangChain
+        "ANTHROPIC_API_KEY": "sk-local-ollama",        # any value: the local model ignores it
+        "MODEL": model, "JUDGE_MODEL": model,
+        # the Agent SDK runs the Claude Code CLI: keep it on the local model and offline
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": model, "ANTHROPIC_DEFAULT_SONNET_MODEL": model,
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": model, "ANTHROPIC_SMALL_FAST_MODEL": model,
+        "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
+    })
+    os.environ.pop("ANTHROPIC_AUTH_TOKEN", None)
+    for var in ("NO_PROXY", "no_proxy"):              # never send local traffic to a proxy
+        hosts = [h for h in os.environ.get(var, "").split(",") if h]
+        os.environ[var] = ",".join(hosts + ["local-adapter", "local-model", "host.docker.internal"])
+
+def _id(text: str) -> str:
+    """'t.2' -> 'T.2', so ids work in any case."""
+    return text.upper() if text.upper() in BY_ID else text
+TTY = sys.stderr.isatty()
+
+# ---------------------------------------------------------------- output helpers
+# Status messages go to STDERR so stdout stays clean (MCP stdio servers need that).
+def _c(code, s): return f"\033[{code}m{s}\033[0m" if TTY else s
+def say(msg=""): print(msg, file=sys.stderr)
+def head(msg): say(_c("1;36", msg))
+def ok(msg): say(_c("32", "✔ ") + msg)
+def warn(msg): say(_c("33", "! ") + msg)
+def fail(msg): say(_c("31", "✘ ") + msg)
+
+def env_for_runs():
+    env = dict(os.environ)
+    env["PYTHONPATH"] = f"{WS}:{WS / 'exercises'}:{env.get('PYTHONPATH', '')}".rstrip(":")
+    return env
+
+def host_path(p: Path) -> str:
+    """How a workspace path looks on your computer."""
+    rel = Path(p).resolve().relative_to(WS)
+    return str(Path("workspace") / rel)
+
+# ---------------------------------------------------------------- workspace setup
+def init(force=False, quiet=True):
+    marker = WS / ".course" / "initialized"
+    if marker.exists() and not force:
+        # A newer kit may bring new chapter files: add those, never touch existing ones.
+        new = [src for src in PRISTINE.iterdir() if src.is_file() and not (WS / src.name).exists()]
+        try:
+            for src in new:
+                shutil.copy2(src, WS / src.name)
+        except OSError as exc:
+            warn(f"Couldn't add new course files to your workspace ({exc.strerror}); "
+                 "check the folder's permissions.")
+            return
+        if new:
+            ok(f"Added {len(new)} new course file(s) to your workspace: "
+               + ", ".join(sorted(p.name for p in new)[:6]) + (" ..." if len(new) > 6 else ""))
+        return
+    WS.mkdir(parents=True, exist_ok=True)
+    copied = 0
+    for src in sorted(PRISTINE.iterdir()):
+        dst = WS / src.name
+        if src.is_file() and (force or not dst.exists()):
+            if dst.exists():
+                shutil.copy2(dst, dst.with_suffix(dst.suffix + ".bak"))
+            shutil.copy2(src, dst)
+            copied += 1
+    for d in ("exercises", "tests", "answers", ".course"):
+        (WS / d).mkdir(exist_ok=True)
+    if not (WS / "tests" / "conftest.py").exists():
+        (WS / "tests" / "conftest.py").write_text(
+            "import sys\nsys.path.insert(0, '/workspace')\n")
+    sys.path.insert(0, str(COURSE / "data"))
+    import generate
+    cwd = os.getcwd()
+    generate.all_data(WS)
+    os.chdir(cwd)
+    if not (WS / ".git").exists():        # chapter 14's Git server needs a repository
+        subprocess.run(["git", "init", "-q"], cwd=WS)
+        (WS / ".gitignore").write_text(".env\n.course/\n.sandbox/\n__pycache__/\n*.bak\n")
+        subprocess.run(["git", "add", "-A"], cwd=WS, stdout=subprocess.DEVNULL)
+        subprocess.run(["git", "commit", "-qm", "Course starting point"], cwd=WS,
+                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    marker.write_text(time.ctime())
+    if not quiet or copied:
+        ok(f"Workspace ready: {copied} course files copied into your 'workspace' folder.")
+
+# ---------------------------------------------------------------- listing
+LEVEL_COLOR = {"Concept": "34", "Simple": "32", "Medium": "33", "Complex": "31"}
+
+def cmd_list(args):
+    chapter = args[0].upper() if args else None
+    current = None
+    for e in EXERCISES:
+        ch = e["id"].split(".")[0]
+        if chapter and ch != chapter:
+            continue
+        if e["chapter"] != current:
+            current = e["chapter"]
+            head(f"\n{current}")
+        done = _status(e)
+        lvl = _c(LEVEL_COLOR[e["level"]], f"{e['level']:<8}")
+        need = e.get("model", "any")
+        tag = {"none": "", "any": "", "claude-rec": _c("33", "Claude recommended"),
+               "claude": _c("31", "Claude only"), "desktop": _c("33", "Claude Desktop")}[need]
+        say(f"  {e['id']:<5} {lvl} {e['title']:<42} {tag} {done}".rstrip())
+    say("\nRun one with:  ./course.sh ex <id>      e.g.  ./course.sh ex 4.3")
+
+def _status(e):
+    f = _my_file(e)
+    if f and f.exists():
+        return _c("2", f"[{host_path(f)}]")
+    return ""
+
+def _my_file(e):
+    if e["kind"] == "concept":
+        return WS / "answers" / f"ex{e['id'].replace('.', '_')}.md"
+    if e.get("file"):
+        return WS / e["file"]
+    if e["kind"] == "inspector" and e.get("stub"):
+        return WS / e["server"]
+    return None
+
+# ---------------------------------------------------------------- exercise brief
+def brief(e):
+    lvl = _c(LEVEL_COLOR[e["level"]], e["level"].upper())
+    head(f"\nExercise {e['id']} · {e['title']}")
+    say(f"{lvl}  ·  {e['chapter']}")
+    need = e.get("model", "any")
+    say(_c("1", "Model: ") + MODEL_LABEL[need] + (f". {e['model_note']}" if e.get("model_note") else ""))
+    if is_local() and need in ("claude", "claude-rec"):
+        warn("You're using the local model (PROVIDER=local). "
+             + ("This exercise needs Claude: set PROVIDER=claude in .env to run it."
+                if need == "claude" else "It runs, but works much better with Claude."))
+    say("")
+    for para in [e["task"]]:
+        say(textwrap.fill(para, 88))
+    if e.get("hint"):
+        say("\n" + _c("1", "Hint: ") + textwrap.fill(e["hint"], 82))
+    if e.get("done_when"):
+        say(_c("1", "Done when: ") + textwrap.fill(e["done_when"], 78))
+    if e.get("edit"):
+        say(_c("1", "Files to edit: ") + ", ".join(f"workspace/{f}" for f in e["edit"]))
+    if has_check(e):
+        say(_c("2", f"Check your answer automatically:   ./course.sh check {e['id']}"))
+    say(_c("2", f"Stuck, or finished and want to compare? ./course.sh solution {e['id']}"))
+    say("")
+
+STUB_PY = '''"""Exercise {id} ({level}): {title}
+
+{task}
+
+Hint: {hint}
+Done when: {done}
+
+Edit this file on your computer (workspace/{file}), then run:
+    ./course.sh ex {id}
+"""
+{imports}
+
+def main():
+    # TODO: write your solution here.
+    raise NotImplementedError("Exercise {id} is not written yet. Edit workspace/{file}")
+
+
+if __name__ == "__main__":
+    main()
+'''
+
+STUB_TEST = '''"""Exercise {id} ({level}): {title}
+
+{task}
+
+Done when: {done}
+
+Write your tests below, then run:   ./course.sh ex {id}
+"""
+import pytest
+
+
+def test_todo():
+    pytest.fail("Exercise {id}: write your tests in workspace/{file}")
+'''
+
+STUB_SERVER = '''"""Exercise {id} ({level}): {title}
+
+{task}
+
+Edit this file, then run:   ./course.sh ex {id}   (opens MCP Inspector)
+"""
+import logging
+import sys
+from mcp.server import MCPServer
+
+logging.basicConfig(stream=sys.stderr, level=logging.INFO)   # never print() to stdout
+mcp = MCPServer("my-server")
+
+
+@mcp.tool()
+def example(text: str) -> str:
+    """Replace this example tool with your own tools."""
+    return text.upper()
+
+
+if __name__ == "__main__":
+    mcp.run(transport="stdio")
+'''
+
+CONCEPT_MD = '''# Exercise {id} ({level}): {title}
+
+{task}
+
+{hint_line}**Done when:** {done}
+
+## My answer
+
+'''
+
+def _fill(tmpl, e, **extra):
+    wrap = lambda s: textwrap.fill(s or "", 80)
+    head_ = e["id"].split(".")[0]
+    chapter = int(head_) if head_.isdigit() else 0
+    imports = "import os\nfrom anthropic import Anthropic\n\nMODEL = os.environ.get(\"MODEL\", \"claude-sonnet-5\")"
+    if chapter >= 4:
+        imports += "\nfrom ch04_agent import run_agent   # the agent loop from chapter 4"
+    return tmpl.format(id=e["id"], level=e["level"], title=e["title"], task=wrap(e["task"]),
+                       hint=wrap(e.get("hint") or "-"), done=wrap(e.get("done_when") or "-"),
+                       file=e.get("file") or e.get("server", ""), imports=imports,
+                       hint_line=(f"**Hint:** {e['hint']}\n\n" if e.get("hint") else ""), **extra)
+
+def ensure_starter(e):
+    """Create your starter file the first time. Returns (path, created)."""
+    path = _my_file(e)
+    if path is None or path.exists():
+        return path, False
+    path.parent.mkdir(parents=True, exist_ok=True)
+    starter = STARTERS / path.name
+    if e["kind"] in ("build", "test") and starter.exists():
+        path.write_text(_starter_text(e, starter.read_text()))
+        return path, True
+    tmpl = {"concept": CONCEPT_MD, "build": STUB_PY, "test": STUB_TEST,
+            "inspector": STUB_SERVER}[e["kind"]]
+    path.write_text(_fill(tmpl, e))
+    return path, True
+
+def has_check(e) -> bool:
+    return (CHECKS / f"check_{e['id'].replace('.', '_')}.py").exists()
+
+def _starter_text(e, body: str) -> str:
+    """The exercise text as a header, then the starter code (functions to fill in)."""
+    notes = ""
+    if body.lstrip().startswith('"""'):                 # the starter's own notes go in the header
+        start = body.index('"""') + 3
+        end = body.index('"""', start)
+        notes, body = body[start:end].strip() + "\n\n", body[end + 3:].lstrip("\n")
+    wrap = lambda t: textwrap.fill(t or "", 80)
+    lines = [f"Exercise {e['id']} ({e['level']}): {e['title']}", "", wrap(e["task"]), ""]
+    if e.get("hint"):
+        lines += [wrap("Hint: " + e["hint"]), ""]
+    lines += [wrap("Done when: " + (e.get("done_when") or "-")), ""]
+    if notes:
+        lines += [notes.rstrip(), ""]
+    lines.append(f"Fill in the TODOs, then run:   ./course.sh ex {e['id']}")
+    if has_check(e):
+        lines.append(f"Check your answer:            ./course.sh check {e['id']}")
+    return '"""' + "\n".join(lines) + '\n"""\n' + body
+
+# ---------------------------------------------------------------- requirements
+def need_api_key():
+    if is_local():
+        return True
+    if not os.environ.get("ANTHROPIC_API_KEY", "").startswith("sk-"):
+        warn("ANTHROPIC_API_KEY is not set. Copy .env.example to .env next to course.sh "
+             "and add your key, or use the free local model (PROVIDER=local, see Appendix H).")
+        return False
+    return True
+
+def sandbox_alive():
+    hb = WS / ".sandbox" / "heartbeat"
+    return hb.exists() and time.time() - float(hb.read_text() or 0) < 10
+
+def check_needs(e):
+    need = e.get("needs")
+    if need == "sandbox" and not sandbox_alive():
+        fail("This exercise needs the isolated test sandbox. On your computer run:")
+        say("    ./course.sh sandbox up        (stop it later with: ./course.sh sandbox down)")
+        return False
+    if need == "github" and not os.environ.get("GITHUB_PERSONAL_ACCESS_TOKEN"):
+        fail("This exercise needs GITHUB_PERSONAL_ACCESS_TOKEN in your .env file "
+             "(a read-only fine-grained token).")
+        return False
+    return True
+
+# ---------------------------------------------------------------- running things
+def sh(command, check=False):
+    head(f"$ {command}")
+    return subprocess.run(["bash", "-c", command], cwd=WS, env=env_for_runs()).returncode
+
+def cmd_ex(args):
+    if not args:
+        return cmd_list([])
+    args = [_id(args[0])] + list(args[1:])
+    e = BY_ID.get(args[0])
+    if not e:
+        fail(f"No exercise '{args[0]}'. See: ./course.sh list")
+        return 2
+    brief(e)
+    if "--info" in args:
+        return 0
+    if not check_needs(e):
+        return 1
+    path, created = ensure_starter(e)
+    kind = e["kind"]
+    if kind == "concept":
+        verb = "Created" if created else "Your answer file is"
+        ok(f"{verb}: {host_path(path)}  — open it in any editor and write your answer.")
+        return 0
+    if e.get("setup"):
+        sh(e["setup"])
+    if kind in ("run", "build") and not e.get("nokey"):
+        need_api_key()          # a warning only
+    if kind in ("build", "test") and created:
+        ok(f"Created your starter file: {host_path(path)}")
+        say("   Write your solution there (it's on your computer), then run this command again.")
+        return 0
+    if kind == "run":
+        return sh(e["cmd"])
+    if kind == "ask":
+        return cmd_ask([e["module"]] + ([e["question"]] if e.get("question") else []))
+    if kind == "build":
+        return sh(f"python {e['file']}")
+    if kind == "test":
+        return sh(f"python -m pytest -q {e['file']}")
+    if kind == "inspector":
+        if created:
+            ok(f"Created your starter server: {host_path(path)}")
+        return cmd_inspector([e["server"]])
+    if kind == "desktop":
+        return cmd_desktop_config([e["server"]])
+    return 0
+
+def cmd_ask(args):
+    """Chat with any chapter's tools:  course ask ch06_notes_tools ["question"]"""
+    if not args:
+        fail("Usage: ./course.sh ask <module> [\"question\"]   e.g. ask ch08_sql_tools")
+        return 2
+    need_api_key()
+    os.chdir(WS)
+    sys.path.insert(0, str(WS))
+    mod = importlib.import_module(args[0].removesuffix(".py"))
+    from ch04_agent import run_agent
+    system = getattr(mod, "SYSTEM", "You are a helpful assistant. Use the tools.")
+    if len(args) > 1:
+        answer, _, stats = run_agent(" ".join(args[1:]), mod.TOOLS, mod.run_tool, system=system)
+        print(f"\n{answer}\n")
+        say(_c("2", f"[{stats}]"))
+        return 0
+    head(f"Chatting with the {args[0]} tools. Type 'quit' to stop.")
+    history = []
+    while True:
+        try:
+            q = input("\nYou: ").strip()
+        except EOFError:
+            break
+        if q in ("quit", "exit", ""):
+            break
+        answer, history, stats = run_agent(q, mod.TOOLS, mod.run_tool, system=system,
+                                           messages=history)
+        print(f"\nAgent: {answer}")
+        say(_c("2", f"[{stats['tool_calls']} tool calls, "
+                    f"{stats['input_tokens'] + stats['output_tokens']} tokens]"))
+    return 0
+
+def cmd_inspector(args):
+    if not args:
+        fail("Usage: ./course.sh inspector <server.py> [--cli]")
+        return 2
+    server = args[0]
+    if "--cli" in args:
+        rest = [a for a in args[1:] if a != "--cli"] or ["--method", "tools/list"]
+        return subprocess.call(["mcp-inspector", "--cli", "python", server, *rest],
+                               cwd=WS, env=env_for_runs())
+    env = env_for_runs() | {"HOST": "0.0.0.0", "DANGEROUSLY_BIND_ALL_INTERFACES": "true",
+                            "MCP_AUTO_OPEN_ENABLED": "false"}
+    head("Starting MCP Inspector. Open the http://localhost:6274 link below in your browser.")
+    say("(The Inspector is published only to your own computer. Press Ctrl+C to stop.)\n")
+    return subprocess.call(["mcp-inspector", "--web", "python", server], cwd=WS, env=env)
+
+def cmd_serve(args):
+    """Run an MCP server over Streamable HTTP on http://localhost:8000/mcp"""
+    server = args[0] if args else "ch12_weather_server.py"
+    head(f"Serving {server} at http://localhost:8000/mcp  (Ctrl+C to stop)")
+    env = env_for_runs() | {"MCP_HOST": "0.0.0.0"}
+    return subprocess.call(["python", server, "streamable-http"], cwd=WS, env=env)
+
+def cmd_serve_api(args):
+    """Chapter 19: the agent as a web API on http://localhost:8080 (docs at /docs)"""
+    need_api_key()
+    if not os.environ.get("AGENT_API_KEYS", "").strip():
+        import secrets
+        fail("AGENT_API_KEYS is not set, so the API would have no protection. Add this line "
+             "to the .env file next to course.sh, then run serve-api again:")
+        say(f"    AGENT_API_KEYS={secrets.token_urlsafe(24)}")
+        return 1
+    head("Agent API at http://localhost:8080   (interactive docs: http://localhost:8080/docs)")
+    say("Other course containers reach it as http://agentic-ai-api:8080. Ctrl+C to stop.")
+    env = env_for_runs()
+    return subprocess.call(["python", "-m", "uvicorn", "ch19_service:app", "--host", "0.0.0.0",
+                            "--port", "8080", *args], cwd=WS, env=env)
+
+def cmd_serve_mcp(args):
+    """Chapter 19: the token-protected remote MCP server on http://localhost:8000/mcp"""
+    if not os.environ.get("MCP_TOKEN", "").strip():
+        import secrets
+        fail("MCP_TOKEN is not set. Add these lines to the .env file next to course.sh "
+             "(the second is optional: a token that can only read), then run serve-mcp again:")
+        say(f"    MCP_TOKEN={secrets.token_urlsafe(24)}\n    MCP_READONLY_TOKEN={secrets.token_urlsafe(24)}")
+        return 1
+    head("Remote MCP server at http://localhost:8000/mcp   (needs 'Authorization: Bearer <MCP_TOKEN>')")
+    say("Other course containers reach it as http://agentic-ai-mcp:8000/mcp. Ctrl+C to stop.")
+    env = env_for_runs() | {"MCP_HOST": "0.0.0.0"}
+    return subprocess.call(["python", "ch19_remote_mcp.py", *args], cwd=WS, env=env)
+
+def cmd_desktop_config(args):
+    server = args[0] if args else "ch12_weather_server.py"
+    host_dir = os.environ.get("COURSE_HOST_DIR") or "/ABSOLUTE/PATH/TO/building-agentic-ai"
+    compose = str(Path(host_dir) / "compose.yaml") if "\\" not in host_dir \
+        else host_dir.rstrip("\\") + "\\compose.yaml"
+    name = Path(server).stem.replace("ch12_", "").replace("_server", "")
+    config = {"mcpServers": {name: {"command": "docker", "args": [
+        "compose", "-f", compose, "run", "--rm", "-T", "course", "python", server]}}}
+    head("Add this to Claude Desktop's config (Settings → Developer → Edit Config):\n")
+    print(json.dumps(config, indent=2))
+    say("\nThen fully quit and restart Claude Desktop. Docker Desktop must be running.")
+    return 0
+
+def cmd_data(args):
+    import argparse
+    p = argparse.ArgumentParser(prog="course data")
+    p.add_argument("kind", choices=["notes", "library", "messy", "repo", "db", "all"])
+    p.add_argument("--count", type=int, default=0)
+    p.add_argument("--out")
+    p.add_argument("--fresh", action="store_true", help="replace existing data")
+    a = p.parse_args(args)
+    sys.path.insert(0, str(COURSE / "data"))
+    import generate
+    os.chdir(WS)
+    if a.kind == "notes":
+        generate.notes(a.count, a.out or "notes")
+    elif a.kind == "library":
+        generate.library(a.out or "library")
+    elif a.kind == "messy":
+        out = Path(a.out or "messy")
+        if a.fresh and out.exists():
+            shutil.rmtree(out)
+        generate.messy(a.count or 15, str(out))
+    elif a.kind == "repo":
+        if a.fresh and Path("buggy_repo").exists():
+            shutil.rmtree("buggy_repo")
+        generate.run_script("ch10_make_repo.py")
+    elif a.kind == "db":
+        generate.run_script("ch08_make_db.py")
+    else:
+        generate.all_data(WS)
+    return 0
+
+def cmd_reset(args):
+    if not args:
+        fail("Usage: ./course.sh reset <file>   (restores the original course file)")
+        return 2
+    for name in args:
+        src = PRISTINE / Path(name).name
+        if not src.exists():
+            fail(f"{name} is not a course file.")
+            continue
+        dst = WS / src.name
+        if dst.exists():
+            shutil.copy2(dst, dst.with_suffix(dst.suffix + ".bak"))
+            say(f"  your version saved as {host_path(dst)}.bak")
+        shutil.copy2(src, dst)
+        ok(f"Restored {src.name}")
+    return 0
+
+# ---------------------------------------------------------------- sandbox worker
+def _limit_resources():
+    """Runs in the child before the test command: hard limits it can't raise."""
+    import resource
+    resource.setrlimit(resource.RLIMIT_AS, (1 << 30, 1 << 30))          # 1 GB of memory
+    resource.setrlimit(resource.RLIMIT_FSIZE, (50 << 20, 50 << 20))     # 50 MB per file
+    resource.setrlimit(resource.RLIMIT_CPU, (120, 120))                 # 2 CPU-minutes
+
+def _run_job(job):
+    """Copy the job's folder into a fresh temporary folder and run the command THERE,
+    in its own process group. The model-written code never touches /workspace, can't
+    import your course files, and every process it started is killed afterwards."""
+    import signal
+    import tempfile
+    cwd = Path(job.get("cwd", str(WS))).resolve()
+    if cwd != WS and WS not in cwd.parents:
+        return "ERROR: sandbox jobs must run inside /workspace", 1
+    with tempfile.TemporaryDirectory(prefix="job-") as tmp:
+        work = Path(tmp) / cwd.name
+        shutil.copytree(cwd, work, ignore=shutil.ignore_patterns(".git", "__pycache__", ".sandbox"))
+        proc = subprocess.Popen(job["cmd"], cwd=work, stdout=subprocess.PIPE,
+                                stderr=subprocess.STDOUT, text=True, start_new_session=True,
+                                preexec_fn=_limit_resources,
+                                env={"PATH": os.environ["PATH"], "HOME": tmp,
+                                     "PYTHONDONTWRITEBYTECODE": "1", "LANG": "C.UTF-8"})
+        try:
+            out, _ = proc.communicate(timeout=min(int(job.get("timeout", 60)), 600))
+            code = proc.returncode
+        except subprocess.TimeoutExpired:
+            out, code = "ERROR: timed out in the sandbox", 124
+        finally:
+            try:
+                os.killpg(proc.pid, signal.SIGKILL)     # also kills anything it left running
+            except ProcessLookupError:
+                pass
+            proc.wait()
+    return (out or "")[-6000:], code
+
+def cmd_sandbox_worker(args):
+    """Runs in the network-less `sandbox` service; executes queued test jobs."""
+    q = WS / ".sandbox"
+    (q / "requests").mkdir(parents=True, exist_ok=True)
+    (q / "results").mkdir(parents=True, exist_ok=True)
+    say("sandbox worker: waiting for jobs (no network, no secrets, read-only workspace)")
+    while True:
+        if not WS.exists():                  # workspace removed (e.g. a test run ended)
+            return 0
+        try:
+            (q / "heartbeat").write_text(str(time.time()))
+        except OSError:
+            (q / "requests").mkdir(parents=True, exist_ok=True)
+            (q / "results").mkdir(parents=True, exist_ok=True)
+            continue
+        for req in sorted((q / "requests").glob("*.json")):
+            try:
+                job = json.loads(req.read_text())
+            finally:
+                req.unlink(missing_ok=True)
+            try:
+                out, code = _run_job(job)
+            except Exception as exc:
+                out, code = f"ERROR: {type(exc).__name__}: {exc}", 1
+            say(f"sandbox worker: job {job.get('id')} exit={code}")
+            tmp = q / "results" / f"{job['id']}.tmp"
+            tmp.write_text(json.dumps({"output": out, "returncode": code}))
+            tmp.rename(q / "results" / f"{job['id']}.json")
+        time.sleep(0.3)
+
+# ---------------------------------------------------------------- diagnostics
+def _ver(cmd):
+    try:
+        r = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+        return (r.stdout or r.stderr).strip().splitlines()[0] if r.returncode == 0 else None
+    except Exception:
+        return None
+
+def cmd_check_exercise(e):
+    """Run the automatic checks for one exercise against YOUR file."""
+    target = WS / CHECK_TARGET.get(e["id"], e.get("file") or "")
+    if not target.is_file():
+        fail(f"Your file {host_path(target) if WS in target.parents else target} doesn't exist yet.")
+        say(f"    Create it first with:  ./course.sh ex {e['id']}")
+        return 1
+    head(f"Checking exercise {e['id']} ({host_path(target)})")
+    env = env_for_runs() | {"EXERCISE_FILE": str(target), "PYTHONDONTWRITEBYTECODE": "1"}
+    check = CHECKS / f"check_{e['id'].replace('.', '_')}.py"
+    r = subprocess.run([sys.executable, "-m", "pytest", "-q", "--tb=short", "--no-header",
+                        "-p", "no:cacheprovider", "--rootdir", str(CHECKS), str(check)],
+                       cwd=WS, env=env, capture_output=True, text=True)
+    if r.returncode == 0:
+        ok(f"All checks passed for {e['id']}. Compare with the solution: ./course.sh solution {e['id']}")
+        return 0
+    out = r.stdout
+    unfinished = re.findall(r"^FAILED \S+::(\w+) - NotImplementedError", out, re.M)
+    if unfinished:
+        warn("Not written yet (still raise NotImplementedError): "
+             + ", ".join(t.removeprefix("test_") for t in unfinished))
+    messages = re.findall(r"^E\s+AssertionError: (.+)$", out, re.M)
+    for m in dict.fromkeys(messages):                      # unique, in order
+        fail(m)
+    if not messages and not unfinished:
+        say(out[-2500:])
+    summary = out.strip().splitlines()[-1] if out.strip() else ""
+    say(_c("2", summary))
+    return 1
+
+def cmd_check(args):
+    if args and not args[0].startswith("-"):
+        e = BY_ID.get(_id(args[0]))
+        if not e:
+            fail(f"No exercise '{args[0]}'. See: ./course.sh list")
+            return 2
+        if not has_check(e):
+            warn(f"Exercise {e['id']} has no automatic check. Compare with: ./course.sh solution {e['id']}")
+            return 0
+        return cmd_check_exercise(e)
+    head("Environment check")
+    import anthropic
+    import mcp
+    from importlib.metadata import version
+    rows = [
+        ("Python", sys.version.split()[0]),
+        ("anthropic SDK", version("anthropic")),
+        ("mcp SDK", version("mcp")),
+        ("Node.js", _ver(["node", "--version"])),
+        ("MCP Inspector", "installed" if shutil.which("mcp-inspector") else None),
+        ("Filesystem server", "installed" if shutil.which("mcp-server-filesystem") else None),
+        ("Memory server", "installed" if shutil.which("mcp-server-memory") else None),
+        ("Git server", "installed" if shutil.which("mcp-server-git") else None),
+        ("Fetch server", "installed" if shutil.which("mcp-server-fetch") else None),
+        ("Time server", "installed" if shutil.which("mcp-server-time") else None),
+        ("GitHub server", "installed" if shutil.which("github-mcp-server") else None),
+        ("Provider (PROVIDER)", "local: free model through Ollama" if is_local() else "claude: the Claude API"),
+        ("Model (MODEL)", os.environ.get("MODEL")),
+        ("ANTHROPIC_API_KEY", "not needed (local model)" if is_local()
+         else "set" if os.environ.get("ANTHROPIC_API_KEY") else None),
+        ("GitHub token", "set" if os.environ.get("GITHUB_PERSONAL_ACCESS_TOKEN")
+         else "not set (only needed for 14.4, 14.5, capstone 5)"),
+        ("Sandbox (chapter 10)", "running" if sandbox_alive()
+         else "stopped (start with ./course.sh sandbox up when needed)"),
+    ]
+    bad = 0
+    for name, val in rows:
+        if val:
+            ok(f"{name:<22} {val}")
+        else:
+            fail(f"{name:<22} missing")
+            bad += 1
+    if "--api" in args and os.environ.get("ANTHROPIC_API_KEY"):
+        try:
+            r = anthropic.Anthropic().messages.create(
+                model=os.environ.get("MODEL", "claude-sonnet-5"), max_tokens=1000,
+                messages=[{"role": "user", "content": "Reply with the word ready."}])
+            reply = "".join(b.text for b in r.content if b.type == "text").strip()
+            ok(f"{'API call':<22} {reply} ({r.model})")
+        except Exception as exc:
+            fail(f"{'API call':<22} {type(exc).__name__}: {str(exc)[:120]}")
+            bad += 1
+    elif "--api" not in args:
+        say(_c("2", "\nAdd --api to also make one tiny test call to the model."))
+    return 1 if bad else 0
+
+def cmd_selftest(args):
+    return subprocess.call([sys.executable, str(COURSE / "selftest" / "selftest.py")])
+
+
+# ---------------------------------------------------------------- solutions
+SOLUTIONS = Path("/solutions")
+
+def cmd_solution(args):
+    if not (SOLUTIONS / "index.json").exists():
+        fail("The 'solutions' folder is missing. It should sit next to course.sh.")
+        return 1
+    if not args:
+        say((SOLUTIONS / "README.md").read_text())
+        return 0
+    index = json.loads((SOLUTIONS / "index.json").read_text())
+    args = [_id(args[0])] + list(args[1:])
+    e = BY_ID.get(args[0])
+    if e and e["kind"] == "concept":
+        index.setdefault(args[0], ["ANSWERS.md"])
+    files = index.get(args[0])
+    if not files:
+        fail(f"No reference solution listed for {args[0]}.")
+        return 1
+    import re
+    # Shared automated checks (tests/test_chNN_*.py) cover many exercises: point to them only.
+    shared = [f for f in files if re.match(r"tests/test_ch\d", f)] if len(files) > 1 else []
+    for f in files:
+        if f in shared:
+            continue
+        path = SOLUTIONS / f
+        head(f"\n===== solutions/{f} =====")
+        text = path.read_text()
+        if f == "ANSWERS.md":           # just this exercise: from its heading to the next one
+            m = re.search(rf"^\*\*(?:[\w.]+ and )?{re.escape(args[0])}[ *].*?(?=^\*\*[0-9A-Z]+\.\d+[ *]|^## |\Z)",
+                          text, re.S | re.M)
+            text = m.group(0).strip() if m else text
+        print(text)
+    for f in shared:
+        say(_c("2", f"\nAutomated check for this exercise: solutions/{f}"))
+    return 0
+
+CAPSTONES = {  # number: (folder, data script or None, program, default arguments)
+    "1": ("c1_support", "data.py", "agent.py", []),
+    "2": ("c2_analyst", None, "agent.py", []),
+    "3": ("c3_incident", "data.py", "agent.py", []),
+    "4": ("c4_perf", "data.py", "agent.py", []),
+    "5": ("c5_review", "data.py", "agent.py", []),
+    "6": ("c6_research", None, "research.py", []),
+}
+
+def cmd_capstone(args):
+    """Run a reference capstone:  capstone <1-6> [arguments]"""
+    if not args or args[0] not in CAPSTONES:
+        head("Reference capstones (build your own first!):")
+        for n, (folder, _, prog, _) in CAPSTONES.items():
+            say(f"  ./course.sh capstone {n}     solutions/capstones/{folder}/{prog}")
+        return 0 if not args else 2
+    folder, data, prog, default = CAPSTONES[args[0]]
+    base = SOLUTIONS / "capstones" / folder
+    if not base.exists():
+        fail("The 'solutions' folder is missing. It should sit next to course.sh.")
+        return 1
+    need_api_key()
+    env = env_for_runs()
+    env["PYTHONPATH"] = f"{SOLUTIONS / 'capstones'}:{SOLUTIONS / 'exercises'}:{env['PYTHONPATH']}"
+    if data:
+        head(f"Generating capstone {args[0]} sample data...")
+        subprocess.call([sys.executable, str(base / data)], cwd=WS, env=env)
+    head(f"Running solutions/capstones/{folder}/{prog}")
+    return subprocess.call([sys.executable, str(base / prog), *(args[1:] or default)], cwd=WS, env=env)
+
+def cmd_verify_solutions(args):
+    env = env_for_runs() | {"COURSE_CODE": str(PRISTINE), "COURSE_DATA": str(COURSE / "data"),
+                            "COURSE_EXERCISES": str(COURSE / "exercises.json"),
+                            "PYTHONDONTWRITEBYTECODE": "1"}
+    env["PYTHONPATH"] = f"{SOLUTIONS / 'capstones'}:{SOLUTIONS / 'exercises'}"
+    head("Running every reference solution, capstone and exercise command (offline)...")
+    return subprocess.call([sys.executable, "-m", "pytest", "-q", "-p", "no:cacheprovider",
+                            "--rootdir", "/tmp", str(SOLUTIONS / "tests"), *args],
+                           cwd="/tmp", env=env)
+
+
+# ---------------------------------------------------------------- live check
+# Every chapter's main file, run against the real model, in a scratch copy of your
+# workspace with the ORIGINAL chapter files (your edits are never used or touched).
+# (part, file and args, text typed at the keyboard, rough cost in US cents)
+LIVE_RUNS = [
+    ("1", "ch01_summarize.py", "", 1), ("1", "ch01_where_llms_fail.py", "", 1),
+    ("1", "ch02_first_tool.py", "", 1), ("1", "ch02_calculator_agent.py", "", 1),
+    ("1", "ch03_structured.py", "", 1), ("1", "ch03_routing_eval.py", "", 3),
+    ("1", "ch04_agent.py", "", 2),
+    ("2", "ch05_todo_tools.py", "Add a task: buy milk tomorrow\nWhat is on my list?\nquit\n", 2),
+    ("2", "ch06_notes_tools.py", "", 3),
+    ("3", "ch07_weather_tools.py", "", 2), ("3", "ch08_sql_tools.py", "", 3),
+    ("3", "ch09_organizer.py", "n\n" * 10, 3),
+    ("4", "ch10_fixer.py", "", 6), ("4", "ch11_research_team.py", "", 10),
+    ("5", "ch13_mcp_agent.py servers.json", "How many open tasks are there?\nquit\n", 3),
+    ("5", "ch14_policy_agent.py", "What time is it in Tokyo?\n" + "n\n" * 4 + "quit\n", 4),
+    ("5", "ch15_eval.py", "", 15), ("5", "ch15_judge.py", "", 5), ("5", "ch15_otel.py", "", 2),
+    ("6", "ch16_context.py", "", 5), ("6", "ch16_memory.py", "Remember that I prefer Celsius.\nquit\n", 2),
+    ("6", "ch17_rag.py", "", 3), ("6", "ch18_tool_runner.py", "", 3),
+    ("6", "ch18_langchain.py", "", 3), ("6", "ch18_agent_sdk.py", "", 5),
+]
+
+def cmd_live_check(args):
+    """Run every chapter's main file against the real model and write a report."""
+    import tempfile
+    if not need_api_key():
+        return 1
+    if args[:1] == ["exercises"]:
+        return cmd_live_exercises(args[1:])
+    parts = [a for a in args if not a.startswith("-")]
+    runs = [r for r in LIVE_RUNS if not parts or r[0] in parts]
+    cents = sum(r[3] for r in runs)
+    head(f"Live check: {len(runs)} chapter files against {os.environ.get('MODEL', 'claude-sonnet-5')}")
+    if is_local():
+        say("Local model: free, but slow on a CPU (allow an hour or more). "
+            "Your own files are not used or changed.")
+    else:
+        say(f"Estimated cost: about ${cents / 100:.2f}. Your own files are not used or changed.")
+    if "--yes" not in args and input("Continue? [y/N] ").strip().lower() != "y":
+        return 0
+    rows, report = [], ["# Live check report", "",
+                        f"Model: {os.environ.get('MODEL', 'claude-sonnet-5')}", ""]
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        shutil.copytree(WS, tmp, dirs_exist_ok=True,
+                        ignore=shutil.ignore_patterns(".sandbox", "__pycache__", "*.bak"))
+        for src in PRISTINE.iterdir():                     # the book's code, not your edits
+            if src.is_file():
+                shutil.copy2(src, tmp / src.name)
+        env = dict(os.environ, PYTHONPATH=str(tmp), PYTHONUNBUFFERED="1")
+        for part, cmd, stdin, _ in runs:
+            t = time.time()
+            try:
+                r = subprocess.run([sys.executable, *cmd.split()], cwd=tmp, env=env, input=stdin,
+                                   capture_output=True, text=True, timeout=600)
+                out, code = (r.stdout + r.stderr), r.returncode
+            except subprocess.TimeoutExpired as exc:
+                out, code = f"TIMEOUT after 600 s\n{exc.stdout or ''}", -1
+            passed = code == 0 and "Traceback (most recent call last)" not in out
+            secs = time.time() - t
+            (ok if passed else fail)(f"Part {part}  {cmd:<34} {secs:5.0f} s")
+            rows.append(passed)
+            tail = "\n".join(out.strip().splitlines()[-25:])
+            report += [f"## {'PASS' if passed else 'FAIL'}: {cmd} (Part {part}, {secs:.0f} s, exit {code})",
+                       "", "```", tail, "```", ""]
+    out_file = WS / "live_report.md"
+    out_file.write_text("\n".join(report))
+    say(f"\n{sum(rows)}/{len(rows)} passed. Compare each output with the book's \"what you should "
+        f"see\" notes in ANSWERS.md. Full report: {host_path(out_file)}")
+    return 0 if all(rows) else 1
+
+def _live_command(e):
+    """The command that runs exercise e with its REFERENCE solution, or (None, reason)."""
+    kind = e["kind"]
+    if kind == "run":
+        return e["cmd"], None
+    if kind == "ask" and e.get("question"):
+        code = (f"import {e['module']} as m; from ch04_agent import run_agent; "
+                f"print(run_agent({e['question']!r}, m.TOOLS, m.run_tool, "
+                f"system=getattr(m, 'SYSTEM', 'x'))[0])")
+        return f'python -c "{code}"', None
+    if kind == "build":
+        sol = SOLUTIONS / "exercises" / Path(e["file"]).name
+        if sol.exists():
+            return f"python {sol}", None
+        return None, "no runnable reference solution (see ./course.sh solution)"
+    return None, f"a {kind} exercise: nothing to run against a model"
+
+def cmd_live_exercises(args):
+    """Run every exercise that uses a model, with its reference solution, against the model
+    you've chosen (Claude or local), in a scratch copy of your workspace. Writes a report."""
+    import tempfile
+    only = {a.upper() for a in args if not a.startswith("-")}
+    wanted = [e for e in EXERCISES
+              if e.get("model", "any") in ("any", "claude-rec", "claude")
+              and (not only or e["id"].split(".")[0] in only or e["id"] in only)]
+    head(f"Live exercise check: {len(wanted)} exercises against {os.environ.get('MODEL')}"
+         f" ({'local model' if is_local() else 'Claude API'})")
+    if is_local():
+        say("Free, but slow on a CPU: allow several hours for all of them. Exercises marked "
+            "'Claude only' are skipped.")
+    else:
+        say("This uses your API key: roughly $5-15 for all of them.")
+    if "--yes" not in args and input("Continue? [y/N] ").strip().lower() != "y":
+        return 0
+    rows, report = [], ["# Live exercise report", "",
+                        f"Model: {os.environ.get('MODEL')} "
+                        f"({'local' if is_local() else 'Claude API'})", "",
+                        "| Exercise | Result | Seconds |", "| --- | --- | --- |"]
+    details = []
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        shutil.copytree(WS, tmp, dirs_exist_ok=True,
+                        ignore=shutil.ignore_patterns(".sandbox", "__pycache__", "*.bak", "exercises"))
+        for src in PRISTINE.iterdir():
+            if src.is_file():
+                shutil.copy2(src, tmp / src.name)
+        env = dict(os.environ, PYTHONUNBUFFERED="1",
+                   PYTHONPATH=f"{tmp}:{SOLUTIONS / 'exercises'}:{SOLUTIONS / 'capstones'}")
+        for e in wanted:
+            cmd, why = _live_command(e)
+            if e.get("model") == "claude" and is_local():
+                cmd, why = None, "Claude only"
+            elif e.get("needs") == "sandbox" and not sandbox_alive():
+                cmd, why = None, "needs the sandbox: ./course.sh sandbox up"
+            elif e.get("needs") == "github" and not os.environ.get("GITHUB_PERSONAL_ACCESS_TOKEN"):
+                cmd, why = None, "needs GITHUB_PERSONAL_ACCESS_TOKEN"
+            if not cmd:
+                say(_c("2", f"-  {e['id']:<5} skipped: {why}"))
+                report.append(f"| {e['id']} {e['title']} | skipped: {why} | |")
+                continue
+            t = time.time()
+            try:
+                if e.get("setup"):
+                    subprocess.run(["bash", "-c", e["setup"]], cwd=tmp, env=env,
+                                   capture_output=True, timeout=600)
+                r = subprocess.run(["bash", "-c", cmd], cwd=tmp, env=env, input="n\nquit\nquit\n",
+                                   capture_output=True, text=True, timeout=1800)
+                out, code = r.stdout + r.stderr, r.returncode
+            except subprocess.TimeoutExpired:
+                out, code = "TIMEOUT after 30 minutes", -1
+            passed = code == 0 and "Traceback (most recent call last)" not in out
+            secs = time.time() - t
+            (ok if passed else fail)(f"{e['id']:<5} {e['title'][:44]:<44} {secs:5.0f} s")
+            rows.append(passed)
+            report.append(f"| {e['id']} {e['title']} | {'PASS' if passed else 'FAIL'} | {secs:.0f} |")
+            tail = "\n".join(out.strip().splitlines()[-20:])
+            details += [f"## {'PASS' if passed else 'FAIL'}: {e['id']} {e['title']}", "",
+                        f"`{cmd[:200]}`", "", "```", tail, "```", ""]
+    out_file = WS / "live_exercises_report.md"
+    out_file.write_text("\n".join(report + ["", *details]))
+    say(f"\n{sum(rows)}/{len(rows)} passed, {len(wanted) - len(rows)} skipped. A PASS means the "
+        f"reference solution ran without errors; read the answers to judge their quality. "
+        f"Full report: {host_path(out_file)}")
+    return 0 if all(rows) else 1
+
+# ---------------------------------------------------------------- free local model
+def cmd_local_adapter(args):
+    """Run the adapter between the Anthropic SDK and Ollama (the local-adapter service)."""
+    sys.path.insert(0, str(COURSE))
+    import uvicorn
+    from local_adapter import app
+    say(f"Local model adapter on :8787, forwarding to {OLLAMA_URL}")
+    uvicorn.run(app, host="0.0.0.0", port=8787, log_level="warning")
+    return 0
+
+def cmd_local_pull(args):
+    """Download the local model into Ollama (once; it's kept in a Docker volume)."""
+    import httpx
+    model = (args[0] if args else None) or os.environ.get("LOCAL_MODEL") or LOCAL_DEFAULT_MODEL
+    head(f"Downloading {model} into the local model server (only the first time)...")
+    for _ in range(30):                                  # Ollama needs a moment to start
+        try:
+            httpx.get(f"{OLLAMA_URL}/api/tags", timeout=3)
+            break
+        except httpx.HTTPError:
+            time.sleep(2)
+    else:
+        fail(f"Can't reach Ollama at {OLLAMA_URL}. Is it running?  ./course.sh local up")
+        return 1
+    last = ""
+    try:
+        with httpx.stream("POST", f"{OLLAMA_URL}/api/pull", json={"model": model, "stream": True},
+                          timeout=httpx.Timeout(None, connect=10)) as r:
+            for line in r.iter_lines():
+                if not line.strip():
+                    continue
+                msg = json.loads(line)
+                if msg.get("error"):
+                    fail(msg["error"])
+                    return 1
+                status = msg.get("status", "")
+                if msg.get("total"):
+                    pct = 100 * msg.get("completed", 0) // msg["total"]
+                    print(f"\r  {status[:30]:<30} {pct:3d}% of {msg['total'] / 1e9:.1f} GB",
+                          end="", file=sys.stderr)
+                elif status != last:
+                    say(f"\n  {status}" if last else f"  {status}")
+                last = status
+    except httpx.HTTPError as exc:
+        fail(f"Download failed: {exc}. Check your internet connection and try again.")
+        return 1
+    say("")
+    ok(f"{model} is ready. " + ("PROVIDER=local is set, so the course now uses it." if is_local()
+                                else "Set PROVIDER=local in .env to use it (see Appendix H)."))
+    return 0
+
+def cmd_local_status(args):
+    import httpx
+    say(f"Provider: {'local (free model)' if is_local() else 'claude (Claude API)'}"
+        f"   (change PROVIDER in .env)")
+    try:
+        h = httpx.get(f"{ADAPTER_URL}/health", timeout=5).json()
+    except (httpx.HTTPError, ValueError):
+        fail("The local model isn't running. Start it with:  ./course.sh local up")
+        return 1
+    if not h.get("ok"):
+        fail(f"The adapter is running but can't reach Ollama at {h.get('ollama')}.")
+        return 1
+    want = os.environ.get("LOCAL_MODEL") or LOCAL_DEFAULT_MODEL
+    ok(f"Local model server running. Models: {', '.join(h['models']) or 'none yet'}")
+    if not any(m == want or m == want + ":latest" for m in h["models"]):
+        warn(f"{want} isn't downloaded yet. Run:  ./course.sh local up")
+        return 1
+    return 0
+
+# ---------------------------------------------------------------- help
+HELP = """Building Agentic AI: course commands (run them from the kit folder on your computer)
+
+  ./course.sh setup                  first-time setup: Docker check, .env, your API key
+  ./course.sh list [chapter]         list exercises, e.g.  list 4  or  list P
+  ./course.sh ex <id>                show and run an exercise, e.g.  ex 4.3  or  ex T.2
+  ./course.sh ex <id> --info         just show the exercise
+  ./course.sh ask <module> ["q"]     chat with a chapter's tools, e.g.  ask ch08_sql_tools
+  ./course.sh python <file.py> ...   run any course file, e.g.  python ch04_agent.py
+  ./course.sh shell                  open a terminal inside the course container
+  ./course.sh check [--api]          check the environment (and your API key)
+  ./course.sh check <id>             check your answer to an exercise, e.g.  check 0.4
+  ./course.sh selftest               offline self-test of the whole setup (no API key needed)
+  ./course.sh live-check [part]      run every chapter's main file against the real model
+  ./course.sh live-check exercises [chapter]   run every exercise that uses a model, with its
+                                     reference solution, against your model (Claude or local)
+  ./course.sh data <kind> [...]      regenerate sample data: notes, library, messy, repo, db
+  ./course.sh reset <file>           restore an original course file (yours is kept as .bak)
+
+  ./course.sh inspector <server.py>  MCP Inspector web UI on http://localhost:6274
+  ./course.sh serve <server.py>      run an MCP server over HTTP on http://localhost:8000/mcp
+  ./course.sh desktop-config [srv]   print the Claude Desktop config for a server
+  ./course.sh serve-api              the chapter 19 agent API on http://localhost:8080
+  ./course.sh serve-mcp              the chapter 19 remote MCP server (token-protected)
+  ./course.sh sandbox up|down        start/stop the network-less test sandbox (chapter 10)
+  ./course.sh build                  (re)build the Docker image
+
+  Free local model (qwen3.5:9b through Ollama; set PROVIDER=local in .env, see Appendix H):
+  ./course.sh local up [--gpu]       start the local model (downloads it the first time)
+  ./course.sh local status           is the local model running, and which models are there?
+  ./course.sh local down             stop it and free the memory
+
+  Solutions (try the exercise first!):
+  ./course.sh solution <id>          show the solution for an exercise, e.g.  solution 4.5
+  ./course.sh capstone <1-6>         run a reference capstone (needs your API key)
+  ./course.sh check-solutions        run every solution and capstone offline (no API key)
+
+Your files live in the 'workspace' folder next to course.sh. Edit them with any editor.
+"""
+
+COMMANDS = {
+    "list": cmd_list, "ex": cmd_ex, "exercise": cmd_ex, "ask": cmd_ask,
+    "inspector": cmd_inspector, "serve": cmd_serve, "serve-api": cmd_serve_api,
+    "serve-mcp": cmd_serve_mcp, "desktop-config": cmd_desktop_config,
+    "data": cmd_data, "reset": cmd_reset, "check": cmd_check, "selftest": cmd_selftest,
+    "sandbox-worker": cmd_sandbox_worker, "solution": cmd_solution,
+    "check-solutions": cmd_verify_solutions, "live-check": cmd_live_check, "capstone": cmd_capstone, "verify-solutions": cmd_verify_solutions,
+    "local-adapter": lambda a: cmd_local_adapter(a), "local-pull": lambda a: cmd_local_pull(a),
+    "local-status": lambda a: cmd_local_status(a),
+}
+
+def main(argv):
+    if not argv or argv[0] in ("help", "-h", "--help"):
+        say(HELP)
+        return 0
+    cmd, args = argv[0], argv[1:]
+    if cmd == "init":
+        init(force="--force" in args, quiet=False)
+        return 0
+    if cmd not in ("sandbox-worker", "selftest", "verify-solutions", "check-solutions", "solution",
+                   "local-adapter", "local-pull", "local-status"):
+        init()
+        apply_provider()
+    if cmd in COMMANDS:
+        return COMMANDS[cmd](args) or 0
+    if cmd == "shell":
+        os.execvpe("bash", ["bash"], env_for_runs())
+    if cmd.endswith(".py"):                     # ./course.sh ch04_agent.py
+        argv = ["python"] + argv
+    os.chdir(WS)
+    try:
+        os.execvpe(argv[0], argv, env_for_runs())   # python, pytest, bash, npx, ...
+    except FileNotFoundError:
+        fail(f"Unknown command '{cmd}'.")
+        say(HELP)
+        return 2
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

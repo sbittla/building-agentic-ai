@@ -1,0 +1,5 @@
+{"question": "How many orders are there?", "sql": "SELECT COUNT(*) FROM orders"}
+{"question": "Which product category earns the most revenue?", "sql": "SELECT p.category FROM order_items oi JOIN orders o ON o.id = oi.order_id JOIN products p ON p.id = oi.product_id WHERE o.status != 'cancelled' GROUP BY p.category ORDER BY SUM(oi.quantity * p.price) DESC LIMIT 1"}
+{"question": "Which city has the most customers?", "sql": "SELECT city FROM customers GROUP BY city ORDER BY COUNT(*) DESC LIMIT 1"}
+{"question": "What is total revenue?", "sql": "SELECT ROUND(SUM(oi.quantity * p.price), 2) FROM order_items oi JOIN orders o ON o.id = oi.order_id JOIN products p ON p.id = oi.product_id WHERE o.status != 'cancelled'"}
+{"question": "How many orders were cancelled?", "sql": "SELECT COUNT(*) FROM orders WHERE status = 'cancelled'"}

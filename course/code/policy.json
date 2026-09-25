@@ -1,0 +1,47 @@
+{
+  "allow": {
+    "fs": [
+      "read_text_file",
+      "list_directory",
+      "search_files",
+      "get_file_info"
+    ],
+    "git": [
+      "git_log",
+      "git_status",
+      "git_diff",
+      "git_show"
+    ],
+    "fetch": [
+      "fetch"
+    ],
+    "time": [
+      "*"
+    ],
+    "github": [
+      "*"
+    ]
+  },
+  "needs_approval": [
+    "fs__write_file",
+    "fs__edit_file",
+    "fs__move_file"
+  ],
+  "egress": {
+    "tools": {
+      "fetch__fetch": "url"
+    },
+    "allow_domains": [
+      "modelcontextprotocol.io",
+      "docs.python.org",
+      "en.wikipedia.org",
+      "open-meteo.com",
+      "github.com",
+      "anthropic.com"
+    ]
+  },
+  "private_sources": [
+    "fs__*",
+    "git__*"
+  ]
+}

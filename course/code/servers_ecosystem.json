@@ -1,0 +1,8 @@
+{
+  "servers": {
+    "fs":    {"command": "mcp-server-filesystem", "args": ["./notes"], "log": "mcp_servers.log"},
+    "git":   {"command": "mcp-server-git", "args": ["--repository", "."], "log": "mcp_servers.log"},
+    "fetch": {"command": "mcp-server-fetch", "log": "mcp_servers.log"},
+    "time":  {"command": "mcp-server-time", "log": "mcp_servers.log"}
+  }
+}

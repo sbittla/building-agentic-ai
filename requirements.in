@@ -1,0 +1,20 @@
+# Top-level Python packages for the course image. Don't install from this file:
+# the Dockerfile installs the exact versions in requirements.lock.
+# To update:  ./dev/update-lock.sh   (then rebuild and run selftest + check-solutions)
+anthropic>=1.8
+mcp[cli]>=2.2,<3
+httpx
+pytest
+matplotlib
+tzdata
+nodejs-wheel-binaries>=24,<25
+claude-agent-sdk
+langchain
+langchain-anthropic
+langgraph
+fastapi
+uvicorn[standard]
+numpy
+model2vec
+voyageai
+opentelemetry-sdk

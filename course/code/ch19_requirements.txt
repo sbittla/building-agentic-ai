@@ -1,0 +1,5 @@
+# The agent API's own dependencies, pinned to the versions tested with this book.
+anthropic==1.8.0
+fastapi==0.141.1
+uvicorn[standard]==0.53.0
+pydantic==2.13.5

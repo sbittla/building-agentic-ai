@@ -1,0 +1,536 @@
+{
+ "0.1": {
+  "model": "none"
+ },
+ "0.2": {
+  "model": "none"
+ },
+ "0.3": {
+  "model": "none"
+ },
+ "0.4": {
+  "model": "none"
+ },
+ "0.5": {
+  "model": "none"
+ },
+ "0.6": {
+  "model": "none"
+ },
+ "0.7": {
+  "model": "none"
+ },
+ "P.1": {
+  "model": "none"
+ },
+ "P.2": {
+  "model": "none"
+ },
+ "P.3": {
+  "model": "none"
+ },
+ "P.4": {
+  "model": "none"
+ },
+ "P.5": {
+  "model": "none"
+ },
+ "P.6": {
+  "model": "none"
+ },
+ "1.1": {
+  "model": "none"
+ },
+ "1.2": {
+  "model": "none"
+ },
+ "1.3": {
+  "model": "any"
+ },
+ "1.4": {
+  "model": "any"
+ },
+ "1.5": {
+  "model": "any"
+ },
+ "1.6": {
+  "model": "any"
+ },
+ "1.7": {
+  "model": "none"
+ },
+ "T.1": {
+  "model": "none"
+ },
+ "T.2": {
+  "model": "none"
+ },
+ "T.3": {
+  "model": "none"
+ },
+ "T.4": {
+  "model": "none"
+ },
+ "2.1": {
+  "model": "none"
+ },
+ "2.2": {
+  "model": "none"
+ },
+ "2.3": {
+  "model": "any"
+ },
+ "2.4": {
+  "model": "any"
+ },
+ "2.5": {
+  "model": "any"
+ },
+ "2.6": {
+  "model": "any"
+ },
+ "2.7": {
+  "model": "any"
+ },
+ "3.1": {
+  "model": "none"
+ },
+ "3.2": {
+  "model": "none"
+ },
+ "3.3": {
+  "model": "any"
+ },
+ "3.4": {
+  "model": "any"
+ },
+ "3.5": {
+  "model": "any"
+ },
+ "3.6": {
+  "model": "any",
+  "note": "On the local model the kit's adapter imitates both forced tools and structured outputs; compare how reliable each is."
+ },
+ "3.7": {
+  "model": "any"
+ },
+ "3.8": {
+  "model": "claude",
+  "note": "Tool search runs on Anthropic's servers."
+ },
+ "4.1": {
+  "model": "none"
+ },
+ "4.2": {
+  "model": "none"
+ },
+ "4.3": {
+  "model": "any"
+ },
+ "4.4": {
+  "model": "any"
+ },
+ "4.5": {
+  "model": "any"
+ },
+ "4.6": {
+  "model": "any"
+ },
+ "4.7": {
+  "model": "any"
+ },
+ "5.1": {
+  "model": "none"
+ },
+ "5.2": {
+  "model": "none"
+ },
+ "5.3": {
+  "model": "any"
+ },
+ "5.4": {
+  "model": "any"
+ },
+ "5.5": {
+  "model": "any"
+ },
+ "5.6": {
+  "model": "any"
+ },
+ "5.7": {
+  "model": "any"
+ },
+ "R.1": {
+  "model": "none"
+ },
+ "R.2": {
+  "model": "none"
+ },
+ "R.3": {
+  "model": "none"
+ },
+ "R.4": {
+  "model": "none"
+ },
+ "6.1": {
+  "model": "none"
+ },
+ "6.2": {
+  "model": "none"
+ },
+ "6.3": {
+  "model": "any"
+ },
+ "6.4": {
+  "model": "any"
+ },
+ "6.5": {
+  "model": "none"
+ },
+ "6.6": {
+  "model": "any"
+ },
+ "6.7": {
+  "model": "any"
+ },
+ "7.1": {
+  "model": "none"
+ },
+ "7.2": {
+  "model": "none"
+ },
+ "7.3": {
+  "model": "any"
+ },
+ "7.4": {
+  "model": "any"
+ },
+ "7.5": {
+  "model": "any"
+ },
+ "7.6": {
+  "model": "any"
+ },
+ "7.7": {
+  "model": "any"
+ },
+ "S.1": {
+  "model": "none"
+ },
+ "S.2": {
+  "model": "none"
+ },
+ "S.3": {
+  "model": "none"
+ },
+ "S.4": {
+  "model": "none"
+ },
+ "8.1": {
+  "model": "none"
+ },
+ "8.2": {
+  "model": "none"
+ },
+ "8.3": {
+  "model": "any"
+ },
+ "8.4": {
+  "model": "any"
+ },
+ "8.5": {
+  "model": "any"
+ },
+ "8.6": {
+  "model": "any"
+ },
+ "8.7": {
+  "model": "any"
+ },
+ "9.1": {
+  "model": "none"
+ },
+ "9.2": {
+  "model": "none"
+ },
+ "9.3": {
+  "model": "any"
+ },
+ "9.4": {
+  "model": "any"
+ },
+ "9.5": {
+  "model": "any"
+ },
+ "9.6": {
+  "model": "any"
+ },
+ "9.7": {
+  "model": "any"
+ },
+ "10.1": {
+  "model": "none"
+ },
+ "10.2": {
+  "model": "none"
+ },
+ "10.3": {
+  "model": "any"
+ },
+ "10.4": {
+  "model": "any"
+ },
+ "10.5": {
+  "model": "any"
+ },
+ "10.6": {
+  "model": "any"
+ },
+ "10.7": {
+  "model": "any"
+ },
+ "A.1": {
+  "model": "none"
+ },
+ "A.2": {
+  "model": "none"
+ },
+ "A.3": {
+  "model": "none"
+ },
+ "A.4": {
+  "model": "none"
+ },
+ "11.1": {
+  "model": "none"
+ },
+ "11.2": {
+  "model": "none"
+ },
+ "11.3": {
+  "model": "any",
+  "note": "The research team forces a planning tool; the kit's local adapter handles this for qwen3.5:9b."
+ },
+ "11.4": {
+  "model": "any"
+ },
+ "11.5": {
+  "model": "any"
+ },
+ "11.6": {
+  "model": "any"
+ },
+ "11.7": {
+  "model": "any"
+ },
+ "11.8": {
+  "model": "any",
+  "note": "Uses structured outputs; the kit's local adapter handles this for qwen3.5:9b."
+ },
+ "12.1": {
+  "model": "none"
+ },
+ "12.2": {
+  "model": "none"
+ },
+ "12.3": {
+  "model": "none"
+ },
+ "12.4": {
+  "model": "none"
+ },
+ "12.5": {
+  "model": "desktop",
+  "note": "Uses the Claude Desktop app (a free Claude plan works); no API key or local model is involved."
+ },
+ "12.6": {
+  "model": "none"
+ },
+ "12.7": {
+  "model": "none"
+ },
+ "13.1": {
+  "model": "none"
+ },
+ "13.2": {
+  "model": "none"
+ },
+ "13.3": {
+  "model": "none"
+ },
+ "13.4": {
+  "model": "any"
+ },
+ "13.5": {
+  "model": "any"
+ },
+ "13.6": {
+  "model": "any"
+ },
+ "13.7": {
+  "model": "any"
+ },
+ "13.8": {
+  "model": "any"
+ },
+ "13.9": {
+  "model": "any"
+ },
+ "14.1": {
+  "model": "none"
+ },
+ "14.2": {
+  "model": "none"
+ },
+ "14.3": {
+  "model": "any"
+ },
+ "14.4": {
+  "model": "any"
+ },
+ "14.5": {
+  "model": "any"
+ },
+ "14.6": {
+  "model": "any"
+ },
+ "14.7": {
+  "model": "any"
+ },
+ "14.8": {
+  "model": "none"
+ },
+ "15.1": {
+  "model": "none"
+ },
+ "15.2": {
+  "model": "none"
+ },
+ "15.3": {
+  "model": "any"
+ },
+ "15.4": {
+  "model": "none"
+ },
+ "15.5": {
+  "model": "any"
+ },
+ "15.6": {
+  "model": "none"
+ },
+ "15.7": {
+  "model": "any",
+  "note": "On a CPU, use fewer users (for example 3 for 1 minute)."
+ },
+ "15.8": {
+  "model": "any",
+  "note": "The judge uses structured outputs; the kit's local adapter handles this for qwen3.5:9b."
+ },
+ "16.1": {
+  "model": "none"
+ },
+ "16.2": {
+  "model": "none"
+ },
+ "16.3": {
+  "model": "any"
+ },
+ "16.4": {
+  "model": "any"
+ },
+ "16.5": {
+  "model": "claude-rec",
+  "note": "Prompt caching exists only on Claude; on the local model the savings are always zero."
+ },
+ "16.6": {
+  "model": "none"
+ },
+ "16.7": {
+  "model": "any"
+ },
+ "16.8": {
+  "model": "claude",
+  "note": "Programmatic tool calling runs code on Anthropic's servers."
+ },
+ "17.1": {
+  "model": "none"
+ },
+ "17.2": {
+  "model": "none"
+ },
+ "17.3": {
+  "model": "none",
+  "note": "Run ch17_rag.py eval to compare search modes without a model."
+ },
+ "17.4": {
+  "model": "none",
+  "note": "The eval mode needs no model."
+ },
+ "17.5": {
+  "model": "any"
+ },
+ "17.6": {
+  "model": "any"
+ },
+ "17.7": {
+  "model": "any"
+ },
+ "18.1": {
+  "model": "none"
+ },
+ "18.2": {
+  "model": "none"
+ },
+ "18.3": {
+  "model": "any"
+ },
+ "18.4": {
+  "model": "claude-rec",
+  "note": "The Agent SDK drives the Claude Code CLI; qwen3.5:9b runs it but often stalls or skips steps."
+ },
+ "18.5": {
+  "model": "claude-rec",
+  "note": "The Agent SDK drives the Claude Code CLI; qwen3.5:9b runs it but often stalls or skips steps."
+ },
+ "18.6": {
+  "model": "any"
+ },
+ "18.7": {
+  "model": "claude-rec",
+  "note": "Includes an Agent SDK version; the other two run well on qwen3.5:9b."
+ },
+ "18.8": {
+  "model": "claude",
+  "note": "Agent Skills run in Anthropic's code-execution container."
+ },
+ "18.9": {
+  "model": "claude",
+  "note": "Managed Agents are hosted by Anthropic."
+ },
+ "19.1": {
+  "model": "none"
+ },
+ "19.2": {
+  "model": "none"
+ },
+ "19.3": {
+  "model": "any"
+ },
+ "19.4": {
+  "model": "none"
+ },
+ "19.5": {
+  "model": "any"
+ },
+ "19.6": {
+  "model": "any"
+ },
+ "19.7": {
+  "model": "any",
+  "note": "On a CPU, use fewer users and a shorter run (for example 3 users for 1 minute)."
+ },
+ "19.8": {
+  "model": "any",
+  "note": "Running the image locally works with qwen3.5:9b; a cloud deployment needs a Claude key or a host that can run the model."
+ }
+}

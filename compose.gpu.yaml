@@ -1,0 +1,13 @@
+# NVIDIA GPU for the local model (Windows with WSL2, or Linux with the NVIDIA Container
+# Toolkit). Used automatically by:  ./course.sh local up --gpu
+# Without it, the local model runs on the CPU. On a Mac, Docker can't use the Apple GPU:
+# see Appendix H for running Ollama as a normal Mac app instead.
+services:
+  local-model:
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]

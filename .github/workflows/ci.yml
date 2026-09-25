@@ -1,0 +1,23 @@
+# Builds the course image and runs every reference solution offline (no API key needed).
+name: offline checks
+on:
+  push:
+  pull_request:
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare the workspace
+        run: |
+          mkdir -p workspace/.sandbox
+          touch .env
+          echo "COURSE_UID=$(id -u)" >> "$GITHUB_ENV"
+          echo "COURSE_GID=$(id -g)" >> "$GITHUB_ENV"
+      - name: Build the course image
+        run: docker build -t building-agentic-ai:latest .
+      - name: Self-test
+        run: docker compose run --rm -T course selftest
+      - name: Every solution, capstone and exercise command
+        run: docker compose run --rm -T course check-solutions

@@ -1,0 +1,434 @@
+{
+ "1.3": [
+  "exercises/ex1_3_eli10.py"
+ ],
+ "1.4": [
+  "ANSWERS.md"
+ ],
+ "1.5": [
+  "exercises/ex1_5_workflow.py"
+ ],
+ "1.6": [
+  "exercises/ex1_6_chat.py"
+ ],
+ "1.7": [
+  "ANSWERS.md"
+ ],
+ "2.3": [
+  "exercises/ex2_3_trace.py"
+ ],
+ "2.4": [
+  "exercises/sol_ch02_calculator_agent.py"
+ ],
+ "2.5": [
+  "exercises/ex2_5_description_eval.py"
+ ],
+ "2.6": [
+  "exercises/sol_ch02_calculator_agent.py",
+  "tests/test_ch01_03.py"
+ ],
+ "2.7": [
+  "exercises/ex2_7_two_tools.py",
+  "exercises/sol_ch02_calculator_agent.py"
+ ],
+ "3.3": [
+  "exercises/ex3_3_two_questions.py"
+ ],
+ "3.4": [
+  "exercises/sol_ch03_tools.py"
+ ],
+ "3.5": [
+  "exercises/ex3_5_routing_eval.py"
+ ],
+ "3.6": [
+  "exercises/ex3_6_forced_tool.py"
+ ],
+ "3.7": [
+  "exercises/ex3_7_ten_tools.py"
+ ],
+ "4.3": [
+  "ANSWERS.md",
+  "tests/test_ch04_05.py"
+ ],
+ "4.4": [
+  "exercises/ex4_4_cap.py"
+ ],
+ "4.5": [
+  "exercises/ex4_5_tracer.py"
+ ],
+ "4.6": [
+  "exercises/ex4_6_chat.py"
+ ],
+ "4.7": [
+  "exercises/ex4_7_cost_profile.py"
+ ],
+ "5.3": [
+  "ANSWERS.md",
+  "tests/test_ch04_05.py"
+ ],
+ "5.4": [
+  "exercises/sol_ch05_todo_tools.py"
+ ],
+ "5.5": [
+  "exercises/sol_ch05_todo_tools.py"
+ ],
+ "5.6": [
+  "ANSWERS.md",
+  "tests/test_ch04_05.py"
+ ],
+ "5.7": [
+  "exercises/sol_ch05_todo_sqlite.py",
+  "tests/test_ch04_05.py"
+ ],
+ "6.3": [
+  "ANSWERS.md",
+  "tests/test_ch06_07.py"
+ ],
+ "6.4": [
+  "tests/test_ex6_4_sandbox.py"
+ ],
+ "6.5": [
+  "exercises/ex6_5_citation_checker.py"
+ ],
+ "6.6": [
+  "exercises/sol_ch06_notes_tools.py"
+ ],
+ "6.7": [
+  "exercises/ex6_7_scale_test.py"
+ ],
+ "7.3": [
+  "ANSWERS.md",
+  "tests/test_ch06_07.py"
+ ],
+ "7.4": [
+  "exercises/sol_ch07_weather_tools.py"
+ ],
+ "7.5": [
+  "exercises/ex7_5_hard_cases.py"
+ ],
+ "7.6": [
+  "exercises/ex7_6_parallel.py"
+ ],
+ "7.7": [
+  "exercises/ex7_7_trip_benchmark.py"
+ ],
+ "8.3": [
+  "ANSWERS.md",
+  "tests/test_ch08_10.py"
+ ],
+ "8.4": [
+  "exercises/ex8_4_self_correct.py"
+ ],
+ "8.5": [
+  "exercises/sol_ch08_sql_tools.py"
+ ],
+ "8.6": [
+  "exercises/sol_ch08_sql_tools.py"
+ ],
+ "8.7": [
+  "exercises/ex8_7_eval_harness.py"
+ ],
+ "9.3": [
+  "ANSWERS.md",
+  "tests/test_ch08_10.py"
+ ],
+ "9.4": [
+  "ANSWERS.md",
+  "tests/test_ch08_10.py"
+ ],
+ "9.5": [
+  "exercises/sol_ch09_organizer.py"
+ ],
+ "9.6": [
+  "exercises/sol_ch09_organizer.py"
+ ],
+ "9.7": [
+  "exercises/sol_ch09_organizer.py",
+  "tests/test_ex9_7_policy.py"
+ ],
+ "10.3": [
+  "ANSWERS.md",
+  "tests/test_ch08_10.py"
+ ],
+ "10.4": [
+  "exercises/ex10_4_protection.py"
+ ],
+ "10.5": [
+  "exercises/sol_ch10_make_repo2.py"
+ ],
+ "10.6": [
+  "exercises/sol_ch10_fixer.py"
+ ],
+ "10.7": [
+  "exercises/ex10_7_benchmark.py",
+  "exercises/sol_ch10_fixer.py"
+ ],
+ "11.3": [
+  "ANSWERS.md",
+  "tests/test_ch11_12.py"
+ ],
+ "11.4": [
+  "exercises/sol_ch11_research_team.py"
+ ],
+ "11.5": [
+  "exercises/sol_ch11_research_team.py"
+ ],
+ "11.6": [
+  "exercises/sol_ch11_research_team.py"
+ ],
+ "11.7": [
+  "exercises/ex11_7_compare.py"
+ ],
+ "12.3": [
+  "ANSWERS.md",
+  "tests/test_ex12_7_http.py"
+ ],
+ "12.4": [
+  "exercises/ex12_4_print_break.py"
+ ],
+ "12.5": [
+  "ANSWERS.md"
+ ],
+ "12.6": [
+  "exercises/ex12_6_calc_server.py"
+ ],
+ "12.7": [
+  "tests/test_ex12_7_http.py",
+  "tests/fake_http/sitecustomize.py"
+ ],
+ "13.3": [
+  "exercises/ex13_3_client.py"
+ ],
+ "13.4": [
+  "ANSWERS.md",
+  "tests/test_ch13_15.py"
+ ],
+ "13.5": [
+  "exercises/sol_ch13_mcp_agent.py"
+ ],
+ "13.6": [
+  "exercises/servers_with_weather.json"
+ ],
+ "13.7": [
+  "exercises/sol_ch13_mcp_agent.py"
+ ],
+ "14.3": [
+  "ANSWERS.md",
+  "tests/test_ch13_15.py"
+ ],
+ "14.4": [
+  "ANSWERS.md",
+  "exercises/ex14_5_digest.py"
+ ],
+ "14.5": [
+  "exercises/ex14_5_digest.py"
+ ],
+ "14.6": [
+  "exercises/sol_ch14_untrusted.py"
+ ],
+ "14.7": [
+  "exercises/ex14_7_redteam.py"
+ ],
+ "15.3": [
+  "exercises/eval_sql_more.jsonl"
+ ],
+ "15.4": [
+  "exercises/ex15_4_queueing.py"
+ ],
+ "15.5": [
+  "exercises/ex15_5_ci_gate.py"
+ ],
+ "15.6": [
+  "exercises/ex15_6_trace_report.py"
+ ],
+ "15.7": [
+  "exercises/ex15_7_real_loadtest.py"
+ ],
+ "0.3": [
+  "ANSWERS.md"
+ ],
+ "0.4": [
+  "exercises/ex0_4_basics.py"
+ ],
+ "0.5": [
+  "exercises/ex0_5_forecast.py"
+ ],
+ "0.6": [
+  "exercises/ex0_6_city_temperature.py"
+ ],
+ "0.7": [
+  "exercises/ex0_7_expenses.py"
+ ],
+ "T.1": [
+  "ANSWERS.md"
+ ],
+ "T.2": [
+  "tests/test_exT_2_parametrize.py"
+ ],
+ "T.3": [
+  "tests/test_ex_t3.py"
+ ],
+ "T.4": [
+  "tests/test_exT_4_fake_network.py"
+ ],
+ "R.1": [
+  "exercises/exR_1_logs.py"
+ ],
+ "R.2": [
+  "exercises/exR_2_mask.py"
+ ],
+ "R.3": [
+  "exercises/exR_3_citations.py"
+ ],
+ "R.4": [
+  "exercises/exR_4_error_codes.py",
+  "ANSWERS.md"
+ ],
+ "S.1": [
+  "exercises/exS_1_warmup.py"
+ ],
+ "S.2": [
+  "exercises/exS_2_fix_query.py",
+  "ANSWERS.md"
+ ],
+ "S.3": [
+  "exercises/exS_3_business.py"
+ ],
+ "S.4": [
+  "exercises/exS_4_parameters.py",
+  "ANSWERS.md"
+ ],
+ "A.1": [
+  "exercises/exA_1_measure.py",
+  "ANSWERS.md"
+ ],
+ "A.2": [
+  "exercises/exA_2_fixed.py",
+  "ANSWERS.md"
+ ],
+ "A.3": [
+  "exercises/exA_3_semaphore.py",
+  "ANSWERS.md"
+ ],
+ "A.4": [
+  "exercises/exA_4_timeouts.py"
+ ],
+ "16.3": [
+  "ANSWERS.md"
+ ],
+ "16.4": [
+  "ANSWERS.md"
+ ],
+ "16.5": [
+  "exercises/ex16_5_cache_savings.py"
+ ],
+ "16.6": [
+  "exercises/sol_ch16_context.py",
+  "tests/test_ex16_6_trimming.py"
+ ],
+ "16.7": [
+  "exercises/ex16_7_assistant.py"
+ ],
+ "17.3": [
+  "ANSWERS.md"
+ ],
+ "17.4": [
+  "ANSWERS.md"
+ ],
+ "17.5": [
+  "exercises/ex17_5_paraphrased.py"
+ ],
+ "17.6": [
+  "exercises/ex17_6_semantic_memory.py"
+ ],
+ "17.7": [
+  "exercises/ex17_7_knowledge_agent.py"
+ ],
+ "18.3": [
+  "exercises/sol_ch18_tool_runner.py"
+ ],
+ "18.4": [
+  "ANSWERS.md"
+ ],
+ "18.5": [
+  "exercises/ex18_5_sdk_mcp.py"
+ ],
+ "18.6": [
+  "exercises/ex18_6_langchain_approval.py"
+ ],
+ "18.7": [
+  "exercises/ex18_7_three_ways.py"
+ ],
+ "19.3": [
+  "ANSWERS.md"
+ ],
+ "19.4": [
+  "ANSWERS.md"
+ ],
+ "19.5": [
+  "exercises/sol_ch19_service.py"
+ ],
+ "19.6": [
+  "exercises/ex19_6_remote_hub.py",
+  "exercises/servers_remote.json"
+ ],
+ "19.7": [
+  "exercises/ex19_7_drill.py"
+ ],
+ "15.8": [
+  "exercises/ex15_8_calibrate.py"
+ ],
+ "P.1": [
+  "exercises/exP_1_comprehensions.py"
+ ],
+ "P.2": [
+  "exercises/exP_2_run_tool.py"
+ ],
+ "P.3": [
+  "exercises/exP_3_sorting.py"
+ ],
+ "P.4": [
+  "exercises/exP_4_tasklist.py"
+ ],
+ "P.5": [
+  "exercises/exP_5_decorators.py"
+ ],
+ "P.6": [
+  "exercises/exP_6_bugs.py"
+ ],
+ "13.8": [
+  "exercises/ex13_8_trip_server.py",
+  "exercises/ex13_8_host.py",
+  "tests/test_ex13_8_elicit_sample.py"
+ ],
+ "19.8": [
+  "exercises/ex19_8_deploy.sh",
+  "tests/test_ch16_19.py"
+ ],
+ "3.8": [
+  "exercises/ex3_8_tool_search.py",
+  "tests/test_2026_features.py"
+ ],
+ "14.8": [
+  "ANSWERS.md"
+ ],
+ "16.8": [
+  "exercises/ex16_8_programmatic_compare.py"
+ ],
+ "18.8": [
+  "exercises/ex18_8_skills.py",
+  "exercises/skills/customer-lookup/SKILL.md"
+ ],
+ "18.9": [
+  "exercises/ex18_9_managed.py"
+ ],
+ "11.8": [
+  "exercises/ex11_8_patterns.py",
+  "tests/test_multiagent.py"
+ ],
+ "13.9": [
+  "exercises/ex13_9_coordinator.py",
+  "exercises/servers_with_analyst.json",
+  "tests/test_multiagent.py"
+ ]
+}
