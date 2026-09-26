@@ -25,7 +25,8 @@ def search_files(pattern: str, max_hits: int = 20) -> str:
     rx = re.compile(pattern, re.IGNORECASE)
     hits = []
     for p in sorted(ROOT.rglob("*")):
-        # A symlink inside notes/ could point anywhere: search only real files inside ROOT.
+        # A symlink inside notes/ could point anywhere:
+        # search only real files inside ROOT.
         if not p.is_file() or p.is_symlink() or ROOT not in p.resolve().parents:
             continue
         for n, line in enumerate(p.read_text(errors="ignore").splitlines(), 1):

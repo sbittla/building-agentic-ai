@@ -5,7 +5,8 @@ import time
 
 DB_PATH = "shop.db"
 MAX_ROWS = 50
-QUERY_SECONDS = 5          # read-only doesn't mean harmless: a bad join can run for hours
+# read-only doesn't mean harmless: a bad join can run for hours
+QUERY_SECONDS = 5
 
 def _connect(deadline_s: float = QUERY_SECONDS):
     # mode=ro: the database itself refuses writes, whatever the model sends.
@@ -17,7 +18,8 @@ def _connect(deadline_s: float = QUERY_SECONDS):
 
 def get_schema() -> str:
     with _connect() as con:
-        rows = con.execute("SELECT sql FROM sqlite_master WHERE type='table'").fetchall()
+        rows = con.execute("SELECT sql FROM sqlite_master "
+                           "WHERE type='table'").fetchall()
     return "\n".join(r[0] for r in rows)
 
 def run_query(sql: str) -> str:
@@ -30,8 +32,8 @@ def run_query(sql: str) -> str:
             rows = cur.fetchmany(MAX_ROWS + 1)
     except sqlite3.OperationalError as e:
         if "interrupted" in str(e):
-            return (f"ERROR: the query ran longer than {QUERY_SECONDS} s and was stopped. "
-                    "Add filters, join on keys, or aggregate first.")
+            return (f"ERROR: the query ran longer than {QUERY_SECONDS} s "
+                    "and was stopped. Add filters, join on keys, or aggregate first.")
         return f"ERROR: {e}. Check table/column names with get_schema and retry."
     except sqlite3.Error as e:
         # The exact database error is the most useful thing for self-correction.

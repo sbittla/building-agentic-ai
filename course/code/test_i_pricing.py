@@ -1,8 +1,9 @@
-"""Interlude (testing): tests for i_pricing.py.   Run:  ./course.sh pytest -q test_i_pricing.py"""
+"""Interlude (testing): tests for i_pricing.py.
+Run:  ./course.sh pytest -q test_i_pricing.py"""
 import pytest
 from i_pricing import apply_discount, parse_price, save_receipt
 
-def test_ten_percent_off():                       # 1. a plain test: arrange, act, assert
+def test_ten_percent_off():                       # 1. plain test: arrange, act, assert
     assert apply_discount(200, 10) == 180
 
 @pytest.mark.parametrize("text, expected", [       # 2. one test, many examples
@@ -20,7 +21,7 @@ def test_save_receipt(tmp_path):                   # 4. a fixture: a fresh temp 
     assert path.read_text().splitlines() == ["Laptop 1200", "Mouse 25"]
 
 def test_replace_a_function(monkeypatch):         # 5. monkeypatch: swap in a stand-in
-    import i_pricing                               #    (undone automatically after the test)
+    import i_pricing                               #    (undone when the test ends)
     monkeypatch.setattr(i_pricing, "parse_price", lambda text: 42.0)
     assert i_pricing.parse_price("anything") == 42.0
     # The same trick replaces httpx.get with a fake that returns a canned response,

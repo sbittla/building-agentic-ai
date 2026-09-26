@@ -199,3 +199,38 @@ def test_c5_research(ws, model):
     assert [c["citation"] for c in result["bad_citations"]] == ["rag-overview.md:99"]
     assert result["brief"].startswith("## Summary\nRevised")
     assert Path("research_memory.jsonl").exists()                  # stored in the memory server
+
+# ---------------- capstone 6: back-office workflow
+def test_c6_backoffice(ws, model):
+    pytest.importorskip("playwright")
+    sys.path.insert(0, str(CAP / "c6_backoffice")); sys.modules.pop("data", None)
+    import data
+    data.main(ws / "backoffice_queue.json")
+    sys.path.remove(str(CAP / "c6_backoffice")); sys.modules.pop("data", None)
+    import ch19_durable as d, ch23_backoffice as app
+    saved = (d.DB, d.SERVICES)
+    d.DB = ws / "c6_jobs.db"
+    app.reset()
+    a = _load("c6_backoffice/agent.py")
+    a.QUEUE = ws / "backoffice_queue.json"
+    def policy(kw):
+        brief = next(m["content"] for m in kw["messages"] if m["role"] == "user"
+                     and isinstance(m["content"], str))
+        turn = sum(m["role"] == "assistant" for m in kw["messages"])
+        cid = brief.split("customer ")[1].split()[0]
+        address = brief.split("exactly: ")[1].split(". Open")[0]
+        steps = [[tool("open", {"path": f"/customers/{cid}"})],
+                 [tool("type_text", {"ref": "e1", "text": address})],
+                 [tool("click", {"ref": "e2"})], [text("Done and checked.")]]
+        return steps[min(turn, 3)]
+    model.reset(default=policy)
+    try:
+        job, status = a.main([], port=8796)
+        assert status == "needs_human"                        # the first credit waits
+        report = d.report(job)
+        assert "c6_change_address done" in report and "needs a person" in report
+        assert app.CUSTOMERS[2]["address"] == "22 Canal Street, Leeds"
+        assert app.CUSTOMERS[2]["credit"] == 0
+    finally:
+        d.DB, d.SERVICES = saved
+        app.reset()

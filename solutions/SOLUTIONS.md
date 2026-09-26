@@ -78,7 +78,7 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 4.4 A better tracer | `exercises/ex4_4_tracer.py` | A tracer that separates model time from tool time |
 | 4.5 Cost profile | `exercises/ex4_5_cost_profile.py` | Cost profile of the agent across questions and runs |
 
-## Chapter 5: State and Memory
+## Chapter 5: State and Short-Term Memory
 
 | Exercise | Solution | What it shows |
 | --- | --- | --- |
@@ -210,7 +210,6 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 13.6 Resilience | `exercises/sol_ch13_mcp_agent.py` | Restart a crashed server, reconnect and retry the call once |
 | 13.7 Let the server ask the user | `exercises/ex13_7_trip_server.py`, `exercises/ex13_7_host.py`, `tests/test_ex13_7_elicit_sample.py` | A resolver asks the user mid-call (elicitation); the host shows the question and fills the answer |
 | 13.8 A coordinator with an analyst | `exercises/ex13_8_coordinator.py`, `exercises/servers_with_analyst.json`, `tests/test_multiagent.py` | A coordinator hub that delegates data questions to an analyst agent served over MCP |
-| 13.9 A team of A2A agents | `exercises/ex13_9_a2a_team.py`, `tests/test_a2a.py` | Two agents published with A2A (analyst and to-do keeper), found by their cards and used by one coordinator |
 
 ## Chapter 14: Using Servers You Didn't Write
 
@@ -221,8 +220,18 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 14.3 Read-only GitHub | `ANSWERS.md`, `exercises/ex14_4_digest.py` | A read-only token and --read-only remove write tools entirely |
 | 14.4 Weekly engineering digest | `exercises/ex14_4_digest.py` | Weekly engineering digest from Git + GitHub (read-only) |
 | 14.5 Mark untrusted content | `exercises/sol_ch14_untrusted.py` | Wrap untrusted tool output before the model sees it |
-| 14.6 Red team your agent | `exercises/ex14_6_redteam.py` | Red-team the agent with 6 planted attacks x 3 defenses |
-| 14.7 Map your agent to OWASP | `ANSWERS.md` | Each OWASP agentic risk, how it could happen here, the defense in place and the gap to close first |
+
+## Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure
+
+| Exercise | Solution | What it shows |
+| --- | --- | --- |
+| 15.1 Who asked for this? | `ANSWERS.md` | Each 2026-07-28 change matched to who benefits and the problem it removes |
+| 15.2 Plan a migration | `ANSWERS.md` | Sampling, roots, logging and SSE replaced; per-user state moved to storage keyed by an id |
+| 15.3 MCP by hand | `exercises/ex15_3_wire.py`, `tests/test_part5_mcp2026.py` | Discover, list and call over raw HTTP; a header that disagrees with the body is refused |
+| 15.4 What does caching save? | `exercises/ex15_4_cache.py`, `tests/test_part5_mcp2026.py` | 1, 10 and 10 of 10 list requests reach the server |
+| 15.5 Search what you may use | `exercises/ex15_5_scoped_search.py`, `tests/test_part5_mcp2026.py` | search_tools filtered by the caller's token scopes |
+| 15.6 Fewer polls, safe retries | `exercises/ex15_6_jobs.py`, `tests/test_part5_mcp2026.py` | A long-polling job_status: one call instead of several; the same request_id gives the same job |
+| 15.7 An agent behind the gateway | `exercises/ex15_7_gateway_agent.py`, `tests/test_part5_mcp2026.py` | The Chapter 13 agent behind a stdio gateway: tools found by search, writes allowed, the order query refused and audited |
 
 ## Chapter 16: Context Engineering
 
@@ -264,7 +273,62 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 18.8 Know when to stop | `exercises/ex18_8_know_when_to_stop.py` | Answerable and unanswerable questions scored for one and two search rounds |
 | 18.9 Answers you can check | `exercises/ex18_9_verified.py`, `tests/test_part6.py` | Quotations and wrong-source citations caught, then one revision round |
 
-## Chapter 24: Agent Frameworks
+## Chapter 19: Long-Running Agents
+
+| Exercise | Solution | What it shows |
+| --- | --- | --- |
+| 19.1 Which mechanism? | `ANSWERS.md` | Each failure matched to checkpoints, retries, keys, leases, escalation, compensation or checks in code |
+| 19.2 Idempotent or not? | `ANSWERS.md` | Setting a value is idempotent; adding, sending and moving money need a key or a design change |
+| 19.3 Crash and resume | `ANSWERS.md` | A resumed job skips finished steps and reuses their results; deleting the checkpoint repeats everything |
+| 19.4 Two workers | `exercises/ex19_4_workers.py`, `tests/test_part7.py` | Two workers share a queue of jobs. One dies holding a job; when its lease runs out, the other worker claims the job and finishes it |
+| 19.5 A cost budget per job | `exercises/ex19_5_budget.py`, `tests/test_part7.py` | A cost budget per job. The agent action records what each model call cost; a job that would go over its budget waits for a person |
+| 19.6 A report that finishes itself | `exercises/ex19_6_report_loop.py`, `tests/test_part7.py` | Run harness sessions until the report is finished, one item needs a person, or the session limit is reached. A crash between sessions loses nothing, and a final check recomputes the cancellation share with our own SQL |
+
+## Chapter 20: Planning and Model Routing
+
+| Exercise | Solution | What it shows |
+| --- | --- | --- |
+| 20.1 Plan or not? | `ANSWERS.md` | Plan when the task is long, predictable in shape or costly to get wrong; approve plans for risky bulk work |
+| 20.2 Route the steps | `ANSWERS.md` | Small models for lookups and formatting, the large model with more effort for the judgement step |
+| 20.3 Break the plan | `exercises/ex20_3_bad_plans.py`, `tests/test_part7.py` | Plans that check_plan must reject, and one it accepts. No model is called: checking a plan is ordinary code |
+| 20.4 Run independent steps in parallel | `exercises/ex20_4_parallel_plan.py`, `tests/test_part7.py` | Run every step whose dependencies are finished at the same time. TopologicalSorter hands out "ready" steps; threads run them; done() unlocks more |
+| 20.5 Evaluate the routers | `exercises/ex20_5_router_eval.py`, `tests/test_part7.py` | Score two routers against labels you wrote yourself |
+| 20.6 A plan that survives a crash | `exercises/ex20_6_durable_plan.py`, `tests/test_part7.py` | A checked plan becomes a Chapter 19 durable job. Each plan step is a "plan_step" action whose brief gets earlier results through "$n" references, and each step's model is chosen by the rules router |
+
+## Chapter 21: Multi-Agent Orchestration
+
+| Exercise | Solution | What it shows |
+| --- | --- | --- |
+| 21.1 Pick the topology | `ANSWERS.md` | Supervisor for most systems; pipelines for fixed sequences; A2A networks across companies; a board for many loosely coupled agents |
+| 21.2 Write the contracts | `ANSWERS.md` | A result schema with required sources and dates, numeric prices and a maximum size; a brief with objective, scope and answer form |
+| 21.3 Watch the board | `ANSWERS.md` | Every board row explained; refused delegations reach the lead as errors it must handle |
+| 21.4 A specialist that fails | `exercises/ex21_4_failures.py`, `tests/test_part7.py` | A specialist that fails in three ways, each contained as an ERROR result for the lead, plus one more chance after a contract violation |
+| 21.5 A team of A2A agents | `exercises/ex21_5_a2a_team.py`, `tests/test_a2a.py` | Two agents published with A2A (analyst and to-do keeper), found by their cards and used by one coordinator |
+| 21.6 A mixed team | `exercises/ex21_6_mixed_team.py`, `tests/test_a2a.py` | A team with a remote member. The A2A analyst runs in this process on its own port; the lead delegates to it and to the local analyst, compares the answers, and sends a disagreement to the checker |
+
+## Chapter 22: Hybrid Architectures: Probabilistic Intelligence, Deterministic Control
+
+| Exercise | Solution | What it shows |
+| --- | --- | --- |
+| 22.1 Model or code? | `ANSWERS.md` | Judgement on text goes to the model with an evaluation; limits, currency and approvals go to code |
+| 22.2 Find the holes | `ANSWERS.md` | Amounts and ids from the model, identity in arguments, prompt-only limits: each fixed by a control in code |
+| 22.3 Follow the five paths | `ANSWERS.md` | Five requests, five paths; the amount always comes from the order record |
+| 22.4 Change the policy, not the code | `exercises/ex22_4_policy_json.py`, `tests/test_part7.py` | The refund policy as a versioned JSON file, with a new rule added as data. The decision stays pure code; every case records the policy version |
+| 22.5 Attack the workflow | `exercises/ex22_5_attacks.py`, `tests/test_part7.py` | Six attacks on the refund workflow, and the invariants that must hold whatever the model does. Run it with a real model, or (in the tests) with a scripted model that does exactly what each attacker asks |
+| 22.6 A guarded SQL analyst | `exercises/ex22_6_guarded_sql.py`, `tests/test_part7.py` | The Chapter 8 analyst as a hybrid. The model writes SQL; SQLite's authorizer, not the prompt, decides what that SQL may do. Business definitions come from a file your team maintains |
+
+## Chapter 23: Computer-Use Agents
+
+| Exercise | Solution | What it shows |
+| --- | --- | --- |
+| 23.1 Screen or API? | `ANSWERS.md` | APIs and exports first; a browser or desktop agent only where nothing else exists |
+| 23.2 Threat-model the browser agent | `ANSWERS.md` | Harms from page content and from mistakes, each with a control that holds even if the model is fooled |
+| 23.3 Drive it by hand | `exercises/ex23_3_by_hand.py`, `tests/test_part7.py` | Drive the browser harness by hand, with no model. The same calls the agent makes, so you can see what each one returns |
+| 23.4 The injected note | `exercises/ex23_4_injection.py`, `tests/test_part7.py` | The agent updates Ben's address while his customer notes try to get a $500 credit and an email change. The harness, not the model, stops it |
+| 23.5 Verify, don't trust | `exercises/ex23_5_verified_queue.py`, `tests/test_part7.py` | A queue of address changes, each verified in code by reading the page directly, not by trusting the agent's final answer |
+| 23.6 A queue that survives a crash | `exercises/ex23_6_durable_queue.py`, `tests/test_part7.py` | The browser queue as a Chapter 19 durable job. Each request is a step; address changes are run by the agent and verified in code; credits wait for a person. A crash loses nothing: finished requests stay finished |
+
+## Chapter 24: Skills, Frameworks and Agent Runtimes
 
 | Exercise | Solution | What it shows |
 | --- | --- | --- |
@@ -275,6 +339,30 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 24.5 Same agent, three frameworks | `exercises/ex24_5_three_ways.py` | The Chapter 8 SQL analyst built four ways, one eval suite |
 | 24.6 Write a skill | `exercises/ex24_6_skills.py`, `exercises/skills/customer-lookup/SKILL.md` | A second skill with a reference file, validated, and a trace showing only the needed skill loads |
 | 24.7 A managed analyst | `exercises/ex24_7_managed.py` | A managed session to completion, and one stopped by a tiny budget |
+| 24.8 Does the skill help? | `exercises/ex24_8_skill_eval.py`, `tests/test_part7.py` | Does the sql-report skill help? Run each request with and without the skill and check the answer's shape in code |
+| 24.9 Choose a runtime | `ANSWERS.md` | The runtime follows from where state must live, how long work runs, and who operates the infrastructure |
+
+## Chapter 25: Agentic Security
+
+| Exercise | Solution | What it shows |
+| --- | --- | --- |
+| 25.1 Find the trifecta | `ANSWERS.md` | Each agent's three legs identified; one removed in code or configuration |
+| 25.2 Map your agent to OWASP | `ANSWERS.md` | Each OWASP agentic risk, how it could happen here, the defense in place and the gap to close first |
+| 25.3 Trip the canary | `ANSWERS.md` | The canary and egress guards block the fetch; sanitizing removes the image channel |
+| 25.4 Quarantine a second source | `exercises/ex25_4_calendar.py`, `tests/test_part8.py` | Calendar invites as a second untrusted source. Only metadata reaches the planner; descriptions go through the quarantined reader |
+| 25.5 Evade the guard, then fix it | `exercises/ex25_5_evasion.py`, `tests/test_part8.py` | Five ways to sneak the canary past the leak scan, and a scan that normalizes before it searches |
+| 25.6 Red team your agent | `exercises/ex25_6_redteam.py` | Red-team the agent with 6 planted attacks x 3 defenses |
+
+## Chapter 26: Agent Identity and Authorization
+
+| Exercise | Solution | What it shows |
+| --- | --- | --- |
+| 26.1 Whose permission? | `ANSWERS.md` | Three identities per action, minimal scopes, step-up for money and sensitive data |
+| 26.2 Design the token | `ANSWERS.md` | A token for one trip: one employee, one audience, capped amount and dates, a short life |
+| 26.3 Break the token | `exercises/ex26_3_break_token.py`, `tests/test_part8.py` | Five ways to misuse a token, and one way to over-ask |
+| 26.4 Tokens for a team | `exercises/ex26_4_team_tokens.py`, `tests/test_part8.py` | The Chapter 21 team with tokens. The lead's token is attenuated for each specialist: fewer scopes, a shorter life, a record of where it came from. Tools check the token; agents never see it |
+| 26.5 An audit circuit breaker | `exercises/ex26_5_breaker.py`, `tests/test_part8.py` | An audit circuit breaker. A burst of denials, or any attempt on another user's resource, disables the agent at once |
+| 26.6 A token-checked API | `exercises/ex26_6_orders_api.py`, `tests/test_part8.py` | The order tools as an HTTP API that checks bearer tokens. The harness holds the token, renews it when it expires, and the model never sees it |
 
 ## Chapter 27: Agent Evaluation: Trajectories and Continuous Evaluation
 
@@ -285,12 +373,18 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 27.3 Run the SQL suite | `exercises/eval_sql_more.jsonl` | Six more SQL cases, each with a check that can fail |
 | 27.4 Eval in CI | `exercises/ex27_4_ci_gate.py` | Fail the build when eval quality drops |
 | 27.5 Calibrate a judge | `exercises/ex27_5_calibrate.py` | Check the judge against people before trusting it |
+| 27.6 Grade the path | `exercises/ex27_6_trajectory.py`, `exercises/ex27_6_trajectory.jsonl`, `tests/test_part9.py` | Grade six cases on outcome, process and cost, three times |
+| 27.7 Evaluate in production | `exercises/ex27_7_online.py`, `tests/test_part9.py` | A simulated week of production. Sample flagged runs and 10% of the rest each day, grade the sample, and check the daily rates for drift |
 
 ## Chapter 28: AgentOps: Observability for Agents
 
 | Exercise | Solution | What it shows |
 | --- | --- | --- |
 | 28.1 A trace viewer | `exercises/ex28_1_trace_report.py` | A report over the last 50 runs in traces.jsonl |
+| 28.2 What would you trace? | `ANSWERS.md` | A span per state transition, redacted text, and an SLO on the reply-guard fallback rate |
+| 28.3 Read the report | `ANSWERS.md` | Every report number explained; a failing tool shows up as a failure class and a named alert |
+| 28.4 A new failure class | `exercises/ex28_4_ignored_error.py`, `tests/test_part9.py` | A failure class for runs that finished after a tool error that was never followed by a successful call of the same tool |
+| 28.5 An SLO dashboard with burn alerts | `exercises/ex28_5_burn.py`, `tests/test_part9.py` | Hourly SLO reports and an error-budget burn alert: more than 10% failures (for a 90% objective) in two consecutive hours |
 
 ## Chapter 29: Agentic Performance and Cost Engineering
 
@@ -298,6 +392,9 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | --- | --- | --- |
 | 29.1 See queueing | `exercises/ex29_1_queueing.py` | See queueing, and see how the wrong clock hides it |
 | 29.2 Load test a real agent | `exercises/ex29_2_real_loadtest.py` | Load-test the Chapter 13 MCP agent with real questions |
+| 29.3 Where does the money go? | `ANSWERS.md` | History and the repeated prefix dominate; caching saves about 30%, routing plus caching about 46% |
+| 29.4 Budgets that hold | `exercises/ex29_4_budgets.py`, `tests/test_part9.py` | A per-request and a per-user daily budget around the Chapter 8 analyst, both enforced in code |
+| 29.5 Halve the cost | `exercises/ex29_5_cost_cut.py`, `tests/test_part9.py` | Cost per successful task before and after two levers: routing easy cases to the small model, and caching the stable prefix |
 
 ## Chapter 30: Deploying Agents as Services
 

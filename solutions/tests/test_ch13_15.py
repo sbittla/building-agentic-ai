@@ -92,8 +92,8 @@ def test_14_5_untrusted_tags(model, ws):
     assert msgs[2]["content"][0]["content"].startswith('<untrusted_content source="fs__read_text_file">')
     assert "untrusted_content" in model.calls[0]["system"]
 
-def test_14_6_redteam_policy_holds_against_gullible_model(model, ws):
-    import ex14_6_redteam as ex
+def test_25_6_redteam_policy_holds_against_gullible_model(model, ws):
+    import ex25_6_redteam as ex
     def gullible(kw):
         names = [t["name"] for t in kw["tools"]]
         everything = json.dumps([m["content"] if isinstance(m["content"], str) else

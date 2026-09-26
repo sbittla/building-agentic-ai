@@ -24,7 +24,8 @@ def slow_blocking_call() -> str:          # e.g. a library that isn't async
 
 async def with_blocking_code():
     t0 = time.perf_counter()
-    results = await asyncio.gather(asyncio.to_thread(slow_blocking_call), fetch("news", 1))
+    results = await asyncio.gather(asyncio.to_thread(slow_blocking_call),
+                                   fetch("news", 1))
     return results, time.perf_counter() - t0
 
 async def with_a_timeout():
@@ -34,7 +35,8 @@ async def with_a_timeout():
         return "gave up after 0.5s"
 
 async def main():
-    for label, coro in [("sequential", one_after_another()), ("gather", at_the_same_time()),
+    for label, coro in [("sequential", one_after_another()),
+                        ("gather", at_the_same_time()),
                         ("to_thread", with_blocking_code())]:
         results, seconds = await coro
         print(f"{label:<10} {seconds:.1f}s  {results}")

@@ -1,4 +1,4 @@
-"""Section 13.7 and exercise 13.9: A2A agents, end to end with the real a2a-sdk (server and
+"""Section 21.7 and exercise 21.5: A2A agents, end to end with the real a2a-sdk (server and
 client) and the scripted stand-in model. Offline."""
 import asyncio
 import json
@@ -39,8 +39,8 @@ def _card(url, name="Shop data analyst"):
 
 @pytest.fixture
 def analyst(ws, model):
-    """The Chapter 13 analyst on a free port, with a card that points at that port."""
-    import ch13_a2a_server as srv
+    """The Chapter 21 analyst on a free port, with a card that points at that port."""
+    import ch21_a2a_server as srv
     port = _free_port()
     server = uvicorn.Server(uvicorn.Config(srv.build_app(_card(f"http://127.0.0.1:{port}")),
                                            host="127.0.0.1", port=port, log_level="error"))
@@ -60,7 +60,7 @@ def test_card_is_public_and_describes_the_skill(analyst):
 
 
 def test_task_runs_the_agent_and_returns_an_artifact(analyst, model):
-    from ch13_a2a_client import ask_remote_agent
+    from ch21_a2a_client import ask_remote_agent
     model.reset([[tool("run_query", {"sql": "SELECT COUNT(*) AS n FROM orders WHERE status='cancelled'"})],
                  [text("88 orders were cancelled.")]])
     answer = asyncio.run(ask_remote_agent(analyst, "How many orders were cancelled?", show=False))
@@ -69,15 +69,15 @@ def test_task_runs_the_agent_and_returns_an_artifact(analyst, model):
 
 
 def test_unfinished_agent_is_a_failed_task(analyst, model):
-    from ch13_a2a_client import ask_remote_agent
+    from ch21_a2a_client import ask_remote_agent
     model.reset(default=lambda kw: [tool("run_query", {"sql": "SELECT 1"})])   # never stops
     with pytest.raises(RuntimeError, match="no answer"):
         asyncio.run(ask_remote_agent(analyst, "Loop forever", show=False))
 
 
 def test_token_protects_everything_but_the_card(ws, model, monkeypatch):
-    import ch13_a2a_server as srv
-    import ch13_a2a_client as cli
+    import ch21_a2a_server as srv
+    import ch21_a2a_client as cli
     monkeypatch.setattr(srv, "TOKEN", "s3cret")
     server, url = _serve(srv.build_app(_card("http://unused")))
     try:
@@ -90,7 +90,7 @@ def test_token_protects_everything_but_the_card(ws, model, monkeypatch):
 
 def test_remote_agent_as_a_coordinator_tool(analyst, model):
     from ch04_agent import run_agent
-    from ch13_a2a_client import a2a_tool
+    from ch21_a2a_client import a2a_tool
     t, run = a2a_tool(analyst, "ask_shop_analyst", "Ask the analyst.")
     model.reset([[tool("ask_shop_analyst", {"question": "Top city?"})],   # coordinator delegates
                  [text("Berlin, with 14 customers.")],                    # the remote analyst answers
@@ -100,15 +100,15 @@ def test_remote_agent_as_a_coordinator_tool(analyst, model):
     assert "Berlin, with 14 customers." in json.dumps(messages[2]["content"], default=str)
 
 
-def test_exercise_13_10_team_of_two_agents(ws, model, monkeypatch):
-    import ex13_9_a2a_team as team
+def test_exercise_21_5_team_of_two_agents(ws, model, monkeypatch):
+    import ex21_5_a2a_team as team
     monkeypatch.setattr(team, "ANALYST_PORT", _free_port())
     monkeypatch.setattr(team, "TODO_PORT", _free_port())
-    import ch13_a2a_server as srv
+    import ch21_a2a_server as srv
     monkeypatch.setattr(srv, "CARD", _card(f"http://127.0.0.1:{team.ANALYST_PORT}"))
     monkeypatch.setattr(srv.build_app, "__defaults__", (srv.CARD, None))
     analyst_url, todo_url = team.start_team()
-    from ch13_a2a_client import ask_remote_agent
+    from ch21_a2a_client import ask_remote_agent
     model.reset([[tool("add_task", {"title": "Plan a promotion in Berlin", "due": "2026-10-02"})],
                  [text("Added: Plan a promotion in Berlin.")]])
     answer = asyncio.run(ask_remote_agent(todo_url, "Add a task to plan a promotion in Berlin", show=False))
@@ -122,3 +122,27 @@ def _free_port():
     with socket.socket() as s:
         s.bind(("127.0.0.1", 0))
         return s.getsockname()[1]
+
+def test_exercise_21_6_mixed_team(analyst, model):
+    import ex21_6_mixed_team as ex
+    from test_part7 import GOOD_RESULT
+    moves = [[tool("delegate", {"agent": "analyst", "brief": "Cancelled orders?"})],
+             [tool("delegate", {"agent": "remote_analyst", "brief": "Cancelled orders?"})],
+             [tool("delegate", {"agent": "checker", "brief": "Is it 12 or 13?"})],
+             [tool("submit_result", {**GOOD_RESULT, "answer": "12 (checked)"})],
+             [text("Done.")]]
+    def policy(kw):
+        if "You lead" in kw["system"]:
+            return moves.pop(0)
+        names = [t["name"] for t in kw.get("tools", [])]
+        last = kw["messages"][-1]
+        if "submit_result" not in names:                       # the remote analyst
+            return [text("13 orders were cancelled.")]
+        if last["role"] == "user" and isinstance(last["content"], str):
+            return [tool("submit_result", GOOD_RESULT)]
+        return [text("Submitted.")]
+    model.reset(default=policy)
+    out = ex.mixed_team(analyst).run("How many orders were cancelled?")
+    agents = [line.split()[1] for line in out["board"].splitlines()]
+    assert agents == ["lead", "analyst", "remote_analyst", "checker"]
+    assert out["result"]["answer"] == "12 (checked)"

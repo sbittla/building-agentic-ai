@@ -201,6 +201,17 @@ def _():
             return f"{len(hub.tools)} tools, {len(visible)} allowed by policy"
     return asyncio.run(go())
 
+@check("ch15 gateway: stateless client, cache hints, token checks")
+def _():
+    import ch15_modern as modern, ch15_gateway as g, ch26_identity as identity
+    report = asyncio.run(modern.describe(modern.catalog))
+    assert report["protocol"] == "2026-07-28" and report["ttl_ms"], report
+    gw = g.Gateway(g.UPSTREAMS, g.POLICY)
+    token = identity.mint("analyst-agent", "ana", {"shop:read"}, g.AUDIENCE)
+    denied = asyncio.run(g.call(gw, token, "todo__add_task", {"title": "x"}))
+    assert "Not allowed" in denied, denied
+    return f"protocol {report['protocol']}, lists cached {report['ttl_ms'] // 1000} s"
+
 @check("GitHub MCP server binary")
 def _():
     exe = shutil.which("github-mcp-server")

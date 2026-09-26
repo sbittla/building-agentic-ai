@@ -1,18 +1,21 @@
-"""Chapter 24: Agent Skills, the open format (agentskills.io) that Claude Code, the Claude
-Agent SDK, the Claude API and a growing list of other agents read. A skill is a folder with a
-SKILL.md file: YAML front matter (name, description) and instructions, plus optional
-scripts/, references/ and assets/.
+"""Chapter 24: Agent Skills, the open format (agentskills.io) that Claude Code, the
+Claude Agent SDK, the Claude API and a growing list of other agents read. A skill is a
+folder with a SKILL.md file: YAML front matter (name, description) and instructions,
+plus optional scripts/, references/ and assets/.
 
-The idea is PROGRESSIVE DISCLOSURE: the agent sees only each skill's one-line description
-until a task needs it, then reads the instructions, then (maybe) the extra files. This file
-validates skills against the specification and gives the chapter 4 agent that same behavior.
+The idea is PROGRESSIVE DISCLOSURE: the agent sees only each skill's one-line
+description until a task needs it, then reads the instructions, then (maybe) the extra
+files. This file validates skills against the specification and gives the chapter 4
+agent that same behavior.
 
-Run:  python ch24_skills.py            (creates skills/sql-report if it's missing, then uses it)"""
+Run:  python ch24_skills.py    (creates skills/sql-report if it's missing, then uses it)
+"""
 import re
 from pathlib import Path
 
 SKILLS_DIR = Path("skills")
-NAME_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")      # lowercase words joined by single hyphens
+# lowercase words joined by single hyphens
+NAME_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 
 def parse_skill(folder: Path) -> tuple[dict, str]:
     """Read SKILL.md: returns (front matter as a dict, instructions)."""
@@ -40,11 +43,13 @@ def validate(folder: Path) -> list[str]:
     if not name:
         problems.append("name is required")
     elif len(name) > 64 or not NAME_RE.match(name):
-        problems.append("name: 1-64 lowercase letters, digits and single hyphens, no hyphen at either end")
+        problems.append("name: 1-64 lowercase letters, digits and single hyphens, "
+                        "no hyphen at either end")
     elif name != folder.name:
         problems.append(f"name '{name}' must match the folder name '{folder.name}'")
     if not desc:
-        problems.append("description is required: say what the skill does AND when to use it")
+        problems.append("description is required: "
+                        "say what the skill does AND when to use it")
     elif len(desc) > 1024:
         problems.append("description must be at most 1024 characters")
     if len(body.splitlines()) > 500:
@@ -60,26 +65,31 @@ def catalog(skills_dir: Path | None = None) -> str:
     return "\n".join(lines)
 
 def read_skill(name: str, file: str = "SKILL.md") -> str:
-    """Levels 2 and 3: the instructions, or one of the skill's extra files, on demand."""
+    """Levels 2 and 3: the instructions, or one of the skill's extra files,
+    on demand."""
     folder = (SKILLS_DIR / name).resolve()
     target = (folder / file).resolve()
-    if SKILLS_DIR.resolve() not in folder.parents or folder not in [target, *target.parents]:
+    if (SKILLS_DIR.resolve() not in folder.parents
+            or folder not in [target, *target.parents]):
         return "ERROR: that path is outside the skill's folder"
     if not target.is_file():
-        return f"ERROR: no {file} in skill {name}. Check the catalog in your instructions."
+        return (f"ERROR: no {file} in skill {name}. "
+                "Check the catalog in your instructions.")
     return target.read_text()[:20_000]
 
 TOOLS = [{
     "name": "read_skill",
-    "description": "Load a skill's instructions (file='SKILL.md') before doing a task it covers, "
-                   "or one of the files its instructions mention (for example 'references/schema.md').",
+    "description": "Load a skill's instructions (file='SKILL.md') before doing a task "
+                   "it covers, or one of the files its instructions mention "
+                   "(for example 'references/schema.md').",
     "input_schema": {"type": "object", "properties": {"name": {"type": "string"},
-                     "file": {"type": "string", "default": "SKILL.md"}}, "required": ["name"]},
+                     "file": {"type": "string", "default": "SKILL.md"}},
+                     "required": ["name"]},
 }]
 
 def system_prompt(base: str = "You are a helpful analyst.") -> str:
-    return (f"{base}\n\nYou have these skills. When a task matches one, call read_skill first "
-            f"and follow its instructions:\n{catalog()}")
+    return (f"{base}\n\nYou have these skills. When a task matches one, "
+            f"call read_skill first and follow its instructions:\n{catalog()}")
 
 EXAMPLE = {
     "SKILL.md": """---

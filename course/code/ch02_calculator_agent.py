@@ -49,7 +49,8 @@ def ask(question: str) -> str:
     response = client.messages.create(model=MODEL, max_tokens=2000,
                                       tools=TOOLS, messages=messages)
     if response.stop_reason != "tool_use":
-        return "".join(b.text for b in response.content if b.type == "text")          # model answered directly
+        # model answered directly
+        return "".join(b.text for b in response.content if b.type == "text")
 
     messages.append({"role": "assistant", "content": response.content})
     results = []

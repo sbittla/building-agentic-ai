@@ -27,7 +27,8 @@ def geocode(city: str) -> str:
 
 @mcp.tool()
 def get_forecast(latitude: float, longitude: float, days: int = 3) -> str:
-    """Daily forecast (min/max temperature in Celsius, rain chance) for up to 16 days."""
+    """Daily forecast (min/max temperature in Celsius, rain chance)
+    for up to 16 days."""
     log.info("forecast %s,%s days=%s", latitude, longitude, days)
     try:
         return weather.get_forecast(latitude, longitude, days)
@@ -48,11 +49,12 @@ def packing_advice(city: str, days: int = 3) -> str:
 if __name__ == "__main__":
     transport = sys.argv[1] if len(sys.argv) > 1 else "stdio"
     if transport == "streamable-http":
-        # In Docker, MCP_HOST=0.0.0.0 lets your computer reach port 8000. Listening on all
-        # interfaces switches off the SDK's automatic DNS-rebinding protection, so we
-        # turn it back on and list the host names this server may be called by.
+        # In Docker, MCP_HOST=0.0.0.0 lets your computer reach port 8000. Listening on
+        # all interfaces switches off the SDK's automatic DNS-rebinding protection, so
+        # we turn it back on and list the host names this server may be called by.
         from mcp.server.transport_security import TransportSecuritySettings
-        mcp.run(transport="streamable-http", host=os.environ.get("MCP_HOST", "127.0.0.1"),
+        mcp.run(transport="streamable-http",
+                host=os.environ.get("MCP_HOST", "127.0.0.1"),
                 transport_security=TransportSecuritySettings(
                     allowed_hosts=["127.0.0.1:*", "localhost:*"],
                     allowed_origins=["http://localhost:*", "http://127.0.0.1:*"]))

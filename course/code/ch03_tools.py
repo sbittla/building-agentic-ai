@@ -50,8 +50,10 @@ TOOLS = [
      "description": "Convert a distance or weight between km, mi, m, kg, lb, g.",
      "input_schema": {"type": "object",
                       "properties": {"value": {"type": "number"},
-                                     "from_unit": {"type": "string", "enum": list(_BASE)},
-                                     "to_unit": {"type": "string", "enum": list(_BASE)}},
+                                     "from_unit": {"type": "string",
+                                                   "enum": list(_BASE)},
+                                     "to_unit": {"type": "string",
+                                                 "enum": list(_BASE)}},
                       "required": ["value", "from_unit", "to_unit"]}},
     {"name": "days_between",
      "description": "Number of days between two ISO dates (YYYY-MM-DD) and the "

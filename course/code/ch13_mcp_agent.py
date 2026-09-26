@@ -13,10 +13,12 @@ from ch04_agent import next_action        # the same stop-reason rules as chapte
 MODEL = os.environ.get("MODEL", "claude-sonnet-5")
 SEP = "__"                                    # tool names become server__tool
 
-# Servers get a MINIMAL environment, never your whole one: a third-party server has no
-# business seeing ANTHROPIC_API_KEY. A server that needs a secret names it in "pass_env".
+# Servers get a MINIMAL environment, never your whole one: a third-party
+# server has no business seeing ANTHROPIC_API_KEY. A server that needs a
+# secret names it in "pass_env".
 SAFE_ENV = ("PYTHONPATH", "PYTHONDONTWRITEBYTECODE", "LANG", "LC_ALL", "TZ",
-            "HTTP_PROXY", "HTTPS_PROXY", "NO_PROXY", "http_proxy", "https_proxy", "no_proxy",
+            "HTTP_PROXY", "HTTPS_PROXY", "NO_PROXY",
+            "http_proxy", "https_proxy", "no_proxy",
             "SSL_CERT_FILE", "REQUESTS_CA_BUNDLE")
 
 def server_env(spec: dict) -> dict:
@@ -30,7 +32,8 @@ class MCPHub:
     """Connects to several MCP servers and routes tool calls to the right one."""
 
     def __init__(self, config: dict):
-        self.config = config                  # {"servers": {name: {command, args, env}}}
+        # {"servers": {name: {command, args, env}}}
+        self.config = config
         self.clients: dict[str, Client] = {}
         self.tools: list[dict] = []           # in Anthropic's tool format
         self.stack = AsyncExitStack()
@@ -40,11 +43,13 @@ class MCPHub:
         for name, spec in self.config["servers"].items():
             try:
                 await self._connect(name, spec)
-            except Exception as exc:          # name the server that failed, and how to debug it
+            except Exception as exc:
+                # name the server that failed, and how to debug it
                 await self.stack.aclose()
                 cmd = " ".join([spec["command"], *spec.get("args", [])])
-                raise RuntimeError(f"MCP server '{name}' failed to start ({type(exc).__name__}). "
-                                   f"Run it yourself to see its error:  {cmd}") from exc
+                raise RuntimeError(f"MCP server '{name}' failed to start "
+                                   f"({type(exc).__name__}). Run it yourself to see "
+                                   f"its error:  {cmd}") from exc
         return self
 
     async def _connect(self, name, spec):
@@ -89,7 +94,8 @@ async def run_mcp_agent(hub: MCPHub, question: str, system: str = "",
         stats.setdefault(key, 0)
     messages = list(messages or []) + [{"role": "user", "content": question}]
     for step in range(1, max_iterations + 1):
-        r = await llm.messages.create(model=MODEL, max_tokens=max_tokens, tools=hub.tools,
+        r = await llm.messages.create(model=MODEL, max_tokens=max_tokens,
+                                      tools=hub.tools,
                                       system=system or "You are a helpful assistant.",
                                       messages=messages)
         stats["steps"] += 1
@@ -115,11 +121,13 @@ async def run_mcp_agent(hub: MCPHub, question: str, system: str = "",
             else:
                 try:
                     text, is_error = await hub.call(b.name, b.input)
-                except Exception as exc:     # a crashed server is an error result, not a crash
-                    text, is_error = f"ERROR: {b.name} failed ({type(exc).__name__}: {exc})", True
+                except Exception as exc:
+                    # a crashed server is an error result, not a crash
+                    text, is_error = (f"ERROR: {b.name} failed "
+                                      f"({type(exc).__name__}: {exc})", True)
             stats["tool_calls"] += 1
-            print(f"[step {step}] {b.name}({json.dumps(b.input)[:80]}) -> {text[:70]!r}",
-                  file=sys.stderr)
+            print(f"[step {step}] {b.name}({json.dumps(b.input)[:80]}) "
+                  f"-> {text[:70]!r}", file=sys.stderr)
             results.append({"type": "tool_result", "tool_use_id": b.id,
                             "content": text, "is_error": is_error})
         messages.append({"role": "user", "content": results})

@@ -14,7 +14,8 @@ QUESTIONS = [
 for q in QUESTIONS:
     r = client.messages.create(model=MODEL, max_tokens=2000,
                                messages=[{"role": "user", "content": q}])
-    answer = "".join(b.text for b in r.content if b.type == "text")   # skip thinking blocks
+    # skip thinking blocks
+    answer = "".join(b.text for b in r.content if b.type == "text")
     print(f"Q: {q}\nA: {answer}\n")
 
 print("Correct product:", 48213 * 9771)

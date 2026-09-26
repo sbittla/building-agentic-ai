@@ -21,4 +21,5 @@ if __name__ == "__main__":
     print(max_temperature(18.52, 73.86))                # Pune
     # Secrets such as API keys come from environment variables, never from code:
     key = os.environ.get("ANTHROPIC_API_KEY", "")
-    print("API key loaded:", "yes" if key.startswith("sk-") else "no (check your .env file)")
+    print("API key loaded:",
+          "yes" if key.startswith("sk-") else "no (check your .env file)")

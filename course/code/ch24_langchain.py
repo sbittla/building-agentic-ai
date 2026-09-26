@@ -24,13 +24,16 @@ def today() -> str:
 def build(model=None):
     return create_agent(model=model or ChatAnthropic(model=MODEL),
                         tools=[add_task, list_tasks, today],
-                        system_prompt="You manage the user's to-do list. Use the tools.")
+                        system_prompt="You manage the user's to-do list. "
+                                      "Use the tools.")
 
 def ask(agent, question: str, history=None):
-    state = agent.invoke({"messages": (history or []) + [{"role": "user", "content": question}]})
+    state = agent.invoke({"messages": (history or [])
+                          + [{"role": "user", "content": question}]})
     return state["messages"][-1].content, state["messages"]
 
 if __name__ == "__main__":
     agent = build()
-    answer, history = ask(agent, "Add 'renew passport' due 2026-11-01, then show my tasks.")
+    answer, history = ask(agent,
+                          "Add 'renew passport' due 2026-11-01, then show my tasks.")
     print(answer)

@@ -346,9 +346,6 @@
  "13.8": {
   "model": "any"
  },
- "13.9": {
-  "model": "any"
- },
  "14.1": {
   "model": "none"
  },
@@ -363,12 +360,6 @@
  },
  "14.5": {
   "model": "any"
- },
- "14.6": {
-  "model": "any"
- },
- "14.7": {
-  "model": "none"
  },
  "16.1": {
   "model": "none"
@@ -523,5 +514,191 @@
  "30.7": {
   "model": "any",
   "note": "Running the image locally works with qwen3.5:9b; a cloud deployment needs a Claude key or a host that can run the model."
+ },
+ "19.1": {
+  "model": "none"
+ },
+ "19.2": {
+  "model": "none"
+ },
+ "19.3": {
+  "model": "any"
+ },
+ "19.4": {
+  "model": "none"
+ },
+ "19.5": {
+  "model": "any"
+ },
+ "19.6": {
+  "model": "any"
+ },
+ "20.1": {
+  "model": "none"
+ },
+ "20.2": {
+  "model": "none"
+ },
+ "20.3": {
+  "model": "none"
+ },
+ "20.4": {
+  "model": "any"
+ },
+ "20.5": {
+  "model": "any"
+ },
+ "20.6": {
+  "model": "any"
+ },
+ "21.1": {
+  "model": "none"
+ },
+ "21.2": {
+  "model": "none"
+ },
+ "21.3": {
+  "model": "any"
+ },
+ "21.4": {
+  "model": "any"
+ },
+ "21.5": {
+  "model": "any"
+ },
+ "21.6": {
+  "model": "claude-rec",
+  "note": "Several agents, including one over A2A, must follow a multi-step brief."
+ },
+ "22.1": {
+  "model": "none"
+ },
+ "22.2": {
+  "model": "none"
+ },
+ "22.3": {
+  "model": "any"
+ },
+ "22.4": {
+  "model": "any"
+ },
+ "22.5": {
+  "model": "any"
+ },
+ "22.6": {
+  "model": "any"
+ },
+ "23.1": {
+  "model": "none"
+ },
+ "23.2": {
+  "model": "none"
+ },
+ "23.3": {
+  "model": "none"
+ },
+ "23.4": {
+  "model": "claude-rec",
+  "note": "Operating a web page through many small steps is where the local model struggles most."
+ },
+ "23.5": {
+  "model": "claude-rec",
+  "note": "Operating a web page through many small steps is where the local model struggles most."
+ },
+ "23.6": {
+  "model": "claude-rec",
+  "note": "Operating a web page through many small steps is where the local model struggles most."
+ },
+ "24.8": {
+  "model": "any"
+ },
+ "24.9": {
+  "model": "none"
+ },
+ "25.6": {
+  "model": "any"
+ },
+ "25.2": {
+  "model": "none"
+ },
+ "25.1": {
+  "model": "none"
+ },
+ "25.3": {
+  "model": "any"
+ },
+ "25.4": {
+  "model": "any"
+ },
+ "25.5": {
+  "model": "none"
+ },
+ "26.1": {
+  "model": "none"
+ },
+ "26.2": {
+  "model": "none"
+ },
+ "26.3": {
+  "model": "none"
+ },
+ "26.4": {
+  "model": "any"
+ },
+ "26.5": {
+  "model": "none"
+ },
+ "26.6": {
+  "model": "any"
+ },
+ "27.6": {
+  "model": "any"
+ },
+ "27.7": {
+  "model": "none"
+ },
+ "28.2": {
+  "model": "none"
+ },
+ "28.3": {
+  "model": "any"
+ },
+ "28.4": {
+  "model": "none"
+ },
+ "28.5": {
+  "model": "none"
+ },
+ "29.3": {
+  "model": "none"
+ },
+ "29.4": {
+  "model": "any"
+ },
+ "29.5": {
+  "model": "claude-rec",
+  "note": "Cost per successful task is only meaningful with real prices and the model you ship."
+ },
+ "15.1": {
+  "model": "none"
+ },
+ "15.2": {
+  "model": "none"
+ },
+ "15.3": {
+  "model": "none"
+ },
+ "15.4": {
+  "model": "none"
+ },
+ "15.5": {
+  "model": "none"
+ },
+ "15.6": {
+  "model": "none"
+ },
+ "15.7": {
+  "model": "any",
+  "note": "Any model that can call tools; tools are found through search_tools"
  }
 }

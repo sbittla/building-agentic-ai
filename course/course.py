@@ -50,7 +50,7 @@ def apply_provider():
     os.environ.update({
         "ANTHROPIC_BASE_URL": ADAPTER_URL, "ANTHROPIC_API_URL": ADAPTER_URL,   # SDK, LangChain
         "ANTHROPIC_API_KEY": "sk-local-ollama",        # any value: the local model ignores it
-        "MODEL": model, "JUDGE_MODEL": model,
+        "MODEL": model, "JUDGE_MODEL": model, "SMALL_MODEL": model,
         # the Agent SDK runs the Claude Code CLI: keep it on the local model and offline
         "ANTHROPIC_DEFAULT_OPUS_MODEL": model, "ANTHROPIC_DEFAULT_SONNET_MODEL": model,
         "ANTHROPIC_DEFAULT_HAIKU_MODEL": model, "ANTHROPIC_SMALL_FAST_MODEL": model,
@@ -468,12 +468,12 @@ def cmd_serve_mcp(args):
     return subprocess.call(["python", "ch30_remote_mcp.py", *args], cwd=WS, env=env)
 
 def cmd_serve_a2a(args):
-    """The Chapter 13 A2A analyst agent on port 9999 (use ./course.sh serve-a2a)."""
+    """The Chapter 21 A2A analyst agent on port 9999 (use ./course.sh serve-a2a)."""
     need_api_key()
     head("A2A agent card: http://localhost:9999/.well-known/agent-card.json   (Ctrl+C stops it)")
     os.chdir(WS)
     env = env_for_runs() | {"A2A_HOST": "0.0.0.0"}
-    os.execvpe(sys.executable, [sys.executable, "ch13_a2a_server.py"], env)
+    os.execvpe(sys.executable, [sys.executable, "ch21_a2a_server.py"], env)
 
 def cmd_desktop_config(args):
     server = args[0] if args else "ch12_weather_server.py"
@@ -744,14 +744,11 @@ CAPSTONES = {  # number: (folder, data script or None, program, default argument
     "3": ("c3_incident", "data.py", "agent.py", []),
     "4": ("c4_review", "data.py", "agent.py", []),
     "5": ("c5_research", None, "research.py", []),
+    "6": ("c6_backoffice", "data.py", "agent.py", []),
 }
 
 def cmd_capstone(args):
-    """Run a reference capstone:  capstone <1-5> [arguments]"""
-    if args and args[0] == "6":
-        say("Capstone 6 (back-office workflow agent) has no reference solution yet: it arrives")
-        say("with Chapter 23 in a later kit update. The book's description is enough to build it.")
-        return 0
+    """Run a reference capstone:  capstone <1-6> [arguments]"""
     if not args or args[0] not in CAPSTONES:
         head("Reference capstones (build your own first!):")
         for n, (folder, _, prog, _) in CAPSTONES.items():
@@ -798,11 +795,21 @@ LIVE_RUNS = [
     ("4", "ch10_fixer.py", "", 6), ("4", "ch11_research_team.py", "", 10),
     ("5", "ch13_mcp_agent.py servers.json", "How many open tasks are there?\nquit\n", 3),
     ("5", "ch14_policy_agent.py", "What time is it in Tokyo?\n" + "n\n" * 4 + "quit\n", 4),
+    ("5", "ch15_modern.py", "", 0), ("5", "ch15_jobs_server.py", "", 0),
+    ("5", "ch15_gateway.py", "", 0),
     ("6", "ch16_context.py", "", 5), ("6", "ch17_memory.py", "Remember that I prefer Celsius.\nquit\n", 2),
     ("6", "ch16_assemble.py", "", 1), ("6", "ch18_rag.py", "", 3), ("6", "ch18_agentic.py", "", 4),
+    ("7", "ch19_durable.py", "", 1), ("7", "ch19_harness.py", "", 5),
+    ("7", "ch20_planning.py", "", 5), ("7", "ch20_router.py", "", 5),
+    ("7", "ch21_orchestrator.py", "", 6), ("7", "ch22_guarded.py", "n\n" * 3, 3),
+    ("7", "ch23_browser.py", "", 5),
     ("7", "ch24_tool_runner.py", "", 3),
     ("7", "ch24_langchain.py", "", 3), ("7", "ch24_agent_sdk.py", "", 5),
-    ("9", "ch27_eval.py", "", 15), ("9", "ch27_judge.py", "", 5), ("9", "ch28_otel.py", "", 2),
+    ("8", "ch25_quarantine.py", "", 3), ("8", "ch25_guards.py", "", 2),
+    ("8", "ch26_identity.py", "n\n" * 2, 2),
+    ("9", "ch27_eval.py", "", 15), ("9", "ch27_judge.py", "", 5),
+    ("9", "ch27_trajectory.py", "", 5), ("9", "ch28_otel.py", "", 2),
+    ("9", "ch28_agentops.py spans.jsonl", "", 0), ("9", "ch29_costs.py", "", 0),
 ]
 
 def cmd_live_check(args):
@@ -1048,7 +1055,7 @@ HELP = """Building Agentic AI: course commands (run them from the kit folder on 
   ./course.sh desktop-config [srv]   print the Claude Desktop config for a server
   ./course.sh serve-api              the chapter 30 agent API on http://localhost:8080
   ./course.sh serve-mcp              the chapter 30 remote MCP server (token-protected)
-  ./course.sh serve-a2a              the chapter 13 A2A analyst agent on http://localhost:9999
+  ./course.sh serve-a2a              the chapter 21 A2A analyst agent on http://localhost:9999
   ./course.sh sandbox up|down        start/stop the network-less test sandbox (chapter 10)
   ./course.sh build                  (re)build the Docker image
 
@@ -1059,7 +1066,7 @@ HELP = """Building Agentic AI: course commands (run them from the kit folder on 
 
   Solutions (try the exercise first!):
   ./course.sh solution <id>          show the solution for an exercise, e.g.  solution 4.4
-  ./course.sh capstone <1-5>         run a reference capstone
+  ./course.sh capstone <1-6>         run a reference capstone
   ./course.sh check-solutions        run every solution and capstone offline (no API key)
 
 Your files live in the 'workspace' folder next to course.sh. Edit them with any editor.

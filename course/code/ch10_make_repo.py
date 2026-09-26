@@ -10,7 +10,7 @@ def subtotal(items):
 
 def apply_discount(amount, percent):
     """Reduce amount by percent (0-100)."""
-    return amount - amount * percent                    # BUG: percent not divided by 100
+    return amount - amount * percent  # BUG: percent not divided by 100
 
 def total(items, percent=0, tax_rate=0.08):
     return round(apply_discount(subtotal(items), percent) * (1 + tax_rate), 2)

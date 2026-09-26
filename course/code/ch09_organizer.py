@@ -56,7 +56,8 @@ def apply_plan(plan_id: str) -> str:
             src, dst = _safe(m["src"]), _unique(_safe(m["dst"]))
             if not src.exists():
                 continue
-            new_dirs = [str(d) for d in reversed(dst.parents) if ROOT in d.parents and not d.exists()]
+            new_dirs = [str(d) for d in reversed(dst.parents)
+                        if ROOT in d.parents and not d.exists()]
             dst.parent.mkdir(parents=True, exist_ok=True)
             shutil.move(src, dst)
             log.write(json.dumps({"ts": time.time(), "plan": plan_id, "src": str(src),
@@ -75,8 +76,9 @@ def undo_plan(plan_id: str) -> str:
         if dst.exists() and not src.exists():
             shutil.move(dst, src)
             undone += 1
-        for d in reversed(e.get("created_dirs", [])):     # remove folders the plan created,
-            d = Path(d)                                    # but only if they're empty again
+        # remove folders the plan created, but only if they're empty again
+        for d in reversed(e.get("created_dirs", [])):
+            d = Path(d)
             if d.is_dir() and not any(d.iterdir()):
                 d.rmdir()
     return f"Restored {undone} files from {plan_id}."
@@ -102,8 +104,9 @@ TOOLS = [
 
 def ask_human(name: str, args: dict) -> bool:
     """The approval gate lives in CODE, not in the prompt. The model can't skip it."""
-    if name == "apply_plan":                # show EVERY move; !r escapes odd characters,
-        for m in _plans.get(args.get("plan_id"), []):   # so a newline in a name can't hide one
+    # show EVERY move; !r escapes odd characters, so a newline in a name can't hide one
+    if name == "apply_plan":
+        for m in _plans.get(args.get("plan_id"), []):
             print(f"   {m['src']!r} -> {m['dst']!r}")
     reply = input(f"\nAPPROVE {name}({args})? [y/N] ").strip().lower()
     return reply == "y"

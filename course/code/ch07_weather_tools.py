@@ -10,8 +10,8 @@ GEO_URL = "https://geocoding-api.open-meteo.com/v1/search"
 FORECAST_URL = "https://api.open-meteo.com/v1/forecast"
 CACHE_SECONDS = 600
 CACHE_MAX_ENTRIES = 500       # bounded: an agent can ask for a LOT of different places
-_cache: OrderedDict = OrderedDict()   # (url, params) -> (expires_at, data), oldest first
-_cache_lock = threading.Lock()        # tools may run in parallel threads (exercise 7.5)
+_cache: OrderedDict = OrderedDict()  # (url, params) -> (expires_at, data), oldest first
+_cache_lock = threading.Lock()       # tools may run in parallel threads (exercise 7.5)
 stats = {"http_calls": 0, "cache_hits": 0}
 
 def _cache_get(key):
@@ -30,14 +30,17 @@ def _cache_put(key, data):
             _cache.popitem(last=False)                 # drop the oldest entry
 
 def _wait_before_retry(attempt: int, response=None) -> float:
-    """How long to wait: the server's Retry-After if it sent one (seconds), otherwise
-    exponential backoff with jitter, so many clients don't all retry at the same moment."""
-    retry_after = getattr(response, "headers", {}).get("retry-after") if response is not None else None
+    """How long to wait: the server's Retry-After if it sent one (seconds),
+    otherwise exponential backoff with jitter, so many clients don't all retry at
+    the same moment."""
+    retry_after = (getattr(response, "headers", {}).get("retry-after")
+                   if response is not None else None)
     if retry_after:
         try:
             return min(float(retry_after), 30.0)
         except ValueError:
-            pass                                 # an HTTP date instead of seconds: back off
+            # an HTTP date instead of seconds: back off
+            pass
     return 0.5 * 2 ** attempt * random.uniform(0.5, 1.5)   # ~0.5 s, ~1 s, ~2 s ...
 
 def _get_json(url: str, params: dict, retries: int = 2, timeout: float = 10.0):
@@ -52,19 +55,21 @@ def _get_json(url: str, params: dict, retries: int = 2, timeout: float = 10.0):
             with _cache_lock:
                 stats["http_calls"] += 1
             response = httpx.get(url, params=params, timeout=timeout)
-            if response.status_code == 429 or response.status_code >= 500:   # worth retrying
+            # worth retrying
+            if response.status_code == 429 or response.status_code >= 500:
                 raise httpx.HTTPStatusError(f"HTTP {response.status_code}",
                                             request=response.request, response=response)
-            response.raise_for_status()                         # other 4xx: don't retry
+            response.raise_for_status()                     # other 4xx: don't retry
             data = response.json()
             _cache_put(key, data)
             return data
-        except (httpx.TimeoutException, httpx.TransportError, httpx.HTTPStatusError) as e:
+        except (httpx.TimeoutException, httpx.TransportError,
+                httpx.HTTPStatusError) as e:
             last_error = e
             if isinstance(e, httpx.HTTPStatusError) and e.response.status_code < 500 \
                     and e.response.status_code != 429:
                 break
-            if attempt < retries:                               # no pointless final wait
+            if attempt < retries:                           # no pointless final wait
                 time.sleep(_wait_before_retry(attempt, response))
     raise RuntimeError(f"weather service unavailable after {retries + 1} tries: "
                        f"{last_error}")

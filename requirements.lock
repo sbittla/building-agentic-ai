@@ -85,6 +85,8 @@ googleapis-common-protos==1.75.4
     # via
     #   a2a-sdk
     #   google-api-core
+greenlet==3.2.5
+    # via playwright
 h11==0.16.0
     # via
     #   httpcore
@@ -228,6 +230,8 @@ pillow==12.3.0
     # via
     #   matplotlib
     #   voyageai
+playwright==1.56.0
+    # via -r requirements.in
 pluggy==1.6.0
     # via pytest
 propcache==0.5.4
@@ -262,6 +266,8 @@ pydantic==2.13.5
     #   voyageai
 pydantic-core==2.46.5
     # via pydantic
+pyee==13.0.1
+    # via playwright
 pygments==2.21.0
     # via
     #   pytest

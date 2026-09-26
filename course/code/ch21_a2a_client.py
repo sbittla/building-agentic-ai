@@ -1,10 +1,10 @@
-"""Chapter 13: an A2A client. It finds a remote agent through its agent card, sends it
+"""Chapter 21: an A2A client. It finds a remote agent through its agent card, sends it
 a task, prints the progress events and the answer, and shows how a coordinator can
 use a remote A2A agent as an ordinary tool.
 
-  ./course.sh python ch13_a2a_client.py                  local copy of the analyst
-  ./course.sh python ch13_a2a_client.py --coordinator    a local agent delegates to it
-  ./course.sh python ch13_a2a_client.py --url http://agentic-ai-a2a:9999 "Question?"
+  ./course.sh python ch21_a2a_client.py                  local copy of the analyst
+  ./course.sh python ch21_a2a_client.py --coordinator    a local agent delegates to it
+  ./course.sh python ch21_a2a_client.py --url http://agentic-ai-a2a:9999 "Question?"
                                                     talks to ./course.sh serve-a2a"""
 import asyncio
 import os
@@ -68,10 +68,10 @@ def a2a_tool(url: str, name: str, description: str):
     return tool, run_tool
 
 def start_local_server(port: int = 9999) -> str:
-    """Start the Chapter 13 A2A analyst in this process, for a one-terminal demo."""
+    """Start the Chapter 21 A2A analyst in this process, for a one-terminal demo."""
     import uvicorn
     os.environ.setdefault("A2A_PUBLIC_URL", f"http://127.0.0.1:{port}")
-    from ch13_a2a_server import build_app
+    from ch21_a2a_server import build_app
     config = uvicorn.Config(build_app(), host="127.0.0.1", port=port,
                             log_level="warning")
     server = uvicorn.Server(config)

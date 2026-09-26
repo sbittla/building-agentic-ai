@@ -18,7 +18,7 @@ for city in cities:                         # loop over every item
 
 # ---- 3. Dictionaries: named fields (the shape of almost all API data) ---------
 order = {"id": "A1001", "items": ["Laptop", "Mouse"], "total": 1225.0, "paid": True}
-print(order["id"], order.get("coupon", "no coupon"))   # .get returns a default if missing
+print(order["id"], order.get("coupon", "no coupon"))   # .get gives a default if missing
 order["status"] = "shipped"                            # add or change a field
 for key, value in order.items():
     print(f"  {key} = {value}")
@@ -40,7 +40,7 @@ def classify(temperature_c: float) -> str:
         return "hot"
 
 readings = [4.5, 18.0, 31.2]
-labels = [classify(t) for t in readings]      # a "list comprehension": a loop in one line
+labels = [classify(t) for t in readings]    # a "list comprehension": a loop in one line
 print(dict(zip(readings, labels)))
 
 # ---- 6. Errors: expect them, handle them ---------------------------------------

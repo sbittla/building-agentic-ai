@@ -16,8 +16,9 @@ def get_client():
     return _client
 
 def next_action(response):
-    """What to do after a model response: ("tools" | "done" | "continue" | "stop", note).
-    Every loop in this course uses this, so no stop reason is ever mistaken for success."""
+    """What to do after a model response:
+    ("tools" | "done" | "continue" | "stop", note). Every loop in this course uses
+    this, so no stop reason is ever mistaken for success."""
     reason = response.stop_reason
     if reason == "tool_use":
         return "tools", None
@@ -26,20 +27,24 @@ def next_action(response):
     if reason == "pause_turn":            # a long server-side step paused: send it back
         return "continue", None
     notes = {
-        "max_tokens": "the reply was cut off at max_tokens (raise max_tokens or ask for less)",
+        "max_tokens": "the reply was cut off at max_tokens "
+                      "(raise max_tokens or ask for less)",
         "refusal": "the model declined to continue with this request",
-        "model_context_window_exceeded": "the conversation no longer fits in the context "
-                                         "window (trim or compact it, chapter 16)",
+        "model_context_window_exceeded":
+            "the conversation no longer fits in the context window "
+            "(trim or compact it, chapter 16)",
     }
     note = notes.get(reason, f"unexpected stop_reason {reason!r}")
-    details = getattr(response, "stop_details", None)     # refusals say why: e.g. category "cyber"
-    if reason == "refusal" and details is not None and getattr(details, "category", None):
+    # refusals say why: e.g. category "cyber"
+    details = getattr(response, "stop_details", None)
+    if (reason == "refusal" and details is not None
+            and getattr(details, "category", None)):
         note += f" (category: {details.category})"
     return "stop", note
 
 def run_agent(question, tools, run_tool, system="You are a helpful assistant.",
               max_iterations=8, verbose=True, messages=None, should_stop=None,
-              max_tokens=4096, thinking=None, effort=None):
+              max_tokens=4096, thinking=None, effort=None, model=None):
     """Loop: call the model, run any tools it asks for, repeat until it stops.
 
     tools     -- list of tool descriptions (JSON Schema) sent to the model
@@ -47,7 +52,10 @@ def run_agent(question, tools, run_tool, system="You are a helpful assistant.",
     messages  -- optional existing history (for multi-turn chats)
     should_stop -- optional function(stats) -> reason or None, checked every step
     thinking  -- e.g. {"type": "adaptive"} to let the model reason before it acts
-    effort    -- "low" | "medium" | "high" | ...: how hard the model works (and what it costs)
+    effort    -- "low" | "medium" | "high" | ...: how hard the model works
+                 (and what it costs)
+    model     -- which model to call (default MODEL); Chapter 20 routes steps
+                 between models
     Returns (answer_text, messages, stats). stats["stop_reason"] says how it ended.
     """
     messages = list(messages or []) + [{"role": "user", "content": question}]
@@ -62,12 +70,13 @@ def run_agent(question, tools, run_tool, system="You are a helpful assistant.",
 
     for step in range(1, max_iterations + 1):
         response = get_client().messages.create(
-            model=MODEL, max_tokens=max_tokens, system=system,
+            model=model or MODEL, max_tokens=max_tokens, system=system,
             tools=tools, messages=messages, **extra)
         stats["steps"] = step
         stats["input_tokens"] += response.usage.input_tokens
         stats["output_tokens"] += response.usage.output_tokens
         stats["stop_reason"] = response.stop_reason
+        stats["model"] = model or MODEL
         # Append the WHOLE content, unchanged: with thinking on, it includes thinking
         # blocks (with signatures) that the API requires back on the next call.
         messages.append({"role": "assistant", "content": response.content})

@@ -1,6 +1,6 @@
 # Solutions
 
-This folder has a worked solution for every exercise in the book and working versions of the capstone projects (Capstone 6 arrives with Chapter 23). Try each exercise yourself first. You'll learn far more from getting stuck and unstuck than from reading an answer. Then compare.
+This folder has a worked solution for every exercise in the book and working versions of all six capstone projects. Try each exercise yourself first. You'll learn far more from getting stuck and unstuck than from reading an answer. Then compare.
 
 ## What's here
 

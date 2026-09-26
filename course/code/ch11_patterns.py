@@ -1,6 +1,6 @@
 """Chapter 11: four more ways agents work together. Each is a few lines on top of the
-Chapter 4 loop, and each passes STRUCTURED data between agents (structured outputs), never
-free text that the next agent has to guess at.
+Chapter 4 loop, and each passes STRUCTURED data between agents (structured outputs),
+never free text that the next agent has to guess at.
 
   route()      a router picks ONE specialist agent for the request
   handoff()    an analyst finds the facts, a writer turns them into a report
@@ -33,9 +33,11 @@ def route(request: str, verbose: bool = False):
                       obj(specialist={"type": "string", "enum": [*SPECIALISTS, "none"]},
                           reason={"type": "string"}))
     if choice["specialist"] == "none":
-        return choice, "Sorry, I can only help with sales data, your notes or the weather."
+        return choice, ("Sorry, I can only help with sales data, your notes or "
+                        "the weather.")
     m = SPECIALISTS[choice["specialist"]]
-    answer, _, _ = run_agent(request, m.TOOLS, m.run_tool, system=m.SYSTEM, verbose=verbose)
+    answer, _, _ = run_agent(request, m.TOOLS, m.run_tool, system=m.SYSTEM,
+                             verbose=verbose)
     return choice, answer
 
 # ---------------------------------------------------------------- 2. handoff
@@ -47,23 +49,26 @@ FINDINGS = obj(question={"type": "string"},
 def handoff(question: str, verbose: bool = False) -> tuple[dict, str]:
     """Stage 1 gathers facts with tools; stage 2 writes, with no tools and no access to
     the database, so it can only use what it was handed."""
-    raw, _, _ = run_agent(question, sql.TOOLS, sql.run_tool, system=sql.SYSTEM, verbose=verbose)
-    findings = ask_json(f"Turn this analysis into the findings format. Keep the SQL that "
-                        f"produced each fact.\n\n{raw}", FINDINGS)
-    report = ask_json("Write a three-sentence summary for a busy manager, using ONLY these "
-                      f"findings:\n{json.dumps(findings)}", obj(summary={"type": "string"}))
+    raw, _, _ = run_agent(question, sql.TOOLS, sql.run_tool, system=sql.SYSTEM,
+                          verbose=verbose)
+    findings = ask_json(f"Turn this analysis into the findings format. Keep the SQL "
+                        f"that produced each fact.\n\n{raw}", FINDINGS)
+    report = ask_json("Write a three-sentence summary for a busy manager, using ONLY "
+                      f"these findings:\n{json.dumps(findings)}",
+                      obj(summary={"type": "string"}))
     return findings, report["summary"]
 
-# ---------------------------------------------------------------- 3. evaluator-optimizer
-VERDICT = obj(approved={"type": "boolean"}, problems={"type": "array", "items": {"type": "string"}})
+# --------------------------------------------------------------- 3. evaluator-optimizer
+VERDICT = obj(approved={"type": "boolean"},
+              problems={"type": "array", "items": {"type": "string"}})
 
 def refine(task: str, rounds: int = 3) -> tuple[str, list]:
     draft = ask_json(task, obj(text={"type": "string"}))["text"]
     history = []
     for _ in range(rounds):
-        verdict = ask_json(f"Task: {task}\n\nDraft:\n{draft}\n\nCheck the draft against the task. "
-                           "Approve it only if it fully meets it.", VERDICT,
-                           system="You are a strict reviewer.")
+        verdict = ask_json(f"Task: {task}\n\nDraft:\n{draft}\n\nCheck the draft "
+                           "against the task. Approve it only if it fully meets it.",
+                           VERDICT, system="You are a strict reviewer.")
         history.append(verdict)
         if verdict["approved"]:
             break
@@ -84,10 +89,13 @@ def vote(question: str, options: list[str], n: int = 3) -> tuple[str, list]:
 if __name__ == "__main__":
     print("1. ROUTER:", route("How many orders shipped last month?", verbose=False))
     findings, summary = handoff("Which product category earns the most revenue?")
-    print("\n2. HANDOFF findings:", json.dumps(findings, indent=1)[:600], "\n   summary:", summary)
+    print("\n2. HANDOFF findings:", json.dumps(findings, indent=1)[:600],
+          "\n   summary:", summary)
     text, history = refine("Write a two-line product description for a standing desk. "
-                           "Mention the height range 70-120 cm and no marketing superlatives.")
+                           "Mention the height range 70-120 cm and no marketing "
+                           "superlatives.")
     print(f"\n3. REFINE after {len(history)} review(s):", text)
-    winner, ballots = vote("A customer writes: 'The chair arrived broken, I want my money back "
-                           "today.' How urgent is this?", ["low", "medium", "high"])
+    winner, ballots = vote("A customer writes: 'The chair arrived broken, I want my "
+                           "money back today.' How urgent is this?",
+                           ["low", "medium", "high"])
     print("\n4. VOTE:", winner, [b["choice"] for b in ballots])

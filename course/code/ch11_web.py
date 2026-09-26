@@ -2,9 +2,11 @@
 
 An agent that fetches URLs is a network client that ANYONE can steer: a page, a
 file or an issue can contain a URL. Two dangers:
-- SSRF: the URL points INSIDE your network (http://169.254.169.254/, http://localhost:8080,
-  a 10.x address) and the agent reads something only your machine should see.
-- Exfiltration: the URL points OUT, with your data in it (https://evil.example/?d=<notes>).
+- SSRF: the URL points INSIDE your network (http://169.254.169.254/,
+  http://localhost:8080, a 10.x address) and the agent reads something only your
+  machine should see.
+- Exfiltration: the URL points OUT, with your data in it
+  (https://evil.example/?d=<notes>).
 url_problem() handles the first; chapter 14's policy layer handles the second."""
 import ipaddress
 import re
@@ -32,7 +34,7 @@ def url_problem(url: str, allow_domains=None, resolve: bool = True) -> str | Non
         return f"cannot resolve {host}"
     for a in addresses:
         ip = ipaddress.ip_address(a)
-        if not ip.is_global:                  # private, loopback, link-local, reserved...
+        if not ip.is_global:  # private, loopback, link-local, reserved...
             return f"{host} resolves to a non-public address ({ip}); refusing"
     return None
 

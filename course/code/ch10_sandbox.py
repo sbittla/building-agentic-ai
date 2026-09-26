@@ -19,7 +19,8 @@ def run_in_sandbox(cmd: list[str], cwd: str = ".", timeout: int = 60) -> str:
     job = uuid.uuid4().hex[:12]
     (QUEUE / "requests").mkdir(parents=True, exist_ok=True)
     (QUEUE / "results").mkdir(parents=True, exist_ok=True)
-    request = {"id": job, "cmd": cmd, "cwd": str(Path(cwd).resolve()), "timeout": timeout}
+    request = {"id": job, "cmd": cmd, "cwd": str(Path(cwd).resolve()),
+               "timeout": timeout}
     tmp = QUEUE / "requests" / f"{job}.tmp"
     tmp.write_text(json.dumps(request))
     tmp.rename(QUEUE / "requests" / f"{job}.json")     # atomic hand-off

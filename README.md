@@ -64,7 +64,7 @@ On Windows, replace `./course.sh` with `.\course.cmd` everywhere.
 
 ## 3. Solutions
 
-The `solutions` folder has a worked solution for every exercise and reference versions of the capstones. Try each exercise first, then compare:
+The `solutions` folder has a worked solution for every exercise and reference versions of all six capstones. Try each exercise first, then compare:
 
 ```
 ./course.sh solution 4.4        # show the solution for exercise 4.4

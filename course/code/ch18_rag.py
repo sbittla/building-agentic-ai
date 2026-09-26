@@ -16,12 +16,14 @@ def chunk_file(path: Path, root: Path, max_chars: int = 600, overlap_lines: int 
     chunks, start = [], 0
     while start < len(lines):
         end, size = start, 0
-        while end < len(lines) and (size + len(lines[end]) <= max_chars or end == start):
+        while end < len(lines) and (size + len(lines[end]) <= max_chars
+                                    or end == start):
             size += len(lines[end]) + 1
             end += 1
         text = "\n".join(lines[start:end]).strip()
         if text:
-            chunks.append({"source": str(path.relative_to(root)), "line": start + 1, "text": text})
+            chunks.append({"source": str(path.relative_to(root)), "line": start + 1,
+                           "text": text})
         if end >= len(lines):
             break
         start = max(end - overlap_lines, start + 1)
@@ -29,7 +31,8 @@ def chunk_file(path: Path, root: Path, max_chars: int = 600, overlap_lines: int 
 
 def chunk_folder(root: str, pattern: str = "**/*.md", **kw):
     root = Path(root)
-    return [c for p in sorted(root.glob(pattern)) if p.is_file() for c in chunk_file(p, root, **kw)]
+    return [c for p in sorted(root.glob(pattern)) if p.is_file()
+            for c in chunk_file(p, root, **kw)]
 
 # ---------------------------------------------------------------- 2. embeddings
 class HashingEmbedder:
@@ -41,7 +44,8 @@ class HashingEmbedder:
         out = np.zeros((len(texts), self.dims), dtype=np.float32)
         for i, t in enumerate(texts):
             words = re.findall(r"\w+", t.lower())
-            feats = words + [w[j:j + 3] for w in words for j in range(max(1, len(w) - 2))]
+            feats = words + [w[j:j + 3] for w in words
+                             for j in range(max(1, len(w) - 2))]
             for f in feats:
                 h = int(hashlib.md5(f.encode()).hexdigest(), 16)
                 out[i, h % self.dims] += 1 if (h >> 64) % 2 else -1
@@ -49,7 +53,8 @@ class HashingEmbedder:
         return out / np.maximum(norms, 1e-9)
 
 class LocalEmbedder:
-    """A small semantic model that runs on your CPU (model2vec, ~30 MB, downloaded once)."""
+    """A small semantic model that runs on your CPU (model2vec, ~30 MB, downloaded
+    once)."""
     name = "local"
 
     def __init__(self, model="minishlab/potion-base-8M"):
@@ -70,7 +75,8 @@ class VoyageEmbedder:
 
     def embed(self, texts, input_type="document"):
         v = np.asarray(self.client.embed(list(texts), model=self.model,
-                                         input_type=input_type).embeddings, dtype=np.float32)
+                                         input_type=input_type).embeddings,
+                       dtype=np.float32)
         return v / np.maximum(np.linalg.norm(v, axis=1, keepdims=True), 1e-9)
 
 def get_embedder(name: str | None = None):
@@ -83,10 +89,11 @@ def get_embedder(name: str | None = None):
         except Exception as exc:
             if name == "local":
                 raise
-            print(f"(local embedding model unavailable: {type(exc).__name__}; using hashing)")
+            print(f"(local embedding model unavailable: {type(exc).__name__}; "
+                  "using hashing)")
     return HashingEmbedder()
 
-# ---------------------------------------------------------------- 3. keyword search (BM25)
+# ------------------------------------------------------------- 3. keyword search (BM25)
 class BM25:
     def __init__(self, texts, k1=1.5, b=0.75):
         self.docs = [re.findall(r"\w+", t.lower()) for t in texts]
@@ -116,7 +123,8 @@ class BM25:
 class Index:
     def __init__(self, chunks, embedder):
         self.chunks, self.embedder = chunks, embedder
-        self.vectors = embedder.embed([c["text"] for c in chunks]) if chunks else np.zeros((0, 1))
+        self.vectors = (embedder.embed([c["text"] for c in chunks]) if chunks
+                        else np.zeros((0, 1)))
         self.bm25 = BM25([c["text"] for c in chunks])
 
     def save(self, path="rag_index"):
@@ -135,7 +143,8 @@ class Index:
 
     def vector_ranks(self, query):
         q = self.embedder.embed([query], input_type="query")[0]
-        return list(np.argsort(-(self.vectors @ q)))           # cosine: vectors are unit length
+        # cosine: vectors are unit length
+        return list(np.argsort(-(self.vectors @ q)))
 
     def keyword_ranks(self, query):
         return list(np.argsort(-self.bm25.scores(query)))
@@ -153,25 +162,29 @@ class Index:
             order = sorted(fused, key=lambda i: -fused[i])
         return [self.chunks[i] for i in order[:k]]
 
-# ---------------------------------------------------------------- 5. RAG as an agent tool
+# -------------------------------------------------------------- 5. RAG as an agent tool
 _index = None
 
 def search_knowledge(query: str, k: int = 4) -> str:
     """Tool: the best matching passages, each with a (file:line) citation."""
     hits = _index.search(query, k=k)
-    return "\n\n".join(f"({h['source']}:{h['line']})\n{h['text']}" for h in hits) or "No results."
+    return "\n\n".join(f"({h['source']}:{h['line']})\n{h['text']}"
+                       for h in hits) or "No results."
 
-TOOLS = [{"name": "search_knowledge", "description": "Search the team knowledge base (notes "
-          "and library) by meaning and keywords. Returns passages with (file:line) citations. "
-          "Search before answering; search again with other words if results look off.",
+TOOLS = [{"name": "search_knowledge", "description": "Search the team knowledge base "
+          "(notes and library) by meaning and keywords. Returns passages with "
+          "(file:line) citations. Search before answering; search again with other "
+          "words if results look off.",
           "input_schema": {"type": "object", "properties": {"query": {"type": "string"},
                            "k": {"type": "integer"}}, "required": ["query"]}}]
-SYSTEM = ("Answer from the knowledge base only. Cite every fact as (file:line) exactly as the "
-          "search results show it. If the passages don't answer the question, say so.")
+SYSTEM = ("Answer from the knowledge base only. Cite every fact as (file:line) exactly "
+          "as the search results show it. If the passages don't answer the question, "
+          "say so.")
 
 def run_tool(name, args):
     try:
-        return search_knowledge(**args) if name == "search_knowledge" else f"ERROR: unknown tool {name}"
+        return (search_knowledge(**args) if name == "search_knowledge"
+                else f"ERROR: unknown tool {name}")
     except Exception as exc:
         return f"ERROR: {type(exc).__name__}: {exc}"
 
@@ -185,14 +198,18 @@ def build(roots=("notes", "library"), embedder=None):
     _index = Index(chunks, embedder or get_embedder())
     return _index
 
-# ---------------------------------------------------------------- 6. evaluating retrieval
+# -------------------------------------------------------------- 6. evaluating retrieval
 EVAL = [  # (question, the file that answers it)
-    ("What caused the consumer lag spike?", "notes/work/2026-06-02-incident-kafka-lag.md"),
+    ("What caused the consumer lag spike?",
+     "notes/work/2026-06-02-incident-kafka-lag.md"),
     ("When do we remove ZooKeeper?", "notes/work/2026-07-15-kafka-upgrade-plan.md"),
-    ("Why did checkout get slower after the May release?", "notes/work/2026-05-10-latency-review.md"),
-    ("How fast must the primary on-call respond?", "notes/work/2026-08-01-on-call-handbook.md"),
+    ("Why did checkout get slower after the May release?",
+     "notes/work/2026-05-10-latency-review.md"),
+    ("How fast must the primary on-call respond?",
+     "notes/work/2026-08-01-on-call-handbook.md"),
     ("How much table bloat did we fix?", "notes/work/2026-04-18-postgres-vacuum.md"),
-    ("What was the bottleneck in the search load test?", "notes/work/2026-03-03-load-test-results.md"),
+    ("What was the bottleneck in the search load test?",
+     "notes/work/2026-03-03-load-test-results.md"),
     ("Where is the router admin page?", "notes/personal/home-network.md"),
     ("What should I pack for the conference trip?", "notes/personal/travel-2026.md"),
     ("Which search misses exact error codes like ERR-4471?", "library/error-codes.md"),
@@ -211,11 +228,12 @@ def evaluate(index, k=3, modes=("keyword", "vector", "hybrid")):
             if expected in ranked[:k]:
                 hits += 1
             rr += 1 / (ranked.index(expected) + 1) if expected in ranked else 0
-        report[mode] = {"recall@k": round(hits / len(EVAL), 2), "mrr": round(rr / len(EVAL), 2)}
+        report[mode] = {"recall@k": round(hits / len(EVAL), 2),
+                        "mrr": round(rr / len(EVAL), 2)}
     return report
 
 if __name__ == "__main__":
-    # python ch18_rag.py                  build, evaluate, then ask the agent one question
+    # python ch18_rag.py                  build, evaluate, then ask the agent a question
     # python ch18_rag.py eval             build and evaluate only (no API key needed)
     # python ch18_rag.py search "query"   show the top 3 results in every mode
     args = sys.argv[1:]
@@ -223,8 +241,9 @@ if __name__ == "__main__":
         index = build()
     except Exception as exc:
         sys.exit(f"Could not load the {os.environ.get('EMBEDDER', 'auto')} embedder "
-                 f"({type(exc).__name__}: {exc}).\nThe local model downloads once from Hugging "
-                 "Face; if that's blocked, use EMBEDDER=hashing (or voyage with VOYAGE_API_KEY).")
+                 f"({type(exc).__name__}: {exc}).\nThe local model downloads once "
+                 "from Hugging Face; if that's blocked, use EMBEDDER=hashing (or "
+                 "voyage with VOYAGE_API_KEY).")
     print(f"{len(index.chunks)} chunks, embedder = {index.embedder.name}")
     if args[:1] == ["search"]:
         query = " ".join(args[1:]) or "temperature units"

@@ -1,4 +1,5 @@
-"""Chapter 30: a REMOTE MCP server over Streamable HTTP, as an OAuth-style resource server.
+"""Chapter 30: a REMOTE MCP server over Streamable HTTP, as an OAuth-style
+resource server.
 Run:  ./course.sh serve-mcp   (serves http://localhost:8000/mcp)
 
 The MCP SDK does the protocol parts for us:
@@ -22,18 +23,21 @@ from mcp.server.transport_security import TransportSecuritySettings
 import ch05_todo_tools as todo
 
 PUBLIC_URL = os.environ.get("MCP_PUBLIC_URL", "http://localhost:8000/mcp")
-ISSUER = os.environ.get("MCP_ISSUER_URL", "https://auth.example.com")   # your identity provider
+# your identity provider
+ISSUER = os.environ.get("MCP_ISSUER_URL", "https://auth.example.com")
 
 class StaticTokenVerifier:
-    """Maps tokens to scopes. MCP_TOKEN may read and write; MCP_READONLY_TOKEN may only read."""
+    """Maps tokens to scopes.
+    MCP_TOKEN may read and write; MCP_READONLY_TOKEN may only read."""
     def __init__(self, tokens: dict[str, list[str]]):
         self.tokens = {t: scopes for t, scopes in tokens.items() if t}
 
     async def verify_token(self, token: str) -> AccessToken | None:
         for known, scopes in self.tokens.items():
             if hmac.compare_digest(token.encode(), known.encode()):
-                return AccessToken(token=token, client_id="course-client", scopes=scopes,
-                                   resource=PUBLIC_URL, expires_at=int(time.time()) + 3600)
+                return AccessToken(token=token, client_id="course-client",
+                                   scopes=scopes, resource=PUBLIC_URL,
+                                   expires_at=int(time.time()) + 3600)
         return None
 
 def require(scope: str):
@@ -61,17 +65,22 @@ def build_server(tokens: dict[str, list[str]]) -> MCPServer:
         return todo.list_tasks()
     return mcp
 
-def build_app(token: str | None = None, host: str = "127.0.0.1", readonly_token: str | None = None):
+def build_app(token: str | None = None, host: str = "127.0.0.1",
+              readonly_token: str | None = None):
     token = token or os.environ.get("MCP_TOKEN", "")
     readonly_token = readonly_token or os.environ.get("MCP_READONLY_TOKEN", "")
     if not token:
-        raise RuntimeError("MCP_TOKEN is not set. Add a long random token to your .env.")
-    mcp = build_server({token: ["todo:read", "todo:write"], readonly_token: ["todo:read"]})
+        raise RuntimeError("MCP_TOKEN is not set. "
+                           "Add a long random token to your .env.")
+    mcp = build_server({token: ["todo:read", "todo:write"],
+                        readonly_token: ["todo:read"]})
     allowed = ["127.0.0.1:*", "localhost:*", "agentic-ai-mcp:*", "testserver"]
-    return mcp.streamable_http_app(host=host, transport_security=TransportSecuritySettings(
-        enable_dns_rebinding_protection=True, allowed_hosts=allowed,
-        allowed_origins=["http://localhost:*", "http://127.0.0.1:*"]))
+    return mcp.streamable_http_app(
+        host=host, transport_security=TransportSecuritySettings(
+            enable_dns_rebinding_protection=True, allowed_hosts=allowed,
+            allowed_origins=["http://localhost:*", "http://127.0.0.1:*"]))
 
 if __name__ == "__main__":
     host = os.environ.get("MCP_HOST", "127.0.0.1")
-    uvicorn.run(build_app(host=host), host=host, port=int(os.environ.get("MCP_PORT", "8000")))
+    uvicorn.run(build_app(host=host), host=host,
+                port=int(os.environ.get("MCP_PORT", "8000")))

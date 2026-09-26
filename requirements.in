@@ -19,3 +19,4 @@ model2vec
 voyageai
 opentelemetry-sdk
 a2a-sdk[http-server]
+playwright

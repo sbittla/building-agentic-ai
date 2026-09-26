@@ -25,7 +25,8 @@ logging.basicConfig(level=logging.INFO, format="%(message)s")
 # ---------------------------------------------------------------- configuration
 # Keys come ONLY from the environment. No default: a service with a built-in key
 # is a service anyone who has read this book can call.
-API_KEYS = [k.strip() for k in os.environ.get("AGENT_API_KEYS", "").split(",") if k.strip()]
+API_KEYS = [k.strip() for k in os.environ.get("AGENT_API_KEYS", "").split(",")
+            if k.strip()]
 RATE_PER_MINUTE = int(os.environ.get("AGENT_RATE_PER_MINUTE", "10"))
 MAX_STEPS = int(os.environ.get("AGENT_MAX_STEPS", "8"))
 MAX_TOKENS_PER_REQUEST = int(os.environ.get("AGENT_MAX_TOKENS", "40000"))
@@ -36,10 +37,12 @@ DB = os.environ.get("AGENT_SESSIONS_DB", "sessions.db")
 async def lifespan(app):
     """Fail CLOSED: refuse to start without API keys, instead of running unprotected."""
     if not API_KEYS:
-        raise RuntimeError("AGENT_API_KEYS is not set. Add long random keys to your .env, "
-                           "e.g. AGENT_API_KEYS=" + uuid.uuid4().hex + uuid.uuid4().hex)
+        raise RuntimeError("AGENT_API_KEYS is not set. Add long random keys to "
+                           "your .env, e.g. AGENT_API_KEYS="
+                           + uuid.uuid4().hex + uuid.uuid4().hex)
     if any(len(k) < 16 for k in API_KEYS):
-        log.warning("Some AGENT_API_KEYS are shorter than 16 characters: easy to guess.")
+        log.warning("Some AGENT_API_KEYS are shorter than 16 characters: "
+                    "easy to guess.")
     yield
 
 app = FastAPI(title="Shop analyst agent", version="1.1", lifespan=lifespan)
@@ -59,8 +62,9 @@ def api_key(authorization: str = Header(default="")) -> str:
             return key_id(key)
     raise HTTPException(status_code=401, detail="Missing or invalid API key.")
 
-# ---------------------------------------------------------------- rate limiting (token bucket)
-# One process only: with several server processes, keep the buckets in Redis or similar.
+# ---------------------------------------------------------------- rate limiting
+# A token bucket per caller. One process only: with several server processes, keep
+# the buckets in Redis or similar.
 _buckets: dict = {}
 _lock = threading.Lock()
 
@@ -96,7 +100,8 @@ def _plain(block):
     return d
 
 def _serialize(messages):
-    return json.dumps([{"role": m["role"], "content": m["content"] if isinstance(m["content"], str)
+    return json.dumps([{"role": m["role"],
+                        "content": m["content"] if isinstance(m["content"], str)
                         else [_plain(b) for b in m["content"]]} for m in messages])
 
 def bounded(messages, limit=MAX_HISTORY_MESSAGES):
@@ -105,15 +110,18 @@ def bounded(messages, limit=MAX_HISTORY_MESSAGES):
     if len(messages) <= limit:
         return messages
     starts = [i for i, m in enumerate(messages)
-              if m["role"] == "user" and isinstance(m["content"], str) and i >= len(messages) - limit]
+              if m["role"] == "user" and isinstance(m["content"], str)
+              and i >= len(messages) - limit]
     return messages[starts[0]:] if starts else messages[-1:]
 
 def load_session(session_id, owner):
     with contextlib.closing(_db()) as con:
-        row = con.execute("SELECT owner, messages FROM sessions WHERE id=?", (session_id,)).fetchone()
+        row = con.execute("SELECT owner, messages FROM sessions WHERE id=?",
+                          (session_id,)).fetchone()
     if row is None:
         return []
-    if not hmac.compare_digest(row[0], owner):   # never serve another caller's conversation
+    # never serve another caller's conversation
+    if not hmac.compare_digest(row[0], owner):
         raise HTTPException(status_code=404, detail="No such session.")
     return bounded(json.loads(row[1]))
 
@@ -131,7 +139,8 @@ def session_lock(session_id):
     with _lock:
         lock = _session_locks.setdefault(session_id, threading.Lock())
     if not lock.acquire(timeout=0):
-        raise HTTPException(status_code=409, detail="This session is busy; retry shortly.")
+        raise HTTPException(status_code=409,
+                            detail="This session is busy; retry shortly.")
     try:
         yield
     finally:
@@ -153,8 +162,9 @@ def run(message, history, on_tool=None, cancelled=None):
         if stats["input_tokens"] + stats["output_tokens"] > MAX_TOKENS_PER_REQUEST:
             return f"token budget of {MAX_TOKENS_PER_REQUEST} reached"
         return None
-    return ch04_agent.run_agent(message, sql.TOOLS, run_tool, system=SYSTEM, messages=history,
-                                max_iterations=MAX_STEPS, verbose=False, should_stop=should_stop)
+    return ch04_agent.run_agent(message, sql.TOOLS, run_tool, system=SYSTEM,
+                                messages=history, max_iterations=MAX_STEPS,
+                                verbose=False, should_stop=should_stop)
 
 class ChatRequest(BaseModel):
     message: str = Field(min_length=1, max_length=4000)
@@ -180,15 +190,20 @@ def chat(req: ChatRequest, caller: str = Depends(rate_limit)):
         history = load_session(session_id, caller)
         try:
             answer, messages, stats = run(req.message, history)
-        except Exception as exc:               # model/API failure: log it, return a clean 502
+        except Exception as exc:
+            # model/API failure: log it, return a clean 502
             log.error(json.dumps({"request_id": request_id, "caller": caller,
                                   "error": type(exc).__name__}))
-            raise HTTPException(status_code=502, detail="The model service failed; try again.")
+            raise HTTPException(status_code=502,
+                                detail="The model service failed; try again.")
         save_session(session_id, caller, messages)
-    log.info(json.dumps({"request_id": request_id, "caller": caller, "session": session_id,
-                         "ms": round((time.perf_counter() - t0) * 1000), **stats}))  # no text, no keys
+    # no text, no keys
+    log.info(json.dumps({"request_id": request_id, "caller": caller,
+                         "session": session_id,
+                         "ms": round((time.perf_counter() - t0) * 1000), **stats}))
     return ChatResponse(session_id=session_id, answer=answer, steps=stats["steps"],
-                        tool_calls=stats["tool_calls"], input_tokens=stats["input_tokens"],
+                        tool_calls=stats["tool_calls"],
+                        input_tokens=stats["input_tokens"],
                         output_tokens=stats["output_tokens"])
 
 @app.post("/v1/chat/stream")
@@ -210,13 +225,17 @@ def chat_stream(req: ChatRequest, caller: str = Depends(rate_limit)):
                     on_tool=lambda n, a, o: events.put(
                         ("tool", {"name": n, "input": a, "result_preview": o[:200]})))
                 save_session(session_id, caller, messages)
-            log.info(json.dumps({"request_id": request_id, "caller": caller, "stream": True,
-                                 "ms": round((time.perf_counter() - t0) * 1000), **stats}))
-            events.put(("answer", {"session_id": session_id, "answer": answer, **stats}))
+            log.info(json.dumps({"request_id": request_id, "caller": caller,
+                                 "stream": True,
+                                 "ms": round((time.perf_counter() - t0) * 1000),
+                                 **stats}))
+            events.put(("answer", {"session_id": session_id, "answer": answer,
+                                   **stats}))
         except HTTPException as exc:
             events.put(("error", {"error": exc.detail}))
         except Exception as exc:
-            log.error(json.dumps({"request_id": request_id, "error": type(exc).__name__}))
+            log.error(json.dumps({"request_id": request_id,
+                                  "error": type(exc).__name__}))
             events.put(("error", {"error": type(exc).__name__}))
         events.put(None)
 
@@ -228,12 +247,14 @@ def chat_stream(req: ChatRequest, caller: str = Depends(rate_limit)):
                 try:
                     item = events.get(timeout=15)
                 except queue.Empty:
-                    yield ": keep-alive\n\n"            # an SSE comment: clients ignore it
+                    # an SSE comment: clients ignore it
+                    yield ": keep-alive\n\n"
                     continue
                 if item is None:
                     return
                 name, data = item
                 yield f"event: {name}\ndata: {json.dumps(data)}\n\n"
         finally:
-            cancelled.set()                             # runs when the client disconnects too
+            # runs when the client disconnects too
+            cancelled.set()
     return StreamingResponse(stream(), media_type="text/event-stream")

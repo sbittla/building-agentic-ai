@@ -296,10 +296,6 @@
   "exercises/servers_with_analyst.json",
   "tests/test_multiagent.py"
  ],
- "13.9": [
-  "exercises/ex13_9_a2a_team.py",
-  "tests/test_a2a.py"
- ],
  "14.3": [
   "ANSWERS.md",
   "exercises/ex14_4_digest.py"
@@ -309,12 +305,6 @@
  ],
  "14.5": [
   "exercises/sol_ch14_untrusted.py"
- ],
- "14.6": [
-  "exercises/ex14_6_redteam.py"
- ],
- "14.7": [
-  "ANSWERS.md"
  ],
  "16.3": [
   "ANSWERS.md"
@@ -439,5 +429,167 @@
  "30.7": [
   "exercises/ex30_7_deploy.sh",
   "tests/test_ch16_30.py"
+ ],
+ "19.3": [
+  "ANSWERS.md"
+ ],
+ "19.4": [
+  "exercises/ex19_4_workers.py",
+  "tests/test_part7.py"
+ ],
+ "19.5": [
+  "exercises/ex19_5_budget.py",
+  "tests/test_part7.py"
+ ],
+ "19.6": [
+  "exercises/ex19_6_report_loop.py",
+  "tests/test_part7.py"
+ ],
+ "20.3": [
+  "exercises/ex20_3_bad_plans.py",
+  "tests/test_part7.py"
+ ],
+ "20.4": [
+  "exercises/ex20_4_parallel_plan.py",
+  "tests/test_part7.py"
+ ],
+ "20.5": [
+  "exercises/ex20_5_router_eval.py",
+  "tests/test_part7.py"
+ ],
+ "20.6": [
+  "exercises/ex20_6_durable_plan.py",
+  "tests/test_part7.py"
+ ],
+ "21.3": [
+  "ANSWERS.md"
+ ],
+ "21.4": [
+  "exercises/ex21_4_failures.py",
+  "tests/test_part7.py"
+ ],
+ "21.5": [
+  "exercises/ex21_5_a2a_team.py",
+  "tests/test_a2a.py"
+ ],
+ "21.6": [
+  "exercises/ex21_6_mixed_team.py",
+  "tests/test_a2a.py"
+ ],
+ "22.3": [
+  "ANSWERS.md"
+ ],
+ "22.4": [
+  "exercises/ex22_4_policy_json.py",
+  "tests/test_part7.py"
+ ],
+ "22.5": [
+  "exercises/ex22_5_attacks.py",
+  "tests/test_part7.py"
+ ],
+ "22.6": [
+  "exercises/ex22_6_guarded_sql.py",
+  "tests/test_part7.py"
+ ],
+ "23.3": [
+  "exercises/ex23_3_by_hand.py",
+  "tests/test_part7.py"
+ ],
+ "23.4": [
+  "exercises/ex23_4_injection.py",
+  "tests/test_part7.py"
+ ],
+ "23.5": [
+  "exercises/ex23_5_verified_queue.py",
+  "tests/test_part7.py"
+ ],
+ "23.6": [
+  "exercises/ex23_6_durable_queue.py",
+  "tests/test_part7.py"
+ ],
+ "24.8": [
+  "exercises/ex24_8_skill_eval.py",
+  "tests/test_part7.py"
+ ],
+ "25.6": [
+  "exercises/ex25_6_redteam.py"
+ ],
+ "25.2": [
+  "ANSWERS.md"
+ ],
+ "25.3": [
+  "ANSWERS.md"
+ ],
+ "25.4": [
+  "exercises/ex25_4_calendar.py",
+  "tests/test_part8.py"
+ ],
+ "25.5": [
+  "exercises/ex25_5_evasion.py",
+  "tests/test_part8.py"
+ ],
+ "26.3": [
+  "exercises/ex26_3_break_token.py",
+  "tests/test_part8.py"
+ ],
+ "26.4": [
+  "exercises/ex26_4_team_tokens.py",
+  "tests/test_part8.py"
+ ],
+ "26.5": [
+  "exercises/ex26_5_breaker.py",
+  "tests/test_part8.py"
+ ],
+ "26.6": [
+  "exercises/ex26_6_orders_api.py",
+  "tests/test_part8.py"
+ ],
+ "27.6": [
+  "exercises/ex27_6_trajectory.py",
+  "exercises/ex27_6_trajectory.jsonl",
+  "tests/test_part9.py"
+ ],
+ "27.7": [
+  "exercises/ex27_7_online.py",
+  "tests/test_part9.py"
+ ],
+ "28.3": [
+  "ANSWERS.md"
+ ],
+ "28.4": [
+  "exercises/ex28_4_ignored_error.py",
+  "tests/test_part9.py"
+ ],
+ "28.5": [
+  "exercises/ex28_5_burn.py",
+  "tests/test_part9.py"
+ ],
+ "29.4": [
+  "exercises/ex29_4_budgets.py",
+  "tests/test_part9.py"
+ ],
+ "29.5": [
+  "exercises/ex29_5_cost_cut.py",
+  "tests/test_part9.py"
+ ],
+ "15.3": [
+  "exercises/ex15_3_wire.py",
+  "tests/test_part5_mcp2026.py"
+ ],
+ "15.4": [
+  "exercises/ex15_4_cache.py",
+  "tests/test_part5_mcp2026.py"
+ ],
+ "15.5": [
+  "exercises/ex15_5_scoped_search.py",
+  "tests/test_part5_mcp2026.py"
+ ],
+ "15.6": [
+  "exercises/ex15_6_jobs.py",
+  "tests/test_part5_mcp2026.py"
+ ],
+ "15.7": [
+  "exercises/ex15_7_gateway_agent.py",
+  "tests/test_part5_mcp2026.py"
  ]
 }

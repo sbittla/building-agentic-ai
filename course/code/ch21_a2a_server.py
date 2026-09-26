@@ -1,4 +1,4 @@
-"""Chapter 13: the Chapter 8 SQL analyst published as an A2A (Agent2Agent) agent.
+"""Chapter 21: the Chapter 8 SQL analyst published as an A2A (Agent2Agent) agent.
 
 Section 13.6 published this agent as an MCP *tool*. Here it becomes an A2A *agent*: it
 describes itself in an agent card, accepts tasks, reports progress while it works and
@@ -6,7 +6,7 @@ returns its answer as an artifact. Any A2A client, in any framework, can use it.
 
 Run it:    ./course.sh serve-a2a
            (its card: http://localhost:9999/.well-known/agent-card.json)
-Try it:    ./course.sh python ch13_a2a_client.py   (starts its own copy if needed)
+Try it:    ./course.sh python ch21_a2a_client.py   (starts its own copy if needed)
 Secure it: set A2A_TOKEN in .env; callers then send "Authorization: Bearer <token>"."""
 import asyncio
 import hmac

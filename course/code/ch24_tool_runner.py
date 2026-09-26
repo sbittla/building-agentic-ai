@@ -24,10 +24,11 @@ def ask(question: str, client=None) -> str:
     client = client or Anthropic()
     runner = client.beta.messages.tool_runner(
         model=MODEL, max_tokens=4096, max_iterations=8,        # the loop and its cap
-        tools=[get_current_date, days_between],                # schemas come from the functions
+        # schemas come from the functions
+        tools=[get_current_date, days_between],
         messages=[{"role": "user", "content": question}])
     final = None
-    for message in runner:                                     # one item per model response
+    for message in runner:                      # one item per model response
         for block in message.content:
             if block.type == "tool_use":
                 print(f"  -> {block.name}({block.input})")

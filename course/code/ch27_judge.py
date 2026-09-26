@@ -23,12 +23,14 @@ def client():
         _client = Anthropic(timeout=120, max_retries=3)
     return _client
 
-# Structured outputs guarantee the reply is JSON in this shape. (A forced tool call does the
-# same job, but the newest models reject forced tools; structured outputs work everywhere.)
+# Structured outputs guarantee the reply is JSON in this shape. (A forced tool call
+# does the same job, but the newest models reject forced tools; structured outputs
+# work everywhere.)
 VERDICT = {"type": "object", "additionalProperties": False,
            "required": ["reason", "score", "passed"],
            "properties": {
-               "reason": {"type": "string", "description": "Two sentences, written BEFORE the score."},
+               "reason": {"type": "string",
+                          "description": "Two sentences, written BEFORE the score."},
                "score": {"type": "integer", "enum": [1, 2, 3, 4, 5]},
                "passed": {"type": "boolean"}}}
 
@@ -38,13 +40,16 @@ RUBRIC = """Grade the ASSISTANT ANSWER to the USER QUESTION.
 3 = partly correct or padded with irrelevant text
 2 = mostly wrong or evasive
 1 = wrong, unsafe, or ignores the question
-passed = score >= 4. Judge only what is written; don't reward length or confident tone."""
+passed = score >= 4. Judge only what is written; don't reward length or confident
+tone."""
 
 def _request(question, answer, rubric):
-    return {"model": JUDGE_MODEL, "max_tokens": 2000, "system": rubric,   # room for thinking too
+    # max_tokens leaves room for thinking too
+    return {"model": JUDGE_MODEL, "max_tokens": 2000, "system": rubric,
             "output_config": {"format": {"type": "json_schema", "schema": VERDICT}},
             "messages": [{"role": "user", "content":
-                          f"<question>\n{question}\n</question>\n<answer>\n{answer}\n</answer>"}]}
+                          f"<question>\n{question}\n</question>\n"
+                          f"<answer>\n{answer}\n</answer>"}]}
 
 def _verdict(message) -> dict:
     return json.loads("".join(b.text for b in message.content if b.type == "text"))
@@ -53,11 +58,13 @@ def judge(question: str, answer: str, rubric: str = RUBRIC) -> dict:
     """Grade one answer now: {"reason": ..., "score": 1-5, "passed": bool}."""
     return _verdict(client().messages.create(**_request(question, answer, rubric)))
 
-def judge_batch(items, rubric: str = RUBRIC, poll_seconds: float = 30, max_wait: float = 86_400):
+def judge_batch(items, rubric: str = RUBRIC, poll_seconds: float = 30,
+                max_wait: float = 86_400):
     """Grade many (question, answer) pairs with the Message Batches API (50% cheaper).
     Batches usually finish within an hour; the API allows up to 24 hours."""
     batch = client().messages.batches.create(requests=[
-        {"custom_id": f"item-{i}", "params": _request(q, a, rubric)} for i, (q, a) in enumerate(items)])
+        {"custom_id": f"item-{i}", "params": _request(q, a, rubric)}
+        for i, (q, a) in enumerate(items)])
     deadline = time.time() + max_wait
     while batch.processing_status != "ended":
         if time.time() > deadline:
@@ -68,14 +75,16 @@ def judge_batch(items, rubric: str = RUBRIC, poll_seconds: float = 30, max_wait:
     for r in client().messages.batches.results(batch.id):
         if r.result.type == "succeeded":
             verdicts[r.custom_id] = _verdict(r.result.message)
-        else:                                   # errored / expired: grade it again later
-            verdicts[r.custom_id] = {"reason": f"batch item {r.result.type}", "score": None,
-                                     "passed": None}
+        else:
+            # errored / expired: grade it again later
+            verdicts[r.custom_id] = {"reason": f"batch item {r.result.type}",
+                                     "score": None, "passed": None}
     return [verdicts.get(f"item-{i}") for i in range(len(items))]
 
 def agreement(judge_labels: list[bool], human_labels: list[bool]) -> dict:
-    """How often the judge agrees with people, and Cohen's kappa: agreement beyond what
-    chance would give. Rough guide: > 0.8 excellent, 0.6-0.8 good, < 0.4 don't use it."""
+    """How often the judge agrees with people, and Cohen's kappa: agreement beyond
+    what chance would give.
+    Rough guide: > 0.8 excellent, 0.6-0.8 good, < 0.4 don't use it."""
     pairs = [(j, h) for j, h in zip(judge_labels, human_labels) if j is not None]
     n = len(pairs)
     if n == 0:
@@ -88,8 +97,10 @@ def agreement(judge_labels: list[bool], human_labels: list[bool]) -> dict:
     return {"n": n, "agreement": round(observed, 3), "kappa": round(kappa, 3)}
 
 if __name__ == "__main__":
-    samples = [("How many orders were cancelled?", "88 orders were cancelled (SELECT COUNT(*) ...)."),
-               ("How many orders were cancelled?", "Quite a few, probably around a hundred."),
+    samples = [("How many orders were cancelled?",
+                "88 orders were cancelled (SELECT COUNT(*) ...)."),
+               ("How many orders were cancelled?",
+                "Quite a few, probably around a hundred."),
                ("Which city has the most customers?", "Berlin, with 14 customers.")]
     for q, a in samples:
         print(json.dumps(judge(q, a)), "<-", a)

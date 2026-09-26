@@ -21,12 +21,13 @@ async def fake_agent(question: str) -> str:
 
 def pct(values, p):
     values = sorted(values)
-    return values[min(len(values) - 1, int(round(p / 100 * (len(values) - 1))))] if values else 0.0
+    return (values[min(len(values) - 1, int(round(p / 100 * (len(values) - 1))))]
+            if values else 0.0)
 
 async def open_loop(agent, rate: float, seconds: float, max_in_flight: int = 20,
                     timeout: float = 60, seed: int = 1):
-    """Send about rate*seconds requests at random (Poisson) arrival times.
-    max_in_flight models the system's capacity (e.g. your provider's concurrency limit)."""
+    """Send about rate*seconds requests at random (Poisson) arrival times. max_in_flight
+    models the system's capacity (e.g. your provider's concurrency limit)."""
     rng = random.Random(seed)
     sem = asyncio.Semaphore(max_in_flight)
     latencies, errors = [], []
@@ -37,7 +38,8 @@ async def open_loop(agent, rate: float, seconds: float, max_in_flight: int = 20,
         async with sem:                          # waiting here IS part of the latency
             try:
                 await asyncio.wait_for(agent(f"q{i}"), timeout=timeout)
-                latencies.append(time.perf_counter() - (start + scheduled))  # from INTENDED send
+                # from INTENDED send
+                latencies.append(time.perf_counter() - (start + scheduled))
             except Exception as exc:
                 errors.append(type(exc).__name__)
 
@@ -67,17 +69,19 @@ async def session(agent, questions, latencies, errors, sem):
                 errors.append(type(exc).__name__)
 
 async def load_test(agent, users=50, questions_per_user=3, max_in_flight=20):
-    """Closed loop. When the agent slows down, these users send LESS, so the test quietly
-    reduces the load it's supposed to measure. Fine for a smoke test, not for capacity."""
+    """Closed loop. When the agent slows down, these users send LESS, so the test
+    quietly reduces the load it's supposed to measure. Fine for a smoke test, not
+    for capacity."""
     latencies, errors = [], []
     sem = asyncio.Semaphore(max_in_flight)
-    await asyncio.gather(*(session(agent, [f"q{u}-{i}" for i in range(questions_per_user)],
+    await asyncio.gather(*(session(agent,
+                                   [f"q{u}-{i}" for i in range(questions_per_user)],
                                    latencies, errors, sem) for u in range(users)))
     return latencies, errors
 
 def report(r):
-    print(f"offered {r['offered_rps']}/s  requests={r['requests']} errors={r['errors']} "
-          f"throughput={r['throughput_rps']}/s")
+    print(f"offered {r['offered_rps']}/s  requests={r['requests']} "
+          f"errors={r['errors']} throughput={r['throughput_rps']}/s")
     print(f"latency p50={r['p50']:.2f}s p95={r['p95']:.2f}s max={r['max']:.2f}s")
 
 if __name__ == "__main__":

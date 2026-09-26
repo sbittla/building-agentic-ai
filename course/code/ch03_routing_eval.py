@@ -26,5 +26,6 @@ for question, expected in CASES:
     got = first_tool(question)
     ok = got == expected
     correct += ok
-    print(f"{'PASS' if ok else 'FAIL'}  expected={expected!s:17} got={got!s:17} {question}")
+    print(f"{'PASS' if ok else 'FAIL'}  expected={expected!s:17} "
+          f"got={got!s:17} {question}")
 print(f"Routing accuracy: {correct}/{len(CASES)} = {correct/len(CASES):.0%}")

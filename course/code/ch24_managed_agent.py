@@ -8,8 +8,8 @@ Two things still happen in YOUR code, on purpose:
   * approvals: bash is set to always_ask, so every shell command waits for your OK.
 A budget caps what one session may spend.
 
-Run:  python ch24_managed_agent.py     (uses the real API: creates an agent, environment
-                                         and session, then archives the session)"""
+Run:  python ch24_managed_agent.py    (uses the real API: creates an agent, environment
+                                        and session, then archives the session)"""
 import os
 import ch08_sql_tools as sql
 from ch04_agent import get_client
@@ -18,8 +18,9 @@ MODEL = os.environ.get("MODEL", "claude-sonnet-5")
 
 RUN_QUERY = {
     "type": "custom", "name": "run_query",
-    "description": "Run one read-only SQL SELECT on the shop database (tables: customers, "
-                   "products, orders, order_items). Returns up to 50 rows as a text table.",
+    "description": "Run one read-only SQL SELECT on the shop database (tables: "
+                   "customers, products, orders, order_items). Returns up to 50 rows "
+                   "as a text table.",
     "input_schema": {"type": "object", "properties": {"sql": {"type": "string"}},
                      "required": ["sql"]},
 }
@@ -27,8 +28,8 @@ RUN_QUERY = {
 AGENT = {
     "name": "shop-analyst",
     "model": MODEL,
-    "system": "You analyze the shop's sales. Use run_query for data. You may write files and "
-              "charts in your sandbox. Never guess a number.",
+    "system": "You analyze the shop's sales. Use run_query for data. You may write "
+              "files and charts in your sandbox. Never guess a number.",
     "tools": [
         {"type": "agent_toolset_20260401",
          "default_config": {"permission_policy": {"type": "always_allow"}},
@@ -41,9 +42,11 @@ AGENT = {
 
 ENVIRONMENT = {"name": "shop-analyst-env",
                "config": {"type": "cloud",
-                          "networking": {"type": "limited", "allowed_hosts": []}}}   # no internet
+                          # no internet
+                          "networking": {"type": "limited", "allowed_hosts": []}}}
 
-BUDGET = {"type": "limit", "max_list_cost": {"amount": "100", "currency": "USD"}}   # $1.00
+# max_list_cost of $1.00
+BUDGET = {"type": "limit", "max_list_cost": {"amount": "100", "currency": "USD"}}
 
 def console_approve(event) -> bool:
     print(f"\n[approval] {event.name}: {event.input}")
@@ -56,7 +59,8 @@ def handle(event, approve=console_approve) -> list[dict]:
             if block.type == "text":
                 print(block.text, end="", flush=True)
     elif event.type == "agent.custom_tool_use" and event.name == "run_query":
-        result = sql.run_tool("run_query", event.input)          # runs HERE, not in the cloud
+        # runs HERE, not in the cloud
+        result = sql.run_tool("run_query", event.input)
         print(f"\n[run_query] {event.input.get('sql', '')[:70]}")
         return [{"type": "user.custom_tool_result", "custom_tool_use_id": event.id,
                  "content": [{"type": "text", "text": result}],
@@ -66,12 +70,14 @@ def handle(event, approve=console_approve) -> list[dict]:
             ok = approve(event)
             return [{"type": "user.tool_confirmation", "tool_use_id": event.id,
                      "result": "allow" if ok else "deny",
-                     **({} if ok else {"deny_message": "The user declined this command."})}]
+                     **({} if ok else
+                        {"deny_message": "The user declined this command."})}]
         print(f"\n[{event.name}]", end="")
     return []
 
 def run(question: str, client=None, approve=console_approve) -> str:
-    """Create everything, run one question to the end, archive the session. Returns why it ended."""
+    """Create everything, run one question to the end, archive the session.
+    Returns why it ended."""
     client = client or get_client()
     agent = client.beta.agents.create(**AGENT)
     env = client.beta.environments.create(**ENVIRONMENT)
@@ -81,13 +87,15 @@ def run(question: str, client=None, approve=console_approve) -> str:
     try:
         with client.beta.sessions.events.stream(session.id) as stream:
             client.beta.sessions.events.send(session.id, events=[
-                {"type": "user.message", "content": [{"type": "text", "text": question}]}])
+                {"type": "user.message",
+                 "content": [{"type": "text", "text": question}]}])
             for event in stream:
                 replies = handle(event, approve)
                 if replies:
                     client.beta.sessions.events.send(session.id, events=replies)
-                if event.type == "session.status_idle" and event.stop_reason.type != "requires_action":
-                    ended = event.stop_reason.type           # end_turn, budget_reached, ...
+                if (event.type == "session.status_idle"
+                        and event.stop_reason.type != "requires_action"):
+                    ended = event.stop_reason.type   # end_turn, budget_reached, ...
                     break
                 if event.type == "session.error":
                     ended = "error"

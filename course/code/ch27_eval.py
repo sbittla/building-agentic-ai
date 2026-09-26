@@ -1,6 +1,7 @@
 """Chapter 27: an evaluation suite you run after every change.
 
-Run:  python ch27_eval.py [cases.jsonl] [trials]      e.g.  python ch27_eval.py eval_sql.jsonl 3
+Run:  python ch27_eval.py [cases.jsonl] [trials]
+      e.g.  python ch27_eval.py eval_sql.jsonl 3
 
 Models are not deterministic, so ONE run per case proves little. Each case runs
 `trials` times, and the report gives the pass rate with a 95% confidence interval,
@@ -28,7 +29,8 @@ def _query(sql):
 def db_fingerprint() -> str:
     """A hash of every row of every table: if it changes, something was written."""
     h = hashlib.sha256()
-    for (table,) in _query("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name"):
+    for (table,) in _query("SELECT name FROM sqlite_master WHERE type='table' "
+                           "ORDER BY name"):
         for row in _query(f"SELECT * FROM {table} ORDER BY rowid"):
             h.update(repr(row).encode())
     return h.hexdigest()
@@ -40,17 +42,19 @@ def contains_value(answer: str, value) -> bool:
     """Does the answer state this value? Numbers may be written as 19,238 or 19238.0
     or rounded; text is matched case-insensitively."""
     if isinstance(value, (int, float)):
-        # Small counts must be exact (399 is not 400); big amounts may be rounded (0.5%).
+        # Small counts must be exact (399 is not 400); big ones may be rounded (0.5%).
         tolerance = 0.51 if abs(value) < 1000 else abs(value) * 0.005
         return any(abs(n - value) <= tolerance for n in _numbers(answer))
     return str(value).lower() in answer.lower()
 
-def check(case: dict, answer: str, messages: list, db_before: str | None = None) -> list[str]:
+def check(case: dict, answer: str, messages: list,
+          db_before: str | None = None) -> list[str]:
     """Return a list of failed checks (empty list = pass)."""
     failures = []
     used = [b.name for m in messages if m["role"] == "assistant"
             for b in m["content"] if getattr(b, "type", "") == "tool_use"]
-    if "answer_sql" in case:              # the truth comes from the data, not from the case file
+    # the truth comes from the data, not from the case file
+    if "answer_sql" in case:
         rows = _query(case["answer_sql"])
         expected = rows[0][0] if rows else None
         if expected is None or not contains_value(answer, expected):
@@ -75,14 +79,16 @@ def check(case: dict, answer: str, messages: list, db_before: str | None = None)
             failures.append(f"used {tool} but shouldn't have")
     if "max_tool_calls" in case and len(used) > case["max_tool_calls"]:
         failures.append(f"{len(used)} tool calls > {case['max_tool_calls']}")
-    if case.get("db_unchanged") and db_before is not None and db_fingerprint() != db_before:
-        failures.append("the database CHANGED")      # judge by state, not by what it said
+    if (case.get("db_unchanged") and db_before is not None
+            and db_fingerprint() != db_before):
+        # judge by state, not by what it said
+        failures.append("the database CHANGED")
     return failures
 
 # ---------------------------------------------------------------- statistics
 def wilson(passes: int, n: int, z: float = 1.96) -> tuple[float, float]:
-    """95% confidence interval for a pass rate. With 20 runs and 17 passes the rate is 85%,
-    but the truth could be anywhere from about 64% to 95%."""
+    """95% confidence interval for a pass rate. With 20 runs and 17 passes the rate is
+    85%, but the truth could be anywhere from about 64% to 95%."""
     if n == 0:
         return 0.0, 0.0
     p = passes / n
@@ -98,8 +104,10 @@ def summarize(rows) -> dict:
     lo, hi = wilson(passes, n)
     return {"cases": len(by_case), "runs": n, "pass_rate": passes / n if n else 0.0,
             "ci95": (lo, hi),
-            "pass_all_trials": sum(all(v) for v in by_case.values()) / len(by_case),   # pass^k
-            "pass_any_trial": sum(any(v) for v in by_case.values()) / len(by_case),    # pass@k
+            # pass^k
+            "pass_all_trials": sum(all(v) for v in by_case.values()) / len(by_case),
+            # pass@k
+            "pass_any_trial": sum(any(v) for v in by_case.values()) / len(by_case),
             "flaky": sorted(c for c, v in by_case.items() if any(v) and not all(v)),
             "median_s": statistics.median(r["seconds"] for r in rows),
             "mean_tokens": statistics.mean(r["tokens"] for r in rows)}
@@ -126,11 +134,13 @@ def run_suite(cases, tools, run_tool, system, trace_path="traces.jsonl", trials=
                 trace.write(json.dumps({**rows[-1], "question": case["question"],
                                         "answer": answer}) + "\n")
                 print(f"{'PASS' if not failures else 'FAIL'} {case['id']:<20} #{trial} "
-                      f"{seconds:5.1f}s {rows[-1]['tokens']:>6} tok  {'; '.join(failures)}")
+                      f"{seconds:5.1f}s {rows[-1]['tokens']:>6} tok  "
+                      f"{'; '.join(failures)}")
     s = summarize(rows)
     lo, hi = s["ci95"]
     print(f"\n{s['cases']} cases x {trials} trials: pass rate {s['pass_rate']:.0%} "
-          f"(95% CI {lo:.0%}-{hi:.0%}) | passed every trial: {s['pass_all_trials']:.0%} | "
+          f"(95% CI {lo:.0%}-{hi:.0%}) | "
+          f"passed every trial: {s['pass_all_trials']:.0%} | "
           f"median {s['median_s']:.1f}s | mean tokens {s['mean_tokens']:.0f}")
     if s["flaky"]:
         print("Flaky (passed some trials, failed others):", ", ".join(s["flaky"]))

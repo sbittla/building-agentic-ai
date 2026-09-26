@@ -21,15 +21,18 @@ def read_file(path: str) -> str:
     return "\n".join(f"{i}: {l}" for i, l in
                      enumerate(_safe(path).read_text().splitlines(), 1))
 
-# Files that decide what "the tests pass" means. Blocking only test_*.py isn't enough:
-# a conftest.py or a pytest config can make failing tests "pass" without fixing anything.
-PROTECTED = {"conftest.py", "pytest.ini", "pyproject.toml", "setup.cfg", "tox.ini", ".pytest.ini"}
+# Files that decide what "the tests pass" means. Blocking only
+# test_*.py isn't enough: a conftest.py or a pytest config can make
+# failing tests "pass" without fixing anything.
+PROTECTED = {"conftest.py", "pytest.ini", "pyproject.toml", "setup.cfg",
+             "tox.ini", ".pytest.ini"}
 
 def writable(path: str) -> str | None:
     """An ALLOW-list: return None if the agent may write this file, else the reason."""
-    name = Path(path).name.lower()            # lower(): macOS/Windows file names ignore case
+    name = Path(path).name.lower()  # lower(): macOS/Windows file names ignore case
     if name.startswith("test") or name.endswith("_test.py") or name in PROTECTED:
-        return "editing tests or test configuration is not allowed. Fix the code under test."
+        return ("editing tests or test configuration is not allowed. "
+                "Fix the code under test.")
     if not name.endswith(".py"):
         return "only Python source files can be edited."
     if not _safe(path).exists():
@@ -43,7 +46,8 @@ def write_file(path: str, content: str) -> str:
     return f"Wrote {len(content)} characters to {path}."
 
 def clean_env() -> dict:
-    """Model-written code runs with NO secrets: just enough environment to run Python."""
+    """Model-written code runs with NO secrets:
+    just enough environment to run Python."""
     return {"PATH": os.environ.get("PATH", "/usr/bin:/bin"), "HOME": "/tmp",
             "PYTHONDONTWRITEBYTECODE": "1", "LANG": "C.UTF-8"}
 
@@ -55,7 +59,7 @@ def run_tests() -> str:
         r = subprocess.run([sys.executable, "-m", "pytest", "-q", "--tb=short",
                             "-p", "no:cacheprovider"],
                            cwd=REPO, capture_output=True, text=True, timeout=60,
-                           env=clean_env())                # never pass your API key along
+                           env=clean_env())  # never pass your API key along
     except subprocess.TimeoutExpired:
         return "ERROR: tests timed out after 60s (infinite loop?)"
     out = r.stdout + r.stderr
@@ -74,11 +78,13 @@ TOOLS = [
      "input_schema": {"type": "object", "properties": {"path": {"type": "string"}},
                       "required": ["path"]}},
     {"name": "write_file", "description": "Replace an existing source file's ENTIRE "
-     "content. Tests and test configuration (test_*.py, conftest.py, pytest.ini) cannot be edited.", "input_schema": {"type": "object",
+     "content. Tests and test configuration (test_*.py, conftest.py, pytest.ini) "
+     "cannot be edited.", "input_schema": {"type": "object",
          "properties": {"path": {"type": "string"}, "content": {"type": "string"}},
          "required": ["path", "content"]}},
     {"name": "run_tests", "description": "Run the test suite and return the result "
-     "summary and failure details.", "input_schema": {"type": "object", "properties": {}}},
+     "summary and failure details.",
+     "input_schema": {"type": "object", "properties": {}}},
 ]
 SYSTEM = ("You fix bugs. Run the tests first, read the failing code, make the "
           "smallest correct fix, and run the tests again. Never change tests. "

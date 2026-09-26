@@ -1,10 +1,10 @@
-"""Exercise 13.9 (Medium): a team of A2A agents.
+"""Exercise 21.5 (Medium): a team of A2A agents.
 
 Publish the Chapter 5 to-do agent as a second A2A agent, with its own agent card and skill,
-next to the Chapter 13 shop analyst. Then a coordinator agent that knows neither agent's
+next to the Chapter 21 shop analyst. Then a coordinator agent that knows neither agent's
 code finds both through their cards and delegates to each.
 
-Run:  ./course.sh ex 13.9      (or: ./course.sh python exercises/ex13_9_a2a_team.py)"""
+Run:  ./course.sh ex 21.5      (or: ./course.sh python exercises/ex21_5_a2a_team.py)"""
 import asyncio
 import os
 import sys
@@ -16,8 +16,8 @@ from a2a.types import AgentCapabilities, AgentCard, AgentInterface, AgentSkill
 
 import ch05_todo_tools as todo
 from ch04_agent import run_agent
-from ch13_a2a_client import a2a_tool, show_card
-from ch13_a2a_server import AgentLoopExecutor, build_app
+from ch21_a2a_client import a2a_tool, show_card
+from ch21_a2a_server import AgentLoopExecutor, build_app
 
 ANALYST_PORT, TODO_PORT = 9999, 9998
 
@@ -45,7 +45,7 @@ def serve(app, port: int) -> str:
     return f"http://127.0.0.1:{port}"
 
 def start_team() -> tuple[str, str]:
-    analyst = serve(build_app(), ANALYST_PORT)          # the card in ch13_a2a_server (section 13.7)
+    analyst = serve(build_app(), ANALYST_PORT)          # the card in ch21_a2a_server (section 21.7)
     todo_url = f"http://127.0.0.1:{TODO_PORT}"
     todo_system = getattr(todo, "SYSTEM", "You manage a to-do list. Use the tools; confirm what you changed.")
     todo_app = build_app(todo_card(todo_url),

@@ -8,7 +8,8 @@ import httpx
 from anthropic import AsyncAnthropic
 import ch06_notes_tools as notes
 from ch04_agent import next_action
-from ch11_web import fetch_url          # https only, no private addresses, every redirect checked
+# https only, no private addresses, every redirect checked
+from ch11_web import fetch_url
 
 MODEL = os.environ.get("MODEL", "claude-sonnet-5")
 client = AsyncAnthropic()
@@ -75,7 +76,8 @@ async def research(question: str) -> str:
 
     findings = await asyncio.gather(*(run_subagent(t) for t in subtasks))
 
-    report = "\n\n".join(f"## Sub-question: {t}\n{f}" for t, f in zip(subtasks, findings))
+    report = "\n\n".join(f"## Sub-question: {t}\n{f}"
+                         for t, f in zip(subtasks, findings))
     final = await _call(messages=[{"role": "user", "content":
         f"Question: {question}\n\nFindings from your research team:\n{report}\n\n"
         "Write a concise answer. Keep every source citation. Point out any "

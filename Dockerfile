@@ -71,6 +71,11 @@ RUN uv tool install mcp-server-git==2026.8.18 \
  && uv tool install mcp-server-time==2026.8.18 \
  && rm -rf /home/student/.cache
 
+# Chromium for the chapter 23 browser agent, with the system libraries it needs.
+ENV PLAYWRIGHT_BROWSERS_PATH=/opt/ms-playwright
+RUN playwright install --with-deps chromium \
+ && rm -rf /var/lib/apt/lists/* && chmod -R a+rX /opt/ms-playwright
+
 # GitHub's MCP server binary.
 COPY --from=githubmcp /server/github-mcp-server /usr/local/bin/github-mcp-server
 
