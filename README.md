@@ -1,6 +1,6 @@
 # Building Agentic AI: code, exercises and solutions
 
-The companion repository for the book *Building Agentic AI: From Your First Agent to MCP, Multi-Agent Systems, and Production AI* by Srinivasa Rao Bittla. It has every chapter's code, 172 exercises with starter files, checkers and reference solutions, six capstone projects, and a Docker image that runs all of it.
+The companion repository for the book *Building Agentic AI: From Your First Agent to MCP, Multi-Agent Systems, and Production AI* by Srinivasa Rao Bittla. It has every chapter's code, 173 exercises with starter files, checkers and reference solutions, six capstone projects, and a Docker image that runs all of it.
 
 ```bash
 git clone https://github.com/sbittla/building-agentic-ai.git
@@ -42,10 +42,10 @@ Then put `PROVIDER=local` in `.env` (setup does this if you choose option 2). Se
 ## 2. Doing the exercises
 
 ```
-./course.sh list            # all 172 exercises
+./course.sh list            # all 173 exercises
 ./course.sh list 4          # just chapter 4 (interludes: list T, R, S or A)
-./course.sh ex 4.3          # show exercise 4.3 and run it
-./course.sh ex 4.3 --info   # just show it
+./course.sh ex 4.2          # show exercise 4.2 and run it
+./course.sh ex 4.2 --info   # just show it
 ./course.sh check 0.4       # check your answer (Chapter 0, the interludes, 2.4 and 3.4)
 ```
 
@@ -64,15 +64,15 @@ On Windows, replace `./course.sh` with `.\course.cmd` everywhere.
 
 ## 3. Solutions
 
-The `solutions` folder has a worked solution for every exercise and complete versions of all six capstones. Try each exercise first, then compare:
+The `solutions` folder has a worked solution for every exercise and reference versions of the capstones. Try each exercise first, then compare:
 
 ```
-./course.sh solution 4.5        # show the solution for exercise 4.5
+./course.sh solution 4.4        # show the solution for exercise 4.4
 ./course.sh capstone 1          # run reference capstone 1 (needs your API key)
 ./course.sh check-solutions     # run every solution offline (no API key needed)
 ```
 
-The book shows where each solution lives: every chapter ends with a *Solutions for this chapter* table, every capstone ends with a *Reference solution* table, and Appendix F maps the whole folder. See `solutions/README.md` for how to run solutions and capstones with a real model.
+The book shows where each solution lives: every exercise box names its solution file, `solutions/SOLUTIONS.md` lists them all, every capstone ends with a *Reference solution* table, and Appendix F maps the whole folder. See `solutions/README.md` for how to run solutions and capstones with a real model.
 
 ## Where to learn more
 
@@ -90,20 +90,21 @@ The book shows where each solution lives: every chapter ends with a *Solutions f
 | `./course.sh inspector ch12_weather_server.py` | MCP Inspector web UI on http://localhost:6274 |
 | `./course.sh serve ch12_weather_server.py` | MCP server over HTTP at http://localhost:8000/mcp |
 | `./course.sh desktop-config` | Print the Claude Desktop config that runs your server through Docker |
-| `./course.sh serve-api` | The chapter 19 agent API at http://localhost:8080 (docs at /docs) |
-| `./course.sh serve-mcp` | The chapter 19 token-protected MCP server at http://localhost:8000/mcp |
+| `./course.sh serve-api` | The chapter 30 agent API at http://localhost:8080 (docs at /docs) |
+| `./course.sh serve-mcp` | The chapter 30 token-protected MCP server at http://localhost:8000/mcp |
+| `./course.sh serve-a2a` | The chapter 13 A2A analyst agent; its card is at http://localhost:9999/.well-known/agent-card.json |
 | `./course.sh sandbox up` / `down` | Network-less test sandbox for exercise 10.7 |
 | `./course.sh live-check [part] [--yes]` | Run every chapter's main file against the real model (about $1); report in `workspace/live_report.md` |
 
-To deploy the Chapter 19 agent API, build `ch19_service.Dockerfile` from your workspace folder on your own computer and follow exercise 19.8. To test the book with real learners before publishing, follow `PILOT.md`.
+To deploy the Chapter 30 agent API, build `ch30_service.Dockerfile` from your workspace folder on your own computer and follow exercise 30.7. To test the book with real learners before publishing, follow `PILOT.md`.
 
 ## 5. Good to know
 
 - **Network:** the course container has internet access (the model API, Open-Meteo, web fetches). The chapter 10 sandbox has none.
-- **Ports** are published only to your own computer (127.0.0.1): 6274–6275 for the Inspector, 8000 for MCP servers over HTTP, 8080 for the chapter 19 agent API.
-- **Two containers talking (chapter 19):** `serve-api` and `serve-mcp` run in containers named `agentic-ai-api` and `agentic-ai-mcp`; other course containers reach them by those names, and your browser uses localhost.
-- **Chapter 17 embedding model:** the build downloads a small model (about 30 MB) from Hugging Face. If that's blocked, chapter 17 uses the built-in hashing embedder instead; set `EMBEDDER=hashing` in `.env` to choose it yourself.
-- **GitHub (chapter 14, capstone 5):** add a read-only `GITHUB_PERSONAL_ACCESS_TOKEN` to `.env`.
+- **Ports** are published only to your own computer (127.0.0.1): 6274–6275 for the Inspector, 8000 for MCP servers over HTTP, 8080 for the chapter 30 agent API.
+- **Two containers talking (chapters 13 and 19):** `serve-a2a`, `serve-api` and `serve-mcp` run in containers named `agentic-ai-a2a`, `agentic-ai-api` and `agentic-ai-mcp`; other course containers reach them by those names, and your browser uses localhost.
+- **Chapter 18 embedding model:** the build downloads a small model (about 30 MB) from Hugging Face. If that's blocked, chapter 18 uses the built-in hashing embedder instead; set `EMBEDDER=hashing` in `.env` to choose it yourself.
+- **GitHub (chapter 14, capstone 4):** add a read-only `GITHUB_PERSONAL_ACCESS_TOKEN` to `.env`.
 - **Model:** set `MODEL=...` in `.env` to switch models.
 - **Updating:** after changing `Dockerfile` or getting a new kit, run `./course.sh build`. Your workspace is never overwritten; `./course.sh reset <file>` restores single files.
 - **Linux:** files created by the container are owned by your user automatically.
@@ -114,7 +115,7 @@ To deploy the Chapter 19 agent API, build `ch19_service.Dockerfile` from your wo
 | Problem | Fix |
 | --- | --- |
 | "Docker is not running" | Start Docker Desktop and wait until it says it's running |
-| Build fails pulling `ghcr.io/github/github-mcp-server` | Your network blocks ghcr.io. Add `GITHUB_MCP_IMAGE=nogithub` to `.env` and run the build again. Only exercises 14.4–14.5 and capstone 5 need it |
+| Build fails pulling `ghcr.io/github/github-mcp-server` | Your network blocks ghcr.io. Add `GITHUB_MCP_IMAGE=nogithub` to `.env` and run the build again. Only exercises 14.3–14.4 and capstone 4 need it |
 | `ANTHROPIC_API_KEY is not set` | Create `.env` from `.env.example` next to the scripts |
 | Port 6274, 8000 or 8080 already in use | Stop the other program, or change the left-hand port in `compose.yaml` |
 | Inspector page asks for a token | Use the full link printed in the terminal (it includes the token) |

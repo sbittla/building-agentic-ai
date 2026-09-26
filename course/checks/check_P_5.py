@@ -1,8 +1,10 @@
-def test_tool(ex):
-    assert "get_weather" in ex.TOOLS and ex.TOOLS["get_weather"]["description"] == "Weather for a city."
-    assert ex.get_weather("Pune") == "sunny in Pune", "the decorator must return the function unchanged"
+def test_add_tag(ex):
+    assert ex.add_tag("a") == ["a"] and ex.add_tag("b") == ["b"], "each call must start with a NEW list"
 
-def test_count_calls(ex):
-    before = ex.calls.get("ping", 0)
-    assert ex.ping() == "pong" and ex.ping() == "pong"
-    assert ex.calls["ping"] == before + 2
+def test_last_n(ex):
+    assert ex.last_n([1, 2, 3, 4], 2) == [3, 4] and ex.last_n([1, 2, 3], 3) == [1, 2, 3]
+
+def test_parse_amount(ex):
+    assert ex.parse_amount("12.50") == 12.5
+    out = ex.parse_amount("x")
+    assert isinstance(out, str) and out.startswith("ERROR"), "don't swallow the error: return a message"

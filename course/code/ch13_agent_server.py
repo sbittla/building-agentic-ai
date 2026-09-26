@@ -6,7 +6,7 @@ This is how multi-agent systems are built across teams: each team publishes its 
 an MCP server, and a coordinator agent uses them like any other tools.
 
 Run as a server:  python ch13_agent_server.py        (stdio)
-Use from the hub: add it to servers.json, see exercise 13.9"""
+Use from the hub: add it to servers.json, see exercise 13.8"""
 import logging
 import sys
 from mcp.server import MCPServer

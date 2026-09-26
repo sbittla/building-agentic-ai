@@ -129,15 +129,15 @@ def test_6_search_skips_symlinks(ws, tmp_path):
     finally:
         link.unlink()
 
-# ---------------- capstone 5: pull requests are untrusted
-def test_c5_fix_cannot_escape_or_touch_test_config(ws):
+# ---------------- capstone 4: pull requests are untrusted
+def test_c4_fix_cannot_escape_or_touch_test_config(ws):
     import importlib.util
-    cap = Path(__file__).parents[1] / "capstones" / "c5_review"
+    cap = Path(__file__).parents[1] / "capstones" / "c4_review"
     sys.path.insert(0, str(cap)); sys.modules.pop("data", None)
     try:
         import data
         data.build()
-        spec = importlib.util.spec_from_file_location("c5_repo_server", cap / "repo_server.py")
+        spec = importlib.util.spec_from_file_location("c4_repo_server", cap / "repo_server.py")
         rs = importlib.util.module_from_spec(spec); spec.loader.exec_module(rs)
         from mcp.server.mcpserver.exceptions import ToolError
         for path in ("conftest.py", "pytest.ini", "../../etc/passwd"):

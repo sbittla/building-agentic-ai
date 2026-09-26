@@ -150,39 +150,13 @@ def test_c3_triage(ws, model):
     assert report["suspect_commit"] == sha
     assert "git__git_commit" not in [t["name"] for t in model.calls[0]["tools"]]
 
-# ---------------- capstone 4: performance analyst
-def test_c4_stats_and_regression(ws, model):
-    sys.path.insert(0, str(CAP / "c4_perf")); sys.modules.pop("data", None)
-    import data as d4
-    d4.build()
-    sys.path.remove(str(CAP / "c4_perf")); sys.modules.pop("data", None)
-    a = _load("c4_perf/agent.py")
-    names, r = call_all(a.CONFIG, [("perf__compare_runs", {"baseline": "run-102", "candidate": "run-103"}),
-                                   ("perf__compare_runs", {"baseline": "run-101", "candidate": "run-102"})])
-    bad = {e["endpoint"]: e["regressions"] for e in json.loads(r[0][0])["endpoints"]}
-    assert "p95" in bad["/api/search"] and "errors" in bad["/api/search"]
-    assert all(not v for k, v in bad.items() if k != "/api/search")
-    assert all(not e["regressions"] for e in json.loads(r[1][0])["endpoints"])    # no false alarms
-    search = next(e for e in json.loads(r[0][0])["endpoints"] if e["endpoint"] == "/api/search")
-    assert search["p95_change_ci95_pct"][0] > 0                   # a real change, not noise
-    others = [e for e in json.loads(r[1][0])["endpoints"]]
-    assert all(e["p95_change_ci95_pct"][0] < 0 < e["p95_change_ci95_pct"][1] for e in others)
-    assert "perf__start_test" in names
-    model.reset([[tool("perf__compare_runs", {"baseline": "run-102", "candidate": "run-103"})],
-                 [tool("perf__release_notes", {})],
-                 [text("## Summary\n/api/search regressed after the re-ranker change.")]])
-    report = a.report()
-    assert Path("perf/report.md").read_text() == report and "/api/search" in report
-    visible = [t["name"] for t in model.calls[0]["tools"]]
-    assert "perf__start_test" in visible and "perf__load_run" in visible
-
-# ---------------- capstone 5: code review
-def test_c5_review(ws, model):
-    sys.path.insert(0, str(CAP / "c5_review")); sys.modules.pop("data", None)
+# ---------------- capstone 4: code review
+def test_c4_review(ws, model):
+    sys.path.insert(0, str(CAP / "c4_review")); sys.modules.pop("data", None)
     import data as d5
     d5.build()
-    sys.path.remove(str(CAP / "c5_review")); sys.modules.pop("data", None)
-    a = _load("c5_review/agent.py")
+    sys.path.remove(str(CAP / "c4_review")); sys.modules.pop("data", None)
+    a = _load("c4_review/agent.py")
     names, r = call_all(a.CONFIG, [
         ("repo__list_prs", {}), ("repo__run_tests", {"branch": "pr-1"}), ("repo__run_tests", {"branch": "pr-2"}),
         ("repo__get_pr_diff", {"branch": "pr-3"}),
@@ -201,9 +175,9 @@ def test_c5_review(ws, model):
     review = asyncio.run(a.review("pr-3", approver=lambda n, a_: False))
     assert review["verdict"] == "request_changes" and review["findings"][0]["severity"] == "tests"
 
-# ---------------- capstone 6: deep research
-def test_c6_research(ws, model):
-    r6 = _load("c6_research/research.py")
+# ---------------- capstone 5: deep research
+def test_c5_research(ws, model):
+    r6 = _load("c5_research/research.py")
     def respond(kw):
         forced = (kw.get("tool_choice") or {}).get("name")
         if forced == "make_plan":

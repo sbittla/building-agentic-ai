@@ -28,7 +28,7 @@ def test_11_3_team_runs(model):
                 if (kw.get("tool_choice") or {}).get("name") == "make_plan" else [text("ok")])
     assert asyncio.run(r.research("q")) == "ok"
 
-def test_11_5_effort_sets_steps(model, monkeypatch):
+def test_11_4_effort_sets_steps(model, monkeypatch):
     import sol_ch11_research_team as t, ch11_research_team as base
     seen = []
     async def fake_sub(task, max_iterations=6):
@@ -39,25 +39,14 @@ def test_11_5_effort_sets_steps(model, monkeypatch):
     assert seen == [("Objective: cost", 3), ("Objective: freshness", 8)]
     assert r["answer"] == "draft answer" and r["unsupported"] == []
 
-def test_11_6_critic_triggers_revision(model):
+def test_11_5_critic_triggers_revision(model):
     import sol_ch11_research_team as t
     model.reset(default=_team_script(["RAG is free"]))
     r = asyncio.run(t.research("q"))
     assert r["unsupported"] == ["RAG is free"] and r["answer"] == "revised answer"
 
-def test_11_4_sequential_vs_parallel(model, monkeypatch):
-    import time, sol_ch11_research_team as t, ch11_research_team as base
-    async def slow_sub(task, max_iterations=6):
-        await asyncio.sleep(0.4); return "- f"
-    monkeypatch.setattr(base, "run_subagent", slow_sub)
-    model.reset(default=_team_script([]))
-    par = asyncio.run(t.research("q", parallel=True, critic=False))["seconds"]
-    model.reset(default=_team_script([]))
-    seq = asyncio.run(t.research("q", parallel=False, critic=False))["seconds"]
-    assert par < 0.7 < seq
-
-def test_11_7_compare(model, monkeypatch):
-    import ex11_7_compare as ex
+def test_11_6_compare(model, monkeypatch):
+    import ex11_6_compare as ex
     def respond(kw):
         if (kw.get("tool_choice") or {}).get("name") == "score":
             return [tool("score", {"completeness": 4, "accuracy": 4, "citations": 3})]

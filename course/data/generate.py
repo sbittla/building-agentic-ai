@@ -105,7 +105,7 @@ def notes(count: int = 0, out: str = "notes") -> None:
         p = root / rel
         p.parent.mkdir(parents=True, exist_ok=True)
         p.write_text(text + "\n")
-    if count > len(NOTES):               # bulk notes with 15 hidden facts (exercise 6.7)
+    if count > len(NOTES):               # bulk notes with 15 hidden facts (exercise 6.6)
         rnd = random.Random(42)
         topics = ["meeting", "standup", "design", "incident", "planning", "review"]
         facts = [f"FACT-{i:02d}: the secret code for project {c} is {rnd.randint(1000, 9999)}"
@@ -140,7 +140,7 @@ def messy(count: int = 15, out: str = "messy") -> None:
     exts = [".jpg", ".png", ".pdf", ".docx", ".txt", ".md", ".xlsx", ".csv", ".zip", ".xyz"]
     for i in range(count):
         (root / f"file_{i:03d}{rnd.choice(exts)}").write_text(f"sample {i}\n")
-    if count >= 50:                       # the hard cases for exercise 9.7
+    if count >= 50:                       # the hard cases for exercise 9.6
         (root / "documents").mkdir(exist_ok=True)
         (root / "report.pdf").write_text("new report\n")
         (root / "documents" / "report.pdf").write_text("old report\n")   # name collision

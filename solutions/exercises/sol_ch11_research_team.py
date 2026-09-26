@@ -42,14 +42,14 @@ async def research(question: str, parallel: bool = True, critic: bool = True) ->
     jobs = [base.run_subagent(brief(s), max_iterations=EFFORT_STEPS[s["effort"]]) for s in subtasks]
     if parallel:
         findings = await asyncio.gather(*jobs)
-    else:                                          # exercise 11.4: one after another
+    else:                                          # one after another, to compare
         findings = [await j for j in jobs]
     report = "\n\n".join(f"## {s['objective']}\n{f}" for s, f in zip(subtasks, findings))
     draft = text_of(await _call(messages=[{"role": "user", "content":
         f"Question: {question}\n\nFindings:\n{report}\n\nWrite a concise answer. Keep every "
         "source citation. Point out disagreements."}]))
     unsupported = []
-    if critic:                                     # exercise 11.6
+    if critic:                                     # exercise 11.5
         review = await _call(tools=[CRITIC_TOOL], tool_choice={"type": "tool", "name": "review"},
                              messages=[{"role": "user", "content":
                                         f"Findings:\n{report}\n\nAnswer:\n{draft}"}])

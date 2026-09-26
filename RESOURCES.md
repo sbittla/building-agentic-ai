@@ -91,7 +91,7 @@ Every link from the book's **Learn more** sections and Appendix G, so you can cl
 - [Claude docs: Structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) (Start here): messages.parse, JSON schemas and strict tools
 - [Pydantic documentation](https://pydantic.dev/docs/validation/latest/get-started/) (Start here): The data classes used for structured outputs
 - [Claude docs: How to implement tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/implement-tool-use) (Go deeper): tool_choice settings and writing descriptions
-- [Python docs: zoneinfo](https://docs.python.org/3/library/zoneinfo.html) (Go deeper): Time zones for exercise 3.4
+- [Python docs: zoneinfo](https://docs.python.org/3/library/zoneinfo.html) (Go deeper): Time zones for exercise 3.3
 - [Claude docs: Tool search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool) (Go deeper): Deferring tools and letting the model search for them (section 3.6)
 
 ## Chapter 4: The Agent Loop
@@ -193,6 +193,9 @@ Every link from the book's **Learn more** sections and Appendix G, so you can cl
 - [MCP: Architecture overview](https://modelcontextprotocol.io/docs/learn/architecture) (Start here): Hosts, clients, servers and the messages between them
 - [MCP specification](https://modelcontextprotocol.io/specification) (Go deeper): The full protocol, for when you need exact details
 - [Claude docs: MCP connector](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector) (Go deeper): Letting the API connect to remote MCP servers for you
+- [Agent2Agent (A2A) protocol](https://a2a-protocol.org/latest/) (Go deeper): The specification: agent cards, tasks, artifacts and security (section 13.7)
+- [A2A Python SDK (a2a-sdk)](https://pypi.org/project/a2a-sdk/) (Go deeper): The official SDK used in section 13.7, with install options
+- [A2A samples](https://github.com/a2aproject/a2a-samples) (Go deeper): Official example agents and clients in several languages
 
 ## Chapter 14: Using Servers You Didn't Write
 
@@ -202,29 +205,29 @@ Every link from the book's **Learn more** sections and Appendix G, so you can cl
 - [OWASP Top 10 for Agentic Applications](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) (Start here): The ten agent risks mapped in section 14.7
 - [MCP: Security best practices](https://modelcontextprotocol.io/docs/tutorials/security/security_best_practices) (Go deeper): The protocol's own guidance on attacks and defenses
 - [OWASP: SSRF prevention cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html) (Go deeper): The SSRF attack section 14.6 defends against, and the standard defenses
-- [GitHub MCP server](https://github.com/github/github-mcp-server) (Go deeper): The GitHub server used in this chapter and in capstone 5
+- [GitHub MCP server](https://github.com/github/github-mcp-server) (Go deeper): The GitHub server used in this chapter and in capstone 4
 - [NSA: MCP security design considerations](https://www.nsa.gov/Press-Room/Press-Releases-Statements/Press-Release-View/Article/4496698/nsa-releases-security-design-considerations-for-ai-driven-automation-leveraging/) (Go deeper): Government guidance on securing agents built with MCP
 
-## Chapter 15: Production Readiness
+## Chapter 27: Agent Evaluation: Trajectories and Continuous Evaluation
 
 - [Anthropic: Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) (Start here): How to build evals for agents, from a team that runs many
 - [Claude docs: Define success criteria and build evaluations](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests) (Start here): Writing test cases and graders
 - [Hamel Husain: Your AI product needs evals](https://hamel.dev/blog/posts/evals/) (Go deeper): A practical guide from someone who builds them for clients
 - [Claude docs: Batch processing](https://platform.claude.com/docs/en/build-with-claude/batch-processing) (Go deeper): Running a judge over many cases at half price
-- [OpenTelemetry: GenAI semantic conventions](https://opentelemetry.io/docs/specs/semconv/registry/attributes/gen-ai/) (Go deeper): The `gen_ai.*` attribute names used in ch15_otel.py
+- [OpenTelemetry: GenAI semantic conventions](https://opentelemetry.io/docs/specs/semconv/registry/attributes/gen-ai/) (Go deeper): The `gen_ai.*` attribute names used in ch28_otel.py
 - [Wikipedia: Binomial proportion confidence interval](https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval) (Go deeper): The Wilson interval behind 'one run proves little'
 
-## Chapter 16: Context Engineering and Memory
+## Chapter 16: Context Engineering
 
 - [Anthropic: Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) (Start here): What to put in the context window, and what to leave out
+- [Redis: The state of context engineering 2026](https://redis.io/resources/state-of-context-engineering-2026/) (Go deeper): Survey of how teams build, feed and govern agent context, and where it breaks
 - [Claude docs: Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) (Start here): Cache modes, minimum sizes and prices
 - [Claude docs: Context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing) (Go deeper): Letting the API clear old tool results (section 16.6)
 - [Claude docs: Prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices) (Go deeper): Roles, clear instructions and examples in system prompts
-- [SQLite: FTS5 full-text search](https://www.sqlite.org/fts5.html) (Go deeper): The search engine behind the memory store
 - [Claude docs: Programmatic tool calling](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling) (Go deeper): Tools called from code in a sandbox (section 16.9)
 - [Claude docs: Compaction](https://platform.claude.com/docs/en/build-with-claude/compaction) (Go deeper): Server-side summaries of long conversations, on demand or at a threshold
 
-## Chapter 17: Retrieval-Augmented Generation
+## Chapter 18: Agentic Knowledge Systems
 
 - [Anthropic: Introducing Contextual Retrieval](https://www.anthropic.com/news/contextual-retrieval) (Start here): Hybrid search, reranking and chunk context, with measurements
 - [Claude docs: Embeddings](https://platform.claude.com/docs/en/build-with-claude/embeddings) (Start here): What embeddings are and which providers to use
@@ -232,21 +235,22 @@ Every link from the book's **Learn more** sections and Appendix G, so you can cl
 - [Wikipedia: Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25) (Go deeper): The keyword-ranking formula in the hybrid search
 - [model2vec](https://github.com/MinishLab/model2vec) (Go deeper): The small, fast local embedding model used in the kit
 - [MTEB leaderboard](https://huggingface.co/spaces/mteb/leaderboard) (Go deeper): Compare embedding models on standard benchmarks
+- [Singh et al.: Agentic Retrieval-Augmented Generation, a survey](https://arxiv.org/abs/2501.09136) (Go deeper): The patterns behind agentic RAG: planning, reflection, tool use and multi-agent retrieval
 
-## Chapter 18: Agent Frameworks
+## Chapter 24: Agent Frameworks
 
 - [Claude Agent SDK overview](https://code.claude.com/docs/en/agent-sdk/overview) (Start here): The framework behind Claude Code, for building your own agents
 - [Claude Agent SDK for Python](https://github.com/anthropics/claude-agent-sdk-python) (Start here): Install, examples and API
-- [Agent Skills specification](https://agentskills.io/specification) (Start here): The open SKILL.md format used in section 18.7
+- [Agent Skills specification](https://agentskills.io/specification) (Start here): The open SKILL.md format used in section 24.7
 - [LangChain documentation](https://docs.langchain.com) (Go deeper): LangChain and LangGraph agents
 - [Pydantic AI](https://pydantic.dev/docs/ai/overview/) (Go deeper): A type-checked agent framework from the Pydantic team
 - [Hugging Face smolagents](https://huggingface.co/docs/smolagents) (Go deeper): A minimal open-source agent library
-- [Claude Managed Agents overview](https://platform.claude.com/docs/en/managed-agents/overview) (Go deeper): Agents, environments, sessions and events (section 18.8)
+- [Claude Managed Agents overview](https://platform.claude.com/docs/en/managed-agents/overview) (Go deeper): Agents, environments, sessions and events (section 24.8)
 - [Agent2Agent (A2A) protocol](https://a2a-protocol.org/latest/) (Go deeper): The open protocol for agents talking to other agents
 
-## Chapter 19: Deploying Agents as Services
+## Chapter 30: Deploying Agents as Services
 
-- [FastAPI tutorial](https://fastapi.tiangolo.com/tutorial/) (Start here): Build a web API step by step; the base of ch19_service.py
+- [FastAPI tutorial](https://fastapi.tiangolo.com/tutorial/) (Start here): Build a web API step by step; the base of ch30_service.py
 - [MDN: Using server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) (Start here): How streaming responses reach the browser
 - [Docker Compose documentation](https://docs.docker.com/compose/) (Go deeper): Running the agent and its servers together
 - [MCP: Authorization](https://modelcontextprotocol.io/docs/tutorials/security/authorization) (Go deeper): OAuth for remote MCP servers, explained step by step
@@ -258,6 +262,16 @@ Every link from the book's **Learn more** sections and Appendix G, so you can cl
 - [Capstone 1: Intercom Help, Fin AI Agent](https://www.intercom.com/help/en/collections/6485365-fin-ai-agent) (Go deeper): How a production support agent is set up, measured and handed off
 - [Capstone 2: Uber, QueryGPT](https://www.uber.com/us/en/blog/query-gpt/) (Go deeper): Lessons from a large natural-language-to-SQL system
 - [Capstone 3: Google SRE book, Managing incidents](https://sre.google/sre-book/managing-incidents/) (Go deeper): How on-call teams run an incident
-- [Capstone 4: Gil Tene, How NOT to measure latency](https://www.infoq.com/presentations/latency-response-time/) (Go deeper): Percentiles and coordinated omission
-- [Capstone 5: SWE-bench](https://www.swebench.com) (Go deeper): How code-fixing agents are measured
-- [Capstone 6: Anthropic, multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system) (Go deeper): The design this capstone is modeled on
+- [Capstone 3 extension: Gil Tene, How NOT to measure latency](https://www.infoq.com/presentations/latency-response-time/) (Go deeper): Percentiles and coordinated omission, for the performance-regression extension
+- [Capstone 4: SWE-bench](https://www.swebench.com) (Go deeper): How code-fixing agents are measured
+- [Capstone 5: Anthropic, multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system) (Go deeper): The design this capstone is modeled on
+- [Capstone 6: Anthropic, Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) (Start here): Progress files, feature lists and git checkpoints for agents that work across many sessions
+- [Capstone 6: Playwright for Python](https://playwright.dev/python/) (Go deeper): The browser automation library the computer-use agent drives
+
+## Chapter 17: Agent Memory Engineering
+
+- [Claude docs: Memory tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool) (Start here): A standard tool interface for memory your own code stores
+- [OWASP GenAI: Memory is a feature. It is also an attack surface](https://genai.owasp.org/2026/05/13/memory-is-a-feature-it-is-also-an-attack-surface/) (Start here): How memory poisoning works and how to defend against it (section 17.8)
+- [OWASP Top 10 for Agentic Applications](https://genai.owasp.org/2025/12/09/owasp-top-10-for-agentic-applications-the-benchmark-for-agentic-security-in-the-age-of-autonomous-ai/) (Go deeper): The industry risk list that includes memory and context poisoning
+- [Torra and Bras-Amorós: Memory poisoning and secure multi-agent systems](https://arxiv.org/abs/2603.20357) (Go deeper): Research on poisoning semantic, episodic and short-term memory, and defenses
+- [SQLite: FTS5 full-text search](https://www.sqlite.org/fts5.html) (Go deeper): The search engine behind both memory stores in this chapter

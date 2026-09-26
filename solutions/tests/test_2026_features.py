@@ -59,7 +59,7 @@ def test_programmatic_tool_calling_loop(model, ws, monkeypatch):
 
 # ---------------------------------------------------------------- 18.7 Agent Skills
 def test_skill_validation_and_progressive_disclosure(ws, monkeypatch, tmp_path):
-    import ch18_skills as sk
+    import ch24_skills as sk
     monkeypatch.setattr(sk, "SKILLS_DIR", tmp_path / "skills")
     folder = sk.make_example_skill()
     assert sk.validate(folder) == []
@@ -76,7 +76,7 @@ def test_skill_validation_and_progressive_disclosure(ws, monkeypatch, tmp_path):
     assert "sql-report" in sk.system_prompt()
 
 def test_agent_uses_skill_then_data(model, ws, monkeypatch, tmp_path):
-    import ch18_skills as sk
+    import ch24_skills as sk
     import ch08_sql_tools as sql
     from ch04_agent import run_agent
     monkeypatch.setattr(sk, "SKILLS_DIR", tmp_path / "skills")
@@ -92,7 +92,7 @@ def test_agent_uses_skill_then_data(model, ws, monkeypatch, tmp_path):
 
 # ---------------------------------------------------------------- 18.8 Managed Agents
 class FakeManaged:
-    """Just enough of client.beta for ch18_managed_agent.run()."""
+    """Just enough of client.beta for ch24_managed_agent.run()."""
     def __init__(self, events):
         self.events, self.sent, self.created, self.archived = events, [], {}, []
         me = self
@@ -108,7 +108,7 @@ class FakeManaged:
                                 send=lambda sid, events: me.sent.append(events))))
 
 def test_managed_agent_session(ws):
-    import ch18_managed_agent as ma
+    import ch24_managed_agent as ma
     events = [
         S(type="agent.custom_tool_use", id="evt_1", name="run_query",
           input={"sql": "SELECT COUNT(*) AS n FROM orders"}),
@@ -135,13 +135,13 @@ def test_managed_agent_session(ws):
                       "deny_message": "The user declined this command."}
 
 def test_managed_agent_stops_on_budget(ws):
-    import ch18_managed_agent as ma
+    import ch24_managed_agent as ma
     fake = FakeManaged([S(type="session.status_idle", stop_reason=S(type="budget_reached"))])
     assert ma.run("q", client=fake) == "budget_reached" and fake.archived == ["sesn_1"]
 
 # ---------------------------------------------------------------- solutions 3.8, 16.8, 18.8, 18.9
-def test_3_8_compare(model, ws):
-    import ex3_8_tool_search as ex
+def test_3_7_compare(model, ws):
+    import ex3_7_tool_search as ex
     def respond(kw):
         deferred = any(t.get("defer_loading") for t in kw["tools"])
         if kw["messages"][-1]["role"] == "user" and isinstance(kw["messages"][-1]["content"], str):
@@ -158,15 +158,15 @@ def test_3_8_compare(model, ws):
     assert table["tool search"]["accuracy"] == "3/3" and table["tool search"]["searches"] == 3
     assert table["all loaded"]["searches"] == 0
 
-def test_16_8_compare(model, ws, monkeypatch):
-    import ex16_8_programmatic_compare as ex
+def test_16_7_compare(model, ws, monkeypatch):
+    import ex16_7_programmatic_compare as ex
     model.reset([[tool("run_query", {"sql": "SELECT 1"})], [text("plain answer")]])
     answer, row = ex.plain(ex.FAN_OUT)
     assert answer == "plain answer" and row["tool_calls"] == 1 and row["model_calls"] == 2
 
-def test_18_8_second_skill(model, ws, monkeypatch, tmp_path):
-    import ch18_skills as sk
-    import ex18_8_skills as ex
+def test_18_7_second_skill(model, ws, monkeypatch, tmp_path):
+    import ch24_skills as sk
+    import ex24_6_skills as ex
     monkeypatch.setattr(sk, "SKILLS_DIR", tmp_path / "skills")
     assert ex.install() == {"customer-lookup": [], "sql-report": []}
     assert "customer-lookup: Looks up one customer" in sk.catalog()
@@ -178,9 +178,9 @@ def test_18_8_second_skill(model, ws, monkeypatch, tmp_path):
     assert "Spend = SUM" in ex.run_tool("read_skill", {"name": "customer-lookup",
                                                        "file": "references/tables.md"})
 
-def test_18_9_budget_is_applied(ws):
-    import ch18_managed_agent as ma
-    import ex18_9_managed as ex
+def test_18_8_budget_is_applied(ws):
+    import ch24_managed_agent as ma
+    import ex24_7_managed as ex
     fake = FakeManaged([S(type="session.status_idle", stop_reason=S(type="budget_reached"))])
     assert ex.run_with_budget(2, client=fake) == "budget_reached"
     assert fake.created["session"].kw["budget"]["max_list_cost"]["amount"] == "2"

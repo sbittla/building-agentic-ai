@@ -4,7 +4,7 @@ import httpx
 import pytest
 from fakemodel import tool, text, last_user_text
 
-def test_6_3_notes_agent_with_citations(model):
+def test_6_2_notes_agent_with_citations(model):
     import ch06_notes_tools as n, ch04_agent
     model.reset([[tool("search_files", {"pattern": "kafka"})],
                  [text("Lag spiked (work/2026-06-02-incident-kafka-lag.md:2).")]])
@@ -13,15 +13,15 @@ def test_6_3_notes_agent_with_citations(model):
     first_result = model.calls[1]["messages"][-1]["content"][0]["content"]
     assert "kafka-lag.md" in first_result and "(work/" in answer
 
-def test_6_5_citation_checker_catches_bad_citation():
-    import ex6_5_citation_checker as c
+def test_6_4_citation_checker_catches_bad_citation():
+    import ex6_4_citation_checker as c
     report = c.check_citations(
         "Consumer lag spiked to 2.1M messages (work/2026-06-02-incident-kafka-lag.md:2). "
         "Kafka 4.1 removes ZooKeeper (personal/recipes.md:2). "
         "Also (nope.md:1).")
     assert [r["ok"] for r in report] == [True, False, False]
 
-def test_6_6_find_files_by_date(model):
+def test_6_5_find_files_by_date(model):
     import sol_ch06_notes_tools as n
     july = n.find_files("*kafka*", "2026-07-01", "2026-07-31")
     assert "kafka-upgrade-plan" in july and "incident" not in july
@@ -32,8 +32,8 @@ def test_6_6_find_files_by_date(model):
                          system=n.SYSTEM, verbose=False)
     assert "find_files" in n.SYSTEM and "upgrade" in model.calls[1]["messages"][-1]["content"][0]["content"]
 
-def test_6_7_scale_test(model, ws):
-    import generate, ex6_7_scale_test as ex
+def test_6_6_scale_test(model, ws):
+    import generate, ex6_6_scale_test as ex
     generate.notes(80, "notes_big")
     qs = ex.questions()
     assert len(qs) == 15
@@ -88,28 +88,16 @@ def test_7_3_packing_agent(model, fake_http):
     answer, _, s = ch04_agent.run_agent("Pack for Seattle", w.TOOLS, w.run_tool, system=w.SYSTEM, verbose=False)
     assert s["tool_calls"] == 2 and "rain chance 40%" in model.calls[2]["messages"][-1]["content"][0]["content"]
 
-def test_7_4_fahrenheit(fake_http):
-    import sol_ch07_weather_tools as w
-    out = w.run_tool("get_forecast", {"latitude": 30.3, "longitude": -97.7, "units": "fahrenheit"})
-    assert "86 F" in out and fake_http[-1][1]["temperature_unit"] == "fahrenheit"
-    assert w.run_tool("get_forecast", {"latitude": 1, "longitude": 1, "units": "kelvin"}).startswith("ERROR")
-
-def test_7_4_budget(fake_http):
-    import sol_ch07_weather_tools as w, ch07_weather_tools as base
-    base.stats["http_calls"] = w.MAX_HTTP_CALLS
-    assert "budget" in w.run_tool("geocode", {"city": "Pune"})
-    base.stats["http_calls"] = 0
-
-def test_7_5_hard_cases(model, fake_http):
-    import ex7_5_hard_cases as ex, ch07_weather_tools as w
+def test_7_4_hard_cases(model, fake_http):
+    import ex7_4_hard_cases as ex, ch07_weather_tools as w
     model.reset([[tool("geocode", {"city": "Xyzzyqq"})], [text("I couldn't find that place.")],
                  [tool("geocode", {"city": "Portland"})], [text("Portland, Oregon or Maine?")]])
     assert "couldn't" in ex.unknown_city()
     assert "no place called" in model.calls[1]["messages"][-1]["content"][0]["content"]
     assert "Oregon or Maine" in ex.ambiguous_city()
 
-def test_7_5_timeout_retries(monkeypatch):
-    import ex7_5_hard_cases as ex, ch07_weather_tools as w
+def test_7_4_timeout_retries(monkeypatch):
+    import ex7_4_hard_cases as ex, ch07_weather_tools as w
     calls = []
     def boom(url, params, timeout):
         calls.append(url); raise httpx.ConnectTimeout("timed out")
@@ -119,8 +107,8 @@ def test_7_5_timeout_retries(monkeypatch):
     assert out.startswith("ERROR") and "after 3 tries" in out and len(calls) == 3
     assert w.FORECAST_URL.startswith("https://api.open-meteo.com")    # restored
 
-def test_7_6_parallel_keeps_order_and_is_faster(model):
-    import ex7_6_parallel as ex
+def test_7_5_parallel_keeps_order_and_is_faster(model):
+    import ex7_5_parallel as ex
     def slow_tool(name, args):
         time.sleep(0.3); return f"{name}:{args['n']}"
     tools = [{"name": "slow", "description": "x", "input_schema": {"type": "object", "properties": {}}}]
@@ -131,8 +119,8 @@ def test_7_6_parallel_keeps_order_and_is_faster(model):
     results = model.calls[1]["messages"][-1]["content"]
     assert [r["content"] for r in results] == [f"slow:{i}" for i in range(4)]
 
-def test_7_6_compare_sequential_and_parallel(model):
-    import ex7_6_parallel as ex
+def test_7_5_compare_sequential_and_parallel(model):
+    import ex7_5_parallel as ex
     def slow_tool(name, args):
         time.sleep(0.2); return "ok"
     tools = [{"name": "slow", "description": "x", "input_schema": {"type": "object", "properties": {}}}]
@@ -140,8 +128,8 @@ def test_7_6_compare_sequential_and_parallel(model):
     r = ex.compare("q", tools, slow_tool, "sys")
     assert r["sequential"]["tool_seconds"] > 2.5 * r["parallel"]["tool_seconds"]
 
-def test_7_7_trip_benchmark(model, fake_http):
-    import ex7_7_trip_benchmark as ex
+def test_7_6_trip_benchmark(model, fake_http):
+    import ex7_6_trip_benchmark as ex
     def planner(kw):
         n = len(kw["messages"])
         if n == 1:

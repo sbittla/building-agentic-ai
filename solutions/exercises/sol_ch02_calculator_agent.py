@@ -27,7 +27,7 @@ def calculate(expression: str) -> str:
             return _OPS[type(node.op)](left, right)
         if isinstance(node, ast.UnaryOp) and type(node.op) in _OPS:
             return _OPS[type(node.op)](_eval(node.operand))
-        # exercise 2.4: exactly one allowed function name
+        # exactly one allowed function name
         if (isinstance(node, ast.Call) and isinstance(node.func, ast.Name)
                 and node.func.id == "sqrt" and len(node.args) == 1 and not node.keywords):
             return math.sqrt(_eval(node.args[0]))
@@ -56,14 +56,14 @@ TOOLS = [
 ]
 
 def run_tool(name: str, args: dict) -> tuple[str, bool]:
-    """Exercise 2.6: errors come back as data with is_error=True."""
+    """Exercise 2.5: errors come back as data with is_error=True."""
     try:
         return str(REGISTRY[name](**args)), False
     except Exception as exc:
         return f"ERROR: {type(exc).__name__}: {exc}", True
 
 def ask(question: str, max_rounds: int = 5) -> str:
-    """Exercise 2.7's fix: keep going while the model asks for tools (a mini chapter 4)."""
+    """Exercise 2.6's fix: keep going while the model asks for tools (a mini chapter 4)."""
     messages = [{"role": "user", "content": question}]
     for _ in range(max_rounds):
         r = client.messages.create(model=MODEL, max_tokens=2000, tools=TOOLS,

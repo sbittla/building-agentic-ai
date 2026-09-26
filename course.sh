@@ -59,10 +59,10 @@ setup() {
       esac
     fi
   fi
-  for name in AGENT_API_KEYS MCP_TOKEN MCP_READONLY_TOKEN; do       # chapter 19 secrets
+  for name in AGENT_API_KEYS MCP_TOKEN MCP_READONLY_TOKEN; do       # chapter 30 secrets
     if ! env_has "$name"; then printf '%s=%s\n' "$name" "$(secret)" >> .env; fi
   done
-  echo "4. Chapter 19 keys: set (random, in .env)"
+  echo "4. Chapter 30 keys: set (random, in .env)"
   chmod 600 .env 2>/dev/null || true
   echo; echo "Next:  ./course.sh build   then   ./course.sh selftest   then   ./course.sh check --api"
   if grep -q '^PROVIDER=local' .env; then
@@ -122,6 +122,9 @@ case "$cmd" in
     exec docker compose run --rm -p 127.0.0.1:8080:8080 --name agentic-ai-api course "$@" ;;
   serve-mcp)
     exec docker compose run --rm -p 127.0.0.1:8000:8000 --name agentic-ai-mcp course "$@" ;;
+  serve-a2a)    # the chapter 13 A2A agent; other containers reach it as agentic-ai-a2a:9999
+    exec docker compose run --rm -p 127.0.0.1:9999:9999 --name agentic-ai-a2a \
+      -e A2A_PUBLIC_URL=http://agentic-ai-a2a:9999 course "$@" ;;
   ex|exercise)
     if [[ "${2:-}" == 12.* ]]; then
       exec docker compose run --rm --service-ports course "$@"

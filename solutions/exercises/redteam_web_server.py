@@ -1,4 +1,4 @@
-"""Exercise 14.7 helper: a simulated internet, as an MCP server with one `fetch` tool.
+"""Exercise 14.6 helper: a simulated internet, as an MCP server with one `fetch` tool.
 It serves one poisoned news page and records every URL requested, so the red team can
 see exactly what data tried to leave. Nothing here touches the real network."""
 import os

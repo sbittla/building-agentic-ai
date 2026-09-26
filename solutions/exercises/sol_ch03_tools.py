@@ -1,4 +1,4 @@
-"""Chapter 3 reference solution for exercise 3.4: add get_current_time(timezone)."""
+"""Chapter 3 reference solution for exercise 3.3: add get_current_time(timezone)."""
 from datetime import datetime
 from zoneinfo import ZoneInfo
 import ch03_tools as base

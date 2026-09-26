@@ -11,7 +11,7 @@ FORECAST_URL = "https://api.open-meteo.com/v1/forecast"
 CACHE_SECONDS = 600
 CACHE_MAX_ENTRIES = 500       # bounded: an agent can ask for a LOT of different places
 _cache: OrderedDict = OrderedDict()   # (url, params) -> (expires_at, data), oldest first
-_cache_lock = threading.Lock()        # tools may run in parallel threads (exercise 7.6)
+_cache_lock = threading.Lock()        # tools may run in parallel threads (exercise 7.5)
 stats = {"http_calls": 0, "cache_hits": 0}
 
 def _cache_get(key):

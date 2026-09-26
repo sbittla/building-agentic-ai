@@ -131,6 +131,7 @@ switch ($cmd) {
     "serve"     { docker compose run --rm --service-ports course @all }
     "serve-api" { docker compose run --rm -p 127.0.0.1:8080:8080 --name agentic-ai-api course @all }
     "serve-mcp" { docker compose run --rm -p 127.0.0.1:8000:8000 --name agentic-ai-mcp course @all }
+    "serve-a2a" { docker compose run --rm -p 127.0.0.1:9999:9999 --name agentic-ai-a2a -e A2A_PUBLIC_URL=http://agentic-ai-a2a:9999 course @all }
     { $_ -in "ex", "exercise" } {
         if ($rest.Count -gt 0 -and "$($rest[0])".StartsWith("12.")) {
             docker compose run --rm --service-ports course @all

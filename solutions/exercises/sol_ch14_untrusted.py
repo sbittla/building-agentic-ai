@@ -1,4 +1,4 @@
-"""Exercise 14.6 (Medium): wrap untrusted tool output before the model sees it."""
+"""Exercise 14.5 (Medium): wrap untrusted tool output before the model sees it."""
 import json
 import sys
 from anthropic import AsyncAnthropic

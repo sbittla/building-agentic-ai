@@ -1,6 +1,6 @@
-"""Dev tool: write a 'Solutions for this chapter' table into every chapter's markdown,
-from solutions/index.json, course/exercises.json and each solution file's docstring.
-Safe to rerun: an existing table is replaced.   python dev/solution_tables.py <md folder>"""
+"""Dev tool: write solutions/SOLUTIONS.md, an index of every exercise's solution and what
+it shows, from solutions/index.json, course/exercises.json and each file's docstring.
+Safe to rerun.   python dev/solution_tables.py <md folder>"""
 import ast
 import json
 import re
@@ -20,10 +20,9 @@ KEY = {  # one line: what the solution shows. Used where a file's docstring isn'
  "T.1": "A failing test names the broken function and shows the wrong value",
  "P.1": "Filtered lists and dictionaries in one line, and totals with dict.get",
  "P.2": "Look a function up by name, call it with **args, and turn any failure into text",
- "P.3": "sorted(..., key=lambda ...) and min(..., key=...) without changing the original",
- "P.4": "A class holding dataclass objects, with ids and no shared state",
- "P.5": "A decorator that registers a function, and one that wraps it (functools.wraps)",
- "P.6": "Mutable defaults, off-by-one ranges and swallowed errors",
+ "P.3": "A class holding dataclass objects, with ids and no shared state",
+ "P.4": "A decorator that registers a function, and one that wraps it (functools.wraps)",
+ "P.5": "Mutable defaults, off-by-one ranges and swallowed errors",
  # chapter 1
  "1.1": "Could you draw the flowchart in advance? Then it's a workflow, not an agent",
  "1.2": "Resending history makes total input grow quadratically with turns (47,500 tokens)",
@@ -32,16 +31,14 @@ KEY = {  # one line: what the solution shows. Used where a file's docstring isn'
  # chapter 2
  "2.1": "Tool results are sent as role user; only the model writes assistant messages",
  "2.2": "Never eval model input: the safe calculator rejects calls and attributes, but huge powers still need a cap",
- "2.4": "Allow exactly one extra function name; keep everything else rejected",
- "2.6": "Return errors as tool results with is_error, so the model can recover",
+ "2.5": "Return errors as tool results with is_error, so the model can recover",
  # chapter 3
  "3.1": "Merge overlapping tools and write descriptions that say when to use each",
  "3.2": "auto, any, a named tool or none: pick by how much freedom the model needs",
- "3.4": "A new tool needs the function, the registry entry and a schema with an enum",
+ "3.3": "A new tool needs the function, the registry entry and a schema with an enum",
  # chapter 4
  "4.1": "Two tool round-trips, then an answer: every tool_use is followed by its tool_result",
- "4.2": "Later calls resend earlier steps, so history dominates the token count",
- "4.3": "Multi-step questions show two or more tool calls in the trace",
+ "4.2": "Multi-step questions show two or more tool calls in the trace",
  # chapter 5
  "5.1": "Only what's written to disk survives; the conversation doesn't",
  "5.2": "Retrying a tool call must not duplicate or damage data",
@@ -50,14 +47,12 @@ KEY = {  # one line: what the solution shows. Used where a file's docstring isn'
  "5.5": "An overdue filter computed in code, not guessed by the model",
  "5.6": "When two items match, the agent asks instead of guessing",
  # chapter 6
- "6.1": "Agentic search for small, changing, exact-match corpora; RAG for large stable ones",
- "6.2": "Path checks must resolve the real path; test ../, absolute paths and symlinks",
- "6.3": "Answers cite (file:line), and unanswerable questions say so",
+ "6.1": "Path checks must resolve the real path; test ../, absolute paths and symlinks",
+ "6.2": "Answers cite (file:line), and unanswerable questions say so",
  # chapter 7
  "7.1": "Every failure mode needs a planned response: retry, explain or stop",
  "7.2": "Cache by how fast the data changes and how costly a stale answer is",
  "7.3": "The packing list must follow the forecast numbers in the trace",
- "7.4": "Unit conversion as an option on the tool, plus a per-run API budget",
  # chapter 8
  "8.1": "A read-only connection is enforced by the database; a prompt is only a request",
  "8.2": "Write definitions (revenue, active customer) the agent must follow",
@@ -70,8 +65,7 @@ KEY = {  # one line: what the solution shows. Used where a file's docstring isn'
  "9.3": "Plan first; declining changes nothing",
  "9.4": "Every applied plan can be undone from its log",
  "9.5": "Approve some moves and reject others in one plan",
- "9.6": "Organize by date as a new strategy in the same approval flow",
- "9.7": "A policy file that blocks risky moves, tested on 200 files",
+ "9.6": "A policy file that blocks risky moves, tested on 200 files",
  # chapter 10
  "10.1": "Every task needs a checkable signal: a reference query, a schema, a measurement",
  "10.2": "Agents can game tests (special cases, skipped tests); defend in code",
@@ -81,9 +75,8 @@ KEY = {  # one line: what the solution shows. Used where a file's docstring isn'
  "11.1": "Use many agents only for broad, parallel, loosely coupled work",
  "11.2": "Each subtask needs an objective, boundaries, an output format and an effort level",
  "11.3": "Plan, parallel findings, cited synthesis, plus time and tokens",
- "11.4": "Sequential vs parallel subagents: same answer, less wall time",
- "11.5": "Structured subtasks with an effort level that sets each subagent's step budget",
- "11.6": "A critic pass that checks the draft against the findings",
+ "11.4": "Structured subtasks with an effort level that sets each subagent's step budget",
+ "11.5": "A critic pass that checks the draft against the findings",
  # chapter 12
  "12.1": "Host, client and server: who runs the model and who runs the tools",
  "12.2": "Tools act, resources are read, prompts are templates the user picks",
@@ -91,49 +84,57 @@ KEY = {  # one line: what the solution shows. Used where a file's docstring isn'
  "12.5": "Claude Desktop runs your server through Docker and asks before each call",
  "12.7": "The same server over stdio and Streamable HTTP, tested both ways",
  # chapter 13
- "13.1": "Tools are discovered at run time instead of written into the host",
- "13.2": "Namespace tools as server__tool so names never collide",
- "13.4": "One question, tools from two servers",
- "13.5": "Read servers' resources at start-up and give them to the model",
- "13.6": "Add a server by configuration only, no host code changes",
- "13.7": "Restart a crashed server, reconnect and retry the call once",
- "13.8": "A resolver asks the user mid-call (elicitation); the host shows the question and fills the answer",
+ "13.1": "Namespace tools as server__tool so names never collide",
+ "13.3": "One question, tools from two servers",
+ "13.4": "Read servers' resources at start-up and give them to the model",
+ "13.5": "Add a server by configuration only, no host code changes",
+ "13.6": "Restart a crashed server, reconnect and retry the call once",
+ "13.7": "A resolver asks the user mid-call (elicitation); the host shows the question and fills the answer",
  # chapter 14
  "14.1": "A policy layer in code hides and blocks dangerous tools even if the model is convinced",
  "14.2": "Six questions: publisher, permissions, readable source, pinned version, narrowing, secrets passed",
- "14.3": "The Filesystem server enforces its folder limit, not the prompt",
- "14.4": "A read-only token and --read-only remove write tools entirely",
- # chapter 15
- "15.1": "Cases with deterministic checks, grown from real failures",
- "15.2": "Flat throughput plus 429s means a rate limit; p95 far above p50 means queueing",
- "15.3": "Six more SQL cases, each with a check that can fail",
+ "14.3": "A read-only token and --read-only remove write tools entirely",
+ # chapter 27
+ "27.1": "Cases with deterministic checks, grown from real failures",
+ "27.2": "Flat throughput plus 429s means a rate limit; p95 far above p50 means queueing",
+ "27.3": "Six more SQL cases, each with a check that can fail",
  # chapter 16-19
  "16.1": "Trim tool results first, cache the stable prefix second, compact last",
  "16.2": "Role, tool use, rules, output format and boundaries, each testable",
  "16.3": "Watch trimming or compaction keep a conversation under budget",
- "16.4": "Memory survives restarts in memory.db; forget really deletes",
- "16.6": "Keep the head and tail of old tool results; never break tool pairs",
- "17.1": "Chunk size follows the document type; overlap protects boundaries",
- "17.2": "Keyword for exact codes, vectors for meaning, hybrid for both",
- "17.3": "Keyword and vector search disagree; see where and why",
- "17.4": "Recall@3 and MRR for each embedder and search mode",
- "18.1": "Every hand-built part has a framework equivalent",
- "18.2": "Choose by need: minimal loop, full runtime, portability or teaching",
- "18.3": "@beta_tool builds the schema from type hints and the docstring",
- "18.4": "A DELETE is denied by can_use_tool and the database is unchanged",
- "19.1": "Map each misuse to a control, and name the gaps",
- "3.8": "Deferred tools found by search, against loading every tool: accuracy, searches and tokens",
- "14.8": "Each OWASP agentic risk, how it could happen here, the defense in place and the gap to close first",
- "16.8": "Many calls feeding one summary favor a program; step-by-step reasoning favors the plain loop",
- "18.8": "A second skill with a reference file, validated, and a trace showing only the needed skill loads",
- "18.9": "A managed session to completion, and one stopped by a tiny budget",
- "11.8": "Router, evaluator-optimizer, voting and handoff, each matched to a job, with its cost in model calls",
- "13.9": "A coordinator hub that delegates data questions to an analyst agent served over MCP",
- "19.2": "401, 429, 422, 404, 502 and 409, and why each one",
- "19.8": "Build, run and smoke-test the production image, then deploy with secrets and limits",
- "19.3": "Sessions carry context between requests; streaming shows progress",
- "19.4": "Per-key rate limits give 429 with Retry-After; bad keys give 401",
- "19.5": "Stream every model call and forward text as it arrives",
+ "16.4": "The report explains every inclusion and drop; routing decides which sources are fetched",
+ "16.6": "Newest item per origin, failed refreshes reported, max_age enforced, with unit tests",
+ "16.8": "Workers get isolated briefs and answer in one call: fewer tokens, same citations",
+ "17.1": "Each memory classified by kind, scope, lifetime and store, or not stored at all",
+ "17.2": "A one-page memory policy whose rules can be enforced in code",
+ "17.4": "Every output line explained: stored, replaced, refused, quarantined, expired or recalled",
+ "17.5": "Episodes about one topic become one semantic memory that records its sources",
+ "17.6": "Five poisoning attempts, all quarantined by layered defenses",
+ "17.7": "Only the lead writes team memory; workers read it and keep private notes",
+ "18.7": "A weather source the planner uses only for forecasts",
+ "18.8": "Answerable and unanswerable questions scored for one and two search rounds",
+ "18.9": "Quotations and wrong-source citations caught, then one revision round",
+ "17.3": "Memory survives restarts in memory.db; forget really deletes",
+ "18.1": "Chunk size follows the document type; overlap protects boundaries",
+ "18.2": "Keyword for exact codes, vectors for meaning, hybrid for both",
+ "18.3": "Keyword and vector search disagree; see where and why",
+ "18.4": "Recall@3 and MRR for each embedder and search mode",
+ "24.1": "Every hand-built part has a framework equivalent",
+ "24.2": "Choose by need: minimal loop, full runtime, portability or teaching",
+ "24.3": "A DELETE is denied by can_use_tool and the database is unchanged",
+ "3.7": "Deferred tools found by search, against loading every tool: accuracy, searches and tokens",
+ "14.7": "Each OWASP agentic risk, how it could happen here, the defense in place and the gap to close first",
+ "16.7": "Many calls feeding one summary favor a program; step-by-step reasoning favors the plain loop",
+ "24.6": "A second skill with a reference file, validated, and a trace showing only the needed skill loads",
+ "24.7": "A managed session to completion, and one stopped by a tiny budget",
+ "11.7": "Router, evaluator-optimizer, voting and handoff, each matched to a job, with its cost in model calls",
+ "13.8": "A coordinator hub that delegates data questions to an analyst agent served over MCP",
+ "13.9": "Two agents published with A2A (analyst and to-do keeper), found by their cards and used by one coordinator",
+ "30.1": "401, 429, 422, 404, 502 and 409, and why each one",
+ "30.7": "Build, run and smoke-test the production image, then deploy with secrets and limits",
+ "30.2": "Sessions carry context between requests; streaming shows progress",
+ "30.3": "Per-key rate limits give 429 with Retry-After; bad keys give 401",
+ "30.4": "Stream every model call and forward text as it arrives",
 }
 
 def doc_line(path: Path) -> str:
@@ -166,21 +167,25 @@ for e in EX:
     by_chapter.setdefault(e["chapter"], []).append(e)
 
 HEAD = "## Solutions for this chapter"
+# The book no longer prints these tables: every exercise box names its solution file.
+# This script removes any old table from the chapters and writes one browsable index,
+# solutions/SOLUTIONS.md, with what each solution shows.
+out = ["# Solutions index", "",
+       "Try each exercise before you look. `./course.sh solution <id>` prints a solution; "
+       "paths are relative to this `solutions` folder. Written answers are in `ANSWERS.md`.", ""]
 for md in sorted(MD.glob("[0-9][0-9]*.md")):
     text = md.read_text()
-    m = re.search(r"^# (.+)$", text, re.M)
-    if not m or m.group(1) not in by_chapter:
-        continue
-    exs = by_chapter[m.group(1)]
-    # remove an old table
-    text = re.sub(rf"\n{re.escape(HEAD)}\n.*?(?=\n## |\Z)", "", text, flags=re.S).rstrip() + "\n"
-    table = "\n".join([
-        "", HEAD, "",
-        "Try each exercise before you look. `./course.sh solution <id>` prints a solution; paths are "
-        "relative to the kit's `solutions` folder, and Appendix F explains how it's organized.", "",
-        "| Exercise | Solution in `solutions/` | What it shows |", "| --- | --- | --- |",
-        *[row(e) for e in exs], ""])
-    cp = text.find("\n## Checkpoint")
-    text = (text[:cp].rstrip() + "\n" + table + text[cp:]) if cp != -1 else text + table
-    md.write_text(text)
-    print(f"{md.name}: {len(exs)} rows")
+    new = re.sub(rf"\n{re.escape(HEAD)}\n.*?(?=\n## |\Z)", "", text, flags=re.S)
+    if new != text:
+        md.write_text(new.rstrip() + "\n")
+        print(f"{md.name}: old table removed")
+order = []
+for md in sorted(MD.glob("[0-9][0-9]*.md")):
+    m = re.search(r"^# (.+)$", md.read_text(), re.M)
+    if m and m.group(1) in by_chapter:
+        order.append(m.group(1))
+for chapter in order:
+    out += [f"## {chapter}", "", "| Exercise | Solution | What it shows |", "| --- | --- | --- |",
+            *[row(e) for e in by_chapter[chapter]], ""]
+(KIT / "solutions/SOLUTIONS.md").write_text("\n".join(out))
+print("wrote solutions/SOLUTIONS.md")

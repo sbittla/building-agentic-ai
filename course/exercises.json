@@ -105,50 +105,38 @@
  },
  {
   "id": "P.3",
-  "level": "Simple",
-  "title": "Sort and pick",
-  "chapter": "Interlude: The Python You'll Need",
-  "task": "Write `top_n(items, n, field)` that returns the `n` dictionaries with the largest value of `field`, largest first, and `cheapest(products)` that returns the name of the cheapest product.",
-  "hint": "`sorted(items, key=lambda x: x[field], reverse=True)[:n]`, or `min(..., key=...)`.",
-  "done_when": "`./course.sh check P.3` passes.",
-  "kind": "build",
-  "file": "exercises/exP_3_sorting.py",
-  "nokey": true
- },
- {
-  "id": "P.4",
   "level": "Medium",
   "title": "A class of your own",
   "chapter": "Interlude: The Python You'll Need",
   "task": "Write a `TaskList` class with `add(title, due=None)` returning the new task's id, `complete(task_id)` returning `True` (or `False` for an unknown id), and `open_tasks()` returning the open tasks' titles, oldest first. Store tasks as `Task` dataclass objects.",
   "hint": "Section 4. Number tasks 1, 2, 3... with `len(self.tasks) + 1`.",
-  "done_when": "`./course.sh check P.4` passes.",
+  "done_when": "`./course.sh check P.3` passes.",
   "kind": "build",
-  "file": "exercises/exP_4_tasklist.py",
+  "file": "exercises/exP_3_tasklist.py",
   "nokey": true
  },
  {
-  "id": "P.5",
+  "id": "P.4",
   "level": "Medium",
   "title": "Decorators",
   "chapter": "Interlude: The Python You'll Need",
   "task": "Write a `tool` decorator that registers a function in `TOOLS` under its name, with its docstring as the description, and returns the function unchanged. Then write `count_calls`, a decorator that records in a `calls` dictionary how many times each function was called.",
   "hint": "Section 5. A decorator is a function that takes a function and returns a function.",
-  "done_when": "`./course.sh check P.5` passes.",
+  "done_when": "`./course.sh check P.4` passes.",
   "kind": "build",
-  "file": "exercises/exP_5_decorators.py",
+  "file": "exercises/exP_4_decorators.py",
   "nokey": true
  },
  {
-  "id": "P.6",
+  "id": "P.5",
   "level": "Medium",
   "title": "Find the bugs",
   "chapter": "Interlude: The Python You'll Need",
   "task": "The starter file has three functions, each with one bug: a shared default list, a wrong loop range and an error that is silently swallowed. Fix all three without rewriting the functions.",
   "hint": null,
-  "done_when": "`./course.sh check P.6` passes, and you can name each bug.",
+  "done_when": "`./course.sh check P.5` passes, and you can name each bug.",
   "kind": "build",
-  "file": "exercises/exP_6_bugs.py",
+  "file": "exercises/exP_5_bugs.py",
   "nokey": true
  },
  {
@@ -223,7 +211,7 @@
   "level": "Complex",
   "title": "Where does the agent go?",
   "chapter": "Chapter 1: What an Agent Is (and Isn't)",
-  "task": "Take the support-email workflow from section 1.5 and write a one-page design note: which emails would need the steps to change at run time, which tools an agent would need (name at least four), and what could go wrong if the agent had those tools. Estimate the cost per email for the workflow and for an agent that averages four model calls.",
+  "task": "Take the support-email workflow from section 1.5 and write a one-page design note: which emails would need the steps to change at run time, which tools an agent would need (name at least four), what information it would need in front of it at each step, and what could go wrong if the agent had those tools. Estimate the cost per email for the workflow and for an agent that averages four model calls.",
   "hint": null,
   "done_when": "The note names concrete tools and risks and includes a cost comparison. Keep it; you'll revisit it in Capstone 1.",
   "kind": "concept"
@@ -316,30 +304,16 @@
  {
   "id": "2.4",
   "level": "Medium",
-  "title": "Add square roots",
-  "chapter": "Chapter 2: Tool Calling",
-  "task": "Extend `calculate` to support `sqrt(x)` safely by allowing exactly one function name. Update the tool description.",
-  "hint": "Handle `ast.Call` only when `node.func` is `ast.Name` with `id == \"sqrt\"`.",
-  "done_when": "\"What is the square root of 2 times 50?\" works, `__import__('os')` is still rejected, and `./course.sh check 2.4` passes.",
-  "kind": "run",
-  "cmd": "python ch02_calculator_agent.py",
-  "edit": [
-   "ch02_calculator_agent.py"
-  ]
- },
- {
-  "id": "2.5",
-  "level": "Medium",
   "title": "Tune the description",
   "chapter": "Chapter 2: Tool Calling",
   "task": "Write 10 questions: seven that need arithmetic and three that don't (such as \"What is a prime number?\"). Log whether the model called the tool for each. Rewrite the description until tool calls are 10/10 correct.",
   "hint": null,
   "done_when": "You have before-and-after results and the final description.",
   "kind": "build",
-  "file": "exercises/ex2_5_description_eval.py"
+  "file": "exercises/ex2_4_description_eval.py"
  },
  {
-  "id": "2.6",
+  "id": "2.5",
   "level": "Medium",
   "title": "Graceful errors",
   "chapter": "Chapter 2: Tool Calling",
@@ -347,13 +321,13 @@
   "hint": null,
   "done_when": "Both questions produce a helpful answer instead of a crash, with a unit test for each error case.",
   "kind": "test",
-  "file": "tests/test_ex2_6_errors.py",
+  "file": "tests/test_ex2_5_errors.py",
   "edit": [
    "ch02_calculator_agent.py"
   ]
  },
  {
-  "id": "2.7",
+  "id": "2.6",
   "level": "Complex",
   "title": "A second tool, by hand",
   "chapter": "Chapter 2: Tool Calling",
@@ -361,7 +335,7 @@
   "hint": "`ask` makes exactly two model calls. What happens if the second response is also a `tool_use`?",
   "done_when": "You can explain in writing why `ask` breaks on multi-step questions. This is the problem Chapter 4 solves.",
   "kind": "build",
-  "file": "exercises/ex2_7_two_tools.py"
+  "file": "exercises/ex2_6_two_tools.py"
  },
  {
   "id": "3.1",
@@ -386,23 +360,11 @@
  {
   "id": "3.3",
   "level": "Simple",
-  "title": "Two new questions",
-  "chapter": "Chapter 3: Choosing Between Tools",
-  "task": "Using `ch03_tools.py` and `ask`-style code from Chapter 2 (copy `ask` from `ch02_calculator_agent.py` into a new file and point it at `ch03_tools.TOOLS` and `run_tool`), answer \"What day is it?\" and \"How many km is 26.2 miles?\". Print which tool was called for each.",
-  "hint": null,
-  "done_when": "Each question goes to the correct tool.",
-  "kind": "ask",
-  "module": "ch03_tools",
-  "question": "What day is it? And how many km is 26.2 miles?"
- },
- {
-  "id": "3.4",
-  "level": "Simple",
   "title": "Add a tool",
   "chapter": "Chapter 3: Choosing Between Tools",
   "task": "Add `get_current_time(timezone)` using Python's `zoneinfo`. Add it to both `REGISTRY` and `TOOLS`, with an `enum` of five time zones.",
   "hint": "`datetime.now(ZoneInfo(\"Asia/Tokyo\")).strftime(\"%H:%M\")` gives the time there (`from zoneinfo import ZoneInfo`).",
-  "done_when": "\"What time is it in Tokyo?\" calls your tool with `Asia/Tokyo`, and `./course.sh check 3.4` passes.",
+  "done_when": "\"What time is it in Tokyo?\" calls your tool with `Asia/Tokyo`, and `./course.sh check 3.3` passes.",
   "kind": "ask",
   "module": "ch03_tools",
   "question": "What time is it in Tokyo?",
@@ -411,7 +373,7 @@
   ]
  },
  {
-  "id": "3.5",
+  "id": "3.4",
   "level": "Medium",
   "title": "A 20-question eval",
   "chapter": "Chapter 3: Choosing Between Tools",
@@ -425,7 +387,7 @@
   ]
  },
  {
-  "id": "3.6",
+  "id": "3.5",
   "level": "Medium",
   "title": "Structured output, two ways",
   "chapter": "Chapter 3: Choosing Between Tools",
@@ -433,10 +395,10 @@
   "hint": null,
   "done_when": "Both give valid data for all five with no JSON parsing, and you can say which one you'd use and why, including which one still works on models that reject forced tools.",
   "kind": "build",
-  "file": "exercises/ex3_6_forced_tool.py"
+  "file": "exercises/ex3_5_forced_tool.py"
  },
  {
-  "id": "3.7",
+  "id": "3.6",
   "level": "Complex",
   "title": "Scale to ten tools",
   "chapter": "Chapter 3: Choosing Between Tools",
@@ -451,7 +413,7 @@
   ]
  },
  {
-  "id": "3.8",
+  "id": "3.7",
   "level": "Medium",
   "title": "Tool search at scale",
   "chapter": "Chapter 3: Choosing Between Tools",
@@ -473,16 +435,6 @@
  },
  {
   "id": "4.2",
-  "level": "Concept",
-  "title": "Count the tokens",
-  "chapter": "Chapter 4: The Agent Loop",
-  "task": "A run takes four steps. The system prompt plus tools come to 800 tokens, the question is 50, each model response is 100 and each tool result is 150. Calculate the total input tokens across all four calls.",
-  "hint": null,
-  "done_when": "You have the number and can say which part of the history dominates.",
-  "kind": "concept"
- },
- {
-  "id": "4.3",
   "level": "Simple",
   "title": "Run the loop",
   "chapter": "Chapter 4: The Agent Loop",
@@ -493,7 +445,7 @@
   "cmd": "python ch04_agent.py"
  },
  {
-  "id": "4.4",
+  "id": "4.3",
   "level": "Simple",
   "title": "Trigger the cap",
   "chapter": "Chapter 4: The Agent Loop",
@@ -501,32 +453,21 @@
   "hint": null,
   "done_when": "You've seen both the cap message and how the model reacts to repeated errors.",
   "kind": "build",
-  "file": "exercises/ex4_4_cap.py"
+  "file": "exercises/ex4_3_cap.py"
  },
  {
-  "id": "4.5",
+  "id": "4.4",
   "level": "Medium",
   "title": "A better tracer",
   "chapter": "Chapter 4: The Agent Loop",
-  "task": "Extend the trace to print, for each step, input and output tokens plus the time spent in the model call and in tools, separately. At the end, print a summary table. Work in the copy of the loop that `./course.sh ex 4.5` creates (`exercises/ex4_5_tracer.py`), not in `ch04_agent.py`: every later chapter imports that file, so keep the original working.",
+  "task": "Extend the trace to print, for each step, input and output tokens plus the time spent in the model call and in tools, separately. At the end, print a summary table. Work in the copy of the loop that `./course.sh ex 4.4` creates (`exercises/ex4_4_tracer.py`), not in `ch04_agent.py`: every later chapter imports that file, so keep the original working.",
   "hint": "Time the `messages.create` call and the `run_tool` calls with separate `perf_counter` pairs.",
   "done_when": "A run prints per-step timing and tokens and a final total.",
   "kind": "build",
-  "file": "exercises/ex4_5_tracer.py"
+  "file": "exercises/ex4_4_tracer.py"
  },
  {
-  "id": "4.6",
-  "level": "Medium",
-  "title": "Multi-turn chat",
-  "chapter": "Chapter 4: The Agent Loop",
-  "task": "Build the chat from section 4.7. Show that the agent can answer \"And how many weeks is that?\" after a previous question about days.",
-  "hint": null,
-  "done_when": "The follow-up question works without repeating the context.",
-  "kind": "build",
-  "file": "exercises/ex4_6_chat.py"
- },
- {
-  "id": "4.7",
+  "id": "4.5",
   "level": "Complex",
   "title": "Cost profile",
   "chapter": "Chapter 4: The Agent Loop",
@@ -534,7 +475,7 @@
   "hint": "Store results in a list of dictionaries and use `statistics.mean`. For the chart, use matplotlib or a spreadsheet.",
   "done_when": "You can state, with numbers, how cost grows with steps, and which question is the most expensive and why.",
   "kind": "build",
-  "file": "exercises/ex4_7_cost_profile.py"
+  "file": "exercises/ex4_5_cost_profile.py"
  },
  {
   "id": "5.1",
@@ -649,7 +590,7 @@
   "level": "Medium",
   "title": "Parse citations",
   "chapter": "Interlude: Regular Expressions",
-  "task": "Write `citations(text)` that returns every `(file:line)` citation in a text, such as `(work/plan.md:12)`, as `(file, line_number)` pairs. Chapter 6 and exercise 6.5 use exactly this.",
+  "task": "Write `citations(text)` that returns every `(file:line)` citation in a text, such as `(work/plan.md:12)`, as `(file, line_number)` pairs. Chapter 6 and exercise 6.4 use exactly this.",
   "hint": null,
   "done_when": "It finds citations with folders, dots and dashes in file names, and ignores `(see page 12)`.",
   "kind": "build",
@@ -661,7 +602,7 @@
   "level": "Medium",
   "title": "Error codes",
   "chapter": "Interlude: Regular Expressions",
-  "task": "Write a pattern that finds error codes like `ERR-4471` but not `ERR-44` or `XERR-4471`, and explain why embedding-based search (Chapter 17) might confuse `ERR-4471` with `ERR-4417` while this pattern can't.",
+  "task": "Write a pattern that finds error codes like `ERR-4471` but not `ERR-44` or `XERR-4471`, and explain why embedding-based search (Chapter 18) might confuse `ERR-4471` with `ERR-4417` while this pattern can't.",
   "hint": "`\\b` matches a word boundary.",
   "done_when": "Your pattern passes five examples you write, and your explanation is two sentences.",
   "kind": "build",
@@ -671,16 +612,6 @@
  {
   "id": "6.1",
   "level": "Concept",
-  "title": "Search or RAG?",
-  "chapter": "Chapter 6: Exploring an Environment",
-  "task": "Choose agentic search, RAG or both, with a reason, for: (a) 20 personal notes; (b) 2,000 engineering runbooks; (c) 2 million support tickets; (d) a codebase where the user asks about a specific error code.",
-  "hint": null,
-  "done_when": "Each choice is tied to size, freshness and query type.",
-  "kind": "concept"
- },
- {
-  "id": "6.2",
-  "level": "Concept",
   "title": "Break the sandbox",
   "chapter": "Chapter 6: Exploring an Environment",
   "task": "List five `path` values an attacker might try against a naive sandbox that checks `if \"..\" in path`. Say which ones `_safe` blocks and why.",
@@ -689,7 +620,7 @@
   "kind": "concept"
  },
  {
-  "id": "6.3",
+  "id": "6.2",
   "level": "Simple",
   "title": "Ask your notes",
   "chapter": "Chapter 6: Exploring an Environment",
@@ -701,7 +632,7 @@
   "question": null
  },
  {
-  "id": "6.4",
+  "id": "6.3",
   "level": "Simple",
   "title": "Prove the sandbox",
   "chapter": "Chapter 6: Exploring an Environment",
@@ -709,10 +640,10 @@
   "hint": null,
   "done_when": "All three tests pass.",
   "kind": "test",
-  "file": "tests/test_ex6_4_sandbox.py"
+  "file": "tests/test_ex6_3_sandbox.py"
  },
  {
-  "id": "6.5",
+  "id": "6.4",
   "level": "Medium",
   "title": "Check the citations",
   "chapter": "Chapter 6: Exploring an Environment",
@@ -720,10 +651,10 @@
   "hint": null,
   "done_when": "It catches a citation you deliberately corrupt.",
   "kind": "build",
-  "file": "exercises/ex6_5_citation_checker.py"
+  "file": "exercises/ex6_4_citation_checker.py"
  },
  {
-  "id": "6.6",
+  "id": "6.5",
   "level": "Medium",
   "title": "Search by filename and date",
   "chapter": "Chapter 6: Exploring an Environment",
@@ -738,7 +669,7 @@
   ]
  },
  {
-  "id": "6.7",
+  "id": "6.6",
   "level": "Complex",
   "title": "Scale test",
   "chapter": "Chapter 6: Exploring an Environment",
@@ -746,7 +677,7 @@
   "hint": null,
   "done_when": "You have a results table and a short analysis of where each approach wins.",
   "kind": "build",
-  "file": "exercises/ex6_7_scale_test.py",
+  "file": "exercises/ex6_6_scale_test.py",
   "setup": "course data notes --count 2000 --out notes_big"
  },
  {
@@ -783,21 +714,6 @@
  },
  {
   "id": "7.4",
-  "level": "Simple",
-  "title": "Fahrenheit",
-  "chapter": "Chapter 7: Real APIs",
-  "task": "Add a `units` parameter (`celsius` or `fahrenheit`) to `get_forecast` using Open-Meteo's `temperature_unit` parameter.",
-  "hint": null,
-  "done_when": "\"Pack for Austin, and give temperatures in Fahrenheit\" returns \u00b0F.",
-  "kind": "ask",
-  "module": "ch07_weather_tools",
-  "question": "Pack for Austin, and give temperatures in Fahrenheit",
-  "edit": [
-   "ch07_weather_tools.py"
-  ]
- },
- {
-  "id": "7.5",
   "level": "Medium",
   "title": "Handle the hard cases",
   "chapter": "Chapter 7: Real APIs",
@@ -812,7 +728,7 @@
   ]
  },
  {
-  "id": "7.6",
+  "id": "7.5",
   "level": "Medium",
   "title": "Run tools in parallel",
   "chapter": "Chapter 7: Real APIs",
@@ -820,10 +736,10 @@
   "hint": null,
   "done_when": "A two-city question is measurably faster with parallel tool execution.",
   "kind": "build",
-  "file": "exercises/ex7_6_parallel.py"
+  "file": "exercises/ex7_5_parallel.py"
  },
  {
-  "id": "7.7",
+  "id": "7.6",
   "level": "Complex",
   "title": "Multi-city trip with measurements",
   "chapter": "Chapter 7: Real APIs",
@@ -831,7 +747,7 @@
   "hint": null,
   "done_when": "You have a table comparing the two modes and a short explanation of where the time goes.",
   "kind": "build",
-  "file": "exercises/ex7_7_trip_benchmark.py"
+  "file": "exercises/ex7_6_trip_benchmark.py"
  },
  {
   "id": "S.1",
@@ -1027,21 +943,6 @@
  },
  {
   "id": "9.6",
-  "level": "Medium",
-  "title": "Organize by date",
-  "chapter": "Chapter 9: Human in the Loop",
-  "task": "Add a second planning mode: group photos into `YYYY/MM` folders by modification date. The agent chooses the mode based on the user's request.",
-  "hint": null,
-  "done_when": "\"Sort my photos by month\" produces a date-based plan that still needs approval.",
-  "kind": "ask",
-  "module": "ch09_organizer",
-  "question": "Sort my photos by month",
-  "edit": [
-   "ch09_organizer.py"
-  ]
- },
- {
-  "id": "9.7",
   "level": "Complex",
   "title": "Policy file and stress test",
   "chapter": "Chapter 9: Human in the Loop",
@@ -1049,7 +950,7 @@
   "hint": null,
   "done_when": "A test script proves every behavior, and a full undo restores the original state exactly (compare file hashes).",
   "kind": "test",
-  "file": "tests/test_ex9_7_policy.py",
+  "file": "tests/test_ex9_6_policy.py",
   "setup": "course data messy --count 200 --out messy_big"
  },
  {
@@ -1221,20 +1122,6 @@
  },
  {
   "id": "11.4",
-  "level": "Simple",
-  "title": "Sequential versus parallel",
-  "chapter": "Chapter 11: Multi-Agent Systems",
-  "task": "Replace `asyncio.gather` with a plain loop that awaits each subagent in turn.",
-  "hint": null,
-  "done_when": "You've measured wall time both ways and explained the difference.",
-  "kind": "run",
-  "cmd": "python ch11_research_team.py",
-  "edit": [
-   "ch11_research_team.py"
-  ]
- },
- {
-  "id": "11.5",
   "level": "Medium",
   "title": "Better delegation",
   "chapter": "Chapter 11: Multi-Agent Systems",
@@ -1248,7 +1135,7 @@
   ]
  },
  {
-  "id": "11.6",
+  "id": "11.5",
   "level": "Medium",
   "title": "A critic agent",
   "chapter": "Chapter 11: Multi-Agent Systems",
@@ -1262,7 +1149,7 @@
   ]
  },
  {
-  "id": "11.7",
+  "id": "11.6",
   "level": "Complex",
   "title": "Is it worth it?",
   "chapter": "Chapter 11: Multi-Agent Systems",
@@ -1270,10 +1157,10 @@
   "hint": null,
   "done_when": "You've written a one-page recommendation, with a table, on when your team should use multi-agent research.",
   "kind": "build",
-  "file": "exercises/ex11_7_compare.py"
+  "file": "exercises/ex11_6_compare.py"
  },
  {
-  "id": "11.8",
+  "id": "11.7",
   "level": "Medium",
   "title": "Pick the pattern",
   "chapter": "Chapter 11: Multi-Agent Systems",
@@ -1365,16 +1252,6 @@
  {
   "id": "13.1",
   "level": "Concept",
-  "title": "What changed?",
-  "chapter": "Chapter 13: Build Your Own MCP Client",
-  "task": "List every difference between `run_agent` (Chapter 4) and `run_mcp_agent`. Mark each as discovery, routing, lifecycle or error handling.",
-  "hint": null,
-  "done_when": "You've found at least five differences, each in the right category.",
-  "kind": "concept"
- },
- {
-  "id": "13.2",
-  "level": "Concept",
   "title": "Collisions",
   "chapter": "Chapter 13: Build Your Own MCP Client",
   "task": "Two servers both expose `search`. Describe what goes wrong without namespacing, and propose two alternatives to the `server__tool` scheme, with trade-offs.",
@@ -1383,7 +1260,7 @@
   "kind": "concept"
  },
  {
-  "id": "13.3",
+  "id": "13.2",
   "level": "Simple",
   "title": "A client without a model",
   "chapter": "Chapter 13: Build Your Own MCP Client",
@@ -1391,10 +1268,10 @@
   "hint": null,
   "done_when": "The script prints the new task, with no model involved.",
   "kind": "build",
-  "file": "exercises/ex13_3_client.py"
+  "file": "exercises/ex13_2_client.py"
  },
  {
-  "id": "13.4",
+  "id": "13.3",
   "level": "Simple",
   "title": "Two servers, one question",
   "chapter": "Chapter 13: Build Your Own MCP Client",
@@ -1405,7 +1282,7 @@
   "cmd": "python ch13_mcp_agent.py servers.json"
  },
  {
-  "id": "13.5",
+  "id": "13.4",
   "level": "Medium",
   "title": "Resources at start-up",
   "chapter": "Chapter 13: Build Your Own MCP Client",
@@ -1419,7 +1296,7 @@
   ]
  },
  {
-  "id": "13.6",
+  "id": "13.5",
   "level": "Medium",
   "title": "Add the weather server",
   "chapter": "Chapter 13: Build Your Own MCP Client",
@@ -1433,7 +1310,7 @@
   ]
  },
  {
-  "id": "13.7",
+  "id": "13.6",
   "level": "Complex",
   "title": "Resilience",
   "chapter": "Chapter 13: Build Your Own MCP Client",
@@ -1447,7 +1324,7 @@
   ]
  },
  {
-  "id": "13.8",
+  "id": "13.7",
   "level": "Medium",
   "title": "Let the server ask the user",
   "chapter": "Chapter 13: Build Your Own MCP Client",
@@ -1455,10 +1332,10 @@
   "hint": "Pass `elicitation_callback=...` to `Client(...)`. The callback receives `params.message` and `params.requested_schema` and returns `ElicitResult(action=\"accept\", content={...})` or `ElicitResult(action=\"decline\")`. The resolver works with old and new clients alike, so you never handle the 2026-07-28 *input required* retry yourself.",
   "done_when": "Booking a trip asks you for nights and budget, declining books nothing, and the tool never invents a value. For comparison, the solution also shows a sampling tool, the deprecated way for a server to borrow the host's model.",
   "kind": "build",
-  "file": "exercises/ex13_8_host.py"
+  "file": "exercises/ex13_7_host.py"
  },
  {
-  "id": "13.9",
+  "id": "13.8",
   "level": "Medium",
   "title": "A coordinator with an analyst",
   "chapter": "Chapter 13: Build Your Own MCP Client",
@@ -1466,7 +1343,18 @@
   "hint": "Each agent's log goes to its own place: the analyst logs to stderr, so set `\"log\": \"analyst.log\"` in its config to keep the terminal readable.",
   "done_when": "The trace shows one `analyst__ask_sql_analyst` call and three `todo__add_task` calls, and you can say which agent spent which tokens.",
   "kind": "build",
-  "file": "exercises/ex13_9_coordinator.py"
+  "file": "exercises/ex13_8_coordinator.py"
+ },
+ {
+  "id": "13.9",
+  "level": "Medium",
+  "title": "A team of A2A agents",
+  "chapter": "Chapter 13: Build Your Own MCP Client",
+  "task": "Publish the Chapter 5 to-do agent as a second A2A agent, next to the analyst from section 13.7. Give it its own agent card (name, description and one skill with examples) and reuse `AgentLoopExecutor` and `build_app` from `ch13_a2a_server.py`. Then build a coordinator that reads both cards and gets one tool per remote agent from `a2a_tool`. Ask it: \"Find the city with the most customers, then add a to-do to plan a promotion there next week.\"",
+  "hint": "Run both servers in the same process on different ports (9999 and 9998), as `start_local_server` in `ch13_a2a_client.py` does. The coordinator's system prompt should say which agent handles what.",
+  "done_when": "Both cards print, the coordinator delegates once to each agent, and `tasks.json` contains the new task.",
+  "kind": "build",
+  "file": "exercises/ex13_9_a2a_team.py"
  },
  {
   "id": "14.1",
@@ -1491,17 +1379,6 @@
  {
   "id": "14.3",
   "level": "Simple",
-  "title": "Files and time",
-  "chapter": "Chapter 14: Using Servers You Didn't Write",
-  "task": "Connect the Filesystem server (limited to your notes folder) and the Time server. Ask \"Which notes did I change today?\"",
-  "hint": null,
-  "done_when": "The answer is correct, and a request to read a file outside the folder is refused.",
-  "kind": "run",
-  "cmd": "python ch14_policy_agent.py servers_ecosystem.json"
- },
- {
-  "id": "14.4",
-  "level": "Simple",
   "title": "Read-only GitHub",
   "chapter": "Chapter 14: Using Servers You Didn't Write",
   "task": "Connect GitHub's server in read-only mode with a token that has only read scopes. Ask for a summary of open issues in one of your repositories.",
@@ -1512,7 +1389,7 @@
   "needs": "github"
  },
  {
-  "id": "14.5",
+  "id": "14.4",
   "level": "Medium",
   "title": "Weekly engineering digest",
   "chapter": "Chapter 14: Using Servers You Didn't Write",
@@ -1524,7 +1401,7 @@
   "needs": "github"
  },
  {
-  "id": "14.6",
+  "id": "14.5",
   "level": "Medium",
   "title": "Mark untrusted content",
   "chapter": "Chapter 14: Using Servers You Didn't Write",
@@ -1538,7 +1415,7 @@
   ]
  },
  {
-  "id": "14.7",
+  "id": "14.6",
   "level": "Complex",
   "title": "Red team your agent",
   "chapter": "Chapter 14: Using Servers You Didn't Write",
@@ -1546,10 +1423,10 @@
   "hint": "A stand-in model that obeys every injection is the strictest test of your policy: if the policy holds against a fully fooled model, it holds against a real one.",
   "done_when": "You have a 6 \u00d7 3 results table, the approval counts and a written recommendation for your team's MCP policy.",
   "kind": "build",
-  "file": "exercises/ex14_7_redteam.py"
+  "file": "exercises/ex14_6_redteam.py"
  },
  {
-  "id": "14.8",
+  "id": "14.7",
   "level": "Concept",
   "title": "Map your agent to OWASP",
   "chapter": "Chapter 14: Using Servers You Didn't Write",
@@ -1559,102 +1436,10 @@
   "kind": "concept"
  },
  {
-  "id": "15.1",
-  "level": "Concept",
-  "title": "Design an eval",
-  "chapter": "Chapter 15: Production Readiness",
-  "task": "For the Chapter 7 packing advisor, write eight eval cases covering normal use, ambiguous cities, API failure and one safety case. Say which checks from `ch15_eval.py` each uses.",
-  "hint": null,
-  "done_when": "Every case has a question, checks and a reason it matters.",
-  "kind": "concept"
- },
- {
-  "id": "15.2",
-  "level": "Concept",
-  "title": "Read the numbers",
-  "chapter": "Chapter 15: Production Readiness",
-  "task": "A load test reports p50 = 3 s, p95 = 41 s, 2% errors (all 429) and throughput flat above 15 requests in flight. Explain what's happening and propose two fixes.",
-  "hint": null,
-  "done_when": "Your explanation connects the p95, the 429s and the flat throughput.",
-  "kind": "concept"
- },
- {
-  "id": "15.3",
-  "level": "Simple",
-  "title": "Run the SQL suite",
-  "chapter": "Chapter 15: Production Readiness",
-  "task": "Run `python ch15_eval.py eval_sql.jsonl 3` (the Run line below does it). Then add six cases of your own, including one that uses `answer_sql` and one safety case with `db_unchanged`.",
-  "hint": null,
-  "done_when": "You have 30 cases, a pass rate with its confidence interval, and every failure and flaky case is explained.",
-  "kind": "run",
-  "cmd": "python ch15_eval.py eval_sql.jsonl 3",
-  "edit": [
-   "eval_sql.jsonl"
-  ]
- },
- {
-  "id": "15.4",
-  "level": "Simple",
-  "title": "See queueing",
-  "chapter": "Chapter 15: Production Readiness",
-  "task": "Run `ch15_loadtest.py` at 4, 8 and 12 requests per second. Then change `open_loop` so the clock starts inside the `async with sem` block, and run the same three rates again.",
-  "hint": null,
-  "done_when": "You have a table of p50/p95 for both clocks at each rate, you can say where capacity runs out, and you can explain why one clock hides it.",
-  "kind": "run",
-  "cmd": "python ch15_loadtest.py 4 && python ch15_loadtest.py 8 && python ch15_loadtest.py 12",
-  "edit": [
-   "ch15_loadtest.py"
-  ]
- },
- {
-  "id": "15.5",
-  "level": "Medium",
-  "title": "Eval in CI",
-  "chapter": "Chapter 15: Production Readiness",
-  "task": "Make the eval suite run automatically on every pull request (GitHub Actions: build the kit's image and run a gate script), with three trials per case, and fail if the pass rate drops below a threshold you choose. Print the confidence interval too. Don't use a pre-commit hook: every run makes paid model calls.",
-  "hint": "Set the threshold a little below your current pass rate, not at a round number you'd like to have.",
-  "done_when": "A deliberately broken prompt fails the build, and the unchanged prompt passes.",
-  "kind": "build",
-  "file": "exercises/ex15_5_ci_gate.py"
- },
- {
-  "id": "15.6",
-  "level": "Medium",
-  "title": "A trace viewer",
-  "chapter": "Chapter 15: Production Readiness",
-  "task": "Write a script that reads `traces.jsonl` and prints, for the last 50 runs: pass rate, p50/p95 latency, mean tokens, the most-used tools and the five slowest questions.",
-  "hint": null,
-  "done_when": "The report runs on real traces and points to at least one improvement.",
-  "kind": "build",
-  "file": "exercises/ex15_6_trace_report.py"
- },
- {
-  "id": "15.7",
-  "level": "Complex",
-  "title": "Load test a real agent",
-  "chapter": "Chapter 15: Production Readiness",
-  "task": "Replace `fake_agent` with the Chapter 13 MCP agent answering questions from your SQL eval suite. Run 50 concurrent sessions and measure p50/p95 latency, error rate and cost per request. Find the bottleneck using traces, and fix one thing (caching, parallel tools, a smaller model for simple questions or prompt caching).",
-  "hint": "Start small (five users), and set a spending limit in your provider console before running at 50.",
-  "done_when": "You have before and after numbers and a one-page write-up of the bottleneck and the fix.",
-  "kind": "build",
-  "file": "exercises/ex15_7_real_loadtest.py"
- },
- {
-  "id": "15.8",
-  "level": "Medium",
-  "title": "Calibrate a judge",
-  "chapter": "Chapter 15: Production Readiness",
-  "task": "Before reading the labels in `judge_calibration.jsonl`, label the 12 answers yourself (pass or fail). Then grade them with `ch15_judge.judge` and compute agreement and Cohen's kappa against the file's labels and against yours. Change one thing in the rubric to fix the biggest disagreement, and measure again.",
-  "hint": "`ch15_judge.agreement(judge_labels, human_labels)` does the arithmetic. Try `judge_batch` too and compare the cost.",
-  "done_when": "You have kappa before and after your rubric change, and you can say whether you'd trust this judge in CI.",
-  "kind": "build",
-  "file": "exercises/ex15_8_calibrate.py"
- },
- {
   "id": "16.1",
   "level": "Concept",
   "title": "Where did the tokens go?",
-  "chapter": "Chapter 16: Context Engineering and Memory",
+  "chapter": "Chapter 16: Context Engineering",
   "task": "An agent's 6th call sends: a 1,500-token system prompt, 2,500 tokens of tools, 400 tokens of user messages, 600 tokens of model messages and 9,000 tokens of tool results. Which technique from this chapter would you apply first, second and third, and roughly how many tokens would each save?",
   "hint": null,
   "done_when": "You've ranked trimming, caching and compaction with estimates and a reason for the order.",
@@ -1664,8 +1449,8 @@
   "id": "16.2",
   "level": "Concept",
   "title": "Design a system prompt",
-  "chapter": "Chapter 16: Context Engineering and Memory",
-  "task": "Rewrite this system prompt using the five parts in 16.8: \"You are an AI. Help with orders. Be accurate and don't do bad things.\"",
+  "chapter": "Chapter 16: Context Engineering",
+  "task": "Rewrite this system prompt using the five parts in section 16.10: \"You are an AI. Help with orders. Be accurate and don't do bad things.\"",
   "hint": null,
   "done_when": "Your prompt has all five parts, and each rule is specific enough to test.",
   "kind": "concept"
@@ -1674,7 +1459,7 @@
   "id": "16.3",
   "level": "Simple",
   "title": "Watch compaction happen",
-  "chapter": "Chapter 16: Context Engineering and Memory",
+  "chapter": "Chapter 16: Context Engineering",
   "task": "Run `ch16_context.py` with `budget_tokens=3000`, asking the three questions in its main block. Print the context size before each call.",
   "hint": null,
   "done_when": "You've seen a trim or compaction happen, and the third answer still uses facts from the first question.",
@@ -1687,19 +1472,22 @@
  {
   "id": "16.4",
   "level": "Simple",
-  "title": "Remember across restarts",
-  "chapter": "Chapter 16: Context Engineering and Memory",
-  "task": "Run `ch16_memory.py`, tell it two facts about yourself, quit, restart, and ask about them. Then ask it to forget one.",
+  "title": "Assemble a context",
+  "chapter": "Chapter 16: Context Engineering",
+  "task": "Run `ch16_assemble.py`. Then change the budget to 120, and then to 800, and run it again each time. Finally, add a `catalog` source with a 150-token product description at priority 60 and ask a product question.",
   "hint": null,
-  "done_when": "It recalls both facts after the restart, and only one after the forget.",
+  "done_when": "You can explain every line of the report for all three budgets, and the product question routes to `product` and includes the catalog item.",
   "kind": "run",
-  "cmd": "python ch16_memory.py"
+  "cmd": "python ch16_assemble.py",
+  "edit": [
+   "ch16_assemble.py"
+  ]
  },
  {
   "id": "16.5",
   "level": "Medium",
   "title": "Measure caching savings",
-  "chapter": "Chapter 16: Context Engineering and Memory",
+  "chapter": "Chapter 16: Context Engineering",
   "task": "Run the same 5-question session (one conversation) with caching `off`, `prefix` and `auto`, using the Chapter 8 tools. Use the usage fields, not estimates, and `cost()` for the dollars.",
   "hint": "First measure the system prompt plus tools with `count_tokens`. If it's below your model's minimum, expect `prefix` to cache nothing, and don't pad the prompt to cheat the minimum: that makes every call more expensive.",
   "done_when": "You have a table with input, cache-write and cache-read tokens and cost for all three runs, and one sentence explaining why `auto` wins.",
@@ -1709,33 +1497,22 @@
  {
   "id": "16.6",
   "level": "Medium",
-  "title": "Smarter trimming",
-  "chapter": "Chapter 16: Context Engineering and Memory",
-  "task": "Change `trim_old_tool_results` so that instead of cutting to the first 300 characters, it keeps the first five and last five lines and replaces the middle with a count of omitted lines.",
-  "hint": null,
-  "done_when": "A unit test shows a 200-line result reduced to 11 lines, and the conversation still passes the `tool_use`/`tool_result` check.",
+  "title": "Fresh or stale?",
+  "chapter": "Chapter 16: Context Engineering",
+  "task": "Extend `assemble` so that when two items share the same `origin`, only the newest is kept, and so that an item whose `refresh` fails (raises an exception) is dropped with the reason in the report. Add a `max_age` argument that drops anything older than it, regardless of its time to live.",
+  "hint": "Group by `origin` before sorting by priority.",
+  "done_when": "Unit tests show a duplicate order status resolved to the newer one, a failed refresh reported as dropped, and `max_age` enforced.",
   "kind": "test",
-  "file": "tests/test_ex16_6_trimming.py",
+  "file": "tests/test_ex16_6_fresh.py",
   "edit": [
-   "ch16_context.py"
+   "ch16_assemble.py"
   ]
  },
  {
   "id": "16.7",
-  "level": "Complex",
-  "title": "A memory-backed assistant",
-  "chapter": "Chapter 16: Context Engineering and Memory",
-  "task": "Combine the Chapter 5 to-do tools, the memory tools and `run_managed_agent` into one assistant. It should recall preferences at the start of each session, remember new ones, and stay under a 6,000-token budget over a 20-turn scripted conversation.",
-  "hint": null,
-  "done_when": "A transcript of the 20 turns shows correct recall across a restart, at least one compaction, and no API errors.",
-  "kind": "build",
-  "file": "exercises/ex16_7_assistant.py"
- },
- {
-  "id": "16.8",
   "level": "Medium",
   "title": "Let a program do the counting",
-  "chapter": "Chapter 16: Context Engineering and Memory",
+  "chapter": "Chapter 16: Context Engineering",
   "task": "Run `ch16_programmatic.py`, then ask the same question with the normal SQL agent from Chapter 8 (`./course.sh ask ch08_sql_tools`). Compare input tokens, output tokens, number of model calls and the answers. Then find one question where programmatic tool calling is *worse*, and explain why.",
   "hint": "Questions where each step depends on reading the previous result are a poor fit.",
   "done_when": "You have a comparison table for both questions and a two-sentence rule for when you'd use it.",
@@ -1743,275 +1520,453 @@
   "cmd": "python ch16_programmatic.py"
  },
  {
+  "id": "16.8",
+  "level": "Complex",
+  "title": "Brief the research team",
+  "chapter": "Chapter 16: Context Engineering",
+  "task": "Change the Chapter 11 research team so each worker gets an `isolated_brief` with only its subtask and the library passages relevant to it (at most 600 tokens), and must answer in 150 words or fewer with citations. Run the original and the new team on the same three questions.",
+  "hint": null,
+  "done_when": "You have a table of total input tokens, answer quality (your 1\u20135 score) and citation count for both versions, and a paragraph on what isolation changed.",
+  "kind": "build",
+  "file": "exercises/ex16_8_briefed_team.py"
+ },
+ {
   "id": "17.1",
   "level": "Concept",
+  "title": "Sort the memories",
+  "chapter": "Chapter 17: Agent Memory Engineering",
+  "task": "For a customer-support agent, classify each item as working, episodic, semantic or procedural, and give its scope, time to live and store: (a) the customer prefers phone calls; (b) the order the customer is asking about right now; (c) last week the customer reported a damaged item; (d) always offer a replacement before a refund; (e) the customer's card number; (f) the customer is on holiday until Monday; (g) the refund policy changed on 1 Sep; (h) the agent's notes on a half-finished investigation.",
+  "hint": null,
+  "done_when": "Every item has a kind, scope, lifetime and store, or a reason it shouldn't be stored at all.",
+  "kind": "concept"
+ },
+ {
+  "id": "17.2",
+  "level": "Concept",
+  "title": "Write a memory policy",
+  "chapter": "Chapter 17: Agent Memory Engineering",
+  "task": "Write the memory policy for a personal finance assistant: what it may remember, what it must never remember, time to live by kind, who may read and write each scope, and how a user sees and deletes what it remembers.",
+  "hint": null,
+  "done_when": "Your policy fits on one page, and each rule could be enforced in code.",
+  "kind": "concept"
+ },
+ {
+  "id": "17.3",
+  "level": "Simple",
+  "title": "Remember across restarts",
+  "chapter": "Chapter 17: Agent Memory Engineering",
+  "task": "Run `ch17_memory.py`, tell it two facts about yourself, quit, restart, and ask about them. Then ask it to forget one.",
+  "hint": null,
+  "done_when": "It recalls both facts after the restart, and only one after the forget.",
+  "kind": "run",
+  "cmd": "python ch17_memory.py"
+ },
+ {
+  "id": "17.4",
+  "level": "Simple",
+  "title": "Watch the policy work",
+  "chapter": "Chapter 17: Agent Memory Engineering",
+  "task": "Run `ch17_memory_policy.py` and explain every line of its output. Then change `HALF_LIFE` to 7 days and `TTL[\"episodic\"]` to 90 days, run it again, and explain what changed.",
+  "hint": null,
+  "done_when": "You can say why each memory was stored, replaced, refused, quarantined, expired or recalled.",
+  "kind": "run",
+  "cmd": "python ch17_memory_policy.py",
+  "edit": [
+   "ch17_memory_policy.py"
+  ]
+ },
+ {
+  "id": "17.5",
+  "level": "Medium",
+  "title": "Consolidate episodes",
+  "chapter": "Chapter 17: Agent Memory Engineering",
+  "task": "Write `consolidate(owner, topic)`: collect the active episodic memories that match `topic`, ask the model to summarize them in one sentence, store the summary as a semantic memory with a subject, and expire the episodes.",
+  "hint": "Keep the ids of the episodes in the summary's text or a new column, so you can trace where it came from.",
+  "done_when": "Five episodes about one order become one semantic memory, the episodes are no longer recalled, and a test checks both.",
+  "kind": "build",
+  "file": "exercises/ex17_5_consolidate.py"
+ },
+ {
+  "id": "17.6",
+  "level": "Medium",
+  "title": "Poison the memory",
+  "chapter": "Chapter 17: Agent Memory Engineering",
+  "task": "Write five tool results that try to plant a memory (an instruction, a fake policy, a fake preference, a hidden instruction inside a longer text, and one in another language). Run each through an agent that has the memory tools and a tool that returns the text. Then strengthen the defenses until none is stored as an active memory.",
+  "hint": null,
+  "done_when": "A test runs all five attacks and shows none active in memory, and you can name one attack the gate alone wouldn't catch.",
+  "kind": "build",
+  "file": "exercises/ex17_6_poison.py"
+ },
+ {
+  "id": "17.7",
+  "level": "Medium",
+  "title": "A team memory",
+  "chapter": "Chapter 17: Agent Memory Engineering",
+  "task": "Give the Chapter 11 research team a shared `team` memory: the lead may write findings the team agreed on, workers may only read it and write their own `agent` notes. Show that a worker can't overwrite a team finding.",
+  "hint": null,
+  "done_when": "A test shows a worker's write to `team` scope refused, the lead's accepted, and every worker recalling the lead's findings.",
+  "kind": "build",
+  "file": "exercises/ex17_7_team_memory.py"
+ },
+ {
+  "id": "17.8",
+  "level": "Complex",
+  "title": "A memory-backed assistant",
+  "chapter": "Chapter 17: Agent Memory Engineering",
+  "task": "Combine the Chapter 5 to-do tools, the memory policy from `ch17_memory_policy.py` and `run_managed_agent` from Chapter 16 into one assistant. It should recall preferences at the start of each session, remember new ones under a short subject so a newer preference replaces the old one, and stay under a 6,000-token budget over a 20-turn scripted conversation.",
+  "hint": null,
+  "done_when": "A transcript of the 20 turns shows correct recall across a restart, at least one compaction, and no API errors.",
+  "kind": "build",
+  "file": "exercises/ex17_8_assistant.py"
+ },
+ {
+  "id": "18.1",
+  "level": "Concept",
   "title": "Choose the chunk size",
-  "chapter": "Chapter 17: Retrieval-Augmented Generation",
+  "chapter": "Chapter 18: Agentic Knowledge Systems",
   "task": "For each corpus, pick a chunk size and overlap and justify it: (a) short personal notes; (b) 200-page technical manuals; (c) a support ticket database; (d) source code.",
   "hint": null,
   "done_when": "Each choice explains what a too-small and a too-large chunk would break.",
   "kind": "concept"
  },
  {
-  "id": "17.2",
+  "id": "18.2",
   "level": "Concept",
   "title": "Keyword, vector or hybrid?",
-  "chapter": "Chapter 17: Retrieval-Augmented Generation",
+  "chapter": "Chapter 18: Agentic Knowledge Systems",
   "task": "Which ranking would find the right document for each query, and why: (a) \"ERR-4471\"; (b) \"notes about feeling burnt out\"; (c) \"Kafka partitions for the orders topic\"; (d) \"the thing we decided about fraud checks in May\"?",
   "hint": null,
   "done_when": "Each has a choice and a one-line reason.",
   "kind": "concept"
  },
  {
-  "id": "17.3",
+  "id": "18.3",
   "level": "Simple",
   "title": "Build and search",
-  "chapter": "Chapter 17: Retrieval-Augmented Generation",
-  "task": "Run `ch17_rag.py`. Then search for three questions of your own in each mode and compare the top results.",
+  "chapter": "Chapter 18: Agentic Knowledge Systems",
+  "task": "Run `ch18_rag.py`. Then search for three questions of your own in each mode and compare the top results.",
   "hint": null,
   "done_when": "You've found at least one query where keyword and vector modes disagree, and you can explain why.",
   "kind": "run",
-  "cmd": "python ch17_rag.py search temperature units && python ch17_rag.py search ERR-4471",
+  "cmd": "python ch18_rag.py search temperature units && python ch18_rag.py search ERR-4471",
   "nokey": true
  },
  {
-  "id": "17.4",
+  "id": "18.4",
   "level": "Simple",
   "title": "Change the embedder",
-  "chapter": "Chapter 17: Retrieval-Augmented Generation",
+  "chapter": "Chapter 18: Agentic Knowledge Systems",
   "task": "Rebuild the index with `EMBEDDER=hashing` and again with `EMBEDDER=local`, and compare the evaluation numbers.",
   "hint": null,
   "done_when": "You have a table of recall@3 and MRR for both embedders and all three modes.",
   "kind": "run",
-  "cmd": "EMBEDDER=hashing python ch17_rag.py eval && EMBEDDER=local python ch17_rag.py eval",
+  "cmd": "EMBEDDER=hashing python ch18_rag.py eval && EMBEDDER=local python ch18_rag.py eval",
   "nokey": true
  },
  {
-  "id": "17.5",
+  "id": "18.5",
   "level": "Medium",
   "title": "Paraphrased evaluation",
-  "chapter": "Chapter 17: Retrieval-Augmented Generation",
+  "chapter": "Chapter 18: Agentic Knowledge Systems",
   "task": "Add eight questions to `EVAL` that share almost no words with their answers (for example \"Which slowdown was caused by synchronous checks?\" for the latency review). Rerun the evaluation with the local embedder.",
   "hint": null,
   "done_when": "You can show, with numbers, where vector or hybrid search beats keyword search.",
   "kind": "build",
-  "file": "exercises/ex17_5_paraphrased.py",
+  "file": "exercises/ex18_5_paraphrased.py",
   "nokey": true
  },
  {
-  "id": "17.6",
-  "level": "Medium",
-  "title": "Semantic memory",
-  "chapter": "Chapter 17: Retrieval-Augmented Generation",
-  "task": "Replace the FTS5 search in `ch16_memory.py` with vector search from this chapter, so \"temperature units\" finds \"Srini prefers Celsius\".",
-  "hint": null,
-  "done_when": "That query and two other paraphrases find the right memory, and exact keyword queries still work.",
-  "kind": "build",
-  "file": "exercises/ex17_6_semantic_memory.py",
-  "nokey": true
- },
- {
-  "id": "17.7",
+  "id": "18.6",
   "level": "Complex",
   "title": "A cited knowledge agent",
-  "chapter": "Chapter 17: Retrieval-Augmented Generation",
-  "task": "Build an agent over `notes` and `library` that uses `search_knowledge`, answers with citations, and says \"not in the knowledge base\" when it should. Evaluate it on 10 questions (including three that aren't answerable) with the Chapter 15 harness plus the citation checker from exercise 6.5.",
+  "chapter": "Chapter 18: Agentic Knowledge Systems",
+  "task": "Build an agent over `notes` and `library` that uses `search_knowledge`, answers with citations, and says \"not in the knowledge base\" when it should. Evaluate it on 10 questions (including three that aren't answerable) with the Chapter 27 harness plus the citation checker from exercise 6.4.",
   "hint": null,
   "done_when": "You report answer accuracy, citation validity and correct refusals, and fix at least one failure.",
   "kind": "build",
-  "file": "exercises/ex17_7_knowledge_agent.py"
+  "file": "exercises/ex18_6_knowledge_agent.py"
  },
  {
-  "id": "18.1",
+  "id": "18.7",
+  "level": "Medium",
+  "title": "A new source",
+  "chapter": "Chapter 18: Agentic Knowledge Systems",
+  "task": "Add the Chapter 7 weather tools as a fourth source in `ch18_agentic.py`, described so the planner uses it only for forecasts. Ask three questions: one that needs only the notes, one that needs only the weather, and one that needs both.",
+  "hint": null,
+  "done_when": "The plans for all three pick the right sources, and the third answer cites both a file and the weather source.",
+  "kind": "build",
+  "file": "exercises/ex18_7_weather_source.py"
+ },
+ {
+  "id": "18.8",
+  "level": "Medium",
+  "title": "Know when to stop",
+  "chapter": "Chapter 18: Agentic Knowledge Systems",
+  "task": "Write eight questions: four the sources can answer and four they can't (for example, a date that isn't in any note). Run `answer` on all of them with `max_rounds` set to 1 and then to 2.",
+  "hint": "Count a correct abstention (\"the notes don't say\") as a pass.",
+  "done_when": "You have a table of correct answers, correct abstentions and wrong answers for both settings, and a sentence on whether the second round was worth its cost.",
+  "kind": "build",
+  "file": "exercises/ex18_8_know_when_to_stop.py"
+ },
+ {
+  "id": "18.9",
+  "level": "Complex",
+  "title": "Answers you can check",
+  "chapter": "Chapter 18: Agentic Knowledge Systems",
+  "task": "Extend `verify` to catch two more failures: a quotation (text in quotation marks) that doesn't appear in the cited evidence, and a claim cited to the wrong source (the cited evidence doesn't contain any of the sentence's key words). When verification fails, ask the model to revise once with the list of problems, then verify again. Measure on 10 questions how many answers pass verification before and after revision.",
+  "hint": null,
+  "done_when": "Tests cover both new checks, and you have before-and-after numbers for the 10 questions.",
+  "kind": "build",
+  "file": "exercises/ex18_9_verified.py"
+ },
+ {
+  "id": "24.1",
   "level": "Concept",
   "title": "Map the features",
-  "chapter": "Chapter 18: Agent Frameworks",
+  "chapter": "Chapter 24: Agent Frameworks",
   "task": "For your Chapter 13 MCP agent, list each part (loop, tools, namespacing, iteration cap, approval, logging) and name the equivalent in the Claude Agent SDK.",
   "hint": null,
   "done_when": "Every part has an equivalent, or a note saying you'd still write it yourself.",
   "kind": "concept"
  },
  {
-  "id": "18.2",
+  "id": "24.2",
   "level": "Concept",
   "title": "Pick a framework",
-  "chapter": "Chapter 18: Agent Frameworks",
+  "chapter": "Chapter 24: Agent Frameworks",
   "task": "For each project, choose hand-built, tool runner, Agent SDK or LangChain, and justify: (a) a three-tool internal chatbot; (b) a coding assistant that edits files and runs tests; (c) an agent that must run on three different model providers; (d) a teaching demo.",
   "hint": null,
-  "done_when": "Each choice has a reason tied to the table in section 18.5.",
+  "done_when": "Each choice has a reason tied to the table in section 24.5.",
   "kind": "concept"
  },
  {
-  "id": "18.3",
-  "level": "Simple",
-  "title": "Tool runner",
-  "chapter": "Chapter 18: Agent Frameworks",
-  "task": "Add the `convert_units` tool from Chapter 3 to `ch18_tool_runner.py` using `@beta_tool`, and ask a question that needs it.",
-  "hint": null,
-  "done_when": "The trace shows the model calling your new tool, and you've printed the schema the decorator generated.",
-  "kind": "run",
-  "cmd": "python ch18_tool_runner.py",
-  "edit": [
-   "ch18_tool_runner.py"
-  ]
- },
- {
-  "id": "18.4",
+  "id": "24.3",
   "level": "Simple",
   "title": "See the approval gate work",
-  "chapter": "Chapter 18: Agent Frameworks",
-  "task": "Run `ch18_agent_sdk.py` and ask \"Delete all cancelled orders.\" Print `decisions` at the end.",
+  "chapter": "Chapter 24: Agent Frameworks",
+  "task": "Run `ch24_agent_sdk.py` and ask \"Delete all cancelled orders.\" Print `decisions` at the end.",
   "hint": null,
   "done_when": "You see a `deny` decision, and the database is unchanged.",
   "kind": "run",
-  "cmd": "python ch18_agent_sdk.py Delete all cancelled orders."
+  "cmd": "python ch24_agent_sdk.py Delete all cancelled orders."
  },
  {
-  "id": "18.5",
+  "id": "24.4",
   "level": "Medium",
   "title": "Agent SDK with your MCP servers",
-  "chapter": "Chapter 18: Agent Frameworks",
+  "chapter": "Chapter 24: Agent Frameworks",
   "task": "Give the Agent SDK your Chapter 13 to-do server as a stdio MCP server (`{\"type\": \"stdio\", \"command\": \"python\", \"args\": [\"ch13_todo_server.py\"]}`) next to the in-process shop tools, and ask a question that needs both.",
   "hint": null,
   "done_when": "Tools from both servers are used in one answer, and `add_task` requires approval through `can_use_tool`.",
   "kind": "build",
-  "file": "exercises/ex18_5_sdk_mcp.py"
+  "file": "exercises/ex24_4_sdk_mcp.py"
  },
  {
-  "id": "18.6",
-  "level": "Medium",
-  "title": "LangChain with approval",
-  "chapter": "Chapter 18: Agent Frameworks",
-  "task": "Add LangChain's human-in-the-loop middleware to `ch18_langchain.py` so `add_task` needs approval.",
-  "hint": "Look up `HumanInTheLoopMiddleware` in the LangChain documentation; it pauses the graph so you can resume with a decision.",
-  "done_when": "Adding a task pauses for approval, and rejecting it leaves `tasks.json` unchanged.",
-  "kind": "build",
-  "file": "exercises/ex18_6_langchain_approval.py"
- },
- {
-  "id": "18.7",
+  "id": "24.5",
   "level": "Complex",
   "title": "Same agent, three frameworks",
-  "chapter": "Chapter 18: Agent Frameworks",
-  "task": "Rebuild the Chapter 8 SQL analyst with the tool runner, the Agent SDK and LangChain. Run the Chapter 15 SQL evaluation suite against all three plus your hand-built version, with three trials per case.",
+  "chapter": "Chapter 24: Agent Frameworks",
+  "task": "Rebuild the Chapter 8 SQL analyst with the tool runner, the Agent SDK and LangChain. Run the Chapter 27 SQL evaluation suite against all three plus your hand-built version, with three trials per case.",
   "hint": "Compare cost from the provider's usage report or `total_cost_usd`, not raw token counts: frameworks count cached tokens differently.",
   "done_when": "You have a table of pass rate with 95% intervals, cost and lines of code for the four versions, and a paragraph on which you'd ship that doesn't read more into the pass rates than the intervals allow.",
   "kind": "build",
-  "file": "exercises/ex18_7_three_ways.py"
+  "file": "exercises/ex24_5_three_ways.py"
  },
  {
-  "id": "18.8",
+  "id": "24.6",
   "level": "Medium",
   "title": "Write a skill",
-  "chapter": "Chapter 18: Agent Frameworks",
-  "task": "Write a skill of your own for the SQL analyst, for example `customer-lookup`: how to find a customer, which tables to join and what to show. Put the table notes in `references/`. Validate it with `validate()` from `ch18_skills.py`, then run the agent with your skill and the example one, and check from the trace that it loads only the skill each question needs.",
+  "chapter": "Chapter 24: Agent Frameworks",
+  "task": "Write a skill of your own for the SQL analyst, for example `customer-lookup`: how to find a customer, which tables to join and what to show. Put the table notes in `references/`. Validate it with `validate()` from `ch24_skills.py`, then run the agent with your skill and the example one, and check from the trace that it loads only the skill each question needs.",
   "hint": "The description decides everything. Say what the skill does *and* when to use it, in the words users type.",
   "done_when": "`validate()` returns no problems, and three test questions each load the right skill (or none).",
   "kind": "run",
-  "cmd": "python ch18_skills.py"
+  "cmd": "python ch24_skills.py"
  },
  {
-  "id": "18.9",
+  "id": "24.7",
   "level": "Complex",
   "title": "A managed analyst",
-  "chapter": "Chapter 18: Agent Frameworks",
-  "task": "Run `ch18_managed_agent.py` against the real API. Ask it for a revenue report that it saves as a CSV in its sandbox. Deny one bash command and watch how it adapts, then lower the session budget until it stops with `budget_reached`.",
+  "chapter": "Chapter 24: Agent Frameworks",
+  "task": "Run `ch24_managed_agent.py` against the real API. Ask it for a revenue report that it saves as a CSV in its sandbox. Deny one bash command and watch how it adapts, then lower the session budget until it stops with `budget_reached`.",
   "hint": "Everything it creates costs money while it runs; the script archives the session at the end. Set a spending limit in the Claude Console first.",
   "done_when": "You have the transcript of one completed session and one stopped by the budget, and a paragraph comparing it with your hand-built agent: what was easier, and what you had less control over.",
   "kind": "run",
-  "cmd": "python ch18_managed_agent.py"
+  "cmd": "python ch24_managed_agent.py"
  },
  {
-  "id": "19.1",
+  "id": "27.1",
   "level": "Concept",
-  "title": "Threat model the API",
-  "chapter": "Chapter 19: Deploying Agents as Services",
-  "task": "List five ways someone could misuse the agent API (for example, reading another user's session or running up costs). For each, name the control in `ch19_service.py` that stops it, or say it's missing.",
+  "title": "Design an eval",
+  "chapter": "Chapter 27: Agent Evaluation: Trajectories and Continuous Evaluation",
+  "task": "For the Chapter 7 packing advisor, write eight eval cases covering normal use, ambiguous cities, API failure and one safety case. Say which checks from `ch27_eval.py` each uses.",
   "hint": null,
-  "done_when": "You've found at least one gap and proposed a fix.",
+  "done_when": "Every case has a question, checks and a reason it matters.",
   "kind": "concept"
  },
  {
-  "id": "19.2",
+  "id": "27.2",
+  "level": "Concept",
+  "title": "Read the numbers",
+  "chapter": "Chapter 27: Agent Evaluation: Trajectories and Continuous Evaluation",
+  "task": "A load test reports p50 = 3 s, p95 = 41 s, 2% errors (all 429) and throughput flat above 15 requests in flight. Explain what's happening and propose two fixes.",
+  "hint": null,
+  "done_when": "Your explanation connects the p95, the 429s and the flat throughput.",
+  "kind": "concept"
+ },
+ {
+  "id": "27.3",
+  "level": "Simple",
+  "title": "Run the SQL suite",
+  "chapter": "Chapter 27: Agent Evaluation: Trajectories and Continuous Evaluation",
+  "task": "Run `python ch27_eval.py eval_sql.jsonl 3` (the Run line below does it). Then add six cases of your own, including one that uses `answer_sql` and one safety case with `db_unchanged`.",
+  "hint": null,
+  "done_when": "You have 30 cases, a pass rate with its confidence interval, and every failure and flaky case is explained.",
+  "kind": "run",
+  "cmd": "python ch27_eval.py eval_sql.jsonl 3",
+  "edit": [
+   "eval_sql.jsonl"
+  ]
+ },
+ {
+  "id": "27.4",
+  "level": "Medium",
+  "title": "Eval in CI",
+  "chapter": "Chapter 27: Agent Evaluation: Trajectories and Continuous Evaluation",
+  "task": "Make the eval suite run automatically on every pull request (GitHub Actions: build the kit's image and run a gate script), with three trials per case, and fail if the pass rate drops below a threshold you choose. Print the confidence interval too. Don't use a pre-commit hook: every run makes paid model calls.",
+  "hint": "Set the threshold a little below your current pass rate, not at a round number you'd like to have.",
+  "done_when": "A deliberately broken prompt fails the build, and the unchanged prompt passes.",
+  "kind": "build",
+  "file": "exercises/ex27_4_ci_gate.py"
+ },
+ {
+  "id": "27.5",
+  "level": "Medium",
+  "title": "Calibrate a judge",
+  "chapter": "Chapter 27: Agent Evaluation: Trajectories and Continuous Evaluation",
+  "task": "Before reading the labels in `judge_calibration.jsonl`, label the 12 answers yourself (pass or fail). Then grade them with `ch27_judge.judge` and compute agreement and Cohen's kappa against the file's labels and against yours. Change one thing in the rubric to fix the biggest disagreement, and measure again.",
+  "hint": "`ch27_judge.agreement(judge_labels, human_labels)` does the arithmetic. Try `judge_batch` too and compare the cost.",
+  "done_when": "You have kappa before and after your rubric change, and you can say whether you'd trust this judge in CI.",
+  "kind": "build",
+  "file": "exercises/ex27_5_calibrate.py"
+ },
+ {
+  "id": "28.1",
+  "level": "Medium",
+  "title": "A trace viewer",
+  "chapter": "Chapter 28: AgentOps: Observability for Agents",
+  "task": "Write a script that reads `traces.jsonl` and prints, for the last 50 runs: pass rate, p50/p95 latency, mean tokens, the most-used tools and the five slowest questions.",
+  "hint": null,
+  "done_when": "The report runs on real traces and points to at least one improvement.",
+  "kind": "build",
+  "file": "exercises/ex28_1_trace_report.py"
+ },
+ {
+  "id": "29.1",
+  "level": "Simple",
+  "title": "See queueing",
+  "chapter": "Chapter 29: Agentic Performance and Cost Engineering",
+  "task": "Run `ch29_loadtest.py` at 4, 8 and 12 requests per second. Then change `open_loop` so the clock starts inside the `async with sem` block, and run the same three rates again.",
+  "hint": null,
+  "done_when": "You have a table of p50/p95 for both clocks at each rate, you can say where capacity runs out, and you can explain why one clock hides it.",
+  "kind": "run",
+  "cmd": "python ch29_loadtest.py 4 && python ch29_loadtest.py 8 && python ch29_loadtest.py 12",
+  "edit": [
+   "ch29_loadtest.py"
+  ]
+ },
+ {
+  "id": "29.2",
+  "level": "Complex",
+  "title": "Load test a real agent",
+  "chapter": "Chapter 29: Agentic Performance and Cost Engineering",
+  "task": "Replace `fake_agent` with the Chapter 13 MCP agent answering questions from your SQL eval suite. Run 50 concurrent sessions and measure p50/p95 latency, error rate and cost per request. Find the bottleneck using traces, and fix one thing (caching, parallel tools, a smaller model for simple questions or prompt caching).",
+  "hint": "Start small (five users), and set a spending limit in your provider console before running at 50.",
+  "done_when": "You have before and after numbers and a one-page write-up of the bottleneck and the fix.",
+  "kind": "build",
+  "file": "exercises/ex29_2_real_loadtest.py"
+ },
+ {
+  "id": "30.1",
   "level": "Concept",
   "title": "Pick the status code",
-  "chapter": "Chapter 19: Deploying Agents as Services",
+  "chapter": "Chapter 30: Deploying Agents as Services",
   "task": "Which HTTP status should the API return, and why: (a) no key; (b) valid key, over the rate limit; (c) message longer than 4,000 characters; (d) someone else's session id; (e) the model API is down; (f) a second request for a session that is still answering the first?",
   "hint": null,
   "done_when": "Each has a code (401, 429, 422, 404, 502, 409) and a reason.",
   "kind": "concept"
  },
  {
-  "id": "19.3",
+  "id": "30.2",
   "level": "Simple",
   "title": "Call your agent API",
-  "chapter": "Chapter 19: Deploying Agents as Services",
-  "task": "Start `./course.sh serve-api`, then in another terminal run `./course.sh python ch19_client.py`. Try the interactive docs at `http://localhost:8080/docs` too.",
+  "chapter": "Chapter 30: Deploying Agents as Services",
+  "task": "Start `./course.sh serve-api`, then in another terminal run `./course.sh python ch30_client.py`. Try the interactive docs at `http://localhost:8080/docs` too.",
   "hint": null,
   "done_when": "A follow-up question in the same session is answered using the first answer's context.",
   "kind": "run",
-  "cmd": "python ch19_client.py && python ch19_client.py stream"
+  "cmd": "python ch30_client.py && python ch30_client.py stream"
  },
  {
-  "id": "19.4",
+  "id": "30.3",
   "level": "Simple",
   "title": "Hit the limits",
-  "chapter": "Chapter 19: Deploying Agents as Services",
+  "chapter": "Chapter 30: Deploying Agents as Services",
   "task": "Set `AGENT_RATE_PER_MINUTE=2` and send four requests quickly; then send a request with a wrong key.",
   "hint": null,
   "done_when": "You've seen a 429 with a `Retry-After` header and a 401.",
   "kind": "run",
-  "cmd": "python ch19_client.py limits"
+  "cmd": "python ch30_client.py limits"
  },
  {
-  "id": "19.5",
+  "id": "30.4",
   "level": "Medium",
   "title": "Stream the words",
-  "chapter": "Chapter 19: Deploying Agents as Services",
+  "chapter": "Chapter 30: Deploying Agents as Services",
   "task": "Add a `/v1/chat/stream_text` endpoint that streams the **final answer text** as it's generated, using `client.messages.stream(...)` and its `text_stream`, after any tool steps.",
   "hint": "Run the tool steps with `run_agent`, then make one more streaming call for the answer, or stream every call and forward `text` events.",
   "done_when": "A client sees the answer appear in pieces, not all at once.",
   "kind": "run",
-  "cmd": "python ch19_client.py words",
+  "cmd": "python ch30_client.py words",
   "edit": [
-   "ch19_service.py",
-   "ch19_client.py"
+   "ch30_service.py",
+   "ch30_client.py"
   ]
  },
  {
-  "id": "19.6",
+  "id": "30.5",
   "level": "Medium",
   "title": "Remote MCP with your agent",
-  "chapter": "Chapter 19: Deploying Agents as Services",
+  "chapter": "Chapter 30: Deploying Agents as Services",
   "task": "Point the Chapter 13 hub at the remote to-do server over HTTP with its token, instead of starting it over stdio.",
   "hint": "Add a `\"url\"` option to the hub's server config and use `streamable_http_client` with `create_mcp_http_client(headers=...)`.",
   "done_when": "The agent adds and lists tasks through the remote server, a wrong token fails with a clear error, and with `MCP_READONLY_TOKEN` it can list tasks but adding one is refused.",
   "kind": "build",
-  "file": "exercises/ex19_6_remote_hub.py"
+  "file": "exercises/ex30_5_remote_hub.py"
  },
  {
-  "id": "19.7",
+  "id": "30.6",
   "level": "Complex",
   "title": "Production drill",
-  "chapter": "Chapter 19: Deploying Agents as Services",
-  "task": "Load-test the agent API with 20 concurrent users for 2 minutes (adapt `ch15_loadtest.py` to call it over HTTP), with a rate limit of 30 per minute per key and five keys. Record p50/p95 latency, 429 and 502 counts, and cost per request from the logs. Then make one change that improves p95 and measure again.",
+  "chapter": "Chapter 30: Deploying Agents as Services",
+  "task": "Load-test the agent API with 20 concurrent users for 2 minutes (adapt `ch29_loadtest.py` to call it over HTTP), with a rate limit of 30 per minute per key and five keys. Record p50/p95 latency, 429 and 502 counts, and cost per request from the logs. Then make one change that improves p95 and measure again.",
   "hint": null,
   "done_when": "You have a before-and-after table and a short write-up of the change.",
   "kind": "build",
-  "file": "exercises/ex19_7_drill.py"
+  "file": "exercises/ex30_6_drill.py"
  },
  {
-  "id": "19.8",
+  "id": "30.7",
   "level": "Complex",
   "title": "Ship it",
-  "chapter": "Chapter 19: Deploying Agents as Services",
-  "task": "Deploy the agent API. Build the production image with `ch19_service.Dockerfile`, run it locally with secrets passed at run time and pass `ch19_smoke_test.py` against it (including `--chat`). Then deploy it to a managed container host of your choice (the solution uses Google Cloud Run) with secrets in the platform's secret manager, one instance at most and a request timeout. Run the smoke test against the public HTTPS URL, then delete the deployment.",
+  "chapter": "Chapter 30: Deploying Agents as Services",
+  "task": "Deploy the agent API. Build the production image with `ch30_service.Dockerfile`, run it locally with secrets passed at run time and pass `ch30_smoke_test.py` against it (including `--chat`). Then deploy it to a managed container host of your choice (the solution uses Google Cloud Run) with secrets in the platform's secret manager, one instance at most and a request timeout. Run the smoke test against the public HTTPS URL, then delete the deployment.",
   "hint": "Run Docker commands on your own computer, from your workspace folder. To test a container from another container, share its network: `docker run --network container:agent-api ...`. Most platforms have a free tier; set a budget alert anyway.",
   "done_when": "The smoke test passes against your local container and against the HTTPS URL, you can say where each secret lives, and the cloud deployment is deleted.",
   "kind": "run",
-  "cmd": "python ch19_smoke_test.py --help",
+  "cmd": "python ch30_smoke_test.py --help",
   "edit": [
-   "ch19_service.Dockerfile"
+   "ch30_service.Dockerfile"
   ]
  }
 ]

@@ -22,7 +22,7 @@ WS = Path(os.environ.get("COURSE_WORKSPACE", "/workspace"))
 EXERCISES = json.loads((COURSE / "exercises.json").read_text())
 STARTERS = COURSE / "starters"          # starter files with signatures and examples
 CHECKS = COURSE / "checks"              # ./course.sh check <id>
-CHECK_TARGET = {"2.4": "ch02_calculator_agent.py", "3.4": "ch03_tools.py"}   # checked in place
+CHECK_TARGET = {"3.3": "ch03_tools.py"}   # checked in place
 BY_ID = {e["id"]: e for e in EXERCISES}
 # Which model each exercise needs: none | any (qwen3.5:9b or Claude) | claude-rec | claude | desktop
 _NEEDS = COURSE / "model_needs.json"
@@ -150,7 +150,7 @@ def cmd_list(args):
         tag = {"none": "", "any": "", "claude-rec": _c("33", "Claude recommended"),
                "claude": _c("31", "Claude only"), "desktop": _c("33", "Claude Desktop")}[need]
         say(f"  {e['id']:<5} {lvl} {e['title']:<42} {tag} {done}".rstrip())
-    say("\nRun one with:  ./course.sh ex <id>      e.g.  ./course.sh ex 4.3")
+    say("\nRun one with:  ./course.sh ex <id>      e.g.  ./course.sh ex 4.2")
 
 def _status(e):
     f = _my_file(e)
@@ -440,7 +440,7 @@ def cmd_serve(args):
     return subprocess.call(["python", server, "streamable-http"], cwd=WS, env=env)
 
 def cmd_serve_api(args):
-    """Chapter 19: the agent as a web API on http://localhost:8080 (docs at /docs)"""
+    """Chapter 30: the agent as a web API on http://localhost:8080 (docs at /docs)"""
     need_api_key()
     if not os.environ.get("AGENT_API_KEYS", "").strip():
         import secrets
@@ -451,11 +451,11 @@ def cmd_serve_api(args):
     head("Agent API at http://localhost:8080   (interactive docs: http://localhost:8080/docs)")
     say("Other course containers reach it as http://agentic-ai-api:8080. Ctrl+C to stop.")
     env = env_for_runs()
-    return subprocess.call(["python", "-m", "uvicorn", "ch19_service:app", "--host", "0.0.0.0",
+    return subprocess.call(["python", "-m", "uvicorn", "ch30_service:app", "--host", "0.0.0.0",
                             "--port", "8080", *args], cwd=WS, env=env)
 
 def cmd_serve_mcp(args):
-    """Chapter 19: the token-protected remote MCP server on http://localhost:8000/mcp"""
+    """Chapter 30: the token-protected remote MCP server on http://localhost:8000/mcp"""
     if not os.environ.get("MCP_TOKEN", "").strip():
         import secrets
         fail("MCP_TOKEN is not set. Add these lines to the .env file next to course.sh "
@@ -465,7 +465,15 @@ def cmd_serve_mcp(args):
     head("Remote MCP server at http://localhost:8000/mcp   (needs 'Authorization: Bearer <MCP_TOKEN>')")
     say("Other course containers reach it as http://agentic-ai-mcp:8000/mcp. Ctrl+C to stop.")
     env = env_for_runs() | {"MCP_HOST": "0.0.0.0"}
-    return subprocess.call(["python", "ch19_remote_mcp.py", *args], cwd=WS, env=env)
+    return subprocess.call(["python", "ch30_remote_mcp.py", *args], cwd=WS, env=env)
+
+def cmd_serve_a2a(args):
+    """The Chapter 13 A2A analyst agent on port 9999 (use ./course.sh serve-a2a)."""
+    need_api_key()
+    head("A2A agent card: http://localhost:9999/.well-known/agent-card.json   (Ctrl+C stops it)")
+    os.chdir(WS)
+    env = env_for_runs() | {"A2A_HOST": "0.0.0.0"}
+    os.execvpe(sys.executable, [sys.executable, "ch13_a2a_server.py"], env)
 
 def cmd_desktop_config(args):
     server = args[0] if args else "ch12_weather_server.py"
@@ -664,7 +672,7 @@ def cmd_check(args):
         ("ANTHROPIC_API_KEY", "not needed (local model)" if is_local()
          else "set" if os.environ.get("ANTHROPIC_API_KEY") else None),
         ("GitHub token", "set" if os.environ.get("GITHUB_PERSONAL_ACCESS_TOKEN")
-         else "not set (only needed for 14.4, 14.5, capstone 5)"),
+         else "not set (only needed for 14.3, 14.4, capstone 4)"),
         ("Sandbox (chapter 10)", "running" if sandbox_alive()
          else "stopped (start with ./course.sh sandbox up when needed)"),
     ]
@@ -734,13 +742,16 @@ CAPSTONES = {  # number: (folder, data script or None, program, default argument
     "1": ("c1_support", "data.py", "agent.py", []),
     "2": ("c2_analyst", None, "agent.py", []),
     "3": ("c3_incident", "data.py", "agent.py", []),
-    "4": ("c4_perf", "data.py", "agent.py", []),
-    "5": ("c5_review", "data.py", "agent.py", []),
-    "6": ("c6_research", None, "research.py", []),
+    "4": ("c4_review", "data.py", "agent.py", []),
+    "5": ("c5_research", None, "research.py", []),
 }
 
 def cmd_capstone(args):
-    """Run a reference capstone:  capstone <1-6> [arguments]"""
+    """Run a reference capstone:  capstone <1-5> [arguments]"""
+    if args and args[0] == "6":
+        say("Capstone 6 (back-office workflow agent) has no reference solution yet: it arrives")
+        say("with Chapter 23 in a later kit update. The book's description is enough to build it.")
+        return 0
     if not args or args[0] not in CAPSTONES:
         head("Reference capstones (build your own first!):")
         for n, (folder, _, prog, _) in CAPSTONES.items():
@@ -787,10 +798,11 @@ LIVE_RUNS = [
     ("4", "ch10_fixer.py", "", 6), ("4", "ch11_research_team.py", "", 10),
     ("5", "ch13_mcp_agent.py servers.json", "How many open tasks are there?\nquit\n", 3),
     ("5", "ch14_policy_agent.py", "What time is it in Tokyo?\n" + "n\n" * 4 + "quit\n", 4),
-    ("5", "ch15_eval.py", "", 15), ("5", "ch15_judge.py", "", 5), ("5", "ch15_otel.py", "", 2),
-    ("6", "ch16_context.py", "", 5), ("6", "ch16_memory.py", "Remember that I prefer Celsius.\nquit\n", 2),
-    ("6", "ch17_rag.py", "", 3), ("6", "ch18_tool_runner.py", "", 3),
-    ("6", "ch18_langchain.py", "", 3), ("6", "ch18_agent_sdk.py", "", 5),
+    ("6", "ch16_context.py", "", 5), ("6", "ch17_memory.py", "Remember that I prefer Celsius.\nquit\n", 2),
+    ("6", "ch16_assemble.py", "", 1), ("6", "ch18_rag.py", "", 3), ("6", "ch18_agentic.py", "", 4),
+    ("7", "ch24_tool_runner.py", "", 3),
+    ("7", "ch24_langchain.py", "", 3), ("7", "ch24_agent_sdk.py", "", 5),
+    ("9", "ch27_eval.py", "", 15), ("9", "ch27_judge.py", "", 5), ("9", "ch28_otel.py", "", 2),
 ]
 
 def cmd_live_check(args):
@@ -821,14 +833,17 @@ def cmd_live_check(args):
             if src.is_file():
                 shutil.copy2(src, tmp / src.name)
         env = dict(os.environ, PYTHONPATH=str(tmp), PYTHONUNBUFFERED="1")
+        limit = 1800 if is_local() else 600          # a local model on a CPU is much slower
         for part, cmd, stdin, _ in runs:
             t = time.time()
             try:
                 r = subprocess.run([sys.executable, *cmd.split()], cwd=tmp, env=env, input=stdin,
-                                   capture_output=True, text=True, timeout=600)
+                                   capture_output=True, text=True, timeout=limit)
                 out, code = (r.stdout + r.stderr), r.returncode
             except subprocess.TimeoutExpired as exc:
-                out, code = f"TIMEOUT after 600 s\n{exc.stdout or ''}", -1
+                partial = exc.stdout.decode(errors="replace") if isinstance(exc.stdout, bytes) \
+                    else (exc.stdout or "")
+                out, code = f"TIMEOUT after {limit} s\n{partial}", -1
             passed = code == 0 and "Traceback (most recent call last)" not in out
             secs = time.time() - t
             (ok if passed else fail)(f"Part {part}  {cmd:<34} {secs:5.0f} s")
@@ -857,7 +872,8 @@ def _live_command(e):
         if sol.exists():
             return f"python {sol}", None
         return None, "no runnable reference solution (see ./course.sh solution)"
-    return None, f"a {kind} exercise: nothing to run against a model"
+    article = "an" if kind[0] in "aeiou" else "a"
+    return None, f"{article} {kind} exercise: nothing to run against a model"
 
 def cmd_live_exercises(args):
     """Run every exercise that uses a model, with its reference solution, against the model
@@ -881,14 +897,23 @@ def cmd_live_exercises(args):
                         f"({'local' if is_local() else 'Claude API'})", "",
                         "| Exercise | Result | Seconds |", "| --- | --- | --- |"]
     details = []
+    out_file = WS / "live_exercises_report.md"
+
+    def save():                     # after every exercise, so a stopped run keeps its results
+        try:
+            out_file.write_text("\n".join(report + ["", *details]))
+        except OSError as exc:
+            warn(f"Couldn't write {host_path(out_file)}: {exc}")
     with tempfile.TemporaryDirectory() as tmp:
         tmp = Path(tmp)
         shutil.copytree(WS, tmp, dirs_exist_ok=True,
-                        ignore=shutil.ignore_patterns(".sandbox", "__pycache__", "*.bak", "exercises"))
+                        ignore=shutil.ignore_patterns(".sandbox", "__pycache__", "*.bak", "exercises",
+                                                      "live_*report.md", ".git"))
         for src in PRISTINE.iterdir():
             if src.is_file():
                 shutil.copy2(src, tmp / src.name)
-        env = dict(os.environ, PYTHONUNBUFFERED="1",
+        # COURSE_WORKSPACE: `course data ...` in an exercise's setup writes into the scratch copy
+        env = dict(os.environ, PYTHONUNBUFFERED="1", COURSE_WORKSPACE=str(tmp),
                    PYTHONPATH=f"{tmp}:{SOLUTIONS / 'exercises'}:{SOLUTIONS / 'capstones'}")
         for e in wanted:
             cmd, why = _live_command(e)
@@ -901,17 +926,20 @@ def cmd_live_exercises(args):
             if not cmd:
                 say(_c("2", f"-  {e['id']:<5} skipped: {why}"))
                 report.append(f"| {e['id']} {e['title']} | skipped: {why} | |")
+                save()
                 continue
             t = time.time()
             try:
                 if e.get("setup"):
                     subprocess.run(["bash", "-c", e["setup"]], cwd=tmp, env=env,
-                                   capture_output=True, timeout=600)
+                                   capture_output=True, timeout=900)
                 r = subprocess.run(["bash", "-c", cmd], cwd=tmp, env=env, input="n\nquit\nquit\n",
                                    capture_output=True, text=True, timeout=1800)
                 out, code = r.stdout + r.stderr, r.returncode
             except subprocess.TimeoutExpired:
                 out, code = "TIMEOUT after 30 minutes", -1
+            except Exception as exc:                     # never lose the whole run to one exercise
+                out, code = f"{type(exc).__name__}: {exc}", -1
             passed = code == 0 and "Traceback (most recent call last)" not in out
             secs = time.time() - t
             (ok if passed else fail)(f"{e['id']:<5} {e['title'][:44]:<44} {secs:5.0f} s")
@@ -920,8 +948,7 @@ def cmd_live_exercises(args):
             tail = "\n".join(out.strip().splitlines()[-20:])
             details += [f"## {'PASS' if passed else 'FAIL'}: {e['id']} {e['title']}", "",
                         f"`{cmd[:200]}`", "", "```", tail, "```", ""]
-    out_file = WS / "live_exercises_report.md"
-    out_file.write_text("\n".join(report + ["", *details]))
+            save()
     say(f"\n{sum(rows)}/{len(rows)} passed, {len(wanted) - len(rows)} skipped. A PASS means the "
         f"reference solution ran without errors; read the answers to judge their quality. "
         f"Full report: {host_path(out_file)}")
@@ -1002,7 +1029,7 @@ HELP = """Building Agentic AI: course commands (run them from the kit folder on 
 
   ./course.sh setup                  first-time setup: Docker check, .env, your API key
   ./course.sh list [chapter]         list exercises, e.g.  list 4  or  list P
-  ./course.sh ex <id>                show and run an exercise, e.g.  ex 4.3  or  ex T.2
+  ./course.sh ex <id>                show and run an exercise, e.g.  ex 4.2  or  ex T.2
   ./course.sh ex <id> --info         just show the exercise
   ./course.sh ask <module> ["q"]     chat with a chapter's tools, e.g.  ask ch08_sql_tools
   ./course.sh python <file.py> ...   run any course file, e.g.  python ch04_agent.py
@@ -1019,8 +1046,9 @@ HELP = """Building Agentic AI: course commands (run them from the kit folder on 
   ./course.sh inspector <server.py>  MCP Inspector web UI on http://localhost:6274
   ./course.sh serve <server.py>      run an MCP server over HTTP on http://localhost:8000/mcp
   ./course.sh desktop-config [srv]   print the Claude Desktop config for a server
-  ./course.sh serve-api              the chapter 19 agent API on http://localhost:8080
-  ./course.sh serve-mcp              the chapter 19 remote MCP server (token-protected)
+  ./course.sh serve-api              the chapter 30 agent API on http://localhost:8080
+  ./course.sh serve-mcp              the chapter 30 remote MCP server (token-protected)
+  ./course.sh serve-a2a              the chapter 13 A2A analyst agent on http://localhost:9999
   ./course.sh sandbox up|down        start/stop the network-less test sandbox (chapter 10)
   ./course.sh build                  (re)build the Docker image
 
@@ -1030,8 +1058,8 @@ HELP = """Building Agentic AI: course commands (run them from the kit folder on 
   ./course.sh local down             stop it and free the memory
 
   Solutions (try the exercise first!):
-  ./course.sh solution <id>          show the solution for an exercise, e.g.  solution 4.5
-  ./course.sh capstone <1-6>         run a reference capstone (needs your API key)
+  ./course.sh solution <id>          show the solution for an exercise, e.g.  solution 4.4
+  ./course.sh capstone <1-5>         run a reference capstone
   ./course.sh check-solutions        run every solution and capstone offline (no API key)
 
 Your files live in the 'workspace' folder next to course.sh. Edit them with any editor.
@@ -1040,7 +1068,7 @@ Your files live in the 'workspace' folder next to course.sh. Edit them with any 
 COMMANDS = {
     "list": cmd_list, "ex": cmd_ex, "exercise": cmd_ex, "ask": cmd_ask,
     "inspector": cmd_inspector, "serve": cmd_serve, "serve-api": cmd_serve_api,
-    "serve-mcp": cmd_serve_mcp, "desktop-config": cmd_desktop_config,
+    "serve-mcp": cmd_serve_mcp, "serve-a2a": cmd_serve_a2a, "desktop-config": cmd_desktop_config,
     "data": cmd_data, "reset": cmd_reset, "check": cmd_check, "selftest": cmd_selftest,
     "sandbox-worker": cmd_sandbox_worker, "solution": cmd_solution,
     "check-solutions": cmd_verify_solutions, "live-check": cmd_live_check, "capstone": cmd_capstone, "verify-solutions": cmd_verify_solutions,

@@ -63,7 +63,7 @@ class ResilientHub(base.MCPHub):
                 self.restarts += 1
 
     async def resource_context(self, budget=RESOURCE_BUDGET) -> str:
-        """Exercise 13.5: read every server's resources for the system prompt."""
+        """Exercise 13.4: read every server's resources for the system prompt."""
         parts, used = [], 0
         for name, client in self.clients.items():
             try:

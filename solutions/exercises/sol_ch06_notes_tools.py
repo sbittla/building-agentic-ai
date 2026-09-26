@@ -1,4 +1,4 @@
-"""Exercise 6.6 (Medium): find notes by file name and modification date."""
+"""Exercise 6.5 (Medium): find notes by file name and modification date."""
 import fnmatch
 from datetime import date, datetime
 import ch06_notes_tools as base

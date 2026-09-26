@@ -9,10 +9,10 @@ import pytest
 
 EX_JSON = Path(os.environ.get("COURSE_EXERCISES", "/opt/course/exercises.json"))
 SITE = str(Path(__file__).parent / "fake_model_site")
-SLOW = {"15.4"}                        # covered by test_15_4_queueing (takes ~1 minute)
+SLOW = {"29.1"}                        # covered by test_15_4_queueing (takes ~1 minute)
 # Need a running server, the Agent SDK runtime or a real SDK client: each has its own
-# test in test_ch16_19.py instead.
-ELSEWHERE = {"18.3", "18.4", "18.9", "19.3", "19.4", "19.5"}
+# test in test_ch16_30.py instead.
+ELSEWHERE = {"24.3", "24.7", "30.2", "30.3", "30.4"}
 HF_MODEL = any(Path(os.environ.get("HF_HOME", "/opt/hf")).glob("hub/models--minishlab--potion-base-8M"))
 
 def _cases():
@@ -20,7 +20,7 @@ def _cases():
         return []
     out = []
     for e in json.loads(EX_JSON.read_text()):
-        if e["id"] == "17.4" and not HF_MODEL:
+        if e["id"] == "18.4" and not HF_MODEL:
             continue                   # the local embedding model couldn't be downloaded here
         if e["kind"] == "run" and e.get("needs") != "github" and e["id"] not in SLOW | ELSEWHERE:
             out.append(pytest.param(e["id"], e.get("setup"), e["cmd"], id=f"ex{e['id']}"))
