@@ -1,0 +1,89 @@
+{
+ "chapter": "24",
+ "title": "Chapter 24: Skills, Frameworks and Agent Runtimes",
+ "model": "none (--free-only)",
+ "date": "2026-09-26 21:17",
+ "exercises": [
+  {
+   "id": "24.1",
+   "title": "Map the features",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch24/24.1.log"
+  },
+  {
+   "id": "24.2",
+   "title": "Pick a framework",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch24/24.2.log"
+  },
+  {
+   "id": "24.3",
+   "title": "See the approval gate work",
+   "kind": "run",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "24.4",
+   "title": "Agent SDK with your MCP servers",
+   "kind": "build",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "24.5",
+   "title": "Same agent, three frameworks",
+   "kind": "build",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "24.6",
+   "title": "Write a skill",
+   "kind": "run",
+   "status": "skipped",
+   "reason": "needs a model (--free-only): Claude only",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "24.7",
+   "title": "A managed analyst",
+   "kind": "run",
+   "status": "skipped",
+   "reason": "needs a model (--free-only): Claude only",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "24.8",
+   "title": "Does the skill help?",
+   "kind": "build",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "24.9",
+   "title": "Choose a runtime",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch24/24.9.log"
+  }
+ ]
+}

@@ -1,0 +1,8 @@
+# Exercise: 23.2  Threat-model the browser agent
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-26 21:17:57 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**23.2 Threat-model the browser agent.** (1) A ticket's text tells the agent to refund an order: page text labeled as untrusted, and refunds behind approval in the harness. (2) A link in a ticket sends the agent to a look-alike login page: the host allowlist, and the agent never types passwords. (3) The agent clicks "Close all tickets" instead of "Close ticket": dangerous-label approval, an action limit, and an account without bulk permissions. (4) The agent updates the wrong customer after a search returns two similar names: verify the result in code against the customer id from the task. (5) The agent's session sees data from other customers and repeats it in a reply: an account scoped to the tickets it's assigned. Controls that hold even if the model is fooled: the allowlist, the approval check in the harness, the application's own limits, and the account's permissions.

@@ -1,0 +1,8 @@
+# Exercise: 23.1  Screen or API?
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-26 21:17:57 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**23.1 Screen or API?** (a) The REST API: bulk updates through a UI would be slow, costly and fragile. (b) A browser agent, because there's no API; risk: the portal's pages and PDFs are untrusted input, and the agent needs the supplier account's credentials, which the harness must hold. (c) A browser agent, or a scripted browser test, because the interface *is* the thing being tested; risk: flaky results that people stop trusting. (d) The export for that side, and the API or a browser agent only for the side without one. (e) A desktop computer-use agent in a virtual machine; risks: screenshots and coordinates are imprecise, and the agent can reach anything the desktop can, so give the VM nothing but that application.

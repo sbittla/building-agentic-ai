@@ -2,6 +2,8 @@
 .env
 workspace/
 *.log
+# ...except the exercise outputs written by run-chapter (solutions/outputs)
+!solutions/outputs/**/*.log
 
 # Python and tools
 __pycache__/

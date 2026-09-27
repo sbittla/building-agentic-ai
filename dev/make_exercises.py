@@ -146,9 +146,10 @@ MAP = {
     "24.5": B("ex24_5_three_ways"),
     "24.6": R("python ch24_skills.py"),
     "24.7": R("python ch24_managed_agent.py"),
-    "30.2": R("python ch30_client.py && python ch30_client.py stream"),
-    "30.3": R("python ch30_client.py limits"),
-    "30.4": R("python ch30_client.py words", edit=["ch30_service.py", "ch30_client.py"]),
+    "30.2": R("python ch30_client.py && python ch30_client.py stream", service="api"),
+    "30.3": R("python ch30_client.py limits", service="api"),
+    "30.4": R("python ch30_client.py words", edit=["ch30_service.py", "ch30_client.py"],
+               service="api"),
     "30.5": B("ex30_5_remote_hub"),
     "30.6": B("ex30_6_drill"),
     "30.7": R("python ch30_smoke_test.py --help", edit=["ch30_service.Dockerfile"]),
@@ -192,6 +193,10 @@ MAP = {
     "15.5": B("ex15_5_scoped_search"),
     "15.6": B("ex15_6_jobs"),
     "15.7": B("ex15_7_gateway_agent"),
+    "27.8": B("ex27_8_scorecard"),
+    "28.6": B("ex28_6_dashboard"),
+    "28.7": B("ex28_7_taxonomy"),
+    "29.6": B("ex29_6_experiment"),
 }
 
 exercises = []

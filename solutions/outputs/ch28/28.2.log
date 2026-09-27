@@ -1,0 +1,8 @@
+# Exercise: 28.2  What would you trace?
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-26 21:18:03 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**28.2 What would you trace? (one good answer).** Spans: `invoke_workflow` (the request), `understand` (the model call, with model, tokens and stop reason, and the extracted order id and reason as attributes), `decide` (policy version, amount, age, outcome), `approval` (who, how long it waited), `refund` (order id, idempotency key, result), `reply` (model call, tokens, `reply_guard` passed or fell back). Redact the customer's message and the reply text; record the customer as a hashed id and amounts as numbers. SLOs: automatic decisions within 5 s at p95; fewer than 2% of cases escalated for extraction problems; reply-guard fallback rate under 1%. The last one catches a model update that makes the guard fall back twice as often, because it's a rate you watch rather than an error.

@@ -1,0 +1,12 @@
+# Exercise: 0.6  A careful API call
+# Command:  python /solutions/exercises/ex0_6_city_temperature.py
+# Model:    none (no model needed)
+# Date:     2026-09-26 21:16:40 UTC
+# Exit code: 0
+# Seconds:  0.9
+#-------------------------------------------------------------------------------
+ERROR: could not reach https://geocoding-api.open-meteo.com/v1/search (ConnectError)
+ERROR: could not reach https://geocoding-api.open-meteo.com/v1/search (ConnectError)
+ERROR: could not reach https://geocoding-api.open-meteo.com/v1/search (ConnectError)
+ERROR: could not reach https://geocoding-api.open-meteo.com/v1/search (ConnectError)
+ERROR: could not reach https://geocoding-api.open-meteo.com/v1/nope (ConnectError)

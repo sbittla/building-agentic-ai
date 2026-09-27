@@ -19,6 +19,7 @@ services:
     volumes:
       - ./workspace:/workspace
       - ./solutions:/solutions:ro        # solutions to every exercise and capstone
+      - ./solutions/outputs:/outputs     # run-chapter writes each exercise's output here
     working_dir: /workspace
     stdin_open: true
     tty: true

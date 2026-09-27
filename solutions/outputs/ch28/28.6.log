@@ -1,0 +1,17 @@
+# Exercise: 28.6  A production dashboard
+# Command:  python /solutions/exercises/ex28_6_dashboard.py
+# Model:    none (no model needed)
+# Date:     2026-09-26 21:18:08 UTC
+# Exit code: 0
+# Seconds:  1.7
+#-------------------------------------------------------------------------------
+SLO                         target    value  status   budget  measured from
+Task success                >= 95%      40%  MISSED   -1100%  evals + judge (Ch 27)
+p95 latency (ms)           < 8,000    5,500  met              traces
+Cost per task ($)          < 0.050    0.020  met              traces
+Tool selection accuracy     >= 98%     100%  met        100%  eval suite (Ch 27)
+Unsafe action rate         < 0.01%    0.00%  met        100%  human review (Ch 25)
+Escalation accuracy         >= 95%     100%  met        100%  human review (Ch 19)
+Retrieval recall            >= 90%      75%  MISSED           eval suite (Ch 18)
+
+Dashboard: dashboard.html  (open it in a browser, or print it)

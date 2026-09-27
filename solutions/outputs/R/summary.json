@@ -1,0 +1,44 @@
+{
+ "chapter": "R",
+ "title": "Interlude: Regular Expressions",
+ "model": "none (--free-only)",
+ "date": "2026-09-26 21:16",
+ "exercises": [
+  {
+   "id": "R.1",
+   "title": "Extract from logs",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 0.0,
+   "log": "R/R.1.log"
+  },
+  {
+   "id": "R.2",
+   "title": "Mask secrets",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 0.0,
+   "log": "R/R.2.log"
+  },
+  {
+   "id": "R.3",
+   "title": "Parse citations",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 0.0,
+   "log": "R/R.3.log"
+  },
+  {
+   "id": "R.4",
+   "title": "Error codes",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 0.0,
+   "log": "R/R.4.log"
+  }
+ ]
+}

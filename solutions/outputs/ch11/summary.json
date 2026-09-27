@@ -1,0 +1,71 @@
+{
+ "chapter": "11",
+ "title": "Chapter 11: Multi-Agent Systems",
+ "model": "none (--free-only)",
+ "date": "2026-09-26 21:17",
+ "exercises": [
+  {
+   "id": "11.1",
+   "title": "One agent or many?",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch11/11.1.log"
+  },
+  {
+   "id": "11.2",
+   "title": "Design the subtasks",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch11/11.2.log"
+  },
+  {
+   "id": "11.3",
+   "title": "Run the team",
+   "kind": "run",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "11.4",
+   "title": "Better delegation",
+   "kind": "run",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "11.5",
+   "title": "A critic agent",
+   "kind": "run",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "11.6",
+   "title": "Is it worth it?",
+   "kind": "build",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "11.7",
+   "title": "Pick the pattern",
+   "kind": "run",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  }
+ ]
+}

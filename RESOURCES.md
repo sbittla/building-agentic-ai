@@ -78,7 +78,7 @@ Every link from the book's **Learn more** sections and Appendix G, so you can cl
 - [pytest: How to parametrize tests](https://docs.pytest.org/en/stable/how-to/parametrize.html) (Go deeper): One test, many inputs (exercise T.2)
 - [pytest: How to monkeypatch](https://docs.pytest.org/en/stable/how-to/monkeypatch.html) (Go deeper): Replacing functions and settings in tests (exercise T.4)
 
-## Chapter 2: Tool Calling
+## Chapter 2: Tool Calling (Function Calling)
 
 - [Claude docs: Tool use overview](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) (Start here): How tool calling works, with examples
 - [Claude docs: How to implement tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/implement-tool-use) (Start here): Writing tool definitions, tool_choice and handling results
@@ -86,7 +86,7 @@ Every link from the book's **Learn more** sections and Appendix G, so you can cl
 - [Python docs: ast module](https://docs.python.org/3/library/ast.html) (Go deeper): The syntax trees the safe calculator walks
 - [OWASP Top 10 for LLM Applications](https://genai.owasp.org/llm-top-10/) (Go deeper): The standard list of LLM security risks, including tool misuse
 
-## Chapter 3: Choosing Between Tools
+## Chapter 3: Tool Selection, Routing and Tool Search
 
 - [Claude docs: Structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) (Start here): messages.parse, JSON schemas and strict tools
 - [Pydantic documentation](https://pydantic.dev/docs/validation/latest/get-started/) (Start here): The data classes used for structured outputs
@@ -117,7 +117,7 @@ Every link from the book's **Learn more** sections and Appendix G, so you can cl
 - [Python docs: Regular expression HOWTO](https://docs.python.org/3/howto/regex.html) (Go deeper): The official gentle introduction
 - [Python docs: re module](https://docs.python.org/3/library/re.html) (Go deeper): Every function and flag
 
-## Chapter 6: Exploring an Environment
+## Chapter 6: Agentic Search: Exploring an Environment
 
 - [Python docs: pathlib](https://docs.python.org/3/library/pathlib.html) (Start here): Working with files and folders safely
 - [Claude docs: Text editor tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/text-editor-tool) (Go deeper): Anthropic's built-in tool for viewing and editing files
@@ -141,14 +141,14 @@ Every link from the book's **Learn more** sections and Appendix G, so you can cl
 - [SQLite: SQL as understood by SQLite](https://www.sqlite.org/lang.html) (Go deeper): The reference for the database the kit uses
 - [Python docs: sqlite3](https://docs.python.org/3/library/sqlite3.html) (Go deeper): Running SQL from Python, with placeholders
 
-## Chapter 8: Self-Correction
+## Chapter 8: Self-Correction: A Text-to-SQL Agent
 
 - [Uber: QueryGPT](https://www.uber.com/us/en/blog/query-gpt/) (Start here): A real natural-language-to-SQL system and what it took
 - [Claude docs: Reduce hallucinations](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations) (Start here): Techniques for grounding answers in real data
 - [OWASP: SQL injection prevention](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html) (Go deeper): Why the SQL tools use read-only connections and placeholders
 - [Reflexion paper (Shinn et al., 2023)](https://arxiv.org/abs/2303.11366) (Go deeper): Research on agents that learn from their own errors
 
-## Chapter 9: Human in the Loop
+## Chapter 9: Human-in-the-Loop Approval
 
 - [Google PAIR: People + AI Guidebook](https://pair.withgoogle.com/guidebook/) (Start here): Designing AI that people can trust, check and correct
 - [Claude Code: permission modes](https://code.claude.com/docs/en/permission-modes) (Go deeper): How a production agent decides what needs your approval
@@ -201,7 +201,7 @@ Every link from the book's **Learn more** sections and Appendix G, so you can cl
 - [MCP: Security best practices](https://modelcontextprotocol.io/docs/tutorials/security/security_best_practices) (Go deeper): The protocol's own guidance on attacks and defenses
 - [GitHub MCP server](https://github.com/github/github-mcp-server) (Go deeper): The GitHub server used in this chapter and in capstone 4
 
-## Chapter 27: Agent Evaluation: Trajectories and Continuous Evaluation
+## Chapter 27: Agent Evaluation: Dimensions, Trajectories and Scorecards
 
 - [Anthropic: Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) (Start here): How to build evals for agents, from a team that runs many
 - [Claude docs: Define success criteria and build evaluations](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests) (Start here): Writing test cases and graders
@@ -220,7 +220,7 @@ Every link from the book's **Learn more** sections and Appendix G, so you can cl
 - [Claude docs: Programmatic tool calling](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling) (Go deeper): Tools called from code in a sandbox (section 16.9)
 - [Claude docs: Compaction](https://platform.claude.com/docs/en/build-with-claude/compaction) (Go deeper): Server-side summaries of long conversations, on demand or at a threshold
 
-## Chapter 18: Agentic Knowledge Systems
+## Chapter 18: Agentic RAG and Knowledge Systems
 
 - [Anthropic: Introducing Contextual Retrieval](https://www.anthropic.com/news/contextual-retrieval) (Start here): Hybrid search, reranking and chunk context, with measurements
 - [Claude docs: Embeddings](https://platform.claude.com/docs/en/build-with-claude/embeddings) (Start here): What embeddings are and which providers to use
@@ -241,7 +241,7 @@ Every link from the book's **Learn more** sections and Appendix G, so you can cl
 - [Claude Managed Agents overview](https://platform.claude.com/docs/en/managed-agents/overview) (Go deeper): Agents, environments, sessions and events (section 24.8)
 - [Agent2Agent (A2A) protocol](https://a2a-protocol.org/latest/) (Go deeper): The open protocol for agents talking to other agents
 
-## Chapter 30: Deploying Agents as Services
+## Chapter 30: Deploying Agents: From One Service to an Agent Platform
 
 - [FastAPI tutorial](https://fastapi.tiangolo.com/tutorial/) (Start here): Build a web API step by step; the base of ch30_service.py
 - [MDN: Using server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) (Start here): How streaming responses reach the browser
@@ -323,19 +323,22 @@ Every link from the book's **Learn more** sections and Appendix G, so you can cl
 - [OAuth 2.0 Token Exchange (RFC 8693)](https://www.rfc-editor.org/rfc/rfc8693) (Go deeper): The standard for 'this agent, acting for this user' tokens (section 26.8)
 - [OWASP Top 10 for Agentic Applications](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) (Go deeper): ASI03, identity and privilege abuse, among the ten agent risks
 
-## Chapter 28: AgentOps: Observability for Agents
+## Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents
 
 - [OpenTelemetry GenAI semantic conventions (repository)](https://github.com/open-telemetry/semantic-conventions-genai) (Start here): The span and attribute names for model and agent calls, in their own repository since 2026
 - [OpenTelemetry: GenAI semantic conventions](https://opentelemetry.io/docs/specs/semconv/registry/attributes/gen-ai/) (Go deeper): The `gen_ai.*` attribute names used in ch28_otel.py
-- [Google SRE book: Service level objectives](https://sre.google/sre-book/service-level-objectives/) (Go deeper): How to choose SLOs and use error budgets (section 28.6)
+- [Google SRE book: Service level objectives](https://sre.google/sre-book/service-level-objectives/) (Go deeper): How to choose SLOs and use error budgets (section 28.10)
 - [LangChain: State of Agent Engineering](https://www.langchain.com/state-of-agent-engineering) (Go deeper): How widely teams trace, and what they trace
+- [Moffatt v. Air Canada, 2024 BCCRT 149](https://www.canlii.org/en/bc/bccrt/doc/2024/2024bccrt149/2024bccrt149.html) (Go deeper): The tribunal decision on a chatbot's invented refund policy (section 28.8)
+- [Invariant Labs: GitHub MCP exploited](https://invariantlabs.ai/blog/mcp-github-vulnerability) (Go deeper): A 'toxic agent flow': prompt injection plus an over-broad token (section 28.8)
+- [AI Incident Database](https://incidentdatabase.ai/) (Go deeper): Documented AI incidents, searchable, with sources
 
-## Chapter 29: Agentic Performance and Cost Engineering
+## Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost
 
-- [Claude docs: Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) (Start here): The biggest single cost lever for agents (section 29.2)
-- [Claude docs: Rate limits](https://platform.claude.com/docs/en/api/rate-limits) (Start here): Request and token limits, and how they're measured (section 29.5)
-- [Gil Tene: How NOT to measure latency](https://www.infoq.com/presentations/latency-response-time/) (Go deeper): Percentiles and coordinated omission (section 29.4)
-- [Wikipedia: Little's law](https://en.wikipedia.org/wiki/Little%27s_law) (Go deeper): Concurrency, arrival rate and latency (section 29.5)
+- [Claude docs: Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) (Start here): The biggest single cost lever for agents (section 29.3)
+- [Claude docs: Rate limits](https://platform.claude.com/docs/en/api/rate-limits) (Start here): Request and token limits, and how they're measured (section 29.7)
+- [Gil Tene: How NOT to measure latency](https://www.infoq.com/presentations/latency-response-time/) (Go deeper): Percentiles and coordinated omission (section 29.6)
+- [Wikipedia: Little's law](https://en.wikipedia.org/wiki/Little%27s_law) (Go deeper): Concurrency, arrival rate and latency (section 29.7)
 
 ## Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure
 

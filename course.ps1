@@ -1,4 +1,4 @@
-# Building Agentic AI: run any course command inside Docker (Windows PowerShell).
+# Building Agentic AI Systems: run any course command inside Docker (Windows PowerShell).
 # Usage:  .\course.cmd help      (or:  powershell -ExecutionPolicy Bypass -File course.ps1 help)
 $ErrorActionPreference = "Continue"
 Set-Location -Path $PSScriptRoot
@@ -18,7 +18,7 @@ function Save-Env($lines) {       # plain UTF-8 without a BOM: Docker Compose ca
 }
 
 if ($cmd -eq "setup") {
-    Write-Host "== Building Agentic AI: setup =="
+    Write-Host "== Building Agentic AI Systems: setup =="
     if (-not (Get-Command docker -ErrorAction SilentlyContinue)) {
         Write-Host "1. Docker: NOT INSTALLED. Install Docker Desktop: https://docs.docker.com/desktop/setup/install/windows-install/"
         Write-Host "   It needs WSL 2 and hardware virtualization, and admin rights to install."

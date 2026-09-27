@@ -1,0 +1,8 @@
+# Exercise: 30.1  Pick the status code
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-26 21:33:16 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**30.1 Pick the status code.** (a) No key: **401 Unauthorized**, we don't know who you are. (b) Over the rate limit: **429 Too Many Requests**, with `Retry-After`. (c) Message over 4,000 characters: **422 Unprocessable Content**, the request is well-formed JSON but fails validation. (d) Someone else's session id: **404 Not Found**; not 403, which would confirm the session exists. (e) The model API is down: **502 Bad Gateway**, an upstream service failed, not the caller. (f) A second request while the session is busy: **409 Conflict**, the request is valid but clashes with the session's current state; the client should retry shortly.

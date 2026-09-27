@@ -1,0 +1,62 @@
+{
+ "chapter": "6",
+ "title": "Chapter 6: Agentic Search: Exploring an Environment",
+ "model": "none (--free-only)",
+ "date": "2026-09-26 21:16",
+ "exercises": [
+  {
+   "id": "6.1",
+   "title": "Break the sandbox",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch06/6.1.log"
+  },
+  {
+   "id": "6.2",
+   "title": "Ask your notes",
+   "kind": "ask",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "6.3",
+   "title": "Prove the sandbox",
+   "kind": "test",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "6.4",
+   "title": "Check the citations",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 0.0,
+   "log": "ch06/6.4.log"
+  },
+  {
+   "id": "6.5",
+   "title": "Search by filename and date",
+   "kind": "ask",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "6.6",
+   "title": "Scale test",
+   "kind": "build",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  }
+ ]
+}

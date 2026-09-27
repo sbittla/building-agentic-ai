@@ -1,0 +1,53 @@
+{
+ "chapter": "4",
+ "title": "Chapter 4: The Agent Loop",
+ "model": "none (--free-only)",
+ "date": "2026-09-26 21:16",
+ "exercises": [
+  {
+   "id": "4.1",
+   "title": "Draw the loop",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch04/4.1.log"
+  },
+  {
+   "id": "4.2",
+   "title": "Run the loop",
+   "kind": "run",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "4.3",
+   "title": "Trigger the cap",
+   "kind": "build",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "4.4",
+   "title": "A better tracer",
+   "kind": "build",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "4.5",
+   "title": "Cost profile",
+   "kind": "build",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  }
+ ]
+}

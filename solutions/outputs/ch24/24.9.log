@@ -1,0 +1,8 @@
+# Exercise: 24.9  Choose a runtime
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-26 21:17:58 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**24.9 Choose a runtime.** (a) Your own loop or the tool runner: small, short-lived, and control matters more than features; the deciding question is what it costs to move away later (nothing). (b) A durable-execution platform with your agent logic inside, or a managed runtime with durable sessions: the deciding question is whether state survives a crash, because the work spans days and waits for people. (c) The Claude Agent SDK: it runs where the code is, with built-in file and shell tools and permissions; the deciding question is where code runs and what it can reach. (d) Claude Managed Agents: the team doesn't want to operate servers or sandboxes; the deciding question is who operates the infrastructure, with evaluation still your job.

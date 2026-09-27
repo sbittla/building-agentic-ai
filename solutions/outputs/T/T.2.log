@@ -1,0 +1,9 @@
+# Exercise: T.2  Parametrize
+# Command:  python -m pytest -q -p no:cacheprovider --rootdir /tmp /solutions/tests/test_exT_2_parametrize.py
+# Model:    none (no model needed)
+# Date:     2026-09-26 21:16:46 UTC
+# Exit code: 0
+# Seconds:  3.5
+#-------------------------------------------------------------------------------
+.........                                                                [100%]
+9 passed in 0.02s

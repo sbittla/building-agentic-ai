@@ -1,6 +1,6 @@
-# Building Agentic AI: code, exercises and solutions
+# Building Agentic AI Systems: code, exercises and solutions
 
-The companion repository for the book *Building Agentic AI: From Your First Agent to MCP, Multi-Agent Systems, and Production AI* by Srinivasa Rao Bittla. It has every chapter's code, 173 exercises with starter files, checkers and reference solutions, six capstone projects, and a Docker image that runs all of it.
+The companion repository for the book *Building Agentic AI Systems: From First Agent to MCP, Multi-Agent Orchestration, and Production* by Srinivasa Rao Bittla. It has every chapter's code, 173 exercises with starter files, checkers and reference solutions, six capstone projects, and a Docker image that runs all of it.
 
 ```bash
 git clone https://github.com/sbittla/building-agentic-ai.git
@@ -95,6 +95,7 @@ The book shows where each solution lives: every exercise box names its solution 
 | `./course.sh serve-a2a` | The chapter 13 A2A analyst agent; its card is at http://localhost:9999/.well-known/agent-card.json |
 | `./course.sh sandbox up` / `down` | Network-less test sandbox for exercise 10.7 |
 | `./course.sh live-check [part] [--yes]` | Run every chapter's main file against the real model (about $1); report in `workspace/live_report.md` |
+| `./course.sh run-chapter <chapter\|all> [--model local\|claude] [--free-only] [--yes]` | Run every exercise of a chapter (or `all`, in book order, then the capstones) with its reference solution in a scratch copy of your workspace; each exercise's full output goes to `solutions/outputs/chNN/<id>.log`, plus `summary.json` and an index in `solutions/outputs/README.md`. Uses the free local model by default (run `./course.sh local up` first); `--model claude` (or `RUN_MODEL=claude`) uses your API key; `--free-only` runs only the exercises that need no model. Double-click `run-chapters.cmd` (Windows) or run `./run-chapters.sh` to run them all |
 
 To deploy the Chapter 30 agent API, build `ch30_service.Dockerfile` from your workspace folder on your own computer and follow exercise 30.7. To test the book with real learners before publishing, follow `PILOT.md`.
 

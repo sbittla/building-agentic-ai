@@ -1,0 +1,17 @@
+{
+ "chapter": "C1",
+ "title": "Capstone 1",
+ "model": "none (--free-only)",
+ "date": "2026-09-26 21:19",
+ "exercises": [
+  {
+   "id": "C1",
+   "title": "Capstone 1 (c1_support)",
+   "kind": "capstone",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  }
+ ]
+}

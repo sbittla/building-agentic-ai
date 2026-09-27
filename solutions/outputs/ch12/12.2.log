@@ -1,0 +1,8 @@
+# Exercise: 12.2  Tool, resource or prompt?
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-26 21:17:14 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**12.2 Tool, resource or prompt?** (a) Tool: an action the model decides to take. (b) Resource: reference data the host attaches. (c) Prompt: a template the user picks. (d) Resource: read-only data (or a tool if it needs parameters, such as a date). (e) Tool, behind an approval gate.

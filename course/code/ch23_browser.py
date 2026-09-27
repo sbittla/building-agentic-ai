@@ -5,7 +5,7 @@ numbered list of the controls it can use. Code keeps the dangerous parts in hand
   * sign-in      the harness signs in; the model never sees a password
   * allowlist    the browser may only visit the application's own address
   * approvals    clicks that move money or delete things wait for a person
-  * page = data  page text is labelled as untrusted content
+  * page = data  page text is labeled as untrusted content
   * limits       a maximum number of actions, and a log of every one
   * evidence     a screenshot after every change, for people to review
 

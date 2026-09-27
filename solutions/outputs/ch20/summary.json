@@ -1,0 +1,62 @@
+{
+ "chapter": "20",
+ "title": "Chapter 20: Planning and Model Routing",
+ "model": "none (--free-only)",
+ "date": "2026-09-26 21:17",
+ "exercises": [
+  {
+   "id": "20.1",
+   "title": "Plan or not?",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch20/20.1.log"
+  },
+  {
+   "id": "20.2",
+   "title": "Route the steps",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch20/20.2.log"
+  },
+  {
+   "id": "20.3",
+   "title": "Break the plan",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 1.6,
+   "log": "ch20/20.3.log"
+  },
+  {
+   "id": "20.4",
+   "title": "Run independent steps in parallel",
+   "kind": "build",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "20.5",
+   "title": "Evaluate the routers",
+   "kind": "build",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "20.6",
+   "title": "A plan that survives a crash",
+   "kind": "build",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  }
+ ]
+}

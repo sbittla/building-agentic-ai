@@ -1,0 +1,80 @@
+{
+ "chapter": "27",
+ "title": "Chapter 27: Agent Evaluation: Dimensions, Trajectories and Scorecards",
+ "model": "none (--free-only)",
+ "date": "2026-09-26 21:33",
+ "exercises": [
+  {
+   "id": "27.1",
+   "title": "Design an eval",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch27/27.1.log"
+  },
+  {
+   "id": "27.2",
+   "title": "Read the scorecard",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch27/27.2.log"
+  },
+  {
+   "id": "27.3",
+   "title": "Run the SQL suite",
+   "kind": "run",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "27.4",
+   "title": "Eval in CI",
+   "kind": "build",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "27.5",
+   "title": "Calibrate a judge",
+   "kind": "build",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "27.6",
+   "title": "Grade the path",
+   "kind": "build",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "27.7",
+   "title": "Evaluate in production",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 1.7,
+   "log": "ch27/27.7.log"
+  },
+  {
+   "id": "27.8",
+   "title": "An agent scorecard",
+   "kind": "build",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  }
+ ]
+}

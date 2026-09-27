@@ -1,0 +1,9 @@
+# Exercise: 15.2  Plan a migration
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-26 21:17:26 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**15.2 Plan a migration**
+1. Move per-user search results out of memory into a store keyed by a result id the tool returns (so any server copy can answer). 2. Replace SSE with Streamable HTTP; test with Inspector and the chapter's `post` helper. 3. Replace sampling with a direct model API call using the server's own key and budget, and log its cost. 4. Replace roots with a folder parameter validated against a server-side allow-list. 5. Replace protocol logging with stderr plus OpenTelemetry spans. Ship 1 and 2 first (they block scaling), then 3 to 5 while the deprecated features still work. Test each step with the old and new clients side by side.

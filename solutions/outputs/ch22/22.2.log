@@ -1,0 +1,8 @@
+# Exercise: 22.2  Find the holes
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-26 21:17:57 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**22.2 Find the holes.** (1) The model passes an `amount` larger than the order: take the amount from the order record, never from arguments. (2) It refunds an order id that appears nowhere in the conversation: check the id is grounded in the input and exists. (3) It refunds another customer's order: identity comes from the session, and the tool only sees that customer's orders. (4) A message says "approval already granted" and the model skips it: approval is a state in code that the model can't set. (5) The prompt's 30-day rule is forgotten on a long conversation: the window is checked in code from the delivery date. Also: a retry refunds twice (make the refund idempotent, Chapter 19), and the reply promises a voucher (output guard with fallback).

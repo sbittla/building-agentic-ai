@@ -1,0 +1,80 @@
+{
+ "chapter": "16",
+ "title": "Chapter 16: Context Engineering",
+ "model": "none (--free-only)",
+ "date": "2026-09-26 21:17",
+ "exercises": [
+  {
+   "id": "16.1",
+   "title": "Where did the tokens go?",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch16/16.1.log"
+  },
+  {
+   "id": "16.2",
+   "title": "Design a system prompt",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch16/16.2.log"
+  },
+  {
+   "id": "16.3",
+   "title": "Watch compaction happen",
+   "kind": "run",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "16.4",
+   "title": "Assemble a context",
+   "kind": "run",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "16.5",
+   "title": "Measure caching savings",
+   "kind": "build",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "16.6",
+   "title": "Fresh or stale?",
+   "kind": "test",
+   "status": "passed",
+   "reason": null,
+   "seconds": 3.3,
+   "log": "ch16/16.6.log"
+  },
+  {
+   "id": "16.7",
+   "title": "Let a program do the counting",
+   "kind": "run",
+   "status": "skipped",
+   "reason": "needs a model (--free-only): Claude only",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "16.8",
+   "title": "Brief the research team",
+   "kind": "build",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  }
+ ]
+}

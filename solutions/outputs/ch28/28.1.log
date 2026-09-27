@@ -1,0 +1,14 @@
+# Exercise: 28.1  A trace viewer
+# Command:  python /solutions/exercises/ex28_1_trace_report.py
+# Model:    none (no model needed)
+# Date:     2026-09-26 21:18:03 UTC
+# Exit code: 1
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/solutions/exercises/ex28_1_trace_report.py", line 32, in <module>
+    report(*(sys.argv[1:2] or []))
+  File "/solutions/exercises/ex28_1_trace_report.py", line 12, in report
+    runs = [json.loads(l) for l in open(path) if l.strip()][-last:]
+                                   ^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'traces.jsonl'

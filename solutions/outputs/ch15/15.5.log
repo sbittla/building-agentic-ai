@@ -1,0 +1,11 @@
+# Exercise: 15.5  Search what you may use
+# Command:  python /solutions/exercises/ex15_5_scoped_search.py
+# Model:    none (no model needed)
+# Date:     2026-09-26 21:17:43 UTC
+# Exit code: 0
+# Seconds:  1.1
+#-------------------------------------------------------------------------------
+reader, 'task'             ['todo__list_tasks', 'todo__find_tasks']
+analyst, 'task'            []
+analyst, 'query schema'    ['shopdb__get_schema', 'shopdb__run_query']
+no token, 'task'           []

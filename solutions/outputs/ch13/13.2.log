@@ -1,0 +1,10 @@
+# Exercise: 13.2  A client without a model
+# Command:  python /solutions/exercises/ex13_2_client.py
+# Model:    none (no model needed)
+# Date:     2026-09-26 21:17:25 UTC
+# Exit code: 0
+# Seconds:  3.3
+#-------------------------------------------------------------------------------
+tools: ['add_task', 'list_tasks', 'find_tasks', 'complete_task', 'today']
+Added #1: Read chapter 13
+#1 [ ] Read chapter 13 (due -, high)

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Building Agentic AI: run any course command inside Docker.
+# Building Agentic AI Systems: run any course command inside Docker.
 # Usage: ./course.sh help
 set -euo pipefail
 cd "$(dirname "$0")"
@@ -15,7 +15,7 @@ secret() { LC_ALL=C tr -dc 'A-Za-z0-9' </dev/urandom | head -c 32; }
 env_has() { grep -Eq "^$1=.+" .env 2>/dev/null; }
 
 setup() {
-  echo "== Building Agentic AI: setup =="
+  echo "== Building Agentic AI Systems: setup =="
   if ! command -v docker >/dev/null 2>&1; then
     echo "1. Docker: NOT INSTALLED. Install Docker Desktop (macOS/Windows) or Docker Engine"
     echo "   with the Compose plugin (Linux): https://docs.docker.com/get-docker/"

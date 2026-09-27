@@ -1,0 +1,8 @@
+# Exercise: 13.1  Collisions
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-26 21:17:22 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**13.1 Collisions.** Without namespacing, the second `search` overwrites or duplicates the first. The model can't choose between them, and calls may reach the wrong server. Alternative 1: pick one server per tool name by configured priority. It's simple, but it silently hides the other server's tool. Alternative 2: merge them into one `search(source=...)` tool with an enum of sources. That's clean for the model, but the host must know that the schemas are compatible.

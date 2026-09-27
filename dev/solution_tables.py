@@ -96,7 +96,7 @@ KEY = {  # one line: what the solution shows. Used where a file's docstring isn'
  "14.3": "A read-only token and --read-only remove write tools entirely",
  # chapter 27
  "27.1": "Cases with deterministic checks, grown from real failures",
- "27.2": "Flat throughput plus 429s means a rate limit; p95 far above p50 means queueing",
+ "27.2": "A scorecard read critically: overlapping intervals, a pass^k drop and weak escalation mean not yet",
  "27.3": "Six more SQL cases, each with a check that can fail",
  # chapter 16-19
  "16.1": "Trim tool results first, cache the stable prefix second, compact last",
@@ -163,6 +163,11 @@ KEY = {  # one line: what the solution shows. Used where a file's docstring isn'
  "15.5": "search_tools filtered by the caller's token scopes",
  "15.6": "A long-polling job_status: one call instead of several; the same request_id gives the same job",
  "15.7": "The Chapter 13 agent behind a stdio gateway: tools found by search, writes allowed, the order query refused and audited",
+ "1.8": "Three systems scored on the nine dimensions of agency, with a dimension to turn down for each",
+ "27.8": "A ten-dimension scorecard over k trials, used as a CI gate",
+ "28.6": "A one-page static dashboard: headline tiles, SLOs met or missed, failure classes, per-tool latency",
+ "28.7": "Runs classified with the 12-class taxonomy, printed as failure, detection, mitigation, evaluation",
+ "29.6": "A concurrency sweep with the real agent: throughput, goodput, percentiles and the knee",
 }
 
 def doc_line(path: Path) -> str:

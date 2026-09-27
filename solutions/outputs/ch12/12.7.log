@@ -1,0 +1,9 @@
+# Exercise: 12.7  HTTP and tests
+# Command:  python -m pytest -q -p no:cacheprovider --rootdir /tmp /solutions/tests/test_ex12_7_http.py
+# Model:    none (no model needed)
+# Date:     2026-09-26 21:17:22 UTC
+# Exit code: 0
+# Seconds:  8.5
+#-------------------------------------------------------------------------------
+.                                                                        [100%]
+1 passed in 4.63s

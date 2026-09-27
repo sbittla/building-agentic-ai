@@ -35,6 +35,7 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 1.5 Build the workflow | `exercises/ex1_5_workflow.py` | A fixed three-step workflow (NOT an agent) |
 | 1.6 Remembering a conversation | `exercises/ex1_6_chat.py` | Remembering a conversation (and breaking it on purpose) |
 | 1.7 Where does the agent go? | `ANSWERS.md` | Name the tools, the risks and the cost before choosing an agent |
+| 1.8 Score it on the dimensions | `ANSWERS.md` | Three systems scored on the nine dimensions of agency, with a dimension to turn down for each |
 
 ## Interlude: Testing with pytest
 
@@ -45,7 +46,7 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | T.3 Test your Chapter 0 code | `tests/test_ex_t3.py` | Tests for exercise 0.4, edge cases included |
 | T.4 Fake the network | `tests/test_exT_4_fake_network.py` | Test max_temperature with no internet, using monkeypatch |
 
-## Chapter 2: Tool Calling
+## Chapter 2: Tool Calling (Function Calling)
 
 | Exercise | Solution | What it shows |
 | --- | --- | --- |
@@ -56,7 +57,7 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 2.5 Graceful errors | `exercises/sol_ch02_calculator_agent.py` | Return errors as tool results with is_error, so the model can recover |
 | 2.6 A second tool, by hand | `exercises/ex2_6_two_tools.py`, `exercises/sol_ch02_calculator_agent.py` | Why the Chapter 2 `ask` breaks on multi-step questions |
 
-## Chapter 3: Choosing Between Tools
+## Chapter 3: Tool Selection, Routing and Tool Search
 
 | Exercise | Solution | What it shows |
 | --- | --- | --- |
@@ -99,7 +100,7 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | R.3 Parse citations | `exercises/exR_3_citations.py` | Find (file:line) citations in an answer |
 | R.4 Error codes | `exercises/exR_4_error_codes.py`, `ANSWERS.md` | Match error codes exactly |
 
-## Chapter 6: Exploring an Environment
+## Chapter 6: Agentic Search: Exploring an Environment
 
 | Exercise | Solution | What it shows |
 | --- | --- | --- |
@@ -130,7 +131,7 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | S.3 Business questions | `exercises/exS_3_business.py` | Three business questions in SQL |
 | S.4 Safe parameters | `exercises/exS_4_parameters.py`, `ANSWERS.md` | Parameters versus string-built SQL |
 
-## Chapter 8: Self-Correction
+## Chapter 8: Self-Correction: A Text-to-SQL Agent
 
 | Exercise | Solution | What it shows |
 | --- | --- | --- |
@@ -142,7 +143,7 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 8.6 Confirm the tables | `exercises/sol_ch08_sql_tools.py` | Confirm the tables with the user before running an expensive query |
 | 8.7 An evaluation harness | `exercises/ex8_7_eval_harness.py` | Compare the agent's answers with verified gold SQL |
 
-## Chapter 9: Human in the Loop
+## Chapter 9: Human-in-the-Loop Approval
 
 | Exercise | Solution | What it shows |
 | --- | --- | --- |
@@ -259,7 +260,7 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 17.7 A team memory | `exercises/ex17_7_team_memory.py`, `tests/test_part6.py` | Only the lead writes team memory; workers read it and keep private notes |
 | 17.8 A memory-backed assistant | `exercises/ex17_8_assistant.py` | A to-do assistant with policy-governed memory and a budget |
 
-## Chapter 18: Agentic Knowledge Systems
+## Chapter 18: Agentic RAG and Knowledge Systems
 
 | Exercise | Solution | What it shows |
 | --- | --- | --- |
@@ -364,19 +365,20 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 26.5 An audit circuit breaker | `exercises/ex26_5_breaker.py`, `tests/test_part8.py` | An audit circuit breaker. A burst of denials, or any attempt on another user's resource, disables the agent at once |
 | 26.6 A token-checked API | `exercises/ex26_6_orders_api.py`, `tests/test_part8.py` | The order tools as an HTTP API that checks bearer tokens. The harness holds the token, renews it when it expires, and the model never sees it |
 
-## Chapter 27: Agent Evaluation: Trajectories and Continuous Evaluation
+## Chapter 27: Agent Evaluation: Dimensions, Trajectories and Scorecards
 
 | Exercise | Solution | What it shows |
 | --- | --- | --- |
 | 27.1 Design an eval | `ANSWERS.md` | Cases with deterministic checks, grown from real failures |
-| 27.2 Read the numbers | `ANSWERS.md` | Flat throughput plus 429s means a rate limit; p95 far above p50 means queueing |
+| 27.2 Read the scorecard | `ANSWERS.md` | A scorecard read critically: overlapping intervals, a pass^k drop and weak escalation mean not yet |
 | 27.3 Run the SQL suite | `exercises/eval_sql_more.jsonl` | Six more SQL cases, each with a check that can fail |
 | 27.4 Eval in CI | `exercises/ex27_4_ci_gate.py` | Fail the build when eval quality drops |
 | 27.5 Calibrate a judge | `exercises/ex27_5_calibrate.py` | Check the judge against people before trusting it |
 | 27.6 Grade the path | `exercises/ex27_6_trajectory.py`, `exercises/ex27_6_trajectory.jsonl`, `tests/test_part9.py` | Grade six cases on outcome, process and cost, three times |
 | 27.7 Evaluate in production | `exercises/ex27_7_online.py`, `tests/test_part9.py` | A simulated week of production. Sample flagged runs and 10% of the rest each day, grade the sample, and check the daily rates for drift |
+| 27.8 An agent scorecard | `exercises/ex27_8_scorecard.py` | A ten-dimension scorecard over k trials, used as a CI gate |
 
-## Chapter 28: AgentOps: Observability for Agents
+## Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents
 
 | Exercise | Solution | What it shows |
 | --- | --- | --- |
@@ -385,8 +387,10 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 28.3 Read the report | `ANSWERS.md` | Every report number explained; a failing tool shows up as a failure class and a named alert |
 | 28.4 A new failure class | `exercises/ex28_4_ignored_error.py`, `tests/test_part9.py` | A failure class for runs that finished after a tool error that was never followed by a successful call of the same tool |
 | 28.5 An SLO dashboard with burn alerts | `exercises/ex28_5_burn.py`, `tests/test_part9.py` | Hourly SLO reports and an error-budget burn alert: more than 10% failures (for a 90% objective) in two consecutive hours |
+| 28.6 A production dashboard | `exercises/ex28_6_dashboard.py` | A one-page static dashboard: headline tiles, SLOs met or missed, failure classes, per-tool latency |
+| 28.7 Classify real failures | `exercises/ex28_7_taxonomy.py` | Runs classified with the 12-class taxonomy, printed as failure, detection, mitigation, evaluation |
 
-## Chapter 29: Agentic Performance and Cost Engineering
+## Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost
 
 | Exercise | Solution | What it shows |
 | --- | --- | --- |
@@ -395,8 +399,9 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 29.3 Where does the money go? | `ANSWERS.md` | History and the repeated prefix dominate; caching saves about 30%, routing plus caching about 46% |
 | 29.4 Budgets that hold | `exercises/ex29_4_budgets.py`, `tests/test_part9.py` | A per-request and a per-user daily budget around the Chapter 8 analyst, both enforced in code |
 | 29.5 Halve the cost | `exercises/ex29_5_cost_cut.py`, `tests/test_part9.py` | Cost per successful task before and after two levers: routing easy cases to the small model, and caching the stable prefix |
+| 29.6 Find the knee | `exercises/ex29_6_experiment.py` | A concurrency sweep with the real agent: throughput, goodput, percentiles and the knee |
 
-## Chapter 30: Deploying Agents as Services
+## Chapter 30: Deploying Agents: From One Service to an Agent Platform
 
 | Exercise | Solution | What it shows |
 | --- | --- | --- |

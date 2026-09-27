@@ -1,0 +1,41 @@
+# Exercise: 18.3  Build and search
+# Command:  python ch18_rag.py search temperature units && python ch18_rag.py search ERR-4471
+# Model:    none (no model needed)
+# Date:     2026-09-26 21:17:53 UTC
+# Exit code: 0
+# Seconds:  2.2
+#-------------------------------------------------------------------------------
+(local embedding model unavailable: LocalEntryNotFoundError; using hashing)
+32 chunks, embedder = hashing
+
+keyword:
+  (notes/learning/agents-course-notes.md:1)  '# Agents course notes\nAn agent = model + tools + loop + stop condition'
+  (notes/learning/docker-tips.md:1)  '# Docker tips\nUse `docker compose run --rm` for one-off commands.\nnetw'
+  (notes/learning/kafka-basics.md:1)  '# Kafka basics\nA topic is split into partitions; consumers in a group '
+
+vector:
+  (notes/work/2026-02-12-team-okrs.md:1)  '# Team OKRs (H1)\nO1: Reduce p95 API latency by 25%.\nO2: Cut incident c'
+  (notes/learning/kafka-basics.md:1)  '# Kafka basics\nA topic is split into partitions; consumers in a group '
+  (notes/learning/agents-course-notes.md:1)  '# Agents course notes\nAn agent = model + tools + loop + stop condition'
+
+hybrid:
+  (notes/learning/agents-course-notes.md:1)  '# Agents course notes\nAn agent = model + tools + loop + stop condition'
+  (notes/learning/kafka-basics.md:1)  '# Kafka basics\nA topic is split into partitions; consumers in a group '
+  (notes/learning/docker-tips.md:1)  '# Docker tips\nUse `docker compose run --rm` for one-off commands.\nnetw'
+(local embedding model unavailable: LocalEntryNotFoundError; using hashing)
+32 chunks, embedder = hashing
+
+keyword:
+  (library/error-codes.md:1)  '# Searching for error codes\nEmbedding models often treat codes like ER'
+  (notes/work/2026-06-20-rag-vs-search.md:1)  '# RAG or search for the runbooks?\nRunbooks change weekly, so re-indexi'
+  (notes/learning/kafka-basics.md:1)  '# Kafka basics\nA topic is split into partitions; consumers in a group '
+
+vector:
+  (library/error-codes.md:1)  '# Searching for error codes\nEmbedding models often treat codes like ER'
+  (notes/work/2026-06-20-rag-vs-search.md:1)  '# RAG or search for the runbooks?\nRunbooks change weekly, so re-indexi'
+  (notes/learning/agents-course-notes.md:1)  '# Agents course notes\nAn agent = model + tools + loop + stop condition'
+
+hybrid:
+  (library/error-codes.md:1)  '# Searching for error codes\nEmbedding models often treat codes like ER'
+  (notes/work/2026-06-20-rag-vs-search.md:1)  '# RAG or search for the runbooks?\nRunbooks change weekly, so re-indexi'
+  (notes/learning/agents-course-notes.md:1)  '# Agents course notes\nAn agent = model + tools + loop + stop condition'

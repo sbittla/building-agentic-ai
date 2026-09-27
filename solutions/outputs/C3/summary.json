@@ -1,0 +1,17 @@
+{
+ "chapter": "C3",
+ "title": "Capstone 3",
+ "model": "none (--free-only)",
+ "date": "2026-09-26 21:19",
+ "exercises": [
+  {
+   "id": "C3",
+   "title": "Capstone 3 (c3_incident)",
+   "kind": "capstone",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  }
+ ]
+}

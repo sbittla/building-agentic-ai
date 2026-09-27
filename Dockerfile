@@ -1,4 +1,4 @@
-# Building Agentic AI course image.
+# Building Agentic AI Systems course image.
 # Everything needed for chapters 0-19, their solutions and the capstones:
 # Python 3.12, uv, Node.js 24, the MCP SDK, reference MCP servers, MCP Inspector,
 # GitHub's MCP server, sample data generators, and the `course` command.

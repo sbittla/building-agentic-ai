@@ -1,0 +1,44 @@
+{
+ "chapter": "T",
+ "title": "Interlude: Testing with pytest",
+ "model": "none (--free-only)",
+ "date": "2026-09-26 21:16",
+ "exercises": [
+  {
+   "id": "T.1",
+   "title": "Run and break",
+   "kind": "run",
+   "status": "passed",
+   "reason": null,
+   "seconds": 1.8,
+   "log": "T/T.1.log"
+  },
+  {
+   "id": "T.2",
+   "title": "Parametrize",
+   "kind": "test",
+   "status": "passed",
+   "reason": null,
+   "seconds": 3.5,
+   "log": "T/T.2.log"
+  },
+  {
+   "id": "T.3",
+   "title": "Test your Chapter 0 code",
+   "kind": "test",
+   "status": "passed",
+   "reason": null,
+   "seconds": 3.6,
+   "log": "T/T.3.log"
+  },
+  {
+   "id": "T.4",
+   "title": "Fake the network",
+   "kind": "test",
+   "status": "passed",
+   "reason": null,
+   "seconds": 3.8,
+   "log": "T/T.4.log"
+  }
+ ]
+}

@@ -1,0 +1,8 @@
+# Exercise: 0.3  Your shared workspace
+# Command:  test -f hello.py && python hello.py || echo 'Create workspace/hello.py on your computer first, then run this again.'
+# Model:    none (no model needed)
+# Date:     2026-09-26 21:16:39 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+Create workspace/hello.py on your computer first, then run this again.

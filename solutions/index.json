@@ -591,5 +591,21 @@
  "15.7": [
   "exercises/ex15_7_gateway_agent.py",
   "tests/test_part5_mcp2026.py"
+ ],
+ "27.8": [
+  "exercises/ex27_8_scorecard.py",
+  "tests/test_ch27_scorecard.py"
+ ],
+ "28.6": [
+  "exercises/ex28_6_dashboard.py",
+  "tests/test_ch28_ops.py"
+ ],
+ "28.7": [
+  "exercises/ex28_7_taxonomy.py",
+  "tests/test_ch28_ops.py"
+ ],
+ "29.6": [
+  "exercises/ex29_6_experiment.py",
+  "tests/test_ch29_perf.py"
  ]
 }

@@ -151,7 +151,7 @@ class Team:
             task = self.run_task(task)
         if task.status != "done":
             return f"ERROR: {name} failed: {task.error}"        # contained, not raised
-        # A specialist's answer is data from another model, labelled as such.
+        # A specialist's answer is data from another model, labeled as such.
         return (f'<result from="{name}" task="{task.id}">\n'
                 f"{json.dumps(task.result, indent=1)}\n</result>")
 

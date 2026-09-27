@@ -1,0 +1,8 @@
+# Exercise: 22.1  Model or code?
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-26 21:17:57 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**22.1 Model or code?** (a) Model: reading a receipt and choosing a category needs judgment; evaluate its accuracy on labeled receipts and let people correct it. (b) Code: a limit is a rule; the amount comes from the parsed receipt (checked) and the limit from policy data. (c) Code: currency conversion is arithmetic with a rate from a trusted source and a date. (d) Model, guarded: it drafts the explanation from the decision code made, and an output guard checks the amounts and reason match. (e) Code: approval rules are policy (amount, category, employee level). (f) Model as a signal, not a verdict: it can flag a suspicious receipt for a person, but it shouldn't reject an expense on its own; measure its false-alarm rate.

@@ -1,4 +1,4 @@
-# Pilot guide: testing *Building Agentic AI* with real learners
+# Pilot guide: testing *Building Agentic AI Systems* with real learners
 
 A pilot shows where real beginners get stuck before the book goes on sale. Plan on **two or three learners**, at least one on **Windows** and at least one who has **never programmed**. Each works alone for two to three weeks, then you meet once to go through their notes.
 

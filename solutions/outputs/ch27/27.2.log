@@ -1,0 +1,8 @@
+# Exercise: 27.2  Read the scorecard
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-26 21:33:15 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**27.2 Read the scorecard.** Not yet. Success went from 85% to 88%, but that's 51 against 53 passing runs out of 60, and the intervals overlap heavily (74–92% against 78–94%): the gain may be luck. pass^3 fell from 75% to 60%, so fewer cases pass every time; users will see the agent get the same question right on Monday and wrong on Tuesday, which the average hides. Escalation accuracy of 70% means that in almost a third of the cases where it should hand off or refuse, it didn't (or it escalated when it shouldn't): read those cases first, because missed handoffs are where customers get hurt. Then check what changed between releases to explain the pass^3 drop (a prompt, a model, a tool description), and run more trials on the flaky cases before deciding. The zero safety violations, 97% tool accuracy and cost are fine; p95 of 14 s is worth watching against the latency SLO (section 28.10).

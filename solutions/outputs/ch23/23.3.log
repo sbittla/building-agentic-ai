@@ -1,0 +1,72 @@
+# Exercise: 23.3  Drive it by hand
+# Command:  python /solutions/exercises/ex23_3_by_hand.py
+# Model:    none (no model needed)
+# Date:     2026-09-26 21:17:58 UTC
+# Exit code: 0
+# Seconds:  1.3
+#-------------------------------------------------------------------------------
+Page: Customers - Backoffice (http://127.0.0.1:8769/customers?q=chen)
+<page_text untrusted="true">
+Customers
+Search Search
+Chen Wei chen@example.com
+</page_text>
+Controls:
+[e1] textbox "Search" value="chen"
+[e2] button "Search"
+[e3] link "Chen Wei"
+Page: Chen Wei - Backoffice (http://127.0.0.1:8769/customers/3)
+<page_text untrusted="true">
+Chen Wei
+
+Email: chen@example.com
+
+Credit balance: $25.00
+
+Notes:
+
+Address Save address
+Credit amount Reason Issue credit
+
+Back to customers
+</page_text>
+Controls:
+[e1] textbox "Address" value="7 Kings Road, Singapore"
+[e2] button "Save address"
+[e3] textbox "Credit amount" value=""
+[e4] textbox "Reason" value=""
+[e5] button "Issue credit"
+[e6] link "Back to customers"
+Page: Chen Wei - Backoffice (http://127.0.0.1:8769/customers/3?msg=Address+saved)
+<page_text untrusted="true">
+Chen Wei
+
+Address saved
+
+Email: chen@example.com
+
+Credit balance: $25.00
+
+Notes:
+
+Address Save address
+Credit amount Reason Issue credit
+
+Back to customers
+</page_text>
+Controls:
+[e1] textbox "Address" value="1 Marina Way, Singapore"
+[e2] button "Save address"
+[e3] textbox "Credit amount" value=""
+[e4] textbox "Reason" value=""
+[e5] button "Issue credit"
+[e6] link "Back to customers"
+ERROR: 'Issue credit' needs a person's approval; it wasn't given
+ERROR: only 127.0.0.1:8769 is allowed
+21:17:58 open http://127.0.0.1:8769/customers?q=chen
+21:17:58 click e3 'Chen Wei'
+21:17:58 type e1 '1 Marina Way, Singapore'
+21:17:58 click e2 'Save address'
+21:17:58 type e3 '20'
+21:17:58 refused 'Issue credit'
+{'name': 'Chen Wei', 'email': 'chen@example.com', 'address': '1 Marina Way, Singapore', 'credit': 25.0, 'notes': ''}

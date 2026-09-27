@@ -499,7 +499,7 @@
   "model": "any"
  },
  "30.3": {
-  "model": "none"
+  "model": "any"
  },
  "30.4": {
   "model": "any"
@@ -700,5 +700,20 @@
  "15.7": {
   "model": "any",
   "note": "Any model that can call tools; tools are found through search_tools"
+ },
+ "1.8": {
+  "model": "none"
+ },
+ "27.8": {
+  "model": "any"
+ },
+ "28.6": {
+  "model": "none"
+ },
+ "28.7": {
+  "model": "none"
+ },
+ "29.6": {
+  "model": "any"
  }
 }

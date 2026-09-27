@@ -1,5 +1,5 @@
 #!/opt/venv/bin/python
-"""course: run every exercise of "Building Agentic AI" inside the course container.
+"""course: run every exercise of "Building Agentic AI Systems" inside the course container.
 
 You normally call this through the wrapper on your computer:
     ./course.sh <command>        (macOS / Linux)
@@ -730,13 +730,17 @@ def cmd_solution(args):
         head(f"\n===== solutions/{f} =====")
         text = path.read_text()
         if f == "ANSWERS.md":           # just this exercise: from its heading to the next one
-            m = re.search(rf"^\*\*(?:[\w.]+ and )?{re.escape(args[0])}[ *].*?(?=^\*\*[0-9A-Z]+\.\d+[ *]|^## |\Z)",
-                          text, re.S | re.M)
-            text = m.group(0).strip() if m else text
+            text = _answer_for(args[0], text) or text
         print(text)
     for f in shared:
         say(_c("2", f"\nAutomated check for this exercise: solutions/{f}"))
     return 0
+
+def _answer_for(ex_id, text):
+    """Exercise ex_id's part of ANSWERS.md (from its heading to the next one), or None."""
+    m = re.search(rf"^\*\*(?:[\w.]+ and )?{re.escape(ex_id)}[ *].*?"
+                  rf"(?=^\*\*[0-9A-Z]+\.\d+[ *]|^## |\Z)", text, re.S | re.M)
+    return m.group(0).strip() if m else None
 
 CAPSTONES = {  # number: (folder, data script or None, program, default arguments)
     "1": ("c1_support", "data.py", "agent.py", []),
@@ -810,6 +814,7 @@ LIVE_RUNS = [
     ("9", "ch27_eval.py", "", 15), ("9", "ch27_judge.py", "", 5),
     ("9", "ch27_trajectory.py", "", 5), ("9", "ch28_otel.py", "", 2),
     ("9", "ch28_agentops.py spans.jsonl", "", 0), ("9", "ch29_costs.py", "", 0),
+    ("9", "ch27_scorecard.py", "", 0), ("9", "ch28_ops.py", "", 0), ("9", "ch29_perf.py", "", 0),
 ]
 
 def cmd_live_check(args):
@@ -961,6 +966,347 @@ def cmd_live_exercises(args):
         f"Full report: {host_path(out_file)}")
     return 0 if all(rows) else 1
 
+# ---------------------------------------------------------------- chapter runner
+# ./course.sh run-chapter 7    runs every exercise of a chapter with its reference solution,
+# in a scratch copy of your workspace, and keeps each one's full output as a log file:
+#   <outputs>/ch07/7.5.log, <outputs>/ch07/summary.json and an index in <outputs>/README.md.
+# <outputs> is /outputs (the kit's solutions/outputs folder, see compose.yaml).
+# The model is the free LOCAL model unless you ask for Claude (--model claude or RUN_MODEL).
+OUTPUTS = Path(os.environ.get("COURSE_OUTPUTS", "/outputs"))
+RUN_MODELS = ("local", "claude")
+PERSON_KINDS = {"inspector": "needs a person: MCP Inspector in a browser",
+                "desktop": "needs a person: the Claude Desktop app"}
+
+def _run_model(args):
+    """'local' or 'claude': --model wins, then RUN_MODEL, then local. None if invalid."""
+    choice = os.environ.get("RUN_MODEL", "").strip().lower() or "local"
+    for i, a in enumerate(args):
+        if a == "--model":
+            choice = args[i + 1].lower() if i + 1 < len(args) else ""
+        elif a.startswith("--model="):
+            choice = a.split("=", 1)[1].lower()
+    choice = {"ollama": "local", "qwen": "local", "api": "claude"}.get(choice, choice)
+    return choice if choice in RUN_MODELS else None
+
+def _chapter_keys():
+    """Chapter keys in book order (0, P, 1, T, 2, ...), then the capstones C1..C6."""
+    keys = []
+    for e in EXERCISES:                              # exercises.json is in book order
+        k = e["id"].split(".")[0]
+        if k not in keys:
+            keys.append(k)
+    return keys + [f"C{n}" for n in CAPSTONES]
+
+def _chapter_key(text):
+    """'7', '07', 'ch7', 'p', 'c1' -> the key used in exercises.json ('7', 'P', 'C1')."""
+    k = text.strip().upper().removeprefix("CH")
+    if k.startswith("CAPSTONE") and k != "CAPSTONES":
+        k = "C" + k.removeprefix("CAPSTONE").strip("-_ ")
+    return str(int(k)) if k.isdigit() else k
+
+def _chapter_dir(key):
+    """Folder for a chapter's logs: ch07, ch00, P, T, C1."""
+    return f"ch{int(key):02d}" if key.isdigit() else key
+
+def _chapter_exercises(key):
+    """A chapter's exercises in order (new ones may be appended anywhere in the json)."""
+    found = [e for e in EXERCISES if e["id"].split(".")[0] == key]
+    minor = lambda e: int(e["id"].split(".")[1]) if e["id"].split(".")[1].isdigit() else 0
+    return sorted(found, key=minor)
+
+def _outputs_dir():
+    """/outputs if it is mounted (compose.yaml), else workspace/outputs."""
+    if OUTPUTS.is_dir() and os.access(OUTPUTS, os.W_OK):
+        return OUTPUTS
+    fallback = WS / "outputs"
+    warn(f"{OUTPUTS} isn't mounted (older compose.yaml?): writing the logs to "
+         f"{host_path(fallback) if WS in fallback.parents else fallback} instead.")
+    return fallback
+
+def _outputs_label(out):
+    """How the outputs folder looks on your computer."""
+    if out == OUTPUTS:
+        return "solutions/outputs" if str(out) == "/outputs" else str(out)
+    return host_path(out) if WS in out.parents else str(out)
+
+def _local_model_ready():
+    import httpx
+    try:
+        return bool(httpx.get(f"{ADAPTER_URL}/health", timeout=5).json().get("ok"))
+    except (httpx.HTTPError, ValueError):
+        return False
+
+def _chapter_command(e):
+    """(command, None) to run exercise e with its reference solution, or (None, reason).
+    Like _live_command, plus test exercises (their reference tests) and build exercises
+    whose solution file has another name (listed in solutions/index.json)."""
+    cmd, why = _live_command(e)
+    if cmd or e["kind"] not in ("build", "test"):
+        return cmd, why
+    index = SOLUTIONS / "index.json"
+    files = json.loads(index.read_text()).get(e["id"], []) if index.exists() else []
+    if e["kind"] == "test":
+        tests = [f for f in files if re.match(r"tests/test_\w+\.py$", f)]
+        own = [f for f in tests if not re.match(r"tests/test_ch\d", f)] or tests
+        if own:                  # solutions/tests/conftest.py stands in for the model
+            return ("python -m pytest -q -p no:cacheprovider --rootdir /tmp "
+                    + " ".join(str(SOLUTIONS / f) for f in own)), None
+        return None, "no reference test to run (see ./course.sh solution)"
+    progs = [f for f in files if f.startswith("exercises/") and f.endswith(".py")]
+    if progs:
+        return f"python {SOLUTIONS / progs[0]}", None
+    return None, why
+
+def _skip_reason(e, local, free_only):
+    """Why exercise e can't run unattended here, or None."""
+    need = e.get("model", "any")
+    if e["kind"] in PERSON_KINDS or need == "desktop":
+        return PERSON_KINDS.get(e["kind"], PERSON_KINDS["desktop"])
+    if free_only and need != "none":
+        return "needs a model (--free-only)" + (": Claude only" if need == "claude" else "")
+    if need == "claude" and local:
+        return "Claude only"
+    if e.get("needs") == "sandbox" and not sandbox_alive():
+        return "needs the sandbox: ./course.sh sandbox up"
+    if e.get("needs") == "github" and not os.environ.get("GITHUB_PERSONAL_ACCESS_TOKEN"):
+        return "needs GITHUB_PERSONAL_ACCESS_TOKEN in .env"
+    return None
+
+def _run_logged(cmd, cwd, env, limit, setup=None):
+    """Run a shell command; returns (combined stdout+stderr, exit code). Every process it
+    starts is killed after `limit` seconds."""
+    import signal
+    out = ""
+    for step, timeout in ([(setup, 900)] if setup else []) + [(cmd, limit)]:
+        if setup:
+            out += f"$ {step}\n"
+        proc = subprocess.Popen(["bash", "-c", step], cwd=cwd, env=env, text=True,
+                                stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                                stderr=subprocess.STDOUT, start_new_session=True,
+                                errors="replace")
+        try:
+            text, _ = proc.communicate("n\nquit\nquit\n", timeout=timeout)
+            code = proc.returncode
+        except subprocess.TimeoutExpired:
+            os.killpg(proc.pid, signal.SIGKILL)
+            text, _ = proc.communicate()
+            text, code = (text or "") + f"\nTIMEOUT after {timeout} s\n", -1
+        out += text or ""
+        if code != 0 and step is setup:
+            return out + f"\n(setup failed with exit code {code})\n", code
+    return out, code
+
+def _write_log(path, e_id, title, cmd, model, code, secs, body):
+    stamp = time.strftime("%Y-%m-%d %H:%M:%S %Z")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        f"# Exercise: {e_id}  {title}\n# Command:  {cmd}\n# Model:    {model}\n"
+        f"# Date:     {stamp}\n# Exit code: {code}\n# Seconds:  {secs:.1f}\n"
+        + "#" + "-" * 79 + "\n" + body.rstrip() + "\n", errors="replace")
+
+def _refresh_outputs_index(out):
+    """Rewrite <outputs>/README.md: a table of every chapter that has a summary.json."""
+    order = {_chapter_dir(k): i for i, k in enumerate(_chapter_keys())}
+    rows = []
+    for f in sorted(out.glob("*/summary.json"), key=lambda p: order.get(p.parent.name, 999)):
+        try:
+            s = json.loads(f.read_text())
+        except ValueError:
+            continue
+        n = {k: sum(1 for x in s["exercises"] if x["status"] == k)
+             for k in ("passed", "failed", "skipped")}
+        written = sum(1 for x in s["exercises"] if x.get("kind") == "concept")
+        rows.append(f"| [{s['chapter']}]({f.parent.name}/) | {s['title']} | {n['passed']} | "
+                    f"{n['failed']} | {n['skipped']} | {written} | {s['model']} | {s['date']} |")
+    (out / "README.md").write_text("\n".join([
+        "# Exercise outputs", "",
+        "Real output of every exercise's reference solution, written by "
+        "`./course.sh run-chapter <chapter|all>` (Windows: `.\\course.cmd run-chapter ...`, "
+        "or double-click `run-chapters.cmd`). Each chapter folder has one `<id>.log` per "
+        "exercise (a short header, then everything the program printed) and a "
+        "`summary.json`. Concept exercises get their sample answer from "
+        "`solutions/ANSWERS.md`; they count as skipped (nothing to run).", "",
+        "This file is rewritten after every run.", "",
+        "| Chapter | Title | Passed | Failed | Skipped | Written answers | Model | Run on |",
+        "| --- | --- | --- | --- | --- | --- | --- | --- |", *rows,
+        *([] if rows else ["", "No runs yet."]), ""]))
+
+def _start_service(e, cwd, env):
+    """Exercises marked service="api" talk to the chapter 30 agent API: start it in the
+    scratch copy for the length of the exercise. Returns (process, env for the exercise)."""
+    if e.get("service") != "api":
+        return None, env
+    import secrets, socket
+    env = dict(env, AGENT_API_URL="http://127.0.0.1:8080")
+    if not env.get("AGENT_API_KEYS"):
+        env["AGENT_API_KEYS"] = secrets.token_urlsafe(24)
+    proc = subprocess.Popen([sys.executable, "-m", "uvicorn", "ch30_service:app", "--host",
+                             "127.0.0.1", "--port", "8080"], cwd=cwd, env=env,
+                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    for _ in range(60):                                   # wait for the port to open
+        try:
+            socket.create_connection(("127.0.0.1", 8080), timeout=0.5).close()
+            break
+        except OSError:
+            time.sleep(0.5)
+    return proc, env
+
+def cmd_run_chapter(args):
+    """run-chapter <chapter|all> [--model local|claude] [--free-only] [--yes]"""
+    import tempfile
+    free_only, yes = "--free-only" in args, "--yes" in args or "-y" in args
+    words = [a for i, a in enumerate(args) if not a.startswith("-")
+             and not (i and args[i - 1] == "--model")]
+    usage = ("Usage: ./course.sh run-chapter <chapter|all> [--model local|claude] "
+             "[--free-only] [--yes]     e.g.  run-chapter 7   run-chapter P   run-chapter all")
+    if not words:
+        fail(usage)
+        return 2
+    model = _run_model(args)
+    if model is None:
+        fail("--model (or RUN_MODEL) must be 'local' (the free qwen3.5:9b) or 'claude'.")
+        return 2
+    keys = _chapter_keys()
+    if any(w.lower() == "all" for w in words):
+        chosen = keys
+    else:
+        chosen = []
+        for w in words:
+            k = _chapter_key(w)
+            group = [c for c in keys if c.startswith("C")] if k == "CAPSTONES" else [k]
+            if k != "CAPSTONES" and k not in keys:
+                fail(f"No chapter '{w}'. Chapters: {' '.join(keys)} (or: all, capstones)")
+                return 2
+            chosen += [c for c in group if c not in chosen]
+    # The model switch: PROVIDER decides where every program sends its requests
+    # (main() already set it from --model/RUN_MODEL; apply_provider() did the rest).
+    local = model == "local"
+    os.environ["PROVIDER"] = model
+    if local and os.environ.get("ANTHROPIC_BASE_URL") != ADAPTER_URL:
+        apply_provider()                   # main() normally did this already
+    model_name = os.environ.get("MODEL", "claude-sonnet-5")
+    label = f"{model_name} (local, through Ollama)" if local else f"{model_name} (Claude API)"
+    plan = []                                              # (chapter, exercise or capstone)
+    for k in chosen:
+        plan += [(k, e) for e in _chapter_exercises(k)] if not k.startswith("C") \
+            else [(k, {"id": k, "kind": "capstone", "model": "any",
+                       "title": f"Capstone {k[1:]} ({CAPSTONES[k[1:]][0]})",
+                       "chapter": f"Capstone {k[1:]}"})]
+    uses_model = [e for _, e in plan if e.get("model", "any") != "none"
+                  and e["kind"] != "concept" and not _skip_reason(e, local, free_only)]
+    key = os.environ.get("ANTHROPIC_API_KEY", "")
+    if uses_model and not local and (not key.startswith("sk-") or "your-key-here" in key
+                                     or key == "sk-local-ollama"):
+        fail("--model claude needs ANTHROPIC_API_KEY in the .env file next to course.sh. "
+             "Leave out --model to use the free local model, or add --free-only.")
+        return 1
+    if uses_model and local and not _local_model_ready():
+        fail("The local model isn't running. Start it first (the first time downloads it):")
+        say("    ./course.sh local up        (Windows: .\\course.cmd local up)")
+        say("Or run only the exercises that need no model:  run-chapter ... --free-only")
+        return 1
+    head(f"Chapter runner: {len(plan)} exercises in {len(chosen)} chapter(s)"
+         + ("" if free_only else f", {len(uses_model)} of them use {label}"))
+    if free_only:
+        say("--free-only: only exercises that need no model run; the others are skipped.")
+    elif uses_model:
+        say("Free, but slow on a CPU: allow several hours for everything." if local else
+            "This uses your API key: roughly $5-15 for every chapter.")
+        say("Your own files are not used or changed.")
+        try:
+            if not yes and input("Continue? [y/N] ").strip().lower() != "y":
+                return 0
+        except EOFError:                        # no keyboard (e.g. a script): add --yes
+            fail("No answer to 'Continue?'. Add --yes to run without asking.")
+            return 1
+    out_root = _outputs_dir()
+    answers = SOLUTIONS / "ANSWERS.md"
+    answers = answers.read_text() if answers.exists() else ""
+    limit = 1800 if local else 600                  # a local model on a CPU is much slower
+    totals = {"passed": 0, "failed": 0, "skipped": 0}
+    with tempfile.TemporaryDirectory(prefix="run-chapter-") as tmp:
+        tmp = Path(tmp)
+        shutil.copytree(WS, tmp, dirs_exist_ok=True,
+                        ignore=shutil.ignore_patterns(".sandbox", "__pycache__", "*.bak",
+                                                      "exercises", "live_*report.md", ".git",
+                                                      "outputs"))
+        for src in PRISTINE.iterdir():                     # the book's code, not your edits
+            if src.is_file():
+                shutil.copy2(src, tmp / src.name)
+        env = dict(os.environ, PYTHONUNBUFFERED="1", COURSE_WORKSPACE=str(tmp),
+                   PYTHONDONTWRITEBYTECODE="1", COURSE_CODE=str(PRISTINE),
+                   COURSE_DATA=str(COURSE / "data"),
+                   COURSE_EXERCISES=str(COURSE / "exercises.json"),
+                   PYTHONPATH=f"{tmp}:{SOLUTIONS / 'exercises'}:{SOLUTIONS / 'capstones'}")
+        for k in chosen:
+            folder = out_root / _chapter_dir(k)
+            folder.mkdir(parents=True, exist_ok=True)
+            items = [e for c, e in plan if c == k]
+            head(f"\n{items[0]['chapter']}  ->  {_outputs_label(out_root)}/{folder.name}/")
+            entries = []
+            for e in items:
+                need = e.get("model", "any")
+                ex_model = "none (no model needed)" if need == "none" else label
+                entry = {"id": e["id"], "title": e["title"], "kind": e["kind"],
+                         "status": "skipped", "reason": None, "seconds": 0, "log": None}
+                log = folder / f"{e['id']}.log"
+                if e["kind"] == "concept":                   # a written answer: nothing to run
+                    text = _answer_for(e["id"], answers)
+                    entry["reason"] = ("concept exercise: written answer copied from ANSWERS.md"
+                                       if text else
+                                       "concept exercise: written answer, see ANSWERS.md")
+                    if text:
+                        _write_log(log, e["id"], e["title"], "(none: a written answer)",
+                                   "none", 0, 0, text)
+                        entry["log"] = f"{folder.name}/{log.name}"
+                    say(_c("2", f"-  {e['id']:<5} written answer"))
+                    entries.append(entry)
+                    continue
+                why = _skip_reason(e, local, free_only)
+                cmd = None
+                if not why and e["kind"] == "capstone":
+                    cmd = f"{sys.executable} {Path(__file__).resolve()} capstone {k[1:]}"
+                elif not why:
+                    cmd, why = _chapter_command(e)
+                if not cmd:
+                    entry["reason"] = why
+                    say(_c("2", f"-  {e['id']:<5} skipped: {why}"))
+                    entries.append(entry)
+                    continue
+                t = time.time()
+                service = None
+                try:
+                    service, run_env = _start_service(e, tmp, env)
+                    out, code = _run_logged(cmd, tmp, run_env,
+                                            limit if need != "none" else 600,
+                                            setup=e.get("setup"))
+                except Exception as exc:                 # never lose the whole run to one
+                    out, code = f"{type(exc).__name__}: {exc}", -1
+                finally:
+                    if service:
+                        service.terminate()
+                        service.wait(timeout=10)
+                secs = time.time() - t
+                passed = code == 0 and "Traceback (most recent call last)" not in out
+                shown = f"course capstone {k[1:]}" if e["kind"] == "capstone" else cmd
+                _write_log(log, e["id"], e["title"], shown, ex_model, code, secs, out)
+                entry.update(status="passed" if passed else "failed", seconds=round(secs, 1),
+                             log=f"{folder.name}/{log.name}",
+                             reason=None if passed else
+                             (f"exit code {code}" if code else "printed a Traceback"))
+                (ok if passed else fail)(f"{e['id']:<5} {e['title'][:44]:<44} {secs:5.0f} s")
+                entries.append(entry)
+            for x in entries:
+                totals[x["status"]] += 1
+            (folder / "summary.json").write_text(json.dumps({
+                "chapter": k, "title": items[0]["chapter"],
+                "model": "none (--free-only)" if free_only else label,
+                "date": time.strftime("%Y-%m-%d %H:%M"), "exercises": entries}, indent=1) + "\n")
+            _refresh_outputs_index(out_root)
+    say(f"\n{totals['passed']} passed, {totals['failed']} failed, {totals['skipped']} skipped "
+        f"(including written answers). Logs: {_outputs_label(out_root)}/  (index: README.md)")
+    return 1 if totals["failed"] else 0
+
 # ---------------------------------------------------------------- free local model
 def cmd_local_adapter(args):
     """Run the adapter between the Anthropic SDK and Ollama (the local-adapter service)."""
@@ -1032,7 +1378,7 @@ def cmd_local_status(args):
     return 0
 
 # ---------------------------------------------------------------- help
-HELP = """Building Agentic AI: course commands (run them from the kit folder on your computer)
+HELP = """Building Agentic AI Systems: course commands (run them from the kit folder on your computer)
 
   ./course.sh setup                  first-time setup: Docker check, .env, your API key
   ./course.sh list [chapter]         list exercises, e.g.  list 4  or  list P
@@ -1047,6 +1393,11 @@ HELP = """Building Agentic AI: course commands (run them from the kit folder on 
   ./course.sh live-check [part]      run every chapter's main file against the real model
   ./course.sh live-check exercises [chapter]   run every exercise that uses a model, with its
                                      reference solution, against your model (Claude or local)
+  ./course.sh run-chapter <ch|all> [--model local|claude] [--free-only] [--yes]
+                                     run a chapter's exercises (reference solutions) and keep
+                                     each one's output in solutions/outputs/chNN/<id>.log. Uses
+                                     the free local model unless --model claude (or
+                                     RUN_MODEL=claude); --free-only runs just the no-model ones
   ./course.sh data <kind> [...]      regenerate sample data: notes, library, messy, repo, db
   ./course.sh reset <file>           restore an original course file (yours is kept as .bak)
 
@@ -1080,7 +1431,7 @@ COMMANDS = {
     "sandbox-worker": cmd_sandbox_worker, "solution": cmd_solution,
     "check-solutions": cmd_verify_solutions, "live-check": cmd_live_check, "capstone": cmd_capstone, "verify-solutions": cmd_verify_solutions,
     "local-adapter": lambda a: cmd_local_adapter(a), "local-pull": lambda a: cmd_local_pull(a),
-    "local-status": lambda a: cmd_local_status(a),
+    "local-status": lambda a: cmd_local_status(a), "run-chapter": cmd_run_chapter,
 }
 
 def main(argv):
@@ -1091,6 +1442,8 @@ def main(argv):
     if cmd == "init":
         init(force="--force" in args, quiet=False)
         return 0
+    if cmd == "run-chapter" and _run_model(args):   # its own model switch, before apply_provider
+        os.environ["PROVIDER"] = _run_model(args)      # (default: the free local model)
     if cmd not in ("sandbox-worker", "selftest", "verify-solutions", "check-solutions", "solution",
                    "local-adapter", "local-pull", "local-status"):
         init()

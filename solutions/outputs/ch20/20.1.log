@@ -1,0 +1,8 @@
+# Exercise: 20.1  Plan or not?
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-26 21:17:56 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**20.1 Plan or not?** (a) Step by step: one tool call, nothing to plan. (b) Plan first with approval: 40 similar, risky changes; a person should see the list before anything moves, and the plan becomes a durable job. (c) Step by step, or a short plan that's revised often: an investigation is driven by what each step finds. (d) Plan first: sections and sources can be planned and researched in parallel (Chapter 11's lead writes exactly this plan). (e) Plan first with approval: bulk money movement; approve the plan and the total, then run it as a durable job with idempotency keys.

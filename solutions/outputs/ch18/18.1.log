@@ -1,0 +1,8 @@
+# Exercise: 18.1  Choose the chunk size
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-26 21:17:51 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**18.1 Choose the chunk size.** (a) Short personal notes: one chunk per note, or ~500 characters with no overlap; smaller splits a note's context apart, larger mixes unrelated notes. (b) 200-page manuals: ~800–1,500 characters split at headings, with 10–15% overlap; too small loses the procedure's context, too large buries the one relevant paragraph and wastes tokens. (c) Support tickets: one chunk per ticket (split very long threads by message) and keep the ticket id; splitting a ticket separates the problem from its resolution. (d) Source code: split by function or class, not by characters, and keep the file path and line; a character split cuts functions in half, and a whole-file chunk is too big to rank well.
