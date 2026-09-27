@@ -77,7 +77,12 @@ def fail(msg): say(_c("31", "✘ ") + msg)
 
 def env_for_runs():
     env = dict(os.environ)
-    env["PYTHONPATH"] = f"{WS}:{WS / 'exercises'}:{env.get('PYTHONPATH', '')}".rstrip(":")
+    # Include chapter subdirectories in PYTHONPATH so exercises can import modules directly
+    # e.g., import ch03_tools from course/code/ch03/ch03_tools.py
+    chapter_paths = [str(PRISTINE / f"ch{i:02d}") for i in range(31)]
+    interlude_paths = [str(PRISTINE / d) for d in ["interlude_python", "interlude_regex", "interlude_sql", "interlude_testing"]]
+    all_code_paths = ":".join(chapter_paths + interlude_paths)
+    env["PYTHONPATH"] = f"{all_code_paths}:{PRISTINE}:{WS}:{WS / 'exercises'}:{env.get('PYTHONPATH', '')}".rstrip(":")
     return env
 
 def host_path(p: Path) -> str:

@@ -1,0 +1,6 @@
+{
+  "servers": {
+    "todo":   {"command": "python", "args": ["ch13_todo_server.py"]},
+    "shopdb": {"command": "python", "args": ["ch13_sql_server.py"]}
+  }
+}

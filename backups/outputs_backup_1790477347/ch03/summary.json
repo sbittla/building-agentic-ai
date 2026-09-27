@@ -1,0 +1,71 @@
+{
+ "chapter": "3",
+ "title": "Chapter 3: Tool Selection, Routing and Tool Search",
+ "model": "none (--free-only)",
+ "date": "2026-09-26 21:16",
+ "exercises": [
+  {
+   "id": "3.1",
+   "title": "Untangle the tools",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch03/3.1.log"
+  },
+  {
+   "id": "3.2",
+   "title": "Pick the tool_choice",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch03/3.2.log"
+  },
+  {
+   "id": "3.3",
+   "title": "Add a tool",
+   "kind": "ask",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "3.4",
+   "title": "A 20-question eval",
+   "kind": "run",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "3.5",
+   "title": "Structured output, two ways",
+   "kind": "build",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "3.6",
+   "title": "Scale to ten tools",
+   "kind": "run",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "3.7",
+   "title": "Tool search at scale",
+   "kind": "run",
+   "status": "skipped",
+   "reason": "needs a model (--free-only): Claude only",
+   "seconds": 0,
+   "log": null
+  }
+ ]
+}

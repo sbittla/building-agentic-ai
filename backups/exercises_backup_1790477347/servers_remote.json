@@ -1,0 +1,6 @@
+{
+  "servers": {
+    "team":   {"url": "http://agentic-ai-mcp:8000/mcp", "token_env": "MCP_TOKEN"},
+    "shopdb": {"command": "python", "args": ["ch13_sql_server.py"]}
+  }
+}

@@ -1,0 +1,62 @@
+{
+ "chapter": "29",
+ "title": "Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost",
+ "model": "none (--free-only)",
+ "date": "2026-09-26 21:19",
+ "exercises": [
+  {
+   "id": "29.1",
+   "title": "See queueing",
+   "kind": "run",
+   "status": "passed",
+   "reason": null,
+   "seconds": 78.2,
+   "log": "ch29/29.1.log"
+  },
+  {
+   "id": "29.2",
+   "title": "Load test a real agent",
+   "kind": "build",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "29.3",
+   "title": "Where does the money go?",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch29/29.3.log"
+  },
+  {
+   "id": "29.4",
+   "title": "Budgets that hold",
+   "kind": "build",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "29.5",
+   "title": "Halve the cost",
+   "kind": "build",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "29.6",
+   "title": "Find the knee",
+   "kind": "build",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  }
+ ]
+}

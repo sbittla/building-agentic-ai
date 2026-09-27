@@ -1,0 +1,80 @@
+{
+ "chapter": "13",
+ "title": "Chapter 13: Build Your Own MCP Client",
+ "model": "none (--free-only)",
+ "date": "2026-09-26 21:17",
+ "exercises": [
+  {
+   "id": "13.1",
+   "title": "Collisions",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch13/13.1.log"
+  },
+  {
+   "id": "13.2",
+   "title": "A client without a model",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 3.3,
+   "log": "ch13/13.2.log"
+  },
+  {
+   "id": "13.3",
+   "title": "Two servers, one question",
+   "kind": "run",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "13.4",
+   "title": "Resources at start-up",
+   "kind": "run",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "13.5",
+   "title": "Add the weather server",
+   "kind": "run",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "13.6",
+   "title": "Resilience",
+   "kind": "run",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "13.7",
+   "title": "Let the server ask the user",
+   "kind": "build",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "13.8",
+   "title": "A coordinator with an analyst",
+   "kind": "build",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null
+  }
+ ]
+}
