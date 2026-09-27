@@ -41,6 +41,20 @@ Then put `PROVIDER=local` in `.env` (setup does this if you choose option 2). Se
 
 ## 2. Doing the exercises
 
+## 📚 Exercise Index
+
+**[EXERCISE_INDEX.md](EXERCISE_INDEX.md)** — Complete directory of all 130+ exercises organized by chapter.
+
+Find any exercise instantly with:
+- Chapter-by-chapter organization (Ch 0 through Ch 30)
+- Direct file paths for each exercise
+- How to run each one (`./course.sh solution X.Y`)
+- Where outputs are saved
+- Interludes and capstone projects
+
+Use Ctrl+F to search by chapter number, exercise name, or topic.
+
+
 ```
 ./course.sh list            # all 173 exercises
 ./course.sh list 4          # just chapter 4 (interludes: list T, R, S or A)
