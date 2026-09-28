@@ -128,7 +128,7 @@ def write_index(res, files):
     for key, (folder, name) in CAPSTONES.items():
         lines.append(f"| {key} | {name} | [`solutions/capstones/{folder}/`]"
                      f"(solutions/capstones/{folder}/) | {status(res.get(key))} |")
-    (KIT / "EXERCISE_INDEX.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    (KIT / "EXERCISE_INDEX.md").write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
 
 
 def results_table(res):
@@ -177,7 +177,7 @@ def update_readme(res):
     if BEGIN not in text:
         raise SystemExit(f"README.md has no {BEGIN} ... {END} block to fill")
     start, end = text.index(BEGIN), text.index(END) + len(END)
-    readme.write_text(text[:start] + results_table(res) + text[end:], encoding="utf-8")
+    readme.write_text(text[:start] + results_table(res) + text[end:], encoding="utf-8", newline="\n")
 
 
 if __name__ == "__main__":

@@ -1,8 +1,0 @@
-# Exercise: P.1  Comprehensions
-# Command:  python /solutions/exercises/exP_1_comprehensions.py
-# Model:    none (no model needed)
-# Date:     2026-09-26 21:16:40 UTC
-# Exit code: 0
-# Seconds:  0.0
-#-------------------------------------------------------------------------------
-['A1', 'A3'] {'shipped': 165.5, 'cancelled': 80.0, 'pending': 10.0} ['Laptop', 'Desk']

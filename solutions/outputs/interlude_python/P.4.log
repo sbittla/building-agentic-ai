@@ -1,9 +1,0 @@
-# Exercise: P.4  Decorators
-# Command:  python /solutions/exercises/exP_4_decorators.py
-# Model:    none (no model needed)
-# Date:     2026-09-26 21:16:40 UTC
-# Exit code: 0
-# Seconds:  0.0
-#-------------------------------------------------------------------------------
-Weather for a city.
-{'ping': 2}
