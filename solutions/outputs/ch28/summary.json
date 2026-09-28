@@ -1,0 +1,71 @@
+{
+ "chapter": "28",
+ "title": "Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-27 23:51",
+ "exercises": [
+  {
+   "id": "28.1",
+   "title": "A trace viewer",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 1.5,
+   "log": "ch28/28.1.log"
+  },
+  {
+   "id": "28.2",
+   "title": "What would you trace?",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch28/28.2.log"
+  },
+  {
+   "id": "28.3",
+   "title": "Read the report",
+   "kind": "run",
+   "status": "passed",
+   "reason": null,
+   "seconds": 13.3,
+   "log": "ch28/28.3.log"
+  },
+  {
+   "id": "28.4",
+   "title": "A new failure class",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 1.8,
+   "log": "ch28/28.4.log"
+  },
+  {
+   "id": "28.5",
+   "title": "An SLO dashboard with burn alerts",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 1.8,
+   "log": "ch28/28.5.log"
+  },
+  {
+   "id": "28.6",
+   "title": "A production dashboard",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 1.8,
+   "log": "ch28/28.6.log"
+  },
+  {
+   "id": "28.7",
+   "title": "Classify real failures",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 1.8,
+   "log": "ch28/28.7.log"
+  }
+ ]
+}

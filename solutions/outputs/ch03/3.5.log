@@ -1,0 +1,21 @@
+# Exercise: 3.5  Structured output, two ways
+# Command:  python /tmp/solutions-flat/exercises/ex3_5_forced_tool.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 19:45:42 UTC
+# Exit code: 0
+# Seconds:  47.8
+#-------------------------------------------------------------------------------
+forced tool: {'name': 'Priya Raman', 'email': 'priya.raman@acme.example', 'company': 'Acme Corp'}
+parse():     {'name': 'Priya Raman', 'email': 'priya.raman@acme.example', 'company': 'Acme Corp'}
+forced tool: {'name': 'Tom Becker', 'email': 'tom@becker-consulting.example', 'company': 'Becker Consulting'}
+parse():     {'name': 'Tom Becker', 'email': 'tom@becker-consulting.example', 'company': 'Becker Consulting'}
+forced tool: {'name': 'Ana', 'email': 'ana.li@example.org', 'company': ''}
+parse():     {'name': 'Ana', 'email': 'ana.li@example.org', 'company': None}
+forced tool: {'name': 'K. Okafor', 'email': 'k.okafor@nimbus.example', 'company': 'Nimbus Health'}
+parse():     {'name': 'Dr. K. Okafor', 'email': 'k.okafor@nimbus.example', 'company': 'Nimbus Health'}
+forced tool: {'name': 'J. Smith', 'email': 'jsmith@example.net', 'company': 'Freelancer'}
+parse():     {'name': 'J. Smith', 'email': 'jsmith@example.net', 'company': 'Freelancer'}
+forced tool: {'name': 'Sam Ortiz', 'email': None, 'company': 'Fabrikam Robotics'}
+parse():     {'name': 'Sam Ortiz', 'email': 'None', 'company': 'Fabrikam Robotics'}
+
+Both avoid json.loads. parse() also validates the result into a typed object and works with extended thinking, where forcing a tool isn't allowed.

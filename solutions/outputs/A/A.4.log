@@ -1,0 +1,8 @@
+# Exercise: A.4  Timeouts and partial results
+# Command:  python /tmp/solutions-flat/exercises/exA_4_timeouts.py
+# Model:    none (no model needed)
+# Date:     2026-09-27 20:51:37 UTC
+# Exit code: 0
+# Seconds:  2.1
+#-------------------------------------------------------------------------------
+4 results, timed out: ['slow'], took 2.00s

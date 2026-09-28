@@ -1,0 +1,8 @@
+# Exercise: 24.2  Pick a framework
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-28 00:17:08 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**24.2 Pick a framework.** (a) 3-tool internal chatbot: **tool runner**; the loop is all you need, with no extra runtime. (b) Coding assistant that edits files and runs tests: **Agent SDK**; it already has file, shell and editing tools, permissions, sessions and compaction. (c) Three model providers: **LangChain**; swapping the chat model is its main strength. (d) Teaching demo: **hand-built**; nothing is hidden, which is the point.

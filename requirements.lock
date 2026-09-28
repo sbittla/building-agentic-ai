@@ -1,9 +1,13 @@
+a2a-sdk==1.1.5
+    # via -r requirements.in
 aiohappyeyeballs==2.7.1
     # via aiohttp
 aiohttp==3.14.3
     # via voyageai
 aiolimiter==1.3.0
     # via voyageai
+aiologic==0.17.1
+    # via culsans
 aiosignal==1.4.0
     # via aiohttp
 annotated-doc==0.0.5
@@ -53,6 +57,8 @@ contourpy==1.4.0
     # via matplotlib
 cryptography==50.0.1
     # via pyjwt
+culsans==0.11.0
+    # via a2a-sdk
 cycler==0.12.1
     # via matplotlib
 distro==1.9.0
@@ -71,6 +77,16 @@ frozenlist==1.8.0
     #   aiosignal
 fsspec==2026.9.0
     # via huggingface-hub
+google-api-core==2.39.0
+    # via a2a-sdk
+google-auth==2.58.1
+    # via google-api-core
+googleapis-common-protos==1.75.4
+    # via
+    #   a2a-sdk
+    #   google-api-core
+greenlet==3.2.5
+    # via playwright
 h11==0.16.0
     # via
     #   httpcore
@@ -112,6 +128,8 @@ jiter==0.17.0
     # via anthropic
 joblib==1.6.0
     # via model2vec
+json-rpc==1.15.0
+    # via a2a-sdk
 jsonpatch==1.33
     # via langchain-core
 jsonpointer==3.1.1
@@ -212,12 +230,26 @@ pillow==12.3.0
     # via
     #   matplotlib
     #   voyageai
+playwright==1.56.0
+    # via -r requirements.in
 pluggy==1.6.0
     # via pytest
 propcache==0.5.4
     # via
     #   aiohttp
     #   yarl
+proto-plus==1.28.4
+    # via google-api-core
+protobuf==7.36.2
+    # via
+    #   a2a-sdk
+    #   google-api-core
+    #   googleapis-common-protos
+    #   proto-plus
+pyasn1==0.6.4
+    # via pyasn1-modules
+pyasn1-modules==0.4.2
+    # via google-auth
 pycparser==3.0
     # via cffi
 pydantic==2.13.5
@@ -234,6 +266,8 @@ pydantic==2.13.5
     #   voyageai
 pydantic-core==2.46.5
     # via pydantic
+pyee==13.0.1
+    # via playwright
 pygments==2.21.0
     # via
     #   pytest
@@ -360,6 +394,8 @@ websockets==16.1.1
     #   langgraph-sdk
     #   langsmith
     #   uvicorn
+wrapt==2.4.1
+    # via aiologic
 xxhash==4.0.1
     # via
     #   langgraph

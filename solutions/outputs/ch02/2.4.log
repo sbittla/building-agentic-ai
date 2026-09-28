@@ -1,0 +1,11 @@
+# Exercise: 2.4  Tune the description
+# Command:  python /tmp/solutions-flat/exercises/ex2_4_description_eval.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 19:43:51 UTC
+# Exit code: 0
+# Seconds:  152.3
+#-------------------------------------------------------------------------------
+
+weak description: 10/10 correct
+
+strong description: 10/10 correct

@@ -1,0 +1,17 @@
+{
+ "chapter": "C3",
+ "title": "Capstone 3",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-28 00:53",
+ "exercises": [
+  {
+   "id": "C3",
+   "title": "Capstone 3 (c3_incident)",
+   "kind": "capstone",
+   "status": "passed",
+   "reason": null,
+   "seconds": 157.8,
+   "log": "C3/C3.log"
+  }
+ ]
+}

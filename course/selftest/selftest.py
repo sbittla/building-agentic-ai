@@ -31,11 +31,31 @@ def check(name):
         return fn
     return deco
 
+CODE = Path(os.environ.get("COURSE_CODE", HERE.parent / "code"))
+
+def copy_code_flat(src, dst):
+    """The course code is organised into chapter folders (ch02/, interlude_sql/, ...),
+    but the checks import every module by its bare name. Copy it flat into dst; real
+    packages such as capstones/ keep their folder."""
+    for d in sorted(src.iterdir()):
+        if d.name in ("_index", "__pycache__"):
+            continue
+        if d.is_file():
+            shutil.copy2(d, dst / d.name)
+        elif d.name.startswith(("ch", "interlude")):
+            for f in sorted(d.rglob("*")):
+                if f.is_file() and "__pycache__" not in f.parts and f.name != "__init__.py":
+                    shutil.copy2(f, dst / f.name)
+        else:
+            shutil.copytree(d, dst / d.name, dirs_exist_ok=True,
+                            ignore=shutil.ignore_patterns("__pycache__"))
+
+# Work on a scratch copy so the generated data (shop.db, notes/, ...) never lands in the repo.
 tmp = Path(tempfile.mkdtemp(prefix="selftest-"))
-shutil.copytree("/opt/course/code", tmp, dirs_exist_ok=True)
+copy_code_flat(CODE, tmp)
 shutil.copy(HERE / "fakellm.py", tmp)
 os.chdir(tmp)
-sys.path[:0] = [str(tmp), "/opt/course/data"]
+sys.path[:0] = [str(tmp), str(HERE.parent / "data")]
 os.environ["ANTHROPIC_API_KEY"] = os.environ.get("ANTHROPIC_API_KEY") or "sk-selftest-dummy"
 print(f"Self-test in {tmp}\n", file=sys.stderr)
 
@@ -201,6 +221,17 @@ def _():
             return f"{len(hub.tools)} tools, {len(visible)} allowed by policy"
     return asyncio.run(go())
 
+@check("ch15 gateway: stateless client, cache hints, token checks")
+def _():
+    import ch15_modern as modern, ch15_gateway as g, ch26_identity as identity
+    report = asyncio.run(modern.describe(modern.catalog))
+    assert report["protocol"] == "2026-07-28" and report["ttl_ms"], report
+    gw = g.Gateway(g.UPSTREAMS, g.POLICY)
+    token = identity.mint("analyst-agent", "ana", {"shop:read"}, g.AUDIENCE)
+    denied = asyncio.run(g.call(gw, token, "todo__add_task", {"title": "x"}))
+    assert "Not allowed" in denied, denied
+    return f"protocol {report['protocol']}, lists cached {report['ttl_ms'] // 1000} s"
+
 @check("GitHub MCP server binary")
 def _():
     exe = shutil.which("github-mcp-server")
@@ -218,10 +249,10 @@ def _():
     assert r.returncode == 0 and "get_forecast" in r.stdout, (r.stdout + r.stderr)[-300:]
     return "tools/list OK"
 
-@check("ch15 eval checks and load-test math")
+@check("ch27 + ch29 eval checks and load-test math")
 def _():
     from types import SimpleNamespace as S
-    import ch15_eval as e, ch15_loadtest as lt
+    import ch27_eval as e, ch29_loadtest as lt
     msgs = [{"role": "assistant", "content": [S(type="tool_use", name="run_query")]}]
     assert e.check({"must_contain": ["400"], "must_use_tools": ["run_query"]}, "400 orders", msgs) == []
     assert lt.pct([1, 2, 3, 4, 100], 95) == 100
@@ -241,7 +272,7 @@ def _():
 
 @check("ch16 context: trim, compact, caching marks; FTS5 memory")
 def _():
-    import ch16_context as c, ch16_memory as m, ch06_notes_tools as notes
+    import ch16_context as c, ch17_memory as m, ch06_notes_tools as notes
     c._client = Fake([[tool("search_files", {"pattern": "Kafka"})], [text("Summary.")],
                       [text("done")]])
     big = [{"role": "user", "content": "q"}] + [x for k in range(3) for x in (
@@ -255,9 +286,9 @@ def _():
     assert "Celsius" in m.recall("prefer")
     return "trim/cache/memory OK"
 
-@check("ch17 RAG: chunks, BM25 + vectors, hybrid, eval")
+@check("ch18 RAG: chunks, BM25 + vectors, hybrid, eval")
 def _():
-    import ch17_rag as rag
+    import ch18_rag as rag
     index = rag.build(embedder=rag.HashingEmbedder())
     assert index.search("ERR-4471", k=1, mode="keyword")[0]["source"] == "library/error-codes.md"
     report = rag.evaluate(index)
@@ -265,15 +296,15 @@ def _():
         "hub/models--minishlab--potion-base-8M")) else "local model NOT downloaded (hashing fallback)"
     return f"{len(index.chunks)} chunks, hybrid recall@3={report['hybrid']['recall@k']}; {local}"
 
-@check("ch18 frameworks import (tool runner, Agent SDK, LangChain)")
+@check("ch24 frameworks import (tool runner, Agent SDK, LangChain)")
 def _():
-    import ch18_tool_runner, ch18_agent_sdk, ch18_langchain  # noqa: F401
+    import ch24_tool_runner, ch24_agent_sdk, ch24_langchain  # noqa: F401
     from importlib.metadata import version
     return " ".join(f"{p}={version(p)}" for p in ("claude-agent-sdk", "langchain", "langgraph"))
 
-@check("ch19 agent API: auth, rate limit, private sessions")
+@check("ch30 agent API: auth, rate limit, private sessions")
 def _():
-    import ch19_service as s, ch04_agent as a4
+    import ch30_service as s, ch04_agent as a4
     from fastapi.testclient import TestClient
     s.API_KEYS, s.RATE_PER_MINUTE, s.DB = ["k"], 2, "selftest_sessions.db"
     a4._client = Fake([[text("400")]] * 3)
@@ -284,9 +315,9 @@ def _():
     assert codes == [200, 200, 429], codes
     return "401 / 200 / 429 OK"
 
-@check("ch19 remote MCP server: bearer token enforced")
+@check("ch30 remote MCP server: bearer token enforced")
 def _():
-    import ch19_remote_mcp as rm
+    import ch30_remote_mcp as rm
     from starlette.testclient import TestClient
     with TestClient(rm.build_app(token="t")) as c:       # "with" runs the app's startup
         assert c.post("/mcp", json={}).status_code == 401

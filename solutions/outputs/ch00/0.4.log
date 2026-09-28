@@ -1,0 +1,16 @@
+# Exercise: 0.4  Write three functions
+# Command:  python /tmp/solutions-flat/exercises/ex0_4_basics.py
+# Model:    none (no model needed)
+# Date:     2026-09-28 00:47:59 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+word_count('the cat sat') = 3
+word_count('') = 0
+word_count('  lots   of   spaces  ') = 3
+most_common_word('The cat and the hat') = 'the'
+most_common_word('Go, go, GO!') = 'go'
+most_common_word('one two') = 'one'
+invoice_total([{'price': 10, 'qty': 3}]) = 30
+invoice_total([{'price': 0.1, 'qty': 3}, {'price': 5, 'qty': 1}]) = 5.3
+invoice_total([]) = 0

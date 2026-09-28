@@ -1,0 +1,62 @@
+{
+ "chapter": "23",
+ "title": "Chapter 23: Computer-Use Agents",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-27 22:33",
+ "exercises": [
+  {
+   "id": "23.1",
+   "title": "Screen or API?",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch23/23.1.log"
+  },
+  {
+   "id": "23.2",
+   "title": "Threat-model the browser agent",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch23/23.2.log"
+  },
+  {
+   "id": "23.3",
+   "title": "Drive it by hand",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 2.0,
+   "log": "ch23/23.3.log"
+  },
+  {
+   "id": "23.4",
+   "title": "The injected note",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 46.2,
+   "log": "ch23/23.4.log"
+  },
+  {
+   "id": "23.5",
+   "title": "Verify, don't trust",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 92.8,
+   "log": "ch23/23.5.log"
+  },
+  {
+   "id": "23.6",
+   "title": "A queue that survives a crash",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 45.4,
+   "log": "ch23/23.6.log"
+  }
+ ]
+}

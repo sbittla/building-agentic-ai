@@ -1,0 +1,60 @@
+# Exercise: 29.2  Load test a real agent
+# Command:  python /tmp/solutions-flat/exercises/ex29_2_real_loadtest.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 23:54:13 UTC
+# Exit code: 0
+# Seconds:  107.2
+#-------------------------------------------------------------------------------
+[step 1] shopdb__get_schema({}) -> 'CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, city TEXT, '
+[step 1] shopdb__get_schema({}) -> 'CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, city TEXT, '
+[step 1] shopdb__get_schema({}) -> 'CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, city TEXT, '
+[step 1] shopdb__get_schema({}) -> 'CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, city TEXT, '
+[step 1] shopdb__get_schema({}) -> 'CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, city TEXT, '
+[step 1] shopdb__get_schema({}) -> 'CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, city TEXT, '
+[step 1] shopdb__get_schema({}) -> 'CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, city TEXT, '
+[step 1] shopdb__get_schema({}) -> 'CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, city TEXT, '
+[step 1] shopdb__get_schema({}) -> 'CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, city TEXT, '
+[step 1] shopdb__get_schema({}) -> 'CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, city TEXT, '
+[step 2] shopdb__run_query({"query": "SELECT COUNT(*) FROM orders WHERE status = 'cancelled'"}) -> 'COUNT(*)\n88'
+[step 2] shopdb__run_query({"query": "SELECT COUNT(*) FROM customers"}) -> 'COUNT(*)\n50'
+[step 2] shopdb__run_query({"query": "SELECT COUNT(*) FROM products;"}) -> 'COUNT(*)\n8'
+[step 2] shopdb__run_query({"query": "SELECT COUNT(*) FROM orders WHERE status = 'cancelled'"}) -> 'COUNT(*)\n88'
+[step 2] shopdb__run_query({"query": "SELECT COUNT(*) FROM orders WHERE status = 'pending'"}) -> 'COUNT(*)\n85'
+[step 2] shopdb__run_query({"query": "SELECT COUNT(*) AS customer_count FROM customers"}) -> 'customer_count\n50'
+[step 2] shopdb__run_query({"query": "SELECT COUNT(*) FROM orders WHERE status = 'pending'"}) -> 'COUNT(*)\n85'
+[step 2] shopdb__run_query({"query": "SELECT COUNT(*) FROM products"}) -> 'COUNT(*)\n8'
+[step 2] shopdb__run_query({"query": "SELECT COUNT(*) FROM orders"}) -> 'COUNT(*)\n400'
+[step 2] shopdb__run_query({"query": "SELECT COUNT(*) as total_orders FROM orders;"}) -> 'total_orders\n400'
+[step 3] shopdb__run_query({"query": "SELECT COUNT(*) as cancelled_orders FROM orders WHERE status = 'cance) -> 'cancelled_orders\n88'
+{
+ "users": 5,
+ "requests": 10,
+ "errors": 0,
+ "p50": 49.67553244999908,
+ "p95": 62.79122783599996,
+ "mean_steps": 3.1,
+ "wall": 62.866455565999786,
+ "cache_schema": false
+}
+[step 1] shopdb__run_query({"query": "SELECT COUNT(*) FROM orders WHERE status = 'pending'"}) -> 'COUNT(*)\n85'
+[step 1] shopdb__run_query({"query": "SELECT COUNT(*) FROM products"}) -> 'COUNT(*)\n8'
+[step 1] shopdb__run_query({"query": "SELECT COUNT(*) FROM orders WHERE status = 'cancelled'"}) -> 'COUNT(*)\n88'
+[step 1] shopdb__run_query({"query": "SELECT \n    (SUM(CASE WHEN status = 'cancelled' THEN 1 ELSE 0 END) *) -> 'cancelled_percentage\n22.0'
+[step 1] shopdb__run_query({"query": "SELECT COUNT(*) FROM customers"}) -> 'COUNT(*)\n50'
+[step 1] shopdb__run_query({"query": "SELECT COUNT(*) AS count FROM products"}) -> 'count\n8'
+[step 1] shopdb__run_query({"query": "SELECT COUNT(*) FROM orders WHERE status = 'pending'"}) -> 'COUNT(*)\n85'
+[step 1] shopdb__run_query({"query": "SELECT COUNT(*) FROM orders"}) -> 'COUNT(*)\n400'
+[step 1] shopdb__run_query({"query": "SELECT COUNT(*) FROM orders WHERE status = 'cancelled'"}) -> 'COUNT(*)\n88'
+[step 1] shopdb__run_query({"query": "SELECT COUNT(*) as customer_count FROM customers"}) -> 'customer_count\n50'
+{
+ "users": 5,
+ "requests": 10,
+ "errors": 0,
+ "p50": 32.965321303001474,
+ "p95": 38.64924960600001,
+ "mean_steps": 2,
+ "wall": 38.65126492899981,
+ "cache_schema": true
+}
+
+mean steps 3.1 -> 2.0, p95 62.8s -> 38.6s

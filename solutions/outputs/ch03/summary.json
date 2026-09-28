@@ -1,0 +1,78 @@
+{
+ "chapter": "3",
+ "title": "Chapter 3: Tool Selection, Routing and Tool Search",
+ "model": "mixed: see each exercise",
+ "date": "2026-09-28 01:49",
+ "exercises": [
+  {
+   "id": "3.1",
+   "title": "Untangle the tools",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch03/3.1.log",
+   "model": "none"
+  },
+  {
+   "id": "3.2",
+   "title": "Pick the tool_choice",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch03/3.2.log",
+   "model": "none"
+  },
+  {
+   "id": "3.3",
+   "title": "Add a tool",
+   "kind": "ask",
+   "status": "passed",
+   "reason": null,
+   "seconds": 6.0,
+   "log": "ch03/3.3.log",
+   "model": "qwen3.5:9b (local, through Ollama)"
+  },
+  {
+   "id": "3.4",
+   "title": "A 20-question eval",
+   "kind": "run",
+   "status": "passed",
+   "reason": null,
+   "seconds": 25.2,
+   "log": "ch03/3.4.log",
+   "model": "qwen3.5:9b (local, through Ollama)"
+  },
+  {
+   "id": "3.5",
+   "title": "Structured output, two ways",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 47.8,
+   "log": "ch03/3.5.log",
+   "model": "qwen3.5:9b (local, through Ollama)"
+  },
+  {
+   "id": "3.6",
+   "title": "Scale to ten tools",
+   "kind": "run",
+   "status": "passed",
+   "reason": null,
+   "seconds": 24.5,
+   "log": "ch03/3.6.log",
+   "model": "qwen3.5:9b (local, through Ollama)"
+  },
+  {
+   "id": "3.7",
+   "title": "Tool search at scale",
+   "kind": "run",
+   "status": "passed",
+   "reason": null,
+   "seconds": 12.3,
+   "log": "ch03/3.7.log",
+   "model": "claude-sonnet-5 (Claude API)"
+  }
+ ]
+}

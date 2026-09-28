@@ -1,0 +1,8 @@
+# Exercise: 7.2  Cache or not?
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-28 00:05:34 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**7.2 Cache or not?** (a) Yes, 10–30 minutes. (b) Only seconds, or not at all if decisions depend on it. (c) Yes, for days: cities don't move. (d) No: stale balances mislead, and the data is sensitive. (e) Yes, forever: historical rates never change.

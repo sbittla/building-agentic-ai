@@ -12,8 +12,7 @@ COURSE = CODE.parent
 CHECKS, STARTERS = COURSE / "checks", COURSE / "starters"
 SOL = Path(__file__).parents[1]
 INDEX = json.loads((SOL / "index.json").read_text())
-IN_PLACE = {"2.4": ("sol_ch02_calculator_agent.py", "ch02_calculator_agent.py"),
-            "3.4": ("sol_ch03_tools.py", "ch03_tools.py")}
+IN_PLACE = {"3.3": ("sol_ch03_tools.py", "ch03_tools.py")}
 
 def _ids():
     return sorted(p.stem.removeprefix("check_").replace("_", ".", 1) for p in CHECKS.glob("check_*.py"))

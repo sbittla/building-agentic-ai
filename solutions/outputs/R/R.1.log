@@ -1,0 +1,10 @@
+# Exercise: R.1  Extract from logs
+# Command:  python /tmp/solutions-flat/exercises/exR_1_logs.py
+# Model:    none (no model needed)
+# Date:     2026-09-27 19:53:06 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+['2026-09-22 14:05:11', '2026-09-22 14:05:12', '2026-09-22 14:06:40', '2026-09-22 14:07:02']
+['checkout-service', 'search-service', 'checkout-service', 'checkout-service']
+[800, 812]

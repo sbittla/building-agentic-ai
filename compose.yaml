@@ -18,7 +18,9 @@ services:
     user: "${COURSE_UID:-1000}:${COURSE_GID:-1000}"
     volumes:
       - ./workspace:/workspace
+      - ./course:/opt/course:ro          # live course files from this repo (no rebuild needed)
       - ./solutions:/solutions:ro        # solutions to every exercise and capstone
+      - ./solutions/outputs:/outputs     # run-chapter writes each exercise's output here
     working_dir: /workspace
     stdin_open: true
     tty: true
@@ -74,6 +76,8 @@ services:
         required: false
     environment:
       OLLAMA_URL: ${OLLAMA_URL:-http://local-model:11434}
+    volumes:
+      - ./course:/opt/course:ro          # live course files from this repo (no rebuild needed)
     user: "${COURSE_UID:-1000}:${COURSE_GID:-1000}"
     restart: unless-stopped
     profiles: ["local"]

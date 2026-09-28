@@ -1,0 +1,8 @@
+# Exercise: 30.4  Stream the words
+# Command:  python ch30_client.py words
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-28 00:39:53 UTC
+# Exit code: 0
+# Seconds:  7.2
+#-------------------------------------------------------------------------------
+The service has no /v1/chat/stream_text endpoint yet: that's exercise 30.4.

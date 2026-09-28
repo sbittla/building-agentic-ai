@@ -1,0 +1,16 @@
+# Exercise: C6  Capstone 6 (c6_backoffice)
+# Command:  course capstone 6
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-28 01:02:29 UTC
+# Exit code: 0
+# Seconds:  52.8
+#-------------------------------------------------------------------------------
+Generating capstone 6 sample data...
+Wrote 5 requests to backoffice_queue.json
+Running solutions/capstones/c6_backoffice/agent.py
+Job 7ab8f80f: needs_human (step 3: c6_issue_credit: a $20.00 credit needs a person)
+  1. c6_change_address done     tries=1 verified: 9 Avenida da Boavista, Porto
+  2. c6_change_address done     tries=1 verified: 22 Canal Street, Leeds
+  3. c6_issue_credit  failed   tries=1 c6_issue_credit: a $20.00 credit needs a person
+  4. c6_change_address pending  tries=0 
+  5. c6_issue_credit  pending  tries=0

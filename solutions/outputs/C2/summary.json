@@ -1,0 +1,17 @@
+{
+ "chapter": "C2",
+ "title": "Capstone 2",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-28 00:50",
+ "exercises": [
+  {
+   "id": "C2",
+   "title": "Capstone 2 (c2_analyst)",
+   "kind": "capstone",
+   "status": "passed",
+   "reason": null,
+   "seconds": 38.8,
+   "log": "C2/C2.log"
+  }
+ ]
+}

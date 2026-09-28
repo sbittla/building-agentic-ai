@@ -4,7 +4,7 @@ import os
 from pathlib import Path
 from fakemodel import tool, text
 
-def test_4_3_chapter_loop_runs(model):
+def test_4_2_chapter_loop_runs(model):
     import ch04_agent, ch03_tools
     model.reset([[tool("get_current_date", {})],
                  [tool("days_between", {"start": "2026-09-23", "end": "2027-07-04"})],
@@ -12,27 +12,21 @@ def test_4_3_chapter_loop_runs(model):
     answer, _, stats = ch04_agent.run_agent("July 4?", ch03_tools.TOOLS, ch03_tools.run_tool)
     assert stats["tool_calls"] == 2 and "Sunday" in answer
 
-def test_4_4_cap_and_failing_tool(model):
-    import ex4_4_cap as ex
+def test_4_3_cap_and_failing_tool(model):
+    import ex4_3_cap as ex
     model.reset([[tool("get_current_date", {})]] + [[tool("always_fails", {})]] * 4)
     capped, failing = ex.main()
     assert "max_iterations=1" in capped and "max_iterations=4" in failing
 
-def test_4_5_tracer(model, capsys):
-    import ex4_5_tracer as ex, ch03_tools
+def test_4_4_tracer(model, capsys):
+    import ex4_4_tracer as ex, ch03_tools
     model.reset([[tool("get_current_date", {})], [text("done")]])
     answer, trace = ex.run_agent_traced("q", ch03_tools.TOOLS, ch03_tools.run_tool)
     assert answer == "done" and len(trace) == 2 and trace[0]["tools"]
     assert "total" in capsys.readouterr().out
 
-def test_4_6_chat_remembers(model):
-    import ex4_6_chat as ex
-    model.reset([[text("284 days")], [text("about 40.6 weeks")]])
-    answers, history = ex.chat(["How many days until July 4?", "And how many weeks is that?"])
-    assert len(model.calls[1]["messages"]) == 3        # previous turn was sent again
-
-def test_4_7_cost_profile(model, ws):
-    import ex4_7_cost_profile as ex
+def test_4_5_cost_profile(model, ws):
+    import ex4_5_cost_profile as ex
     model.reset(default=lambda kw: [text("x")] if len(kw["messages"]) > 2
                 else [tool("get_current_date", {})])
     rows, per_step = ex.profile(runs=2)

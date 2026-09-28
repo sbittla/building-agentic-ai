@@ -1,0 +1,8 @@
+# Exercise: 16.1  Where did the tokens go?
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-27 21:52:31 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**16.1 Where did the tokens go?** The call sends 1,500 + 2,500 + 400 + 600 + 9,000 = **14,000 tokens**, and 9,000 of them (64%) are tool results. (1) **Trim old tool results first**: it's the biggest item, costs nothing and loses little (the model can call the tool again). Cutting all but the last two results to ~300 characters typically saves 5,000–7,000 tokens. (2) **Cache the stable prefix** (system prompt + tools, 4,000 tokens): it doesn't shrink the context, but cached reads cost a tenth, so it saves the equivalent of about 3,600 tokens per call from the second call on. (3) **Compact last**: it costs an extra model call and loses detail, and the conversation itself is only 1,000 tokens here, so summarizing it to ~300 saves about 700. Use it when trimming and caching aren't enough.

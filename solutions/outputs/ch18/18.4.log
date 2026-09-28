@@ -1,0 +1,18 @@
+# Exercise: 18.4  Change the embedder
+# Command:  EMBEDDER=hashing python ch18_rag.py eval && EMBEDDER=local python ch18_rag.py eval
+# Model:    none (no model needed)
+# Date:     2026-09-28 01:48:31 UTC
+# Exit code: 0
+# Seconds:  2.2
+#-------------------------------------------------------------------------------
+32 chunks, embedder = hashing
+  keyword  recall@3 = 1.0  MRR = 1.0
+  vector   recall@3 = 0.92  MRR = 0.88
+  hybrid   recall@3 = 1.0  MRR = 0.96
+
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]
+Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 832.65it/s]
+32 chunks, embedder = local
+  keyword  recall@3 = 1.0  MRR = 1.0
+  vector   recall@3 = 1.0  MRR = 0.96
+  hybrid   recall@3 = 1.0  MRR = 1.0

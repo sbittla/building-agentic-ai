@@ -1,0 +1,9 @@
+# Exercise: 26.4  Tokens for a team
+# Command:  python /tmp/solutions-flat/exercises/ex26_4_team_tokens.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 23:16:40 UTC
+# Exit code: 0
+# Seconds:  35.5
+#-------------------------------------------------------------------------------
+#1 lead       done     What did Ana pay for order A-1002? Have it checked.
+#2   checker    done     Please verify the total payment for order A-1002 and confirm

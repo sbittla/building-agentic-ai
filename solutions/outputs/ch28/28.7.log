@@ -1,0 +1,41 @@
+# Exercise: 28.7  Classify real failures
+# Command:  python /tmp/solutions-flat/exercises/ex28_7_taxonomy.py
+# Model:    none (no model needed)
+# Date:     2026-09-27 23:51:09 UTC
+# Exit code: 0
+# Seconds:  1.8
+#-------------------------------------------------------------------------------
+wrong-table  wrong_tool
+old-dates    wrong_args
+api-down     tool_failure
+cents        misread_result
+made-up      hallucination
+huge-log     context_overflow
+web-page     injection
+same-query   tool_failure, infinite_loop
+big-refund   auth_failure
+rabbit-hole  planning_failure, runaway
+
+Failure           Detection -> Mitigation -> Evaluation (chapters)
+wrong_tool        eval: expected tool not called
+                  -> better tool names, descriptions -> routing eval (Ch 3, 27)
+wrong_args        eval: tool called with wrong args
+                  -> schemas, enums, examples -> argument checks (Ch 3, 27)
+tool_failure      tool span error flag
+                  -> retries, fallbacks, clear errors -> fault injection (Ch 7, 19)
+misread_result    right tools, no errors, wrong answer
+                  -> structured results -> answer vs data check (Ch 8, 27)
+hallucination     answer numbers in no tool result
+                  -> cite sources, verify -> groundedness check (Ch 6, 18, 27)
+context_overflow  stop: context window exceeded
+                  -> trim, summarize, retrieve -> long-input cases (Ch 16)
+injection         guard blocked a tool result
+                  -> quarantine untrusted text -> red-team suite (Ch 14, 25)
+planning_failure  trajectory eval: bad plan
+                  -> plan, then check the plan -> trajectory eval (Ch 20)
+infinite_loop     same call repeated / step limit
+                  -> loop detector, step cap -> step-limit test (Ch 4, 28)
+auth_failure      tool error.type not_authorized
+                  -> scoped tokens, checks -> permission tests (Ch 26)
+runaway           cost, time or steps over budget
+                  -> budgets, cheaper models -> budget assertions (Ch 29)

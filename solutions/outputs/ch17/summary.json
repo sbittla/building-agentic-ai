@@ -1,0 +1,80 @@
+{
+ "chapter": "17",
+ "title": "Chapter 17: Agent Memory Engineering",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-27 22:06",
+ "exercises": [
+  {
+   "id": "17.1",
+   "title": "Sort the memories",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch17/17.1.log"
+  },
+  {
+   "id": "17.2",
+   "title": "Write a memory policy",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch17/17.2.log"
+  },
+  {
+   "id": "17.3",
+   "title": "Remember across restarts",
+   "kind": "run",
+   "status": "passed",
+   "reason": null,
+   "seconds": 4.7,
+   "log": "ch17/17.3.log"
+  },
+  {
+   "id": "17.4",
+   "title": "Watch the policy work",
+   "kind": "run",
+   "status": "passed",
+   "reason": null,
+   "seconds": 0.1,
+   "log": "ch17/17.4.log"
+  },
+  {
+   "id": "17.5",
+   "title": "Consolidate episodes",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 4.4,
+   "log": "ch17/17.5.log"
+  },
+  {
+   "id": "17.6",
+   "title": "Poison the memory",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 0.1,
+   "log": "ch17/17.6.log"
+  },
+  {
+   "id": "17.7",
+   "title": "A team memory",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 0.1,
+   "log": "ch17/17.7.log"
+  },
+  {
+   "id": "17.8",
+   "title": "A memory-backed assistant",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 140.6,
+   "log": "ch17/17.8.log"
+  }
+ ]
+}

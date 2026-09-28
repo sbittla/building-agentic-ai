@@ -1,0 +1,23 @@
+# Exercise: 0.7  Expense report tool
+# Command:  python /tmp/solutions-flat/exercises/ex0_7_expenses.py
+# Model:    none (no model needed)
+# Date:     2026-09-28 00:48:06 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+{
+  "per_category": {
+    "books": 769.63,
+    "food": 344.07,
+    "fun": 1002.96,
+    "rent": 1294.58,
+    "travel": 1622.47
+  },
+  "per_month": {
+    "2026-01": 1440.99,
+    "2026-02": 1844.93,
+    "2026-03": 1747.79
+  },
+  "total": 5033.71,
+  "skipped_rows": 3
+}

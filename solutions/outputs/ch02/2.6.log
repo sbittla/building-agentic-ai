@@ -1,0 +1,17 @@
+# Exercise: 2.6  A second tool, by hand
+# Command:  python /tmp/solutions-flat/exercises/ex2_6_two_tools.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 19:44:22 UTC
+# Exit code: 0
+# Seconds:  25.1
+#-------------------------------------------------------------------------------
+two-call version: Here are the calculated results:
+
+*   The **percent change** in revenue is **15.66%**.
+*   **17.5%** of the new figure (97,400) is **17,045**.
+  -> percent_change({'old': 84213, 'new': 97400}) = 15.66%
+  -> calculate({'expression': '0.175 * 97400'}) = 17045.0
+looping version:  Here are the results for your calculations:
+
+*   **Percent Change:** The revenue increased by approximately **15.66%**.
+*   **17.5% of New Revenue:** 17.5% of $97,400 is **$17,045**.

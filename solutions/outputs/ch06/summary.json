@@ -1,0 +1,62 @@
+{
+ "chapter": "6",
+ "title": "Chapter 6: Agentic Search: Exploring an Environment",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-27 19:57",
+ "exercises": [
+  {
+   "id": "6.1",
+   "title": "Break the sandbox",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch06/6.1.log"
+  },
+  {
+   "id": "6.2",
+   "title": "Ask your notes",
+   "kind": "ask",
+   "status": "skipped",
+   "reason": "an ask exercise: nothing to run against a model",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "6.3",
+   "title": "Prove the sandbox",
+   "kind": "test",
+   "status": "passed",
+   "reason": null,
+   "seconds": 5.8,
+   "log": "ch06/6.3.log"
+  },
+  {
+   "id": "6.4",
+   "title": "Check the citations",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 0.0,
+   "log": "ch06/6.4.log"
+  },
+  {
+   "id": "6.5",
+   "title": "Search by filename and date",
+   "kind": "ask",
+   "status": "passed",
+   "reason": null,
+   "seconds": 12.3,
+   "log": "ch06/6.5.log"
+  },
+  {
+   "id": "6.6",
+   "title": "Scale test",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 226.2,
+   "log": "ch06/6.6.log"
+  }
+ ]
+}

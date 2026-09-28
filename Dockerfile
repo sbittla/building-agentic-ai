@@ -1,4 +1,4 @@
-# Building Agentic AI course image.
+# Building Agentic AI Systems course image.
 # Everything needed for chapters 0-19, their solutions and the capstones:
 # Python 3.12, uv, Node.js 24, the MCP SDK, reference MCP servers, MCP Inspector,
 # GitHub's MCP server, sample data generators, and the `course` command.
@@ -70,6 +70,11 @@ RUN uv tool install mcp-server-git==2026.8.18 \
  && uv tool install mcp-server-fetch==2026.8.18 \
  && uv tool install mcp-server-time==2026.8.18 \
  && rm -rf /home/student/.cache
+
+# Chromium for the chapter 23 browser agent, with the system libraries it needs.
+ENV PLAYWRIGHT_BROWSERS_PATH=/opt/ms-playwright
+RUN playwright install --with-deps chromium \
+ && rm -rf /var/lib/apt/lists/* && chmod -R a+rX /opt/ms-playwright
 
 # GitHub's MCP server binary.
 COPY --from=githubmcp /server/github-mcp-server /usr/local/bin/github-mcp-server

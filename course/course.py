@@ -1,5 +1,5 @@
 #!/opt/venv/bin/python
-"""course: run every exercise of "Building Agentic AI" inside the course container.
+"""course: run every exercise of "Building Agentic AI Systems" inside the course container.
 
 You normally call this through the wrapper on your computer:
     ./course.sh <command>        (macOS / Linux)
@@ -22,7 +22,7 @@ WS = Path(os.environ.get("COURSE_WORKSPACE", "/workspace"))
 EXERCISES = json.loads((COURSE / "exercises.json").read_text())
 STARTERS = COURSE / "starters"          # starter files with signatures and examples
 CHECKS = COURSE / "checks"              # ./course.sh check <id>
-CHECK_TARGET = {"2.4": "ch02_calculator_agent.py", "3.4": "ch03_tools.py"}   # checked in place
+CHECK_TARGET = {"3.3": "ch03_tools.py"}   # checked in place
 BY_ID = {e["id"]: e for e in EXERCISES}
 # Which model each exercise needs: none | any (qwen3.5:9b or Claude) | claude-rec | claude | desktop
 _NEEDS = COURSE / "model_needs.json"
@@ -50,11 +50,13 @@ def apply_provider():
     os.environ.update({
         "ANTHROPIC_BASE_URL": ADAPTER_URL, "ANTHROPIC_API_URL": ADAPTER_URL,   # SDK, LangChain
         "ANTHROPIC_API_KEY": "sk-local-ollama",        # any value: the local model ignores it
-        "MODEL": model, "JUDGE_MODEL": model,
+        "MODEL": model, "JUDGE_MODEL": model, "SMALL_MODEL": model,
         # the Agent SDK runs the Claude Code CLI: keep it on the local model and offline
         "ANTHROPIC_DEFAULT_OPUS_MODEL": model, "ANTHROPIC_DEFAULT_SONNET_MODEL": model,
         "ANTHROPIC_DEFAULT_HAIKU_MODEL": model, "ANTHROPIC_SMALL_FAST_MODEL": model,
         "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
+        # one reply from a local model on a CPU can take minutes once the context grows
+        "MODEL_TIMEOUT": os.environ.get("MODEL_TIMEOUT", "600"),
     })
     os.environ.pop("ANTHROPIC_AUTH_TOKEN", None)
     for var in ("NO_PROXY", "no_proxy"):              # never send local traffic to a proxy
@@ -77,7 +79,12 @@ def fail(msg): say(_c("31", "✘ ") + msg)
 
 def env_for_runs():
     env = dict(os.environ)
-    env["PYTHONPATH"] = f"{WS}:{WS / 'exercises'}:{env.get('PYTHONPATH', '')}".rstrip(":")
+    # Include chapter subdirectories in PYTHONPATH so exercises can import modules directly
+    # e.g., import ch03_tools from course/code/ch03/ch03_tools.py
+    chapter_paths = [str(PRISTINE / f"ch{i:02d}") for i in range(31)]
+    interlude_paths = [str(PRISTINE / d) for d in ["interlude_python", "interlude_regex", "interlude_sql", "interlude_testing"]]
+    all_code_paths = ":".join(chapter_paths + interlude_paths)
+    env["PYTHONPATH"] = f"{all_code_paths}:{PRISTINE}:{WS}:{WS / 'exercises'}:{env.get('PYTHONPATH', '')}".rstrip(":")
     return env
 
 def host_path(p: Path) -> str:
@@ -86,11 +93,24 @@ def host_path(p: Path) -> str:
     return str(Path("workspace") / rel)
 
 # ---------------------------------------------------------------- workspace setup
+def pristine_files():
+    """Every course source/data file. The code is organised into chapter subfolders
+    (ch04/, ch08/, ...), but the workspace is flat, so we gather files at any depth and
+    key them by basename (course filenames are unique)."""
+    return [p for p in sorted(PRISTINE.rglob("*"))
+            if p.is_file() and not {"__pycache__", "_index"} & set(p.parts)
+            and p.suffix != ".pyc" and p.name not in ("__init__.py", ".gitkeep")]
+
+def copy_pristine(dst):
+    """Copy the book's code into dst, flat (the workspace layout)."""
+    for src in pristine_files():
+        shutil.copy2(src, dst / src.name)
+
 def init(force=False, quiet=True):
     marker = WS / ".course" / "initialized"
     if marker.exists() and not force:
         # A newer kit may bring new chapter files: add those, never touch existing ones.
-        new = [src for src in PRISTINE.iterdir() if src.is_file() and not (WS / src.name).exists()]
+        new = [src for src in pristine_files() if not (WS / src.name).exists()]
         try:
             for src in new:
                 shutil.copy2(src, WS / src.name)
@@ -104,9 +124,9 @@ def init(force=False, quiet=True):
         return
     WS.mkdir(parents=True, exist_ok=True)
     copied = 0
-    for src in sorted(PRISTINE.iterdir()):
+    for src in pristine_files():
         dst = WS / src.name
-        if src.is_file() and (force or not dst.exists()):
+        if force or not dst.exists():
             if dst.exists():
                 shutil.copy2(dst, dst.with_suffix(dst.suffix + ".bak"))
             shutil.copy2(src, dst)
@@ -150,7 +170,7 @@ def cmd_list(args):
         tag = {"none": "", "any": "", "claude-rec": _c("33", "Claude recommended"),
                "claude": _c("31", "Claude only"), "desktop": _c("33", "Claude Desktop")}[need]
         say(f"  {e['id']:<5} {lvl} {e['title']:<42} {tag} {done}".rstrip())
-    say("\nRun one with:  ./course.sh ex <id>      e.g.  ./course.sh ex 4.3")
+    say("\nRun one with:  ./course.sh ex <id>      e.g.  ./course.sh ex 4.2")
 
 def _status(e):
     f = _my_file(e)
@@ -440,7 +460,7 @@ def cmd_serve(args):
     return subprocess.call(["python", server, "streamable-http"], cwd=WS, env=env)
 
 def cmd_serve_api(args):
-    """Chapter 19: the agent as a web API on http://localhost:8080 (docs at /docs)"""
+    """Chapter 30: the agent as a web API on http://localhost:8080 (docs at /docs)"""
     need_api_key()
     if not os.environ.get("AGENT_API_KEYS", "").strip():
         import secrets
@@ -451,11 +471,11 @@ def cmd_serve_api(args):
     head("Agent API at http://localhost:8080   (interactive docs: http://localhost:8080/docs)")
     say("Other course containers reach it as http://agentic-ai-api:8080. Ctrl+C to stop.")
     env = env_for_runs()
-    return subprocess.call(["python", "-m", "uvicorn", "ch19_service:app", "--host", "0.0.0.0",
+    return subprocess.call(["python", "-m", "uvicorn", "ch30_service:app", "--host", "0.0.0.0",
                             "--port", "8080", *args], cwd=WS, env=env)
 
 def cmd_serve_mcp(args):
-    """Chapter 19: the token-protected remote MCP server on http://localhost:8000/mcp"""
+    """Chapter 30: the token-protected remote MCP server on http://localhost:8000/mcp"""
     if not os.environ.get("MCP_TOKEN", "").strip():
         import secrets
         fail("MCP_TOKEN is not set. Add these lines to the .env file next to course.sh "
@@ -465,7 +485,15 @@ def cmd_serve_mcp(args):
     head("Remote MCP server at http://localhost:8000/mcp   (needs 'Authorization: Bearer <MCP_TOKEN>')")
     say("Other course containers reach it as http://agentic-ai-mcp:8000/mcp. Ctrl+C to stop.")
     env = env_for_runs() | {"MCP_HOST": "0.0.0.0"}
-    return subprocess.call(["python", "ch19_remote_mcp.py", *args], cwd=WS, env=env)
+    return subprocess.call(["python", "ch30_remote_mcp.py", *args], cwd=WS, env=env)
+
+def cmd_serve_a2a(args):
+    """The Chapter 21 A2A analyst agent on port 9999 (use ./course.sh serve-a2a)."""
+    need_api_key()
+    head("A2A agent card: http://localhost:9999/.well-known/agent-card.json   (Ctrl+C stops it)")
+    os.chdir(WS)
+    env = env_for_runs() | {"A2A_HOST": "0.0.0.0"}
+    os.execvpe(sys.executable, [sys.executable, "ch21_a2a_server.py"], env)
 
 def cmd_desktop_config(args):
     server = args[0] if args else "ch12_weather_server.py"
@@ -483,7 +511,7 @@ def cmd_desktop_config(args):
 def cmd_data(args):
     import argparse
     p = argparse.ArgumentParser(prog="course data")
-    p.add_argument("kind", choices=["notes", "library", "messy", "repo", "db", "all"])
+    p.add_argument("kind", choices=["notes", "library", "messy", "repo", "db", "traces", "all"])
     p.add_argument("--count", type=int, default=0)
     p.add_argument("--out")
     p.add_argument("--fresh", action="store_true", help="replace existing data")
@@ -506,6 +534,8 @@ def cmd_data(args):
         generate.run_script("ch10_make_repo.py")
     elif a.kind == "db":
         generate.run_script("ch08_make_db.py")
+    elif a.kind == "traces":
+        generate.traces(a.count or 60, a.out or "traces.jsonl")
     else:
         generate.all_data(WS)
     return 0
@@ -514,9 +544,10 @@ def cmd_reset(args):
     if not args:
         fail("Usage: ./course.sh reset <file>   (restores the original course file)")
         return 2
+    by_name = {p.name: p for p in pristine_files()}
     for name in args:
-        src = PRISTINE / Path(name).name
-        if not src.exists():
+        src = by_name.get(Path(name).name)
+        if src is None:
             fail(f"{name} is not a course file.")
             continue
         dst = WS / src.name
@@ -664,7 +695,7 @@ def cmd_check(args):
         ("ANTHROPIC_API_KEY", "not needed (local model)" if is_local()
          else "set" if os.environ.get("ANTHROPIC_API_KEY") else None),
         ("GitHub token", "set" if os.environ.get("GITHUB_PERSONAL_ACCESS_TOKEN")
-         else "not set (only needed for 14.4, 14.5, capstone 5)"),
+         else "not set (only needed for 14.3, 14.4, capstone 4)"),
         ("Sandbox (chapter 10)", "running" if sandbox_alive()
          else "stopped (start with ./course.sh sandbox up when needed)"),
     ]
@@ -683,7 +714,7 @@ def cmd_check(args):
             reply = "".join(b.text for b in r.content if b.type == "text").strip()
             ok(f"{'API call':<22} {reply} ({r.model})")
         except Exception as exc:
-            fail(f"{'API call':<22} {type(exc).__name__}: {str(exc)[:120]}")
+            fail(f"{'API call':<22} {type(exc).__name__}: {str(exc)[:600]}")
             bad += 1
     elif "--api" not in args:
         say(_c("2", "\nAdd --api to also make one tiny test call to the model."))
@@ -695,6 +726,36 @@ def cmd_selftest(args):
 
 # ---------------------------------------------------------------- solutions
 SOLUTIONS = Path("/solutions")
+
+def flatten_solutions():
+    """The solutions are organised into chapter subfolders (exercises/ch04/, ...), but the
+    runner, index.json and the reference tests expect one flat exercises/ folder. Build a
+    flat read-only copy in /tmp and point SOLUTIONS at it."""
+    global SOLUTIONS
+    import tempfile
+    ex = SOLUTIONS / "exercises"
+    if not ex.is_dir() or not any(d.is_dir() and d.name.startswith("ch") for d in ex.iterdir()):
+        return
+    flat = Path(tempfile.gettempdir()) / "solutions-flat"
+    shutil.rmtree(flat, ignore_errors=True)
+    shutil.copytree(SOLUTIONS, flat, symlinks=True,
+                    ignore=shutil.ignore_patterns("outputs", "exercises", "__pycache__"))
+    (flat / "exercises").mkdir()
+    grouping = re.compile(r"ch\d+|capstones|interludes?(_\w+)?")   # the chapter folders
+    for d in sorted(ex.iterdir()):
+        if d.name in ("_index", "__pycache__"):
+            continue
+        if d.is_file():
+            shutil.copy2(d, flat / "exercises" / d.name)
+        elif not grouping.fullmatch(d.name):              # a real package, e.g. skills/
+            shutil.copytree(d, flat / "exercises" / d.name,
+                            ignore=shutil.ignore_patterns("__pycache__"))
+        else:
+            for src in sorted(d.rglob("*")):
+                if (src.is_file() and "__pycache__" not in src.parts
+                        and src.name not in ("__init__.py", ".gitkeep")):
+                    shutil.copy2(src, flat / "exercises" / src.name)
+    SOLUTIONS = flat
 
 def cmd_solution(args):
     if not (SOLUTIONS / "index.json").exists():
@@ -722,21 +783,25 @@ def cmd_solution(args):
         head(f"\n===== solutions/{f} =====")
         text = path.read_text()
         if f == "ANSWERS.md":           # just this exercise: from its heading to the next one
-            m = re.search(rf"^\*\*(?:[\w.]+ and )?{re.escape(args[0])}[ *].*?(?=^\*\*[0-9A-Z]+\.\d+[ *]|^## |\Z)",
-                          text, re.S | re.M)
-            text = m.group(0).strip() if m else text
+            text = _answer_for(args[0], text) or text
         print(text)
     for f in shared:
         say(_c("2", f"\nAutomated check for this exercise: solutions/{f}"))
     return 0
 
+def _answer_for(ex_id, text):
+    """Exercise ex_id's part of ANSWERS.md (from its heading to the next one), or None."""
+    m = re.search(rf"^\*\*(?:[\w.]+ and )?{re.escape(ex_id)}[ *].*?"
+                  rf"(?=^\*\*[0-9A-Z]+\.\d+[ *]|^## |\Z)", text, re.S | re.M)
+    return m.group(0).strip() if m else None
+
 CAPSTONES = {  # number: (folder, data script or None, program, default arguments)
     "1": ("c1_support", "data.py", "agent.py", []),
     "2": ("c2_analyst", None, "agent.py", []),
     "3": ("c3_incident", "data.py", "agent.py", []),
-    "4": ("c4_perf", "data.py", "agent.py", []),
-    "5": ("c5_review", "data.py", "agent.py", []),
-    "6": ("c6_research", None, "research.py", []),
+    "4": ("c4_review", "data.py", "agent.py", []),
+    "5": ("c5_research", None, "research.py", []),
+    "6": ("c6_backoffice", "data.py", "agent.py", []),
 }
 
 def cmd_capstone(args):
@@ -787,10 +852,22 @@ LIVE_RUNS = [
     ("4", "ch10_fixer.py", "", 6), ("4", "ch11_research_team.py", "", 10),
     ("5", "ch13_mcp_agent.py servers.json", "How many open tasks are there?\nquit\n", 3),
     ("5", "ch14_policy_agent.py", "What time is it in Tokyo?\n" + "n\n" * 4 + "quit\n", 4),
-    ("5", "ch15_eval.py", "", 15), ("5", "ch15_judge.py", "", 5), ("5", "ch15_otel.py", "", 2),
-    ("6", "ch16_context.py", "", 5), ("6", "ch16_memory.py", "Remember that I prefer Celsius.\nquit\n", 2),
-    ("6", "ch17_rag.py", "", 3), ("6", "ch18_tool_runner.py", "", 3),
-    ("6", "ch18_langchain.py", "", 3), ("6", "ch18_agent_sdk.py", "", 5),
+    ("5", "ch15_modern.py", "", 0), ("5", "ch15_jobs_server.py", "", 0),
+    ("5", "ch15_gateway.py", "", 0),
+    ("6", "ch16_context.py", "", 5), ("6", "ch17_memory.py", "Remember that I prefer Celsius.\nquit\n", 2),
+    ("6", "ch16_assemble.py", "", 1), ("6", "ch18_rag.py", "", 3), ("6", "ch18_agentic.py", "", 4),
+    ("7", "ch19_durable.py", "", 1), ("7", "ch19_harness.py", "", 5),
+    ("7", "ch20_planning.py", "", 5), ("7", "ch20_router.py", "", 5),
+    ("7", "ch21_orchestrator.py", "", 6), ("7", "ch22_guarded.py", "n\n" * 3, 3),
+    ("7", "ch23_browser.py", "", 5),
+    ("7", "ch24_tool_runner.py", "", 3),
+    ("7", "ch24_langchain.py", "", 3), ("7", "ch24_agent_sdk.py", "", 5),
+    ("8", "ch25_quarantine.py", "", 3), ("8", "ch25_guards.py", "", 2),
+    ("8", "ch26_identity.py", "n\n" * 2, 2),
+    ("9", "ch27_eval.py", "", 15), ("9", "ch27_judge.py", "", 5),
+    ("9", "ch27_trajectory.py", "", 5), ("9", "ch28_otel.py", "", 2),
+    ("9", "ch28_agentops.py spans.jsonl", "", 0), ("9", "ch29_costs.py", "", 0),
+    ("9", "ch27_scorecard.py", "", 0), ("9", "ch28_ops.py", "", 0), ("9", "ch29_perf.py", "", 0),
 ]
 
 def cmd_live_check(args):
@@ -817,18 +894,19 @@ def cmd_live_check(args):
         tmp = Path(tmp)
         shutil.copytree(WS, tmp, dirs_exist_ok=True,
                         ignore=shutil.ignore_patterns(".sandbox", "__pycache__", "*.bak"))
-        for src in PRISTINE.iterdir():                     # the book's code, not your edits
-            if src.is_file():
-                shutil.copy2(src, tmp / src.name)
+        copy_pristine(tmp)                                 # the book's code, not your edits
         env = dict(os.environ, PYTHONPATH=str(tmp), PYTHONUNBUFFERED="1")
+        limit = 1800 if is_local() else 600          # a local model on a CPU is much slower
         for part, cmd, stdin, _ in runs:
             t = time.time()
             try:
                 r = subprocess.run([sys.executable, *cmd.split()], cwd=tmp, env=env, input=stdin,
-                                   capture_output=True, text=True, timeout=600)
+                                   capture_output=True, text=True, timeout=limit)
                 out, code = (r.stdout + r.stderr), r.returncode
             except subprocess.TimeoutExpired as exc:
-                out, code = f"TIMEOUT after 600 s\n{exc.stdout or ''}", -1
+                partial = exc.stdout.decode(errors="replace") if isinstance(exc.stdout, bytes) \
+                    else (exc.stdout or "")
+                out, code = f"TIMEOUT after {limit} s\n{partial}", -1
             passed = code == 0 and "Traceback (most recent call last)" not in out
             secs = time.time() - t
             (ok if passed else fail)(f"Part {part}  {cmd:<34} {secs:5.0f} s")
@@ -854,10 +932,11 @@ def _live_command(e):
         return f'python -c "{code}"', None
     if kind == "build":
         sol = SOLUTIONS / "exercises" / Path(e["file"]).name
-        if sol.exists():
-            return f"python {sol}", None
+        if sol.exists():                  # run_args: a smaller run for run-chapter
+            return f"python {sol} {e.get('run_args', '')}".rstrip(), None
         return None, "no runnable reference solution (see ./course.sh solution)"
-    return None, f"a {kind} exercise: nothing to run against a model"
+    article = "an" if kind[0] in "aeiou" else "a"
+    return None, f"{article} {kind} exercise: nothing to run against a model"
 
 def cmd_live_exercises(args):
     """Run every exercise that uses a model, with its reference solution, against the model
@@ -881,14 +960,21 @@ def cmd_live_exercises(args):
                         f"({'local' if is_local() else 'Claude API'})", "",
                         "| Exercise | Result | Seconds |", "| --- | --- | --- |"]
     details = []
+    out_file = WS / "live_exercises_report.md"
+
+    def save():                     # after every exercise, so a stopped run keeps its results
+        try:
+            out_file.write_text("\n".join(report + ["", *details]))
+        except OSError as exc:
+            warn(f"Couldn't write {host_path(out_file)}: {exc}")
     with tempfile.TemporaryDirectory() as tmp:
         tmp = Path(tmp)
         shutil.copytree(WS, tmp, dirs_exist_ok=True,
-                        ignore=shutil.ignore_patterns(".sandbox", "__pycache__", "*.bak", "exercises"))
-        for src in PRISTINE.iterdir():
-            if src.is_file():
-                shutil.copy2(src, tmp / src.name)
-        env = dict(os.environ, PYTHONUNBUFFERED="1",
+                        ignore=shutil.ignore_patterns(".sandbox", "__pycache__", "*.bak", "exercises",
+                                                      "live_*report.md", ".git"))
+        copy_pristine(tmp)
+        # COURSE_WORKSPACE: `course data ...` in an exercise's setup writes into the scratch copy
+        env = dict(os.environ, PYTHONUNBUFFERED="1", COURSE_WORKSPACE=str(tmp),
                    PYTHONPATH=f"{tmp}:{SOLUTIONS / 'exercises'}:{SOLUTIONS / 'capstones'}")
         for e in wanted:
             cmd, why = _live_command(e)
@@ -901,17 +987,20 @@ def cmd_live_exercises(args):
             if not cmd:
                 say(_c("2", f"-  {e['id']:<5} skipped: {why}"))
                 report.append(f"| {e['id']} {e['title']} | skipped: {why} | |")
+                save()
                 continue
             t = time.time()
             try:
                 if e.get("setup"):
                     subprocess.run(["bash", "-c", e["setup"]], cwd=tmp, env=env,
-                                   capture_output=True, timeout=600)
+                                   capture_output=True, timeout=900)
                 r = subprocess.run(["bash", "-c", cmd], cwd=tmp, env=env, input="n\nquit\nquit\n",
                                    capture_output=True, text=True, timeout=1800)
                 out, code = r.stdout + r.stderr, r.returncode
             except subprocess.TimeoutExpired:
                 out, code = "TIMEOUT after 30 minutes", -1
+            except Exception as exc:                     # never lose the whole run to one exercise
+                out, code = f"{type(exc).__name__}: {exc}", -1
             passed = code == 0 and "Traceback (most recent call last)" not in out
             secs = time.time() - t
             (ok if passed else fail)(f"{e['id']:<5} {e['title'][:44]:<44} {secs:5.0f} s")
@@ -920,12 +1009,389 @@ def cmd_live_exercises(args):
             tail = "\n".join(out.strip().splitlines()[-20:])
             details += [f"## {'PASS' if passed else 'FAIL'}: {e['id']} {e['title']}", "",
                         f"`{cmd[:200]}`", "", "```", tail, "```", ""]
-    out_file = WS / "live_exercises_report.md"
-    out_file.write_text("\n".join(report + ["", *details]))
+            save()
     say(f"\n{sum(rows)}/{len(rows)} passed, {len(wanted) - len(rows)} skipped. A PASS means the "
         f"reference solution ran without errors; read the answers to judge their quality. "
         f"Full report: {host_path(out_file)}")
     return 0 if all(rows) else 1
+
+# ---------------------------------------------------------------- chapter runner
+# ./course.sh run-chapter 7    runs every exercise of a chapter with its reference solution,
+# in a scratch copy of your workspace, and keeps each one's full output as a log file:
+#   <outputs>/ch07/7.5.log, <outputs>/ch07/summary.json and an index in <outputs>/README.md.
+# <outputs> is /outputs (the kit's solutions/outputs folder, see compose.yaml).
+# The model is the free LOCAL model unless you ask for Claude (--model claude or RUN_MODEL).
+OUTPUTS = Path(os.environ.get("COURSE_OUTPUTS", "/outputs"))
+RUN_MODELS = ("local", "claude")
+PERSON_KINDS = {"inspector": "needs a person: MCP Inspector in a browser",
+                "desktop": "needs a person: the Claude Desktop app"}
+
+def _run_model(args):
+    """'local' or 'claude': --model wins, then RUN_MODEL, then local. None if invalid."""
+    choice = os.environ.get("RUN_MODEL", "").strip().lower() or "local"
+    for i, a in enumerate(args):
+        if a == "--model":
+            choice = args[i + 1].lower() if i + 1 < len(args) else ""
+        elif a.startswith("--model="):
+            choice = a.split("=", 1)[1].lower()
+    choice = {"ollama": "local", "qwen": "local", "api": "claude"}.get(choice, choice)
+    return choice if choice in RUN_MODELS else None
+
+def _chapter_keys():
+    """Chapter keys in book order (0, P, 1, T, 2, ...), then the capstones C1..C6."""
+    keys = []
+    for e in EXERCISES:                              # exercises.json is in book order
+        k = e["id"].split(".")[0]
+        if k not in keys:
+            keys.append(k)
+    return keys + [f"C{n}" for n in CAPSTONES]
+
+def _chapter_key(text):
+    """'7', '07', 'ch7', 'p', 'c1' -> the key used in exercises.json ('7', 'P', 'C1')."""
+    k = text.strip().upper().removeprefix("CH")
+    if k.startswith("CAPSTONE") and k != "CAPSTONES":
+        k = "C" + k.removeprefix("CAPSTONE").strip("-_ ")
+    return str(int(k)) if k.isdigit() else k
+
+def _chapter_dir(key):
+    """Folder for a chapter's logs: ch07, ch00, P, T, C1."""
+    return f"ch{int(key):02d}" if key.isdigit() else key
+
+def _chapter_exercises(key):
+    """A chapter's exercises in order (new ones may be appended anywhere in the json)."""
+    found = [e for e in EXERCISES if e["id"].split(".")[0] == key]
+    minor = lambda e: int(e["id"].split(".")[1]) if e["id"].split(".")[1].isdigit() else 0
+    return sorted(found, key=minor)
+
+def _outputs_dir():
+    """/outputs if it is mounted (compose.yaml), else workspace/outputs."""
+    if OUTPUTS.is_dir() and os.access(OUTPUTS, os.W_OK):
+        return OUTPUTS
+    fallback = WS / "outputs"
+    warn(f"{OUTPUTS} isn't mounted (older compose.yaml?): writing the logs to "
+         f"{host_path(fallback) if WS in fallback.parents else fallback} instead.")
+    return fallback
+
+def _outputs_label(out):
+    """How the outputs folder looks on your computer."""
+    if out == OUTPUTS:
+        return "solutions/outputs" if str(out) == "/outputs" else str(out)
+    return host_path(out) if WS in out.parents else str(out)
+
+def _local_model_ready():
+    import httpx
+    try:
+        return bool(httpx.get(f"{ADAPTER_URL}/health", timeout=5).json().get("ok"))
+    except (httpx.HTTPError, ValueError):
+        return False
+
+def _chapter_command(e):
+    """(command, None) to run exercise e with its reference solution, or (None, reason).
+    Like _live_command, plus test exercises (their reference tests) and build exercises
+    whose solution file has another name (listed in solutions/index.json)."""
+    cmd, why = _live_command(e)
+    if cmd or e["kind"] not in ("build", "test"):
+        return cmd, why
+    index = SOLUTIONS / "index.json"
+    files = json.loads(index.read_text()).get(e["id"], []) if index.exists() else []
+    if e["kind"] == "test":
+        tests = [f for f in files if re.match(r"tests/test_\w+\.py$", f)]
+        own = [f for f in tests if not re.match(r"tests/test_ch\d", f)] or tests
+        if own:                  # solutions/tests/conftest.py stands in for the model
+            return ("python -m pytest -q -p no:cacheprovider --rootdir /tmp "
+                    + " ".join(str(SOLUTIONS / f) for f in own)), None
+        return None, "no reference test to run (see ./course.sh solution)"
+    progs = [f for f in files if f.startswith("exercises/") and f.endswith(".py")]
+    if progs:
+        return f"python {SOLUTIONS / progs[0]}", None
+    return None, why
+
+def _skip_reason(e, local, free_only):
+    """Why exercise e can't run unattended here, or None."""
+    need = e.get("model", "any")
+    if e["kind"] in PERSON_KINDS or need == "desktop":
+        return PERSON_KINDS.get(e["kind"], PERSON_KINDS["desktop"])
+    if free_only and need != "none":
+        return "needs a model (--free-only)" + (": Claude only" if need == "claude" else "")
+    if need == "claude" and local:
+        return "Claude only"
+    if e.get("needs") == "sandbox" and not sandbox_alive():
+        return "needs the sandbox: ./course.sh sandbox up"
+    if e.get("needs") == "github" and not os.environ.get("GITHUB_PERSONAL_ACCESS_TOKEN"):
+        return "needs GITHUB_PERSONAL_ACCESS_TOKEN in .env"
+    return None
+
+def _run_logged(cmd, cwd, env, limit, setup=None):
+    """Run a shell command; returns (combined stdout+stderr, exit code). Every process it
+    starts is killed after `limit` seconds."""
+    import signal
+    out = ""
+    for step, timeout in ([(setup, 900)] if setup else []) + [(cmd, limit)]:
+        if setup:
+            out += f"$ {step}\n"
+        proc = subprocess.Popen(["bash", "-c", step], cwd=cwd, env=env, text=True,
+                                stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                                stderr=subprocess.STDOUT, start_new_session=True,
+                                errors="replace")
+        try:
+            text, _ = proc.communicate("n\nquit\nquit\n", timeout=timeout)
+            code = proc.returncode
+        except subprocess.TimeoutExpired:
+            os.killpg(proc.pid, signal.SIGKILL)
+            text, _ = proc.communicate()
+            text, code = (text or "") + f"\nTIMEOUT after {timeout} s\n", -1
+        out += text or ""
+        if code != 0 and step is setup:
+            return out + f"\n(setup failed with exit code {code})\n", code
+    return out, code
+
+def _write_log(path, e_id, title, cmd, model, code, secs, body):
+    stamp = time.strftime("%Y-%m-%d %H:%M:%S %Z")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        f"# Exercise: {e_id}  {title}\n# Command:  {cmd}\n# Model:    {model}\n"
+        f"# Date:     {stamp}\n# Exit code: {code}\n# Seconds:  {secs:.1f}\n"
+        + "#" + "-" * 79 + "\n" + body.rstrip() + "\n", errors="replace")
+
+def _refresh_outputs_index(out):
+    """Rewrite <outputs>/README.md: a table of every chapter that has a summary.json."""
+    order = {_chapter_dir(k): i for i, k in enumerate(_chapter_keys())}
+    rows = []
+    for f in sorted(out.glob("*/summary.json"), key=lambda p: order.get(p.parent.name, 999)):
+        try:
+            s = json.loads(f.read_text())
+        except ValueError:
+            continue
+        n = {k: sum(1 for x in s["exercises"] if x["status"] == k)
+             for k in ("passed", "failed", "skipped")}
+        written = sum(1 for x in s["exercises"] if x.get("kind") == "concept")
+        rows.append(f"| [{s['chapter']}]({f.parent.name}/) | {s['title']} | {n['passed']} | "
+                    f"{n['failed']} | {n['skipped']} | {written} | {s['model']} | {s['date']} |")
+    (out / "README.md").write_text("\n".join([
+        "# Exercise outputs", "",
+        "Real output of every exercise's reference solution, written by "
+        "`./course.sh run-chapter <chapter|all>` (Windows: `.\\course.cmd run-chapter ...`, "
+        "or double-click `run-chapters.cmd`). Each chapter folder has one `<id>.log` per "
+        "exercise (a short header, then everything the program printed) and a "
+        "`summary.json`. Concept exercises get their sample answer from "
+        "`solutions/ANSWERS.md`; they count as skipped (nothing to run).", "",
+        "This file is rewritten after every run.", "",
+        "| Chapter | Title | Passed | Failed | Skipped | Written answers | Model | Run on |",
+        "| --- | --- | --- | --- | --- | --- | --- | --- |", *rows,
+        *([] if rows else ["", "No runs yet."]), ""]))
+
+def _start_service(e, cwd, env):
+    """Exercises marked service="api" talk to the chapter 30 agent API, and service="mcp"
+    to the chapter 30 remote MCP server: start it in the scratch copy for the length of
+    the exercise. Returns (process, env for the exercise)."""
+    import secrets, socket
+    if e.get("service") == "api":
+        env = dict(env, AGENT_API_URL="http://127.0.0.1:8080")
+        if not env.get("AGENT_API_KEYS"):
+            env["AGENT_API_KEYS"] = secrets.token_urlsafe(24)
+        cmd, port = [sys.executable, "-m", "uvicorn", "ch30_service:app", "--host",
+                     "127.0.0.1", "--port", "8080"], 8080
+    elif e.get("service") == "mcp":
+        env = dict(env, MCP_HOST="127.0.0.1", MCP_PORT="8000")
+        for var in ("MCP_TOKEN", "MCP_READONLY_TOKEN"):
+            if not env.get(var):
+                env[var] = secrets.token_urlsafe(24)
+        # the learner's config points at the agentic-ai-mcp container; use the local server
+        config = json.loads((SOLUTIONS / "exercises" / "servers_remote.json").read_text())
+        for spec in config["servers"].values():
+            if "url" in spec:
+                spec["url"] = "http://localhost:8000/mcp"
+        (Path(cwd) / "servers_remote.json").write_text(json.dumps(config, indent=2))
+        cmd, port = [sys.executable, "ch30_remote_mcp.py"], 8000
+    else:
+        return None, env
+    proc = subprocess.Popen(cmd, cwd=cwd, env=env,
+                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    for _ in range(60):                                   # wait for the port to open
+        try:
+            socket.create_connection(("127.0.0.1", port), timeout=0.5).close()
+            break
+        except OSError:
+            time.sleep(0.5)
+    return proc, env
+
+def cmd_run_chapter(args):
+    """run-chapter <chapter|exercise id|all> [--model local|claude] [--free-only] [--yes]"""
+    import tempfile
+    free_only, yes = "--free-only" in args, "--yes" in args or "-y" in args
+    words = [a for i, a in enumerate(args) if not a.startswith("-")
+             and not (i and args[i - 1] == "--model")]
+    usage = ("Usage: ./course.sh run-chapter <chapter|exercise id|all> [--model local|claude] "
+             "[--free-only] [--yes]     e.g.  run-chapter 7   run-chapter P   run-chapter 3.7   "
+             "run-chapter all")
+    if not words:
+        fail(usage)
+        return 2
+    model = _run_model(args)
+    if model is None:
+        fail("--model (or RUN_MODEL) must be 'local' (the free qwen3.5:9b) or 'claude'.")
+        return 2
+    keys = _chapter_keys()
+    ids = {e["id"].upper(): e["id"] for e in EXERCISES}
+    only = {ids[w.upper()] for w in words if w.upper() in ids}   # single exercises: 3.7, 24.6
+    if any(w.lower() == "all" for w in words):
+        chosen = keys
+    else:
+        chosen = []
+        for w in words:
+            k = w.upper().split(".")[0] if w.upper() in ids else _chapter_key(w)
+            group = [c for c in keys if c.startswith("C")] if k == "CAPSTONES" else [k]
+            if k != "CAPSTONES" and k not in keys:
+                fail(f"No chapter '{w}'. Chapters: {' '.join(keys)} (or: all, capstones)")
+                return 2
+            chosen += [c for c in group if c not in chosen]
+    # The model switch: PROVIDER decides where every program sends its requests
+    # (main() already set it from --model/RUN_MODEL; apply_provider() did the rest).
+    local = model == "local"
+    os.environ["PROVIDER"] = model
+    if local and os.environ.get("ANTHROPIC_BASE_URL") != ADAPTER_URL:
+        apply_provider()                   # main() normally did this already
+    model_name = os.environ.get("MODEL", "claude-sonnet-5")
+    label = f"{model_name} (local, through Ollama)" if local else f"{model_name} (Claude API)"
+    plan = []                                              # (chapter, exercise or capstone)
+    for k in chosen:
+        whole = not only or any(_chapter_key(w) == k for w in words if w.upper() not in ids)
+        plan += [(k, e) for e in _chapter_exercises(k) if whole or e["id"] in only] \
+            if not k.startswith("C") \
+            else [(k, {"id": k, "kind": "capstone", "model": "any",
+                       "title": f"Capstone {k[1:]} ({CAPSTONES[k[1:]][0]})",
+                       "chapter": f"Capstone {k[1:]}"})]
+    uses_model = [e for _, e in plan if e.get("model", "any") != "none"
+                  and e["kind"] != "concept" and not _skip_reason(e, local, free_only)]
+    key = os.environ.get("ANTHROPIC_API_KEY", "")
+    if uses_model and not local and (not key.startswith("sk-") or "your-key-here" in key
+                                     or key == "sk-local-ollama"):
+        fail("--model claude needs ANTHROPIC_API_KEY in the .env file next to course.sh. "
+             "Leave out --model to use the free local model, or add --free-only.")
+        return 1
+    if uses_model and local and not _local_model_ready():
+        fail("The local model isn't running. Start it first (the first time downloads it):")
+        say("    ./course.sh local up        (Windows: .\\course.cmd local up)")
+        say("Or run only the exercises that need no model:  run-chapter ... --free-only")
+        return 1
+    head(f"Chapter runner: {len(plan)} exercises in {len(chosen)} chapter(s)"
+         + ("" if free_only else f", {len(uses_model)} of them use {label}"))
+    if free_only:
+        say("--free-only: only exercises that need no model run; the others are skipped.")
+    elif uses_model:
+        say("Free, but slow on a CPU: allow several hours for everything." if local else
+            "This uses your API key: roughly $5-15 for every chapter.")
+        say("Your own files are not used or changed.")
+        try:
+            if not yes and input("Continue? [y/N] ").strip().lower() != "y":
+                return 0
+        except EOFError:                        # no keyboard (e.g. a script): add --yes
+            fail("No answer to 'Continue?'. Add --yes to run without asking.")
+            return 1
+    out_root = _outputs_dir()
+    answers = SOLUTIONS / "ANSWERS.md"
+    answers = answers.read_text() if answers.exists() else ""
+    limit = 1800 if local else 600                  # a local model on a CPU is much slower
+    totals = {"passed": 0, "failed": 0, "skipped": 0}
+    with tempfile.TemporaryDirectory(prefix="run-chapter-") as tmp:
+        tmp = Path(tmp)
+        shutil.copytree(WS, tmp, dirs_exist_ok=True,
+                        ignore=shutil.ignore_patterns(".sandbox", "__pycache__", "*.bak",
+                                                      "exercises", "live_*report.md", ".git",
+                                                      "outputs"))
+        copy_pristine(tmp)                                 # the book's code, not your edits
+        env = dict(os.environ, PYTHONUNBUFFERED="1", COURSE_WORKSPACE=str(tmp),
+                   PYTHONDONTWRITEBYTECODE="1", COURSE_CODE=str(PRISTINE),
+                   COURSE_DATA=str(COURSE / "data"),
+                   COURSE_EXERCISES=str(COURSE / "exercises.json"),
+                   PYTHONPATH=f"{tmp}:{SOLUTIONS / 'exercises'}:{SOLUTIONS / 'capstones'}")
+        for k in chosen:
+            folder = out_root / _chapter_dir(k)
+            folder.mkdir(parents=True, exist_ok=True)
+            items = [e for c, e in plan if c == k]
+            head(f"\n{items[0]['chapter']}  ->  {_outputs_label(out_root)}/{folder.name}/")
+            entries = []
+            for e in items:
+                need = e.get("model", "any")
+                ex_model = "none (no model needed)" if need == "none" else label
+                entry = {"id": e["id"], "title": e["title"], "kind": e["kind"],
+                         "status": "skipped", "reason": None, "seconds": 0, "log": None,
+                         "model": "none" if need == "none" or e["kind"] == "concept" else label}
+                log = folder / f"{e['id']}.log"
+                if e["kind"] == "concept":                   # a written answer: nothing to run
+                    text = _answer_for(e["id"], answers)
+                    entry["reason"] = ("concept exercise: written answer copied from ANSWERS.md"
+                                       if text else
+                                       "concept exercise: written answer, see ANSWERS.md")
+                    if text:
+                        _write_log(log, e["id"], e["title"], "(none: a written answer)",
+                                   "none", 0, 0, text)
+                        entry["log"] = f"{folder.name}/{log.name}"
+                    say(_c("2", f"-  {e['id']:<5} written answer"))
+                    entries.append(entry)
+                    continue
+                why = _skip_reason(e, local, free_only)
+                cmd = None
+                if not why and e["kind"] == "capstone":
+                    cmd = f"{sys.executable} {Path(__file__).resolve()} capstone {k[1:]}"
+                elif not why:
+                    cmd, why = _chapter_command(e)
+                if not cmd:
+                    entry["reason"] = why
+                    say(_c("2", f"-  {e['id']:<5} skipped: {why}"))
+                    entries.append(entry)
+                    continue
+                t = time.time()
+                service = None
+                try:
+                    service, run_env = _start_service(e, tmp, env)
+                    out, code = _run_logged(cmd, tmp, run_env,
+                                            limit if need != "none" else 600,
+                                            setup=e.get("setup"))
+                except Exception as exc:                 # never lose the whole run to one
+                    out, code = f"{type(exc).__name__}: {exc}", -1
+                finally:
+                    if service:
+                        service.terminate()
+                        service.wait(timeout=10)
+                secs = time.time() - t
+                passed = code == 0 and "Traceback (most recent call last)" not in out
+                shown = f"course capstone {k[1:]}" if e["kind"] == "capstone" else cmd
+                _write_log(log, e["id"], e["title"], shown, ex_model, code, secs, out)
+                if passed and "first, then run this again" in out:   # the learner's own file
+                    entry.update(reason="needs a file you create yourself: " + out.strip(),
+                                 log=f"{folder.name}/{log.name}")
+                    say(_c("2", f"-  {e['id']:<5} skipped: needs your own file (see its log)"))
+                    entries.append(entry)
+                    continue
+                entry.update(status="passed" if passed else "failed", seconds=round(secs, 1),
+                             log=f"{folder.name}/{log.name}",
+                             reason=None if passed else
+                             (f"exit code {code}" if code else "printed a Traceback"))
+                (ok if passed else fail)(f"{e['id']:<5} {e['title'][:44]:<44} {secs:5.0f} s")
+                entries.append(entry)
+            for x in entries:
+                totals[x["status"]] += 1
+            chapter_model = "none (--free-only)" if free_only else label
+            summary = folder / "summary.json"
+            if len(items) < len(_chapter_exercises(k)) and not k.startswith("C") \
+                    and summary.exists():        # only some exercises ran: merge them in
+                old = json.loads(summary.read_text())
+                new = {x["id"]: x for x in entries}
+                needs = {e["id"]: e.get("model", "any") for e in _chapter_exercises(k)}
+                for x in old["exercises"]:        # entries written before per-exercise models
+                    x.setdefault("model", "none" if x["kind"] == "concept"
+                                 or needs.get(x["id"]) == "none" else old["model"])
+                entries = [new.pop(x["id"], x) for x in old["exercises"]] + list(new.values())
+                models = {x["model"] for x in entries if x["model"] != "none"}
+                chapter_model = models.pop() if len(models) == 1 else "mixed: see each exercise"
+            summary.write_text(json.dumps({
+                "chapter": k, "title": items[0]["chapter"], "model": chapter_model,
+                "date": time.strftime("%Y-%m-%d %H:%M"), "exercises": entries}, indent=1) + "\n")
+            _refresh_outputs_index(out_root)
+    say(f"\n{totals['passed']} passed, {totals['failed']} failed, {totals['skipped']} skipped "
+        f"(including written answers). Logs: {_outputs_label(out_root)}/  (index: README.md)")
+    return 1 if totals["failed"] else 0
 
 # ---------------------------------------------------------------- free local model
 def cmd_local_adapter(args):
@@ -998,11 +1464,11 @@ def cmd_local_status(args):
     return 0
 
 # ---------------------------------------------------------------- help
-HELP = """Building Agentic AI: course commands (run them from the kit folder on your computer)
+HELP = """Building Agentic AI Systems: course commands (run them from the kit folder on your computer)
 
   ./course.sh setup                  first-time setup: Docker check, .env, your API key
   ./course.sh list [chapter]         list exercises, e.g.  list 4  or  list P
-  ./course.sh ex <id>                show and run an exercise, e.g.  ex 4.3  or  ex T.2
+  ./course.sh ex <id>                show and run an exercise, e.g.  ex 4.2  or  ex T.2
   ./course.sh ex <id> --info         just show the exercise
   ./course.sh ask <module> ["q"]     chat with a chapter's tools, e.g.  ask ch08_sql_tools
   ./course.sh python <file.py> ...   run any course file, e.g.  python ch04_agent.py
@@ -1013,14 +1479,20 @@ HELP = """Building Agentic AI: course commands (run them from the kit folder on 
   ./course.sh live-check [part]      run every chapter's main file against the real model
   ./course.sh live-check exercises [chapter]   run every exercise that uses a model, with its
                                      reference solution, against your model (Claude or local)
+  ./course.sh run-chapter <ch|all> [--model local|claude] [--free-only] [--yes]
+                                     run a chapter's exercises (reference solutions) and keep
+                                     each one's output in solutions/outputs/chNN/<id>.log. Uses
+                                     the free local model unless --model claude (or
+                                     RUN_MODEL=claude); --free-only runs just the no-model ones
   ./course.sh data <kind> [...]      regenerate sample data: notes, library, messy, repo, db
   ./course.sh reset <file>           restore an original course file (yours is kept as .bak)
 
   ./course.sh inspector <server.py>  MCP Inspector web UI on http://localhost:6274
   ./course.sh serve <server.py>      run an MCP server over HTTP on http://localhost:8000/mcp
   ./course.sh desktop-config [srv]   print the Claude Desktop config for a server
-  ./course.sh serve-api              the chapter 19 agent API on http://localhost:8080
-  ./course.sh serve-mcp              the chapter 19 remote MCP server (token-protected)
+  ./course.sh serve-api              the chapter 30 agent API on http://localhost:8080
+  ./course.sh serve-mcp              the chapter 30 remote MCP server (token-protected)
+  ./course.sh serve-a2a              the chapter 21 A2A analyst agent on http://localhost:9999
   ./course.sh sandbox up|down        start/stop the network-less test sandbox (chapter 10)
   ./course.sh build                  (re)build the Docker image
 
@@ -1030,8 +1502,8 @@ HELP = """Building Agentic AI: course commands (run them from the kit folder on 
   ./course.sh local down             stop it and free the memory
 
   Solutions (try the exercise first!):
-  ./course.sh solution <id>          show the solution for an exercise, e.g.  solution 4.5
-  ./course.sh capstone <1-6>         run a reference capstone (needs your API key)
+  ./course.sh solution <id>          show the solution for an exercise, e.g.  solution 4.4
+  ./course.sh capstone <1-6>         run a reference capstone
   ./course.sh check-solutions        run every solution and capstone offline (no API key)
 
 Your files live in the 'workspace' folder next to course.sh. Edit them with any editor.
@@ -1040,12 +1512,12 @@ Your files live in the 'workspace' folder next to course.sh. Edit them with any 
 COMMANDS = {
     "list": cmd_list, "ex": cmd_ex, "exercise": cmd_ex, "ask": cmd_ask,
     "inspector": cmd_inspector, "serve": cmd_serve, "serve-api": cmd_serve_api,
-    "serve-mcp": cmd_serve_mcp, "desktop-config": cmd_desktop_config,
+    "serve-mcp": cmd_serve_mcp, "serve-a2a": cmd_serve_a2a, "desktop-config": cmd_desktop_config,
     "data": cmd_data, "reset": cmd_reset, "check": cmd_check, "selftest": cmd_selftest,
     "sandbox-worker": cmd_sandbox_worker, "solution": cmd_solution,
     "check-solutions": cmd_verify_solutions, "live-check": cmd_live_check, "capstone": cmd_capstone, "verify-solutions": cmd_verify_solutions,
     "local-adapter": lambda a: cmd_local_adapter(a), "local-pull": lambda a: cmd_local_pull(a),
-    "local-status": lambda a: cmd_local_status(a),
+    "local-status": lambda a: cmd_local_status(a), "run-chapter": cmd_run_chapter,
 }
 
 def main(argv):
@@ -1056,11 +1528,16 @@ def main(argv):
     if cmd == "init":
         init(force="--force" in args, quiet=False)
         return 0
+    if cmd == "run-chapter" and _run_model(args):   # its own model switch, before apply_provider
+        os.environ["PROVIDER"] = _run_model(args)      # (default: the free local model)
     if cmd not in ("sandbox-worker", "selftest", "verify-solutions", "check-solutions", "solution",
                    "local-adapter", "local-pull", "local-status"):
         init()
         apply_provider()
     if cmd in COMMANDS:
+        if cmd in ("run-chapter", "live-check", "solution", "capstone",
+                   "check-solutions", "verify-solutions"):
+            flatten_solutions()
         return COMMANDS[cmd](args) or 0
     if cmd == "shell":
         os.execvpe("bash", ["bash"], env_for_runs())

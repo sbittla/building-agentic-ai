@@ -1,0 +1,8 @@
+# Exercise: 19.2  Idempotent or not?
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-27 22:20:06 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**19.2 Idempotent or not?** (a) Idempotent: setting a value twice leaves the same state. (b) Not: a second call adds a second note. Pass a key and store notes with a unique key. (c) Not: a second SMS reaches the phone. Send through a service that accepts an idempotency key, or record the key before sending and escalate when the outcome is unknown. (d) Not: the classic case. Payment and banking APIs accept an idempotency key; always pass one derived from the job and step. (e) Not by default: make the email unique, and treat "already exists" for the same key as success. (f) Not: replace it with `set_counter(name, value)` computed from source data, or record processed event ids and skip repeats.

@@ -1,0 +1,53 @@
+{
+ "chapter": "4",
+ "title": "Chapter 4: The Agent Loop",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-27 19:52",
+ "exercises": [
+  {
+   "id": "4.1",
+   "title": "Draw the loop",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch04/4.1.log"
+  },
+  {
+   "id": "4.2",
+   "title": "Run the loop",
+   "kind": "run",
+   "status": "passed",
+   "reason": null,
+   "seconds": 15.0,
+   "log": "ch04/4.2.log"
+  },
+  {
+   "id": "4.3",
+   "title": "Trigger the cap",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 9.4,
+   "log": "ch04/4.3.log"
+  },
+  {
+   "id": "4.4",
+   "title": "A better tracer",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 10.9,
+   "log": "ch04/4.4.log"
+  },
+  {
+   "id": "4.5",
+   "title": "Cost profile",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 352.2,
+   "log": "ch04/4.5.log"
+  }
+ ]
+}

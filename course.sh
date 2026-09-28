@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Building Agentic AI: run any course command inside Docker.
+# Building Agentic AI Systems: run any course command inside Docker.
 # Usage: ./course.sh help
 set -euo pipefail
 cd "$(dirname "$0")"
@@ -15,7 +15,7 @@ secret() { LC_ALL=C tr -dc 'A-Za-z0-9' </dev/urandom | head -c 32; }
 env_has() { grep -Eq "^$1=.+" .env 2>/dev/null; }
 
 setup() {
-  echo "== Building Agentic AI: setup =="
+  echo "== Building Agentic AI Systems: setup =="
   if ! command -v docker >/dev/null 2>&1; then
     echo "1. Docker: NOT INSTALLED. Install Docker Desktop (macOS/Windows) or Docker Engine"
     echo "   with the Compose plugin (Linux): https://docs.docker.com/get-docker/"
@@ -59,10 +59,10 @@ setup() {
       esac
     fi
   fi
-  for name in AGENT_API_KEYS MCP_TOKEN MCP_READONLY_TOKEN; do       # chapter 19 secrets
+  for name in AGENT_API_KEYS MCP_TOKEN MCP_READONLY_TOKEN; do       # chapter 30 secrets
     if ! env_has "$name"; then printf '%s=%s\n' "$name" "$(secret)" >> .env; fi
   done
-  echo "4. Chapter 19 keys: set (random, in .env)"
+  echo "4. Chapter 30 keys: set (random, in .env)"
   chmod 600 .env 2>/dev/null || true
   echo; echo "Next:  ./course.sh build   then   ./course.sh selftest   then   ./course.sh check --api"
   if grep -q '^PROVIDER=local' .env; then
@@ -122,6 +122,9 @@ case "$cmd" in
     exec docker compose run --rm -p 127.0.0.1:8080:8080 --name agentic-ai-api course "$@" ;;
   serve-mcp)
     exec docker compose run --rm -p 127.0.0.1:8000:8000 --name agentic-ai-mcp course "$@" ;;
+  serve-a2a)    # the chapter 13 A2A agent; other containers reach it as agentic-ai-a2a:9999
+    exec docker compose run --rm -p 127.0.0.1:9999:9999 --name agentic-ai-a2a \
+      -e A2A_PUBLIC_URL=http://agentic-ai-a2a:9999 course "$@" ;;
   ex|exercise)
     if [[ "${2:-}" == 12.* ]]; then
       exec docker compose run --rm --service-ports course "$@"

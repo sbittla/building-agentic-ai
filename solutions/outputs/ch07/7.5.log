@@ -1,0 +1,10 @@
+# Exercise: 7.5  Run tools in parallel
+# Command:  python /tmp/solutions-flat/exercises/ex7_5_parallel.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-28 00:07:24 UTC
+# Exit code: 0
+# Seconds:  110.3
+#-------------------------------------------------------------------------------
+sequential tool time 4.87s  (6 calls)
+parallel   tool time 1.87s  (6 calls)
+parallel tools were 2.6x faster

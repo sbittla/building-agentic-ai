@@ -1,0 +1,8 @@
+# Exercise: 14.2  Server review
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-28 00:15:35 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**14.2 Server review.** Grade on the six questions: publisher, permissions needed, source readable, version pinned, can it be narrowed, which secrets it receives. A good answer ends in a clear yes or no. For example: "No: it asks for a full-access token, and there's no read-only mode."

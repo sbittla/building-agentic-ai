@@ -1,0 +1,22 @@
+# Exercise: 9.3  Dry run
+# Command:  python ch09_organizer.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 21:21:38 UTC
+# Exit code: 0
+# Seconds:  16.8
+#-------------------------------------------------------------------------------
+$ course data messy --count 15
+messy: wrote 15 files to messy/
+$ python ch09_organizer.py
+[step 1] list_files({}) -> 'file_000.md\nfile_001.pdf\nfile_002.xlsx\nfile_003.jpg\nfile_004.png\nfile_005.zip\nfi'  (1 ms)
+[step 2] propose_moves({}) -> "plan-1: 15 moves\n  'file_000.md' -> 'documents/file_000.md'\n  'file_001.pdf' -> "  (0 ms)
+I've created an organizational plan to tidy up your folder by grouping files into categories based on their types:
+
+**Proposed Organization:**
+- **documents/** - Markdown and Word documents (.md, .docx)
+- **spreadsheets/** - Excel spreadsheets (.xlsx)
+- **images/** - Image files (.jpg, .png)
+- **archives/** - Archive/compressed files (.zip)
+- **other/** - Other file types (.xyz)
+
+This plan will organize your 15 files into 5 logical categories, making it much easier to find and manage your files. Would you like me to proceed with this organization?

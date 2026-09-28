@@ -1,0 +1,71 @@
+{
+ "chapter": "11",
+ "title": "Chapter 11: Multi-Agent Systems",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-27 21:50",
+ "exercises": [
+  {
+   "id": "11.1",
+   "title": "One agent or many?",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch11/11.1.log"
+  },
+  {
+   "id": "11.2",
+   "title": "Design the subtasks",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch11/11.2.log"
+  },
+  {
+   "id": "11.3",
+   "title": "Run the team",
+   "kind": "run",
+   "status": "passed",
+   "reason": null,
+   "seconds": 103.6,
+   "log": "ch11/11.3.log"
+  },
+  {
+   "id": "11.4",
+   "title": "Better delegation",
+   "kind": "run",
+   "status": "passed",
+   "reason": null,
+   "seconds": 108.2,
+   "log": "ch11/11.4.log"
+  },
+  {
+   "id": "11.5",
+   "title": "A critic agent",
+   "kind": "run",
+   "status": "passed",
+   "reason": null,
+   "seconds": 143.3,
+   "log": "ch11/11.5.log"
+  },
+  {
+   "id": "11.6",
+   "title": "Is it worth it?",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 1088.7,
+   "log": "ch11/11.6.log"
+  },
+  {
+   "id": "11.7",
+   "title": "Pick the pattern",
+   "kind": "run",
+   "status": "passed",
+   "reason": null,
+   "seconds": 88.7,
+   "log": "ch11/11.7.log"
+  }
+ ]
+}

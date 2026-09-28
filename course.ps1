@@ -1,4 +1,4 @@
-# Building Agentic AI: run any course command inside Docker (Windows PowerShell).
+# Building Agentic AI Systems: run any course command inside Docker (Windows PowerShell).
 # Usage:  .\course.cmd help      (or:  powershell -ExecutionPolicy Bypass -File course.ps1 help)
 $ErrorActionPreference = "Continue"
 Set-Location -Path $PSScriptRoot
@@ -18,7 +18,7 @@ function Save-Env($lines) {       # plain UTF-8 without a BOM: Docker Compose ca
 }
 
 if ($cmd -eq "setup") {
-    Write-Host "== Building Agentic AI: setup =="
+    Write-Host "== Building Agentic AI Systems: setup =="
     if (-not (Get-Command docker -ErrorAction SilentlyContinue)) {
         Write-Host "1. Docker: NOT INSTALLED. Install Docker Desktop: https://docs.docker.com/desktop/setup/install/windows-install/"
         Write-Host "   It needs WSL 2 and hardware virtualization, and admin rights to install."
@@ -131,6 +131,7 @@ switch ($cmd) {
     "serve"     { docker compose run --rm --service-ports course @all }
     "serve-api" { docker compose run --rm -p 127.0.0.1:8080:8080 --name agentic-ai-api course @all }
     "serve-mcp" { docker compose run --rm -p 127.0.0.1:8000:8000 --name agentic-ai-mcp course @all }
+    "serve-a2a" { docker compose run --rm -p 127.0.0.1:9999:9999 --name agentic-ai-a2a -e A2A_PUBLIC_URL=http://agentic-ai-a2a:9999 course @all }
     { $_ -in "ex", "exercise" } {
         if ($rest.Count -gt 0 -and "$($rest[0])".StartsWith("12.")) {
             docker compose run --rm --service-ports course @all

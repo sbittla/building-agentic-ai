@@ -1,0 +1,20 @@
+# Exercise: 11.4  Better delegation
+# Command:  python ch11_research_team.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 21:28:13 UTC
+# Exit code: 0
+# Seconds:  108.2
+#-------------------------------------------------------------------------------
+PLAN: [
+  "Analyze the costs of agentic search versus RAG specifically for internal documentation retrieval",
+  "Evaluate how freshness (timeliness of data updates) is handled in agentic search compared to standard RAG pipelines",
+  "Compare accuracy on exact entity matching (error codes) between agentic search and vector-based RAG approaches"
+]
+
+[106.1s, {'input_tokens': 6292, 'output_tokens': 1624, 'calls': 11}]
+Agentic search incurs higher per-query costs due to sequential model steps for file exploration but eliminates upfront indexing expenses and ensures maximum freshness by reading the current file state without re-indexing, whereas RAG requires initial embedding/compute costs for maintenance and risks staleness if indexes are not updated. Regarding accuracy on exact error codes (e.g., `ERR-4471`), agentic search using regex reliably retrieves precise identifiers, while vector-based RAG often fails by retrieving semantically similar but incorrect codes (e.g., `ERR-4417`) because embeddings treat such strings as nearly identical. Additionally, RAG accuracy is further compromised when error codes span chunk boundaries, whereas agentic search avoids this specific retrieval limitation.
+
+**Citations:**
+*   **Costs:** Agentic search costs grow with model steps [agentic-search.md:line 2]; RAG has upfront indexing costs [rag-overview.md:line 2].
+*   **Freshness:** Internal docs with agentic search avoid re-indexing overhead [agentic-search.md:line 1]; RAG indexes go stale requiring maintenance [freshness.md:lines 1-2; rag-overview.md:line 3]. Agentic search ensures fresh results via on-demand reading [agentic-search.md:1; freshness.md:2].
+*   **Accuracy:** Exact matches work well with agentic (regex) search [agentic-search.md:2]; embeddings treat similar codes as identical causing errors [error-codes.md:2]; stale indexes in RAG reduce accuracy while fresh agent reads do not [freshness.md:2]; chunking issues affect RAG even with exact lookup attempts [rag-overview.md:2].

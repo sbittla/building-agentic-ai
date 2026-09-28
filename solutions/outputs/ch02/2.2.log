@@ -1,0 +1,8 @@
+# Exercise: 2.2  Attack the tool
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-27 19:41:09 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**2.2 Attack the tool.** Against `eval`: `__import__('os').system('rm -rf ~')`, `open('/etc/passwd').read()` and `().__class__.__bases__[0].__subclasses__()`. The safe `calculate` blocks all three with the final `raise ValueError`, because `Call`, `Attribute` and `Name` nodes aren't allowed. What still causes trouble is `10 ** 10 ** 10`: it's pure arithmetic, but it runs for a very long time and uses huge amounts of memory. Fix it by capping exponent size (the solution uses a limit of 1,000) or by running with a timeout.

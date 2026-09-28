@@ -1,0 +1,12 @@
+# Exercise: 13.4  Resources at start-up
+# Command:  python ch13_mcp_agent.py servers.json
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-28 00:14:55 UTC
+# Exit code: 0
+# Seconds:  6.0
+#-------------------------------------------------------------------------------
+Tools: ['todo__add_task', 'todo__list_tasks', 'todo__find_tasks', 'todo__complete_task', 'todo__today', 'shopdb__get_schema', 'shopdb__run_query']
+
+You: Agent: How can I assist you?
+
+You:

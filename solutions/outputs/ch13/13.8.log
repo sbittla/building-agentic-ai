@@ -1,0 +1,19 @@
+# Exercise: 13.8  A coordinator with an analyst
+# Command:  python /tmp/solutions-flat/exercises/ex13_8_coordinator.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-28 00:15:35 UTC
+# Exit code: 0
+# Seconds:  23.4
+#-------------------------------------------------------------------------------
+Coordinator tools: ['todo__add_task', 'todo__list_tasks', 'todo__find_tasks', 'todo__complete_task', 'todo__today', 'analyst__ask_sql_analyst']
+[step 1] analyst__ask_sql_analyst({"question": "What are the top three customers by total revenue?"}) -> 'Error executing tool ask_sql_analyst'
+[step 2] analyst__ask_sql_analyst({"question": "What are the top three customers by total revenue?"}) -> 'Error executing tool ask_sql_analyst'
+[step 3] todo__list_tasks({}) -> '#1 [ ] Read chapter 13 (due -, high)'
+
+Tool calls: ['analyst__ask_sql_analyst', 'analyst__ask_sql_analyst', 'todo__list_tasks']
+I apologize for the error with the analyst tool. Let me help you with what I can do. 
+
+Since I couldn't get the revenue data from the analyst, could you please provide me with:
+1. The names or IDs of your top three customers by revenue?
+
+Once you share that information, I'll immediately add to-dos for sending each of them a thank-you note!

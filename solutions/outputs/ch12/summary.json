@@ -1,0 +1,71 @@
+{
+ "chapter": "12",
+ "title": "Chapter 12: MCP Fundamentals and Your First Server",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-27 21:50",
+ "exercises": [
+  {
+   "id": "12.1",
+   "title": "Map the architecture",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch12/12.1.log"
+  },
+  {
+   "id": "12.2",
+   "title": "Tool, resource or prompt?",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch12/12.2.log"
+  },
+  {
+   "id": "12.3",
+   "title": "Run it in Inspector",
+   "kind": "inspector",
+   "status": "skipped",
+   "reason": "needs a person: MCP Inspector in a browser",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "12.4",
+   "title": "Where does print() go?",
+   "kind": "inspector",
+   "status": "skipped",
+   "reason": "needs a person: MCP Inspector in a browser",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "12.5",
+   "title": "Claude Desktop",
+   "kind": "desktop",
+   "status": "skipped",
+   "reason": "needs a person: the Claude Desktop app",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "12.6",
+   "title": "A server of your own",
+   "kind": "inspector",
+   "status": "skipped",
+   "reason": "needs a person: MCP Inspector in a browser",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "12.7",
+   "title": "HTTP and tests",
+   "kind": "test",
+   "status": "passed",
+   "reason": null,
+   "seconds": 13.1,
+   "log": "ch12/12.7.log"
+  }
+ ]
+}

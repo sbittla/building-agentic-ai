@@ -1,0 +1,8 @@
+# Exercise: 21.2  Write the contracts
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-27 22:24:59 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**21.2 Write the contracts.** Result schema: an object with `prices`, an array of at most 15 objects, each requiring `product` (string, one of the five), `competitor` (string, one of the three), `price` (number, minimum 0), `currency` (string, 3 letters), `source` (string, a URL) and `seen_on` (string, format date), with `additionalProperties: false`; plus `notes` (string, at most 500 characters). Brief template: "Objective: find the current price of {products} at {competitors}. Out of scope: shipping costs, bundles, prices older than 30 days. Answer: one entry per product and competitor that you found, with the page's URL and the date you saw the price; leave out what you couldn't find and say so in notes."

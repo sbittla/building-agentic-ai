@@ -1,0 +1,8 @@
+# Exercise: 26.2  Design the token
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-27 23:16:03 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**26.2 Design the token.** `sub: agent:travel-agent`, `act_for: user:<employee>`, `aud: booking-api`, `scope: flights:search flights:book hotels:search hotels:book`, `limits: {max_amount: 2500, currency: "USD", dates: ["2026-10-12", "2026-10-15"], destinations: ["LIS"], single_trip: true}`, `exp`: 30 minutes, `jti` and `chain` (derived from the employee's session token). A stolen copy lets an attacker book, for this employee, one trip to Lisbon on those dates within $2,500, for the next 30 minutes, and every booking is logged with the token id: annoying, cancellable and traceable, rather than open-ended.

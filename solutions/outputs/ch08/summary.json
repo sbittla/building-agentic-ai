@@ -1,0 +1,71 @@
+{
+ "chapter": "8",
+ "title": "Chapter 8: Self-Correction: A Text-to-SQL Agent",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-27 21:21",
+ "exercises": [
+  {
+   "id": "8.1",
+   "title": "Why not just the prompt?",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch08/8.1.log"
+  },
+  {
+   "id": "8.2",
+   "title": "Define the terms",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch08/8.2.log"
+  },
+  {
+   "id": "8.3",
+   "title": "Top customers",
+   "kind": "run",
+   "status": "passed",
+   "reason": null,
+   "seconds": 35.0,
+   "log": "ch08/8.3.log"
+  },
+  {
+   "id": "8.4",
+   "title": "Watch it self-correct",
+   "kind": "ask",
+   "status": "skipped",
+   "reason": "an ask exercise: nothing to run against a model",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "8.5",
+   "title": "Retry budget and log",
+   "kind": "ask",
+   "status": "skipped",
+   "reason": "an ask exercise: nothing to run against a model",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "8.6",
+   "title": "Confirm the tables",
+   "kind": "ask",
+   "status": "skipped",
+   "reason": "an ask exercise: nothing to run against a model",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "8.7",
+   "title": "An evaluation harness",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 482.1,
+   "log": "ch08/8.7.log"
+  }
+ ]
+}

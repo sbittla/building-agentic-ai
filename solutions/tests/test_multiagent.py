@@ -1,5 +1,5 @@
-"""Chapter 11 patterns (router, handoff, evaluator-optimizer, voting), exercise 11.8, and an
-agent published as an MCP server (section 13.6, exercise 13.9). Offline."""
+"""Chapter 11 patterns (router, handoff, evaluator-optimizer, voting), exercise 11.7, and an
+agent published as an MCP server (section 13.6, exercise 13.8). Offline."""
 import asyncio
 import json
 import os
@@ -73,8 +73,8 @@ def test_vote_majority(model, ws):
     winner, all_ballots = p.vote("urgent?", ["low", "medium", "high"], n=3)
     assert winner == "high" and len(all_ballots) == 3
 
-def test_11_8_solution(model, ws):
-    import ex11_8_patterns as ex
+def test_11_7_solution(model, ws):
+    import ex11_7_patterns as ex
     model.reset(default=json_or_text())
     results = ex.main()
     assert set(results) == {"a router", "b evaluator-optimizer", "c voting", "d handoff"}
@@ -96,14 +96,14 @@ def test_agent_as_mcp_server(ws):
     names, out, is_error = asyncio.run(go())
     assert names == ["analyst__ask_sql_analyst"] and not is_error and "offline" in out
 
-def test_13_9_config_passes_only_named_secrets():
+def test_13_8_config_passes_only_named_secrets():
     cfg = json.loads((Path(__file__).parents[1] / "exercises" / "servers_with_analyst.json").read_text())
     analyst = cfg["servers"]["analyst"]
     assert analyst["args"] == ["ch13_agent_server.py"] and "ANTHROPIC_API_KEY" in analyst["pass_env"]
     assert "pass_env" not in cfg["servers"]["todo"]
 
-def test_13_9_coordinator(model, ws):
-    import ex13_9_coordinator as ex
+def test_13_8_coordinator(model, ws):
+    import ex13_8_coordinator as ex
     import ch13_mcp_agent as m
     model.reset([[tool("analyst__ask_sql_analyst", {"question": "Top 3 customers by revenue?"})],
                  [tool("todo__add_task", {"title": "Thank Customer 7"}),

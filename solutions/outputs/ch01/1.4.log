@@ -1,0 +1,22 @@
+# Exercise: 1.4  Make it fail
+# Command:  python ch01_where_llms_fail.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-28 00:48:28 UTC
+# Exit code: 0
+# Seconds:  16.9
+#-------------------------------------------------------------------------------
+Q: What is today's date? Answer with just the date.
+A: May 24, 2026
+
+Q: What is 48213 * 9771? Answer with just the number.
+A: 471094223
+
+Q: What is the Wi-Fi password written in my file home_notes.txt?
+A: I cannot access your local files, including `home_notes.txt`, as I do not have permission to read your device's storage or personal documents. Additionally, for your security and privacy, you should avoid sharing sensitive information like passwords with me or storing them in plain-text files on unsecured devices.
+
+To find the password yourself:
+1.  Open the file `home_notes.txt` using a text editor (like Notepad on Windows or TextEdit on Mac) or a document viewer.
+2.  Look for lines labeled "Wi-Fi," "Password," "Key," or similar keywords.
+3.  **Security Warning:** If you find the password there, consider moving your notes to a more secure password manager (like Bitwarden, KeePass, or 1Password) instead of keeping them in a plain-text file.
+
+Correct product: 471089223

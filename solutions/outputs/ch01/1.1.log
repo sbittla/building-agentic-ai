@@ -1,0 +1,17 @@
+# Exercise: 1.1  Single call, workflow or agent?
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-28 00:48:06 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**1.1 Single call, workflow or agent?**
+
+| Scenario | Answer | Why |
+| --- | --- | --- |
+| (a) Translate a product description | Single call | One prompt does the job |
+| (b) Nightly orders over $10,000, email a summary | Workflow | Fixed steps known in advance: query, filter, summarize, send |
+| (c) "Why did p95 latency double last Tuesday?" | Agent | What to check next depends on what each check finds |
+| (d) Invoice totals from 500 PDFs | Workflow (or batch of single calls) | Same extraction step repeated; no decisions |
+| (e) Customer questions needing lookups, refunds or a human | Agent | The path varies per question; needs tools and handoff |
+| (f) Write a haiku | Single call | No tools, no steps |

@@ -1,0 +1,10 @@
+# Exercise: 15.4  What does caching save?
+# Command:  python /tmp/solutions-flat/exercises/ex15_4_cache.py
+# Model:    none (no model needed)
+# Date:     2026-09-28 00:16:08 UTC
+# Exit code: 0
+# Seconds:  1.4
+#-------------------------------------------------------------------------------
+hint 5 min, cache on          1 of 10 requests reached the server
+hint 5 min, cache bypassed   10 of 10 requests reached the server
+hint 0 (don't cache)         10 of 10 requests reached the server

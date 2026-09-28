@@ -1,0 +1,53 @@
+{
+ "chapter": "14",
+ "title": "Chapter 14: Using Servers You Didn't Write",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-28 00:15",
+ "exercises": [
+  {
+   "id": "14.1",
+   "title": "Threat model",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch14/14.1.log"
+  },
+  {
+   "id": "14.2",
+   "title": "Server review",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch14/14.2.log"
+  },
+  {
+   "id": "14.3",
+   "title": "Read-only GitHub",
+   "kind": "run",
+   "status": "skipped",
+   "reason": "needs GITHUB_PERSONAL_ACCESS_TOKEN in .env",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "14.4",
+   "title": "Weekly engineering digest",
+   "kind": "run",
+   "status": "skipped",
+   "reason": "needs GITHUB_PERSONAL_ACCESS_TOKEN in .env",
+   "seconds": 0,
+   "log": null
+  },
+  {
+   "id": "14.5",
+   "title": "Mark untrusted content",
+   "kind": "run",
+   "status": "passed",
+   "reason": null,
+   "seconds": 12.1,
+   "log": "ch14/14.5.log"
+  }
+ ]
+}

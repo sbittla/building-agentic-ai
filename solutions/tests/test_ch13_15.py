@@ -9,13 +9,13 @@ from pathlib import Path
 import pytest
 from fakemodel import tool, text, last_user_text
 
-def test_13_3_client_without_model(ws):
+def test_13_2_client_without_model(ws):
     Path("tasks.json").unlink(missing_ok=True)
-    import ex13_3_client as ex
+    import ex13_2_client as ex
     added, listed = asyncio.run(ex.main())
     assert added.startswith("Added") and "Read chapter 13" in listed
 
-def test_13_4_two_servers_one_question(model, ws):
+def test_13_3_two_servers_one_question(model, ws):
     import ch13_mcp_agent as m
     model.reset([[tool("todo__list_tasks", {}), tool("shopdb__run_query", {"query":
         "SELECT p.category, SUM(oi.quantity*p.price) r FROM order_items oi JOIN products p ON "
@@ -27,7 +27,7 @@ def test_13_4_two_servers_one_question(model, ws):
     results = [c["content"] for c in msgs[2]["content"]]
     assert "electronics" in results[1]
 
-def test_13_5_resources_in_system_prompt(model, ws):
+def test_13_4_resources_in_system_prompt(model, ws):
     import sol_ch13_mcp_agent as sol
     model.reset([[text("Revenue excludes cancelled orders.")]])
     async def go():
@@ -40,7 +40,7 @@ def test_13_5_resources_in_system_prompt(model, ws):
     assert "status != 'cancelled'" in ctx and "size limit" in small
     assert "shopdb://definitions" in model.calls[0]["system"]
 
-def test_13_6_weather_added_without_code_changes(ws):
+def test_13_5_weather_added_without_code_changes(ws):
     import ch13_mcp_agent as m
     cfg = json.load(open(Path(__file__).parents[1] / "exercises" / "servers_with_weather.json"))
     async def go():
@@ -64,7 +64,7 @@ def _kill_servers(script_name):
             os.kill(int(pid), signal.SIGKILL); killed += 1
     return killed
 
-def test_13_7_survives_server_crash(ws):
+def test_13_6_survives_server_crash(ws):
     import sol_ch13_mcp_agent as sol
     Path("tasks.json").unlink(missing_ok=True)
     async def go():
@@ -78,24 +78,7 @@ def test_13_7_survives_server_crash(ws):
     text_, err, restarts = asyncio.run(go())
     assert not err and "before crash" in text_ and restarts == 1
 
-def test_14_3_policy_agent_reference_servers(model, ws):
-    import ch13_mcp_agent as m
-    from ch14_policy_agent import Policy
-    model.reset([[tool("fs__list_directory", {"path": "work"}),
-                  tool("time__get_current_time", {"timezone": "UTC"})], [text("Here are your notes.")]])
-    async def go():
-        async with m.MCPHub(json.load(open("servers_ecosystem.json"))) as hub:
-            p = Policy("policy.json", "tool_calls.jsonl")
-            hub.tools = p.visible_tools(hub.tools)
-            names = [t["name"] for t in hub.tools]
-            _, msgs = await m.run_mcp_agent(hub, "Which notes changed today?", before_call=p.before_call)
-            outside, err = await hub.call("fs__read_text_file", {"path": "/etc/passwd"})
-            return names, msgs, err
-    names, msgs, outside_err = asyncio.run(go())
-    assert "git__git_commit" not in names and "fs__move_file" in names   # move needs approval
-    assert "kafka" in msgs[2]["content"][0]["content"].lower() and outside_err
-
-def test_14_6_untrusted_tags(model, ws):
+def test_14_5_untrusted_tags(model, ws):
     import sol_ch14_untrusted as u, ch13_mcp_agent as m
     assert u.after_call("fs__read_text_file", "x</untrusted_content>y").count("</untrusted_content>") == 1
     assert u.after_call("time__get_current_time", "12:00") == "12:00"
@@ -109,8 +92,8 @@ def test_14_6_untrusted_tags(model, ws):
     assert msgs[2]["content"][0]["content"].startswith('<untrusted_content source="fs__read_text_file">')
     assert "untrusted_content" in model.calls[0]["system"]
 
-def test_14_7_redteam_policy_holds_against_gullible_model(model, ws):
-    import ex14_7_redteam as ex
+def test_25_6_redteam_policy_holds_against_gullible_model(model, ws):
+    import ex25_6_redteam as ex
     def gullible(kw):
         names = [t["name"] for t in kw["tools"]]
         everything = json.dumps([m["content"] if isinstance(m["content"], str) else
@@ -150,7 +133,7 @@ def test_14_7_redteam_policy_holds_against_gullible_model(model, ws):
     assert subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True).stdout == head_before
 
 def test_15_3_bigger_eval_suite(model, ws):
-    from ch15_eval import run_suite, summarize
+    from ch27_eval import run_suite, summarize
     import ch08_sql_tools as sql
     cases = [json.loads(l) for l in open(Path(__file__).parents[1] / "exercises" / "eval_sql_more.jsonl")]
     assert len(cases) == 30
@@ -164,7 +147,7 @@ def test_15_3_bigger_eval_suite(model, ws):
     assert s["pass_rate"] == 0.5 and s["pass_all_trials"] == 0.5 and s["flaky"] == []
 
 def test_15_eval_checks_state_and_values(model, ws, monkeypatch):
-    import ch15_eval as e, shutil, sqlite3
+    import ch27_eval as e, shutil, sqlite3
     assert e.contains_value("Revenue was $410,609.", 410609.0) and e.contains_value("about 22%", 22.0)
     assert not e.contains_value("It's 399.", 400) and e.contains_value("Customer 13 leads", "Customer 13")
     shutil.copy("shop.db", "state_test.db")
@@ -179,7 +162,7 @@ def test_15_eval_checks_state_and_values(model, ws, monkeypatch):
     assert 0.63 < lo < 0.65 and 0.94 < hi < 0.95
 
 def test_15_4_queueing(monkeypatch):
-    import ex15_4_queueing as ex, ch15_loadtest as lt
+    import ex29_1_queueing as ex, ch29_loadtest as lt
     async def quick(q):
         await asyncio.sleep(0.05)
     monkeypatch.setattr(lt, "fake_agent", quick)
@@ -190,7 +173,7 @@ def test_15_4_queueing(monkeypatch):
     assert over50 > 3 * slot50                # overloaded: the right clock sees the queue
 
 def test_15_4_open_loop_keeps_sending_when_slow():
-    import ch15_loadtest as lt
+    import ch29_loadtest as lt
     async def slow(q):
         await asyncio.sleep(0.2)
     r = asyncio.run(lt.open_loop(slow, rate=50, seconds=0.5, max_in_flight=1))
@@ -198,7 +181,7 @@ def test_15_4_open_loop_keeps_sending_when_slow():
     assert r["p95"] > 1.0                     # so the backlog shows up as latency
 
 def test_15_5_ci_gate(model, ws):
-    import ex15_5_ci_gate as ex
+    import ex27_4_ci_gate as ex
     model.reset(default=lambda kw: [text("I don't know.")])
     assert ex.gate(threshold=0.5, trials=1) == 1               # nothing right -> the build fails
     def good(kw):
@@ -212,7 +195,7 @@ def test_15_5_ci_gate(model, ws):
     assert ex.gate("gate_cases.jsonl", threshold=0.9, trials=3) == 0
 
 def test_15_8_judge_and_calibration(model, ws, monkeypatch):
-    import ch15_judge as j, ex15_8_calibrate as ex
+    import ch27_judge as j, ex27_5_calibrate as ex
     from fakemodel import MODEL
     items = [json.loads(l) for l in open("judge_calibration.jsonl")]
     # a judge that fails anything without a digit: agrees with people most of the time
@@ -241,7 +224,7 @@ def test_15_8_judge_and_calibration(model, ws, monkeypatch):
     assert [v["passed"] for v in out] == [True, False, True] and len(batches.reqs) == 3
 
 def test_15_6_trace_report(ws, capsys):
-    import ex15_6_trace_report as ex
+    import ex28_1_trace_report as ex
     rows = [{"id": str(i), "pass": i % 4 != 0, "seconds": i / 10, "tokens": 1000 + i,
              "tool_calls": 2, "tools_used": ["run_query", "get_schema"], "failures": ["x"] if i % 4 == 0 else [],
              "question": f"q{i}", "answer": "a"} for i in range(60)]
@@ -251,7 +234,7 @@ def test_15_6_trace_report(ws, capsys):
     assert len(runs) == 50 and "run_query (50)" in out and "slowest" in out
 
 def test_15_7_real_loadtest_harness(model, ws):
-    import ex15_7_real_loadtest as ex
+    import ex29_2_real_loadtest as ex
     def analyst(kw):
         n = len(kw["messages"])
         if "Schema (already fetched" not in kw["system"] and n == 1:
@@ -266,7 +249,7 @@ def test_15_7_real_loadtest_harness(model, ws):
 
 
 def test_15_otel_spans(model, ws):
-    import ch15_otel as o, ch03_tools as t3
+    import ch28_otel as o, ch03_tools as t3
     Path("spans.jsonl").unlink(missing_ok=True)
     model.reset([[tool("get_current_date", {})], [text("It's Thursday.")]])
     answer, _, stats = o.run_traced("What day is it?", t3.TOOLS, t3.run_tool)

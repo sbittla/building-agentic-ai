@@ -1,0 +1,10 @@
+# Exercise: 0.5  Summarize a forecast
+# Command:  python /tmp/solutions-flat/exercises/ex0_5_forecast.py
+# Model:    none (no model needed)
+# Date:     2026-09-28 00:47:59 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+{'city': 'Pune', 'hottest_day': '2026-10-03', 'hottest_c': 33, 'average_max_c': 31.0, 'rainy_days': ['2026-10-01', '2026-10-02']}
+ERROR: not valid JSON (Expecting value at position 0)
+ERROR: the forecast has no 'days' list

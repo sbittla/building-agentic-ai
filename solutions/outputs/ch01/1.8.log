@@ -1,0 +1,8 @@
+# Exercise: 1.8  Score it on the dimensions
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-27 19:40:48 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**1.8 Score it on the dimensions.** (a) Spam filter: 0 on almost everything; at most 1 on adaptation if it learns from user feedback. Turn-down: none needed, it isn't agentic. (b) Coding assistant: tool use 3, environment 3, feedback 3 (tests), autonomy 2, state 1-2, planning 1-2, persistence 0-1, delegation 0-1, adaptation 0-1. Turn down autonomy first (require approval before writes outside the task, or before running commands), because its damage comes from unreviewed actions. (c) Support agent: tool use 2-3, autonomy 2, state 2, delegation 1 (handoff to a person), feedback 1, environment 1, planning 1, persistence 1, adaptation 1 (memory). Turn down autonomy on money (refunds need approval) and adaptation (memory writes) first: both can hurt customers or be poisoned.

@@ -1,0 +1,9 @@
+# Exercise: 16.6  Fresh or stale?
+# Command:  python -m pytest -q -p no:cacheprovider --rootdir /tmp /tmp/solutions-flat/tests/test_ex16_6_fresh.py
+# Model:    none (no model needed)
+# Date:     2026-09-27 21:54:46 UTC
+# Exit code: 0
+# Seconds:  5.6
+#-------------------------------------------------------------------------------
+...                                                                      [100%]
+3 passed in 0.03s

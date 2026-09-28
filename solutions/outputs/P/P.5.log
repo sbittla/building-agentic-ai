@@ -1,0 +1,8 @@
+# Exercise: P.5  Find the bugs
+# Command:  python /tmp/solutions-flat/exercises/exP_5_bugs.py
+# Model:    none (no model needed)
+# Date:     2026-09-27 19:39:21 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+['a'] ['b'] [3, 4] ERROR: 'x' is not a number

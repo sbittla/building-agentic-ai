@@ -1,0 +1,15 @@
+# Exercise: 30.7  Ship it
+# Command:  python ch30_smoke_test.py --help
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-28 00:42:28 UTC
+# Exit code: 0
+# Seconds:  0.3
+#-------------------------------------------------------------------------------
+Chapter 30: check a deployed agent API from the outside, the way a user reaches it.
+Run it after every deployment. It exits with an error if any check fails, so a CI
+pipeline can stop a bad release.
+
+Run:  python ch30_smoke_test.py https://your-service.example.com   (free checks)
+      python ch30_smoke_test.py http://localhost:8080 --chat       (+ one real question)
+Needs AGENT_API_KEY (one of the service's keys) in the environment for the
+authorized checks.

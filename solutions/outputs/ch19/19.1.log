@@ -1,0 +1,8 @@
+# Exercise: 19.1  Which mechanism?
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-27 22:20:06 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**19.1 Which mechanism?** (a) Checkpoints: save progress every N rows and resume from the last saved row. (b) An idempotency key: the refund carries a key that stays the same on every retry, and the payment system ignores a repeat. (c) A lease: the job's lease expired when the server went away, so another worker claims it and resumes. (d) Error classification: "invalid account number" is permanent, so raise it at once and escalate, don't retry. (e) Compensation: undo the hotel booking (cancel it), newest step first, or escalate if the cancellation has a fee. (f) Checks in code: each section is "passing" only when a check your code runs passes, not when the agent says so.

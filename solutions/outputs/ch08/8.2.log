@@ -1,0 +1,11 @@
+# Exercise: 8.2  Define the terms
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-27 21:12:44 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**8.2 Define the terms.**
+- *Revenue*: `SUM(oi.quantity * p.price)` over orders `WHERE o.status != 'cancelled'`.
+- *Active customer*: at least one non-cancelled order in the last 90 days: `EXISTS (SELECT 1 FROM orders o WHERE o.customer_id = c.id AND o.status != 'cancelled' AND o.order_date >= date('now', '-90 days'))`.
+- *Repeat customer*: two or more non-cancelled orders: `(SELECT COUNT(*) FROM orders o WHERE o.customer_id = c.id AND o.status != 'cancelled') >= 2`.

@@ -1,0 +1,12 @@
+# Exercise: 9.6  Policy file and stress test
+# Command:  python -m pytest -q -p no:cacheprovider --rootdir /tmp /tmp/solutions-flat/tests/test_ex9_6_policy.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 21:22:42 UTC
+# Exit code: 0
+# Seconds:  8.0
+#-------------------------------------------------------------------------------
+$ course data messy --count 200 --out messy_big
+messy: wrote 200 files to messy_big/
+$ python -m pytest -q -p no:cacheprovider --rootdir /tmp /tmp/solutions-flat/tests/test_ex9_6_policy.py
+....                                                                     [100%]
+4 passed in 0.17s

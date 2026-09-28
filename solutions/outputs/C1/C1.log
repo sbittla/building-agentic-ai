@@ -1,0 +1,17 @@
+# Exercise: C1  Capstone 1 (c1_support)
+# Command:  course capstone 1
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-28 00:50:01 UTC
+# Exit code: 0
+# Seconds:  47.4
+#-------------------------------------------------------------------------------
+Generating capstone 1 sample data...
+built support.db
+Running solutions/capstones/c1_support/agent.py
+(Simulated login: signed in as asha@example.com)
+Tools: ['helpdesk__search_articles', 'helpdesk__read_article', 'orders__get_order', 'orders__list_orders', 'orders__create_return', 'handoff__escalate']
+
+You: Agent: It looks like your message might have been cut off or wasn't fully sent. Could you please clarify what you need help with? For example, do you need assistance with an order, want to know about a return policy, or perhaps looking for specific help-center articles? Let me know how I can assist you!
+  [1 steps, 0 tool calls, 868 tokens]
+
+You:

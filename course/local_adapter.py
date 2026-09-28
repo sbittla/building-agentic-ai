@@ -10,7 +10,7 @@ Ollama and fills the gaps:
   * structured outputs            -> a forced "json_response" tool whose input is checked
     (output_config.format)           against the schema and returned as JSON text
   * cache_control, effort, metadata and other Claude-only fields -> removed
-  * thinking {"type": "adaptive"} -> ordinary thinking
+  * thinking {"type": "adaptive"} -> ordinary thinking; no thinking field -> thinking off
   * count_tokens                  -> an estimate (about 4 characters per token)
   * server-side Claude features   -> a clear error that says the exercise needs Claude
     (tool search, code execution, web search, Agent Skills, Managed Agents, batches, files)
@@ -109,7 +109,9 @@ def prepare(body):
     if isinstance(thinking, dict) and thinking.get("type") == "adaptive":
         budget = max(1024, min(int(body.get("max_tokens", 4096)) // 2, 8000))
         body["thinking"] = {"type": "enabled", "budget_tokens": budget}
-    if THINKING == "off":
+    # Like Claude, think only when asked. Left alone, qwen3.5 thinks on every call, which is
+    # slow and can use up max_tokens before any answer text (an empty reply).
+    if THINKING == "off" or not thinking:
         body["thinking"] = {"type": "disabled"}
 
     if forced == "*":
@@ -144,7 +146,7 @@ async def post(client, body):
         r = await client.post(f"{OLLAMA}/v1/messages", json={**body, "stream": False})
     except httpx.HTTPError as exc:
         return 503, {"type": "error", "error": {"type": "api_error", "message":
-                     f"Can't reach the local model at {OLLAMA} ({type(exc).__name__}). "
+                     f"Can't reach the local model at {OLLAMA} ({type(exc).__name__}: {exc}). "
                      "Start it with:  ./course.sh local up"}}
     try:
         data = r.json()
@@ -256,7 +258,7 @@ async def messages(request: Request):
         try:
             upstream = await client.send(req, stream=True)
         except httpx.HTTPError as exc:
-            return error(503, f"Can't reach the local model at {OLLAMA} ({type(exc).__name__}). "
+            return error(503, f"Can't reach the local model at {OLLAMA} ({type(exc).__name__}: {exc}). "
                               "Start it with:  ./course.sh local up", "api_error")
         if upstream.status_code != 200:
             text = (await upstream.aread()).decode(errors="replace")

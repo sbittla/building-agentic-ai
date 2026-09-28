@@ -1,0 +1,8 @@
+# Exercise: 9.2  Prompt injection by file name
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-27 21:21:21 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**9.2 Prompt injection by file name.** `propose_moves` lists the file like any other, and the plan preview shows its name. If the model is fooled and calls `apply_plan`, `run_tool` still calls `ask_human` first, because `apply_plan` is in `NEEDS_APPROVAL`. The human sees the exact plan and can decline. The line that stops it is `if name in NEEDS_APPROVAL and not ask_human(name, args)`. A rule in the prompt could be overridden by the same text; the code check can't.

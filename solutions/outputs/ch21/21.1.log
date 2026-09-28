@@ -1,0 +1,8 @@
+# Exercise: 21.1  Pick the topology
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-27 22:24:59 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**21.1 Pick the topology.** (a) Supervisor: a lead with flight, hotel and car specialists; limit: at most 6 tasks per trip and a budget per booking, with approval before paying. (b) Supervisor with parallel reviewers (or a board): each reviewer works on the same diff independently; limit: depth 1, one pass each. (c) Network over A2A: the suppliers' agents belong to other companies; limit: a spending cap and a human approval above it, plus authentication of every agent card. (d) Pipeline: draft, fact-check, edit; limit: at most 2 revision loops between editor and writer. (e) A shared board (a queue): agents claim tickets, the board records ownership; limit: one owner per ticket and a lease, as in Chapter 19.

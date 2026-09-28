@@ -1,0 +1,38 @@
+# Exercise: 10.3  Fix the bugs
+# Command:  python ch10_fixer.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 21:23:16 UTC
+# Exit code: 0
+# Seconds:  34.1
+#-------------------------------------------------------------------------------
+$ course data repo --fresh
+buggy_repo created: run `pytest buggy_repo` to see 3 failures
+$ python ch10_fixer.py
+[step 1] list_files({}) -> 'pricing.py\ntest_pricing.py'  (0 ms)
+[step 2] read_file({"path": "test_pricing.py"}) -> '1: from pricing import subtotal, apply_discount, total\n2: \n3: def test_subtotal_'  (0 ms)
+[step 2] read_file({"path": "pricing.py"}) -> '1: def subtotal(items):\n2:     """items: list of (price, quantity)."""\n3:     re'  (0 ms)
+[step 2] run_tests({}) -> 'FFF                                                                      [100%]\n'  (1613 ms)
+[step 3] write_file({"path": "pricing.py", "content": "def subtotal(items):\n    \"\"\"items: list of (price, quantity).\"\"\"\n    return sum(price * qty for price, qty in items)\n\ndef apply_discount(amount, percent):\n    \"\"\"Reduce amount by percent (0-100).\"\"\"\n    return amount - amount * percent / 100\n\ndef total(items, percent=0, tax_rate=0.08):\n    return round(apply_discount(subtotal(items), percent) * (1 + tax_rate), 2)\n"}) -> 'Wrote 366 characters to pricing.py.'  (0 ms)
+[step 4] run_tests({}) -> '...                                                                      [100%]\n'  (1620 ms)
+All tests pass. The bugs I fixed were:
+
+1. **`subtotal` function**: Changed `sum(price for price, qty in items)` to `sum(price * qty for price, qty in items)` - this properly multiplies each item's price by its quantity.
+
+2. **`apply_discount` function**: Changed `amount - amount * percent` to `amount - amount * percent / 100` - this correctly interprets the percentage as a value between 0 and 100, not 0 and 1. 
+ {'steps': 5, 'tool_calls': 6, 'input_tokens': 1563, 'output_tokens': 425, 'stop_reason': 'end_turn', 'model': 'qwen3.5:9b'} 
+failing tests per run: [3, 0]
+--- a/pricing.py
++++ b/pricing.py
+@@ -1,10 +1,10 @@
+ def subtotal(items):
+     """items: list of (price, quantity)."""
+-    return sum(price for price, qty in items)          # BUG: ignores quantity
++    return sum(price * qty for price, qty in items)
+ 
+ def apply_discount(amount, percent):
+     """Reduce amount by percent (0-100)."""
+-    return amount - amount * percent  # BUG: percent not divided by 100
++    return amount - amount * percent / 100
+ 
+ def total(items, percent=0, tax_rate=0.08):
+     return round(apply_discount(subtotal(items), percent) * (1 + tax_rate), 2)

@@ -1,0 +1,8 @@
+# Exercise: 29.3  Where does the money go?
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-27 23:54:13 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**29.3 Where does the money go?** With a 100-token question: one run sends 72,000 input tokens and 1,600 output tokens. On Claude Sonnet 5 that's $0.16, or about $3,200 a day at 20,000 runs. With caching of the 4,000-token prefix: $0.112 a run, about $2,230 a day. With caching and the first six steps on Claude Haiku 4.5 (each model writes its own cache once): about $0.086 a run, about $1,720 a day. Caching saved the most per step, because the prefix is resent eight times; routing added a further saving because six of eight steps moved to a model at half the price. The growing history (1,400 tokens a step) is the next target: trimming old tool results (Chapter 16) would cut it.

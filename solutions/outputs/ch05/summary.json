@@ -1,0 +1,71 @@
+{
+ "chapter": "5",
+ "title": "Chapter 5: State and Short-Term Memory",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-27 19:53",
+ "exercises": [
+  {
+   "id": "5.1",
+   "title": "What survives a restart?",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch05/5.1.log"
+  },
+  {
+   "id": "5.2",
+   "title": "Idempotency audit",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch05/5.2.log"
+  },
+  {
+   "id": "5.3",
+   "title": "Run the to-do agent",
+   "kind": "run",
+   "status": "passed",
+   "reason": null,
+   "seconds": 5.0,
+   "log": "ch05/5.3.log"
+  },
+  {
+   "id": "5.4",
+   "title": "Add delete and edit",
+   "kind": "run",
+   "status": "passed",
+   "reason": null,
+   "seconds": 8.3,
+   "log": "ch05/5.4.log"
+  },
+  {
+   "id": "5.5",
+   "title": "What's due this week?",
+   "kind": "run",
+   "status": "passed",
+   "reason": null,
+   "seconds": 4.8,
+   "log": "ch05/5.5.log"
+  },
+  {
+   "id": "5.6",
+   "title": "Clarify, don't guess",
+   "kind": "run",
+   "status": "passed",
+   "reason": null,
+   "seconds": 4.8,
+   "log": "ch05/5.6.log"
+  },
+  {
+   "id": "5.7",
+   "title": "Move to SQLite",
+   "kind": "test",
+   "status": "passed",
+   "reason": null,
+   "seconds": 8.4,
+   "log": "ch05/5.7.log"
+  }
+ ]
+}

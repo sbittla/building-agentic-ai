@@ -1,0 +1,16 @@
+# Exercise: 7.1  Failure table
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-28 00:05:34 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**7.1 Failure table (example: a payments API).**
+
+| Failure | Retry? | Message to the model |
+| --- | --- | --- |
+| Timeout | Yes, with backoff | "ERROR: payments API timed out after 3 tries. Tell the user to try again later." |
+| 429 rate limited | Yes, after waiting | "ERROR: rate limited; try again in 30 seconds or answer with what you have." |
+| 500/503 | Yes | "ERROR: payments service unavailable (503) after 3 tries." |
+| 400 invalid currency | No | "ERROR: currency 'US' is invalid; use a 3-letter code such as USD." |
+| 404 unknown payment ID | No | "ERROR: no payment pay_123; check the ID with the user." |

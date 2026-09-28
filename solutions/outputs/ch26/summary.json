@@ -1,0 +1,62 @@
+{
+ "chapter": "26",
+ "title": "Chapter 26: Agent Identity and Authorization",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-27 23:16",
+ "exercises": [
+  {
+   "id": "26.1",
+   "title": "Whose permission?",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch26/26.1.log"
+  },
+  {
+   "id": "26.2",
+   "title": "Design the token",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch26/26.2.log"
+  },
+  {
+   "id": "26.3",
+   "title": "Break the token",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 2.2,
+   "log": "ch26/26.3.log"
+  },
+  {
+   "id": "26.4",
+   "title": "Tokens for a team",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 35.5,
+   "log": "ch26/26.4.log"
+  },
+  {
+   "id": "26.5",
+   "title": "An audit circuit breaker",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 0.2,
+   "log": "ch26/26.5.log"
+  },
+  {
+   "id": "26.6",
+   "title": "A token-checked API",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 6.1,
+   "log": "ch26/26.6.log"
+  }
+ ]
+}

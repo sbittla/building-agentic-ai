@@ -1,0 +1,23 @@
+# Exercise: 19.4  Two workers
+# Command:  python /tmp/solutions-flat/exercises/ex19_4_workers.py
+# Model:    none (no model needed)
+# Date:     2026-09-27 22:20:13 UTC
+# Exit code: 0
+# Seconds:  0.7
+#-------------------------------------------------------------------------------
+Job d6af7df6: done
+  1. create_account   done     tries=1 account c0@x.io created
+  2. charge           done     tries=1 charged $10
+Job ac1e8fb2: done
+  1. create_account   done     tries=1 account c1@x.io created
+  2. charge           done     tries=1 charged $10
+Job 5a5bf527: done
+  1. create_account   done     tries=1 account c2@x.io created
+  2. charge           done     tries=1 charged $10
+Job 9aefb14c: done
+  1. create_account   done     tries=1 account c3@x.io created
+  2. charge           done     tries=1 charged $10
+Job 0fa27daf: done
+  1. create_account   done     tries=1 account c4@x.io created
+  2. charge           done     tries=1 charged $10
+finished by: {'ac1e8fb2': 'w2', '5a5bf527': 'w2', '9aefb14c': 'w2', '0fa27daf': 'w2', 'd6af7df6': 'w2'}

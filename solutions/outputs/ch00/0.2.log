@@ -1,0 +1,8 @@
+# Exercise: 0.2  Read the schema
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-28 00:47:59 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**0.2 Read the schema.** (a) `{"city": "Pune"}`: valid; `city` is required and a string, `days` is optional. (b) `days: 0`: invalid, below the minimum of 1. (c) `city: 42`: invalid, `city` must be a string. (d) `{"days": 5}`: invalid, the required `city` is missing. (e) `{"city": "Oslo", "days": 16, "units": "C"}`: valid; 16 is the maximum, and it's allowed. The schema says nothing about extra fields, so `units` is **allowed** (JSON Schema allows extra properties unless you add `"additionalProperties": false`). `check()` in `ch00_json.py` ignores them too.

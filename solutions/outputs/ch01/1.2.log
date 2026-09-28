@@ -1,0 +1,8 @@
+# Exercise: 1.2  Tokens and cost
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-28 00:48:06 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**1.2 Tokens and cost.** The input for turn *n* is 2,000 + 500·*n*. Over 10 turns: 10 × 2,000 + 500 × (1 + 2 + … + 10) = 20,000 + 500 × 55 = **47,500 input tokens**. Linear growth per call means quadratic growth in total, because every call resends everything before it. That's why long agent runs get expensive fast.

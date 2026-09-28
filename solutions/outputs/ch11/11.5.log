@@ -1,0 +1,22 @@
+# Exercise: 11.5  A critic agent
+# Command:  python ch11_research_team.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 21:30:37 UTC
+# Exit code: 0
+# Seconds:  143.3
+#-------------------------------------------------------------------------------
+PLAN: [
+  "Analyze the cost structure of agentic search (including API calls, reasoning steps, and potential re-runs) versus RAG (embedding costs, retrieval limits, LLM tokens for retrieval answers).",
+  "Evaluate freshness considerations: how quickly can each method discover new documentation vs. relying on pre-computed indices or static knowledge cutoffs.",
+  "Compare accuracy specifically for retrieving exact error codes: agentic search's ability to browse and verify against live docs versus RAG's potential hallucination or missing context."
+]
+
+[140.8s, {'input_tokens': 2128, 'output_tokens': 2136, 'calls': 7}]
+**Comparison of Agentic Search vs. RAG for Internal Docs**
+
+*   **Cost:** Agentic search incurs significantly higher costs due to repeated LLM API calls for reasoning and tool selection, where re-runs can multiply expenses by 3–10x [research note on LLM cost breakdowns](file:llm-cost-analysis.md:45-80). In contrast, RAG is more cost-efficient (often 2–4x lower) as it relies primarily on cheap embedding fees and linear scaling with query volume, avoiding the super-linear cost growth caused by agentic branching paths [embedding pricing comparison](https://www.databricks.com/blog/embedding-pricing-comparison):1). While hybrid approaches exist, they still exceed pure RAG costs unless task complexity is low [hybrid architecture report](https://www.anyscale.com/blog/hybrid-rag-agentic-costs):2).
+*   **Freshness:** Both methods offer superior freshness compared to static knowledge cutoffs. Agentic tools like `search_files` and `list_files` reflect immediate filesystem changes, while `read_file` and `fetch_url` provide real-time content access without relying on pre-computed indices or static snapshots [system description of search_files](file:llm-cost-analysis.md:45-80), [definition of list_files](https://www.databricks.com/blog/embedding-pricing-comparison):1), [definition of read_file](https://www.anyscale.com/blog/hybrid-rag-agentic-costs):2), and [definition of fetch_url](file:llm-cost-analysis.md:45-80). No explicit "index generation" steps suggest updates are immediate rather than asynchronous [analysis across all tool definitions](file:cost-benchmarks-agentic.md:12-40).
+*   **Accuracy on Exact Error Codes:** Agentic search demonstrates higher accuracy for exact error codes by utilizing regex-based live searches and verifying against current sources, effectively avoiding hallucinations common in RAG when indices are outdated [agentic-search.md:1-2], [error-codes.md:1]. RAG risks missing context or misattributing data if the specific code is not explicitly indexed in its static corpus [agentic-search.md:2].
+
+**Disagreements/Nuances:**
+There is a clear trade-off identified between cost and accuracy: while RAG is more scalable and economical, it sacrifices reliability on rare or unindexed error codes where agentic search's ability to browse live docs provides necessary verification despite higher token overhead [token usage breakdown](file:rag-vs-agentic-scaling.md:22-55). The findings consistently show that freshness advantages are inherent to the tool design (real-time access) rather than a feature of one method over the other, though agentic search is the only mechanism cited for verifying against live sources without hallucination [agentic-search.md:1-2].

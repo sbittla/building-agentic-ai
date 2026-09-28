@@ -1,0 +1,8 @@
+# Exercise: 20.2  Route the steps
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-27 22:22:14 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**20.2 Route the steps.** One reasonable routing: schema, queries and formatting on the small model; checking against definitions on the small model with a code check; the explanation on the large model with high effort. Per step, 3,000 input and 500 output tokens cost $0.0055 on Claude Haiku 4.5 and $0.011 on Claude Sonnet 5. Routed (four small, one large): 4 × $0.0055 + $0.011 = $0.033. All large: 5 × $0.011 = $0.055. High effort adds output tokens to the explanation step, so it may cost a little more. That step gets the most capable model because it's the one a reader acts on and the one no code check can verify.

@@ -1,0 +1,12 @@
+# Exercise: 13.3  Two servers, one question
+# Command:  python ch13_mcp_agent.py servers.json
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-28 00:14:49 UTC
+# Exit code: 0
+# Seconds:  7.8
+#-------------------------------------------------------------------------------
+Tools: ['todo__add_task', 'todo__list_tasks', 'todo__find_tasks', 'todo__complete_task', 'todo__today', 'shopdb__get_schema', 'shopdb__run_query']
+
+You: Agent: Hello! How can I help you today?
+
+You:

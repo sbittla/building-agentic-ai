@@ -1,0 +1,10 @@
+# Exercise: 11.6  Is it worth it?
+# Command:  python /tmp/solutions-flat/exercises/ex11_6_compare.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 21:48:45 UTC
+# Exit code: 0
+# Seconds:  1088.7
+#-------------------------------------------------------------------------------
+| approach | mean score (1-5) | mean seconds | mean tokens |
+| single | 4.00 | 12.8 | 878 |
+| team | 4.07 | 196.6 | 9,210 |

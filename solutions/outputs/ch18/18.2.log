@@ -1,0 +1,8 @@
+# Exercise: 18.2  Keyword, vector or hybrid?
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-27 22:06:10 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**18.2 Keyword, vector or hybrid?** (a) "ERR-4471": **keyword**; exact codes are what BM25 matches and embeddings blur. (b) "notes about feeling burnt out": **vector**; the notes probably say "tired", "exhausted" or "need a break", not "burnt out". (c) "Kafka partitions for the orders topic": **hybrid**; exact names (Kafka, orders) plus meaning. (d) "the thing we decided about fraud checks in May": **hybrid**; "fraud" matches keywords, "decided" matches the meaning of "Decision:", and the date needs the metadata or the file name.

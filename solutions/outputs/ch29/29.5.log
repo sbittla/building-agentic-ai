@@ -1,0 +1,9 @@
+# Exercise: 29.5  Halve the cost
+# Command:  python /tmp/solutions-flat/exercises/ex29_5_cost_cut.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 23:59:11 UTC
+# Exit code: 0
+# Seconds:  272.5
+#-------------------------------------------------------------------------------
+before: {'pass_rate': 0.9166666666666666, 'ci95': (0.6461140782014047, 0.9851352905492264), 'cost_per_success': 0.0, 'runs': 12} 
+after:  {'pass_rate': 0.75, 'ci95': (0.46768966087934005, 0.9110599603710386), 'cost_per_success': 0.0, 'runs': 12}

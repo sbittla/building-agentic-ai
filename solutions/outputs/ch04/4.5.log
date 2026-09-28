@@ -1,0 +1,17 @@
+# Exercise: 4.5  Cost profile
+# Command:  python /tmp/solutions-flat/exercises/ex4_5_cost_profile.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 19:52:34 UTC
+# Exit code: 0
+# Seconds:  352.2
+#-------------------------------------------------------------------------------
+question                                                         steps        in tok     out tok       sec
+What is 12 * 12?                                               2.0/2.0       101/513       44/46 3.00/3.72
+How many km is 26.2 miles?                                     2.0/2.0       137/550       74/93 4.74/5.81
+What day is it?                                                1.6/2.0        80/457       28/51 1.97/3.37
+How many days until July 4 next, and what weekday is it?       2.8/3.0       230/708     147/234 9.25/14.39
+Convert 10 mi to km, 5 kg to lb, and tell me how many days     2.3/4.0       303/716     247/306 15.86/19.31
+
+Most expensive: 'Convert 10 mi to km, 5 kg to lb, and tell me how many days until 2027-01-01.' (more steps -> the whole history is re-sent each step, so input tokens grow faster than steps)
+mean input tokens by step number: {1: 50, 2: 102, 3: 120, 4: 91}
+saved ex4_5_cost_profile.png

@@ -1,0 +1,38 @@
+# Exercise: C3  Capstone 3 (c3_incident)
+# Command:  course capstone 3
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-28 00:53:18 UTC
+# Exit code: 0
+# Seconds:  157.8
+#-------------------------------------------------------------------------------
+Generating capstone 3 sample data...
+bad deploy commit: 3c0a161
+Running solutions/capstones/c3_incident/agent.py
+[step 1] obs__search_logs({"service": "checkout-service", "start": "2026-09-22T14:10", "end": "2026-09-22T) -> '14 matching lines\n2026-09-22T14:10:00 ERROR fraud-check timeout after '
+[step 2] obs__compare_to_baseline({"service": "checkout-service", "metric": "p95_ms", "baseline_start": "2026-09-2) -> '{"service": "checkout-service", "metric": "p95_ms", "baseline_mean": 4'
+[step 3] obs__compare_to_baseline({"service": "checkout-service", "metric": "error_rate", "baseline_start": "2026-) -> '{"service": "checkout-service", "metric": "error_rate", "baseline_mean'
+[step 4] git__git_log({"repo_path": "incident/repo", "max_count": 20}) -> "Commit history:\nCommit: '3c0a161ef2f68975d838c122afd01fc0db80236b'\nAut"
+[step 5] git__git_show({"repo_path": "incident/repo", "revision": "3c0a161ef2f68975d838c122afd01fc0db80) -> "Commit: '3c0a161ef2f68975d838c122afd01fc0db80236b'\nAuthor: <git.Actor "
+[step 6] obs__search_runbooks({"query": "checkout-service latency fraud-check timeout"}) -> 'checkout-latency.md\nsearch-errors.md'
+[step 7] obs__read_runbook({"name": "checkout-latency.md"}) -> '# Checkout latency high\n1. Check recent deploys of checkout-service.\n2'
+[step 8] obs__read_runbook({"name": "search-errors.md"}) -> '# Search errors\n1. Check the index cluster health.\n'
+{
+  "impact": "checkout-service p95 latency elevated to 821ms (from 405ms) and error rate at 5.32% (from 1.19%) starting 14:10, affecting customer checkout experience",
+  "timeline": [
+    "14:05 - deployment of 'checkout: make fraud check synchronous' via commit 3c0a161ef",
+    "14:10 - first error logs show fraud-check timeout after 800ms",
+    "14:12 - ALERT raised with p95 > 700ms and error rate > 3%",
+    "14:12 - incident detected in monitoring"
+  ],
+  "suspected_cause": "Recent deploy changed fraud-check from async to synchronous with 800ms timeout, causing timeouts when downstream fraud service takes longer than expected",
+  "suspect_commit": "3c0a161ef",
+  "evidence": [
+    "Logs: fraud-check timeout after 800ms starting 14:10",
+    "Git show: commit changed fraud.check_async to fraud.check_sync with timeout=0.8",
+    "Metrics: p95_ms ratio 2.03x, error_rate ratio 4.48x over baseline"
+  ],
+  "next_steps": [
+    "Execute deployctl rollback checkout-service per runbook",
+    "Investigate downstream fraud service performance to determine if timeout needs adjustment or if service is degraded"
+  ]
+}

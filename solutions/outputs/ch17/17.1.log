@@ -1,0 +1,8 @@
+# Exercise: 17.1  Sort the memories
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-27 22:03:40 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**17.1 Sort the memories.** (a) Semantic, user scope, until replaced, database. (b) Working memory, this task only, the context; don't store it. (c) Episodic, user scope, about 30 days, then consolidate into a semantic note if it matters ("had a damaged item in September"), event log or database. (d) Procedural, team scope, until replaced, reviewed files or a skill, written only by people or a trusted process. (e) Never store: it's a secret and payment data belongs in the payment system. (f) Semantic but short-lived: user scope with a time to live that ends on Monday, or don't store it. (g) Not a memory: it's knowledge; keep the policy in the knowledge base (Chapter 18) with its date, so every user gets the current version. (h) Agent scope, working notes for this investigation, a progress file (Chapter 19), deleted or archived when it's done.

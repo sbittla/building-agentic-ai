@@ -1,0 +1,18 @@
+# Exercise: 19.5  A cost budget per job
+# Command:  python /tmp/solutions-flat/exercises/ex19_5_budget.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 22:20:19 UTC
+# Exit code: 0
+# Seconds:  6.4
+#-------------------------------------------------------------------------------
+Job 668d051f: needs_human (step 2: agent: job budget of $0.0000 used up (spent $0.0001))
+  1. agent            done     tries=1 Bake your taste.
+  2. agent            failed   tries=1 agent: job budget of $0.0000 used up (spent $0.000
+  3. agent            pending  tries=0  
+  spent $0.00012
+Job f4d475a7: done
+  1. agent            done     tries=1 Taste the warmth of homemade goodness in every bit
+  2. agent            done     tries=1 "Baking joy in every bite."
+  3. agent            done     tries=1 "Taste the joy in every bite." 
+  spent $0.00043
+{"668d051f": "needs_human", "f4d475a7": "done"}

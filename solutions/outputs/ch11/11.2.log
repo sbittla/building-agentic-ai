@@ -1,0 +1,11 @@
+# Exercise: 11.2  Design the subtasks
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-27 21:24:42 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**11.2 Design the subtasks.**
+1. Objective: which of our tools and data sources already have MCP servers (official or vendor). Out of scope: security and cost. Output: a table of system, server, maintainer and maturity. Effort: quick.
+2. Objective: security and governance risks of adopting MCP, and the controls available. Out of scope: which servers exist. Output: bullet risks, each with a mitigation and a source. Effort: deep.
+3. Objective: the effort and cost to adopt, including building one internal server. Out of scope: vendor server inventory and security. Output: an estimate in engineer-days with assumptions. Effort: quick.

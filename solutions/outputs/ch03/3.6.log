@@ -1,0 +1,13 @@
+# Exercise: 3.6  Scale to ten tools
+# Command:  python ch03_routing_eval.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 19:46:06 UTC
+# Exit code: 0
+# Seconds:  24.5
+#-------------------------------------------------------------------------------
+FAIL  expected=get_current_date  got=None              What day is it today?
+PASS  expected=convert_units     got=convert_units     How many km is 26.2 miles?
+PASS  expected=calculate         got=calculate         What is 1234 * 5678?
+PASS  expected=days_between      got=days_between      How many days from 2026-01-01 to 2026-07-04?
+PASS  expected=None              got=None              What is a prime number?
+Routing accuracy: 4/5 = 80%

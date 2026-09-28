@@ -1,0 +1,29 @@
+# Exercise: A.3  Limit concurrency
+# Command:  python /tmp/solutions-flat/exercises/exA_3_semaphore.py
+# Model:    none (no model needed)
+# Date:     2026-09-27 20:51:35 UTC
+# Exit code: 0
+# Seconds:  4.1
+#-------------------------------------------------------------------------------
+prediction: 10 items, 3 at a time, 1 s each -> 4 rounds -> about 4 s
+ 0.00s start  page0  (1 running)
+ 0.00s start  page1  (2 running)
+ 0.00s start  page2  (3 running)
+ 1.00s finish page0
+ 1.00s finish page1
+ 1.00s finish page2
+ 1.00s start  page3  (1 running)
+ 1.00s start  page4  (2 running)
+ 1.00s start  page5  (3 running)
+ 2.00s finish page3
+ 2.00s finish page4
+ 2.00s finish page5
+ 2.00s start  page6  (1 running)
+ 2.00s start  page7  (2 running)
+ 2.00s start  page8  (3 running)
+ 3.00s finish page6
+ 3.00s finish page7
+ 3.00s finish page8
+ 3.00s start  page9  (1 running)
+ 4.01s finish page9
+peak concurrency 3, total 4.01s, 10 results

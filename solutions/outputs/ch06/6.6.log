@@ -1,0 +1,14 @@
+# Exercise: 6.6  Scale test
+# Command:  python /tmp/solutions-flat/exercises/ex6_6_scale_test.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 19:57:11 UTC
+# Exit code: 0
+# Seconds:  226.2
+#-------------------------------------------------------------------------------
+$ course data notes --count 2000 --out notes_big
+notes: wrote 2000 files to notes_big/
+$ python /tmp/solutions-flat/exercises/ex6_6_scale_test.py
+| approach | accuracy | mean tokens | mean seconds |
+| agentic search | 100% | 813 | 7.0 |
+| read everything (first 515 files fit) | 7% | 857 | 7.8 |
+Read-everything can only answer facts that happen to be in the files that fit; agentic search finds any fact with one regex search, at far fewer tokens.

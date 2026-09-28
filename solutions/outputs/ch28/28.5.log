@@ -1,0 +1,19 @@
+# Exercise: 28.5  An SLO dashboard with burn alerts
+# Command:  python /tmp/solutions-flat/exercises/ex28_5_burn.py
+# Model:    none (no model needed)
+# Date:     2026-09-27 23:51:06 UTC
+# Exit code: 0
+# Seconds:  1.8
+#-------------------------------------------------------------------------------
+08:00 success 98%
+09:00 success 98%
+10:00 success 98%
+11:00 success 97%
+12:00 success 97%
+13:00 success 97%
+14:00 success 52%  burning
+15:00 success 68%  burning  ALERT
+16:00 success 90%
+17:00 success 93%
+18:00 success 97%
+19:00 success 98%

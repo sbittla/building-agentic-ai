@@ -1,0 +1,9 @@
+# Exercise: 17.5  Consolidate episodes
+# Command:  python /tmp/solutions-flat/exercises/ex17_5_consolidate.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 22:03:49 UTC
+# Exit code: 0
+# Seconds:  4.4
+#-------------------------------------------------------------------------------
+Remembered #6. Consolidated 5 episodes.
+{"memories": [{"id": 6, "kind": "semantic", "fact": "Order #4471 was reported late and requested for tracking, received an express fee refund, and was successfully delivered to the customer on September 5th, who subsequently thanked support. [from episodes 1, 2, 3, 4, 5]", "source": "agent", "score": 0.3}]}

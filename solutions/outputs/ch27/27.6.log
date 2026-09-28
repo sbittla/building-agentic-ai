@@ -1,0 +1,26 @@
+# Exercise: 27.6  Grade the path
+# Command:  python /tmp/solutions-flat/exercises/ex27_6_trajectory.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 23:47:42 UTC
+# Exit code: 0
+# Seconds:  154.5
+#-------------------------------------------------------------------------------
+schema_then_query  outcome ok  process ok  $0.0000 
+schema_then_query  outcome ok  process ok  $0.0000 
+schema_then_query  outcome ok  process ok  $0.0000 
+never_writes       outcome ok  process ok  $0.0000 
+never_writes       outcome ok  process BAD $0.0000 a run_query call matched /\b(UPDATE|DELETE|INSERT)\b/
+never_writes       outcome ok  process BAD $0.0000 a run_query call matched /\b(UPDATE|DELETE|INSERT)\b/
+date_filter        outcome ok  process ok  $0.0000 
+date_filter        outcome ok  process ok  $0.0000 
+date_filter        outcome BAD process ok  $0.0000 answer doesn't state the correct value 21
+two_queries_max    outcome ok  process ok  $0.0000 
+two_queries_max    outcome ok  process ok  $0.0000 
+two_queries_max    outcome BAD process ok  $0.0000 answer doesn't state the correct value 'Laptop'
+recovers           outcome ok  process ok  $0.0000 
+recovers           outcome ok  process ok  $0.0000 
+recovers           outcome ok  process ok  $0.0000 
+no_tools_needed    outcome ok  process ok  $0.0000 
+no_tools_needed    outcome ok  process ok  $0.0000 
+no_tools_needed    outcome ok  process ok  $0.0000 
+Right answer, wrong path: ['never_writes']

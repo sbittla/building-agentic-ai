@@ -2,6 +2,8 @@
 .env
 workspace/
 *.log
+# ...except the exercise outputs written by run-chapter (solutions/outputs)
+!solutions/outputs/**/*.log
 
 # Python and tools
 __pycache__/
@@ -14,3 +16,10 @@ __pycache__/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Exercise and Code Index (generated locally with symlinks)
+solutions/exercises/_index/
+course/code/_index/
+
+# Old tooling and notes kept locally, not part of the course
+_archive/

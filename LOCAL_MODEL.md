@@ -54,16 +54,16 @@ What `local up` starts, from `compose.yaml` (profile `local`):
 
 ## 4. Do the exercises
 
-Nothing changes: `./course.sh ex 4.3`, `./course.sh python ch04_agent.py`, `./course.sh ask ch08_sql_tools` and the rest all use the local model while `PROVIDER=local` is set.
+Nothing changes: `./course.sh ex 4.2`, `./course.sh python ch04_agent.py`, `./course.sh ask ch08_sql_tools` and the rest all use the local model while `PROVIDER=local` is set.
 
 Every exercise is labelled with the model it needs, in the book's exercise boxes, in `./course.sh list` and in `./course.sh ex <id> --info`:
 
 | Label | Count | What it means |
 | --- | --- | --- |
 | No model | 81 | Nothing calls a model: free with either choice |
-| qwen3.5:9b or Claude | 82 | Runs on the local model or on Claude |
-| Claude recommended | 4 | 16.5, 18.4, 18.5, 18.7: runs locally, but much better on Claude |
-| Claude only | 5 | 3.8, 12.5, 16.8, 18.8, 18.9: needs Claude (12.5 uses the Claude Desktop app) |
+| qwen3.5:9b or Claude | 83 | Runs on the local model or on Claude |
+| Claude recommended | 4 | 16.5, 24.4, 24.5, 24.7: runs locally, but much better on Claude |
+| Claude only | 5 | 3.8, 12.5, 16.8, 24.8, 24.9: needs Claude (12.5 uses the Claude Desktop app) |
 
 The full list, exercise by exercise, is in `course/model_needs.json` and in Appendix H of the book.
 
@@ -121,11 +121,14 @@ Then run `wsl --shutdown` in PowerShell and restart Docker Desktop. For an NVIDI
 | "The model 'qwen3.5:9b' isn't downloaded yet" | `./course.sh local up` again; it resumes the download |
 | The download fails or stalls | Check your connection and run `./course.sh local up` again. Behind a company proxy, Docker Desktop's proxy settings must allow `registry.ollama.ai`. |
 | Out of memory, or the model container restarts | Close other programs, set `LOCAL_CONTEXT=16384`, or give WSL more memory (above) |
-| Very slow | Use `--gpu`, set `LOCAL_THINKING=off`, run evals with one trial, and use fewer users in load tests (15.7, 19.7) |
+| Very slow | Use `--gpu`, set `LOCAL_THINKING=off`, run evals with one trial, and use fewer users in load tests (29.2, 30.7) |
 | "The local model didn't call … correctly after 3 tries" | Run it again, make the tool description clearer (Chapter 3), or use Claude for that run |
 | "… needs Claude, not the local model" | The exercise is **Claude only**: set `PROVIDER=claude` for it |
 | Port 11434 already in use | Ollama already runs as an app: quit it, or use it with `OLLAMA_URL` and `local up --native` |
 | `--gpu` fails | Update the NVIDIA driver (Windows) or install the NVIDIA Container Toolkit (Linux). `./course.sh local logs` shows whether Ollama found the GPU |
+| 8 GB GPU: the model loads partly on the CPU, or fails with "cudaMalloc failed: out of memory" | Set `LOCAL_CONTEXT=8192` in `.env`. The weights and a 32K context don't both fit in 8 GB; `compose.gpu.yaml` already keeps 2 GB free and halves the context cache |
+| Windows + GPU: every Docker container restarts when the model loads, and runs end with `error waiting for container: unexpected EOF` | WSL's GPU driver is in a bad state. Run `wsl --shutdown` in PowerShell (Docker Desktop restarts itself), then `.\course.cmd local up --gpu`. If it keeps happening, reboot, or use the CPU (`local up` without `--gpu`) |
+| A long exercise times out (7.6, 24.5, 27.3) | The course allows each model call 600 s on the local model (`MODEL_TIMEOUT` in `.env` changes it) and each exercise 30 minutes. Use `--gpu`, `LOCAL_THINKING=off`, or run that exercise on Claude |
 
 ## 9. Remove it
 

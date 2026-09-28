@@ -1,0 +1,80 @@
+{
+ "chapter": "1",
+ "title": "Chapter 1: What an Agent Is (and Isn't)",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-27 19:40",
+ "exercises": [
+  {
+   "id": "1.1",
+   "title": "Single call, workflow or agent?",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch01/1.1.log"
+  },
+  {
+   "id": "1.2",
+   "title": "Tokens and cost",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch01/1.2.log"
+  },
+  {
+   "id": "1.3",
+   "title": "Your first call",
+   "kind": "run",
+   "status": "passed",
+   "reason": null,
+   "seconds": 5.4,
+   "log": "ch01/1.3.log"
+  },
+  {
+   "id": "1.4",
+   "title": "Make it fail",
+   "kind": "run",
+   "status": "passed",
+   "reason": null,
+   "seconds": 28.2,
+   "log": "ch01/1.4.log"
+  },
+  {
+   "id": "1.5",
+   "title": "Build the workflow",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 43.3,
+   "log": "ch01/1.5.log"
+  },
+  {
+   "id": "1.6",
+   "title": "Remembering a conversation",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 9.5,
+   "log": "ch01/1.6.log"
+  },
+  {
+   "id": "1.7",
+   "title": "Where does the agent go?",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch01/1.7.log"
+  },
+  {
+   "id": "1.8",
+   "title": "Score it on the dimensions",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch01/1.8.log"
+  }
+ ]
+}

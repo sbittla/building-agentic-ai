@@ -1,0 +1,8 @@
+# Exercise: 12.1  Map the architecture
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-27 21:50:15 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**12.1 Map the architecture.** Server: `geocode`, `get_forecast`, `_get_json` and the cache: all the tool code. Host: the model loop (`run_agent`), system prompt and conversation. Client: inside the host, one connection to the weather server. JSON-RPC flows client ↔ server over stdio (`tools/list` at start, `tools/call` per tool use). The model never talks to the server directly.

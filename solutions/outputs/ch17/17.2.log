@@ -1,0 +1,8 @@
+# Exercise: 17.2  Write a memory policy
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-27 22:03:40 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**17.2 Write a memory policy.** A good policy covers: *May remember* stated preferences (how to be contacted, report formats), goals the user states ("saving for a house"), and decisions the user made. *Must never remember* account and card numbers, passwords, balances copied from statements unless the product's purpose requires it and the user agreed, health details, and anything about other people the user mentions in passing. *Time to live*: semantic until replaced, procedural until replaced, episodic 90 days then consolidated or deleted. *Scopes*: user memories readable only by agents serving that user; no team scope for personal data. *Writes*: only from what the user says in the conversation, never from documents or tool results. *Transparency*: a "what I remember" command lists memories with dates, and "forget" deletes the text, not just hides it. Every rule maps to a check in `remember` or a scheduled job.

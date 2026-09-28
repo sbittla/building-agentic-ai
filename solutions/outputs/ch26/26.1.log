@@ -1,0 +1,8 @@
+# Exercise: 26.1  Whose permission?
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-09-27 23:16:03 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**26.1 Whose permission?** (a) User Priya, a calendar agent, the room-booking service; scopes `rooms:read rooms:book` limited to her calendar; no step-up (cheap, reversible). (b) The finance team or the approver named in policy, a finance agent, the payments service; `invoices:read payments:create` with a maximum amount; step-up with a person's approval bound to that invoice and amount (high value, irreversible). (c) The developer who asked, a coding agent, the source-control service; `pull_requests:create contents:write` on one repository and a branch prefix, never `main`; no step-up to open a PR, because merging is the reviewed step. (d) The user the lead works for, the research sub-agent, the wiki; an attenuated `wiki:read` token limited to the pages or spaces in its brief and a short life; no step-up. (e) The employee, the HR agent, the HR system; `salary:read` bound to that employee's own record (ownership checked in the service); step-up with re-authentication of the employee, because the data is sensitive.

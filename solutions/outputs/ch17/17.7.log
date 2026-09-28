@@ -1,0 +1,12 @@
+# Exercise: 17.7  A team memory
+# Command:  python /tmp/solutions-flat/exercises/ex17_7_team_memory.py
+# Model:    none (no model needed)
+# Date:     2026-09-27 22:03:49 UTC
+# Exit code: 0
+# Seconds:  0.1
+#-------------------------------------------------------------------------------
+Remembered #1.
+Remembered #2.
+ERROR: worker-2 may not write team memory
+worker-1 reads team: {"memories": [{"id": 1, "kind": "semantic", "fact": "Hybrid search beats vector search on error codes (library/rag.md:4)", "source": "agent", "score": 0.3}]}
+worker-2 reads worker-1's note: No memories match.

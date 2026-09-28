@@ -1,0 +1,12 @@
+# Exercise: 21.6  A mixed team
+# Command:  python /tmp/solutions-flat/exercises/ex21_6_mixed_team.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 22:28:39 UTC
+# Exit code: 0
+# Seconds:  41.2
+#-------------------------------------------------------------------------------
+#1 lead       done     How many orders were cancelled?
+#2   analyst    done     How many orders were cancelled? Please provide the count bas
+#3   remote_analyst done     How many orders were cancelled? Please provide the count bas
+{'answer': 'There were 88 cancelled orders.', 'evidence': ["SELECT COUNT(*) FROM orders WHERE status = 'cancelled'", 'Based on the sales data, there were **88** cancelled orders.'], 'confidence': 'high'}
+tokens: {'lead': 1210, 'analyst': 1012, 'checker': 0, 'remote_analyst': 0}

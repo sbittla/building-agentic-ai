@@ -1,0 +1,62 @@
+{
+ "chapter": "20",
+ "title": "Chapter 20: Planning and Model Routing",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-27 22:24",
+ "exercises": [
+  {
+   "id": "20.1",
+   "title": "Plan or not?",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch20/20.1.log"
+  },
+  {
+   "id": "20.2",
+   "title": "Route the steps",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch20/20.2.log"
+  },
+  {
+   "id": "20.3",
+   "title": "Break the plan",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 1.7,
+   "log": "ch20/20.3.log"
+  },
+  {
+   "id": "20.4",
+   "title": "Run independent steps in parallel",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 25.4,
+   "log": "ch20/20.4.log"
+  },
+  {
+   "id": "20.5",
+   "title": "Evaluate the routers",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 64.8,
+   "log": "ch20/20.5.log"
+  },
+  {
+   "id": "20.6",
+   "title": "A plan that survives a crash",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 73.0,
+   "log": "ch20/20.6.log"
+  }
+ ]
+}

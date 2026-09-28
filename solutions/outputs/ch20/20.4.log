@@ -1,0 +1,9 @@
+# Exercise: 20.4  Run independent steps in parallel
+# Command:  python /tmp/solutions-flat/exercises/ex20_4_parallel_plan.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 22:22:41 UTC
+# Exit code: 0
+# Seconds:  25.4
+#-------------------------------------------------------------------------------
+rounds: [['s1', 's2'], ['s3']]
+parallel 15.6s, sequential 8.2s

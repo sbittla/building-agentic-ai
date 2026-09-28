@@ -1,0 +1,62 @@
+{
+ "chapter": "9",
+ "title": "Chapter 9: Human-in-the-Loop Approval",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-27 21:22",
+ "exercises": [
+  {
+   "id": "9.1",
+   "title": "Risk sorting",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch09/9.1.log"
+  },
+  {
+   "id": "9.2",
+   "title": "Prompt injection by file name",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch09/9.2.log"
+  },
+  {
+   "id": "9.3",
+   "title": "Dry run",
+   "kind": "run",
+   "status": "passed",
+   "reason": null,
+   "seconds": 16.8,
+   "log": "ch09/9.3.log"
+  },
+  {
+   "id": "9.4",
+   "title": "Approve and undo",
+   "kind": "run",
+   "status": "passed",
+   "reason": null,
+   "seconds": 20.0,
+   "log": "ch09/9.4.log"
+  },
+  {
+   "id": "9.5",
+   "title": "Partial approval",
+   "kind": "run",
+   "status": "passed",
+   "reason": null,
+   "seconds": 35.3,
+   "log": "ch09/9.5.log"
+  },
+  {
+   "id": "9.6",
+   "title": "Policy file and stress test",
+   "kind": "test",
+   "status": "passed",
+   "reason": null,
+   "seconds": 8.0,
+   "log": "ch09/9.6.log"
+  }
+ ]
+}

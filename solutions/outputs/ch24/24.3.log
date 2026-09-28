@@ -1,0 +1,33 @@
+# Exercise: 24.3  See the approval gate work
+# Command:  python ch24_agent_sdk.py Delete all cancelled orders.
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-28 00:18:03 UTC
+# Exit code: 0
+# Seconds:  54.9
+#-------------------------------------------------------------------------------
+/opt/venv/lib/python3.12/site-packages/claude_agent_sdk/types.py:1939: CanUseToolShadowedWarning: can_use_tool will not be invoked for: mcp__shop__get_schema. An allowed_tools entry that allows a whole tool auto-approves it before the callback is consulted. To gate every tool call, use a PreToolUse hook; or narrow the entry so calls fall through to can_use_tool. Allow rules from settings files can also shadow the callback but are not visible here.
+  _warn_if_can_use_tool_shadowed(options)
+[claude-code:unrecognized_model] {"model":"qwen3.5:9b","query_source":"sdk"}
+  -> mcp__shop__get_schema({})
+  -> mcp__shop__run_query({'sql': "SELECT COUNT(*) FROM orders WHERE status = 'cancelled'"})
+  [3 turns, $0.0236]
+**Analysis:**
+There are **88 cancelled orders** in the database (orders with `status = 'cancelled'`).
+
+---
+
+**The Delete SQL Statement:**
+```sql
+DELETE FROM orders WHERE status = 'cancelled';
+```
+
+---
+
+**Important Limitation:**
+The available `mcp__shop__run_query` tool is **read-only** (SELECT only). It cannot execute DELETE operations. To actually delete these 88 cancelled orders, you would need:
+
+1. Direct SQLite access with DELETE permissions, OR
+2. A different database tool/connection that supports write operations
+
+If you have direct database access, run the SQL above to remove all cancelled orders from the `orders` table.
+Approval decisions: [('mcp__shop__run_query', 'allow')]

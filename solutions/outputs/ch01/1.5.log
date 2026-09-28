@@ -1,0 +1,47 @@
+# Exercise: 1.5  Build the workflow
+# Command:  python /tmp/solutions-flat/exercises/ex1_5_workflow.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 19:40:39 UTC
+# Exit code: 0
+# Seconds:  43.3
+#-------------------------------------------------------------------------------
+
+EMAIL: Order #A1234 arrived broken. I want my money back.
+  -> other | {'order_id': 'A1234', 'complaint': 'Item arrived broken'}
+  REPLY: Dear Customer,
+
+Thank you for reaching out to us regarding order **A1234** and the issue with the broken item. We sincer
+
+EMAIL: Where is my package? Order B-5521 was due last Friday.
+  -> other | {'order_id': 'B-5521', 'complaint': 'Package not delivered'}
+  REPLY: Subject: Regarding Order B-5521 – Delivery Status Update
+
+Dear Customer,
+
+Thank you for reaching out to us regarding ord
+
+EMAIL: Can I change the delivery address for order 7788?
+  -> shipping | {'order_id': '7788', 'complaint': 'Customer wants to change delivery address'}
+  REPLY: Subject: Request Received: Delivery Address Change for Order #7788
+
+Dear Team,
+
+Thank you for the update regarding Order
+
+EMAIL: Your checkout page is really slow today.
+  -> other | {'order_id': None, 'complaint': 'checkout page is slow'}
+  REPLY: Subject: Re: Feedback regarding checkout page speed
+
+Dear Valued Customer,
+
+Thank you for bringing the slowness of our c
+
+EMAIL: Hi! Do you sponsor local football teams?
+  -> other | {'order_id': None, 'complaint': 'Inquiry about sponsorship for local football teams.'}
+  REPLY: Subject: Re: Inquiry about sponsorship for local football teams
+
+Dear [Name],
+
+Thank you for your inquiry regarding spon
+
+Note: the workflow always drafts a reply, even for the sponsorship email and the address change it has no way to perform. It can't look anything up.

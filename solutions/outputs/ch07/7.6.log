@@ -1,0 +1,11 @@
+# Exercise: 7.6  Multi-city trip with measurements
+# Command:  python /tmp/solutions-flat/exercises/ex7_6_trip_benchmark.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-28 00:14:38 UTC
+# Exit code: 0
+# Seconds:  433.3
+#-------------------------------------------------------------------------------
+| mode | mean s | HTTP calls/run | cache hits/run |
+| cache on | 45.77 | 1.8 | 4.2 |
+| cache off | 40.39 | 2.2 | 0.0 |
+Time goes to model calls plus one HTTP round-trip per geocode/forecast; with the cache on, repeat runs skip the HTTP part entirely.

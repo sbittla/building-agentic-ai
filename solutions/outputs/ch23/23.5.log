@@ -1,0 +1,10 @@
+# Exercise: 23.5  Verify, don't trust
+# Command:  python /tmp/solutions-flat/exercises/ex23_5_verified_queue.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 22:32:33 UTC
+# Exit code: 0
+# Seconds:  92.8
+#-------------------------------------------------------------------------------
+1 done 9 Avenida da Boavista, Porto
+2 done 22 Canal Street, Leeds
+3 done 1 Marina Way, Singapore
