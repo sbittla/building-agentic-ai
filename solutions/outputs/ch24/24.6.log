@@ -1,0 +1,26 @@
+# Exercise: 24.6  Write a skill
+# Command:  python ch24_skills.py
+# Model:    claude-sonnet-5 (Claude API)
+# Date:     2026-09-28 01:50:05 UTC
+# Exit code: 0
+# Seconds:  13.0
+#-------------------------------------------------------------------------------
+Validating skills/sql-report -> OK
+
+Catalog the model sees:
+- sql-report: Writes a short, well-formatted revenue report from the shop database. Use when the user asks for a report, summary or breakdown of sales, revenue, orders or customers.
+
+[step 1] read_skill({"name": "sql-report"}) -> '---\nname: sql-report\ndescription: Writes a short, well-formatted revenue report '  (0 ms)
+[step 2] read_skill({"name": "sql-report", "file": "references/schema.md"}) -> '# Shop database\n- customers(id, name, city, joined)\n- products(id, name, categor'  (1 ms)
+[step 2] get_schema({}) -> 'CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, city TEXT, joined DAT'  (2 ms)
+[step 3] run_query({"sql": "\nSELECT p.category AS category,\n       SUM(oi.quantity * p.price) AS revenue\nFROM order_items oi\nJOIN products p ON p.id = oi.product_id\nJOIN orders o ON o.id = oi.order_id\nWHERE o.status = 'shipped'\nGROUP BY p.category\nORDER BY revenue DESC\n"}) -> 'category | revenue\nelectronics | 235580.0\nfurniture | 68085.0\nstationery | 2850.'  (3 ms)
+## Revenue by Product Category
+**Total revenue:** $306,515.00
+
+| Category | Revenue | Share |
+|---|---|---|
+| Electronics | $235,580.00 | 76.85% |
+| Furniture | $68,085.00 | 22.21% |
+| Stationery | $2,850.00 | 0.94% |
+
+**Takeaway:** Electronics dominates shipped revenue at roughly three-quarters of total sales, with furniture a distant second and stationery contributing negligibly.

@@ -1,0 +1,9 @@
+# Exercise: A.1  Measure it
+# Command:  python /tmp/solutions-flat/exercises/exA_1_measure.py
+# Model:    none (no model needed)
+# Date:     2026-09-27 20:51:28 UTC
+# Exit code: 0
+# Seconds:  11.1
+#-------------------------------------------------------------------------------
+prediction: sequential = sum = 8s, gather = max = 3s
+measured:   sequential = 8.00s, gather = 3.00s

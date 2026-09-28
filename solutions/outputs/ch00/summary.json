@@ -1,8 +1,8 @@
 {
  "chapter": "0",
  "title": "Chapter 0: Foundations",
- "model": "none (--free-only)",
- "date": "2026-09-26 21:16",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-28 00:48",
  "exercises": [
   {
    "id": "0.1",
@@ -26,9 +26,9 @@
    "id": "0.3",
    "title": "Your shared workspace",
    "kind": "run",
-   "status": "passed",
-   "reason": null,
-   "seconds": 0.0,
+   "status": "skipped",
+   "reason": "needs a file you create yourself: Create workspace/hello.py on your computer first, then run this again.",
+   "seconds": 0,
    "log": "ch00/0.3.log"
   },
   {
@@ -55,7 +55,7 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 0.9,
+   "seconds": 7.0,
    "log": "ch00/0.6.log"
   },
   {

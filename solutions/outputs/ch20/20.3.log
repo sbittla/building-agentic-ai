@@ -1,9 +1,9 @@
 # Exercise: 20.3  Break the plan
-# Command:  python /solutions/exercises/ex20_3_bad_plans.py
+# Command:  python /tmp/solutions-flat/exercises/ex20_3_bad_plans.py
 # Model:    none (no model needed)
-# Date:     2026-09-26 21:17:57 UTC
+# Date:     2026-09-27 22:22:15 UTC
 # Exit code: 0
-# Seconds:  1.6
+# Seconds:  1.7
 #-------------------------------------------------------------------------------
 ok   too many steps: ['8 steps; the limit is 6']
 ok   unknown tool: ["s1 uses unknown tools ['send_email']"]

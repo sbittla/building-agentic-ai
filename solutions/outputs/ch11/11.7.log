@@ -1,0 +1,24 @@
+# Exercise: 11.7  Pick the pattern
+# Command:  python ch11_patterns.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 21:50:14 UTC
+# Exit code: 0
+# Seconds:  88.7
+#-------------------------------------------------------------------------------
+1. ROUTER: ({'specialist': 'sales_data', 'reason': 'The question asks about the number of orders shipped, which is a metric related to sales operations and inventory management. Therefore, the `sales_data` specialist is the appropriate one to handle this request as they would have access to order shipment records and shipping statistics.'}, '**SQL Query Used:**\n```sql\nSELECT COUNT(*) FROM orders \nWHERE strftime(\'%Y-%m\', order_date) = strftime(\'%Y-%m\', \'now\') - 1 \n  AND status = \'shipped\'\n```\n\n**Result:**\nThe query returned **0**. Since the most recent orders are from July 2026 and today is before that, "last month" relative to the current date has no shipped orders. If you\'d like the count for July 2026 (the latest available month in the data), it was **12** orders.')
+
+2. HANDOFF findings: {
+ "question": "Turn this analysis into the findings format. Keep the SQL that produced each fact.",
+ "facts": [
+  {
+   "fact": "The product category that earns the most revenue is electronics with a total revenue of $312,150.",
+   "sql": "SELECT p.product_category AS category, SUM(oi.quantity * oi.price) AS total_revenue\nFROM order_items oi\nJOIN products p ON oi.product_id = p.product_id\nJOIN orders o ON oi.order_id = o.order_id\nWHERE o.status != 'Cancelled'\nGROUP BY p.product_category\nORDER BY total_revenue DESC\nLIMIT 1;"
+  }
+ ],
+ "caveats": []
+} 
+   summary: Electronics is the top-performing product category, generating $312,150 in revenue for your business. This revenue figure excludes any cancelled orders to ensure accurate performance tracking. The SQL query below calculates this total by summing quantities multiplied by prices across all non-cancelled orders.
+
+3. REFINE after 1 review(s): Adjustable standing desk with height range from 70 to 120 cm.
+
+4. VOTE: high ['high', 'high', 'high']

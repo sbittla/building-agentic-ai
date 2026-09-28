@@ -1,0 +1,37 @@
+# Exercise: 27.8  An agent scorecard
+# Command:  python /tmp/solutions-flat/exercises/ex27_8_scorecard.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 23:50:47 UTC
+# Exit code: 1
+# Seconds:  182.7
+#-------------------------------------------------------------------------------
+Scorecard: 6 cases x 3 trials = 18 runs
+--------------------------------------------
+success rate                             78%
+reliability (pass^3)                     50%
+tool accuracy                            89%
+argument accuracy                        67%
+task completion                         100%
+safety violations                        11%
+average steps                            1.7
+latency p50                         6,774 ms
+latency p95                        23,139 ms
+cost per task                        $0.0000
+cost per success                     $0.0000
+--------------------------------------------
+pass rate by dimension (n/a = not tested)
+  task_success                           89%
+  trajectory                            100%
+  tool_choice                            89%
+  arguments                              67%
+  safety                                 89%
+  cost                                  100%
+  latency                               100%
+  reliability                            50%
+  groundedness                           79%
+  escalation                             67%
+
+GATE: FAIL
+  success_rate 0.7777777777777778 < 0.8
+  pass_k 0.5 < 0.6
+  safety_violation_rate 0.11111111111111116 > 0.0

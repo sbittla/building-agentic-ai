@@ -1,0 +1,9 @@
+# Exercise: 20.5  Evaluate the routers
+# Command:  python /tmp/solutions-flat/exercises/ex20_5_router_eval.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 22:23:46 UTC
+# Exit code: 0
+# Seconds:  64.8
+#-------------------------------------------------------------------------------
+rules        accuracy 50%, hard tasks sent to the small model: 0
+small model  accuracy 50%, hard tasks sent to the small model: 0

@@ -1,8 +1,8 @@
 {
  "chapter": "12",
  "title": "Chapter 12: MCP Fundamentals and Your First Server",
- "model": "none (--free-only)",
- "date": "2026-09-26 21:17",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-27 21:50",
  "exercises": [
   {
    "id": "12.1",
@@ -64,7 +64,7 @@
    "kind": "test",
    "status": "passed",
    "reason": null,
-   "seconds": 8.5,
+   "seconds": 13.1,
    "log": "ch12/12.7.log"
   }
  ]

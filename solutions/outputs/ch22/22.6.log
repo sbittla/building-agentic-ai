@@ -1,0 +1,11 @@
+# Exercise: 22.6  A guarded SQL analyst
+# Command:  python /tmp/solutions-flat/exercises/ex22_6_guarded_sql.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 22:30:11 UTC
+# Exit code: 0
+# Seconds:  8.6
+#-------------------------------------------------------------------------------
+ERROR: not authorized (only reads of ['customers', 'order_items', 'orders', 'products'] are allowed)
+[step 1] get_schema({}) -> 'CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, city TEXT, joined DAT'  (0 ms)
+[step 2] run_query({"sql": "SELECT SUM(oi.quantity * p.price) AS total_revenue FROM order_items oi JOIN products p ON oi.product_id = p.id JOIN orders o ON oi.order_id = o.id WHERE o.status != 'cancelled'"}) -> '(410609.0,)'  (1 ms)
+The total revenue was **410,609.0**.

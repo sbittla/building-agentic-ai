@@ -23,8 +23,10 @@ async def approve(tool_name, tool_input, context):
     else:
         ok = False                                      # anything unexpected: deny
     decisions.append((tool_name, "allow" if ok else "deny"))
+    # say the "no" is final, or a small model retries the same call until max_turns
     return PermissionResultAllow() if ok else PermissionResultDeny(
-        message=f"{tool_name} was not approved.")
+        message=f"{tool_name} was not approved. The decision is final: don't call it "
+                "again; tell the user it wasn't done.")
 
 def options(python="python"):
     return ClaudeAgentOptions(

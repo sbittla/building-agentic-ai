@@ -1,0 +1,22 @@
+# Exercise: 3.7  Tool search at scale
+# Command:  python ch03_tool_search.py
+# Model:    claude-sonnet-5 (Claude API)
+# Date:     2026-09-28 01:49:07 UTC
+# Exit code: 0
+# Seconds:  12.3
+#-------------------------------------------------------------------------------
+16 tools available, 1 loaded up front.
+
+[step 1] basic_get_current_date({}) -> '2026-09-28 (Monday)'  (0 ms)
+[step 2] sql_get_schema({}) -> 'CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, city TEXT, joined DAT'  (1 ms)
+[step 2] weather_get_forecast({"latitude": 18.5204, "longitude": 73.8567, "days": 2}) -> '2026-09-28: 20.3..30.6 C, rain chance 99%\n2026-09-29: 21.7..32.1 C, rain chance '  (910 ms)
+[step 3] sql_run_query({"sql": "SELECT COUNT(*) AS order_count FROM orders"}) -> 'order_count\n400'  (1 ms)
+
+Searches the model made: [{'query': 'shop database orders count'}, {'query': 'weather forecast'}, {'query': 'SQL query database'}, {'query': 'orders table e-commerce'}]
+Here's what you asked for:
+
+**Orders in the shop database:** 400 total orders.
+
+**Weather in Pune tomorrow (2026-09-29):**
+- Temperature: 21.7°C to 32.1°C
+- Rain chance: 100% — expect a rainy day, so bring an umbrella!

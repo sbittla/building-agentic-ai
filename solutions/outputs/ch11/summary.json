@@ -1,8 +1,8 @@
 {
  "chapter": "11",
  "title": "Chapter 11: Multi-Agent Systems",
- "model": "none (--free-only)",
- "date": "2026-09-26 21:17",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-27 21:50",
  "exercises": [
   {
    "id": "11.1",
@@ -26,46 +26,46 @@
    "id": "11.3",
    "title": "Run the team",
    "kind": "run",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 103.6,
+   "log": "ch11/11.3.log"
   },
   {
    "id": "11.4",
    "title": "Better delegation",
    "kind": "run",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 108.2,
+   "log": "ch11/11.4.log"
   },
   {
    "id": "11.5",
    "title": "A critic agent",
    "kind": "run",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 143.3,
+   "log": "ch11/11.5.log"
   },
   {
    "id": "11.6",
    "title": "Is it worth it?",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 1088.7,
+   "log": "ch11/11.6.log"
   },
   {
    "id": "11.7",
    "title": "Pick the pattern",
    "kind": "run",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 88.7,
+   "log": "ch11/11.7.log"
   }
  ]
 }

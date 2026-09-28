@@ -1,0 +1,27 @@
+# Exercise: 16.4  Assemble a context
+# Command:  python ch16_assemble.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 21:53:02 UTC
+# Exit code: 0
+# Seconds:  7.7
+#-------------------------------------------------------------------------------
+Task: order_status
+  orders    orders_api:4471    refreshed (was stale)
+  policy    policy.md:1-2      included (39 tokens)
+  orders    orders_api:4471    included (23 tokens)
+  customer  crm:cust_19        included (23 tokens)
+  faq       faq.md:14          dropped: over budget (452 tokens)
+
+<context source="policy" origin="policy.md:1-2" age="0s">
+Refunds within 30 days of delivery. Express shipping fees are refunded if an order is more than 2 days late.
+</context>
+
+<context source="orders" origin="orders_api:4471" age="0s">
+#4471 standing desk: out for delivery today.
+</context>
+
+<context source="customer" origin="crm:cust_19" age="3d">
+Priya Nair, customer since 2023. Prefers email.
+</context>
+
+Your order **#4471** (standing desk) is **out for delivery today** [orders_api:4471]. While we regret the delay, please note that express shipping fees are refunded if an order arrives more than 2 days late [policy:1-2]. If the current delay exceeds two days from your original promise date starting tomorrow, you may be eligible for a refund of those fees.

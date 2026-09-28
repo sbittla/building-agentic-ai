@@ -1,0 +1,18 @@
+# Exercise: 1.6  Remembering a conversation
+# Command:  python /tmp/solutions-flat/exercises/ex1_6_chat.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 19:40:48 UTC
+# Exit code: 0
+# Seconds:  9.5
+#-------------------------------------------------------------------------------
+=== WITH history ===
+You: Hi, my name is Srini.
+Model: Hello Srini! It's nice to meet you. How can I assist you today? Feel free to ask any questions or let me know if you need help with anything specific! 😊
+
+You: What's the capital of France?
+Model: The capital of France is **Paris**.
+
+It is also the country's most populous city and a major global center for art, fashion, gastronomy, and culture. 🇫🇷✨
+
+You: What's my name?
+Model: Your name is **Srini**! I remember you mentioned it at the beginning of our conversation. 👋😊

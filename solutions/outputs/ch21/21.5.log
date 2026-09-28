@@ -1,0 +1,19 @@
+# Exercise: 21.5  A team of A2A agents
+# Command:  python /tmp/solutions-flat/exercises/ex21_5_a2a_team.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 22:27:58 UTC
+# Exit code: 0
+# Seconds:  27.6
+#-------------------------------------------------------------------------------
+Agent: Shop data analyst (v1.0.0)
+  Answers questions about the shop's customers, products, orders and revenue by writing and running read-only SQL.
+  skill shop_data_questions: One self-contained question about sales data, answered in plain English with the numbers found.
+Agent: To-do keeper (v1.0.0)
+  Keeps the team's to-do list: adds, lists and completes tasks.
+  skill todo_list: Add a task (with an optional due date), list tasks or mark one done.
+
+Coordinator: Find the city with the most customers, then add a to-do to plan a promotion there next week.
+[step 1] ask_shop_analyst({"question": "Which city has the most customers?"}) -> 'The city with the most customers is **Berlin**, which has **14** customers.\n\nFin'  (10351 ms)
+[step 2] ask_todo_keeper({"question": "Add a to-do to plan a promotion in Berlin next week."}) -> 'I\'ve added the to-do: "Plan a promotion in Berlin next week" with normal priorit'  (5479 ms)
+I found that Berlin has the most customers. I have added the task "Plan a promotion in Berlin next week" to your to-do list for this coming week.
+Delegations: ['ask_shop_analyst', 'ask_todo_keeper']

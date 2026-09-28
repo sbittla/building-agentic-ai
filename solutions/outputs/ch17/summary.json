@@ -1,8 +1,8 @@
 {
  "chapter": "17",
  "title": "Chapter 17: Agent Memory Engineering",
- "model": "none (--free-only)",
- "date": "2026-09-26 21:17",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-27 22:06",
  "exercises": [
   {
    "id": "17.1",
@@ -26,10 +26,10 @@
    "id": "17.3",
    "title": "Remember across restarts",
    "kind": "run",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 4.7,
+   "log": "ch17/17.3.log"
   },
   {
    "id": "17.4",
@@ -44,10 +44,10 @@
    "id": "17.5",
    "title": "Consolidate episodes",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 4.4,
+   "log": "ch17/17.5.log"
   },
   {
    "id": "17.6",
@@ -55,7 +55,7 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 0.0,
+   "seconds": 0.1,
    "log": "ch17/17.6.log"
   },
   {
@@ -64,17 +64,17 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 0.0,
+   "seconds": 0.1,
    "log": "ch17/17.7.log"
   },
   {
    "id": "17.8",
    "title": "A memory-backed assistant",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 140.6,
+   "log": "ch17/17.8.log"
   }
  ]
 }

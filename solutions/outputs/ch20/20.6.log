@@ -1,0 +1,9 @@
+# Exercise: 20.6  A plan that survives a crash
+# Command:  python /tmp/solutions-flat/exercises/ex20_6_durable_plan.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 22:24:59 UTC
+# Exit code: 0
+# Seconds:  73.0
+#-------------------------------------------------------------------------------
+Job 9ce47b56: needs_human (step 1: plan_step failed 3 times: no attempts left)
+  1. plan_step        failed   tries=3 plan_step failed 3 times: no attempts left

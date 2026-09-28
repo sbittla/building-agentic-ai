@@ -1,8 +1,8 @@
 {
  "chapter": "19",
  "title": "Chapter 19: Long-Running Agents",
- "model": "none (--free-only)",
- "date": "2026-09-26 21:17",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-27 22:22",
  "exercises": [
   {
    "id": "19.1",
@@ -26,10 +26,10 @@
    "id": "19.3",
    "title": "Crash and resume",
    "kind": "run",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 6.2,
+   "log": "ch19/19.3.log"
   },
   {
    "id": "19.4",
@@ -37,26 +37,26 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 0.6,
+   "seconds": 0.7,
    "log": "ch19/19.4.log"
   },
   {
    "id": "19.5",
    "title": "A cost budget per job",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 6.4,
+   "log": "ch19/19.5.log"
   },
   {
    "id": "19.6",
    "title": "A report that finishes itself",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 113.6,
+   "log": "ch19/19.6.log"
   }
  ]
 }

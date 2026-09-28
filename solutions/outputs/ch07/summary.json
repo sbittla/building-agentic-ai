@@ -1,8 +1,8 @@
 {
  "chapter": "7",
  "title": "Chapter 7: Real APIs",
- "model": "none (--free-only)",
- "date": "2026-09-26 21:16",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-28 00:14",
  "exercises": [
   {
    "id": "7.1",
@@ -27,7 +27,7 @@
    "title": "Pack for a trip",
    "kind": "ask",
    "status": "skipped",
-   "reason": "needs a model (--free-only)",
+   "reason": "an ask exercise: nothing to run against a model",
    "seconds": 0,
    "log": null
   },
@@ -36,7 +36,7 @@
    "title": "Handle the hard cases",
    "kind": "ask",
    "status": "skipped",
-   "reason": "needs a model (--free-only)",
+   "reason": "an ask exercise: nothing to run against a model",
    "seconds": 0,
    "log": null
   },
@@ -44,19 +44,19 @@
    "id": "7.5",
    "title": "Run tools in parallel",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 110.3,
+   "log": "ch07/7.5.log"
   },
   {
    "id": "7.6",
    "title": "Multi-city trip with measurements",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 433.3,
+   "log": "ch07/7.6.log"
   }
  ]
 }

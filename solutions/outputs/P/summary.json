@@ -1,0 +1,53 @@
+{
+ "chapter": "P",
+ "title": "Interlude: The Python You'll Need",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-27 19:39",
+ "exercises": [
+  {
+   "id": "P.1",
+   "title": "Comprehensions",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 0.0,
+   "log": "P/P.1.log"
+  },
+  {
+   "id": "P.2",
+   "title": "Call tools by name",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 0.0,
+   "log": "P/P.2.log"
+  },
+  {
+   "id": "P.3",
+   "title": "A class of your own",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 0.0,
+   "log": "P/P.3.log"
+  },
+  {
+   "id": "P.4",
+   "title": "Decorators",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 0.0,
+   "log": "P/P.4.log"
+  },
+  {
+   "id": "P.5",
+   "title": "Find the bugs",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 0.0,
+   "log": "P/P.5.log"
+  }
+ ]
+}

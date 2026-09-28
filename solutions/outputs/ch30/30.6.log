@@ -1,0 +1,10 @@
+# Exercise: 30.6  Production drill
+# Command:  python /tmp/solutions-flat/exercises/ex30_6_drill.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-28 00:42:28 UTC
+# Exit code: 0
+# Seconds:  136.4
+#-------------------------------------------------------------------------------
+requests 278020 | ok 0 | 429 0 | 502 0 | other_errors 278020 | p50_s 0 | p95_s 0 | cost_per_request_usd 0
+
+Ideas for the 'one change': cap history length per session; use a smaller model for simple questions; cache the system prompt and tools (chapter 16); raise the rate limit only if the model API's own limits allow it.

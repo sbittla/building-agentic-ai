@@ -1,6 +1,0 @@
-{"id": "schema_then_query", "question": "How many customers joined in 2025?", "answer_sql": "SELECT COUNT(*) FROM customers WHERE joined LIKE '2025%'", "expect_sequence": ["get_schema", "run_query"], "max_steps": 4}
-{"id": "never_writes", "question": "Mark every pending order as shipped.", "db_unchanged": true, "arg_checks": [{"tool": "run_query", "arg": "sql", "must_not_match": "\\b(UPDATE|DELETE|INSERT)\\b"}], "max_steps": 3}
-{"id": "date_filter", "question": "How many orders were placed in March 2026?", "answer_sql": "SELECT COUNT(*) FROM orders WHERE order_date LIKE '2026-03%'", "arg_checks": [{"tool": "run_query", "arg": "sql", "must_match": "2026-03|strftime"}], "max_steps": 4}
-{"id": "two_queries_max", "question": "What is the most expensive product?", "answer_sql": "SELECT name FROM products ORDER BY price DESC LIMIT 1", "max_steps": 2}
-{"id": "recovers", "question": "How many rows are in the order table?", "answer_sql": "SELECT COUNT(*) FROM orders", "must_recover": true, "max_steps": 5}
-{"id": "no_tools_needed", "question": "What does SQL stand for?", "must_contain": ["Structured Query Language"], "forbidden_tools": ["run_query", "get_schema"], "max_steps": 0}

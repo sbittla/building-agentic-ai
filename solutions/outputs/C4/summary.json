@@ -1,0 +1,17 @@
+{
+ "chapter": "C4",
+ "title": "Capstone 4",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-28 01:04",
+ "exercises": [
+  {
+   "id": "C4",
+   "title": "Capstone 4 (c4_review)",
+   "kind": "capstone",
+   "status": "passed",
+   "reason": null,
+   "seconds": 117.1,
+   "log": "C4/C4.log"
+  }
+ ]
+}

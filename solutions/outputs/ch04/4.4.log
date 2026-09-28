@@ -1,0 +1,13 @@
+# Exercise: 4.4  A better tracer
+# Command:  python /tmp/solutions-flat/exercises/ex4_4_tracer.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 19:46:42 UTC
+# Exit code: 0
+# Seconds:  10.9
+#-------------------------------------------------------------------------------
+step  model ms  tool ms  in tok  out tok  tools
+   1      1594      0.0     467       15  get_current_date({})
+   2      5406      0.0      45       88  days_between({"start": "2026-09-27", "end": "2027-07-04"})
+   3      2081      0.0     124       28  
+total      9081      0.1     636      131
+There are **280 days** until July 4, 2027. It will be on a **Sunday**.

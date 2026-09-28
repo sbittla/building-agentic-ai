@@ -1,8 +1,8 @@
 {
  "chapter": "26",
  "title": "Chapter 26: Agent Identity and Authorization",
- "model": "none (--free-only)",
- "date": "2026-09-26 21:18",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-27 23:16",
  "exercises": [
   {
    "id": "26.1",
@@ -35,10 +35,10 @@
    "id": "26.4",
    "title": "Tokens for a team",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 35.5,
+   "log": "ch26/26.4.log"
   },
   {
    "id": "26.5",
@@ -53,10 +53,10 @@
    "id": "26.6",
    "title": "A token-checked API",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 6.1,
+   "log": "ch26/26.6.log"
   }
  ]
 }

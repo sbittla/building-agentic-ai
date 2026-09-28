@@ -1,0 +1,8 @@
+# Exercise: 3.3  Add a tool
+# Command:  python -c "import ch03_tools as m; from ch04_agent import run_agent; print(run_agent('What time is it in Tokyo?', m.TOOLS, m.run_tool, system=getattr(m, 'SYSTEM', 'x'))[0])"
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 19:44:29 UTC
+# Exit code: 0
+# Seconds:  6.0
+#-------------------------------------------------------------------------------
+Tokyo is currently UTC+9. Without knowing your current location or time zone, I cannot tell you the exact time there right now. Please tell me your local time and time zone, or your city, and I can calculate the time for you.

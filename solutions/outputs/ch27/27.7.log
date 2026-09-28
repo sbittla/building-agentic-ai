@@ -1,9 +1,9 @@
 # Exercise: 27.7  Evaluate in production
-# Command:  python /solutions/exercises/ex27_7_online.py
+# Command:  python /tmp/solutions-flat/exercises/ex27_7_online.py
 # Model:    none (no model needed)
-# Date:     2026-09-26 21:33:16 UTC
+# Date:     2026-09-27 23:47:44 UTC
 # Exit code: 0
-# Seconds:  1.7
+# Seconds:  1.8
 #-------------------------------------------------------------------------------
 day  1: sample  24, pass rate 96%
 day  2: sample  27, pass rate 100%

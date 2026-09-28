@@ -1,0 +1,17 @@
+{
+ "chapter": "C6",
+ "title": "Capstone 6",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-28 01:02",
+ "exercises": [
+  {
+   "id": "C6",
+   "title": "Capstone 6 (c6_backoffice)",
+   "kind": "capstone",
+   "status": "passed",
+   "reason": null,
+   "seconds": 52.8,
+   "log": "C6/C6.log"
+  }
+ ]
+}

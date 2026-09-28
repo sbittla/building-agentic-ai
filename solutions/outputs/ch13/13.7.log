@@ -1,0 +1,15 @@
+# Exercise: 13.7  Let the server ask the user
+# Command:  python /tmp/solutions-flat/exercises/ex13_7_host.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-28 00:15:11 UTC
+# Exit code: 0
+# Seconds:  3.9
+#-------------------------------------------------------------------------------
+
+[server asks] Booking a trip to Lisbon. How many nights, and what budget?
+Answer? [y/n] 
+[tool result] The user declined to give details, so nothing was booked for Lisbon.
+
+[server wants the model] [{"role": "user", "content": "Summarize these travel notes in three short bullets:\n\nTram 28 is crowded before 10am. Pastel de nata at Manteigaria. Sintra needs a full day."}]
+Allow this model call? [y/n] 
+[tool refused] The user refused the sampling request.

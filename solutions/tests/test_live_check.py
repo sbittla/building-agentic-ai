@@ -31,7 +31,7 @@ def test_live_check_mechanics(tmp_path, monkeypatch, capsys):
 
 def test_live_runs_exist():
     import os
-    code = Path(os.environ.get("COURSE_CODE", "/opt/course/code"))
+    code = Path(os.environ["COURSE_CODE_FLAT"])
     if not (COURSE / "course.py").exists():
         pytest.skip("runs in the course image")
     sys.path.insert(0, str(COURSE))

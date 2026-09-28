@@ -1,8 +1,8 @@
 {
  "chapter": "23",
  "title": "Chapter 23: Computer-Use Agents",
- "model": "none (--free-only)",
- "date": "2026-09-26 21:17",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-27 22:33",
  "exercises": [
   {
    "id": "23.1",
@@ -28,35 +28,35 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 1.3,
+   "seconds": 2.0,
    "log": "ch23/23.3.log"
   },
   {
    "id": "23.4",
    "title": "The injected note",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 46.2,
+   "log": "ch23/23.4.log"
   },
   {
    "id": "23.5",
    "title": "Verify, don't trust",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 92.8,
+   "log": "ch23/23.5.log"
   },
   {
    "id": "23.6",
    "title": "A queue that survives a crash",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 45.4,
+   "log": "ch23/23.6.log"
   }
  ]
 }

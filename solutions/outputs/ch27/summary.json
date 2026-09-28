@@ -1,8 +1,8 @@
 {
  "chapter": "27",
  "title": "Chapter 27: Agent Evaluation: Dimensions, Trajectories and Scorecards",
- "model": "none (--free-only)",
- "date": "2026-09-26 21:33",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-27 23:50",
  "exercises": [
   {
    "id": "27.1",
@@ -26,37 +26,37 @@
    "id": "27.3",
    "title": "Run the SQL suite",
    "kind": "run",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 819.7,
+   "log": "ch27/27.3.log"
   },
   {
    "id": "27.4",
    "title": "Eval in CI",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 792.7,
+   "log": "ch27/27.4.log"
   },
   {
    "id": "27.5",
    "title": "Calibrate a judge",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 88.4,
+   "log": "ch27/27.5.log"
   },
   {
    "id": "27.6",
    "title": "Grade the path",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 154.5,
+   "log": "ch27/27.6.log"
   },
   {
    "id": "27.7",
@@ -64,17 +64,17 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 1.7,
+   "seconds": 1.8,
    "log": "ch27/27.7.log"
   },
   {
    "id": "27.8",
    "title": "An agent scorecard",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "failed",
+   "reason": "exit code 1",
+   "seconds": 182.7,
+   "log": "ch27/27.8.log"
   }
  ]
 }

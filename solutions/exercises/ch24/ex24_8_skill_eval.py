@@ -26,8 +26,12 @@ def run(request: str, with_skill: bool) -> dict:
     else:
         tools, system = sql.TOOLS, "You are a helpful analyst."
     def run_tool(name, args):
-        return skills.read_skill(**args) if name == "read_skill" else \
-            sql.run_tool(name, args)
+        if name != "read_skill":
+            return sql.run_tool(name, args)
+        try:                       # bad arguments go back to the model, as in ch08
+            return skills.read_skill(**args)
+        except TypeError as exc:
+            return f"ERROR: {type(exc).__name__}: {exc}"
     answer, _, stats = run_agent(request, tools, run_tool, system=system, verbose=False)
     return {**check(answer), "tokens": stats["input_tokens"] + stats["output_tokens"]}
 

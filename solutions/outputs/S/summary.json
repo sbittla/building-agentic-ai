@@ -1,0 +1,44 @@
+{
+ "chapter": "S",
+ "title": "Interlude: SQL in One Sitting",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-27 20:15",
+ "exercises": [
+  {
+   "id": "S.1",
+   "title": "Warm-up queries",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 0.9,
+   "log": "S/S.1.log"
+  },
+  {
+   "id": "S.2",
+   "title": "Spot the bug",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 0.3,
+   "log": "S/S.2.log"
+  },
+  {
+   "id": "S.3",
+   "title": "Business questions",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 0.4,
+   "log": "S/S.3.log"
+  },
+  {
+   "id": "S.4",
+   "title": "Safe parameters",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 0.3,
+   "log": "S/S.4.log"
+  }
+ ]
+}

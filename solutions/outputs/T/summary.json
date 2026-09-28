@@ -1,0 +1,44 @@
+{
+ "chapter": "T",
+ "title": "Interlude: Testing with pytest",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-27 19:41",
+ "exercises": [
+  {
+   "id": "T.1",
+   "title": "Run and break",
+   "kind": "run",
+   "status": "passed",
+   "reason": null,
+   "seconds": 1.7,
+   "log": "T/T.1.log"
+  },
+  {
+   "id": "T.2",
+   "title": "Parametrize",
+   "kind": "test",
+   "status": "passed",
+   "reason": null,
+   "seconds": 6.7,
+   "log": "T/T.2.log"
+  },
+  {
+   "id": "T.3",
+   "title": "Test your Chapter 0 code",
+   "kind": "test",
+   "status": "passed",
+   "reason": null,
+   "seconds": 5.5,
+   "log": "T/T.3.log"
+  },
+  {
+   "id": "T.4",
+   "title": "Fake the network",
+   "kind": "test",
+   "status": "passed",
+   "reason": null,
+   "seconds": 6.2,
+   "log": "T/T.4.log"
+  }
+ ]
+}

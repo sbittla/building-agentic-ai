@@ -1,8 +1,8 @@
 {
  "chapter": "22",
  "title": "Chapter 22: Hybrid Architectures: Probabilistic Intelligence, Deterministic Control",
- "model": "none (--free-only)",
- "date": "2026-09-26 21:17",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-27 22:30",
  "exercises": [
   {
    "id": "22.1",
@@ -26,37 +26,37 @@
    "id": "22.3",
    "title": "Follow the five paths",
    "kind": "run",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 34.0,
+   "log": "ch22/22.3.log"
   },
   {
    "id": "22.4",
    "title": "Change the policy, not the code",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 10.7,
+   "log": "ch22/22.4.log"
   },
   {
    "id": "22.5",
    "title": "Attack the workflow",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 37.9,
+   "log": "ch22/22.5.log"
   },
   {
    "id": "22.6",
    "title": "A guarded SQL analyst",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 8.6,
+   "log": "ch22/22.6.log"
   }
  ]
 }

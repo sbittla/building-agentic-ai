@@ -1,9 +1,9 @@
 # Exercise: 28.7  Classify real failures
-# Command:  python /solutions/exercises/ex28_7_taxonomy.py
+# Command:  python /tmp/solutions-flat/exercises/ex28_7_taxonomy.py
 # Model:    none (no model needed)
-# Date:     2026-09-26 21:18:09 UTC
+# Date:     2026-09-27 23:51:09 UTC
 # Exit code: 0
-# Seconds:  1.6
+# Seconds:  1.8
 #-------------------------------------------------------------------------------
 wrong-table  wrong_tool
 old-dates    wrong_args

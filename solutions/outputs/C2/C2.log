@@ -1,0 +1,14 @@
+# Exercise: C2  Capstone 2 (c2_analyst)
+# Command:  course capstone 2
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-28 00:50:40 UTC
+# Exit code: 0
+# Seconds:  38.8
+#-------------------------------------------------------------------------------
+Running solutions/capstones/c2_analyst/agent.py
+Tools: ['warehouse__list_tables', 'warehouse__describe_table', 'warehouse__run_query', 'charts__make_chart']
+
+You: Agent: I see that you provided an input 'n'. Could you please clarify what specific question or data analysis you would like me to perform on the shop database?
+  [1 steps, 0 tool calls, 667 tokens]
+
+You:

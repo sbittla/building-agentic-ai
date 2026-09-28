@@ -126,8 +126,8 @@ def compare(cases, impls=IMPLEMENTATIONS, trials=1):
                        "lines_of_code": lines}
     return table
 
-def main(path="eval_sql.jsonl", trials=3):
-    cases = [json.loads(line) for line in open(path) if line.strip()]
+def main(path="eval_sql.jsonl", trials=3, max_cases=None):
+    cases = [json.loads(line) for line in open(path) if line.strip()][:max_cases]
     table = compare(cases, trials=trials)
     print(f"{'version':<12}{'pass':>8}{'95% CI':>10}{'tokens':>9}{'median s':>10}{'lines':>7}")
     for name, r in table.items():
@@ -138,4 +138,6 @@ def main(path="eval_sql.jsonl", trials=3):
     return table
 
 if __name__ == "__main__":
-    main()
+    import sys                     # python ex24_5_three_ways.py [cases.jsonl] [trials] [max cases]
+    args = sys.argv[1:]
+    main(*args[:1], *(int(a) for a in args[1:3]))

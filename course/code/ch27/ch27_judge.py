@@ -20,7 +20,7 @@ _client = None
 def client():
     global _client
     if _client is None:
-        _client = Anthropic(timeout=120, max_retries=3)
+        _client = Anthropic(timeout=float(os.environ.get("MODEL_TIMEOUT", 120)), max_retries=3)
     return _client
 
 # Structured outputs guarantee the reply is JSON in this shape. (A forced tool call

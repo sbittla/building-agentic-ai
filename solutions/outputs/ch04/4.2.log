@@ -1,0 +1,12 @@
+# Exercise: 4.2  Run the loop
+# Command:  python ch04_agent.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 19:46:21 UTC
+# Exit code: 0
+# Seconds:  15.0
+#-------------------------------------------------------------------------------
+[step 1] get_current_date({}) -> '2026-09-27 (Sunday)'  (0 ms)
+[step 2] days_between({"start": "2026-09-27", "end": "2027-07-04"}) -> '280 days; 2027-07-04 is a Sunday'  (0 ms)
+
+ANSWER: July 4th next year will be **Sunday**, and it's **280 days** away from today.
+STATS: {'steps': 3, 'tool_calls': 2, 'input_tokens': 744, 'output_tokens': 196, 'stop_reason': 'end_turn', 'model': 'qwen3.5:9b'}

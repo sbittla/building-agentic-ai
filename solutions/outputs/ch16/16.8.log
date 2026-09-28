@@ -1,0 +1,61 @@
+# Exercise: 16.8  Brief the research team
+# Command:  python /tmp/solutions-flat/exercises/ex16_8_briefed_team.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 22:03:40 UTC
+# Exit code: 0
+# Seconds:  534.0
+#-------------------------------------------------------------------------------
+
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]
+Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 777.31it/s]
+PLAN: [
+  "Analyze the cost structure (API calls, compute, storage) of agentic search versus RAG systems using internal documents",
+  "Compare data freshness capabilities between agentic search (which can browse live web vs. static vector DBs) and RAG systems",
+  "Identify specific error codes returned by each system when handling internal docs (e.g., authentication failures, context limits, retrieval errors)"
+]
+
+[121.5s, {'input_tokens': 3213, 'output_tokens': 1781, 'calls': 10}]
+PLAN: [
+  "Explain how agentic search handles errors compared to standard RAG, specifically focusing on internal documentation context",
+  "Analyze the cost implications of running an agentic search system versus a traditional RAG pipeline for internal document retrieval",
+  "Compare the data freshness and latency characteristics between agentic search and static RAG retrievers"
+]
+
+[52.7s, {'input_tokens': 1805, 'output_tokens': 849, 'calls': 5}]
+PLAN: [
+  "Identify and explain the main technical causes of latency in AI agent loops (e.g., model inference time, tool execution delays, network overhead, decision-making bottlenecks).",
+  "Research specific strategies for reducing latency in each identified cause (e.g., model optimization, parallelization, caching, asynchronous execution).",
+  "Investigate trade-offs involved in latency reduction techniques (e.g., accuracy vs. speed, cost vs. performance)."
+]
+
+[113.8s, {'input_tokens': 1982, 'output_tokens': 1733, 'calls': 8}]
+PLAN: [
+  "Identify the main technical causes of latency in agent loops (e.g., API response times, model inference time, network overhead, context window management).",
+  "Explain how each identified cause impacts overall loop speed and user experience.",
+  "Research strategies and best practices for reducing latency for each cause (e.g., parallelization, streaming responses, caching, efficient prompt design)."
+]
+
+[62.8s, {'input_tokens': 1788, 'output_tokens': 993, 'calls': 5}]
+PLAN: [
+  "Define and contrast hybrid retrieval with keyword search",
+  "Identify scenarios where precision or recall requires semantic understanding beyond keywords",
+  "Analyze cases involving unstructured or complex queries (e.g., natural language, intent detection)",
+  "Evaluate performance metrics (latency vs. accuracy) when deciding between the two methods"
+]
+
+[113.6s, {'input_tokens': 2223, 'output_tokens': 1739, 'calls': 13}]
+PLAN: [
+  "Define keyword search and its typical use cases",
+  "Define hybrid retrieval (semantic + lexical) and how it works",
+  "Identify specific scenarios where hybrid retrieval outperforms keyword search",
+  "Provide examples or benchmarks comparing both methods for different query types"
+]
+
+[66.1s, {'input_tokens': 2239, 'output_tokens': 1052, 'calls': 6}]
+question                                  version      input  output  calls  cites
+Compare agentic search and RAG for our i  original      3213    1781     10     10
+Compare agentic search and RAG for our i  briefed       1805     849      5      0
+What are the main causes of latency in a  original      1982    1733      8      6
+What are the main causes of latency in a  briefed       1788     993      5      3
+When should we use hybrid retrieval inst  original      2223    1739     13      5
+When should we use hybrid retrieval inst  briefed       2239    1052      6      7

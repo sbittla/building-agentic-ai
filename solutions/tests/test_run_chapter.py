@@ -22,6 +22,9 @@ def course(monkeypatch, tmp_path, ws):
     (tmp_path / "out").mkdir()
     monkeypatch.setattr(mod, "OUTPUTS", tmp_path / "out")
     monkeypatch.setattr(mod, "WS", ws)
+    # main() normally flattens the solutions (exercises/ch04/... -> exercises/); these tests
+    # run from that flat copy already, so point the runner at it.
+    monkeypatch.setattr(mod, "SOLUTIONS", Path(__file__).resolve().parent.parent)
     yield mod
     os.environ.clear()
     os.environ.update(saved)
@@ -72,7 +75,7 @@ def test_free_chapter_layout(course):
     for x in summary["exercises"]:
         log = (out / x["log"]).read_text()
         assert x["log"] == f"P/{x['id']}.log"
-        for field in ("# Exercise: " + x["id"], "# Command:  python /solutions/exercises/",
+        for field in ("# Exercise: " + x["id"], "/exercises/exP_",
                       "# Model:    none", "# Date:", "# Exit code: 0", "# Seconds:"):
             assert field in log, (field, log[:300])
     assert "Known tools: add, greet" in (out / "P" / "P.2.log").read_text()          # the program's real output

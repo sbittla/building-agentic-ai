@@ -1,0 +1,17 @@
+{
+ "chapter": "C5",
+ "title": "Capstone 5",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-28 01:01",
+ "exercises": [
+  {
+   "id": "C5",
+   "title": "Capstone 5 (c5_research)",
+   "kind": "capstone",
+   "status": "passed",
+   "reason": null,
+   "seconds": 318.2,
+   "log": "C5/C5.log"
+  }
+ ]
+}

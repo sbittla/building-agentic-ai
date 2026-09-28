@@ -20,3 +20,6 @@ Thumbs.db
 # Exercise and Code Index (generated locally with symlinks)
 solutions/exercises/_index/
 course/code/_index/
+
+# Old tooling and notes kept locally, not part of the course
+_archive/

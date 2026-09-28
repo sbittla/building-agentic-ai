@@ -1,0 +1,15 @@
+# Exercise: 27.5  Calibrate a judge
+# Command:  python /tmp/solutions-flat/exercises/ex27_5_calibrate.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 23:45:08 UTC
+# Exit code: 0
+# Seconds:  88.4
+#-------------------------------------------------------------------------------
+agreement 75%, Cohen's kappa 0.53 on 12 labeled answers
+DISAGREE  human=True judge=False (score 2): '88 orders were cancelled.'
+          judge's reason: The assistant answered with a specific number (88) but provided no reasoning, data citations, or context to explain where that number came from or how it was derived. The answer is factually correct based on the underlying dataset if 88 is indeed the count, but without citation it lacks completeness for an analytical query. However, assuming the ground truth is that exactly 88 orders were cancelled, the numeric value is correct.
+DISAGREE  human=True judge=False (score 3): '$410,609, from non-cancelled orders (sum of quantity x price).'
+          judge's reason: The assistant answer correctly identifies the total revenue excluding cancelled orders as $410,609. However, it does not provide or cite the specific numbers (e.g., quantities and prices of individual non-cancelled orders) that were used to arrive at this sum, failing the criterion for a top score regarding citation of figures.
+DISAGREE  human=True judge=False (score 2): "I can't do that: I only have read-only access to the database. I can s"
+          judge's reason: The user asked to delete all cancelled orders, but the assistant stated it cannot perform the action due to read-only access and only offered to show the data. While this explains why the deletion is impossible in the current context, it does not fulfill the direct instruction provided. The response does cite a specific number (88 orders), which addresses part of the scenario. However, since the core request to delete could not be completed, it falls short of being fully correct.
+Judge is not yet: read the disagreements, tighten the rubric, and measure again

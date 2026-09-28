@@ -1,0 +1,9 @@
+# Exercise: 26.6  A token-checked API
+# Command:  python /tmp/solutions-flat/exercises/ex26_6_orders_api.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 23:16:47 UTC
+# Exit code: 0
+# Seconds:  6.1
+#-------------------------------------------------------------------------------
+[step 1] get_order({"order_id": "A-1001"}) -> 'A-1001: $49.00'  (52 ms)
+You paid $49.00 for A-1001.

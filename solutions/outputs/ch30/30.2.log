@@ -1,0 +1,11 @@
+# Exercise: 30.2  Call your agent API
+# Command:  python ch30_client.py && python ch30_client.py stream
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-28 00:39:37 UTC
+# Exit code: 0
+# Seconds:  34.9
+#-------------------------------------------------------------------------------
+{'session_id': '9a48a8fd11b243fbbc1d53bdc8527cbb', 'answer': '312 non-cancelled orders. This count excludes any orders marked as cancelled.', 'steps': 3, 'tool_calls': 2, 'input_tokens': 560, 'output_tokens': 69}
+{'session_id': '9a48a8fd11b243fbbc1d53bdc8527cbb', 'answer': '88 cancelled orders.', 'steps': 2, 'tool_calls': 1, 'input_tokens': 98, 'output_tokens': 43}
+[tool] {'name': 'get_schema', 'input': {}, 'result_preview': 'CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, city TEXT, joined DATE)\nCREATE TABLE products  (id INTEGER PRIMARY KEY, name TEXT, category TEXT, price REAL)\nCREATE TABLE orders    (id INTE'}
+[answer] {'session_id': '121d53a9f39c49c2bdb5e5a8dc4c969e', 'answer': 'The product category that earns the most revenue is "Electronics" with a total revenue of $1928.00.\n\n```sql\nSELECT p.category, SUM(oi.quantity * p.price) AS total_revenue\nFROM order_items oi\nJOIN products p ON oi.product_id = p.id\nJOIN orders o ON oi.order_id = o.id\nWHERE o.status != \'cancelled\'\nGROUP BY p.category\nORDER BY total_revenue DESC;\n```', 'steps': 2, 'tool_calls': 1, 'input_tokens': 502, 'output_tokens': 112, 'stop_reason': 'end_turn', 'model': 'qwen3.5:9b'}

@@ -1,0 +1,128 @@
+# Exercise: 17.8  A memory-backed assistant
+# Command:  python /tmp/solutions-flat/exercises/ex17_8_assistant.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 22:06:10 UTC
+# Exit code: 0
+# Seconds:  140.6
+#-------------------------------------------------------------------------------
+[ 1] You: Hi! I prefer dates written like 3 Oct 2026.
+     Agent: Got it! I've noted your preference for dates like "3 Oct 2026". Is there anything else you'd like me to remember or help with?
+[ 2] You: Add 'book dentist' due 2026-10-03.
+     Agent: The task "book dentist" has been added with a due date of 2026-10-03. Would you like me to help with anything else?
+[ 3] You: Add 'renew passport' due 2026-11-01.
+     Agent: The task "renew passport" has been added with a due date of 2026-11-01. Is there anything else you'd like me to help you with?
+[ 4] You: I like my most urgent task listed first.
+     Agent: Got it! I've noted that you'd like your most urgent tasks to be listed first. Would you like me to help with anything else?
+[ 5] You: What's on my list?
+     Agent: Your current task list is:
+
+1. **#1 - Read chapter 13** (High priority, due date not specified)
+2. **#2 - book dentist** (Normal priority, due 2026-10-03)
+3. **#3 - renew passport** (Normal priority, due 2026-11-01)
+
+Is there anything you'd like me to help you with regarding these tasks?
+[ 6] You: Mark the dentist task done.
+     Agent: The "book dentist" task has been marked as completed. Would you like me to help with anything else?
+[ 7] You: Add 'call Priya' due 2026-10-05.
+     Agent: The task "call Priya" has been added with a due date of 2026-10-05. Is there anything else you'd like me to help you with?
+[ 8] You: What's still open?
+     Agent: Your open tasks are:
+
+1. **#1 - Read chapter 13** (High priority, due date not specified)
+2. **#3 - renew passport** (Normal priority, due 2026-11-01)
+3. **#4 - call Priya** (Normal priority, due 2026-10-05)
+
+The "book dentist" task has been completed and is no longer on the list. Is there anything else you'd like me to help with?
+[ 9] You: Remember that my manager is Asha.
+     Agent: Got it! I've noted that your manager is Asha. Is there anything else you'd like me to remember or help with?
+[10] You: Thanks, that's all for now.
+     Agent: You're welcome! Your task list and preferences have been saved. Feel free to reach out anytime if you need help with your tasks or anything else. Have a great day!
+---- restart: new session, empty history ----
+[11] You: Hello again. What do you know about my preferences?
+     Agent: I have these preferences stored for you:
+
+1. You prefer tasks to be listed with the most urgent ones first.
+2. You prefer dates written in a format like "3 Oct 2026."
+
+Is there anything else you'd like me to remember or any changes you'd like to make?
+[12] You: What's on my list?
+     Agent: Here's what's on your to-do list:
+
+1. **Read chapter 13** - High priority, no specific due date
+2. **Renew passport** - Normal priority, due November 1, 2026
+3. **Call Priya** - Normal priority, due October 5, 2026
+
+Would you like to mark any of these as complete or modify anything?
+[13] You: Who is my manager?
+     Agent: I don't have information about your manager in my records. Is there something specific you'd like to know or do regarding your manager?
+[14] You: Add 'quarterly review with Asha' due 2026-12-15.
+     Agent: Done! I've added "quarterly review with Asha" to your list, due December 15, 2026. It has a normal priority. 
+
+Would you like me to adjust the priority or are there any other changes you'd like to make?
+[15] You: Which task is due next?
+     Agent: Based on today's date (September 27, 2026), here's your task list sorted by due date:
+
+1. **Call Priya** - Normal priority, due October 5, 2026 (This is next!)
+2. **Renew passport** - Normal priority, due November 1, 2026
+3. **Quarterly review with Asha** - Normal priority, due December 15, 2026
+4. **Read chapter 13** - High priority, no specific due date
+
+The next task due is **Call Priya** on October 5, 2026 (8 days from now).
+[16] You: Please forget my date format preference.
+     Agent: Done! I've forgotten your date format preference. Let me know if you'd like to store a new preference instead or if there's anything else you'd like to adjust.
+[17] You: What's due in November?
+     Agent: In November 2026, you have the following task due:
+
+**Renew passport** - Normal priority, due November 1, 2026
+
+Note that I also listed "Call Priya" in the results above, but that's actually due October 5, 2026, which is before November. Let me correct that for you:
+
+Tasks due in or before end of November:
+- Call Priya (October 5 - already passed)
+- Renew passport (November 1)
+
+So the only task due specifically in November is **Renew passport** on November 1st.
+[18] You: Add 'buy gift' with no date.
+     Agent: Done! I've added "buy gift" to your task list. It has no specific due date and a normal priority.
+
+Your current tasks are:
+1. Read chapter 13 (high priority, no due date)
+2. Call Priya (due October 5, 2026)
+3. Renew passport (due November 1, 2026)
+4. Quarterly review with Asha (due December 15, 2026)
+5. Buy gift (no due date)
+
+Is there anything else you'd like to add or modify?
+[19] You: List everything once more.
+     Agent: Here's your complete to-do list:
+
+1. **Read chapter 13** - High priority, no due date
+2. **Renew passport** - Normal priority, due November 1, 2026
+3. **Call Priya** - Normal priority, due October 5, 2026
+4. **Quarterly review with Asha** - Normal priority, due December 15, 2026
+5. **Buy gift** - Normal priority, no due date
+
+All tasks are currently pending. Would you like to mark any as complete or adjust priorities/dates?
+[20] You: Summarize what you remember about me.
+     Agent: Based on our conversation, here's what I remember about you:
+
+**Preferences:**
+- You prefer tasks listed with the most urgent ones first.
+- (Previously stored but now forgotten) your date format preference for dates written like "3 Oct 2026."
+
+**Tasks:**
+You currently have these pending tasks:
+1. Read chapter 13 (high priority, no due date)
+2. Renew passport (normal priority, due November 1, 2026)
+3. Call Priya (normal priority, due October 5, 2026)
+4. Quarterly review with Asha (normal priority, due December 15, 2026)
+5. Buy gift (normal priority, no due date)
+
+**Context:**
+- You have a manager named Asha with whom you'll be having quarterly reviews.
+- You're currently working on reading material (at least chapter 13).
+- Your current date is September 27, 2026.
+
+Is there anything else you'd like to share or would you like me to forget/remember something specific?
+
+{'compactions': 0, 'trims': 0}

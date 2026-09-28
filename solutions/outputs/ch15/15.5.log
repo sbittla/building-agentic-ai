@@ -1,9 +1,9 @@
 # Exercise: 15.5  Search what you may use
-# Command:  python /solutions/exercises/ex15_5_scoped_search.py
+# Command:  python /tmp/solutions-flat/exercises/ex15_5_scoped_search.py
 # Model:    none (no model needed)
-# Date:     2026-09-26 21:17:43 UTC
+# Date:     2026-09-28 00:16:10 UTC
 # Exit code: 0
-# Seconds:  1.1
+# Seconds:  1.5
 #-------------------------------------------------------------------------------
 reader, 'task'             ['todo__list_tasks', 'todo__find_tasks']
 analyst, 'task'            []

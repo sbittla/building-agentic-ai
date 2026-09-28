@@ -15,8 +15,26 @@ SOLUTIONS = HERE.parent
 CODE = Path(os.environ.get("COURSE_CODE", "/opt/course/code"))
 DATA = Path(os.environ.get("COURSE_DATA", "/opt/course/data"))
 
+def copy_code_flat(src, dst):
+    """The course code is organised into chapter folders (ch02/, interlude_sql/, ...),
+    but the tests import every module by its bare name. Copy it flat into dst; real
+    packages such as capstones/ keep their folder."""
+    for d in sorted(src.iterdir()):
+        if d.name in ("_index", "__pycache__"):
+            continue
+        if d.is_file():
+            shutil.copy2(d, dst / d.name)
+        elif d.name.startswith(("ch", "interlude")):
+            for f in sorted(d.rglob("*")):
+                if f.is_file() and "__pycache__" not in f.parts and f.name != "__init__.py":
+                    shutil.copy2(f, dst / f.name)
+        else:
+            shutil.copytree(d, dst / d.name, dirs_exist_ok=True,
+                            ignore=shutil.ignore_patterns("__pycache__"))
+
 WS = Path(tempfile.mkdtemp(prefix="solutions-ws-"))
-shutil.copytree(CODE, WS, dirs_exist_ok=True)
+copy_code_flat(CODE, WS)
+os.environ["COURSE_CODE_FLAT"] = str(WS)      # the course files, flat, for tests that open them
 os.chdir(WS)
 sys.path[:0] = [str(HERE), str(SOLUTIONS / "exercises"), str(WS), str(DATA)]
 os.environ.setdefault("ANTHROPIC_API_KEY", "sk-test-offline")

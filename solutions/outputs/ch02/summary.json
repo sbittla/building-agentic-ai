@@ -1,8 +1,8 @@
 {
  "chapter": "2",
  "title": "Chapter 2: Tool Calling (Function Calling)",
- "model": "none (--free-only)",
- "date": "2026-09-26 21:16",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-27 19:44",
  "exercises": [
   {
    "id": "2.1",
@@ -26,37 +26,37 @@
    "id": "2.3",
    "title": "Run and trace",
    "kind": "run",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 9.5,
+   "log": "ch02/2.3.log"
   },
   {
    "id": "2.4",
    "title": "Tune the description",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 152.3,
+   "log": "ch02/2.4.log"
   },
   {
    "id": "2.5",
    "title": "Graceful errors",
    "kind": "test",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 6.3,
+   "log": "ch02/2.5.log"
   },
   {
    "id": "2.6",
    "title": "A second tool, by hand",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 25.1,
+   "log": "ch02/2.6.log"
   }
  ]
 }

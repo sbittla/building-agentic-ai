@@ -1,0 +1,19 @@
+# Exercise: 8.7  An evaluation harness
+# Command:  python /tmp/solutions-flat/exercises/ex8_7_eval_harness.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 21:21:21 UTC
+# Exit code: 0
+# Seconds:  482.1
+#-------------------------------------------------------------------------------
+accuracy: 73%
+  FAIL Which customer has the highest revenue?: different result
+  FAIL Which product category earns the most revenue?: different result
+  FAIL Which city has the most customers?: different result
+  FAIL What is the most expensive product?: different result
+accuracy: 67%
+  FAIL Which customer has the highest revenue?: different result
+  FAIL Which product category earns the most revenue?: different result
+  FAIL Which city has the most customers?: different result
+  FAIL What is the most expensive product?: different result
+  FAIL What is the average number of items per order?: different result
+before 73% -> after 67%

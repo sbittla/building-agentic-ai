@@ -1,0 +1,14 @@
+# Exercise: 16.5  Measure caching savings
+# Command:  python /tmp/solutions-flat/exercises/ex16_5_cache_savings.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 21:54:40 UTC
+# Exit code: 0
+# Seconds:  97.8
+#-------------------------------------------------------------------------------
+Stable prefix (system + tools): about 164 tokens -- below 1024, so 'prefix' caching will cache nothing
+mode     calls    input  output  c.write   c.read    cost $
+off         11     1112     491        0     6889    0.0085
+prefix      11      642     343        0     6999    0.0061
+auto        11      771     551        0     7505    0.0086
+prefix: 28% cheaper than no caching
+auto: -0% cheaper than no caching

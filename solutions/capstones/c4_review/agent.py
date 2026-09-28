@@ -35,6 +35,11 @@ async def review(branch: str, approver=console_approver):
         messages=messages + [{"role": "user", "content": "Submit your review."}])
     return next(b.input for b in r.content if b.type == "tool_use")
 
+async def review_all(prs):
+    # one event loop for every PR: the async model clients are cleaned up on the loop
+    # that made them (one asyncio.run per PR prints "Event loop is closed" tracebacks)
+    for pr in prs:
+        print(pr, json.dumps(await review(pr), indent=1))
+
 if __name__ == "__main__":
-    for pr in (sys.argv[1:] or ["pr-1", "pr-2", "pr-3"]):
-        print(pr, json.dumps(asyncio.run(review(pr)), indent=1))
+    asyncio.run(review_all(sys.argv[1:] or ["pr-1", "pr-2", "pr-3"]))

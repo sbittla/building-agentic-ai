@@ -10,6 +10,7 @@ import sys
 from anthropic import AsyncAnthropic
 from mcp import Client, StdioServerParameters
 from mcp.client.stdio import stdio_client
+from mcp.shared.exceptions import MCPError
 from mcp.types import CreateMessageResult, ElicitResult, ErrorData, TextContent
 
 MODEL = os.environ.get("MODEL", "claude-sonnet-5")
@@ -58,9 +59,12 @@ async def main():
                       sampling_callback=make_sampling_callback()) as client:
         r = await client.call_tool("book_trip", {"city": "Lisbon"})
         print("\n[tool result]", r.content[0].text)
-        r = await client.call_tool("summarize_notes", {"notes": "Tram 28 is crowded before 10am. "
-                                   "Pastel de nata at Manteigaria. Sintra needs a full day."})
-        print("\n[tool result]", r.content[0].text)
+        try:                       # refusing a sampling request fails the whole call
+            r = await client.call_tool("summarize_notes", {"notes": "Tram 28 is crowded before 10am. "
+                                       "Pastel de nata at Manteigaria. Sintra needs a full day."})
+            print("\n[tool result]", r.content[0].text)
+        except MCPError as exc:
+            print("\n[tool refused]", exc)
 
 if __name__ == "__main__":
     asyncio.run(main())

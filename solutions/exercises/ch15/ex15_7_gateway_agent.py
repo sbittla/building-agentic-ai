@@ -29,8 +29,9 @@ async def main(question: str = "Add a task 'Book flights' due 2026-10-02, then "
         print("agent sees:", [t["name"] for t in hub.tools])
         answer, _ = await run_mcp_agent(hub, question, system=SYSTEM)
     print("\nAgent:", answer)
-    audit = [json.loads(line) for line in AUDIT.read_text().splitlines()]
-    print("\nAudit:")
+    # the gateway only writes the file on a use_tool call: none means an empty trail
+    audit = [json.loads(line) for line in AUDIT.read_text().splitlines()] if AUDIT.exists() else []
+    print("\nAudit:" if audit else "\nAudit: empty (the agent made no calls through use_tool)")
     for row in audit:
         print(f"  {row['agent']:<22} {row['tool']:<20} {row['outcome']}")
     return answer, audit

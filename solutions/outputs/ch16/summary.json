@@ -1,8 +1,8 @@
 {
  "chapter": "16",
  "title": "Chapter 16: Context Engineering",
- "model": "none (--free-only)",
- "date": "2026-09-26 21:17",
+ "model": "mixed: see each exercise",
+ "date": "2026-09-28 01:49",
  "exercises": [
   {
    "id": "16.1",
@@ -11,7 +11,8 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch16/16.1.log"
+   "log": "ch16/16.1.log",
+   "model": "none"
   },
   {
    "id": "16.2",
@@ -20,34 +21,38 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch16/16.2.log"
+   "log": "ch16/16.2.log",
+   "model": "none"
   },
   {
    "id": "16.3",
    "title": "Watch compaction happen",
    "kind": "run",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 23.7,
+   "log": "ch16/16.3.log",
+   "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "16.4",
    "title": "Assemble a context",
    "kind": "run",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 7.7,
+   "log": "ch16/16.4.log",
+   "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "16.5",
    "title": "Measure caching savings",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 97.8,
+   "log": "ch16/16.5.log",
+   "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "16.6",
@@ -55,26 +60,29 @@
    "kind": "test",
    "status": "passed",
    "reason": null,
-   "seconds": 3.3,
-   "log": "ch16/16.6.log"
+   "seconds": 5.6,
+   "log": "ch16/16.6.log",
+   "model": "none"
   },
   {
    "id": "16.7",
    "title": "Let a program do the counting",
    "kind": "run",
-   "status": "skipped",
-   "reason": "needs a model (--free-only): Claude only",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 43.7,
+   "log": "ch16/16.7.log",
+   "model": "claude-sonnet-5 (Claude API)"
   },
   {
    "id": "16.8",
    "title": "Brief the research team",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 534.0,
+   "log": "ch16/16.8.log",
+   "model": "qwen3.5:9b (local, through Ollama)"
   }
  ]
 }

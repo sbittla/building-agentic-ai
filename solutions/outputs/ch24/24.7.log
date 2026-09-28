@@ -1,0 +1,58 @@
+# Exercise: 24.7  A managed analyst
+# Command:  python ch24_managed_agent.py
+# Model:    claude-sonnet-5 (Claude API)
+# Date:     2026-09-28 01:50:34 UTC
+# Exit code: 0
+# Seconds:  28.9
+#-------------------------------------------------------------------------------
+
+[run_query] SELECT table_name, column_name, data_type FROM information_schema.colu
+
+[run_query] SELECT sql FROM sqlite_master WHERE type='table'
+
+[run_query] SELECT DISTINCT status FROM orders
+
+[run_query] 
+SELECT p.category,
+       SUM(oi.quantity * p.price) AS revenue
+FROM 
+Electronics is by far the top-earning category. Now let me save this to a CSV.
+[approval] bash: {'command': "mkdir -p /mnt/session/outputs && cat << 'EOF' > /tmp/revenue_by_category.csv\ncategory,revenue\nelectronics,312150.0\nfurniture,94845.0\nstationery,3614.0\nEOF\ncp /tmp/revenue_by_category.csv /mnt/session/outputs/revenue_by_category.csv\ncat /mnt/session/outputs/revenue_by_category.csv"}
+Allow? [y/N] 
+[write]## Answer
+
+**Electronics** earns by far the most revenue.
+
+Revenue by category (excluding cancelled orders, computed as `SUM(quantity × price)`):
+
+| category | revenue |
+|---|---|
+| electronics | $312,150.00 |
+| furniture | $94,845.00 |
+| stationery | $3,614.00 |
+
+I saved this to `/mnt/session/outputs/revenue_by_category.csv`.
+
+**SQL query used to compute the data:**
+```sql
+SELECT p.category,
+       SUM(oi.quantity * p.price) AS revenue
+FROM order_items oi
+JOIN products p ON p.id = oi.product_id
+JOIN orders o ON o.id = oi.order_id
+WHERE o.status != 'cancelled'
+GROUP BY p.category
+ORDER BY revenue DESC
+```
+
+**File content written to create the CSV:**
+```csv
+category,revenue
+electronics,312150.0
+furniture,94845.0
+stationery,3614.0
+```
+
+Note: I excluded `cancelled` orders since they don't represent realized revenue. If you'd like a version that includes cancelled orders too (or splits by status), let me know and I can generate that as well.
+
+[session ended: end_turn]

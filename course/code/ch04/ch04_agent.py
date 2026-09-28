@@ -12,7 +12,8 @@ def get_client():
     if _client is None:
         # A timeout per request and a few automatic retries (with backoff) for
         # overloaded or rate-limited responses. The defaults would wait 10 minutes.
-        _client = Anthropic(timeout=120, max_retries=3)
+        # (A local model on a CPU is much slower: the course sets MODEL_TIMEOUT for it.)
+        _client = Anthropic(timeout=float(os.environ.get("MODEL_TIMEOUT", 120)), max_retries=3)
     return _client
 
 def next_action(response):

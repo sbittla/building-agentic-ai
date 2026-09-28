@@ -4,6 +4,11 @@
 # see Appendix H for running Ollama as a normal Mac app instead.
 services:
   local-model:
+    environment:                        # leave headroom on small (8 GB) cards, or loading the
+      LLAMA_ARG_FIT_TARGET: "2048"      # model fails with "cudaMalloc failed: out of memory"
+                                        # (MiB kept free per GPU; lower it on bigger cards)
+      OLLAMA_FLASH_ATTENTION: "1"       # smaller, faster attention cache
+      OLLAMA_KV_CACHE_TYPE: q8_0        # halves the context cache's memory
     deploy:
       resources:
         reservations:

@@ -1,8 +1,8 @@
 {
  "chapter": "10",
  "title": "Chapter 10: Feedback Loops",
- "model": "none (--free-only)",
- "date": "2026-09-26 21:16",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-27 21:24",
  "exercises": [
   {
    "id": "10.1",
@@ -26,44 +26,44 @@
    "id": "10.3",
    "title": "Fix the bugs",
    "kind": "run",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 34.1,
+   "log": "ch10/10.3.log"
   },
   {
    "id": "10.4",
    "title": "Watch the protection",
    "kind": "run",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 33.8,
+   "log": "ch10/10.4.log"
   },
   {
    "id": "10.5",
    "title": "Four bugs, two files",
    "kind": "run",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 13.2,
+   "log": "ch10/10.5.log"
   },
   {
    "id": "10.6",
    "title": "Targeted edits",
    "kind": "run",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 38.3,
+   "log": "ch10/10.6.log"
   },
   {
    "id": "10.7",
    "title": "Benchmark the fixer",
    "kind": "build",
    "status": "skipped",
-   "reason": "needs a model (--free-only)",
+   "reason": "needs the sandbox: ./course.sh sandbox up",
    "seconds": 0,
    "log": null
   }

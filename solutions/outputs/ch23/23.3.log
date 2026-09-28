@@ -1,9 +1,9 @@
 # Exercise: 23.3  Drive it by hand
-# Command:  python /solutions/exercises/ex23_3_by_hand.py
+# Command:  python /tmp/solutions-flat/exercises/ex23_3_by_hand.py
 # Model:    none (no model needed)
-# Date:     2026-09-26 21:17:58 UTC
+# Date:     2026-09-27 22:30:14 UTC
 # Exit code: 0
-# Seconds:  1.3
+# Seconds:  2.0
 #-------------------------------------------------------------------------------
 Page: Customers - Backoffice (http://127.0.0.1:8769/customers?q=chen)
 <page_text untrusted="true">
@@ -63,10 +63,10 @@ Controls:
 [e6] link "Back to customers"
 ERROR: 'Issue credit' needs a person's approval; it wasn't given
 ERROR: only 127.0.0.1:8769 is allowed
-21:17:58 open http://127.0.0.1:8769/customers?q=chen
-21:17:58 click e3 'Chen Wei'
-21:17:58 type e1 '1 Marina Way, Singapore'
-21:17:58 click e2 'Save address'
-21:17:58 type e3 '20'
-21:17:58 refused 'Issue credit'
+22:30:14 open http://127.0.0.1:8769/customers?q=chen
+22:30:14 click e3 'Chen Wei'
+22:30:14 type e1 '1 Marina Way, Singapore'
+22:30:14 click e2 'Save address'
+22:30:14 type e3 '20'
+22:30:14 refused 'Issue credit'
 {'name': 'Chen Wei', 'email': 'chen@example.com', 'address': '1 Marina Way, Singapore', 'credit': 25.0, 'notes': ''}

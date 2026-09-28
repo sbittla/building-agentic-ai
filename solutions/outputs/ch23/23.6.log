@@ -1,0 +1,11 @@
+# Exercise: 23.6  A queue that survives a crash
+# Command:  python /tmp/solutions-flat/exercises/ex23_6_durable_queue.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 22:33:18 UTC
+# Exit code: 0
+# Seconds:  45.4
+#-------------------------------------------------------------------------------
+Job cb182e88: needs_human (step 3: issue_credit: a $50.00 credit needs a person's approval)
+  1. change_address   done     tries=1 verified: 9 Avenida da Boavista, Porto
+  2. change_address   done     tries=1 verified: 1 Marina Way, Singapore
+  3. issue_credit     failed   tries=1 issue_credit: a $50.00 credit needs a person's app

@@ -1,0 +1,28 @@
+# Exercise: 19.6  A report that finishes itself
+# Command:  python /tmp/solutions-flat/exercises/ex19_6_report_loop.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 22:22:13 UTC
+# Exit code: 0
+# Seconds:  113.6
+#-------------------------------------------------------------------------------
+[step 1] get_schema({}) -> 'CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, city TEXT, joined DAT'  (0 ms)
+[step 2] run_query({"sql": "SELECT strftime('%Y-%m', order_date) as month, SUM(quantity * price) as revenue\nFROM orders\nJOIN order_items ON orders.id = order_items.order_id\nJOIN products ON order_items.product_id = products.id\nWHERE orders.status != 'cancelled'\nGROUP BY month\nORDER BY month"}) -> 'month | revenue\n2025-01 | 14669.0\n2025-02 | 20227.0\n2025-03 | 7556.0\n2025-04 | 2'  (1 ms)
+[step 3] write_section({"name": "revenue.md", "text": "# Revenue by Month (Excluding Cancelled Orders)\n\n| Month   | Revenue  |\n|---------|----------|\n| 2025-01 | $14,669.00 |\n| 2025-02 | $20,227.00 |\n| 2025-03 | $7,556.00 |\n| 2025-04 | $21,359.00 |\n| 2025-05 | $27,352.00 |\n| 2025-06 | $45,757.00 |\n| 2025-07 | $20,829.00 |\n| 2025-08 | $34,562.00 |\n| 2025-09 | $15,827.00 |\n| 2025-10 | $23,364.00 |\n| 2025-11 | $16,635.00 |\n| 2025-12 | $9,248.00 |\n| 2026-01 | $24,878.00 |\n| 2026-02 | $7,297.00 |\n| 2026-03 | $33,939.00 |\n| 2026-04 | $10,307.00 |\n| 2026-05 | $12,105.00 |\n| 2026-06 | $16,495.00 |\n| 2026-07 | $27,714.00 |\n| 2026-08 | $20,489.00 |\n\n**SQL Used:**\n\n```sql\nSELECT strftime('%Y-%m', order_date) as month, SUM(quantity * price) as revenue\nFROM orders\nJOIN order_items ON orders.id = order_items.order_id\nJOIN products ON order_items.product_id = products.id\nWHERE orders.status != 'cancelled'\nGROUP BY month\nORDER BY month\n```"}) -> 'Wrote revenue.md (882 characters).'  (1 ms)
+[step 1] get_schema({}) -> 'CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, city TEXT, joined DAT'  (0 ms)
+[step 2] run_query({"sql": "SELECT p.name AS product_name, SUM(oi.quantity * p.price) AS revenue FROM order_items oi JOIN products p ON oi.product_id = p.id WHERE EXISTS (SELECT 1 FROM orders o WHERE o.id = oi.order_id AND o.status != 'cancelled') GROUP BY p.id ORDER BY revenue DESC LIMIT 5"}) -> 'product_name | revenue\nLaptop | 225600.0\nMonitor | 58800.0\nDesk | 54300.0\nChair '  (1 ms)
+[step 3] write_section({"name": "top_products.md", "text": "## Top Five Best-Selling Products by Revenue\n\n| Product | Revenue   |\n|---------|----------|\n| Laptop  | $225,600.00 |\n| Monitor | $58,800.00 |\n| Desk    | $54,300.00 |\n| Chair   | $32,040.00 |\n| Headphones | $27,750.00 |\n\nThese are the five products with the highest total revenue (calculated as quantity * price), excluding cancelled orders."}) -> 'Wrote top_products.md (343 characters).'  (0 ms)
+[step 1] get_schema({}) -> 'CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, city TEXT, joined DAT'  (1 ms)
+[step 2] run_query({"sql": "SELECT city, COUNT(*) as customer_count FROM customers GROUP BY city ORDER BY customer_count DESC LIMIT 3"}) -> 'city | customer_count\nBerlin | 14\nPune | 13\nHyderabad | 12'  (0 ms)
+[step 3] write_section({"name": "cities.md", "text": "# Top Three Cities by Customer Count\n\nBased on the customer data, here are the three cities with the most customers:\n\n1. **Berlin**: 14 customers\n2. **Pune**: 13 customers\n3. **Hyderabad**: 12 customers\n\n## SQL Query Used\n\n```sql\nSELECT city, COUNT(*) as customer_count \nFROM customers \nGROUP BY city \nORDER BY customer_count DESC \nLIMIT 3\n```"}) -> 'Wrote cities.md (343 characters).'  (0 ms)
+[step 1] get_schema({}) -> 'CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, city TEXT, joined DAT'  (0 ms)
+[step 2] run_query({"sql": "SELECT \n    COUNT(*) AS total_orders,\n    SUM(CASE WHEN status = 'cancelled' THEN 1 ELSE 0 END) AS cancelled_orders\nFROM orders"}) -> 'total_orders | cancelled_orders\n400 | 88'  (1 ms)
+[step 3] write_section({"name": "cancellations.md", "text": "# Cancellations Analysis\n\n**Total Orders:** 400\n\n**Cancelled Orders:** 88\n\n**Share of Cancelled Orders:** 22% (88 out of 400 orders)"}) -> 'Wrote cancellations.md (132 characters).'  (0 ms)
+# Progress
+
+Created the checklist; nothing done yet.
+- 2026-09-27 22:21 revenue: passing (ok; 4 steps)
+- 2026-09-27 22:21 top_products: passing (ok; 4 steps)
+- 2026-09-27 22:21 (the process crashed here; the next session starts from the files)
+- 2026-09-27 22:21 cities: passing (ok; 4 steps)
+- 2026-09-27 22:22 cancellations: passing (ok; 4 steps)
+- 2026-09-27 22:22 cross-check: ok (report says [22.0], database says 22.0%)

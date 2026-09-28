@@ -504,7 +504,7 @@ def test_30_7_smoke_test_catches_problems(svc, model, capsys):
 
 def test_30_7_production_image_is_minimal():
     import os
-    code = os.environ["COURSE_CODE"]
+    code = os.environ["COURSE_CODE_FLAT"]
     docker = open(os.path.join(code, "ch30_service.Dockerfile")).read()
     assert "USER app" in docker and "HEALTHCHECK" in docker and "${PORT}" in docker
     copies = [l for l in docker.splitlines() if l.startswith("COPY")]

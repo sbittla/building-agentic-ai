@@ -1,0 +1,26 @@
+# Exercise: 24.5  Same agent, three frameworks
+# Command:  python /tmp/solutions-flat/exercises/ex24_5_three_ways.py eval_sql.jsonl 1 4
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-28 00:22:07 UTC
+# Exit code: 0
+# Seconds:  168.0
+#-------------------------------------------------------------------------------
+/opt/venv/lib/python3.12/site-packages/claude_agent_sdk/types.py:1939: CanUseToolShadowedWarning: can_use_tool will not be invoked for: mcp__shop__get_schema. An allowed_tools entry that allows a whole tool auto-approves it before the callback is consulted. To gate every tool call, use a PreToolUse hook; or narrow the entry so calls fall through to can_use_tool. Allow rules from settings files can also shadow the callback but are not visible here.
+  _warn_if_can_use_tool_shadowed(options)
+[claude-code:unrecognized_model] {"model":"qwen3.5:9b","query_source":"sdk"}
+/opt/venv/lib/python3.12/site-packages/claude_agent_sdk/types.py:1939: CanUseToolShadowedWarning: can_use_tool will not be invoked for: mcp__shop__get_schema. An allowed_tools entry that allows a whole tool auto-approves it before the callback is consulted. To gate every tool call, use a PreToolUse hook; or narrow the entry so calls fall through to can_use_tool. Allow rules from settings files can also shadow the callback but are not visible here.
+  _warn_if_can_use_tool_shadowed(options)
+[claude-code:unrecognized_model] {"model":"qwen3.5:9b","query_source":"sdk"}
+/opt/venv/lib/python3.12/site-packages/claude_agent_sdk/types.py:1939: CanUseToolShadowedWarning: can_use_tool will not be invoked for: mcp__shop__get_schema. An allowed_tools entry that allows a whole tool auto-approves it before the callback is consulted. To gate every tool call, use a PreToolUse hook; or narrow the entry so calls fall through to can_use_tool. Allow rules from settings files can also shadow the callback but are not visible here.
+  _warn_if_can_use_tool_shadowed(options)
+[claude-code:unrecognized_model] {"model":"qwen3.5:9b","query_source":"sdk"}
+/opt/venv/lib/python3.12/site-packages/claude_agent_sdk/types.py:1939: CanUseToolShadowedWarning: can_use_tool will not be invoked for: mcp__shop__get_schema. An allowed_tools entry that allows a whole tool auto-approves it before the callback is consulted. To gate every tool call, use a PreToolUse hook; or narrow the entry so calls fall through to can_use_tool. Allow rules from settings files can also shadow the callback but are not visible here.
+  _warn_if_can_use_tool_shadowed(options)
+[claude-code:unrecognized_model] {"model":"qwen3.5:9b","query_source":"sdk"}
+version         pass    95% CI   tokens  median s  lines
+hand-built       4/4  51%-100%      682       5.8      6
+tool runner      4/4  51%-100%      717       8.0     27
+Agent SDK        4/4  51%-100%      990      16.3     17
+LangChain        3/4   30%-95%     1488       9.0     22
+
+Note: 'lines' counts the adapter in this file; the hand-built version also relies on the ~50-line loop in ch04_agent.py.

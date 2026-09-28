@@ -1409,6 +1409,7 @@
   "done_when": "A planted injection in a note is reported to the user instead of followed.",
   "kind": "run",
   "cmd": "python ch14_policy_agent.py servers_ecosystem.json",
+  "setup": "[ -d .git ] || { git init -q . && git add -A && git -c user.name=course -c user.email=course@example.com commit -qm 'workspace snapshot'; }",
   "edit": [
    "ch13_mcp_agent.py"
   ]
@@ -2152,7 +2153,8 @@
   "hint": "Compare cost from the provider's usage report or `total_cost_usd`, not raw token counts: frameworks count cached tokens differently.",
   "done_when": "You have a table of pass rate with 95% intervals, cost and lines of code for the four versions, and a paragraph on which you'd ship that doesn't read more into the pass rates than the intervals allow.",
   "kind": "build",
-  "file": "exercises/ex24_5_three_ways.py"
+  "file": "exercises/ex24_5_three_ways.py",
+  "run_args": "eval_sql.jsonl 1 4"
  },
  {
   "id": "24.6",
@@ -2426,7 +2428,8 @@
   "hint": null,
   "done_when": "The report runs on real traces and points to at least one improvement.",
   "kind": "build",
-  "file": "exercises/ex28_1_trace_report.py"
+  "file": "exercises/ex28_1_trace_report.py",
+  "setup": "course data traces"
  },
  {
   "id": "28.2",
@@ -2623,7 +2626,8 @@
   "hint": "Add a `\"url\"` option to the hub's server config and use `streamable_http_client` with `create_mcp_http_client(headers=...)`.",
   "done_when": "The agent adds and lists tasks through the remote server, a wrong token fails with a clear error, and with `MCP_READONLY_TOKEN` it can list tasks but adding one is refused.",
   "kind": "build",
-  "file": "exercises/ex30_5_remote_hub.py"
+  "file": "exercises/ex30_5_remote_hub.py",
+  "service": "mcp"
  },
  {
   "id": "30.6",

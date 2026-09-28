@@ -126,6 +126,9 @@ Then run `wsl --shutdown` in PowerShell and restart Docker Desktop. For an NVIDI
 | "… needs Claude, not the local model" | The exercise is **Claude only**: set `PROVIDER=claude` for it |
 | Port 11434 already in use | Ollama already runs as an app: quit it, or use it with `OLLAMA_URL` and `local up --native` |
 | `--gpu` fails | Update the NVIDIA driver (Windows) or install the NVIDIA Container Toolkit (Linux). `./course.sh local logs` shows whether Ollama found the GPU |
+| 8 GB GPU: the model loads partly on the CPU, or fails with "cudaMalloc failed: out of memory" | Set `LOCAL_CONTEXT=8192` in `.env`. The weights and a 32K context don't both fit in 8 GB; `compose.gpu.yaml` already keeps 2 GB free and halves the context cache |
+| Windows + GPU: every Docker container restarts when the model loads, and runs end with `error waiting for container: unexpected EOF` | WSL's GPU driver is in a bad state. Run `wsl --shutdown` in PowerShell (Docker Desktop restarts itself), then `.\course.cmd local up --gpu`. If it keeps happening, reboot, or use the CPU (`local up` without `--gpu`) |
+| A long exercise times out (7.6, 24.5, 27.3) | The course allows each model call 600 s on the local model (`MODEL_TIMEOUT` in `.env` changes it) and each exercise 30 minutes. Use `--gpu`, `LOCAL_THINKING=off`, or run that exercise on Claude |
 
 ## 9. Remove it
 

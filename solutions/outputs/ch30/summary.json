@@ -1,8 +1,8 @@
 {
  "chapter": "30",
  "title": "Chapter 30: Deploying Agents: From One Service to an Agent Platform",
- "model": "none (--free-only)",
- "date": "2026-09-26 21:33",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-28 00:42",
  "exercises": [
   {
    "id": "30.1",
@@ -17,55 +17,55 @@
    "id": "30.2",
    "title": "Call your agent API",
    "kind": "run",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 34.9,
+   "log": "ch30/30.2.log"
   },
   {
    "id": "30.3",
    "title": "Hit the limits",
    "kind": "run",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 8.8,
+   "log": "ch30/30.3.log"
   },
   {
    "id": "30.4",
    "title": "Stream the words",
    "kind": "run",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 7.2,
+   "log": "ch30/30.4.log"
   },
   {
    "id": "30.5",
    "title": "Remote MCP with your agent",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 18.6,
+   "log": "ch30/30.5.log"
   },
   {
    "id": "30.6",
    "title": "Production drill",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 136.4,
+   "log": "ch30/30.6.log"
   },
   {
    "id": "30.7",
    "title": "Ship it",
    "kind": "run",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 0.3,
+   "log": "ch30/30.7.log"
   }
  ]
 }

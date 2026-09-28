@@ -1,16 +1,16 @@
 {
  "chapter": "28",
  "title": "Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents",
- "model": "none (--free-only)",
- "date": "2026-09-26 21:18",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-27 23:51",
  "exercises": [
   {
    "id": "28.1",
    "title": "A trace viewer",
    "kind": "build",
-   "status": "failed",
-   "reason": "exit code 1",
-   "seconds": 0.0,
+   "status": "passed",
+   "reason": null,
+   "seconds": 1.5,
    "log": "ch28/28.1.log"
   },
   {
@@ -26,10 +26,10 @@
    "id": "28.3",
    "title": "Read the report",
    "kind": "run",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 13.3,
+   "log": "ch28/28.3.log"
   },
   {
    "id": "28.4",
@@ -37,7 +37,7 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 1.6,
+   "seconds": 1.8,
    "log": "ch28/28.4.log"
   },
   {
@@ -46,7 +46,7 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 1.5,
+   "seconds": 1.8,
    "log": "ch28/28.5.log"
   },
   {
@@ -55,7 +55,7 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 1.7,
+   "seconds": 1.8,
    "log": "ch28/28.6.log"
   },
   {
@@ -64,7 +64,7 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 1.6,
+   "seconds": 1.8,
    "log": "ch28/28.7.log"
   }
  ]

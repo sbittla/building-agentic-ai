@@ -1,9 +1,9 @@
 # Exercise: 28.6  A production dashboard
-# Command:  python /solutions/exercises/ex28_6_dashboard.py
+# Command:  python /tmp/solutions-flat/exercises/ex28_6_dashboard.py
 # Model:    none (no model needed)
-# Date:     2026-09-26 21:18:08 UTC
+# Date:     2026-09-27 23:51:07 UTC
 # Exit code: 0
-# Seconds:  1.7
+# Seconds:  1.8
 #-------------------------------------------------------------------------------
 SLO                         target    value  status   budget  measured from
 Task success                >= 95%      40%  MISSED   -1100%  evals + judge (Ch 27)

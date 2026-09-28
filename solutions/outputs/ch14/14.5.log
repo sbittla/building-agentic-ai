@@ -1,0 +1,14 @@
+# Exercise: 14.5  Mark untrusted content
+# Command:  python ch14_policy_agent.py servers_ecosystem.json
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-28 00:15:47 UTC
+# Exit code: 0
+# Seconds:  12.1
+#-------------------------------------------------------------------------------
+$ [ -d .git ] || { git init -q . && git add -A && git -c user.name=course -c user.email=course@example.com commit -qm 'workspace snapshot'; }
+$ python ch14_policy_agent.py servers_ecosystem.json
+Allowed tools: ['fs__read_text_file', 'fs__write_file', 'fs__edit_file', 'fs__list_directory', 'fs__move_file', 'fs__search_files', 'fs__get_file_info', 'git__git_status', 'git__git_diff', 'git__git_log', 'git__git_show', 'fetch__fetch', 'time__get_current_time', 'time__convert_time']
+
+You: Agent: It seems like you might have started typing but didn't complete your request. How can I help you today?
+
+You:

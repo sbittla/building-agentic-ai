@@ -1,0 +1,42 @@
+# Exercise: 16.7  Let a program do the counting
+# Command:  python ch16_programmatic.py
+# Model:    claude-sonnet-5 (Claude API)
+# Date:     2026-09-28 01:49:52 UTC
+# Exit code: 0
+# Seconds:  43.7
+#-------------------------------------------------------------------------------
+  [program called run_query] SELECT name FROM sqlite_master WHERE type='table'
+  [program called run_query] PRAGMA table_info(customers)
+  [program called run_query] PRAGMA table_info(products)
+  [program called run_query] PRAGMA table_info(orders)
+  [program called run_query] PRAGMA table_info(order_items)
+  [program called run_query] SELECT DISTINCT category FROM products
+  [program called run_query] SELECT status, COUNT(*) FROM orders GROUP BY status
+  [program called run_query] 
+    SELECT
+        'electronics' AS category,
+        ROUND(SUM(oi.qu
+  [program called run_query] 
+    SELECT
+        'furniture' AS category,
+        ROUND(SUM(oi.quan
+  [program called run_query] 
+    SELECT
+        'stationery' AS category,
+        ROUND(SUM(oi.qua
+I ran a separate query for each of the three product categories, computing each category's revenue as a share of total revenue (calculated across all orders/order items):
+
+| Category | Category Revenue | Total Revenue | % Share |
+|---|---|---|---|
+| Electronics | $422,660.00 | $548,790.00 | **77.02%** |
+| Furniture | $121,920.00 | $548,790.00 | **22.22%** |
+| Stationery | $4,210.00 | $548,790.00 | **0.77%** |
+
+**Insights:**
+- **Electronics dominates**, generating over three-quarters (77%) of total revenue, despite likely having fewer units sold — driven by higher price points.
+- **Furniture** contributes a solid secondary share (~22%).
+- **Stationery** is a minor contributor at under 1% of revenue, suggesting it's either low-priced, low-volume, or both.
+
+*Note: This includes revenue from all orders regardless of status (shipped, pending, cancelled). If you'd like the calculation restricted to only "shipped" (completed) orders, I can rerun it with that filter.*
+
+10 queries; 1,962 characters of results stayed in the sandbox instead of the model's context.

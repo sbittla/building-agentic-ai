@@ -1,0 +1,22 @@
+# Exercise: 18.7  A new source
+# Command:  python /tmp/solutions-flat/exercises/ex18_7_weather_source.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 22:08:21 UTC
+# Exit code: 0
+# Seconds:  103.0
+#-------------------------------------------------------------------------------
+
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]
+Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 602.86it/s]
+
+Q: What caused the Kafka consumer lag incident?
+plan: [('knowledge', 'Kafka consumer lag incident cause')]
+The Kafka consumer lag incident was caused by a deployment that reduced consumer instances from 12 to 4 (notes/work/2026-06-02-incident-kafka-lag.md:1).
+
+Q: Will it rain in Pune in the next three days?
+plan: [('weather', 'weather forecast Pune next three days')]
+The provided evidence is empty and contains no data regarding weather forecasts for Pune. Therefore, based strictly on the available evidence, I cannot answer whether it will rain in Pune in the next three days.
+
+Q: What was the fix in the Kafka lag incident, and will it rain in Berlin tomorrow for the on-site review?
+plan: [('knowledge', 'Kafka lag incident fix details'), ('weather', 'Berlin weather forecast tomorrow')]
+The fix in the Kafka lag incident was rolling back the deployment and then adding 6 partitions to the orders topic (notes/work/2026-06-02-incident-kafka-lag.md:1). The provided evidence does not contain information regarding whether it will rain in Berlin tomorrow for an on-site review.

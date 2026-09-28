@@ -1,14 +1,20 @@
 # Exercise: 28.1  A trace viewer
-# Command:  python /solutions/exercises/ex28_1_trace_report.py
+# Command:  python /tmp/solutions-flat/exercises/ex28_1_trace_report.py
 # Model:    none (no model needed)
-# Date:     2026-09-26 21:18:03 UTC
-# Exit code: 1
-# Seconds:  0.0
+# Date:     2026-09-27 23:50:49 UTC
+# Exit code: 0
+# Seconds:  1.5
 #-------------------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/solutions/exercises/ex28_1_trace_report.py", line 32, in <module>
-    report(*(sys.argv[1:2] or []))
-  File "/solutions/exercises/ex28_1_trace_report.py", line 12, in report
-    runs = [json.loads(l) for l in open(path) if l.strip()][-last:]
-                                   ^^^^^^^^^^
-FileNotFoundError: [Errno 2] No such file or directory: 'traces.jsonl'
+$ course data traces
+traces: traces.jsonl already has runs; left as is
+$ python /tmp/solutions-flat/exercises/ex28_1_trace_report.py
+runs: 50   pass rate: 90%
+latency p50 9.3s  p95 21.5s   mean tokens 543   mean tool calls 1.9
+most-used tools: run_query (50), get_schema (44)
+slowest questions:
+   47.9s    1671 tok  What was revenue in 2019?
+   26.0s    1217 tok  Which product category earns the most revenue?
+   21.5s    1080 tok  How many furniture products do we sell?
+   21.1s     681 tok  Which product category earns the most revenue?
+   18.7s    1125 tok  Which product has sold the most units?
+most common failures: [("answer doesn't state the correct value 'Laptop'", 2), ("answer doesn't state the correct value 11", 1), ("answer doesn't state the correct value 3", 1)]

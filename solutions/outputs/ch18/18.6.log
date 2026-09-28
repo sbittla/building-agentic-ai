@@ -1,0 +1,21 @@
+# Exercise: 18.6  A cited knowledge agent
+# Command:  python /tmp/solutions-flat/exercises/ex18_6_knowledge_agent.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 22:06:38 UTC
+# Exit code: 0
+# Seconds:  21.4
+#-------------------------------------------------------------------------------
+
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]
+Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 721.94it/s]
+FAIL  What was the root cause of the Kafka lag incident?  [0/0 citations valid]
+FAIL  What p95 did the search load test reach?  [0/0 citations valid]
+PASS  When is the production Kafka upgrade?  [1/1 citations valid]
+FAIL  How fast must the primary on-call answer pages?  [0/0 citations valid]
+FAIL  What did the latency review decide about fraud checks?  [0/0 citations valid]
+FAIL  Which transports does MCP define?  [0/0 citations valid]
+FAIL  What is the router admin address?  [0/0 citations valid]
+PASS  What is our AWS monthly bill?  [0/0 citations valid]
+PASS  Who won the 2026 football world cup?  [0/0 citations valid]
+PASS  What is the Wi-Fi password?  [0/0 citations valid]
+{'answer_accuracy': '1/7', 'correct_refusals': '3/3', 'citation_validity': '1/1'}

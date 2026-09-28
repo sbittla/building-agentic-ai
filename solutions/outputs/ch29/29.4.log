@@ -1,0 +1,14 @@
+# Exercise: 29.4  Budgets that hold
+# Command:  python /tmp/solutions-flat/exercises/ex29_4_budgets.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-27 23:54:38 UTC
+# Exit code: 0
+# Seconds:  25.0
+#-------------------------------------------------------------------------------
+There are **50** customers in the database.
+
+The final SQL used was:
+```sql
+SELECT COUNT(*) as customer_count FROM customers
+```
+The city with the most orders is **Berlin**, with a total of **114** orders.

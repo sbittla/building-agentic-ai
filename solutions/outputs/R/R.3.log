@@ -1,0 +1,8 @@
+# Exercise: R.3  Parse citations
+# Command:  python /tmp/solutions-flat/exercises/exR_3_citations.py
+# Model:    none (no model needed)
+# Date:     2026-09-27 19:53:06 UTC
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+[('work/2026-06-02-incident-kafka-lag.md', 3), ('work/plan.md', 12), ('notes.v2/read-me.txt', 1)]

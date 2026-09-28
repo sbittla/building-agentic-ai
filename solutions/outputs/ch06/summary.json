@@ -1,8 +1,8 @@
 {
  "chapter": "6",
  "title": "Chapter 6: Agentic Search: Exploring an Environment",
- "model": "none (--free-only)",
- "date": "2026-09-26 21:16",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-09-27 19:57",
  "exercises": [
   {
    "id": "6.1",
@@ -18,7 +18,7 @@
    "title": "Ask your notes",
    "kind": "ask",
    "status": "skipped",
-   "reason": "needs a model (--free-only)",
+   "reason": "an ask exercise: nothing to run against a model",
    "seconds": 0,
    "log": null
   },
@@ -26,10 +26,10 @@
    "id": "6.3",
    "title": "Prove the sandbox",
    "kind": "test",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 5.8,
+   "log": "ch06/6.3.log"
   },
   {
    "id": "6.4",
@@ -44,19 +44,19 @@
    "id": "6.5",
    "title": "Search by filename and date",
    "kind": "ask",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 12.3,
+   "log": "ch06/6.5.log"
   },
   {
    "id": "6.6",
    "title": "Scale test",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 226.2,
+   "log": "ch06/6.6.log"
   }
  ]
 }

@@ -31,11 +31,31 @@ def check(name):
         return fn
     return deco
 
+CODE = Path(os.environ.get("COURSE_CODE", HERE.parent / "code"))
+
+def copy_code_flat(src, dst):
+    """The course code is organised into chapter folders (ch02/, interlude_sql/, ...),
+    but the checks import every module by its bare name. Copy it flat into dst; real
+    packages such as capstones/ keep their folder."""
+    for d in sorted(src.iterdir()):
+        if d.name in ("_index", "__pycache__"):
+            continue
+        if d.is_file():
+            shutil.copy2(d, dst / d.name)
+        elif d.name.startswith(("ch", "interlude")):
+            for f in sorted(d.rglob("*")):
+                if f.is_file() and "__pycache__" not in f.parts and f.name != "__init__.py":
+                    shutil.copy2(f, dst / f.name)
+        else:
+            shutil.copytree(d, dst / d.name, dirs_exist_ok=True,
+                            ignore=shutil.ignore_patterns("__pycache__"))
+
+# Work on a scratch copy so the generated data (shop.db, notes/, ...) never lands in the repo.
 tmp = Path(tempfile.mkdtemp(prefix="selftest-"))
-shutil.copytree("/opt/course/code", tmp, dirs_exist_ok=True)
+copy_code_flat(CODE, tmp)
 shutil.copy(HERE / "fakellm.py", tmp)
 os.chdir(tmp)
-sys.path[:0] = [str(tmp), "/opt/course/data"]
+sys.path[:0] = [str(tmp), str(HERE.parent / "data")]
 os.environ["ANTHROPIC_API_KEY"] = os.environ.get("ANTHROPIC_API_KEY") or "sk-selftest-dummy"
 print(f"Self-test in {tmp}\n", file=sys.stderr)
 
