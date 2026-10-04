@@ -1,10 +1,10 @@
-"""Chapter 15: long-running work over MCP. Start a job, get a handle, poll it.
+"""Chapter 30: long-running work over MCP. Start a job, get a handle, poll it.
 
 A tool call should answer in seconds. Work that takes minutes (a report, an export,
 a deployment) returns a job id at once and runs in the background, on Chapter 19's
 durable runner, so a restart of this server doesn't lose it.
 
-    python ch15_jobs_server.py        # in-process demo, no API key needed
+    python ch30_jobs_server.py        # in-process demo, no API key needed
 """
 import asyncio
 import json

@@ -249,6 +249,9 @@ Every link from the book's **Learn more** sections and Appendix G, so you can cl
 - [MCP: Authorization](https://modelcontextprotocol.io/docs/tutorials/security/authorization) (Go deeper): OAuth for remote MCP servers, explained step by step
 - [OAuth 2.0 Simplified](https://www.oauth.com) (Go deeper): Tokens, scopes and flows in plain language
 - [OWASP API Security Top 10](https://owasp.org/API-Security/) (Go deeper): The common ways web APIs get attacked
+- [MCP: Tasks extension](https://modelcontextprotocol.io/extensions/tasks) (Start here): How tasks are created, polled, updated and cancelled (section 30.8)
+- [The MCP Registry](https://modelcontextprotocol.io/registry/about) (Start here): What the registry stores and how publishers are verified (section 30.10)
+- [MCP: Enterprise-Managed Authorization](https://modelcontextprotocol.io/extensions/auth/enterprise-managed-authorization) (Go deeper): Company-wide access control through the identity provider (section 30.11)
 
 ## Capstone Projects
 
@@ -343,8 +346,5 @@ Every link from the book's **Learn more** sections and Appendix G, so you can cl
 ## Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure
 
 - [MCP blog: The 2026-07-28 specification](https://blog.modelcontextprotocol.io/posts/2026-07-28/) (Start here): Every change in this chapter, from stateless requests to deprecations
-- [MCP: Tasks extension](https://modelcontextprotocol.io/extensions/tasks) (Start here): How tasks are created, polled, updated and cancelled (section 15.4)
-- [The MCP Registry](https://modelcontextprotocol.io/registry/about) (Start here): What the registry stores and how publishers are verified (section 15.6)
-- [MCP: Enterprise-Managed Authorization](https://modelcontextprotocol.io/extensions/auth/enterprise-managed-authorization) (Go deeper): Company-wide access control through the identity provider (section 15.7)
 - [MCP blog: The new MCP roadmap](https://blog.modelcontextprotocol.io/posts/mcp-roadmap/) (Go deeper): Agent identity, progressive discovery and the other priorities
 - [MCP joins the Agentic AI Foundation](https://blog.modelcontextprotocol.io/posts/2025-12-09-mcp-joins-agentic-ai-foundation/) (Go deeper): Who runs MCP now, and how it's governed

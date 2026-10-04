@@ -140,7 +140,7 @@ After each part of the book, try the matching **capstone project** yourself befo
 ## 5. Verified results
 
 <!-- results:start -->
-Latest verification: every exercise run with its reference solution by `run-chapter` (runs from 2026-09-27 to 2026-09-28). **163 of 164 runnable exercises passed (99.4%)**; 59 are written answers and 14 can't run unattended. Most ran on the free local model `qwen3.5:9b`; the Claude-only exercises ran on `claude-sonnet-5`. Per-exercise results: [EXERCISE_INDEX.md](EXERCISE_INDEX.md).
+Latest verification: every exercise run with its reference solution by `run-chapter` (runs from 2026-09-27 to 2026-09-28). **163 of 164 runnable exercises passed (99.4%)**; 60 are written answers and 14 can't run unattended. Most ran on the free local model `qwen3.5:9b`; the Claude-only exercises ran on `claude-sonnet-5`. Per-exercise results: [EXERCISE_INDEX.md](EXERCISE_INDEX.md).
 
 | Chapter | Exercises | ✔ Passed | ✘ Failed | Written answer | Skipped | Pass rate |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -157,6 +157,7 @@ Latest verification: every exercise run with its reference solution by `run-chap
 | Chapter 7: Real APIs | 6 | 2 | 0 | 2 | 2 | 100% |
 | Interlude: SQL in One Sitting | 4 | 4 | 0 | 0 | 0 | 100% |
 | Chapter 8: Self-Correction: A Text-to-SQL Agent | 7 | 2 | 0 | 2 | 3 | 100% |
+| Interlude: Measuring an Agent | 3 | 0 | 0 | 0 | 3 | — |
 | Chapter 9: Human-in-the-Loop Approval | 6 | 4 | 0 | 2 | 0 | 100% |
 | Chapter 10: Feedback Loops | 7 | 4 | 0 | 2 | 1 | 100% |
 | Interlude: Asynchronous Python | 4 | 4 | 0 | 0 | 0 | 100% |
@@ -164,7 +165,7 @@ Latest verification: every exercise run with its reference solution by `run-chap
 | Chapter 12: MCP Fundamentals and Your First Server | 7 | 1 | 0 | 2 | 4 | 100% |
 | Chapter 13: Build Your Own MCP Client | 8 | 7 | 0 | 1 | 0 | 100% |
 | Chapter 14: Using Servers You Didn't Write | 5 | 1 | 0 | 2 | 2 | 100% |
-| Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure | 7 | 5 | 0 | 2 | 0 | 100% |
+| Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure | 4 | 2 | 0 | 2 | 0 | 100% |
 | Chapter 16: Context Engineering | 8 | 6 | 0 | 2 | 0 | 100% |
 | Chapter 17: Agent Memory Engineering | 8 | 6 | 0 | 2 | 0 | 100% |
 | Chapter 18: Agentic RAG and Knowledge Systems | 9 | 7 | 0 | 2 | 0 | 100% |
@@ -179,9 +180,9 @@ Latest verification: every exercise run with its reference solution by `run-chap
 | Chapter 27: Agent Evaluation: Dimensions, Trajectories and Scorecards | 8 | 5 | 1 | 2 | 0 | 83% |
 | Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents | 7 | 6 | 0 | 1 | 0 | 100% |
 | Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost | 6 | 5 | 0 | 1 | 0 | 100% |
-| Chapter 30: Deploying Agents: From One Service to an Agent Platform | 7 | 6 | 0 | 1 | 0 | 100% |
+| Chapter 30: Deploying Agents: From One Service to an Agent Platform | 11 | 9 | 0 | 2 | 0 | 100% |
 | Capstone projects C1–C6 | 6 | 6 | 0 | 0 | 0 | 100% |
-| **Total** | **237** | **163** | **1** | **59** | **14** | **99.4%** |
+| **Total** | **241** | **163** | **1** | **60** | **17** | **99.4%** |
 
 Failed: **27.8** (An agent scorecard: exit code 1).
 <!-- results:end -->

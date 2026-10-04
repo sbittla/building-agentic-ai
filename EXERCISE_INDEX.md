@@ -21,6 +21,7 @@ Practise each exercise yourself first with `./course.sh ex <id>`, then compare w
 - [Chapter 7: Real APIs](#chapter-7-real-apis)
 - [Interlude: SQL in One Sitting](#interlude-sql-in-one-sitting)
 - [Chapter 8: Self-Correction: A Text-to-SQL Agent](#chapter-8-self-correction-a-text-to-sql-agent)
+- [Interlude: Measuring an Agent](#interlude-measuring-an-agent)
 - [Chapter 9: Human-in-the-Loop Approval](#chapter-9-human-in-the-loop-approval)
 - [Chapter 10: Feedback Loops](#chapter-10-feedback-loops)
 - [Interlude: Asynchronous Python](#interlude-asynchronous-python)
@@ -213,6 +214,16 @@ Logs: [`solutions/outputs/ch08/`](solutions/outputs/ch08/)
 | 8.6 | Confirm the tables | Medium | Chat with tools | Local or Claude | [`sol_ch08_sql_tools.py`](solutions/exercises/ch00/sol_ch08_sql_tools.py) | skipped: an ask exercise |
 | 8.7 | An evaluation harness | Complex | Build | Local or Claude | [`ex8_7_eval_harness.py`](solutions/exercises/ch08/ex8_7_eval_harness.py) | ✔ passed (qwen3.5:9b, 482 s) |
 
+## Interlude: Measuring an Agent
+
+Logs: [`solutions/outputs/M/`](solutions/outputs/M/)
+
+| # | Exercise | Level | Type | Model needed | Solution | Latest result |
+| --- | --- | --- | --- | --- | --- | --- |
+| M.1 | Is B better? | Concept | Written answer | No model | [`ANSWERS.md`](solutions/ANSWERS.md) | not run yet |
+| M.2 | Watch the margins | Simple | Run chapter code | No model | [`ANSWERS.md`](solutions/ANSWERS.md) | not run yet |
+| M.3 | Measure the SQL analyst | Medium | Build | Local or Claude | [`exM_3_sql_suite.py`](solutions/exercises/interlude_measure/exM_3_sql_suite.py)<br>[`test_ch08_10.py`](solutions/tests/test_ch08_10.py) | not run yet |
+
 ## Chapter 9: Human-in-the-Loop Approval
 
 Logs: [`solutions/outputs/ch09/`](solutions/outputs/ch09/)
@@ -316,9 +327,6 @@ Logs: [`solutions/outputs/ch15/`](solutions/outputs/ch15/)
 | 15.2 | Plan a migration | Concept | Written answer | No model | — | written answer |
 | 15.3 | MCP by hand | Simple | Write tests | No model | [`ex15_3_wire.py`](solutions/exercises/ch15/ex15_3_wire.py)<br>[`test_part5_mcp2026.py`](solutions/tests/test_part5_mcp2026.py) | ✔ passed (qwen3.5:9b, 20 s) |
 | 15.4 | What does caching save? | Medium | Build | No model | [`ex15_4_cache.py`](solutions/exercises/ch15/ex15_4_cache.py)<br>[`test_part5_mcp2026.py`](solutions/tests/test_part5_mcp2026.py) | ✔ passed (qwen3.5:9b, 1 s) |
-| 15.5 | Search what you may use | Medium | Build | No model | [`ex15_5_scoped_search.py`](solutions/exercises/ch15/ex15_5_scoped_search.py)<br>[`test_part5_mcp2026.py`](solutions/tests/test_part5_mcp2026.py) | ✔ passed (qwen3.5:9b, 2 s) |
-| 15.6 | Fewer polls, safe retries | Medium | Build | No model | [`ex15_6_jobs.py`](solutions/exercises/ch15/ex15_6_jobs.py)<br>[`test_part5_mcp2026.py`](solutions/tests/test_part5_mcp2026.py) | ✔ passed (qwen3.5:9b, 6 s) |
-| 15.7 | An agent behind the gateway | Complex | Build | Local or Claude | [`ex15_7_gateway_agent.py`](solutions/exercises/ch15/ex15_7_gateway_agent.py)<br>[`test_part5_mcp2026.py`](solutions/tests/test_part5_mcp2026.py) | ✔ passed (qwen3.5:9b, 53 s) |
 
 ## Chapter 16: Context Engineering
 
@@ -528,6 +536,10 @@ Logs: [`solutions/outputs/ch30/`](solutions/outputs/ch30/)
 | 30.5 | Remote MCP with your agent | Medium | Build | Local or Claude | [`ex30_5_remote_hub.py`](solutions/exercises/ch30/ex30_5_remote_hub.py)<br>[`servers_remote.json`](solutions/exercises/servers_remote.json) | ✔ passed (qwen3.5:9b, 19 s) |
 | 30.6 | Production drill | Complex | Build | Local or Claude | [`ex30_6_drill.py`](solutions/exercises/ch30/ex30_6_drill.py) | ✔ passed (qwen3.5:9b, 136 s) |
 | 30.7 | Ship it | Complex | Run chapter code | Local or Claude | [`ex30_7_deploy.sh`](solutions/exercises/ch30/ex30_7_deploy.sh)<br>[`test_ch16_30.py`](solutions/tests/test_ch16_30.py) | ✔ passed (qwen3.5:9b, 0 s) |
+| 30.8 | Who asked for this, at company scale? | Concept | Written answer | No model | — | written answer |
+| 30.9 | Search what you may use | Medium | Build | No model | [`ex30_9_scoped_search.py`](solutions/exercises/ch30/ex30_9_scoped_search.py)<br>[`test_part5_mcp2026.py`](solutions/tests/test_part5_mcp2026.py) | ✔ passed (qwen3.5:9b, 2 s) |
+| 30.10 | Fewer polls, safe retries | Medium | Build | No model | [`ex30_10_jobs.py`](solutions/exercises/ch30/ex30_10_jobs.py)<br>[`test_part5_mcp2026.py`](solutions/tests/test_part5_mcp2026.py) | ✔ passed (qwen3.5:9b, 6 s) |
+| 30.11 | An agent behind the gateway | Complex | Build | Local or Claude | [`ex30_11_gateway_agent.py`](solutions/exercises/ch30/ex30_11_gateway_agent.py)<br>[`test_part5_mcp2026.py`](solutions/tests/test_part5_mcp2026.py) | ✔ passed (qwen3.5:9b, 53 s) |
 
 ## Capstone projects
 

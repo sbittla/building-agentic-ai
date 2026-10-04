@@ -15,7 +15,7 @@ Anyone who wants to build AI agents, including complete beginners. You don't nee
 | Are an architect, staff engineer or engineering leader | Chapter 1 (sections 1.3 to 1.8), section 12.1, then Chapters 15, 22, 26 to 30 and Appendix I's reference cards |
 | Are a performance or reliability engineer | Chapter 1, then Chapters 19, 27, 28 and 29 |
 
-The interludes (Python, testing, regular expressions, SQL and asynchronous Python) come right before the chapters that need them. Skip any you already know; each ends with exercises so you can check yourself.
+The interludes (Python, testing, regular expressions, SQL, measuring an agent and asynchronous Python) come right before the chapters that need them. Skip any you already know; each ends with exercises so you can check yourself.
 
 ## What you will build
 
@@ -24,13 +24,13 @@ The interludes (Python, testing, regular expressions, SQL and asynchronous Pytho
 | 0. Foundations | 0 (+ Python interlude) | Python, JSON and API basics | The ground everything else stands on |
 | 1. Your first agent | 1–4 (+ testing interlude) | Summarizer, calculator agent, multi-tool assistant with tool search, the agent loop | Agent = model + tools + loop |
 | 2. State and environment | 5–6 (+ regex interlude) | To-do agent, notes Q&A agent | Agents change things and look around |
-| 3. Real-world tools | 7–9 (+ SQL interlude) | Weather advisor, SQL analyst, file organizer | APIs fail, agents self-correct, humans approve |
+| 3. Real-world tools | 7–9 (+ SQL and measuring interludes) | Weather advisor, SQL analyst measured with repeated trials, file organizer | APIs fail, agents self-correct, measurements beat impressions, humans approve |
 | 4. Autonomy and multi-agent systems | 10–11 (+ async interlude) | Code fixer, research team, router, handoff, critic and voting teams | Feedback loops, and when several agents beat one |
-| 5. MCP and interoperability | 12–15 | MCP server, MCP client, an agent published as a server, ecosystem servers behind a policy layer, durable jobs and a gateway | Package tools and agents once, use them anywhere, safely and at scale |
+| 5. MCP and interoperability | 12–15 | MCP server, MCP client, an agent published as a server, ecosystem servers behind a policy layer, MCP requests by hand | Package tools and agents once, use them anywhere, safely |
 | 6. Context, memory and knowledge | 16–18 | A context assembler, a memory store with rules, a knowledge agent that checks its citations | Decide what the agent knows at every step |
 | 7. Advanced agent architectures | 19–24 | A durable job runner, a planner and model router, an orchestrated team, a rule-controlled workflow, a browser agent, the same agent on four runtimes | More independence, with code in control |
 | 8. Trust, Security and Identity | 25–26 | An injection-resistant inbox assistant, scoped and short-lived agent tokens | Agents that can't be turned against you |
-| 9. Production engineering | 27–30 | Trajectory evaluations, traces and alerts, cost budgets and a capacity plan, a deployed agent API and remote MCP server | Measured, observed, affordable, deployed |
+| 9. Production engineering | 27–30 | Trajectory evaluations, traces and alerts, cost budgets and a capacity plan, a deployed agent API and remote MCP server, durable MCP jobs and a gateway | Measured, observed, affordable, deployed, at company scale |
 | Capstones | — | Six end-to-end projects | Prove it on your own build |
 
 Each part ends with a **checkpoint**: a short list of things you should now be able to do. If two or more items feel shaky, revisit the exercises the checkpoint points to before you move on.

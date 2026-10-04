@@ -221,9 +221,9 @@ def _():
             return f"{len(hub.tools)} tools, {len(visible)} allowed by policy"
     return asyncio.run(go())
 
-@check("ch15 gateway: stateless client, cache hints, token checks")
+@check("ch15 and ch30: stateless client, cache hints, gateway token checks")
 def _():
-    import ch15_modern as modern, ch15_gateway as g, ch26_identity as identity
+    import ch15_modern as modern, ch30_gateway as g, ch26_identity as identity
     report = asyncio.run(modern.describe(modern.catalog))
     assert report["protocol"] == "2026-07-28" and report["ttl_ms"], report
     gw = g.Gateway(g.UPSTREAMS, g.POLICY)

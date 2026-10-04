@@ -141,7 +141,8 @@ function renderMermaid(src) {
   if (!fs.existsSync(png)) {
     const mmd = path.join(DIAGRAMS, `d-${hash}.mmd`);
     fs.writeFileSync(mmd, src);
-    execFileSync("mmdc", ["-p", path.join(DIAGRAMS, "puppeteer.json"), "-c", cfg, "-i", mmd, "-o", png,
+    // MERMAID_PUPPETEER points at a machine-specific browser config, if this machine needs one
+    execFileSync("mmdc", ["-p", process.env.MERMAID_PUPPETEER || path.join(DIAGRAMS, "puppeteer.json"), "-c", cfg, "-i", mmd, "-o", png,
                           "-b", "white", "-s", "3"], { stdio: "ignore" });
   }
   return imagePara(png, hash);
@@ -277,7 +278,7 @@ function convert(md) {
         if (!fs.existsSync(codePath)) {
           match = file.match(/^(test_)?i_/);
           if (match) {
-            const interludes = ["python", "regex", "sql", "testing"];
+            const interludes = ["python", "regex", "sql", "testing", "measure"];
             for (const iname of interludes) {
               const interloudePath = path.join(ROOT, "code", `interlude_${iname}`, file);
               if (fs.existsSync(interloudePath)) {
@@ -483,12 +484,12 @@ const PARTS = [
     blurb: "An agent is a model plus tools plus a loop. You make your first model call, give the model tools, teach it to choose between them, even among dozens, and write the loop that lets it work step by step until the job is done." },
   { num: 2, title: "State and Environment", files: ["05.md", "05z_regex.md", "06.md"],
     blurb: "Agents become useful when they remember and look around. You give an agent state that survives a restart and let it explore a folder of notes safely, answering questions with citations." },
-  { num: 3, title: "Real-World Tools", files: ["07.md", "07z_sql.md", "08.md", "09.md"],
+  { num: 3, title: "Real-World Tools", files: ["07.md", "07z_sql.md", "08.md", "08z_measure.md", "09.md"],
     blurb: "Real tools fail, return too much data and can do damage. You connect agents to a live web API and a database, teach them to correct their own mistakes and put a human approval gate in front of every risky action." },
   { num: 4, title: "Autonomy and Multi-Agent Systems", files: ["10.md", "10z_async.md", "11.md"],
     blurb: "With a feedback loop, an agent can check its own work. You build an agent that fixes code until the tests pass, inside firm guardrails. Then you build your first teams: a lead with parallel researchers, a router, a handoff pipeline, a writer with a critic and a vote." },
   { num: 5, title: "MCP and Interoperability", files: ["12.md", "13.md", "14.md", "15.md"],
-    blurb: "The Model Context Protocol lets you package tools once and use them from any agent. You build servers and a client, publish an agent as a server, adopt servers you didn't write safely, and see how MCP 2026 turns tool calling into shared agent infrastructure." },
+    blurb: "The Model Context Protocol lets you package tools once and use them from any agent. You build servers and a client, publish an agent as a server, adopt servers you didn't write safely, and see what the 2026 protocol changes on the wire." },
   { num: 6, title: "Context, Memory and Knowledge", files: ["16.md", "17.md", "18.md"],
     blurb: "What an agent knows at each step decides what it can do. You engineer the context of every call, give agents memory with clear rules about what to keep and for how long, and build knowledge systems in which the agent decides what to look up, where, and whether to trust it." },
   { num: 7, title: "Advanced Agent Architectures", files: ["19.md", "20.md", "21.md", "22.md", "23.md", "24.md"],
@@ -496,7 +497,7 @@ const PARTS = [
   { num: 8, title: "Trust, Security and Identity", files: ["25.md", "26.md"],
     blurb: "Autonomy is only as good as the trust behind it. You defend agents against the attacks aimed at them, from poisoned tools to poisoned memory, and give every agent an identity, least-privilege permissions and an audit trail." },
   { num: 9, title: "Production Engineering", files: ["27.md", "28.md", "29.md", "30.md"],
-    blurb: "Production agents are measured, observed, economical and deployed. You evaluate whole trajectories continuously, trace every decision, engineer cost per successful task and ship your agent as a secure service." },
+    blurb: "Production agents are measured, observed, economical and deployed. You evaluate whole trajectories continuously, trace every decision, engineer cost per successful task, ship your agent as a secure service and run MCP at company scale behind a gateway." },
 ];
 const PART_EXISTS = f => fs.existsSync(path.join(ROOT, "md", f));
 for (const p of PARTS) p.files = p.files.filter(PART_EXISTS);   // chapters are added part by part
@@ -515,7 +516,23 @@ function exerciseCounts() {
 }
 const WORDS = ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"];
 let COUNTS = null;
-const read = f => readRaw(f).replace(/\{\{exercises(-word)?:([\w-]+)\}\}/g, (_, word, k) => {
+// "@@exercise-model-table": the Appendix H table of every exercise by the model it needs,
+// one row per chapter and interlude, generated so it can't drift from model_needs.json.
+function exerciseModelTable() {
+  const rows = ["| Chapter | No model | qwen3.5:9b or Claude | Claude |", "| --- | --- | --- | --- |"];
+  for (const f of PARTS.flatMap(p => p.files)) {
+    const md = readRaw(f);
+    const ids = [...md.matchAll(/^:::ex \w+ \| ([\w.]+) \|/gm)].map(m => m[1]);
+    if (!ids.length) continue;
+    const col = k => ids.filter(id => k.includes(MODEL_NEEDS[id].model));
+    const claude = ids.filter(id => ["claude-rec", "claude", "desktop"].includes(MODEL_NEEDS[id].model))
+      .map(id => `${id} (${MODEL_NEEDS[id].model === "claude-rec" ? "recommended" : "only"})`);
+    const cell = a => a.length ? a.join(", ") : "—";
+    rows.push(`| ${md.match(/^# (.+)$/m)[1].trim()} | ${cell(col(["none"]))} | ${cell(col(["any"]))} | ${cell(claude)} |`);
+  }
+  return rows.join("\n");
+}
+const read = f => readRaw(f).replace(/^@@exercise-model-table$/m, () => exerciseModelTable()).replace(/\{\{exercises(-word)?:([\w-]+)\}\}/g, (_, word, k) => {
   COUNTS = COUNTS || exerciseCounts();
   const n = COUNTS[k] || 0;
   return word ? (WORDS[n] || String(n)) : String(n);

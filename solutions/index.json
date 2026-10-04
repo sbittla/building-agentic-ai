@@ -189,6 +189,16 @@
  "8.7": [
   "exercises/ex8_7_eval_harness.py"
  ],
+ "M.1": [
+  "ANSWERS.md"
+ ],
+ "M.2": [
+  "ANSWERS.md"
+ ],
+ "M.3": [
+  "exercises/exM_3_sql_suite.py",
+  "tests/test_ch08_10.py"
+ ],
  "9.3": [
   "ANSWERS.md",
   "tests/test_ch08_10.py"
@@ -580,16 +590,16 @@
   "exercises/ex15_4_cache.py",
   "tests/test_part5_mcp2026.py"
  ],
- "15.5": [
-  "exercises/ex15_5_scoped_search.py",
+ "30.9": [
+  "exercises/ex30_9_scoped_search.py",
   "tests/test_part5_mcp2026.py"
  ],
- "15.6": [
-  "exercises/ex15_6_jobs.py",
+ "30.10": [
+  "exercises/ex30_10_jobs.py",
   "tests/test_part5_mcp2026.py"
  ],
- "15.7": [
-  "exercises/ex15_7_gateway_agent.py",
+ "30.11": [
+  "exercises/ex30_11_gateway_agent.py",
   "tests/test_part5_mcp2026.py"
  ],
  "27.8": [

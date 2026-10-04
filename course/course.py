@@ -82,7 +82,7 @@ def env_for_runs():
     # Include chapter subdirectories in PYTHONPATH so exercises can import modules directly
     # e.g., import ch03_tools from course/code/ch03/ch03_tools.py
     chapter_paths = [str(PRISTINE / f"ch{i:02d}") for i in range(31)]
-    interlude_paths = [str(PRISTINE / d) for d in ["interlude_python", "interlude_regex", "interlude_sql", "interlude_testing"]]
+    interlude_paths = [str(PRISTINE / d) for d in ["interlude_python", "interlude_regex", "interlude_sql", "interlude_testing", "interlude_measure"]]
     all_code_paths = ":".join(chapter_paths + interlude_paths)
     env["PYTHONPATH"] = f"{all_code_paths}:{PRISTINE}:{WS}:{WS / 'exercises'}:{env.get('PYTHONPATH', '')}".rstrip(":")
     return env
@@ -852,8 +852,7 @@ LIVE_RUNS = [
     ("4", "ch10_fixer.py", "", 6), ("4", "ch11_research_team.py", "", 10),
     ("5", "ch13_mcp_agent.py servers.json", "How many open tasks are there?\nquit\n", 3),
     ("5", "ch14_policy_agent.py", "What time is it in Tokyo?\n" + "n\n" * 4 + "quit\n", 4),
-    ("5", "ch15_modern.py", "", 0), ("5", "ch15_jobs_server.py", "", 0),
-    ("5", "ch15_gateway.py", "", 0),
+    ("5", "ch15_modern.py", "", 0),
     ("6", "ch16_context.py", "", 5), ("6", "ch17_memory.py", "Remember that I prefer Celsius.\nquit\n", 2),
     ("6", "ch16_assemble.py", "", 1), ("6", "ch18_rag.py", "", 3), ("6", "ch18_agentic.py", "", 4),
     ("7", "ch19_durable.py", "", 1), ("7", "ch19_harness.py", "", 5),
@@ -868,6 +867,7 @@ LIVE_RUNS = [
     ("9", "ch27_trajectory.py", "", 5), ("9", "ch28_otel.py", "", 2),
     ("9", "ch28_agentops.py spans.jsonl", "", 0), ("9", "ch29_costs.py", "", 0),
     ("9", "ch27_scorecard.py", "", 0), ("9", "ch28_ops.py", "", 0), ("9", "ch29_perf.py", "", 0),
+    ("9", "ch30_jobs_server.py", "", 0), ("9", "ch30_gateway.py", "", 0),
 ]
 
 def cmd_live_check(args):

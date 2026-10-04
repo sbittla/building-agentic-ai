@@ -1,4 +1,4 @@
-"""Exercise 15.7: the Chapter 13 agent, with the gateway as its only server.
+"""Exercise 30.11: the Chapter 13 agent, with the gateway as its only server.
 
 The host starts the gateway for one agent and hands it that agent's token. The
 agent sees two tools, search_tools and use_tool, and finds the rest by searching.
@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 import ch26_identity as identity
 from ch13_mcp_agent import MCPHub, run_mcp_agent
-from ch15_gateway import AUDIENCE, AUDIT
+from ch30_gateway import AUDIENCE, AUDIT
 
 SYSTEM = ("You work for Ana. Company tools sit behind a gateway: find them with "
           "company__search_tools, then call them with company__use_tool. If a call "
@@ -18,7 +18,7 @@ SYSTEM = ("You work for Ana. Company tools sit behind a gateway: find them with 
 def config_for(agent: str, user: str, scopes: set[str]) -> dict:
     token = identity.mint(agent, user, scopes, AUDIENCE, ttl=900)
     return {"servers": {"company": {"command": sys.executable,
-                                    "args": ["ch15_gateway.py", "stdio"],
+                                    "args": ["ch30_gateway.py", "stdio"],
                                     "env": {"AGENT_TOKEN": token}}}}
 
 async def main(question: str = "Add a task 'Book flights' due 2026-10-02, then "

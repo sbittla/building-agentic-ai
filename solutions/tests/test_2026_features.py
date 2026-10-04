@@ -14,22 +14,28 @@ def test_tool_search_defers_all_but_the_essentials(model):
     assert loaded == ["basic_get_current_date"] and len(tools) == len(ts.ALL_TOOLS) + 1
     assert len({t["name"] for t in ts.ALL_TOOLS}) == len(ts.ALL_TOOLS)   # names stay unique
 
-def test_tool_search_agent_runs_only_client_tools(model, ws):
+def test_tool_search_picks_a_deferred_tool(model, ws):
     import ch03_tool_search as ts
-    from ch04_agent import run_agent
     search = S(type="server_tool_use", id="srvtoolu_1", name="tool_search_tool_bm25",
-               input={"query": "sql orders"})
+               input={"query": "parcel tracking"})
     found = S(type="tool_search_tool_result", tool_use_id="srvtoolu_1",
               content={"type": "tool_search_tool_search_result", "tool_references": [
-                  {"type": "tool_reference", "tool_name": "sql_run_query"}]})
-    model.reset([[search, found, tool("sql_run_query", {"sql": "SELECT COUNT(*) AS n FROM orders"})],
-                 [text("There are 400 orders.")]])
-    answer, messages, stats = run_agent("How many orders?", ts.with_tool_search(ts.ALL_TOOLS),
-                                        ts.run_tool, verbose=False)
-    assert "400" in answer and stats["tool_calls"] == 1
-    result = messages[2]["content"][0]["content"]
-    assert "400" in result                      # the real query ran through the namespaced route
+                  {"type": "tool_reference", "tool_name": "shipping_track_parcel"}]})
+    model.reset([[search, found, tool("shipping_track_parcel", {"tracking_number": "1Z999"})]])
+    name, args, searches, tokens = ts.choose("Where is parcel 1Z999?", ts.with_tool_search(ts.ALL_TOOLS))
+    assert name == "shipping_track_parcel" and searches == [{"query": "parcel tracking"}]
+    assert model.calls[0]["tools"][0]["name"] == "tool_search_tool_bm25"
+    assert ts.run_tool(name, args).startswith("(stand-in) shipping_track_parcel")
+    assert ts.run_tool("basic_convert_units", {"value": 26.2, "from_unit": "mi",
+                                               "to_unit": "km"}).endswith("km")   # real tools still run
     assert ts.run_tool("nope", {}).startswith("ERROR")
+
+def test_ex3_7_compares_both_setups(model, ws):
+    import ex3_7_tool_search as ex
+    model.reset(default=lambda kw: [tool("orders_get_status", {"order_id": "A1001"})])
+    table = ex.compare(ex.QUESTIONS[:2])
+    assert set(table) == {"tool search", "all loaded"}
+    assert table["tool search"]["accuracy"] == "1/2" and table["all loaded"]["accuracy"] == "1/2"
 
 # ---------------------------------------------------------------- 16.7 programmatic tool calling
 def test_programmatic_tool_calling_loop(model, ws, monkeypatch):

@@ -159,9 +159,9 @@ Most agent bugs aren't crashes: the agent runs, then does the wrong thing. Work 
 | Error budget | How much failure an SLO allows over a window; spending it fast triggers alerts (section 28.10) |
 | Evaluation (eval) suite | A set of test cases with checks, run after every change |
 | Exfiltration | Getting private data out of a system, for example inside a URL the agent fetches |
-| Extension (MCP) | An optional, named protocol feature, such as Tasks or MCP Apps, used only when client and server both declare it (section 15.8) |
+| Extension (MCP) | An optional, named protocol feature, such as Tasks or MCP Apps, used only when client and server both declare it (section 15.4) |
 | Failure taxonomy | The 12 classes of agent failure, each with detection, mitigation and evaluation (section 28.8) |
-| Gateway (MCP) | A server in front of other MCP servers that allow-lists tools, checks tokens, rate-limits and audits every call (section 15.5) |
+| Gateway (MCP) | A server in front of other MCP servers that allow-lists tools, checks tokens, rate-limits and audits every call (section 30.9) |
 | Goodput | Successful tasks per second; unlike throughput, it doesn't count tasks that failed or gave up (section 29.5) |
 | Harness | The code around the model: the loop, the tools, the checks and the limits; it decides what's allowed (section 1.7) |
 | Host | The application that runs the model and connects to MCP servers |
@@ -186,7 +186,7 @@ Most agent bugs aren't crashes: the agent runs, then does the wrong thing. Work 
 | Pass^k | The share of eval cases that pass on every one of k repeated runs |
 | Plan (as data) | A list of steps with tools, dependencies and done conditions that code can check before running (section 20.2) |
 | Programmatic tool calling | The model writes a program that calls your tools in a sandbox, so bulky results stay out of the context |
-| Progressive discovery | Offering tools through search instead of listing them all at once (section 15.5) |
+| Progressive discovery | Offering tools through search instead of listing them all at once (section 30.9) |
 | Prompt (MCP) | A reusable prompt template a server exposes |
 | Prompt caching | Reusing the processed form of an unchanged prompt prefix, at a tenth of the input price |
 | Prompt injection | Text in data (web pages, files, issues) that tries to give the model instructions |
@@ -205,7 +205,7 @@ Most agent bugs aren't crashes: the agent runs, then does the wrong thing. Work 
 | Stop reason | Why the model stopped: `end_turn`, `tool_use`, `max_tokens` and others |
 | Structured outputs | An API feature that makes the model's reply match a JSON Schema |
 | System prompt | Instructions that set the model's behavior for a whole conversation |
-| Tasks (MCP) | An MCP extension for long-running calls: the server returns a task id that the client polls with `tasks/get` (section 15.4) |
+| Tasks (MCP) | An MCP extension for long-running calls: the server returns a task id that the client polls with `tasks/get` (section 30.8) |
 | Thinking block | A content block holding the model's reasoning, returned before its answer; send it back unchanged |
 | Token | A chunk of text the model reads or writes; the unit of cost |
 | Token bucket | A rate-limit method: each caller's bucket refills at a steady rate and each request takes one token |
@@ -503,44 +503,7 @@ The first call after `local up` takes longer while the model loads. To speed up 
 
 Every exercise box shows one of four labels. Of the book's {{exercises:all}} exercises, {{exercises:none}} need **no model**, {{exercises:any}} run on **qwen3.5:9b or Claude**, {{exercises:claude-rec}} are **Claude recommended** and {{exercises:claude-only}} are **Claude only**. `./course.sh list` shows the labels too, and `./course.sh ex <id>` warns you before running a Claude-only exercise on the local model.
 
-| Chapter | No model | qwen3.5:9b or Claude | Claude |
-| --- | --- | --- | --- |
-| Chapter 0: Foundations | 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 | — | — |
-| Interlude: The Python You'll Need | P.1, P.2, P.3, P.4, P.5 | — | — |
-| Chapter 1: What an Agent Is (and Isn't) | 1.1, 1.2, 1.7, 1.8 | 1.3, 1.4, 1.5, 1.6 | — |
-| Interlude: Testing with pytest | T.1, T.2, T.3, T.4 | — | — |
-| Chapter 2: Tool Calling (Function Calling) | 2.1, 2.2 | 2.3, 2.4, 2.5, 2.6 | — |
-| Chapter 3: Tool Selection, Routing and Tool Search | 3.1, 3.2 | 3.3, 3.4, 3.5, 3.6 | 3.7 (only) |
-| Chapter 4: The Agent Loop | 4.1 | 4.2, 4.3, 4.4, 4.5 | — |
-| Chapter 5: State and Short-Term Memory | 5.1, 5.2 | 5.3, 5.4, 5.5, 5.6, 5.7 | — |
-| Interlude: Regular Expressions | R.1, R.2, R.3, R.4 | — | — |
-| Chapter 6: Agentic Search: Exploring an Environment | 6.1, 6.4 | 6.2, 6.3, 6.5, 6.6 | — |
-| Chapter 7: Real APIs | 7.1, 7.2 | 7.3, 7.4, 7.5, 7.6 | — |
-| Interlude: SQL in One Sitting | S.1, S.2, S.3, S.4 | — | — |
-| Chapter 8: Self-Correction: A Text-to-SQL Agent | 8.1, 8.2 | 8.3, 8.4, 8.5, 8.6, 8.7 | — |
-| Chapter 9: Human-in-the-Loop Approval | 9.1, 9.2 | 9.3, 9.4, 9.5, 9.6 | — |
-| Chapter 10: Feedback Loops | 10.1, 10.2 | 10.3, 10.4, 10.5, 10.6, 10.7 | — |
-| Interlude: Asynchronous Python | A.1, A.2, A.3, A.4 | — | — |
-| Chapter 11: Multi-Agent Systems | 11.1, 11.2 | 11.3, 11.4, 11.5, 11.6, 11.7 | — |
-| Chapter 12: MCP Fundamentals and Your First Server | 12.1, 12.2, 12.3, 12.4, 12.6, 12.7 | — | 12.5 (only) |
-| Chapter 13: Build Your Own MCP Client | 13.1, 13.2 | 13.3, 13.4, 13.5, 13.6, 13.7, 13.8 | — |
-| Chapter 14: Using Servers You Didn't Write | 14.1, 14.2 | 14.3, 14.4, 14.5 | — |
-| Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure | 15.1, 15.2, 15.3, 15.4, 15.5, 15.6 | 15.7 | — |
-| Chapter 16: Context Engineering | 16.1, 16.2, 16.6 | 16.3, 16.4, 16.8 | 16.5 (recommended), 16.7 (only) |
-| Chapter 17: Agent Memory Engineering | 17.1, 17.2, 17.4, 17.6, 17.7 | 17.3, 17.5, 17.8 | — |
-| Chapter 18: Agentic RAG and Knowledge Systems | 18.1, 18.2, 18.3, 18.4 | 18.5, 18.6, 18.7, 18.8, 18.9 | — |
-| Chapter 19: Long-Running Agents | 19.1, 19.2, 19.4 | 19.3, 19.5, 19.6 | — |
-| Chapter 20: Planning and Model Routing | 20.1, 20.2, 20.3 | 20.4, 20.5, 20.6 | — |
-| Chapter 21: Multi-Agent Orchestration | 21.1, 21.2 | 21.3, 21.4, 21.5 | 21.6 (recommended) |
-| Chapter 22: Hybrid Architectures: Probabilistic Intelligence, Deterministic Control | 22.1, 22.2 | 22.3, 22.4, 22.5, 22.6 | — |
-| Chapter 23: Computer-Use Agents | 23.1, 23.2, 23.3 | — | 23.4 (recommended), 23.5 (recommended), 23.6 (recommended) |
-| Chapter 24: Skills, Frameworks and Agent Runtimes | 24.1, 24.2, 24.9 | 24.8 | 24.3 (recommended), 24.4 (recommended), 24.5 (recommended), 24.6 (only), 24.7 (only) |
-| Chapter 25: Agentic Security | 25.1, 25.2, 25.5 | 25.3, 25.4, 25.6 | — |
-| Chapter 26: Agent Identity and Authorization | 26.1, 26.2, 26.3, 26.5 | 26.4, 26.6 | — |
-| Chapter 27: Agent Evaluation: Dimensions, Trajectories and Scorecards | 27.1, 27.2, 27.7 | 27.3, 27.4, 27.5, 27.6, 27.8 | — |
-| Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents | 28.1, 28.2, 28.4, 28.5, 28.6, 28.7 | 28.3 | — |
-| Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost | 29.1, 29.3 | 29.2, 29.4, 29.6 | 29.5 (recommended) |
-| Chapter 30: Deploying Agents: From One Service to an Agent Platform | 30.1 | 30.2, 30.3, 30.4, 30.5, 30.6, 30.7 | — |
+@@exercise-model-table
 | Capstones 1–6 | — | All six | 4 and 6 (recommended) |
 
 The exercises that need, or work much better with, Claude:
@@ -666,7 +629,7 @@ This book's code uses the Claude API, plus a free local model through Ollama (Ap
 | Structured outputs (Chapter 3) | JSON Schema output format; strict tools | Structured outputs with a JSON schema | Structured output with a JSON schema | Ollama's `format` with a JSON schema; vLLM structured outputs |
 | Reasoning controls (Chapter 4) | Adaptive thinking and `effort` | `reasoning.effort` | Thinking settings, which vary by model | Ollama's `think` option; reasoning parsers in vLLM |
 | Prompt caching (Chapter 16) | `cache_control` breakpoints, or automatic caching | Automatic caching, with an optional cache key | Implicit (automatic) and explicit context caching | Prefix caching in inference servers such as vLLM |
-| Many tools: tool search (Chapter 3) | Tool search tool with `defer_loading` | Tool search with deferred loading | No direct equivalent found | Build it: search your own tool catalog (section 15.5) |
+| Many tools: tool search (Chapter 3) | Tool search tool with `defer_loading` | Tool search with deferred loading | No direct equivalent found | Build it: search your own tool catalog (section 30.9) |
 | Code execution (Chapter 16) | Code execution tool; programmatic tool calling | Code Interpreter tool | Code execution tool | Your own sandbox (Chapter 10) |
 | Computer and browser use (Chapter 23) | Computer use and browser use tools | Computer use tool | Computer Use tool | Playwright and your own harness (Chapter 23) |
 | Batch processing (Chapter 27) | Message Batches API | Batch API | Batch API | Offline batch inference in vLLM |

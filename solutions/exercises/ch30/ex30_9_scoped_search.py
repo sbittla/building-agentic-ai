@@ -1,4 +1,4 @@
-"""Exercise 15.5: search results that match the caller's rights.
+"""Exercise 30.9: search results that match the caller's rights.
 
 An agent shouldn't learn that tools it may never call exist: their names and
 descriptions are information too, and they cost tokens.
@@ -8,7 +8,7 @@ import json
 from mcp import Client
 from mcp.server.mcpserver import Context
 import ch26_identity as identity
-from ch15_gateway import AUDIENCE, POLICY, UPSTREAMS, Gateway, _token
+from ch30_gateway import AUDIENCE, POLICY, UPSTREAMS, Gateway, _token
 
 class ScopedGateway(Gateway):
     async def search_tools(self, query: str, limit: int = 5,

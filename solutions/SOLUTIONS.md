@@ -67,7 +67,7 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 3.4 A 20-question eval | `exercises/ex3_4_routing_eval.py` | A 20-question routing eval, run 3 times |
 | 3.5 Structured output, two ways | `exercises/ex3_5_forced_tool.py` | Structured output two ways, with no JSON parsing either way |
 | 3.6 Scale to ten tools | `exercises/ex3_6_ten_tools.py` | Ten tools with near-duplicates, then fix by merging |
-| 3.7 Tool search at scale | `exercises/ex3_7_tool_search.py`, `tests/test_2026_features.py` | Deferred tools found by search, against loading every tool: accuracy, searches and tokens |
+| 3.7 Tool search at scale | `exercises/ex3_7_tool_search.py`, `tests/test_2026_features.py` | A 40-tool catalogue found by search, against loading every tool: accuracy, searches and tokens |
 
 ## Chapter 4: The Agent Loop
 
@@ -142,6 +142,14 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 8.5 Retry budget and log | `exercises/sol_ch08_sql_tools.py` | A retry budget and a query log for the SQL tool |
 | 8.6 Confirm the tables | `exercises/sol_ch08_sql_tools.py` | Confirm the tables with the user before running an expensive query |
 | 8.7 An evaluation harness | `exercises/ex8_7_eval_harness.py` | Compare the agent's answers with verified gold SQL |
+
+## Interlude: Measuring an Agent
+
+| Exercise | Solution | What it shows |
+| --- | --- | --- |
+| M.1 Is B better? | `ANSWERS.md` | Both 95% intervals overlap (64–95% and 76–99%): not proven better yet |
+| M.2 Watch the margins | `ANSWERS.md` | About 3,000 runs separate 78% from 80%; a few hundred separate 70% from 80% |
+| M.3 Measure the SQL analyst | `exercises/exM_3_sql_suite.py`, `tests/test_ch08_10.py` | The SQL analyst measured with three trials per case, before and after one prompt change |
 
 ## Chapter 9: Human-in-the-Loop Approval
 
@@ -226,13 +234,10 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 
 | Exercise | Solution | What it shows |
 | --- | --- | --- |
-| 15.1 Who asked for this? | `ANSWERS.md` | Each 2026-07-28 change matched to who benefits and the problem it removes |
+| 15.1 Who asked for this? | `ANSWERS.md` | Each 2026-07-28 protocol change matched to who benefits and the problem it removes |
 | 15.2 Plan a migration | `ANSWERS.md` | Sampling, roots, logging and SSE replaced; per-user state moved to storage keyed by an id |
 | 15.3 MCP by hand | `exercises/ex15_3_wire.py`, `tests/test_part5_mcp2026.py` | Discover, list and call over raw HTTP; a header that disagrees with the body is refused |
 | 15.4 What does caching save? | `exercises/ex15_4_cache.py`, `tests/test_part5_mcp2026.py` | 1, 10 and 10 of 10 list requests reach the server |
-| 15.5 Search what you may use | `exercises/ex15_5_scoped_search.py`, `tests/test_part5_mcp2026.py` | search_tools filtered by the caller's token scopes |
-| 15.6 Fewer polls, safe retries | `exercises/ex15_6_jobs.py`, `tests/test_part5_mcp2026.py` | A long-polling job_status: one call instead of several; the same request_id gives the same job |
-| 15.7 An agent behind the gateway | `exercises/ex15_7_gateway_agent.py`, `tests/test_part5_mcp2026.py` | The Chapter 13 agent behind a stdio gateway: tools found by search, writes allowed, the order query refused and audited |
 
 ## Chapter 16: Context Engineering
 
@@ -412,3 +417,7 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 30.5 Remote MCP with your agent | `exercises/ex30_5_remote_hub.py`, `exercises/servers_remote.json` | The Chapter 13 hub, now able to reach REMOTE MCP servers |
 | 30.6 Production drill | `exercises/ex30_6_drill.py` | Load-test the agent API over HTTP |
 | 30.7 Ship it | `exercises/ex30_7_deploy.sh` | Build, run and smoke-test the production image, then deploy with secrets and limits |
+| 30.8 Who asked for this, at company scale? | `ANSWERS.md` | Tasks, the gateway and company sign-on matched to who benefits and the problem each removes |
+| 30.9 Search what you may use | `exercises/ex30_9_scoped_search.py`, `tests/test_part5_mcp2026.py` | search_tools filtered by the caller's token scopes |
+| 30.10 Fewer polls, safe retries | `exercises/ex30_10_jobs.py`, `tests/test_part5_mcp2026.py` | A long-polling job_status: one call instead of several; the same request_id gives the same job |
+| 30.11 An agent behind the gateway | `exercises/ex30_11_gateway_agent.py`, `tests/test_part5_mcp2026.py` | The Chapter 13 agent behind a stdio gateway: tools found by search, writes allowed, the order query refused and audited |

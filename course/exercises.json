@@ -427,8 +427,8 @@
   "level": "Medium",
   "title": "Tool search at scale",
   "chapter": "Chapter 3: Tool Selection, Routing and Tool Search",
-  "task": "Run `ch03_tool_search.py`, then write 10 questions that each need a different tool from `ALL_TOOLS`. For each, record which searches the model made, whether it found the right tool, and the input tokens of the first call. Then run the same questions with every tool loaded (no `defer_loading`) and compare.",
-  "hint": "`stats` from `run_agent` has the token counts; the searches are the `server_tool_use` blocks in `messages`.",
+  "task": "Run `ch03_tool_search.py`, then write 10 questions that each need a different tool from `ALL_TOOLS`. For each, use `choose` to record which searches the model made, whether it picked the right tool, and the input tokens of the call. Then run the same questions with every tool loaded (no `defer_loading`) and compare.",
+  "hint": "`choose` returns the tool's name and arguments, the searches and the input tokens; pass it `ALL_TOOLS` itself for the \"every tool loaded\" setup.",
   "done_when": "You have a table of accuracy and input tokens for both setups, and a sentence on when you'd switch tool search on.",
   "kind": "run",
   "cmd": "python ch03_tool_search.py"
@@ -893,6 +893,38 @@
   "done_when": "You have before and after accuracy, and a list of the failure types you found.",
   "kind": "build",
   "file": "exercises/ex8_7_eval_harness.py"
+ },
+ {
+  "id": "M.1",
+  "level": "Concept",
+  "title": "Is B better?",
+  "chapter": "Interlude: Measuring an Agent",
+  "task": "Version A of an agent passed 17 of 20 runs; version B passed 19 of 20. Use `wilson` to work out both 95% intervals, then decide: is B better, and what would you do next?",
+  "hint": null,
+  "done_when": "You have both intervals and a decision with a reason.",
+  "kind": "concept"
+ },
+ {
+  "id": "M.2",
+  "level": "Simple",
+  "title": "Watch the margins",
+  "chapter": "Interlude: Measuring an Agent",
+  "task": "Run `i_measure.py`. Then change the two success rates to 0.78 and 0.80 and try 30, 100 and 300 trials per case.",
+  "hint": null,
+  "done_when": "You can say roughly how many runs it takes to separate 78% from 80%, compared with 70% from 80%, and why small differences need so many more.",
+  "kind": "run",
+  "cmd": "python i_measure.py"
+ },
+ {
+  "id": "M.3",
+  "level": "Medium",
+  "title": "Measure the SQL analyst",
+  "chapter": "Interlude: Measuring an Agent",
+  "task": "Measure the Chapter 8 SQL analyst on the cases in `eval_sql.jsonl`, three trials each: a case passes when the answer contains the value its `answer_sql` returns. Report the pass rate with its interval and the flaky cases. Then add one sentence to the system prompt, measure again and use `compare`.",
+  "hint": "`run_suite` takes your agent as a function of the question and your check as a function of the answer and the case; run `answer_sql` on a read-only connection to get the expected value.",
+  "done_when": "You have two reports and a verdict from `compare`, and you can say which cases were flaky.",
+  "kind": "build",
+  "file": "exercises/exM_3_sql_suite.py"
  },
  {
   "id": "9.1",
@@ -1409,19 +1441,19 @@
   "done_when": "A planted injection in a note is reported to the user instead of followed.",
   "kind": "run",
   "cmd": "python ch14_policy_agent.py servers_ecosystem.json",
-  "setup": "[ -d .git ] || { git init -q . && git add -A && git -c user.name=course -c user.email=course@example.com commit -qm 'workspace snapshot'; }",
   "edit": [
    "ch13_mcp_agent.py"
-  ]
+  ],
+  "setup": "[ -d .git ] || { git init -q . && git add -A && git -c user.name=course -c user.email=course@example.com commit -qm 'workspace snapshot'; }"
  },
  {
   "id": "15.1",
   "level": "Concept",
   "title": "Who asked for this?",
   "chapter": "Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure",
-  "task": "For each 2026-07-28 change, name who benefits and what went wrong before it: (a) stateless requests; (b) `Mcp-Method` and `Mcp-Name` headers; (c) `ttlMs` and `cacheScope`; (d) the Tasks extension; (e) Client ID Metadata Documents; (f) Enterprise-Managed Authorization.",
+  "task": "For each 2026-07-28 change, name who benefits and what went wrong before it: (a) stateless requests; (b) `Mcp-Method` and `Mcp-Name` headers; (c) `ttlMs` and `cacheScope`; (d) the extensions framework.",
   "hint": null,
-  "done_when": "Each change has a beneficiary (server operator, gateway, host, user, security team) and a concrete problem it solves.",
+  "done_when": "Each change has a beneficiary (server operator, load balancer, host, user) and a concrete problem it solves.",
   "kind": "concept"
  },
  {
@@ -1455,39 +1487,6 @@
   "done_when": "You have three counts, and one sentence on when a server should choose a short hint or `private` scope.",
   "kind": "build",
   "file": "exercises/ex15_4_cache.py"
- },
- {
-  "id": "15.5",
-  "level": "Medium",
-  "title": "Search what you may use",
-  "chapter": "Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure",
-  "task": "Change the gateway's `search_tools` so it returns only the tools the caller's token allows, and nothing for a caller without a valid token.",
-  "hint": "A tool function can accept a `Context` argument; `_token(ctx)` finds the caller's token.",
-  "done_when": "A planner with `todo:read` finds only the two read tools, an analyst searching for \"task\" finds nothing, and a caller with no token finds nothing.",
-  "kind": "build",
-  "file": "exercises/ex15_5_scoped_search.py"
- },
- {
-  "id": "15.6",
-  "level": "Medium",
-  "title": "Fewer polls, safe retries",
-  "chapter": "Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure",
-  "task": "Give `job_status` a `wait_s` parameter (at most 20 seconds) that holds the call until the job finishes or the time runs out. Then show that calling `start_report` twice with the same `request_id` returns the same job.",
-  "hint": null,
-  "done_when": "Waiting takes one status call where short polling took several, and both starts share one job id.",
-  "kind": "build",
-  "file": "exercises/ex15_6_jobs.py"
- },
- {
-  "id": "15.7",
-  "level": "Complex",
-  "title": "An agent behind the gateway",
-  "chapter": "Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure",
-  "task": "Run the Chapter 13 agent with the gateway as its only server: the host starts `ch15_gateway.py stdio` for the planner agent and passes its token in the environment. Ask it to add a task and to count cancelled orders.",
-  "hint": null,
-  "done_when": "The agent finds tools through `search_tools`, the task is added, the order query is refused and reported honestly, and the audit trail shows both calls with the agent and the user.",
-  "kind": "build",
-  "file": "exercises/ex15_7_gateway_agent.py"
  },
  {
   "id": "16.1",
@@ -1734,7 +1733,7 @@
   "level": "Complex",
   "title": "A cited knowledge agent",
   "chapter": "Chapter 18: Agentic RAG and Knowledge Systems",
-  "task": "Build an agent over `notes` and `library` that uses `search_knowledge`, answers with citations, and says \"not in the knowledge base\" when it should. Evaluate it on 10 questions (including three that aren't answerable) with the Chapter 27 harness plus the citation checker from exercise 6.4.",
+  "task": "Build an agent over `notes` and `library` that uses `search_knowledge`, answers with citations, and says \"not in the knowledge base\" when it should. Evaluate it on 10 questions (including three that aren't answerable) with `run_suite` from the measurement interlude plus the citation checker from exercise 6.4.",
   "hint": null,
   "done_when": "You report answer accuracy, citation validity and correct refusals, and fix at least one failure.",
   "kind": "build",
@@ -2034,7 +2033,7 @@
   "chapter": "Chapter 22: Hybrid Architectures: Probabilistic Intelligence, Deterministic Control",
   "task": "Rebuild the Chapter 8 analyst's `run_query` as a hybrid: the model writes SQL, and code decides whether it runs. Use SQLite's `set_authorizer` to allow only reads of the shop's tables, add a row limit, and inject the business definitions (such as revenue) into the system prompt from a definitions file rather than trusting the model to know them.",
   "hint": "The authorizer is called for every action the SQL would take; return `sqlite3.SQLITE_DENY` for anything that isn't a read of an allowed table or a function you allow.",
-  "done_when": "Tests show writes, `ATTACH`, reads of other tables and `PRAGMA` refused by the authorizer, not by the prompt, and the analyst still answers the Chapter 27 SQL questions.",
+  "done_when": "Tests show writes, `ATTACH`, reads of other tables and `PRAGMA` refused by the authorizer, not by the prompt, and the analyst still answers the SQL questions in `eval_sql.jsonl`.",
   "kind": "build",
   "file": "exercises/ex22_6_guarded_sql.py"
  },
@@ -2149,7 +2148,7 @@
   "level": "Complex",
   "title": "Same agent, three frameworks",
   "chapter": "Chapter 24: Skills, Frameworks and Agent Runtimes",
-  "task": "Rebuild the Chapter 8 SQL analyst with the tool runner, the Agent SDK and LangChain. Run the Chapter 27 SQL evaluation suite against all three plus your hand-built version, with three trials per case.",
+  "task": "Rebuild the Chapter 8 SQL analyst with the tool runner, the Agent SDK and LangChain. Run the SQL cases in `eval_sql.jsonl` against all three plus your hand-built version, with three trials per case, as in the measurement interlude.",
   "hint": "Compare cost from the provider's usage report or `total_cost_usd`, not raw token counts: frameworks count cached tokens differently.",
   "done_when": "You have a table of pass rate with 95% intervals, cost and lines of code for the four versions, and a paragraph on which you'd ship that doesn't read more into the pass rates than the intervals allow.",
   "kind": "build",
@@ -2653,5 +2652,48 @@
   "edit": [
    "ch30_service.Dockerfile"
   ]
+ },
+ {
+  "id": "30.8",
+  "level": "Concept",
+  "title": "Who asked for this, at company scale?",
+  "chapter": "Chapter 30: Deploying Agents: From One Service to an Agent Platform",
+  "task": "For each piece in sections 30.8 to 30.11, name who benefits and what went wrong before it: (a) the Tasks extension; (b) a gateway in front of every server; (c) Client ID Metadata Documents; (d) Enterprise-Managed Authorization.",
+  "hint": null,
+  "done_when": "Each has a beneficiary (user, host, security team, server operator, employee) and a concrete problem it solves.",
+  "kind": "concept"
+ },
+ {
+  "id": "30.9",
+  "level": "Medium",
+  "title": "Search what you may use",
+  "chapter": "Chapter 30: Deploying Agents: From One Service to an Agent Platform",
+  "task": "Change the gateway's `search_tools` so it returns only the tools the caller's token allows, and nothing for a caller without a valid token.",
+  "hint": "A tool function can accept a `Context` argument; `_token(ctx)` finds the caller's token.",
+  "done_when": "A planner with `todo:read` finds only the two read tools, an analyst searching for \"task\" finds nothing, and a caller with no token finds nothing.",
+  "kind": "build",
+  "file": "exercises/ex30_9_scoped_search.py"
+ },
+ {
+  "id": "30.10",
+  "level": "Medium",
+  "title": "Fewer polls, safe retries",
+  "chapter": "Chapter 30: Deploying Agents: From One Service to an Agent Platform",
+  "task": "Give `job_status` a `wait_s` parameter (at most 20 seconds) that holds the call until the job finishes or the time runs out. Then show that calling `start_report` twice with the same `request_id` returns the same job.",
+  "hint": null,
+  "done_when": "Waiting takes one status call where short polling took several, and both starts share one job id.",
+  "kind": "build",
+  "file": "exercises/ex30_10_jobs.py"
+ },
+ {
+  "id": "30.11",
+  "level": "Complex",
+  "title": "An agent behind the gateway",
+  "chapter": "Chapter 30: Deploying Agents: From One Service to an Agent Platform",
+  "task": "Run the Chapter 13 agent with the gateway as its only server: the host starts `ch30_gateway.py stdio` for the planner agent and passes its token in the environment. Ask it to add a task and to count cancelled orders.",
+  "hint": null,
+  "done_when": "The agent finds tools through `search_tools`, the task is added, the order query is refused and reported honestly, and the audit trail shows both calls with the agent and the user.",
+  "kind": "build",
+  "file": "exercises/ex30_11_gateway_agent.py"
  }
 ]

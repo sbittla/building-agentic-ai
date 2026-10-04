@@ -26,7 +26,7 @@ This file is rewritten after every run.
 | [12](ch12/) | Chapter 12: MCP Fundamentals and Your First Server | 1 | 0 | 6 | 2 | qwen3.5:9b (local, through Ollama) | 2026-09-27 21:50 |
 | [13](ch13/) | Chapter 13: Build Your Own MCP Client | 7 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-09-28 00:15 |
 | [14](ch14/) | Chapter 14: Using Servers You Didn't Write | 1 | 0 | 4 | 2 | qwen3.5:9b (local, through Ollama) | 2026-09-28 00:15 |
-| [15](ch15/) | Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-09-28 00:17 |
+| [15](ch15/) | Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure | 2 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-09-28 00:17 |
 | [16](ch16/) | Chapter 16: Context Engineering | 6 | 0 | 2 | 2 | mixed: see each exercise | 2026-09-28 01:49 |
 | [17](ch17/) | Chapter 17: Agent Memory Engineering | 6 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-09-27 22:06 |
 | [18](ch18/) | Chapter 18: Agentic RAG and Knowledge Systems | 7 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-09-28 01:48 |
@@ -41,7 +41,7 @@ This file is rewritten after every run.
 | [27](ch27/) | Chapter 27: Agent Evaluation: Dimensions, Trajectories and Scorecards | 5 | 1 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-09-27 23:50 |
 | [28](ch28/) | Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents | 6 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-09-27 23:51 |
 | [29](ch29/) | Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost | 5 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-09-28 00:01 |
-| [30](ch30/) | Chapter 30: Deploying Agents: From One Service to an Agent Platform | 6 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-09-28 00:42 |
+| [30](ch30/) | Chapter 30: Deploying Agents: From One Service to an Agent Platform | 9 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-09-28 00:42 |
 | [C1](C1/) | Capstone 1 | 1 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-09-28 00:50 |
 | [C2](C2/) | Capstone 2 | 1 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-09-28 00:50 |
 | [C3](C3/) | Capstone 3 | 1 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-09-28 00:53 |

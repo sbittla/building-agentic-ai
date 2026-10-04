@@ -1,4 +1,4 @@
-"""Exercise 15.6: fewer polls, and retries that don't start the work twice.
+"""Exercise 30.10: fewer polls, and retries that don't start the work twice.
 
 job_status gets a wait_s parameter: the server holds the call open for up to
 wait_s seconds and answers as soon as the job finishes (a "long poll"). An agent
@@ -7,7 +7,7 @@ that polls through a model pays for every poll, so this saves real money.
 import asyncio
 import json
 from mcp import Client
-import ch15_jobs_server as jobs
+import ch30_jobs_server as jobs
 
 MAX_WAIT = 20                                   # keep calls well under client timeouts
 check_once = jobs.job_status                    # the original, as a plain function

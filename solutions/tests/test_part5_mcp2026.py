@@ -55,7 +55,7 @@ def test_15_4_cache(ws):
     assert list(r.values()) == [1, 10, 10]
 
 def test_15_gateway(ws):
-    import ch15_gateway as g, ch26_identity as identity
+    import ch30_gateway as g, ch26_identity as identity
     g.AUDIT.unlink(missing_ok=True)
     gw = g.Gateway(g.UPSTREAMS, g.POLICY)
     planner = identity.mint("planner-agent", "ana", {"todo:read", "todo:write"},
@@ -72,44 +72,44 @@ def test_15_gateway(ws):
     assert [a["outcome"][:6] for a in audit] == ["ok", "denied", "denied", "ok"]
     assert audit[1]["agent"] == "agent:analyst-agent"
 
-def test_15_gateway_rate_limit(ws, monkeypatch):
-    import ch15_gateway as g, ch26_identity as identity
+def test_30_gateway_rate_limit(ws, monkeypatch):
+    import ch30_gateway as g, ch26_identity as identity
     monkeypatch.setitem(g.RATE, "calls", 2)
     gw = g.Gateway(g.UPSTREAMS, g.POLICY)
     t = identity.mint("planner-agent", "ana", {"todo:read"}, g.AUDIENCE)
     out = [asyncio.run(g.call(gw, t, "todo__list_tasks", {})) for _ in range(3)]
     assert "rate limit" in out[2] and "rate limit" not in out[1]
 
-def test_15_5_scoped_search(ws):
-    import ex15_5_scoped_search as ex
+def test_30_9_scoped_search(ws):
+    import ex30_9_scoped_search as ex
     found = asyncio.run(ex.main())
     assert found["reader, 'task'"] == ["todo__list_tasks", "todo__find_tasks"]
     assert found["analyst, 'task'"] == [] and found["no token, 'task'"] == []
     assert set(found["analyst, 'query schema'"]) == {"shopdb__get_schema",
                                                      "shopdb__run_query"}
 
-def test_15_jobs_server(ws):
-    import ch15_jobs_server as j
+def test_30_jobs_server(ws):
+    import ch30_jobs_server as j
     asyncio.run(j.main())
     with j.durable._db() as con:
         assert con.execute("SELECT status FROM jobs").fetchone()["status"] == "done"
 
-def test_15_jobs_rejects_bad_month(ws):
+def test_30_jobs_rejects_bad_month(ws):
     from mcp import Client
-    import ch15_jobs_server as j
+    import ch30_jobs_server as j
     async def go():
         async with Client(j.mcp) as c:
             return await c.call_tool("start_report", {"month": "2026' OR 1=1 --"})
     assert asyncio.run(go()).is_error
 
-def test_15_6_jobs(ws):
-    import ex15_6_jobs as ex
+def test_30_10_jobs(ws):
+    import ex30_10_jobs as ex
     r = asyncio.run(ex.main())
     assert r["long poll"]["polls"] == 1 and r["short polls"]["polls"] >= 2
     assert all(v["status"] == "completed" and v["retry_same_job"] for v in r.values())
 
-def test_15_7_gateway_agent(model, ws):
-    import ex15_7_gateway_agent as ex
+def test_30_11_gateway_agent(model, ws):
+    import ex30_11_gateway_agent as ex
     model.reset([[tool("company__search_tools", {"query": "task"})],
                  [tool("company__use_tool", {"name": "todo__add_task",
                                              "arguments": {"title": "Book flights",

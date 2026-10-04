@@ -1,10 +1,10 @@
-"""Chapter 15: an MCP gateway. One front door for many servers.
+"""Chapter 30: an MCP gateway. One front door for many servers.
 
 Agents connect to the gateway only. It knows the real servers, decides which tools
 each agent may see and call (with Chapter 26's tokens), limits how fast each agent
 may call them, and writes one audit trail for everything.
 
-    python ch15_gateway.py           # in-process demo, no API key needed
+    python ch30_gateway.py           # in-process demo, no API key needed
 """
 import asyncio
 import json

@@ -226,6 +226,15 @@
  "8.7": {
   "model": "any"
  },
+ "M.1": {
+  "model": "none"
+ },
+ "M.2": {
+  "model": "none"
+ },
+ "M.3": {
+  "model": "any"
+ },
  "9.1": {
   "model": "none"
  },
@@ -691,13 +700,13 @@
  "15.4": {
   "model": "none"
  },
- "15.5": {
+ "30.9": {
   "model": "none"
  },
- "15.6": {
+ "30.10": {
   "model": "none"
  },
- "15.7": {
+ "30.11": {
   "model": "any",
   "note": "Any model that can call tools; tools are found through search_tools"
  },
@@ -715,5 +724,8 @@
  },
  "29.6": {
   "model": "any"
+ },
+ "30.8": {
+  "model": "none"
  }
 }

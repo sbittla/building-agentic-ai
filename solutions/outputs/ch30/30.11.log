@@ -1,5 +1,5 @@
-# Exercise: 15.7  An agent behind the gateway
-# Command:  python /tmp/solutions-flat/exercises/ex15_7_gateway_agent.py
+# Exercise: 30.11  An agent behind the gateway
+# Command:  python /tmp/solutions-flat/exercises/ex30_11_gateway_agent.py
 # Model:    qwen3.5:9b (local, through Ollama)
 # Date:     2026-09-28 00:17:08 UTC
 # Exit code: 0
