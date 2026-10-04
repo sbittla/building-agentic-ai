@@ -12,7 +12,7 @@ Anyone who wants to build AI agents, including complete beginners. You don't nee
 | Know some Python but have never called a web API | Chapter 0: skim it, and do exercises 0.4–0.6 |
 | Write Python and have used web APIs | Chapter 1 |
 | Have built a simple agent already | Read Chapter 1's frameworks, skim the rest of Part 1, then start at Chapter 5, or go straight to Part 5 (MCP and interoperability), Part 6 (context and memory), Part 7 (advanced agent architectures), Part 8 (trust, security and identity) or Part 9 (production engineering) |
-| Are an architect, staff engineer or engineering leader | Chapter 1 (sections 1.3 to 1.8), then Chapters 15, 22, 26 to 30 and Appendix I's reference cards |
+| Are an architect, staff engineer or engineering leader | Chapter 1 (sections 1.3 to 1.8), section 12.1, then Chapters 15, 22, 26 to 30 and Appendix I's reference cards |
 | Are a performance or reliability engineer | Chapter 1, then Chapters 19, 27, 28 and 29 |
 
 The interludes (Python, testing, regular expressions, SQL and asynchronous Python) come right before the chapters that need them. Skip any you already know; each ends with exercises so you can check yourself.
@@ -65,9 +65,9 @@ This is a long book, and you don't have to read all of it before you build somet
 
 | Path | For | Read |
 | --- | --- | --- |
-| **Fast path** | You want one working, safe agent soon | Chapters 0–4, 9, 12 and 16, then Chapter 27's first sections and Chapter 30. Do the Simple exercises only |
+| **Fast path** | You want one working, safe agent soon | Chapters 0–4, 9, 12 and 16, then sections 27.1–27.3 and 30.1–30.3. Do the Simple exercises only |
 | **Builder path** | You're new to agents and want the full skill set | Every part in order, with the interludes you need and the Simple and Medium exercises, then one capstone |
-| **Production path** | You already build agents and want to run them at scale | Chapters 15–30, dipping back into Chapters 9, 11 and 14 when they're referenced, then a capstone to the full rubric |
+| **Production path** | You already build agents and want to run them at scale | Chapters 12–30, skimming Chapters 12–14 if you've used MCP before and dipping back into Chapters 9 and 11 when they're referenced, then a capstone to the full rubric |
 
 The interludes are optional on every path: read one when a chapter uses something that's new to you.
 
@@ -96,7 +96,7 @@ Every chapter follows the same pattern:
 2. **Real-world connection**: a production system that uses the same pattern.
 3. **Lessons**: numbered subtopics, each with an explanation and runnable code.
 4. **Common mistakes**: the bugs people hit most often.
-5. **Summary**: the chapter in five bullet points.
+5. **Summary**: the chapter's key points, in a short bulleted list.
 6. **Exercises** at four levels:
     - **Concept**: no code. Explain, classify or design. Checks understanding.
     - **Simple**: a small change to the chapter's code. Builds confidence.
@@ -108,10 +108,10 @@ Each exercise has a **Done when** line that tells you when you've finished, and 
 
 | Label | Meaning | Exercises |
 | --- | --- | --- |
-| **No model** | Plain Python, SQL, tests or design work: nothing calls a model, so it's free | 81 |
-| **qwen3.5:9b or Claude** | Runs on the free local model or on Claude | 83 |
-| **Claude recommended** | Runs on `qwen3.5:9b`, but the result is much better with Claude | 4 |
-| **Claude only** | Uses a feature that only runs on Anthropic's servers, or the Claude Desktop app | 5 |
+| **No model** | Plain Python, SQL, tests or design work: nothing calls a model, so it's free | {{exercises:none}} |
+| **qwen3.5:9b or Claude** | Runs on the free local model or on Claude | {{exercises:any}} |
+| **Claude recommended** | Runs on `qwen3.5:9b`, but the result is much better with Claude | {{exercises:claude-rec}} |
+| **Claude only** | Uses a feature that only runs on Anthropic's servers, or the Claude Desktop app | {{exercises:claude-only}} |
 
 ## Setup (do this once)
 
@@ -167,10 +167,10 @@ You can work through this book with either of two models, and switch between the
 | Needs | An API key (Chapter 0, section 0.5) | 16 GB of RAM (32 GB recommended), 10 GB of disk; a GPU is optional |
 | Speed | A few seconds per answer | A few seconds with a GPU; up to a minute or more on a CPU |
 | Quality | Best: agents rarely pick the wrong tool | Good for learning; makes more mistakes from Chapter 8 on |
-| Runs | Every exercise | All except the 5 marked **Claude only** |
+| Runs | Every exercise | All except the {{exercises:claude-only}} marked **Claude only** |
 | Turn on | `PROVIDER=claude` in `.env` (or no `PROVIDER` line) | `./course.sh local up`, then `PROVIDER=local` in `.env` |
 
-A good plan on a tight budget: do the book on the local model, and add a small Claude credit (a few dollars) for the five **Claude only** exercises and the four marked **Claude recommended**. Appendix H has the full local-model guide: hardware, GPUs, Macs, speed tips and exactly what the kit adapts for you. The kit's repository has the same guide as `LOCAL_MODEL.md`, kept up to date.
+A good plan on a tight budget: do the book on the local model, and add a small Claude credit (a few dollars) for the {{exercises-word:claude-only}} **Claude only** exercises and the {{exercises-word:claude-rec}} marked **Claude recommended**. Appendix H has the full local-model guide: hardware, GPUs, Macs, speed tips and exactly what the kit adapts for you. The kit's repository has the same guide as `LOCAL_MODEL.md`, kept up to date.
 
 :::tip Changing the Claude model
 With Claude, the examples read the model name from the `MODEL` environment variable and default to `claude-sonnet-5`, which balances speed and cost well for learning. Model names change over time, so check the current list at platform.claude.com/docs/en/models/overview. To switch, set `MODEL=...` in your `.env` file. With the local model, the kit uses `LOCAL_MODEL` instead (default `qwen3.5:9b`).

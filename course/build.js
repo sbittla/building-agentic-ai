@@ -502,7 +502,24 @@ const PART_EXISTS = f => fs.existsSync(path.join(ROOT, "md", f));
 for (const p of PARTS) p.files = p.files.filter(PART_EXISTS);   // chapters are added part by part
 const FRONT = ["fm_preface.md", "fm_acknowledgments.md", "fm_author.md", "00_front.md"];
 const BACK = ["90_capstones.md", "91_appendix.md"];
-const read = f => fs.readFileSync(path.join(ROOT, "md", f), "utf8");
+const readRaw = f => fs.readFileSync(path.join(ROOT, "md", f), "utf8");
+// "{{exercises:none}}" and friends: counted from the manuscript and model_needs.json, so they never go stale.
+// Kinds: all, none, any, claude-rec, claude-only; "{{exercises-word:claude-only}}" spells the number out.
+function exerciseCounts() {
+  const all = [...FRONT, ...PARTS.flatMap(p => p.files), ...BACK].filter(PART_EXISTS);
+  const ids = all.flatMap(f => [...readRaw(f).matchAll(/^:::ex \w+ \| ([\w.]+) \|/gm)].map(m => m[1]));
+  const kind = id => { const k = MODEL_NEEDS[id].model; return k === "claude" || k === "desktop" ? "claude-only" : k; };
+  const counts = { all: ids.length };
+  for (const id of ids) counts[kind(id)] = (counts[kind(id)] || 0) + 1;
+  return counts;
+}
+const WORDS = ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"];
+let COUNTS = null;
+const read = f => readRaw(f).replace(/\{\{exercises(-word)?:([\w-]+)\}\}/g, (_, word, k) => {
+  COUNTS = COUNTS || exerciseCounts();
+  const n = COUNTS[k] || 0;
+  return word ? (WORDS[n] || String(n)) : String(n);
+});
 const h1 = f => read(f).match(/^# (.+)$/m)[1].trim();
 
 // ---------- headers and footers ----------

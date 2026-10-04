@@ -267,7 +267,7 @@ Costs depend on the model, how often you rerun exercises, and how long your conv
 
 Claude Sonnet 5 uses a new tokenizer that counts about 30% more tokens for the same text than earlier models, and thinking is billed as output, so compare costs by measuring your own runs rather than by reusing older token counts. With Claude Haiku 4.5 ($1 input, $5 output per million tokens), the totals are roughly half. Prompt caching (Chapter 16) and smaller tool outputs cut them further. Running `./course.sh check-solutions` is always free.
 
-**Or pay nothing:** with the free local model (`PROVIDER=local`, Appendix H), every exercise except the five marked **Claude only** costs nothing. A sensible budget plan is to do the book locally and buy a few dollars of Claude credit for those five and the four marked **Claude recommended**.
+**Or pay nothing:** with the free local model (`PROVIDER=local`, Appendix H), every exercise except the {{exercises-word:claude-only}} marked **Claude only** costs nothing. A sensible budget plan is to do the book locally and buy a few dollars of Claude credit for those five and the four marked **Claude recommended**.
 
 ### Estimate a run yourself
 
@@ -501,7 +501,7 @@ The first call after `local up` takes longer while the model loads. To speed up 
 
 ### Which exercises need which model
 
-Every exercise box shows one of four labels. Of the book's 231 exercises, 114 need **no model**, 103 run on **qwen3.5:9b or Claude**, 9 are **Claude recommended** and 5 are **Claude only**. `./course.sh list` shows the labels too, and `./course.sh ex <id>` warns you before running a Claude-only exercise on the local model.
+Every exercise box shows one of four labels. Of the book's {{exercises:all}} exercises, {{exercises:none}} need **no model**, {{exercises:any}} run on **qwen3.5:9b or Claude**, {{exercises:claude-rec}} are **Claude recommended** and {{exercises:claude-only}} are **Claude only**. `./course.sh list` shows the labels too, and `./course.sh ex <id>` warns you before running a Claude-only exercise on the local model.
 
 | Chapter | No model | qwen3.5:9b or Claude | Claude |
 | --- | --- | --- | --- |
