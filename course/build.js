@@ -144,6 +144,10 @@ function renderMermaid(src) {
     execFileSync("mmdc", ["-p", path.join(DIAGRAMS, "puppeteer.json"), "-c", cfg, "-i", mmd, "-o", png,
                           "-b", "white", "-s", "3"], { stdio: "ignore" });
   }
+  return imagePara(png, hash);
+}
+// a diagram kept as a PNG in diagrams/ (its Mermaid source isn't in the manuscript): "@@image d-<hash>.png"
+function imagePara(png, hash) {
   const buf = fs.readFileSync(png);
   const w = buf.readUInt32BE(16), h = buf.readUInt32BE(20);
   // docx-js sizes are CSS pixels (96 per inch); the text block is 5.5" wide
@@ -304,6 +308,11 @@ function convert(md) {
         caption = file;
       }
       out.push(...codeBlock(src.split("\n"), caption));
+      i++; continue;
+    }
+    if ((m = line.match(/^@@image (\S+)$/))) {
+      flush();
+      out.push(imagePara(path.join(DIAGRAMS, m[1]), m[1].replace(/\.png$/, "").replace(/^d-/, "")));
       i++; continue;
     }
     if (line.startsWith("```mermaid")) {
