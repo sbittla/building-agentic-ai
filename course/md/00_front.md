@@ -151,7 +151,7 @@ Every exercise has a **Run** line with the command that starts it. For example:
 ```bash
 ./course.sh list 4         # the exercises in chapter 4
 ./course.sh ex 4.2         # show exercise 4.2 and run it
-./course.sh ex 1.5         # first run creates workspace/exercises/ch01/ex1_5_workflow.py
+./course.sh ex 1.5         # first run creates workspace/exercises/ex1_5_workflow.py
 ```
 
 Concept exercises create an answer file in `workspace/answers`. Build exercises create a starter file in `workspace/exercises` the first time, with the function names and examples already in place. You fill in the `TODO`s and run the same command again. Exercises in Chapter 0, the interludes and a few early chapters also have an automatic check: `./course.sh check 0.4` tells you whether your answer is right, and what's wrong if it isn't. You can also run any chapter file directly (for example, `./course.sh python ch04_agent.py`) or chat with a chapter's tools using `./course.sh ask ch08_sql_tools`. Appendix A lists every command. On Windows, use `.\course.cmd` wherever this book shows `./course.sh`.

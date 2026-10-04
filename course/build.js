@@ -164,6 +164,7 @@ function imagePara(png, hash) {
 
 // ---------- markdown file -> blocks ----------
 let numInstance = 0;
+const NUMBER_STARTS = new Set();          // ordered lists that start above 1
 // ---------- static table of contents (page numbers from a first render; see make_toc.py) ----------
 const HEADINGS = [];
 const CURRENT = { title: "", short: "" };
@@ -386,13 +387,22 @@ function convert(md) {
       const ordered = /\d+\./.test(m[2]);
       if (ordered) numInstance++;
       const inst = numInstance;
-      while (i < lines.length && (m = lines[i].match(/^(\s*)(- \[ \] |- |\d+\. )(.*)$/))) {
+      // a numbered list keeps the number it starts with ("4. Build ..." after a code block)
+      const first = ordered ? parseInt(m[2], 10) : 1;
+      const numRef = first > 1 ? `numbers_from_${first}` : "numbers";
+      if (first > 1) NUMBER_STARTS.add(first);
+      const LIST_RE = /^(\s*)(- \[ \] |- |\d+\. )(.*)$/;
+      // items separated by blank lines are still one list, so "1. ... 2. ... 3." never restarts at 1
+      const nextItem = () => { let j = i; while (j < lines.length && !lines[j].trim()) j++; return j; };
+      while (i < lines.length && ((m = lines[i].match(LIST_RE)) ||
+             (!lines[i].trim() && ordered && LIST_RE.test(lines[nextItem()] || "") && /^\s*\d+\. /.test(lines[nextItem()])))) {
+        if (!m) { i = nextItem(); continue; }
         const lvl = m[1].length >= 4 ? 1 : 0;
         const isNum = /\d+\./.test(m[2]);
         const check = m[2].startsWith("- [ ]");
         const children = check ? [new TextRun({ text: "☐  " }), ...inline(m[3])] : inline(m[3]);
         out.push(new Paragraph({
-          numbering: check ? undefined : (isNum ? { reference: "numbers", level: lvl, instance: inst } : { reference: "bullets", level: lvl }),
+          numbering: check ? undefined : (isNum ? { reference: numRef, level: lvl, instance: inst } : { reference: "bullets", level: lvl }),
           indent: check ? { left: 360 } : undefined,
           spacing: { after: 60, line: 264 }, children,
         }));
@@ -591,9 +601,9 @@ const doc = new Document({
       { reference: "bullets", levels: [
         { level: 0, format: LevelFormat.BULLET, text: "•", alignment: AlignmentType.LEFT, style: { paragraph: { indent: { left: 400, hanging: 240 } } } },
         { level: 1, format: LevelFormat.BULLET, text: "–", alignment: AlignmentType.LEFT, style: { paragraph: { indent: { left: 800, hanging: 240 } } } } ] },
-      { reference: "numbers", levels: [
-        { level: 0, format: LevelFormat.DECIMAL, text: "%1.", alignment: AlignmentType.LEFT, style: { paragraph: { indent: { left: 400, hanging: 300 } } } },
-        { level: 1, format: LevelFormat.BULLET, text: "–", alignment: AlignmentType.LEFT, style: { paragraph: { indent: { left: 800, hanging: 240 } } } } ] },
+      ...[1, ...NUMBER_STARTS].map(start => ({ reference: start === 1 ? "numbers" : `numbers_from_${start}`, levels: [
+        { level: 0, format: LevelFormat.DECIMAL, text: "%1.", start, alignment: AlignmentType.LEFT, style: { paragraph: { indent: { left: 400, hanging: 300 } } } },
+        { level: 1, format: LevelFormat.BULLET, text: "–", alignment: AlignmentType.LEFT, style: { paragraph: { indent: { left: 800, hanging: 240 } } } } ] })),
     ],
   },
   sections,

@@ -283,9 +283,9 @@ The `solutions` folder sits next to `course.sh`. Inside the container it's mount
 
 | Path | What it holds |
 | --- | --- |
-| `exercises/ch<NN>/ex<id>_*.py` | A new program that solves one exercise, such as `ex4_4_tracer.py`, `ex0_7_expenses.py` or `exS_3_business.py` |
-| `exercises/sol_chNN_*.py` | An improved copy of a chapter file that solves one or more exercises, such as `sol_ch08_sql_tools.py` for 8.5 and 8.6 |
-| `exercises/*.json`, `*.jsonl` | Extra configuration and evaluation data, such as `servers_remote.json` (30.5) and `eval_sql_more.jsonl` (27.3) |
+| `exercises/ch<NN>/`, `exercises/interlude_*/` | One folder per chapter or interlude, with the programs that solve its exercises, such as `ch04/ex4_4_tracer.py` |
+| `sol_chNN_*.py` (in those folders) | An improved copy of a chapter file that solves one or more exercises, such as `sol_ch08_sql_tools.py` for 8.5 and 8.6 |
+| `*.json`, `*.jsonl` (in those folders) | Extra configuration and evaluation data, such as `servers_remote.json` (30.5) and `eval_sql_more.jsonl` (27.3) |
 | `ANSWERS.md` | Written answers for concept exercises, and *what you should see* for exercises that run a chapter file |
 | `tests/test_ex*.py` | Solutions that are themselves tests (T.2–T.4, 6.3, 9.6, 12.7, 16.6) |
 | `tests/test_ch*.py`, `tests/test_capstones.py` | The automated checks behind `check-solutions`; useful as examples of testing agents with a scripted model |
@@ -300,7 +300,7 @@ Solutions build on the chapter files, so run them from your workspace with the s
 
 ```bash
 ./course.sh shell
-export PYTHONPATH=/solutions/exercises/ch04:/solutions/exercises/ch04:/solutions/exercises:$PYTHONPATH
+export PYTHONPATH=/solutions/exercises/ch04:/solutions/exercises:$PYTHONPATH
 python /solutions/exercises/ch04/ex4_4_tracer.py
 ```
 
