@@ -36,6 +36,7 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 1.6 Remembering a conversation | `exercises/ex1_6_chat.py` | Remembering a conversation (and breaking it on purpose) |
 | 1.7 Where does the agent go? | `ANSWERS.md` | Name the tools, the risks and the cost before choosing an agent |
 | 1.8 Score it on the dimensions | `ANSWERS.md` | Three systems scored on the nine dimensions of agency, with a dimension to turn down for each |
+| 1.9 Which kind of agent? | `ANSWERS.md` | Each system matched to a kind of agent (or none), its main risk and the chapter that controls it |
 
 ## Interlude: Testing with pytest
 

@@ -342,4 +342,4 @@ All six capstones run on the free local model (`qwen3.5:9b`, Appendix H) as well
 | Planning, orchestration, verification and budgets | 5. Deep Research |
 | Computer use, long-running jobs and hard controls | 6. Back-Office Workflow |
 
-Whichever capstone you choose, you'll lean on the reference material that follows. The appendices collect the kit commands, troubleshooting fixes, a glossary, costs and further reading, so you can look things up quickly while you build.
+Whichever capstone you choose, you'll lean on the reference material at the end of the book: the appendices collect the kit commands, troubleshooting fixes, a glossary, costs and further reading, so you can look things up quickly while you build. First, a short afterword puts everything you've learned in one place.

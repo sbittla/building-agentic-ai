@@ -145,6 +145,7 @@ Most agent bugs aren't crashes: the agent runs, then does the wrong thing. Work 
 | Compaction | Replacing older conversation turns with a summary to save context |
 | Compensation | Undoing completed steps, newest first, when a long job is abandoned; the saga pattern (section 19.7) |
 | Computer-use agent | An agent that operates a user interface, a web page or a desktop, instead of calling an API (Chapter 23) |
+| Confidence interval (95%) | The range that very likely contains the real pass rate, given how many runs you measured (measurement interlude, Chapter 27) |
 | Content block | One part of a model message: text, `tool_use` or `tool_result` |
 | Context engineering | Choosing what goes into the model's context on each call, and what stays out (section 1.7, Chapter 16) |
 | Context window | The maximum tokens a model can consider in one call |
@@ -156,11 +157,13 @@ Most agent bugs aren't crashes: the agent runs, then does the wrong thing. Work 
 | Effort | A request setting (`low` to `max`) that trades quality for cost and speed |
 | Elicitation | An MCP feature that lets a server ask the user for missing input mid-call |
 | Embedding | A vector of numbers representing a text's meaning; similar texts get similar vectors |
+| Episodic, semantic and procedural memory | Long-term memory of what happened, durable facts and how to do things, each with its own policy (section 17.2) |
 | Error budget | How much failure an SLO allows over a window; spending it fast triggers alerts (section 28.10) |
 | Evaluation (eval) suite | A set of test cases with checks, run after every change |
 | Exfiltration | Getting private data out of a system, for example inside a URL the agent fetches |
 | Extension (MCP) | An optional, named protocol feature, such as Tasks or MCP Apps, used only when client and server both declare it (section 15.4) |
 | Failure taxonomy | The 12 classes of agent failure, each with detection, mitigation and evaluation (section 28.8) |
+| Flaky case | A test case that passes on some runs and fails on others: a sign the agent is guessing (measurement interlude) |
 | Gateway (MCP) | A server in front of other MCP servers that allow-lists tools, checks tokens, rate-limits and audits every call (section 30.9) |
 | Goodput | Successful tasks per second; unlike throughput, it doesn't count tasks that failed or gave up (section 29.5) |
 | Harness | The code around the model: the loop, the tools, the checks and the limits; it decides what's allowed (section 1.7) |
@@ -183,6 +186,7 @@ Most agent bugs aren't crashes: the agent runs, then does the wrong thing. Work 
 | Output guard | A check in code on what a model wrote, with a safe fallback when it fails (section 22.6) |
 | OWASP Agentic Top 10 | OWASP's list of the ten most critical security risks of agentic applications (ASI01 to ASI10) |
 | p50 / p95 | The latency that 50% / 95% of requests beat |
+| Pass rate | The share of runs that pass their checks; report it with its interval (measurement interlude) |
 | Pass^k | The share of eval cases that pass on every one of k repeated runs |
 | Plan (as data) | A list of steps with tools, dependencies and done conditions that code can check before running (section 20.2) |
 | Programmatic tool calling | The model writes a program that calls your tools in a sandbox, so bulky results stay out of the context |
@@ -195,6 +199,7 @@ Most agent bugs aren't crashes: the agent runs, then does the wrong thing. Work 
 | Recall@k / MRR | Retrieval metrics: is the right document in the top k, and how high does it rank |
 | Reciprocal rank fusion | Merging several rankings by adding 1/(60 + rank) for each result |
 | Resource (MCP) | Read-only data a server exposes by URI |
+| Routing | A cheap decision before an expensive one; this book uses it for four choices: a tool (Chapter 3), an agent (Chapter 11), context sources (Chapter 16) and a model (Chapter 20) |
 | Scorecard (agent) | One table of quality, safety, cost and latency metrics for a release, compared with the last (section 27.6) |
 | Server tool | A tool that runs on the provider's servers (web search, code execution, tool search), not in your code |
 | SLO (service-level objective) | A target for a measured behavior, such as task success ≥ 95% over 30 days (section 28.10) |
@@ -213,6 +218,7 @@ Most agent bugs aren't crashes: the agent runs, then does the wrong thing. Work 
 | Tool search | Deferring most tool definitions and letting the model search for the ones it needs |
 | Trace | The step-by-step record of one agent run |
 | Workflow | A fixed sequence of LLM calls and code, with steps decided by the developer |
+| Working memory | What the agent holds during one task: the conversation, the plan and tool results; also called short-term memory (Chapters 5, 16 and 17) |
 
 ## Appendix D: References
 
@@ -556,7 +562,7 @@ Ask: can I draw the flowchart first? What does a wrong step cost? Can I tell whe
 
 Autonomy, state, planning, tool use, environmental interaction, persistence, feedback, delegation, adaptation. Turn up only the dimensions the task needs; each one adds a way to fail and needs its own controls.
 
-### Card 3: The agent architecture reference model (sections 1.7 and 30.9)
+### Card 3: The agent architecture reference model (sections 1.7 and 30.14)
 
 User / API → agent runtime (planning, memory, context, tools, policies) → model → MCP, APIs, A2A → environment, with evaluation and observability across every layer.
 
@@ -617,6 +623,36 @@ Measure under load: throughput and goodput, p50/p95/p99, tokens per request, cac
 | Performance and cost engineering | MCP specification versions |
 
 Sections whose details change quickly carry an **API-dependent** note under their heading. Learn the concept from the section; take the parameter names from the current documentation.
+
+### Card 10: Kinds of agents (section 1.9)
+
+| Kind | Main risk to control first |
+| --- | --- |
+| Assistant with tools | Wrong tool or invented answer (Chapters 2–4) |
+| Knowledge agent | Answers the sources don't support (Chapters 6, 18) |
+| Data analyst | Plausible numbers from a wrong query (Chapter 8) |
+| Action agent behind approvals | Damage from one wrong action (Chapters 9, 22, 26) |
+| Feedback-loop agent | Gaming or editing the check (Chapter 10) |
+| Research team | Cost multiplied by the number of agents (Chapters 11, 21) |
+| Planner | A bad plan run faithfully (Chapter 20) |
+| Long-running agent | Repeated side effects after a restart (Chapter 19) |
+| Computer-use agent | A click that can't be taken back (Chapter 23) |
+
+Real systems combine kinds; name the kind of each part to find the controls it needs.
+
+### Card 11: The agent lifecycle (sections 1.10 and 30.13)
+
+Decide → design → build → evaluate → release → operate → improve, and back to build; retire when the agent is no longer needed.
+
+| Stage | Before you move on |
+| --- | --- |
+| Decide | You can say why a simpler option won't do |
+| Design | Tools, context, rules in code and checks are written down |
+| Evaluate | A case file, several trials, intervals and a scorecard |
+| Release | CI gate passed, launch checklist done, shadow and canary planned, rollback ready |
+| Operate | Traces, SLOs, alerts, budgets and a named owner |
+| Improve | Every failure is a new case; one change at a time |
+| Retire | Kill switch, revoked identity, gateway routes removed, data handled by policy, audit log kept |
 
 ## Appendix J: The Same Concepts on Other Platforms
 

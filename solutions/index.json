@@ -617,5 +617,8 @@
  "29.6": [
   "exercises/ex29_6_experiment.py",
   "tests/test_ch29_perf.py"
+ ],
+ "1.9": [
+  "ANSWERS.md"
  ]
 }

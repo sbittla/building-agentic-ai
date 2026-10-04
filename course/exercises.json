@@ -213,7 +213,7 @@
   "chapter": "Chapter 1: What an Agent Is (and Isn't)",
   "task": "Take the support-email workflow from section 1.6 and write a one-page design note: which emails would need the steps to change at run time, which tools an agent would need (name at least four), what information it would need in front of it at each step, and what could go wrong if the agent had those tools. Estimate the cost per email for the workflow and for an agent that averages four model calls.",
   "hint": null,
-  "done_when": "The note names concrete tools and risks and includes a cost comparison. Keep it; you'll revisit it in Capstone 1.",
+  "done_when": "The note names concrete tools and risks and includes a cost comparison. Keep it; you'll revisit it in Capstone 1. This note is the Design stage of the lifecycle in section 1.10.",
   "kind": "concept"
  },
  {
@@ -224,6 +224,16 @@
   "task": "Score three systems from 0 (none) to 3 (a lot) on each of the nine dimensions of agency in section 1.4: (a) a spam filter; (b) a coding assistant that edits files and runs tests until they pass; (c) a support agent that looks up orders, starts returns and hands off to a person. For each system, name the dimension you'd turn *down* first if it misbehaved in production, and why.",
   "hint": null,
   "done_when": "You have a 3 \u00d7 9 table with a reason for every score of 2 or 3, and a turn-down choice for each system.",
+  "kind": "concept"
+ },
+ {
+  "id": "1.9",
+  "level": "Concept",
+  "title": "Which kind of agent?",
+  "chapter": "Chapter 1: What an Agent Is (and Isn't)",
+  "task": "For each system, name the kind of agent from section 1.9 (or \"no agent\"), the main risk you'd control first and the chapter that shows how: (a) answering employees' questions from the HR handbook; (b) migrating 300 services to a new logging library, with tests for each; (c) updating customer addresses in a supplier's portal that has no API; (d) a weekly report that's the same five queries every time; (e) \"find out why sign-ups dropped in March\".",
+  "hint": null,
+  "done_when": "Each system has a kind, a risk and a chapter, and at least one answer explains why a simpler option wins.",
   "kind": "concept"
  },
  {

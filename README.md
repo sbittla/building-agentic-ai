@@ -146,7 +146,7 @@ Latest verification: every exercise run with its reference solution by `run-chap
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | Chapter 0: Foundations | 7 | 4 | 0 | 2 | 1 | 100% |
 | Interlude: The Python You'll Need | 5 | 5 | 0 | 0 | 0 | 100% |
-| Chapter 1: What an Agent Is (and Isn't) | 8 | 4 | 0 | 4 | 0 | 100% |
+| Chapter 1: What an Agent Is (and Isn't) | 9 | 4 | 0 | 4 | 1 | 100% |
 | Interlude: Testing with pytest | 4 | 4 | 0 | 0 | 0 | 100% |
 | Chapter 2: Tool Calling (Function Calling) | 6 | 4 | 0 | 2 | 0 | 100% |
 | Chapter 3: Tool Selection, Routing and Tool Search | 7 | 5 | 0 | 2 | 0 | 100% |
@@ -182,7 +182,7 @@ Latest verification: every exercise run with its reference solution by `run-chap
 | Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost | 6 | 5 | 0 | 1 | 0 | 100% |
 | Chapter 30: Deploying Agents: From One Service to an Agent Platform | 11 | 9 | 0 | 2 | 0 | 100% |
 | Capstone projects C1–C6 | 6 | 6 | 0 | 0 | 0 | 100% |
-| **Total** | **241** | **163** | **1** | **60** | **17** | **99.4%** |
+| **Total** | **242** | **163** | **1** | **60** | **18** | **99.4%** |
 
 Failed: **27.8** (An agent scorecard: exit code 1).
 <!-- results:end -->

@@ -218,7 +218,11 @@ function partOpener(part) {
     new Paragraph({ alignment: AlignmentType.RIGHT, spacing: { after: 360 },
       border: { bottom: { style: BorderStyle.SINGLE, size: 12, color: ACCENT, space: 8 } },
       children: [new Bookmark({ id, children: [new TextRun({ text: part.title, font: HFONT, size: 52, bold: true, color: ACCENT })] })] }),
-    new Paragraph({ spacing: { after: 240, line: 300 }, children: [new TextRun({ text: part.blurb, italics: true, size: 21, color: "404040" })] }),
+    new Paragraph({ spacing: { after: part.stages ? 120 : 240, line: 300 }, children: [new TextRun({ text: part.blurb, italics: true, size: 21, color: "404040" })] }),
+    // which stages of the agent lifecycle (section 1.10) this part builds
+    ...(part.stages ? [new Paragraph({ spacing: { after: 240 }, children: [
+      new TextRun({ text: "Lifecycle stages: ", bold: true, size: 19, color: "404040" }),
+      new TextRun({ text: `${part.stages} (section 1.10)`, size: 19, color: "404040" })] })] : []),
     ...part.contents.map(c => new Paragraph({ spacing: { after: 60 }, indent: { left: 360 },
       children: [new TextRun({ text: c, size: 20, color: "404040" })] })),
   ];
@@ -481,28 +485,37 @@ const PARTS = [
   { num: 0, title: "Foundations", files: ["00z_ch00.md", "00zz_python.md"],
     blurb: "Before you build an agent, you need a few basics: the terminal, Python, JSON, web APIs, secrets and Docker. This part teaches exactly those, and nothing more. If you already write Python and have called a web API, skim it and do the checkpoint." },
   { num: 1, title: "Your First Agent", files: ["01.md", "01z_testing.md", "02.md", "03.md", "04.md"],
+    stages: "Decide, Build, Evaluate",
     blurb: "An agent is a model plus tools plus a loop. You make your first model call, give the model tools, teach it to choose between them, even among dozens, and write the loop that lets it work step by step until the job is done." },
   { num: 2, title: "State and Environment", files: ["05.md", "05z_regex.md", "06.md"],
+    stages: "Build",
     blurb: "Agents become useful when they remember and look around. You give an agent state that survives a restart and let it explore a folder of notes safely, answering questions with citations." },
   { num: 3, title: "Real-World Tools", files: ["07.md", "07z_sql.md", "08.md", "08z_measure.md", "09.md"],
+    stages: "Build, Evaluate, Release",
     blurb: "Real tools fail, return too much data and can do damage. You connect agents to a live web API and a database, teach them to correct their own mistakes and put a human approval gate in front of every risky action." },
   { num: 4, title: "Autonomy and Multi-Agent Systems", files: ["10.md", "10z_async.md", "11.md"],
+    stages: "Build, Evaluate",
     blurb: "With a feedback loop, an agent can check its own work. You build an agent that fixes code until the tests pass, inside firm guardrails. Then you build your first teams: a lead with parallel researchers, a router, a handoff pipeline, a writer with a critic and a vote." },
   { num: 5, title: "MCP and Interoperability", files: ["12.md", "13.md", "14.md", "15.md"],
+    stages: "Build, Release",
     blurb: "The Model Context Protocol lets you package tools once and use them from any agent. You build servers and a client, publish an agent as a server, adopt servers you didn't write safely, and see what the 2026 protocol changes on the wire." },
   { num: 6, title: "Context, Memory and Knowledge", files: ["16.md", "17.md", "18.md"],
+    stages: "Build, Improve",
     blurb: "What an agent knows at each step decides what it can do. You engineer the context of every call, give agents memory with clear rules about what to keep and for how long, and build knowledge systems in which the agent decides what to look up, where, and whether to trust it." },
   { num: 7, title: "Advanced Agent Architectures", files: ["19.md", "20.md", "21.md", "22.md", "23.md", "24.md"],
+    stages: "Design, Build",
     blurb: "Real work takes hours, crosses teams and touches systems that must not break. You build agents that checkpoint and recover, plan and pick the right model for each step, orchestrate other agents, run inside deterministic guardrails, operate a browser, and you see what frameworks and agent runtimes provide." },
   { num: 8, title: "Trust, Security and Identity", files: ["25.md", "26.md"],
+    stages: "Design, Release",
     blurb: "Autonomy is only as good as the trust behind it. You defend agents against the attacks aimed at them, from poisoned tools to poisoned memory, and give every agent an identity, least-privilege permissions and an audit trail." },
   { num: 9, title: "Production Engineering", files: ["27.md", "28.md", "29.md", "30.md"],
+    stages: "Evaluate, Release, Operate, Improve, Retire",
     blurb: "Production agents are measured, observed, economical and deployed. You evaluate whole trajectories continuously, trace every decision, engineer cost per successful task, ship your agent as a secure service and run MCP at company scale behind a gateway." },
 ];
 const PART_EXISTS = f => fs.existsSync(path.join(ROOT, "md", f));
 for (const p of PARTS) p.files = p.files.filter(PART_EXISTS);   // chapters are added part by part
 const FRONT = ["fm_preface.md", "fm_acknowledgments.md", "fm_author.md", "00_front.md"];
-const BACK = ["90_capstones.md", "91_appendix.md"];
+const BACK = ["90_capstones.md", "90z_afterword.md", "91_appendix.md"];
 const readRaw = f => fs.readFileSync(path.join(ROOT, "md", f), "utf8");
 // "{{exercises:none}}" and friends: counted from the manuscript and model_needs.json, so they never go stale.
 // Kinds: all, none, any, claude-rec, claude-only; "{{exercises-word:claude-only}}" spells the number out.

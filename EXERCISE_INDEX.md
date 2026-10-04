@@ -87,6 +87,7 @@ Logs: [`solutions/outputs/ch01/`](solutions/outputs/ch01/)
 | 1.6 | Remembering a conversation | Medium | Build | Local or Claude | [`ex1_6_chat.py`](solutions/exercises/ch01/ex1_6_chat.py) | ✔ passed (qwen3.5:9b, 10 s) |
 | 1.7 | Where does the agent go? | Complex | Written answer | No model | [`ANSWERS.md`](solutions/ANSWERS.md) | written answer |
 | 1.8 | Score it on the dimensions | Concept | Written answer | No model | — | written answer |
+| 1.9 | Which kind of agent? | Concept | Written answer | No model | [`ANSWERS.md`](solutions/ANSWERS.md) | not run yet |
 
 ## Interlude: Testing with pytest
 

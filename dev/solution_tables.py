@@ -159,6 +159,7 @@ KEY = {  # one line: what the solution shows. Used where a file's docstring isn'
  "M.1": "Both 95% intervals overlap (64-95% and 76-99%): not proven better yet",
  "M.2": "About 3,000 runs separate 78% from 80%; a few hundred separate 70% from 80%",
  "M.3": "The SQL analyst measured with three trials per case, before and after one prompt change",
+ "1.9": "Each system matched to a kind of agent (or none), its main risk and the chapter that controls it",
  "15.1": "Each 2026-07-28 protocol change matched to who benefits and the problem it removes",
  "15.2": "Sampling, roots, logging and SSE replaced; per-user state moved to storage keyed by an id",
  "15.3": "Discover, list and call over raw HTTP; a header that disagrees with the body is refused",
