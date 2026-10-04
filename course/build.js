@@ -545,7 +545,19 @@ function exerciseModelTable() {
   }
   return rows.join("\n");
 }
-const read = f => readRaw(f).replace(/^@@exercise-model-table$/m, () => exerciseModelTable()).replace(/\{\{exercises(-word)?:([\w-]+)\}\}/g, (_, word, k) => {
+// "@@all-links-table": Appendix G's "every link, by chapter", built from each Learn more table in book order.
+function allLinksTable() {
+  const rows = ["| Chapter | Resources |", "| --- | --- |"];
+  for (const f of ["00_front.md", ...PARTS.flatMap(p => p.files), "90_capstones.md"].filter(PART_EXISTS)) {
+    const md = readRaw(f);
+    const sec = md.match(/^## Learn more\n([\s\S]*?)(?=^## |(?![\s\S]))/m);
+    if (!sec) continue;
+    const links = [...sec[1].matchAll(/^\| \*\*(.+?)\*\*<br>\[[^\]]*\]\(([^)]+)\)/gm)].map(m => `[${m[1]}](${m[2]})`);
+    if (links.length) rows.push(`| ${md.match(/^# (.+)$/m)[1].trim()} | ${links.join("<br>")} |`);
+  }
+  return rows.join("\n");
+}
+const read = f => readRaw(f).replace(/^@@exercise-model-table$/m, () => exerciseModelTable()).replace(/^@@all-links-table$/m, () => allLinksTable()).replace(/\{\{exercises(-word)?:([\w-]+)\}\}/g, (_, word, k) => {
   COUNTS = COUNTS || exerciseCounts();
   const n = COUNTS[k] || 0;
   return word ? (WORDS[n] || String(n)) : String(n);
