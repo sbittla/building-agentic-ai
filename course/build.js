@@ -217,47 +217,37 @@ const CURRENT = { title: "", short: "" };
 const SKIP_TOC = /^(Learn more|Learning objectives|Real-world connection|Common mistakes|Summary|Exercises|Solutions for this chapter|Checkpoint)/;
 const TOC_PAGES_FILE = path.join(__dirname, "toc_pages.json");
 const TOC_PAGES = fs.existsSync(TOC_PAGES_FILE) ? JSON.parse(fs.readFileSync(TOC_PAGES_FILE, "utf8")) : {};
+// One Contents: parts and chapters with page numbers; each chapter's sections run together
+// in a short paragraph underneath ("1.1 Anatomy of an LLM call · 1.2 ..."), without page numbers.
 function tocEntries() {
-  const style = {
-    0: { size: 21, bold: true, color: ACCENT, before: 200, after: 40, indent: 0, font: HFONT },
-    1: { size: 19, bold: true, color: "262626", before: 70, after: 10, indent: 0 },
-    2: { size: 17, bold: false, color: "404040", before: 0, after: 0, indent: 300 },
-  };
-  return HEADINGS.filter(h => !h.noToc && !h.cap).map(({ id, level, text }) => {
-    const st = style[level];
-    return new Paragraph({
-      tabStops: [{ type: TabStopType.RIGHT, position: CONTENT_W, leader: level === 0 ? "none" : "dot" }],
-      indent: { left: st.indent },
-      spacing: { before: st.before, after: st.after, line: 240 },
-      keepNext: level < 2,
-      children: [new InternalHyperlink({ anchor: id, children: [
-        new TextRun({ text, bold: st.bold, size: st.size, color: st.color, font: st.font }),
-        new TextRun({ text: `\t${TOC_PAGES[id] ?? "000"}`, bold: st.bold, size: st.size, font: st.font }),
-      ] })],
-    });
-  });
-}
-
-// "Contents at a Glance": parts, chapters and the front and back matter, on about two pages
-function briefEntries() {
-  const firstPart = HEADINGS.findIndex(h => h.level === 0);
-  let inBack = false;
-  return HEADINGS.filter(h => !h.noToc && !h.cap && h.level <= 1).map(h => {
-    const { id, level, text } = h;
+  const out = [];
+  const entries = HEADINGS.filter(h => !h.noToc && !h.cap);
+  for (let k = 0; k < entries.length; k++) {
+    const { id, level, text } = entries[k];
+    if (level === 2) continue;                          // gathered under their chapter below
     const part = level === 0;
-    const inPart = part || /^(Chapter \d+|Interlude):/.test(text);   // front and back matter stand on their own
-    const firstBack = !inPart && !inBack && HEADINGS.indexOf(h) > firstPart && (inBack = true);
-    return new Paragraph({
+    const sections = [];
+    const ROUTINE = /^(Prerequisites|Architect's Takeaway|Why this interlude|Who this (chapter|interlude) is for)$/;   // in every chapter
+    for (let n = k + 1; n < entries.length && entries[n].level === 2; n++) if (!ROUTINE.test(entries[n].text)) sections.push(entries[n]);
+    out.push(new Paragraph({
       tabStops: [{ type: TabStopType.RIGHT, position: CONTENT_W, leader: part ? "none" : "dot" }],
-      indent: { left: part || !inPart ? 0 : 300 },
-      spacing: { before: part || firstBack ? 160 : 0, after: part ? 40 : 20, line: 252 },
-      keepNext: part,
+      spacing: { before: part ? 240 : 100, after: part ? 40 : (sections.length ? 10 : 0), line: 240 },
+      keepNext: part || sections.length > 0,
       children: [new InternalHyperlink({ anchor: id, children: [
-        new TextRun({ text, bold: part, size: part ? 20 : 19, color: part ? ACCENT : "262626", font: part ? HFONT : undefined }),
-        new TextRun({ text: `\t${TOC_PAGES[id] ?? "000"}`, bold: part, size: part ? 20 : 19, font: part ? HFONT : undefined }),
+        new TextRun({ text, bold: true, size: part ? 21 : 19, color: part ? ACCENT : "262626", font: part ? HFONT : undefined }),
+        new TextRun({ text: `\t${TOC_PAGES[id] ?? "000"}`, bold: true, size: part ? 21 : 19, font: part ? HFONT : undefined }),
       ] })],
-    });
-  });
+    }));
+    if (sections.length) {
+      const runs = [];
+      sections.forEach((sec, n) => {
+        if (n) runs.push(new TextRun({ text: "  \u00b7  ", size: 16, color: "8C8C8C" }));
+        runs.push(new InternalHyperlink({ anchor: sec.id, children: [new TextRun({ text: sec.text, size: 16, color: "404040" })] }));
+      });
+      out.push(new Paragraph({ indent: { left: 300 }, spacing: { before: 0, after: 40, line: 230 }, children: runs }));
+    }
+  }
+  return out;
 }
 
 // ---------- chapter and part openers ----------
@@ -748,8 +738,7 @@ addSection([new Paragraph({ spacing: { before: 3600 }, alignment: AlignmentType.
             ...read("fm_dedication.md").split("\n").filter(l => l.trim() && !l.startsWith("#"))
               .map(l => new Paragraph({ alignment: AlignmentType.CENTER, children: inline(l, { italics: true }) }))], empty());
 const tocIndex = sections.length;
-sections.push(null);                                   // Contents at a Glance, filled in after the body is converted
-sections.push(null);                                   // Contents, likewise
+sections.push(null);                                   // Contents, filled in after the body is converted
 for (const f of FRONT) addSection(convert(md(f), f), running(h1(f)));
 
 // main matter (arabic numerals from Part 0)
@@ -772,11 +761,7 @@ const contentsChildren = [
   ...tocEntries(),
 ];
 NUMFMT = NumberFormat.LOWER_ROMAN;
-sections[tocIndex] = { properties: pageProps(), ...running("Contents at a Glance"), children: [
-  new Paragraph({ spacing: { before: 900, after: 360 }, children: [new TextRun({ text: "Contents at a Glance", font: HFONT, size: 44, bold: true, color: ACCENT })] }),
-  ...briefEntries(),
-] };
-sections[tocIndex + 1] = { properties: pageProps(), ...running("Contents"), children: contentsChildren };
+sections[tocIndex] = { properties: pageProps(), ...running("Contents"), children: contentsChildren };
 
 const monoFont = fs.readFileSync("/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf");
 const doc = new Document({
