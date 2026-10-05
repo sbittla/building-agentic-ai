@@ -1,0 +1,133 @@
+[
+ {
+  "control": "leak scan and egress guard",
+  "switched_off": "ch25_guards.scan and its URL check",
+  "expected_to_fail": [
+   "S1",
+   "S12"
+  ],
+  "failed": [
+   "S1",
+   "S12"
+  ],
+  "caught": true
+ },
+ {
+  "control": "memory read scopes",
+  "switched_off": "ch17_memory_policy.can_read",
+  "expected_to_fail": [
+   "S5"
+  ],
+  "failed": [
+   "S5"
+  ],
+  "caught": true
+ },
+ {
+  "control": "session ownership",
+  "switched_off": "the owner check in ch30_service.load_session",
+  "expected_to_fail": [
+   "S6"
+  ],
+  "failed": [
+   "S6"
+  ],
+  "caught": true
+ },
+ {
+  "control": "URL rules",
+  "switched_off": "ch11_web.url_problem",
+  "expected_to_fail": [
+   "S10",
+   "S11"
+  ],
+  "failed": [
+   "S10",
+   "S11"
+  ],
+  "caught": true
+ },
+ {
+  "control": "authorization at the tool",
+  "switched_off": "ch26_identity.authorize",
+  "expected_to_fail": [
+   "S9",
+   "S14"
+  ],
+  "failed": [
+   "S14",
+   "S9"
+  ],
+  "caught": true
+ },
+ {
+  "control": "policy layer",
+  "switched_off": "ch14 Policy allow-list and decisions",
+  "expected_to_fail": [
+   "S2",
+   "S8"
+  ],
+  "failed": [
+   "S2",
+   "S8"
+  ],
+  "caught": true
+ },
+ {
+  "control": "idempotency keys",
+  "switched_off": "ch19_durable de-duplication by key",
+  "expected_to_fail": [
+   "S13"
+  ],
+  "failed": [
+   "S13"
+  ],
+  "caught": true
+ },
+ {
+  "control": "approval gate",
+  "switched_off": "ch09_organizer.NEEDS_APPROVAL",
+  "expected_to_fail": [
+   "S14"
+  ],
+  "failed": [
+   "S14"
+  ],
+  "caught": true
+ },
+ {
+  "control": "sender rule",
+  "switched_off": "the sender check in ch25_quarantine.add_task",
+  "expected_to_fail": [
+   "S3"
+  ],
+  "failed": [
+   "S3"
+  ],
+  "caught": true
+ },
+ {
+  "control": "memory write gate",
+  "switched_off": "ch17_memory_policy.gate and can_write",
+  "expected_to_fail": [
+   "S7",
+   "S12"
+  ],
+  "failed": [
+   "S12",
+   "S7"
+  ],
+  "caught": true
+ },
+ {
+  "control": "safe rendering",
+  "switched_off": "ch25_guards.sanitize_markdown",
+  "expected_to_fail": [
+   "S4"
+  ],
+  "failed": [
+   "S4"
+  ],
+  "caught": true
+ }
+]
