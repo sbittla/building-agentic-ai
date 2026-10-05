@@ -1,23 +1,23 @@
 {
  "provenance": {
-  "commit": "679be0321037dd017ff561b81273ab02f4a1c577",
-  "describe": "679be03",
+  "commit": "93187a20b9357c1e7b76a0bacc341c7fbcd5aa87",
+  "describe": "93187a2",
   "tracked_changes": false,
   "requirements_lock_sha256": "c28c848a2447e2358d5d5ee80dbb69d99ac4c946c2c442d792bd9e1f3f28b119",
-  "environment": "outside the course image: Linux, requirements.lock installed with pip (Python 3.13)",
+  "environment": "outside the course image (Linux)",
   "python": "3.13.16",
   "platform": "Linux-6.18.44-fc-v70-x86_64-with-glibc2.39",
   "pytest": "9.1.1",
   "model": "scripted stand-in (solutions/tests/fakemodel.py); no API key, no model provider called",
-  "date_utc": "2026-10-05T01:43:52Z",
+  "date_utc": "2026-10-05T02:12:01Z",
   "command": "pytest solutions/tests (as ./course.sh check-solutions runs it)"
  },
  "totals": {
-  "passed": 472,
+  "passed": 473,
   "failed": 0,
   "error": 0,
   "skipped": 5,
-  "tests": 477
+  "tests": 478
  },
  "skipped_reasons": {
   "needs mcp-server-filesystem from the course image": 2,
@@ -32,6 +32,9 @@
   },
   "Chapter 0, interludes and checkers": {
    "passed": 87
+  },
+  "Other": {
+   "passed": 1
   },
   "Part 6: context, memory, retrieval": {
    "passed": 34
@@ -183,7 +186,7 @@
    "test": "test_a2a::test_card_is_public_and_describes_the_skill",
    "area": "Parts 4\u20135: teams, MCP, A2A",
    "outcome": "passed",
-   "seconds": 0.48,
+   "seconds": 0.4,
    "message": ""
   },
   {
@@ -197,56 +200,56 @@
    "test": "test_a2a::test_unfinished_agent_is_a_failed_task",
    "area": "Parts 4\u20135: teams, MCP, A2A",
    "outcome": "passed",
-   "seconds": 0.12,
+   "seconds": 0.11,
    "message": ""
   },
   {
    "test": "test_a2a::test_token_protects_everything_but_the_card",
    "area": "Parts 4\u20135: teams, MCP, A2A",
    "outcome": "passed",
-   "seconds": 0.29,
+   "seconds": 0.2,
    "message": ""
   },
   {
    "test": "test_a2a::test_remote_agent_as_a_coordinator_tool",
    "area": "Parts 4\u20135: teams, MCP, A2A",
    "outcome": "passed",
-   "seconds": 0.13,
+   "seconds": 0.11,
    "message": ""
   },
   {
    "test": "test_a2a::test_exercise_21_5_team_of_two_agents",
    "area": "Parts 4\u20135: teams, MCP, A2A",
    "outcome": "passed",
-   "seconds": 0.33,
+   "seconds": 0.32,
    "message": ""
   },
   {
    "test": "test_a2a::test_exercise_21_6_mixed_team",
    "area": "Parts 4\u20135: teams, MCP, A2A",
    "outcome": "passed",
-   "seconds": 0.16,
+   "seconds": 0.15,
    "message": ""
   },
   {
    "test": "test_capstones::test_c1_servers",
    "area": "Capstones",
    "outcome": "passed",
-   "seconds": 5.76,
+   "seconds": 5.44,
    "message": ""
   },
   {
    "test": "test_capstones::test_c1_identity_comes_from_the_host",
    "area": "Capstones",
    "outcome": "passed",
-   "seconds": 5.59,
+   "seconds": 5.77,
    "message": ""
   },
   {
    "test": "test_capstones::test_c1_agent_return_needs_approval",
    "area": "Capstones",
    "outcome": "passed",
-   "seconds": 2.86,
+   "seconds": 2.93,
    "message": ""
   },
   {
@@ -260,7 +263,7 @@
    "test": "test_capstones::test_c2_servers_and_gold",
    "area": "Capstones",
    "outcome": "passed",
-   "seconds": 2.65,
+   "seconds": 2.61,
    "message": ""
   },
   {
@@ -281,7 +284,7 @@
    "test": "test_capstones::test_c4_review",
    "area": "Capstones",
    "outcome": "passed",
-   "seconds": 4.66,
+   "seconds": 4.46,
    "message": ""
   },
   {
@@ -295,7 +298,7 @@
    "test": "test_capstones::test_c6_backoffice",
    "area": "Capstones",
    "outcome": "passed",
-   "seconds": 2.27,
+   "seconds": 1.88,
    "message": ""
   },
   {
@@ -561,7 +564,7 @@
    "test": "test_ch04_05::test_5_7_concurrency",
    "area": "Parts 1\u20133: tools, loop, state, APIs, SQL, approval",
    "outcome": "passed",
-   "seconds": 0.47,
+   "seconds": 0.55,
    "message": ""
   },
   {
@@ -715,14 +718,14 @@
    "test": "test_ch08_10::test_9_5_9_6_partial_and_by_date",
    "area": "Parts 1\u20133: tools, loop, state, APIs, SQL, approval",
    "outcome": "passed",
-   "seconds": 0.0,
+   "seconds": 0.01,
    "message": ""
   },
   {
    "test": "test_ch08_10::test_10_3_fixer_with_write_file",
    "area": "Parts 1\u20133: tools, loop, state, APIs, SQL, approval",
    "outcome": "passed",
-   "seconds": 1.58,
+   "seconds": 1.83,
    "message": ""
   },
   {
@@ -736,28 +739,28 @@
    "test": "test_ch08_10::test_10_5_and_10_6_replace_in_file",
    "area": "Parts 1\u20133: tools, loop, state, APIs, SQL, approval",
    "outcome": "passed",
-   "seconds": 2.47,
+   "seconds": 2.51,
    "message": ""
   },
   {
    "test": "test_ch08_10::test_10_7_benchmark_through_sandbox",
    "area": "Parts 1\u20133: tools, loop, state, APIs, SQL, approval",
    "outcome": "passed",
-   "seconds": 6.82,
+   "seconds": 7.42,
    "message": ""
   },
   {
    "test": "test_ch08_10::test_10_7_bug_catalogue_is_really_buggy",
    "area": "Parts 1\u20133: tools, loop, state, APIs, SQL, approval",
    "outcome": "passed",
-   "seconds": 8.28,
+   "seconds": 8.73,
    "message": ""
   },
   {
    "test": "test_ch11_12::test_11_3_team_runs",
    "area": "Parts 4\u20135: teams, MCP, A2A",
    "outcome": "passed",
-   "seconds": 0.0,
+   "seconds": 0.01,
    "message": ""
   },
   {
@@ -778,56 +781,56 @@
    "test": "test_ch11_12::test_11_6_compare",
    "area": "Parts 4\u20135: teams, MCP, A2A",
    "outcome": "passed",
-   "seconds": 0.0,
+   "seconds": 0.01,
    "message": ""
   },
   {
    "test": "test_ch11_12::test_12_4_print_goes_to_stderr",
    "area": "Parts 4\u20135: teams, MCP, A2A",
    "outcome": "passed",
-   "seconds": 1.77,
+   "seconds": 1.75,
    "message": ""
   },
   {
    "test": "test_ch11_12::test_12_6_calc_server",
    "area": "Parts 4\u20135: teams, MCP, A2A",
    "outcome": "passed",
-   "seconds": 1.9,
+   "seconds": 2.23,
    "message": ""
   },
   {
    "test": "test_ch13_15::test_13_2_client_without_model",
    "area": "Parts 4\u20135: teams, MCP, A2A",
    "outcome": "passed",
-   "seconds": 0.88,
+   "seconds": 1.03,
    "message": ""
   },
   {
    "test": "test_ch13_15::test_13_3_two_servers_one_question",
    "area": "Parts 4\u20135: teams, MCP, A2A",
    "outcome": "passed",
-   "seconds": 1.77,
+   "seconds": 1.98,
    "message": ""
   },
   {
    "test": "test_ch13_15::test_13_4_resources_in_system_prompt",
    "area": "Parts 4\u20135: teams, MCP, A2A",
    "outcome": "passed",
-   "seconds": 1.88,
+   "seconds": 1.91,
    "message": ""
   },
   {
    "test": "test_ch13_15::test_13_5_weather_added_without_code_changes",
    "area": "Parts 4\u20135: teams, MCP, A2A",
    "outcome": "passed",
-   "seconds": 2.67,
+   "seconds": 3.05,
    "message": ""
   },
   {
    "test": "test_ch13_15::test_13_6_survives_server_crash",
    "area": "Parts 4\u20135: teams, MCP, A2A",
    "outcome": "passed",
-   "seconds": 2.2,
+   "seconds": 2.25,
    "message": ""
   },
   {
@@ -862,14 +865,14 @@
    "test": "test_ch13_15::test_15_4_queueing",
    "area": "Parts 4\u20135: teams, MCP, A2A",
    "outcome": "passed",
-   "seconds": 8.31,
+   "seconds": 8.38,
    "message": ""
   },
   {
    "test": "test_ch13_15::test_15_4_open_loop_keeps_sending_when_slow",
    "area": "Parts 4\u20135: teams, MCP, A2A",
    "outcome": "passed",
-   "seconds": 5.82,
+   "seconds": 5.83,
    "message": ""
   },
   {
@@ -897,7 +900,7 @@
    "test": "test_ch13_15::test_15_7_real_loadtest_harness",
    "area": "Parts 4\u20135: teams, MCP, A2A",
    "outcome": "passed",
-   "seconds": 1.87,
+   "seconds": 2.05,
    "message": ""
   },
   {
@@ -967,28 +970,28 @@
    "test": "test_ch16_30::test_24_2_tool_runner_is_the_loop",
    "area": "Parts 6\u20139: chapter code 16\u201330",
    "outcome": "passed",
-   "seconds": 0.37,
+   "seconds": 0.44,
    "message": ""
   },
   {
    "test": "test_ch16_30::test_24_3_agent_sdk_approval_gate",
    "area": "Parts 6\u20139: chapter code 16\u201330",
    "outcome": "passed",
-   "seconds": 0.9,
+   "seconds": 0.79,
    "message": ""
   },
   {
    "test": "test_ch16_30::test_24_4_sdk_with_stdio_server",
    "area": "Parts 6\u20139: chapter code 16\u201330",
    "outcome": "passed",
-   "seconds": 1.58,
+   "seconds": 1.92,
    "message": ""
   },
   {
    "test": "test_ch16_30::test_24_3_langchain_agent",
    "area": "Parts 6\u20139: chapter code 16\u201330",
    "outcome": "passed",
-   "seconds": 0.41,
+   "seconds": 0.39,
    "message": ""
   },
   {
@@ -1002,14 +1005,14 @@
    "test": "test_ch16_30::test_30_auth_rate_limit_sessions",
    "area": "Parts 6\u20139: chapter code 16\u201330",
    "outcome": "passed",
-   "seconds": 0.05,
+   "seconds": 0.07,
    "message": ""
   },
   {
    "test": "test_ch16_30::test_30_model_failure_is_a_clean_502",
    "area": "Parts 6\u20139: chapter code 16\u201330",
    "outcome": "passed",
-   "seconds": 0.0,
+   "seconds": 0.01,
    "message": ""
   },
   {
@@ -1030,21 +1033,21 @@
    "test": "test_ch16_30::test_30_client_modes_against_a_real_server",
    "area": "Parts 6\u20139: chapter code 16\u201330",
    "outcome": "passed",
-   "seconds": 0.4,
+   "seconds": 0.48,
    "message": ""
   },
   {
    "test": "test_ch16_30::test_30_remote_mcp_and_6_remote_hub",
    "area": "Parts 6\u20139: chapter code 16\u201330",
    "outcome": "passed",
-   "seconds": 0.38,
+   "seconds": 0.46,
    "message": ""
   },
   {
    "test": "test_ch16_30::test_30_6_drill",
    "area": "Parts 6\u20139: chapter code 16\u201330",
    "outcome": "passed",
-   "seconds": 3.07,
+   "seconds": 3.08,
    "message": ""
   },
   {
@@ -1058,7 +1061,7 @@
    "test": "test_ch16_30::test_30_one_request_per_session",
    "area": "Parts 6\u20139: chapter code 16\u201330",
    "outcome": "passed",
-   "seconds": 0.0,
+   "seconds": 0.01,
    "message": ""
   },
   {
@@ -1079,7 +1082,7 @@
    "test": "test_ch16_30::test_30_remote_mcp_scopes_and_metadata",
    "area": "Parts 6\u20139: chapter code 16\u201330",
    "outcome": "passed",
-   "seconds": 0.38,
+   "seconds": 0.4,
    "message": ""
   },
   {
@@ -1128,7 +1131,7 @@
    "test": "test_ch27_scorecard::test_27_8_scorecard_gate",
    "area": "Part 9: evaluation, observability, performance",
    "outcome": "passed",
-   "seconds": 0.01,
+   "seconds": 0.02,
    "message": ""
   },
   {
@@ -1219,7 +1222,7 @@
    "test": "test_ch29_benchmark::test_simulator_is_exactly_reproducible",
    "area": "Part 9: evaluation, observability, performance",
    "outcome": "passed",
-   "seconds": 0.15,
+   "seconds": 0.14,
    "message": ""
   },
   {
@@ -1254,14 +1257,14 @@
    "test": "test_ch29_perf::test_experiment_finds_the_knee",
    "area": "Part 9: evaluation, observability, performance",
    "outcome": "passed",
-   "seconds": 1.43,
+   "seconds": 1.45,
    "message": ""
   },
   {
    "test": "test_ch29_perf::test_queue_deadline_costs_successes",
    "area": "Part 9: evaluation, observability, performance",
    "outcome": "passed",
-   "seconds": 0.52,
+   "seconds": 0.53,
    "message": ""
   },
   {
@@ -1275,364 +1278,364 @@
    "test": "test_checkers::test_checker_passes_on_the_solution[0.4]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.76,
+   "seconds": 0.92,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_passes_on_the_solution[0.5]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.72,
+   "seconds": 0.85,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_passes_on_the_solution[0.6]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.79,
+   "seconds": 0.94,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_passes_on_the_solution[0.7]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.75,
+   "seconds": 0.91,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_passes_on_the_solution[3.3]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 1.8,
+   "seconds": 1.99,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_passes_on_the_solution[A.1]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 1.32,
+   "seconds": 1.41,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_passes_on_the_solution[A.2]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.85,
+   "seconds": 1.1,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_passes_on_the_solution[A.3]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.98,
+   "seconds": 1.06,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_passes_on_the_solution[A.4]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.93,
+   "seconds": 0.99,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_passes_on_the_solution[P.1]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.86,
+   "seconds": 0.94,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_passes_on_the_solution[P.2]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.79,
+   "seconds": 0.86,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_passes_on_the_solution[P.3]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.82,
+   "seconds": 0.81,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_passes_on_the_solution[P.4]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.78,
+   "seconds": 0.96,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_passes_on_the_solution[P.5]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.78,
+   "seconds": 0.84,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_passes_on_the_solution[R.1]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.74,
+   "seconds": 0.8,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_passes_on_the_solution[R.2]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.73,
+   "seconds": 0.88,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_passes_on_the_solution[R.3]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.74,
+   "seconds": 0.86,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_passes_on_the_solution[R.4]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.8,
+   "seconds": 0.93,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_passes_on_the_solution[S.1]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.75,
+   "seconds": 0.98,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_passes_on_the_solution[S.2]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.88,
+   "seconds": 0.93,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_passes_on_the_solution[S.3]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.86,
+   "seconds": 0.96,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_passes_on_the_solution[S.4]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.8,
+   "seconds": 0.82,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_passes_on_the_solution[T.2]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 1.55,
+   "seconds": 1.8,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_passes_on_the_solution[T.3]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 2.48,
+   "seconds": 2.91,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_passes_on_the_solution[T.4]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 2.49,
+   "seconds": 2.73,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_fails_on_the_starter[0.4]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.87,
+   "seconds": 0.94,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_fails_on_the_starter[0.5]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.82,
+   "seconds": 0.91,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_fails_on_the_starter[0.6]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.94,
+   "seconds": 0.96,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_fails_on_the_starter[0.7]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.8,
+   "seconds": 0.97,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_fails_on_the_starter[3.3]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 1.86,
+   "seconds": 2.04,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_fails_on_the_starter[A.1]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.83,
+   "seconds": 0.88,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_fails_on_the_starter[A.2]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.82,
+   "seconds": 0.89,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_fails_on_the_starter[A.3]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.83,
+   "seconds": 0.87,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_fails_on_the_starter[A.4]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.84,
+   "seconds": 0.91,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_fails_on_the_starter[P.1]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.8,
+   "seconds": 1.01,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_fails_on_the_starter[P.2]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.82,
+   "seconds": 0.81,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_fails_on_the_starter[P.3]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.83,
+   "seconds": 0.85,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_fails_on_the_starter[P.4]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.8,
+   "seconds": 0.96,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_fails_on_the_starter[P.5]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.88,
+   "seconds": 1.05,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_fails_on_the_starter[R.1]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.78,
+   "seconds": 0.88,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_fails_on_the_starter[R.2]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.81,
+   "seconds": 0.92,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_fails_on_the_starter[R.3]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.76,
+   "seconds": 0.97,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_fails_on_the_starter[R.4]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.8,
+   "seconds": 0.92,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_fails_on_the_starter[S.1]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.84,
+   "seconds": 1.02,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_fails_on_the_starter[S.2]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.8,
+   "seconds": 0.94,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_fails_on_the_starter[S.3]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.85,
+   "seconds": 0.9,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_fails_on_the_starter[S.4]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.83,
+   "seconds": 0.86,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_fails_on_the_starter[T.2]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 1.77,
+   "seconds": 1.78,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_fails_on_the_starter[T.3]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 2.71,
+   "seconds": 2.82,
    "message": ""
   },
   {
    "test": "test_checkers::test_checker_fails_on_the_starter[T.4]",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 2.59,
+   "seconds": 2.99,
    "message": ""
   },
   {
    "test": "test_checkers::test_every_starter_becomes_valid_python",
    "area": "Chapter 0, interludes and checkers",
    "outcome": "passed",
-   "seconds": 0.01,
+   "seconds": 0.02,
    "message": ""
   },
   {
    "test": "test_ex12_7_http::test_stdio_and_http_agree",
    "area": "Parts 4\u20135: teams, MCP, A2A",
    "outcome": "passed",
-   "seconds": 2.18,
+   "seconds": 2.28,
    "message": ""
   },
   {
@@ -1653,21 +1656,21 @@
    "test": "test_ex13_7_elicit_sample::test_sampling_uses_the_hosts_model",
    "area": "Parts 4\u20135: teams, MCP, A2A",
    "outcome": "passed",
-   "seconds": 0.01,
+   "seconds": 0.02,
    "message": ""
   },
   {
    "test": "test_ex13_7_elicit_sample::test_sampling_refused_by_user",
    "area": "Parts 4\u20135: teams, MCP, A2A",
    "outcome": "passed",
-   "seconds": 0.0,
+   "seconds": 0.01,
    "message": ""
   },
   {
    "test": "test_ex13_7_elicit_sample::test_elicitation_over_stdio",
    "area": "Parts 4\u20135: teams, MCP, A2A",
    "outcome": "passed",
-   "seconds": 0.98,
+   "seconds": 0.99,
    "message": ""
   },
   {
@@ -1751,7 +1754,7 @@
    "test": "test_ex9_6_policy::test_parse_selection",
    "area": "Parts 1\u20133: tools, loop, state, APIs, SQL, approval",
    "outcome": "passed",
-   "seconds": 0.02,
+   "seconds": 0.01,
    "message": ""
   },
   {
@@ -1975,14 +1978,14 @@
    "test": "test_local_adapter::test_claude_only_features_explain_themselves",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 0.0,
+   "seconds": 0.01,
    "message": ""
   },
   {
    "test": "test_local_adapter::test_missing_model_says_how_to_download_it",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 0.0,
+   "seconds": 0.01,
    "message": ""
   },
   {
@@ -2038,7 +2041,7 @@
    "test": "test_multiagent::test_agent_as_mcp_server",
    "area": "Parts 4\u20135: teams, MCP, A2A",
    "outcome": "passed",
-   "seconds": 1.77,
+   "seconds": 2.06,
    "message": ""
   },
   {
@@ -2052,7 +2055,7 @@
    "test": "test_multiagent::test_13_8_coordinator",
    "area": "Parts 4\u20135: teams, MCP, A2A",
    "outcome": "passed",
-   "seconds": 2.75,
+   "seconds": 3.08,
    "message": ""
   },
   {
@@ -2066,14 +2069,14 @@
    "test": "test_part5_mcp2026::test_15_3_wire",
    "area": "Parts 4\u20135: teams, MCP, A2A",
    "outcome": "passed",
-   "seconds": 1.21,
+   "seconds": 1.22,
    "message": ""
   },
   {
    "test": "test_part5_mcp2026::test_15_4_cache",
    "area": "Parts 4\u20135: teams, MCP, A2A",
    "outcome": "passed",
-   "seconds": 0.03,
+   "seconds": 0.04,
    "message": ""
   },
   {
@@ -2087,7 +2090,7 @@
    "test": "test_part5_mcp2026::test_30_gateway_rate_limit",
    "area": "Parts 4\u20135: teams, MCP, A2A",
    "outcome": "passed",
-   "seconds": 0.02,
+   "seconds": 0.03,
    "message": ""
   },
   {
@@ -2122,7 +2125,7 @@
    "test": "test_part5_mcp2026::test_30_11_gateway_agent",
    "area": "Parts 4\u20135: teams, MCP, A2A",
    "outcome": "passed",
-   "seconds": 0.99,
+   "seconds": 1.14,
    "message": ""
   },
   {
@@ -2164,7 +2167,7 @@
    "test": "test_part6::test_assemble_demo_calls_the_model",
    "area": "Part 6: context, memory, retrieval",
    "outcome": "passed",
-   "seconds": 0.0,
+   "seconds": 0.01,
    "message": ""
   },
   {
@@ -2283,14 +2286,14 @@
    "test": "test_part7::test_19_permanent_error_escalates_then_compensates",
    "area": "Parts 6\u20139: chapter code 16\u201330",
    "outcome": "passed",
-   "seconds": 0.01,
+   "seconds": 0.02,
    "message": ""
   },
   {
    "test": "test_part7::test_19_resolve_retry_and_skip",
    "area": "Parts 6\u20139: chapter code 16\u201330",
    "outcome": "passed",
-   "seconds": 0.02,
+   "seconds": 0.03,
    "message": ""
   },
   {
@@ -2304,7 +2307,7 @@
    "test": "test_part7::test_19_4_two_workers",
    "area": "Parts 6\u20139: chapter code 16\u201330",
    "outcome": "passed",
-   "seconds": 0.12,
+   "seconds": 0.36,
    "message": ""
   },
   {
@@ -2472,42 +2475,42 @@
    "test": "test_part7::test_23_harness_controls",
    "area": "Parts 6\u20139: chapter code 16\u201330",
    "outcome": "passed",
-   "seconds": 1.23,
+   "seconds": 1.27,
    "message": ""
   },
   {
    "test": "test_part7::test_23_4_injection_fails_even_if_the_model_obeys",
    "area": "Parts 6\u20139: chapter code 16\u201330",
    "outcome": "passed",
-   "seconds": 1.19,
+   "seconds": 1.08,
    "message": ""
   },
   {
    "test": "test_part7::test_23_5_code_checks_catch_a_false_claim",
    "area": "Parts 6\u20139: chapter code 16\u201330",
    "outcome": "passed",
-   "seconds": 1.33,
+   "seconds": 1.47,
    "message": ""
   },
   {
    "test": "test_part7::test_23_6_durable_browser_queue",
    "area": "Parts 6\u20139: chapter code 16\u201330",
    "outcome": "passed",
-   "seconds": 1.83,
+   "seconds": 1.93,
    "message": ""
   },
   {
    "test": "test_part7::test_23_3_by_hand",
    "area": "Parts 6\u20139: chapter code 16\u201330",
    "outcome": "passed",
-   "seconds": 1.36,
+   "seconds": 1.44,
    "message": ""
   },
   {
    "test": "test_part7::test_24_8_skill_eval",
    "area": "Parts 6\u20139: chapter code 16\u201330",
    "outcome": "passed",
-   "seconds": 0.0,
+   "seconds": 0.01,
    "message": ""
   },
   {
@@ -2584,7 +2587,7 @@
    "test": "test_part8::test_26_6_orders_api",
    "area": "Part 8: security and identity",
    "outcome": "passed",
-   "seconds": 2.11,
+   "seconds": 2.12,
    "message": ""
   },
   {
@@ -2619,7 +2622,7 @@
    "test": "test_part9::test_27_7_online_drift",
    "area": "Part 9: evaluation, observability, performance",
    "outcome": "passed",
-   "seconds": 0.0,
+   "seconds": 0.01,
    "message": ""
   },
   {
@@ -2665,10 +2668,17 @@
    "message": ""
   },
   {
+   "test": "test_quickstart::test_quickstart_runs_without_a_key",
+   "area": "Other",
+   "outcome": "passed",
+   "seconds": 1.12,
+   "message": ""
+  },
+  {
    "test": "test_run_chapter::test_model_selection",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 0.0,
+   "seconds": 0.01,
    "message": ""
   },
   {
@@ -2682,14 +2692,14 @@
    "test": "test_run_chapter::test_free_chapter_layout",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 0.47,
+   "seconds": 0.46,
    "message": ""
   },
   {
    "test": "test_run_chapter::test_skip_reasons",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 0.29,
+   "seconds": 0.32,
    "message": ""
   },
   {
@@ -2703,217 +2713,217 @@
    "test": "test_run_commands::test_exercise_command_runs[ex1.3]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.07,
+   "seconds": 1.08,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex1.4]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.08,
+   "seconds": 1.18,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[exT.1]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.82,
+   "seconds": 1.92,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex2.3]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.04,
+   "seconds": 1.03,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex3.3-ask]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.04,
+   "seconds": 1.13,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex3.4]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.0,
+   "seconds": 1.29,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex3.6]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.0,
+   "seconds": 1.11,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex3.7]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.16,
+   "seconds": 1.08,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex4.2]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.07,
+   "seconds": 1.18,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex5.3]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.05,
+   "seconds": 1.23,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex5.4]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.04,
+   "seconds": 1.11,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex5.5]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.08,
+   "seconds": 1.07,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex5.6]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.08,
+   "seconds": 1.05,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex6.5-ask]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.03,
+   "seconds": 1.19,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex8.3]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.0,
+   "seconds": 1.16,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[exM.2]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 0.98,
+   "seconds": 1.25,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex9.3]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 2.15,
+   "seconds": 2.56,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex9.4]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.0,
+   "seconds": 1.12,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex9.5]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.02,
+   "seconds": 1.1,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex10.3]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 2.16,
+   "seconds": 2.53,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex10.4]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 2.23,
+   "seconds": 2.7,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex10.5]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.02,
+   "seconds": 1.03,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex10.6]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 2.08,
+   "seconds": 2.23,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex11.3]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.17,
+   "seconds": 1.22,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex11.4]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.19,
+   "seconds": 1.18,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex11.5]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.1,
+   "seconds": 1.21,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex11.7]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.2,
+   "seconds": 1.21,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex13.3]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 3.79,
+   "seconds": 3.77,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex13.4]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 3.86,
+   "seconds": 3.73,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex13.5]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 3.51,
+   "seconds": 3.59,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex13.6]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 3.53,
+   "seconds": 3.89,
    "message": ""
   },
   {
@@ -2927,28 +2937,28 @@
    "test": "test_run_commands::test_exercise_command_runs[ex16.3]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.07,
+   "seconds": 1.06,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex16.4]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.14,
+   "seconds": 1.1,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex16.7]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.08,
+   "seconds": 1.14,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex17.3]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.07,
+   "seconds": 1.08,
    "message": ""
   },
   {
@@ -2962,63 +2972,63 @@
    "test": "test_run_commands::test_exercise_command_runs[ex18.3]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 3.0,
+   "seconds": 3.21,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex19.3]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 2.94,
+   "seconds": 3.07,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex21.3]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.06,
+   "seconds": 1.12,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex22.3]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.01,
+   "seconds": 1.08,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex24.6]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.06,
+   "seconds": 1.04,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex25.3]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.08,
+   "seconds": 1.21,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex27.3]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.1,
+   "seconds": 1.2,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex28.3]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 2.23,
+   "seconds": 2.26,
    "message": ""
   },
   {
    "test": "test_run_commands::test_exercise_command_runs[ex30.7]",
    "area": "The course kit itself",
    "outcome": "passed",
-   "seconds": 1.12,
+   "seconds": 1.09,
    "message": ""
   },
   {
@@ -3032,7 +3042,7 @@
    "test": "test_security::test_10_writes_outside_the_allow_list_are_refused[conftest.py]",
    "area": "Part 8: security and identity",
    "outcome": "passed",
-   "seconds": 0.03,
+   "seconds": 0.04,
    "message": ""
   },
   {
@@ -3081,21 +3091,21 @@
    "test": "test_security::test_10_writes_outside_the_allow_list_are_refused[new_module.py]",
    "area": "Part 8: security and identity",
    "outcome": "passed",
-   "seconds": 0.03,
+   "seconds": 0.04,
    "message": ""
   },
   {
    "test": "test_security::test_10_writes_outside_the_allow_list_are_refused[notes.txt]",
    "area": "Part 8: security and identity",
    "outcome": "passed",
-   "seconds": 0.03,
+   "seconds": 0.04,
    "message": ""
   },
   {
    "test": "test_security::test_10_writes_outside_the_allow_list_are_refused[../escape.py]",
    "area": "Part 8: security and identity",
    "outcome": "passed",
-   "seconds": 0.03,
+   "seconds": 0.04,
    "message": ""
   },
   {
@@ -3109,14 +3119,14 @@
    "test": "test_security::test_10_tests_run_without_secrets",
    "area": "Part 8: security and identity",
    "outcome": "passed",
-   "seconds": 0.88,
+   "seconds": 0.91,
    "message": ""
   },
   {
    "test": "test_security::test_10_sandbox_job_runs_in_a_copy",
    "area": "Part 8: security and identity",
    "outcome": "passed",
-   "seconds": 0.04,
+   "seconds": 0.07,
    "message": ""
   },
   {
@@ -3207,14 +3217,14 @@
    "test": "test_security::test_6_search_skips_symlinks",
    "area": "Part 8: security and identity",
    "outcome": "passed",
-   "seconds": 0.0,
+   "seconds": 0.01,
    "message": ""
   },
   {
    "test": "test_security::test_c4_fix_cannot_escape_or_touch_test_config",
    "area": "Part 8: security and identity",
    "outcome": "passed",
-   "seconds": 0.01,
+   "seconds": 0.02,
    "message": ""
   },
   {
@@ -3298,7 +3308,7 @@
    "test": "test_security_scenarios::test_S6_failure_mode",
    "area": "Part 8: security and identity",
    "outcome": "passed",
-   "seconds": 0.01,
+   "seconds": 0.02,
    "message": ""
   },
   {
@@ -3417,7 +3427,7 @@
    "test": "test_security_scenarios::test_S14_mitigated",
    "area": "Part 8: security and identity",
    "outcome": "passed",
-   "seconds": 0.0,
+   "seconds": 0.01,
    "message": ""
   },
   {
@@ -3431,7 +3441,7 @@
    "test": "test_security_scenarios::test_S15_mitigated",
    "area": "Part 8: security and identity",
    "outcome": "passed",
-   "seconds": 0.01,
+   "seconds": 0.02,
    "message": ""
   }
  ]
