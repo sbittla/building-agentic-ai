@@ -151,51 +151,63 @@ After each part of the book, try the matching **capstone project** yourself befo
 ## 5. Verified results
 
 <!-- results:start -->
-Latest verification: every exercise run with its reference solution by `run-chapter` (runs from 2026-09-27 to 2026-09-28). **163 of 164 runnable exercises passed (99.4%)**; 60 are written answers and 14 can't run unattended. Most ran on the free local model `qwen3.5:9b`; the Claude-only exercises ran on `claude-sonnet-5`. Per-exercise results: [EXERCISE_INDEX.md](EXERCISE_INDEX.md).
+### A. Deterministic checks (no model)
 
-How the totals count: the book has **236 exercises**; the table adds the 6 capstones, so it has 242 rows of work. Every count here, in EXERCISE_INDEX.md and in the book is computed from `course/exercises.json`.
+Every reference solution, capstone and exercise command, run against a scripted stand-in model: no API key, no model provider, so the same commit gives the same result anywhere.
 
-| Chapter | Exercises | ✔ Passed | ✘ Failed | Written answer | Skipped | Pass rate |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| Chapter 0: Foundations | 7 | 4 | 0 | 2 | 1 | 100% |
-| Interlude: The Python You'll Need | 5 | 5 | 0 | 0 | 0 | 100% |
-| Chapter 1: What an Agent Is (and Isn't) | 9 | 4 | 0 | 4 | 1 | 100% |
-| Interlude: Testing with pytest | 4 | 4 | 0 | 0 | 0 | 100% |
-| Chapter 2: Tool Calling (Function Calling) | 6 | 4 | 0 | 2 | 0 | 100% |
-| Chapter 3: Tool Selection, Routing and Tool Search | 7 | 5 | 0 | 2 | 0 | 100% |
-| Chapter 4: The Agent Loop | 5 | 4 | 0 | 1 | 0 | 100% |
-| Chapter 5: State and Short-Term Memory | 7 | 5 | 0 | 2 | 0 | 100% |
-| Interlude: Regular Expressions | 4 | 4 | 0 | 0 | 0 | 100% |
-| Chapter 6: Agentic Search: Exploring an Environment | 6 | 4 | 0 | 1 | 1 | 100% |
-| Chapter 7: Real APIs | 6 | 2 | 0 | 2 | 2 | 100% |
-| Interlude: SQL in One Sitting | 4 | 4 | 0 | 0 | 0 | 100% |
-| Chapter 8: Self-Correction: A Text-to-SQL Agent | 7 | 2 | 0 | 2 | 3 | 100% |
-| Interlude: Measuring an Agent | 3 | 0 | 0 | 0 | 3 | — |
-| Chapter 9: Human-in-the-Loop Approval | 6 | 4 | 0 | 2 | 0 | 100% |
-| Chapter 10: Feedback Loops | 7 | 4 | 0 | 2 | 1 | 100% |
-| Interlude: Asynchronous Python | 4 | 4 | 0 | 0 | 0 | 100% |
-| Chapter 11: Multi-Agent Systems | 7 | 5 | 0 | 2 | 0 | 100% |
-| Chapter 12: MCP Fundamentals and Your First Server | 7 | 1 | 0 | 2 | 4 | 100% |
-| Chapter 13: Build Your Own MCP Client | 8 | 7 | 0 | 1 | 0 | 100% |
-| Chapter 14: Using Servers You Didn't Write | 5 | 1 | 0 | 2 | 2 | 100% |
-| Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure | 4 | 2 | 0 | 2 | 0 | 100% |
-| Chapter 16: Context Engineering | 8 | 6 | 0 | 2 | 0 | 100% |
-| Chapter 17: Agent Memory Engineering | 8 | 6 | 0 | 2 | 0 | 100% |
-| Chapter 18: Agentic RAG and Knowledge Systems | 9 | 7 | 0 | 2 | 0 | 100% |
-| Chapter 19: Long-Running Agents | 6 | 4 | 0 | 2 | 0 | 100% |
-| Chapter 20: Planning and Model Routing | 6 | 4 | 0 | 2 | 0 | 100% |
-| Chapter 21: Multi-Agent Orchestration | 6 | 4 | 0 | 2 | 0 | 100% |
-| Chapter 22: Hybrid Architectures: Probabilistic Intelligence, Deterministic Control | 6 | 4 | 0 | 2 | 0 | 100% |
-| Chapter 23: Computer-Use Agents | 6 | 4 | 0 | 2 | 0 | 100% |
-| Chapter 24: Skills, Frameworks and Agent Runtimes | 9 | 6 | 0 | 3 | 0 | 100% |
-| Chapter 25: Agentic Security | 6 | 4 | 0 | 2 | 0 | 100% |
-| Chapter 26: Agent Identity and Authorization | 6 | 4 | 0 | 2 | 0 | 100% |
-| Chapter 27: Agent Evaluation: Dimensions, Trajectories and Scorecards | 8 | 5 | 1 | 2 | 0 | 83% |
-| Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents | 7 | 6 | 0 | 1 | 0 | 100% |
-| Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost | 6 | 5 | 0 | 1 | 0 | 100% |
-| Chapter 30: Deploying Agents: From One Service to an Agent Platform | 11 | 9 | 0 | 2 | 0 | 100% |
-| Capstone projects C1–C6 | 6 | 6 | 0 | 0 | 0 | 100% |
-| **Total** | **242** | **163** | **1** | **60** | **18** | **99.4%** |
+| Passed | Failed | Errors | Skipped (not applicable here) | Tests |
+| ---: | ---: | ---: | ---: | ---: |
+| 435 | 0 | 0 | 5 | 440 |
+
+Commit `aee3ee8d1dc4`; `requirements.lock` sha256 `c28c848a2447`; outside the course image: Linux, requirements.lock installed with pip (Python 3.13); 2026-10-05. Skipped: 2 needs mcp-server-filesystem from the course image; 1 needs mcp-server-git from the course image; 1 needs mcp-server-fetch, mcp-server-memory from the course image; 1 needs mcp-server-fetch, mcp-server-filesystem, mcp-server-git, mcp-server-time from the course image. Details: [verification/README.md](verification/README.md), [verification/offline.json](verification/offline.json).
+
+### B. Exercises run with a real model
+
+Every exercise run with its reference solution by `run-chapter` (runs from 2026-09-27 to 2026-09-28; models: `claude-sonnet-5`, `qwen3.5:9b`). **163 of 164 runnable exercises passed (99.4%)**. A real model's answers vary from run to run, so these show that each exercise works end to end, not that it always will. Runs before October 2026 didn't record the commit; newer runs do (`provenance` in each summary.json). Per-exercise results and logs: [EXERCISE_INDEX.md](EXERCISE_INDEX.md), `solutions/outputs/`.
+
+How the totals count: the book has **236 exercises**; the table adds the 6 capstones, so it has 242 rows of work. Every count here, in EXERCISE_INDEX.md and in the book is computed from `course/exercises.json`. *Written answer* exercises have nothing to run; *needs a person* means a person at the keyboard, the Claude Desktop app, a GitHub token or a file the reader creates; *not run yet* means no run has been recorded for this version.
+
+| Chapter | Exercises | ✔ Passed | ✘ Failed | Written answer | Needs a person | Not run yet | Pass rate |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Chapter 0: Foundations | 7 | 4 | 0 | 2 | 1 | 0 | 100% |
+| Interlude: The Python You'll Need | 5 | 5 | 0 | 0 | 0 | 0 | 100% |
+| Chapter 1: What an Agent Is (and Isn't) | 9 | 4 | 0 | 5 | 0 | 0 | 100% |
+| Interlude: Testing with pytest | 4 | 4 | 0 | 0 | 0 | 0 | 100% |
+| Chapter 2: Tool Calling (Function Calling) | 6 | 4 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 3: Tool Selection, Routing and Tool Search | 7 | 5 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 4: The Agent Loop | 5 | 4 | 0 | 1 | 0 | 0 | 100% |
+| Chapter 5: State and Short-Term Memory | 7 | 5 | 0 | 2 | 0 | 0 | 100% |
+| Interlude: Regular Expressions | 4 | 4 | 0 | 0 | 0 | 0 | 100% |
+| Chapter 6: Agentic Search: Exploring an Environment | 6 | 4 | 0 | 1 | 1 | 0 | 100% |
+| Chapter 7: Real APIs | 6 | 2 | 0 | 2 | 2 | 0 | 100% |
+| Interlude: SQL in One Sitting | 4 | 4 | 0 | 0 | 0 | 0 | 100% |
+| Chapter 8: Self-Correction: A Text-to-SQL Agent | 7 | 2 | 0 | 2 | 3 | 0 | 100% |
+| Interlude: Measuring an Agent | 3 | 0 | 0 | 1 | 0 | 2 | — |
+| Chapter 9: Human-in-the-Loop Approval | 6 | 4 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 10: Feedback Loops | 7 | 4 | 0 | 2 | 1 | 0 | 100% |
+| Interlude: Asynchronous Python | 4 | 4 | 0 | 0 | 0 | 0 | 100% |
+| Chapter 11: Multi-Agent Systems | 7 | 5 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 12: MCP Fundamentals and Your First Server | 7 | 1 | 0 | 2 | 4 | 0 | 100% |
+| Chapter 13: Build Your Own MCP Client | 8 | 7 | 0 | 1 | 0 | 0 | 100% |
+| Chapter 14: Using Servers You Didn't Write | 5 | 1 | 0 | 2 | 2 | 0 | 100% |
+| Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure | 4 | 2 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 16: Context Engineering | 8 | 6 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 17: Agent Memory Engineering | 8 | 6 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 18: Agentic RAG and Knowledge Systems | 9 | 7 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 19: Long-Running Agents | 6 | 4 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 20: Planning and Model Routing | 6 | 4 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 21: Multi-Agent Orchestration | 6 | 4 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 22: Hybrid Architectures: Probabilistic Intelligence, Deterministic Control | 6 | 4 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 23: Computer-Use Agents | 6 | 4 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 24: Skills, Frameworks and Agent Runtimes | 9 | 6 | 0 | 3 | 0 | 0 | 100% |
+| Chapter 25: Agentic Security | 6 | 4 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 26: Agent Identity and Authorization | 6 | 4 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 27: Agent Evaluation: Dimensions, Trajectories and Scorecards | 8 | 5 | 1 | 2 | 0 | 0 | 83% |
+| Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents | 7 | 6 | 0 | 1 | 0 | 0 | 100% |
+| Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost | 6 | 5 | 0 | 1 | 0 | 0 | 100% |
+| Chapter 30: Deploying Agents: From One Service to an Agent Platform | 11 | 9 | 0 | 2 | 0 | 0 | 100% |
+| Capstone projects C1–C6 | 6 | 6 | 0 | 0 | 0 | 0 | 100% |
+| **Total** | **242** | **163** | **1** | **62** | **14** | **2** | **99.4%** |
 
 Failed: **27.8** (An agent scorecard: exit code 1).
 <!-- results:end -->
