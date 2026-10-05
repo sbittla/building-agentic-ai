@@ -154,6 +154,10 @@ def results_table(res):
            f"answers and {total['skipped']} can't run unattended. Most ran on the free local "
            f"model `qwen3.5:9b`; the Claude-only exercises ran on `claude-sonnet-5`. "
            f"Per-exercise results: [EXERCISE_INDEX.md](EXERCISE_INDEX.md).", "",
+           f"How the totals count: the book has **{len(EX)} exercises**; the table adds the "
+           f"{len(CAPSTONES)} capstones, so it has {len(EX) + len(CAPSTONES)} rows of work. "
+           f"Every count here, in EXERCISE_INDEX.md and in the book is computed from "
+           f"`course/exercises.json`.", "",
            "| Chapter | Exercises | ✔ Passed | ✘ Failed | Written answer | Skipped | Pass rate |",
            "| --- | ---: | ---: | ---: | ---: | ---: | ---: |"]
     for title, n, t in rows:
@@ -171,9 +175,20 @@ def results_table(res):
     return "\n".join(out)
 
 
+def counts():
+    """Exercise, chapter and interlude counts, from course/exercises.json (the one source of truth)."""
+    keys = {e["id"].split(".")[0] for e in EX}
+    return len(EX), sum(k.isdigit() for k in keys), sum(not k.isdigit() for k in keys)
+
+
 def update_readme(res):
     readme = KIT / "README.md"
     text = readme.read_text(encoding="utf-8")
+    n, ch, il = counts()
+    text, k = re.subn(r"\*\*\d+ exercises\*\* across \d+ chapters and \d+ interludes",
+                      f"**{n} exercises** across {ch} chapters and {il} interludes", text)
+    if k != 1:
+        raise SystemExit("README.md: the opening sentence with the exercise count wasn't found")
     if BEGIN not in text:
         raise SystemExit(f"README.md has no {BEGIN} ... {END} block to fill")
     start, end = text.index(BEGIN), text.index(END) + len(END)

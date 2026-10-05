@@ -20,6 +20,17 @@ On Windows, replace `./course.sh` with `.\course.cmd` in every command below.
 
 ---
 
+## Book editions and code versions
+
+Each printing of the book is matched by a tag, so you can always get the exact code it was tested against. `main` keeps moving: fixes and compatibility updates land there and are listed in [CHANGELOG.md](CHANGELOG.md), never silently.
+
+| Book printing | Exercises | Tag | Get it |
+| --- | ---: | --- | --- |
+| First printing, September 2026 | 231 | `edition-1.0` | `git checkout edition-1.0` |
+| Corrected printing, October 2026 | 236 | `edition-1.1` | `git checkout edition-1.1` |
+
+Not sure which printing you have? The copyright page says, and the corrected printing has a List of Figures after the Contents.
+
 ## 1. One-time setup (about 20 minutes)
 
 **You need:** 16 GB of RAM (32 GB recommended), about 15 GB of free disk space, and an internet connection for the first build.
@@ -141,6 +152,8 @@ After each part of the book, try the matching **capstone project** yourself befo
 
 <!-- results:start -->
 Latest verification: every exercise run with its reference solution by `run-chapter` (runs from 2026-09-27 to 2026-09-28). **163 of 164 runnable exercises passed (99.4%)**; 60 are written answers and 14 can't run unattended. Most ran on the free local model `qwen3.5:9b`; the Claude-only exercises ran on `claude-sonnet-5`. Per-exercise results: [EXERCISE_INDEX.md](EXERCISE_INDEX.md).
+
+How the totals count: the book has **236 exercises**; the table adds the 6 capstones, so it has 242 rows of work. Every count here, in EXERCISE_INDEX.md and in the book is computed from `course/exercises.json`.
 
 | Chapter | Exercises | ✔ Passed | ✘ Failed | Written answer | Skipped | Pass rate |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |

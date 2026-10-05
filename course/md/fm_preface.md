@@ -52,6 +52,8 @@ All code, sample data, starter files, checkers and solutions are in the course k
 
 Models, prices and libraries change quickly. The course kit pins every library version so the examples keep working, and Appendix G lists where to look when something has moved.
 
+Each printing of this book is matched by a tag in the repository. This printing's is `edition-1.1`: `git checkout edition-1.1` gives you exactly the code, data and solutions the book was tested against, and `CHANGELOG.md` lists what has changed on `main` since.
+
 ## A note on currency
 
 This book was written and tested in September 2026. The ideas in it (the agent loop, tool design, approval gates, evaluation, context management and the lethal trifecta) have held steady as models have improved, and I expect them to keep holding. Model names and API details will change. When they do, the course kit's `README.md` and the resources in Appendix G are the places to check first.
