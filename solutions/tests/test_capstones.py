@@ -121,6 +121,7 @@ def test_c2_table_confirmation():
     assert confirm("warehouse__run_query", {"sql": "SELECT * FROM customers"}) is True   # already approved
 
 # ---------------- capstone 3: incident triage
+@pytest.mark.needs("mcp-server-git")
 def test_c3_triage(ws, model):
     sys.path.insert(0, str(CAP / "c3_incident")); sys.modules.pop("data", None)
     import data as d3
@@ -176,6 +177,7 @@ def test_c4_review(ws, model):
     assert review["verdict"] == "request_changes" and review["findings"][0]["severity"] == "tests"
 
 # ---------------- capstone 5: deep research
+@pytest.mark.needs("mcp-server-fetch", "mcp-server-memory")
 def test_c5_research(ws, model):
     r6 = _load("c5_research/research.py")
     def respond(kw):

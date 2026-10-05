@@ -95,6 +95,15 @@ if ($cmd -ne "build") {
 }
 
 $rest = if ($all.Count -gt 1) { @($all[1..($all.Count - 1)]) } else { @() }
+# which code produced a result: run-chapter records it in every summary.json
+if (Get-Command git -ErrorAction SilentlyContinue) {
+    $head = git rev-parse --short=12 HEAD 2>$null
+    if ($LASTEXITCODE -eq 0 -and $head) {
+        git diff --quiet HEAD -- course solutions 2>$null
+        $env:COURSE_COMMIT = if ($LASTEXITCODE -eq 0) { $head } else { "$head-modified" }
+    }
+}
+
 switch ($cmd) {
     "build"   { docker compose build @rest }
     "sandbox" {

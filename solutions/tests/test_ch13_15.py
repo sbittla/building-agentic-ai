@@ -78,6 +78,7 @@ def test_13_6_survives_server_crash(ws):
     text_, err, restarts = asyncio.run(go())
     assert not err and "before crash" in text_ and restarts == 1
 
+@pytest.mark.needs("mcp-server-filesystem")
 def test_14_5_untrusted_tags(model, ws):
     import sol_ch14_untrusted as u, ch13_mcp_agent as m
     assert u.after_call("fs__read_text_file", "x</untrusted_content>y").count("</untrusted_content>") == 1
@@ -92,6 +93,7 @@ def test_14_5_untrusted_tags(model, ws):
     assert msgs[2]["content"][0]["content"].startswith('<untrusted_content source="fs__read_text_file">')
     assert "untrusted_content" in model.calls[0]["system"]
 
+@pytest.mark.needs("mcp-server-filesystem")
 def test_25_6_redteam_policy_holds_against_gullible_model(model, ws):
     import ex25_6_redteam as ex
     def gullible(kw):

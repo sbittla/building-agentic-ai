@@ -327,6 +327,15 @@ python /solutions/exercises/ch04/ex4_4_tracer.py
 
 To try a solution as a starting point for your own work, copy it into `workspace/exercises` and edit the copy.
 
+### How the solutions are verified, and what that does and doesn't prove
+
+Two kinds of evidence back the solutions, and the repository keeps them apart:
+
+- **Deterministic checks.** `./course.sh check-solutions` runs every reference solution, capstone and exercise command against a scripted stand-in model, with no API key. The same commit gives the same result on any machine, so it proves the code runs and the checks pass, not that a real model will make the same choices. Every push runs it in the course image on GitHub, and `python dev/verify.py` writes the result with the commit, the hash of `requirements.lock` and the environment to `verification/offline.json`. A test that needs a program only the image has is reported as *skipped, needs …*, never as a pass.
+- **Runs with a real model.** `./course.sh run-chapter` runs each exercise's reference solution with the free local model or Claude, and records the model, the commit and the package versions in each chapter's `summary.json`. A model's answers vary between runs, so a pass shows the exercise works end to end, not that it always will; that's what the measurement interlude's repeated trials are for.
+
+The README's *Verified results* section shows both, with passed, failed, written answers, exercises that need a person and exercises not run yet counted separately. Each tagged release (section "Book editions and code versions" in the README) carries its results as files you can download.
+
 ## Appendix G: Where to Learn More
 
 Nobody learns this field from one book. This appendix lists where to get help when you're stuck, free courses that complement this one, and how to keep up as models and tools change. Each chapter's **Learn more** section lists the resources for its own topics; the last table here gathers all of them by chapter so you can find any link again.

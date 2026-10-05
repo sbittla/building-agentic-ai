@@ -50,6 +50,7 @@ def test_checker_fails_on_the_starter(ws, ex_id):
 def test_every_starter_becomes_valid_python():
     if not (COURSE / "course.py").exists():
         pytest.skip("runs in the course image")
+    os.environ.setdefault("COURSE_HOME", str(COURSE))   # course.py defaults to the image path
     sys.path.insert(0, str(COURSE))
     import course
     by_file = {Path(e.get("file", "")).name: e for e in course.EXERCISES if e.get("file")}

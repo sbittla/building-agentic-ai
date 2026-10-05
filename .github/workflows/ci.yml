@@ -2,6 +2,8 @@
 name: offline checks
 on:
   push:
+    branches: ['**']
+    tags: ['edition-*']
   pull_request:
 jobs:
   references:
@@ -34,4 +36,41 @@ jobs:
       - name: Self-test
         run: docker compose run --rm -T course selftest
       - name: Every solution, capstone and exercise command
-        run: docker compose run --rm -T course check-solutions
+        run: |
+          mkdir -p workspace/verification
+          docker compose run --rm -T course check-solutions \
+            --junitxml=/workspace/verification/offline-junit.xml -rs 2>&1 | tee workspace/verification/offline.log
+          exit ${PIPESTATUS[0]}
+      - name: Results with provenance (commit, lock, image, environment)
+        if: always()
+        run: |
+          image=$(docker image inspect -f '{{.Id}}' building-agentic-ai:latest | cut -c1-19)
+          python3 dev/verify.py report workspace/verification/offline-junit.xml \
+            --environment "course image $image, GitHub Actions ${{ runner.os }}"
+          cp workspace/verification/offline-junit.xml workspace/verification/offline.log verification/
+      - name: Keep the results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: verification-${{ github.sha }}
+          path: verification/
+          retention-days: 90
+  release:
+    # a tag such as edition-1.1 publishes the verification results with the release
+    if: startsWith(github.ref, 'refs/tags/edition-')
+    needs: [references, check]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: verification-${{ github.sha }}
+          path: verification
+      - name: Attach the results to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ github.ref_name }}" --repo "${{ github.repository }}" --verify-tag \
+            --title "${{ github.ref_name }}" --notes "Code and verification results for this printing of the book. See CHANGELOG.md." \
+            verification/* || gh release upload "${{ github.ref_name }}" --repo "${{ github.repository }}" verification/* --clobber

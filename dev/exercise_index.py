@@ -131,10 +131,33 @@ def write_index(res, files):
     (KIT / "EXERCISE_INDEX.md").write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
 
 
+def offline_summary():
+    """Section A: the deterministic suite, from verification/offline.json (python dev/verify.py)."""
+    f = KIT / "verification/offline.json"
+    if not f.exists():
+        return ["### A. Deterministic checks (no model)", "",
+                "Not run yet on this commit: `python dev/verify.py run`, or see the CI artifacts.", ""]
+    r = json.loads(f.read_text(encoding="utf-8"))
+    p, t = r["provenance"], r["totals"]
+    skips = "; ".join(f"{n} {why}" for why, n in r["skipped_reasons"].items()) or "none"
+    return ["### A. Deterministic checks (no model)", "",
+            "Every reference solution, capstone and exercise command, run against a scripted stand-in "
+            "model: no API key, no model provider, so the same commit gives the same result anywhere.", "",
+            "| Passed | Failed | Errors | Skipped (not applicable here) | Tests |",
+            "| ---: | ---: | ---: | ---: | ---: |",
+            f"| {t['passed']} | {t['failed']} | {t['error']} | {t['skipped']} | {t['tests']} |", "",
+            f"Commit `{p['commit'][:12]}`; `requirements.lock` sha256 `{p['requirements_lock_sha256'][:12]}`; "
+            f"{p['environment']}; {p['date_utc'][:10]}. Skipped: {skips}. "
+            "Details: [verification/README.md](verification/README.md), "
+            "[verification/offline.json](verification/offline.json).", ""]
+
+
 def results_table(res):
     rows, total = [], tally([])
     for key, title, exercises in chapters():
-        t = tally([res.get(e["id"]) for e in exercises])
+        # a written answer has nothing to run, whether or not a run has been recorded
+        t = tally([res.get(e["id"]) or ({"status": "skipped", "reason": "concept"} if e["kind"] == "concept" else None)
+                   for e in exercises])
         rows.append((title, len(exercises), t))
     caps = tally([res.get(k) for k in CAPSTONES])
     rows.append(("Capstone projects C1–C6", len(CAPSTONES), caps))
@@ -144,31 +167,36 @@ def results_table(res):
     ran = total["passed"] + total["failed"]
     dates = sorted(json.loads(p.read_text(encoding="utf-8")).get("date", "")
                    for p in OUTPUTS.glob("*/summary.json"))
+    models = sorted({short_model(x.get("model")) for x in res.values() if short_model(x.get("model"))})
+    commits = sorted({x["commit"] for x in res.values() if x.get("commit")})
     fails = [f"**{i}** ({x['title']}: {x.get('reason')})" for i, x in res.items()
              if x["status"] == "failed"]
-    out = [BEGIN,
-           f"Latest verification: every exercise run with its reference solution by "
-           f"`run-chapter` (runs from {dates[0][:10]} to {dates[-1][:10]}). "
+    out = [BEGIN, *offline_summary(),
+           "### B. Exercises run with a real model", "",
+           f"Every exercise run with its reference solution by `run-chapter` "
+           f"(runs from {dates[0][:10]} to {dates[-1][:10]}; models: {', '.join(f'`{m}`' for m in models)}). "
            f"**{total['passed']} of {ran} runnable exercises passed "
-           f"({100 * total['passed'] / max(ran, 1):.1f}%)**; {total['written']} are written "
-           f"answers and {total['skipped']} can't run unattended. Most ran on the free local "
-           f"model `qwen3.5:9b`; the Claude-only exercises ran on `claude-sonnet-5`. "
-           f"Per-exercise results: [EXERCISE_INDEX.md](EXERCISE_INDEX.md).", "",
+           f"({100 * total['passed'] / max(ran, 1):.1f}%)**. A real model's answers vary from run to "
+           f"run, so these show that each exercise works end to end, not that it always will. "
+           + (f"Commits: {', '.join(f'`{c}`' for c in commits)}. " if commits else
+              "Runs before October 2026 didn't record the commit; newer runs do (`provenance` in each summary.json). ")
+           + "Per-exercise results and logs: [EXERCISE_INDEX.md](EXERCISE_INDEX.md), `solutions/outputs/`.", "",
            f"How the totals count: the book has **{len(EX)} exercises**; the table adds the "
            f"{len(CAPSTONES)} capstones, so it has {len(EX) + len(CAPSTONES)} rows of work. "
            f"Every count here, in EXERCISE_INDEX.md and in the book is computed from "
-           f"`course/exercises.json`.", "",
-           "| Chapter | Exercises | ✔ Passed | ✘ Failed | Written answer | Skipped | Pass rate |",
-           "| --- | ---: | ---: | ---: | ---: | ---: | ---: |"]
+           f"`course/exercises.json`. *Written answer* exercises have nothing to run; *needs a person* "
+           f"means a person at the keyboard, the Claude Desktop app, a GitHub token or a file the "
+           f"reader creates; *not run yet* means no run has been recorded for this version.", "",
+           "| Chapter | Exercises | ✔ Passed | ✘ Failed | Written answer | Needs a person | Not run yet | Pass rate |",
+           "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |"]
     for title, n, t in rows:
         r = t["passed"] + t["failed"]
         rate = f"{100 * t['passed'] / r:.0f}%" if r else "—"
         out.append(f"| {title} | {n} | {t['passed']} | {t['failed']} | {t['written']} | "
-                   f"{t['skipped'] + t['not run']} | {rate} |")
+                   f"{t['skipped']} | {t['not run']} | {rate} |")
     out.append(f"| **Total** | **{sum(n for _, n, _ in rows)}** | **{total['passed']}** | "
-               f"**{total['failed']}** | **{total['written']}** | "
-               f"**{total['skipped'] + total['not run']}** | "
-               f"**{100 * total['passed'] / max(ran, 1):.1f}%** |")
+               f"**{total['failed']}** | **{total['written']}** | **{total['skipped']}** | "
+               f"**{total['not run']}** | **{100 * total['passed'] / max(ran, 1):.1f}%** |")
     if fails:
         out += ["", "Failed: " + "; ".join(fails) + "."]
     out.append(END)

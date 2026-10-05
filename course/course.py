@@ -16,7 +16,7 @@ import textwrap
 import time
 from pathlib import Path
 
-COURSE = Path("/opt/course")
+COURSE = Path(os.environ.get("COURSE_HOME", "/opt/course"))   # the image path; tests may point elsewhere
 PRISTINE = COURSE / "code"
 WS = Path(os.environ.get("COURSE_WORKSPACE", "/workspace"))
 EXERCISES = json.loads((COURSE / "exercises.json").read_text())
@@ -1153,6 +1153,27 @@ def _write_log(path, e_id, title, cmd, model, code, secs, body):
         f"# Date:     {stamp}\n# Exit code: {code}\n# Seconds:  {secs:.1f}\n"
         + "#" + "-" * 79 + "\n" + body.rstrip() + "\n", errors="replace")
 
+def _provenance(model_label):
+    """What produced a result: the code (commit), the environment (Python, packages) and the
+    model. Written into every run-chapter summary so a result can be reproduced or explained."""
+    import hashlib
+    import platform
+    from importlib import metadata
+    pkgs = sorted(f"{d.metadata['Name'].lower()}=={d.version}" for d in metadata.distributions()
+                  if d.metadata["Name"])
+    ver = dict(p.split("==", 1) for p in pkgs)
+    local = os.environ.get("PROVIDER") == "local"
+    return {"commit": os.environ.get("COURSE_COMMIT") or "not recorded (run outside course.sh)",
+            "python": platform.python_version(),
+            "packages_sha256": hashlib.sha256("\n".join(pkgs).encode()).hexdigest()[:16],
+            "packages": {k: ver.get(k) for k in ("anthropic", "mcp", "claude-agent-sdk",
+                                                 "langchain", "httpx", "pytest")},
+            "provider": "local" if local else "claude",
+            "model_id": os.environ.get("LOCAL_MODEL", "qwen3.5:9b") if local
+                        else os.environ.get("MODEL", "claude-sonnet-5"),
+            "model_label": model_label}
+
+
 def _refresh_outputs_index(out):
     """Rewrite <outputs>/README.md: a table of every chapter that has a summary.json."""
     order = {_chapter_dir(k): i for i, k in enumerate(_chapter_keys())}
@@ -1305,6 +1326,7 @@ def cmd_run_chapter(args):
                    COURSE_DATA=str(COURSE / "data"),
                    COURSE_EXERCISES=str(COURSE / "exercises.json"),
                    PYTHONPATH=f"{tmp}:{SOLUTIONS / 'exercises'}:{SOLUTIONS / 'capstones'}")
+        run_provenance = _provenance(label)
         for k in chosen:
             folder = out_root / _chapter_dir(k)
             folder.mkdir(parents=True, exist_ok=True)
@@ -1364,6 +1386,7 @@ def cmd_run_chapter(args):
                     say(_c("2", f"-  {e['id']:<5} skipped: needs your own file (see its log)"))
                     entries.append(entry)
                     continue
+                entry["commit"] = run_provenance["commit"]
                 entry.update(status="passed" if passed else "failed", seconds=round(secs, 1),
                              log=f"{folder.name}/{log.name}",
                              reason=None if passed else
@@ -1387,7 +1410,8 @@ def cmd_run_chapter(args):
                 chapter_model = models.pop() if len(models) == 1 else "mixed: see each exercise"
             summary.write_text(json.dumps({
                 "chapter": k, "title": items[0]["chapter"], "model": chapter_model,
-                "date": time.strftime("%Y-%m-%d %H:%M"), "exercises": entries}, indent=1) + "\n")
+                "date": time.strftime("%Y-%m-%d %H:%M"), "provenance": run_provenance,
+                "exercises": entries}, indent=1) + "\n")
             _refresh_outputs_index(out_root)
     say(f"\n{totals['passed']} passed, {totals['failed']} failed, {totals['skipped']} skipped "
         f"(including written answers). Logs: {_outputs_label(out_root)}/  (index: README.md)")
