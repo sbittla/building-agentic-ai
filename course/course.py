@@ -720,6 +720,11 @@ def cmd_check(args):
         say(_c("2", "\nAdd --api to also make one tiny test call to the model."))
     return 1 if bad else 0
 
+def cmd_quickstart(args):
+    """Your first agent with a scripted stand-in model: no API key, no download."""
+    os.chdir(WS)
+    return subprocess.call([sys.executable, "quickstart.py"], env=env_for_runs())
+
 def cmd_selftest(args):
     return subprocess.call([sys.executable, str(COURSE / "selftest" / "selftest.py")])
 
@@ -1491,6 +1496,7 @@ def cmd_local_status(args):
 HELP = """Building Agentic AI Systems: course commands (run them from the kit folder on your computer)
 
   ./course.sh setup                  first-time setup: Docker check, .env, your API key
+  ./course.sh quickstart             your first agent, free: no API key, no download
   ./course.sh list [chapter]         list exercises, e.g.  list 4  or  list P
   ./course.sh ex <id>                show and run an exercise, e.g.  ex 4.2  or  ex T.2
   ./course.sh ex <id> --info         just show the exercise
@@ -1538,6 +1544,7 @@ COMMANDS = {
     "inspector": cmd_inspector, "serve": cmd_serve, "serve-api": cmd_serve_api,
     "serve-mcp": cmd_serve_mcp, "serve-a2a": cmd_serve_a2a, "desktop-config": cmd_desktop_config,
     "data": cmd_data, "reset": cmd_reset, "check": cmd_check, "selftest": cmd_selftest,
+    "quickstart": cmd_quickstart,
     "sandbox-worker": cmd_sandbox_worker, "solution": cmd_solution,
     "check-solutions": cmd_verify_solutions, "live-check": cmd_live_check, "capstone": cmd_capstone, "verify-solutions": cmd_verify_solutions,
     "local-adapter": lambda a: cmd_local_adapter(a), "local-pull": lambda a: cmd_local_pull(a),
@@ -1556,8 +1563,9 @@ def main(argv):
         os.environ["PROVIDER"] = _run_model(args)      # (default: the free local model)
     if cmd not in ("sandbox-worker", "selftest", "verify-solutions", "check-solutions", "solution",
                    "local-adapter", "local-pull", "local-status"):
-        init()
-        apply_provider()
+        init(quiet=cmd == "quickstart")
+        if cmd != "quickstart":                 # needs no model, so no provider check
+            apply_provider()
     if cmd in COMMANDS:
         if cmd in ("run-chapter", "live-check", "solution", "capstone",
                    "check-solutions", "verify-solutions"):

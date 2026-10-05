@@ -120,6 +120,20 @@ Table: Exercises by the model they need
 | **Claude recommended** | Runs on `qwen3.5:9b`, but the result is much better with Claude | {{exercises:claude-rec}} |
 | **Claude only** | Uses a feature that only runs on Anthropic's servers, or the Claude Desktop app | {{exercises:claude-only}} |
 
+## What your computer needs
+
+Table: What your computer needs, by model
+| | Claude | Free local model |
+| --- | --- | --- |
+| Software | Docker Desktop (Windows, macOS) or Docker Engine with Compose (Linux) | The same |
+| Memory (RAM) | 16 GB recommended | 16 GB minimum, 32 GB recommended |
+| Disk | About 15 GB for the image and data | About 25 GB: the image, data and the 6.6 GB model |
+| Graphics card | Not needed | Optional: an NVIDIA GPU with 8 GB or more makes it fast |
+| Network | To build the image once, then to reach the Claude API | To build the image and download the model once; then none |
+| Money | An API key with a few dollars of credit; about $35–75 for the whole book | Nothing |
+
+You can start with no model at all: the quick start below, the offline self-test and the 100-plus exercises marked *No model* need neither a key nor the download.
+
 ## Setup (do this once)
 
 Everything in this book runs inside one Docker image, a packaged, ready-to-run environment: Python, Node.js, the MCP SDK, the reference MCP servers, MCP Inspector, sample data and all the chapter code. The only thing you install on your computer is **Docker**, so everyone gets exactly the same working environment.
@@ -151,6 +165,51 @@ If you chose the free local model, run `./course.sh local up` before `check --ap
 
 The first command also creates a **workspace** folder next to the scripts, with all the chapter code and sample data. Edit files there with any editor on your computer. The container (the running copy of the image) sees your changes immediately, and nothing you write is ever overwritten.
 
+## Your first agent, free
+
+Before you choose a model, see an agent work. Once the image is built, run:
+
+```bash
+./course.sh quickstart
+```
+
+It runs the real agent loop from Chapter 4 with the real date tools from Chapter 3. Only the model is replaced, by a scripted stand-in, so it needs no key and no download. You should see something like this (with today's date):
+
+```
+Question: How many days until July 4 next, and what weekday will it be?
+
+[step 1] get_current_date({}) -> '2026-10-05 (Monday)'  (0 ms)
+[step 2] days_between({"start": "2026-10-05", "end": "2027-07-04"}) -> '272 days; 2027-07-04 is a Sunday'  (0 ms)
+
+ANSWER: It's 272 days until July 4; 2027-07-04 is a Sunday.
+```
+
+That's an agent: the model asked for a tool, your code ran it, the result went back, and the loop repeated until the model answered. Chapter 1 explains the parts and Chapter 4 builds the loop. To see a real model make the same choices on its own, choose one in "Choose your model" below, then run `./course.sh python ch04_agent.py`.
+
+:::tip If the first commands fail
+- **"Docker is not running"**: start Docker Desktop and wait until it says it's running.
+- **The build stops at `ghcr.io/github/github-mcp-server`**: your network blocks that registry. Add `GITHUB_MCP_IMAGE=nogithub` to `.env` and build again; only exercises 14.3 and 14.4 and Capstone 4 need it.
+- **`check --api` shows `AuthenticationError`**: the key in `.env` is missing or mistyped. Run `./course.sh setup` again.
+- **"Can't reach the local model"**: start it with `./course.sh local up`, and check with `./course.sh local status`.
+
+Appendix B has the full list, and a step-by-step playbook for when an agent runs but does the wrong thing.
+:::
+
+## From first agent to production
+
+The book is long, but the route is one line. Each milestone ends with something that runs, and a command that shows it works:
+
+Table: Five milestones from a first agent to production
+| Milestone | Chapters | You'll have | Check it with |
+| --- | --- | --- | --- |
+| 1. A first agent | 0–4 | A model, tools and the loop, with stop conditions | `./course.sh python ch04_agent.py` |
+| 2. A useful, safe agent | 5–9 | State, files, a real API, a database and approval gates | `./course.sh ex 9.3` |
+| 3. Tools anyone can use | 12–14 | Your tools as MCP servers, your own MCP host, a policy layer | `./course.sh python ch13_mcp_agent.py servers.json` |
+| 4. Measured | The measurement interlude, 27 | An evaluation suite with repeated trials and a release gate | `./course.sh python ch27_eval.py eval_sql.jsonl 3` |
+| 5. Deployed | 28–30 | Traces and SLOs, a cost and capacity model, a service | `./course.sh serve-api` |
+
+The other chapters deepen each milestone: context, memory and retrieval (Part 6), long-running work, planning and teams (Part 7), and security and identity (Part 8).
+
 ## Running exercises
 
 Every exercise has a **Run** line with the command that starts it. For example:
@@ -177,6 +236,8 @@ Table: Claude or the free local model
 | Quality | Best: agents rarely pick the wrong tool | Good for learning; makes more mistakes from Chapter 8 on |
 | Runs | Every exercise | All except the {{exercises:claude-only}} marked **Claude only** |
 | Turn on | `PROVIDER=claude` in `.env` (or no `PROVIDER` line) | `./course.sh local up`, then `PROVIDER=local` in `.env` |
+
+**Why your results may differ from the book's.** A model's answers vary from run to run, and two models differ more. The sample outputs in the chapters show one run of one model; on the local model, expect different wording, more steps, and more mistakes in tool choice and self-correction, especially from Chapter 8 on, plus slower answers on a CPU. The concepts and the code are the same, and every exercise's *Done when* line describes behavior (the right tool, a refused action, a correct number), not exact text. If a local-model run goes wrong, run it again, then compare with the same exercise on Claude: when one model fails where another succeeds, you've learned something about the model, not about your code. Appendix H lists what the local model does differently, and which exercises need Claude.
 
 A good plan on a tight budget: do the book on the local model, and add a small Claude credit (a few dollars) for the {{exercises-word:claude-only}} **Claude only** exercises and the {{exercises-word:claude-rec}} marked **Claude recommended**. Appendix H has the full local-model guide: hardware, GPUs, Macs, speed tips and exactly what the kit adapts for you. The kit's repository has the same guide as `LOCAL_MODEL.md`, kept up to date.
 
