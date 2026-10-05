@@ -56,7 +56,7 @@ const para = (text, opts = {}) => new Paragraph({ children: inline(text, opts.ru
 // ---------- captions: "Table 4.2 Title", "Figure 4.1 Caption", "Listing 4.3 file.py" ----------
 // The number is a Word SEQ field (reset at each chapter's first item), with the number the build
 // computed as its cached result, so the printed book is right and Word can still update it.
-// A caption is bookmarked and recorded in HEADINGS (cap: kind) for the List of Figures and Tables.
+// A caption is bookmarked and recorded in HEADINGS (cap: kind) (captions get page numbers like headings; the book no longer prints separate lists of them).
 function captionRuns(kind, num) {
   if (!num) return [];
   const [prefix, k] = [num.slice(0, num.lastIndexOf(".")), num.slice(num.lastIndexOf(".") + 1)];
@@ -233,6 +233,28 @@ function tocEntries() {
       children: [new InternalHyperlink({ anchor: id, children: [
         new TextRun({ text, bold: st.bold, size: st.size, color: st.color, font: st.font }),
         new TextRun({ text: `\t${TOC_PAGES[id] ?? "000"}`, bold: st.bold, size: st.size, font: st.font }),
+      ] })],
+    });
+  });
+}
+
+// "Contents at a Glance": parts, chapters and the front and back matter, on about two pages
+function briefEntries() {
+  const firstPart = HEADINGS.findIndex(h => h.level === 0);
+  let inBack = false;
+  return HEADINGS.filter(h => !h.noToc && !h.cap && h.level <= 1).map(h => {
+    const { id, level, text } = h;
+    const part = level === 0;
+    const inPart = part || /^(Chapter \d+|Interlude):/.test(text);   // front and back matter stand on their own
+    const firstBack = !inPart && !inBack && HEADINGS.indexOf(h) > firstPart && (inBack = true);
+    return new Paragraph({
+      tabStops: [{ type: TabStopType.RIGHT, position: CONTENT_W, leader: part ? "none" : "dot" }],
+      indent: { left: part || !inPart ? 0 : 300 },
+      spacing: { before: part || firstBack ? 160 : 0, after: part ? 40 : 20, line: 252 },
+      keepNext: part,
+      children: [new InternalHyperlink({ anchor: id, children: [
+        new TextRun({ text, bold: part, size: part ? 20 : 19, color: part ? ACCENT : "262626", font: part ? HFONT : undefined }),
+        new TextRun({ text: `\t${TOC_PAGES[id] ?? "000"}`, bold: part, size: part ? 20 : 19, font: part ? HFONT : undefined }),
       ] })],
     });
   });
@@ -598,8 +620,8 @@ const PARTS = [
 ];
 const PART_EXISTS = f => fs.existsSync(path.join(ROOT, "md", f));
 for (const p of PARTS) p.files = p.files.filter(PART_EXISTS);   // chapters are added part by part
-const FRONT = ["fm_preface.md", "fm_acknowledgments.md", "fm_author.md", "00_front.md"];
-const BACK = ["89_case_study.md", "90_capstones.md", "90z_afterword.md", "91_appendix.md"];
+const FRONT = ["fm_preface.md", "00_front.md"];
+const BACK = ["89_case_study.md", "90_capstones.md", "90z_afterword.md", "fm_acknowledgments.md", "91_appendix.md", "fm_author.md"];
 const readRaw = f => fs.readFileSync(path.join(ROOT, "md", f), "utf8");
 // "{{exercises:none}}" and friends: counted from the manuscript and model_needs.json, so they never go stale.
 // Kinds: all, none, any, claude-rec, claude-only; "{{exercises-word:claude-only}}" spells the number out.
@@ -726,8 +748,8 @@ addSection([new Paragraph({ spacing: { before: 3600 }, alignment: AlignmentType.
             ...read("fm_dedication.md").split("\n").filter(l => l.trim() && !l.startsWith("#"))
               .map(l => new Paragraph({ alignment: AlignmentType.CENTER, children: inline(l, { italics: true }) }))], empty());
 const tocIndex = sections.length;
-sections.push(null);                                   // Contents, filled in after the body is converted
-sections.push(null);                                   // List of Figures and Tables, filled in at the end
+sections.push(null);                                   // Contents at a Glance, filled in after the body is converted
+sections.push(null);                                   // Contents, likewise
 for (const f of FRONT) addSection(convert(md(f), f), running(h1(f)));
 
 // main matter (arabic numerals from Part 0)
@@ -750,23 +772,11 @@ const contentsChildren = [
   ...tocEntries(),
 ];
 NUMFMT = NumberFormat.LOWER_ROMAN;
-sections[tocIndex] = { properties: pageProps(), ...running("Contents"), children: contentsChildren };
-// List of Figures and List of Tables: one entry per numbered caption, page numbers as in the Contents
-function captionList(kind, heading) {
-  const entries = HEADINGS.filter(h => h.cap === kind);
-  return [
-    new Paragraph({ spacing: { before: 900, after: 360 }, pageBreakBefore: kind === "Table",
-                    children: [new TextRun({ text: heading, font: HFONT, size: 44, bold: true, color: ACCENT })] }),
-    ...entries.map(({ id, text }) => new Paragraph({
-      tabStops: [{ type: TabStopType.RIGHT, position: CONTENT_W, leader: "dot" }],
-      indent: { left: 1100, hanging: 1100 }, spacing: { after: 30, line: 240 },
-      children: [new InternalHyperlink({ anchor: id, children: [
-        new TextRun({ text: text.replace(/^(\S+ \S+)\s+/, "$1\t"), size: 17 }),
-        new TextRun({ text: `\t${TOC_PAGES[id] ?? "000"}`, size: 17 })] })] })),
-  ];
-}
-sections[tocIndex + 1] = { properties: pageProps(), ...running("List of Figures and Tables"),
-                           children: [...captionList("Figure", "List of Figures"), ...captionList("Table", "List of Tables")] };
+sections[tocIndex] = { properties: pageProps(), ...running("Contents at a Glance"), children: [
+  new Paragraph({ spacing: { before: 900, after: 360 }, children: [new TextRun({ text: "Contents at a Glance", font: HFONT, size: 44, bold: true, color: ACCENT })] }),
+  ...briefEntries(),
+] };
+sections[tocIndex + 1] = { properties: pageProps(), ...running("Contents"), children: contentsChildren };
 
 const monoFont = fs.readFileSync("/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf");
 const doc = new Document({

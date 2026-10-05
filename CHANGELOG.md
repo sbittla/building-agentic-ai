@@ -10,7 +10,8 @@ What changed in the book and this repository, newest first. Each book printing i
 - **Section 3.6** (tool search) no longer imports code from later chapters.
 - **Continuity:** "The support agent so far" in 21 chapters; a prompt-injection caution in Chapter 6; back-links where topics return; "routing" and "memory" disambiguated.
 - **Signposts:** prerequisites, Architect's Takeaways and reading paths corrected; exercise counts are computed from `course/exercises.json`.
-- **Captions:** every table, figure and listing in the chapters and interludes is numbered; Lists of Figures and Tables after the Contents; alt text for every figure.
+- **Captions:** every table, figure and listing in the chapters and interludes is numbered, with alt text for every figure.
+- **Opening pages:** a two-page Contents at a Glance before the full Contents; Acknowledgments and About the Author moved to the back; "How to Use This Book" reordered so who it's for, what you'll build and the reading paths come first, then setup and your first agent.
 - **Security regression scenarios (section 25.10):** fifteen attacks, each with the control that stops it, a deterministic test, its result and the residual risk; which defenses are deterministic and which depend on the model.
 - **Benchmark (section 29.8, exercise 29.7):** workflow vs agent vs multi-agent, sequential vs parallel tools, small vs large model and context, concurrency and failures, with p50/p95/p99, throughput, success, tokens and cost per success. The published run is reproducible from its seed.
 - **Case Study: The Support Agent in Production**, before the capstones: requirements, threat model, design per request type, evaluation data, test findings, load test, deployment, an incident and its rollback.

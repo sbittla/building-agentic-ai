@@ -33,7 +33,7 @@ Each printing of the book is matched by a tag, so you can always get the exact c
 | First printing, September 2026 | 231 | `edition-1.0` | `git checkout edition-1.0` |
 | Corrected printing, October 2026 | 237 | `edition-1.1` | `git checkout edition-1.1` |
 
-Not sure which printing you have? The copyright page says, and the corrected printing has a List of Figures after the Contents.
+Not sure which printing you have? The copyright page says, and the corrected printing opens with a two-page Contents at a Glance.
 
 ## 1. One-time setup (about 20 minutes)
 
