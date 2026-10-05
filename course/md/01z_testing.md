@@ -29,6 +29,7 @@ Run them with `./course.sh pytest -q test_i_pricing.py`. A dot means a test pass
 
 ## T.2 The five patterns you'll use
 
+Table: The five pytest patterns
 | Pattern | Use it when | In the file |
 | --- | --- | --- |
 | Plain `assert` | Checking one input and output | `test_ten_percent_off` |

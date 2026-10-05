@@ -8,6 +8,7 @@ Every exercise runs in the course kit's Docker image. You type commands on your 
 
 ### What's in the kit
 
+Table: Files and folders in the kit
 | File or folder | Purpose |
 | --- | --- |
 | `Dockerfile` | Builds the image: Ubuntu 24.04, Python 3.12, Node.js 24, the MCP SDK, MCP Inspector, the reference servers, GitHub's server, and for the later parts the Claude Agent SDK, LangChain, FastAPI and a small embedding model |
@@ -20,6 +21,7 @@ Every exercise runs in the course kit's Docker image. You type commands on your 
 
 ### Commands
 
+Table: Course kit commands
 | Command | What it does |
 | --- | --- |
 | `./course.sh setup` | First-time setup: checks Docker, creates `.env`, asks which model you want (and your API key for Claude), generates the Chapter 30 secrets |
@@ -54,6 +56,7 @@ Every exercise runs in the course kit's Docker image. You type commands on your 
 
 ### How the ex command runs each kind of exercise
 
+Table: How `ex` runs each kind of exercise
 | Exercise kind | First run | Later runs |
 | --- | --- | --- |
 | Concept | Creates `answers/exN_M.md` with the question | Reminds you where your answer file is |
@@ -75,6 +78,7 @@ Every exercise runs in the course kit's Docker image. You type commands on your 
 
 The first table covers setup and error messages. After it, a debugging playbook covers the harder case: the agent runs, but does the wrong thing.
 
+Table: Common errors and how to fix them
 | Symptom | Likely cause | Fix |
 | --- | --- | --- |
 | `AuthenticationError` or 401 | API key not set in this shell | Export `ANTHROPIC_API_KEY` again, or load `.env` |
@@ -112,6 +116,7 @@ Most agent bugs aren't crashes: the agent runs, then does the wrong thing. Work 
 6. **Shrink the context.** A long conversation or a large system prompt can bury what matters. Try the question in a fresh conversation; if it works, you have a context problem (Chapter 16).
 7. **Turn the bug into a test case.** Add the failing question to your evaluation suite with the answer you expect (Chapter 27), fix it, and run the whole suite. Run it several times: a fix that works once may not work reliably.
 
+Table: Symptoms and where to look first
 | Symptom | First place to look |
 | --- | --- |
 | Answers without calling a tool it should use | The tool description (section 3.2); a "no tool" eval case (section 3.4) |
@@ -125,6 +130,7 @@ Most agent bugs aren't crashes: the agent runs, then does the wrong thing. Work 
 
 ## Appendix C: Glossary
 
+Table: Glossary
 | Term | Meaning |
 | --- | --- |
 | A2A (Agent2Agent) | An open protocol for independent agents to find each other (through agent cards) and hand off tasks; complements MCP (section 21.7) |
@@ -262,6 +268,7 @@ Most agent bugs aren't crashes: the agent runs, then does the wrong thing. Work 
 
 Costs depend on the model, how often you rerun exercises, and how long your conversations get. These estimates assume Claude Sonnet 5 at $2 per million input tokens and $10 per million output tokens (2026 prices), a typical exercise run of 3–6 model calls, and a few reruns while debugging. Check current prices on the provider's pricing page.
 
+Table: Estimated cost by part
 | Part | Estimated cost | Biggest items |
 | --- | --- | --- |
 | 0. Foundations | Under $0.10 | Exercise 0.6 and `check --api` only |
@@ -294,6 +301,7 @@ Every agent in this book reports its input and output tokens, so you can apply t
 
 The `solutions` folder sits next to `course.sh`. Inside the container it's mounted read-only at `/solutions`, so you can read and run it but never change it by accident.
 
+Table: What's in the solutions folder
 | Path | What it holds |
 | --- | --- |
 | `exercises/ch<NN>/`, `exercises/interlude_*/` | One folder per chapter or interlude, with the programs that solve its exercises, such as `ch04/ex4_4_tracer.py` |
@@ -327,6 +335,7 @@ Nobody learns this field from one book. This appendix lists where to get help wh
 
 Before asking, search the exact error message, and include your code, the full error and what you expected. Never paste your API key or `.env` file into a question.
 
+Table: Where to ask for help
 | Resource | What you'll find | Level |
 | --- | --- | --- |
 | **Anthropic Discord**<br>[discord.com/invite/anthropic](https://discord.com/invite/anthropic) | Ask questions about Claude and the API; developers and Anthropic staff | Start here |
@@ -340,6 +349,7 @@ Before asking, search the exact error message, and include your code, the full e
 
 ### Free courses that pair well with this book
 
+Table: Free courses
 | Resource | What you'll find | Level |
 | --- | --- | --- |
 | **Anthropic Academy**<br>[anthropic.skilljar.com](https://anthropic.skilljar.com) | Free courses: Claude API, MCP, Claude Code, agent skills | Start here |
@@ -353,6 +363,7 @@ Before asking, search the exact error message, and include your code, the full e
 
 Model names, prices and SDK features change every few months. These pages are where changes appear first.
 
+Table: Where changes appear first
 | Resource | What you'll find | Level |
 | --- | --- | --- |
 | **Claude Platform release notes**<br>[platform.claude.com/docs/en/release-notes/overview](https://platform.claude.com/docs/en/release-notes/overview) | New models, API features and deprecations, as they ship | Start here |
@@ -364,6 +375,7 @@ Model names, prices and SDK features change every few months. These pages are wh
 
 ### Every link in this book, by chapter
 
+Table: Every link in this book, by chapter
 @@all-links-table
 
 ## Appendix H: Run the Book Free with a Local Model
@@ -380,6 +392,7 @@ You don't have to pay for API calls to learn from this book. The course kit can 
 
 ### What you need
 
+Table: Hardware for the local model
 | | Minimum | Recommended |
 | --- | --- | --- |
 | Memory (RAM) | 16 GB | 32 GB |
@@ -418,6 +431,7 @@ That's all. Every `./course.sh` command now uses the local model: exercises, cha
 
 One line in `.env` decides which model every command uses:
 
+Table: Choosing the model in `.env`
 | `.env` line | Model |
 | --- | --- |
 | `PROVIDER=claude`, or no `PROVIDER` line | Claude, through the Claude API, with your `ANTHROPIC_API_KEY` |
@@ -425,6 +439,7 @@ One line in `.env` decides which model every command uses:
 
 You can switch as often as you like, for example to run one **Claude only** exercise. `./course.sh check` shows which one is active. Other settings you can add to `.env`:
 
+Table: Local-model settings
 | Setting | Default | What it does |
 | --- | --- | --- |
 | `LOCAL_MODEL` | `qwen3.5:9b` | The local model to use. The book is tested with this one. |
@@ -436,6 +451,7 @@ You can switch as often as you like, for example to run one **Claude only** exer
 
 Ollama speaks the same Messages API as Claude for everything the chapters use most: messages, system prompts, tools, tool results, streaming and thinking. A few Claude features have no local equivalent, so the kit runs a small **adapter** (`course/local_adapter.py`) between the book's code and Ollama. It fills the gaps so your code doesn't have to change:
 
+Table: What the local-model adapter does
 | Claude feature | Chapters | What the adapter does |
 | --- | --- | --- |
 | Forcing a tool (`tool_choice`) | 3, 11, capstones 3, 5 and 6 | Tells the model to call the tool, and asks again (up to twice) if it answers in text instead |
@@ -452,6 +468,7 @@ The local model is a capable learning partner, but it isn't Claude. It picks the
 
 Speed depends mostly on your hardware:
 
+Table: Local-model speed by hardware
 | Setup | A short answer | A typical agent exercise (3–6 model calls) |
 | --- | --- | --- |
 | NVIDIA GPU with 8 GB or more | 1–3 seconds | 10–40 seconds |
@@ -462,6 +479,7 @@ The first call after `local up` takes longer while the model loads. To speed up 
 
 ### When something goes wrong
 
+Table: Local-model problems and fixes
 | Symptom | Fix |
 | --- | --- |
 | "Can't reach the local model" | Start it: `./course.sh local up`. Check with `./course.sh local status`. |
@@ -477,11 +495,13 @@ The first call after `local up` takes longer while the model loads. To speed up 
 
 Every exercise box shows one of four labels. Of the book's {{exercises:all}} exercises, {{exercises:none}} need **no model**, {{exercises:any}} run on **qwen3.5:9b or Claude**, {{exercises:claude-rec}} are **Claude recommended** and {{exercises:claude-only}} are **Claude only**. `./course.sh list` shows the labels too, and `./course.sh ex <id>` warns you before running a Claude-only exercise on the local model.
 
+Table: Exercises by chapter and the model they need
 @@exercise-model-table
 | Capstones 1–6 | — | All six | 4 and 6 (recommended) |
 
 The exercises that need, or work much better with, Claude:
 
+Table: Exercises that need, or work much better with, Claude
 | Exercise | Label | Why |
 | --- | --- | --- |
 | 3.7 Tool search at scale | Claude only | Tool search runs on Anthropic's servers. |
@@ -514,6 +534,7 @@ The book's frameworks on a few pages, for design reviews and on-call. Each card 
 
 ### Card 1: Do you need an agent? (section 1.3)
 
+Table: Options and when to choose each
 | Option | Choose it when |
 | --- | --- |
 | Function | The rules are exact and known |
@@ -536,6 +557,7 @@ User / API → agent runtime (planning, memory, context, tools, policies) → mo
 
 ### Card 4: MCP, A2A, API or workflow? (section 21.8)
 
+Table: What to use for each need
 | You need to... | Use |
 | --- | --- |
 | Connect a model to a tool or to data | A tool; an MCP server to share it |
@@ -552,6 +574,7 @@ User / API → agent runtime (planning, memory, context, tools, policies) → mo
 
 For each class: how you detect it, how you mitigate it and how you evaluate the fix.
 
+Table: Failure classes and where to look first
 | Failure | First place to look |
 | --- | --- |
 | 1. Wrong tool | Tool descriptions (Chapter 3); trajectory checks (Chapter 27) |
@@ -583,6 +606,7 @@ Measure under load: throughput and goodput, p50/p95/p99, tokens per request, cac
 
 ### Card 9: Durable concepts and fast-changing details
 
+Table: Durable concepts and fast-changing details
 | Durable concepts (this book's core) | Fast-changing details (marked **API-dependent**) |
 | --- | --- |
 | The agent loop, state, tools, context | Model names and prices |
@@ -594,6 +618,7 @@ Sections whose details change quickly carry an **API-dependent** note under thei
 
 ### Card 10: Kinds of agents (section 1.9)
 
+Table: Kinds of agents and the risk to control first
 | Kind | Main risk to control first |
 | --- | --- |
 | Assistant with tools | Wrong tool or invented answer (Chapters 2–4) |
@@ -612,6 +637,7 @@ Real systems combine kinds; name the kind of each part to find the controls it n
 
 Decide → design → build → evaluate → release → operate → improve, and back to build; retire when the agent is no longer needed.
 
+Table: Lifecycle stages and when to move on
 | Stage | Before you move on |
 | --- | --- |
 | Decide | You can say why a simpler option won't do |
@@ -626,6 +652,7 @@ Decide → design → build → evaluate → release → operate → improve, an
 
 This book's code uses the Claude API, plus a free local model through Ollama (Appendix H). Every concept carries over to other providers and to open-source stacks; only the names change. Use this table to find each concept elsewhere. It was checked in September 2026, and the names in it are the most perishable facts in the book: confirm them in each provider's current documentation before you rely on them.
 
+Table: The same concepts on other platforms
 | Concept | Claude API (this book) | OpenAI API | Google Gemini API | Open source |
 | --- | --- | --- | --- | --- |
 | Tool calling (Chapter 2) | `tools` with `input_schema`; `tool_use` and `tool_result` blocks | Function calling: `function_call` and `function_call_output` items (Responses API) | Function calling | Tool calling in Ollama and vLLM, through OpenAI-compatible APIs |

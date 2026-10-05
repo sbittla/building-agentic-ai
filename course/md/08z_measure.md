@@ -57,6 +57,7 @@ B really is better, but with one run per case the two versions tie, and with thr
 
 ## M.2 Reading the results
 
+Table: Reading two measured versions
 | You see | It means | Do this |
 | --- | --- | --- |
 | The intervals don't overlap | The difference is real | Keep the better version |

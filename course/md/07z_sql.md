@@ -15,6 +15,7 @@ By the end of this interlude you can:
 
 In Chapter 8 an agent writes SQL for you. To judge whether its SQL is right, and to write evaluation queries yourself, you need to read SQL comfortably. **SQL** (Structured Query Language) is the language for asking a database questions. The kit's `shop.db` has four tables:
 
+Table: The tables in `shop.db`
 | Table | Columns | One row is |
 | --- | --- | --- |
 | `customers` | `id, name, city, joined` | A customer |
@@ -23,6 +24,9 @@ In Chapter 8 an agent writes SQL for you. To judge whether its SQL is right, and
 | `order_items` | `order_id, product_id, quantity` | One product line in an order |
 
 @@image d-ccd852657079.png
+
+Figure: The tables of `shop.db` and how they relate
+Alt: Entity-relationship diagram: a customer places zero or more orders; an order contains one or more order items; a product appears in zero or more order items.
 
 ## S.1 Eight queries, each building on the last
 

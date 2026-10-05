@@ -5,7 +5,7 @@ const {
   Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType, Table, TableRow,
   TableCell, WidthType, ShadingType, BorderStyle, LevelFormat, TableOfContents, Footer,
   Header, PageNumber, PageBreak, TabStopType, ImageRun, Bookmark, InternalHyperlink, ExternalHyperlink,
-  SectionType, NumberFormat, CharacterSet,
+  SectionType, NumberFormat, CharacterSet, SimpleField,
 } = require("docx");
 const crypto = require("crypto");
 const { execFileSync } = require("child_process");
@@ -20,6 +20,10 @@ const PAGE_W = 10080, PAGE_H = 14400, M_IN = 1260, M_OUT = 900, M_TOP = 1080, M_
 const MARGIN = M_IN;
 const CONTENT_W = PAGE_W - M_IN - M_OUT;         // 7920 DXA = 5.5"
 const BOOK = "Building Agentic AI Systems";
+// "Table: Title {#t:label}" before a table; "Figure: Caption {#f:label}" and "Alt: ..." after a diagram
+const CAPTION_RE = /^(Table|Figure): (.+)$/;
+const LABEL_RE = /^(.*?)(?:\s*\{#([tf]:[\w-]+)\})?\s*$/;
+const CAPTION_WARNINGS = [];
 
 const LEVEL_COLORS = { Concept: "262626", Simple: "262626", Medium: "262626", Complex: "262626" };   // the level is spelled out on the badge
 const LEVEL_FILL = { Concept: "F2F2F2", Simple: "F2F2F2", Medium: "F2F2F2", Complex: "F2F2F2" };
@@ -49,11 +53,34 @@ function inline(text, base = {}) {
 // ---------- block builders ----------
 const para = (text, opts = {}) => new Paragraph({ children: inline(text, opts.run || {}), spacing: { after: 110, line: 264 }, ...opts.p });
 
-function codeBlock(lines, caption) {
+// ---------- captions: "Table 4.2 Title", "Figure 4.1 Caption", "Listing 4.3 file.py" ----------
+// The number is a Word SEQ field (reset at each chapter's first item), with the number the build
+// computed as its cached result, so the printed book is right and Word can still update it.
+// A caption is bookmarked and recorded in HEADINGS (cap: kind) for the List of Figures and Tables.
+function captionRuns(kind, num) {
+  if (!num) return [];
+  const [prefix, k] = [num.slice(0, num.lastIndexOf(".")), num.slice(num.lastIndexOf(".") + 1)];
+  return [new TextRun({ text: `${kind} ${prefix}.`, bold: true }),
+          new SimpleField(`SEQ ${kind} ${k === "1" ? "\\r 1 " : ""}\\* ARABIC`, k),
+          new TextRun({ text: "  ", bold: true })];
+}
+function captionPara(kind, num, title, opts = {}) {
+  const plainTitle = title.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/[*`]/g, "");
+  const runs = [...captionRuns(kind, num), ...(opts.titleRuns || inline(title, { bold: !num ? true : false }))];
+  let children = runs;
+  if (num) {
+    const id = `cap_${HEADINGS.length}`;
+    HEADINGS.push({ id, level: 9, cap: kind, text: `${kind} ${num}  ${plainTitle}`, find: `${kind} ${num} ${plainTitle}`, noToc: false });
+    children = [new Bookmark({ id, children: runs })];
+  }
+  return new Paragraph({ style: "Caption", keepNext: !!opts.keepNext, keepLines: true,
+                         spacing: opts.spacing, children });
+}
+
+function codeBlock(lines, caption, num) {
   const out = [];
-  if (caption) out.push(new Paragraph({ keepNext: true, spacing: { before: 160, after: 40 },
-    children: [new TextRun({ text: "Listing  ", bold: true, color: ACCENT, size: 18 }),
-               new TextRun({ text: caption, font: MONO, size: 18, color: ACCENT })] }));
+  if (caption) out.push(captionPara("Listing", num, caption, { keepNext: true, spacing: { before: 160, after: 40 },
+    titleRuns: [new TextRun({ text: num ? "" : "Listing  ", bold: true }), new TextRun({ text: caption, font: MONO, size: 17, bold: false })] }));
   const border = { style: BorderStyle.SINGLE, size: 12, color: "A6A6A6", space: 6 };
   lines.forEach((line, i) => {
     out.push(new Paragraph({
@@ -132,7 +159,7 @@ function solutionFile(id) {           // the one file worth naming in the box
 const MODEL_LABEL = { none: "none (free)", any: "qwen3.5:9b or Claude", "claude-rec": "Claude recommended (runs on qwen3.5:9b)",
                       claude: "Claude only", desktop: "Claude only" };
 const DIAGRAM_REPORT = [];
-function renderMermaid(src) {
+function renderMermaid(src, alt) {
   fs.mkdirSync(DIAGRAMS, { recursive: true });
   // grayscale theme for black-and-white print; the config is part of the cache key
   const cfg = path.join(DIAGRAMS, "mermaid.json");
@@ -145,10 +172,10 @@ function renderMermaid(src) {
     execFileSync("mmdc", ["-p", process.env.MERMAID_PUPPETEER || path.join(DIAGRAMS, "puppeteer.json"), "-c", cfg, "-i", mmd, "-o", png,
                           "-b", "white", "-s", "3"], { stdio: "ignore" });
   }
-  return imagePara(png, hash);
+  return imagePara(png, hash, alt);
 }
 // a diagram kept as a PNG in diagrams/ (its Mermaid source isn't in the manuscript): "@@image d-<hash>.png"
-function imagePara(png, hash) {
+function imagePara(png, hash, alt) {
   const buf = fs.readFileSync(png);
   const w = buf.readUInt32BE(16), h = buf.readUInt32BE(20);
   // docx-js sizes are CSS pixels (96 per inch); the text block is 5.5" wide
@@ -158,9 +185,10 @@ function imagePara(png, hash) {
   const fontPt = 12 * scale;                           // 16px diagram text at this scale, in points
   DIAGRAM_REPORT.push({ hash, width, height, fontPt: +fontPt.toFixed(1) });
   if (fontPt < 8.5) console.error(`SMALL DIAGRAM TEXT d-${hash}: ${fontPt.toFixed(1)} pt`);
-  return new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 160, after: 200 }, keepNext: false,
+  const a = alt || {};
+  return new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 160, after: a.caption ? 60 : 200 }, keepNext: !!a.caption,
     children: [new ImageRun({ type: "png", data: buf, transformation: { width, height },
-                              altText: { title: "Diagram", description: "Diagram", name: `d-${hash}` } })] });
+                              altText: { title: a.caption || "Diagram", description: a.alt || a.caption || "Diagram", name: `d-${hash}` } })] });
 }
 
 // ---------- markdown file -> blocks ----------
@@ -178,7 +206,7 @@ function tocEntries() {
     1: { size: 19, bold: true, color: "262626", before: 70, after: 10, indent: 0 },
     2: { size: 17, bold: false, color: "404040", before: 0, after: 0, indent: 300 },
   };
-  return HEADINGS.filter(h => !h.noToc).map(({ id, level, text }) => {
+  return HEADINGS.filter(h => !h.noToc && !h.cap).map(({ id, level, text }) => {
     const st = style[level];
     return new Paragraph({
       tabStops: [{ type: TabStopType.RIGHT, position: CONTENT_W, leader: level === 0 ? "none" : "dot" }],
@@ -228,9 +256,24 @@ function partOpener(part) {
   ];
 }
 
-function convert(md) {
+// what follows an image or Mermaid block: "Figure: caption {#f:label}" and "Alt: description"
+function figureLines(lines, i) {
+  const r = { next: i };
+  let j = i;
+  while (j < lines.length && !lines[j].trim()) j++;
+  let m = (lines[j] || "").match(CAPTION_RE);
+  if (m && m[1] === "Figure") { r.caption = m[2]; j++; r.next = j; while (j < lines.length && !lines[j].trim()) j++; }
+  m = (lines[j] || "").match(/^Alt: (.+)$/);
+  if (m) { r.alt = m[1].trim(); r.next = j + 1; }
+  return r;
+}
+function convert(md, file) {
   const out = [];
   const lines = md.split("\n");
+  const plan = PLAN[file] || { prefix: null };
+  const seen = { Table: 0, Figure: 0, Listing: 0 };
+  const nextNum = kind => { seen[kind]++; return plan.prefix ? `${plan.prefix}.${seen[kind]}` : null; };
+  let pendingTable = null, inLearnMore = false;
   let i = 0, paraBuf = [];
   const flush = () => { if (paraBuf.length) { out.push(para(paraBuf.join(" "))); paraBuf = []; } };
   while (i < lines.length) {
@@ -240,6 +283,7 @@ function convert(md) {
     if ((m = line.match(/^(#{1,3}) (.*)$/))) {
       flush();
       const level = m[1].length;
+      if (level <= 2) inLearnMore = m[2].trim() === "Learn more";
       const h = [HeadingLevel.HEADING_1, HeadingLevel.HEADING_2, HeadingLevel.HEADING_3][level - 1];
       let text = m[2].trim();
       const api = / \{api\}$/.test(text);            // "## 4.8 Thinking {api}": fast-changing section
@@ -313,12 +357,18 @@ function convert(md) {
         src = fs.readFileSync(codePath, "utf8").replace(/\s+$/, "");
         caption = file;
       }
-      out.push(...codeBlock(src.split("\n"), caption));
+      out.push(...codeBlock(src.split("\n"), caption, nextNum("Listing")));
       i++; continue;
     }
     if ((m = line.match(/^@@image (\S+)$/))) {
       flush();
-      out.push(imagePara(path.join(DIAGRAMS, m[1]), m[1].replace(/\.png$/, "").replace(/^d-/, "")));
+      const fig = figureLines(lines, i + 1);
+      out.push(...figure(imagePara(path.join(DIAGRAMS, m[1]), m[1].replace(/\.png$/, "").replace(/^d-/, ""), fig), fig, m[1]));
+      i = fig.next; continue;
+    }
+    if ((m = line.match(CAPTION_RE)) && m[1] === "Table") {
+      flush();
+      pendingTable = m[2];
       i++; continue;
     }
     if (line.startsWith("```mermaid")) {
@@ -326,7 +376,9 @@ function convert(md) {
       const buf = []; i++;
       while (i < lines.length && !lines[i].startsWith("```")) buf.push(lines[i++]);
       i++;
-      out.push(renderMermaid(buf.join("\n")));
+      const fig = figureLines(lines, i);
+      out.push(...figure(renderMermaid(buf.join("\n"), fig), fig, "a Mermaid diagram"));
+      i = fig.next;
       continue;
     }
     if (line.startsWith("```")) {
@@ -383,6 +435,11 @@ function convert(md) {
         if (!cells.every(c => /^\s*:?-+:?\s*$/.test(c))) rows.push(cells);
         i++;
       }
+      if (pendingTable) {
+        const t = pendingTable.match(LABEL_RE);
+        out.push(captionPara("Table", nextNum("Table"), t[1], { keepNext: true, spacing: { before: 200, after: 80 } }));
+      } else if (!inLearnMore && plan.prefix) CAPTION_WARNINGS.push(`${file}: table without a title ("${rows[0].join(" | ").slice(0, 60)}")`);
+      pendingTable = null;
       out.push(table(rows));
       out.push(new Paragraph({ spacing: { after: 120 }, children: [] }));
       continue;
@@ -420,7 +477,17 @@ function convert(md) {
     i++;
   }
   flush();
+  if (pendingTable) throw new Error(`${file}: "Table: ${pendingTable}" isn't followed by a table`);
+  for (const k of ["Table", "Figure", "Listing"])
+    if (plan.prefix && seen[k] !== plan[k]) throw new Error(`${file}: ${seen[k]} ${k}s rendered, ${plan[k]} planned`);
   return out;
+
+  function figure(img, fig, what) {
+    if (!fig.caption) { if (plan.prefix) CAPTION_WARNINGS.push(`${file}: ${what} without a caption`); return [img]; }
+    if (!fig.alt) CAPTION_WARNINGS.push(`${file}: figure "${fig.caption.slice(0, 40)}" has no Alt: text`);
+    const t = fig.caption.match(LABEL_RE);
+    return [img, captionPara("Figure", nextNum("Figure"), t[1], { spacing: { before: 0, after: 220 } })];
+  }
 }
 
 // ---------- front-matter pages ----------
@@ -564,6 +631,40 @@ const read = f => readRaw(f).replace(/^@@exercise-model-table$/m, () => exercise
 });
 const h1 = f => read(f).match(/^# (.+)$/m)[1].trim();
 
+// ---------- numbering plan for tables, figures and listings ----------
+// Chapters number their own (Table 4.1); interludes use their letter (Table S.1, as their sections
+// and exercises do). Front matter, capstones, the Afterword and the appendices get titles only.
+const INTERLUDE_LETTER = { "00zz_python.md": "P", "01z_testing.md": "T", "05z_regex.md": "R",
+                           "07z_sql.md": "S", "08z_measure.md": "M", "10z_async.md": "A" };
+const PLAN = {}, LABELS = {};
+function planCaptions() {
+  for (const f of [...FRONT, ...PARTS.flatMap(p => p.files), ...BACK].filter(PART_EXISTS)) {
+    const text = read(f), ch = text.match(/^# Chapter (\d+):/m);
+    const plan = PLAN[f] = { prefix: ch ? ch[1] : (INTERLUDE_LETTER[f] || null), Table: 0, Figure: 0, Listing: 0 };
+    const lines = text.split("\n");
+    for (let i = 0; i < lines.length; i++) {        // the same blocks convert() skips are skipped here
+      const l = lines[i];
+      if (l.startsWith("```")) { i++; while (i < lines.length && !lines[i].startsWith("```")) i++; continue; }
+      if (/^:::(note|tip|warn|ex) /.test(l)) { while (i < lines.length && lines[i].trim() !== ":::") i++; continue; }
+      if (/^@@code /.test(l)) { plan.Listing++; continue; }
+      const m = l.match(CAPTION_RE);
+      if (!m) continue;
+      const n = ++plan[m[1]];
+      const label = m[2].match(LABEL_RE)[2];
+      if (!label) continue;
+      if (label in LABELS) throw new Error(`label ${label} is used twice (${f})`);
+      LABELS[label] = plan.prefix ? `${m[1]} ${plan.prefix}.${n}` : null;
+    }
+  }
+}
+// "{{t:label}}" -> "Table 4.1", "{{f:label}}" -> "Figure 4.1"
+const md = f => read(f).replace(/\{\{([tf]:[\w-]+)\}\}/g, (_, l) => {
+  if (!(l in LABELS)) throw new Error(`${f}: {{${l}}} refers to a label that doesn't exist`);
+  if (!LABELS[l]) throw new Error(`${f}: {{${l}}} refers to a table or figure that isn't numbered`);
+  return LABELS[l];
+});
+planCaptions();
+
 // ---------- headers and footers ----------
 const HDR = { size: 16, color: "595959", font: HFONT };
 const rule = { bottom: { style: BorderStyle.SINGLE, size: 4, color: "BFBFBF", space: 4 } };
@@ -609,7 +710,8 @@ addSection([new Paragraph({ spacing: { before: 3600 }, alignment: AlignmentType.
               .map(l => new Paragraph({ alignment: AlignmentType.CENTER, children: inline(l, { italics: true }) }))], empty());
 const tocIndex = sections.length;
 sections.push(null);                                   // Contents, filled in after the body is converted
-for (const f of FRONT) addSection(convert(read(f)), running(h1(f)));
+sections.push(null);                                   // List of Figures and Tables, filled in at the end
+for (const f of FRONT) addSection(convert(md(f), f), running(h1(f)));
 
 // main matter (arabic numerals from Part 0)
 let firstMain = true;
@@ -621,9 +723,9 @@ for (const part of PARTS) {
              firstMain ? { type: SectionType.ODD_PAGE, page: { pageNumbers: { start: 1 } } }
                        : { type: SectionType.NEXT_PAGE });       // no blank page before a part
   firstMain = false;
-  for (const f of part.files) addSection(convert(read(f)), running(h1(f)));
+  for (const f of part.files) addSection(convert(md(f), f), running(h1(f)));
 }
-for (const f of BACK) addSection(convert(read(f)), running(h1(f)));
+for (const f of BACK) addSection(convert(md(f), f), running(h1(f)));
 
 // contents
 const contentsChildren = [
@@ -632,6 +734,22 @@ const contentsChildren = [
 ];
 NUMFMT = NumberFormat.LOWER_ROMAN;
 sections[tocIndex] = { properties: pageProps(), ...running("Contents"), children: contentsChildren };
+// List of Figures and List of Tables: one entry per numbered caption, page numbers as in the Contents
+function captionList(kind, heading) {
+  const entries = HEADINGS.filter(h => h.cap === kind);
+  return [
+    new Paragraph({ spacing: { before: 900, after: 360 }, pageBreakBefore: kind === "Table",
+                    children: [new TextRun({ text: heading, font: HFONT, size: 44, bold: true, color: ACCENT })] }),
+    ...entries.map(({ id, text }) => new Paragraph({
+      tabStops: [{ type: TabStopType.RIGHT, position: CONTENT_W, leader: "dot" }],
+      indent: { left: 1100, hanging: 1100 }, spacing: { after: 30, line: 240 },
+      children: [new InternalHyperlink({ anchor: id, children: [
+        new TextRun({ text: text.replace(/^(\S+ \S+)\s+/, "$1\t"), size: 17 }),
+        new TextRun({ text: `\t${TOC_PAGES[id] ?? "000"}`, size: 17 })] })] })),
+  ];
+}
+sections[tocIndex + 1] = { properties: pageProps(), ...running("List of Figures and Tables"),
+                           children: [...captionList("Figure", "List of Figures"), ...captionList("Table", "List of Tables")] };
 
 const monoFont = fs.readFileSync("/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf");
 const doc = new Document({
@@ -653,6 +771,9 @@ const doc = new Document({
       { id: "Heading3", name: "Heading 3", basedOn: "Normal", next: "Normal", quickFormat: true,
         run: { size: 22, bold: true, color: "000000", font: HFONT },
         paragraph: { spacing: { before: 220, after: 90 }, outlineLevel: 2, keepNext: true } },
+      { id: "Caption", name: "caption", basedOn: "Normal", next: "Normal", quickFormat: true,
+        run: { size: 18, color: "262626", font: HFONT, bold: true },   // the number is a field: it takes the style's bold
+        paragraph: { spacing: { before: 120, after: 120, line: 252 } } },
     ],
   },
   numbering: {
@@ -671,4 +792,19 @@ const doc = new Document({
 const outPath = process.argv[2] || path.join(ROOT, "Building_Agentic_AI_Systems.docx");
 fs.writeFileSync(path.join(__dirname, "toc_headings.json"), JSON.stringify(HEADINGS, null, 1));
 fs.writeFileSync(path.join(DIAGRAMS, "report.json"), JSON.stringify(DIAGRAM_REPORT, null, 1));
-Packer.toBuffer(doc).then(buf => { fs.writeFileSync(outPath, buf); console.log("wrote", outPath, buf.length, "bytes"); });
+if (CAPTION_WARNINGS.length) {
+  console.error(`${CAPTION_WARNINGS.length} caption warnings:`);
+  for (const w of CAPTION_WARNINGS) console.error("  " + w);
+}
+// docx gives every picture the same drawing id; Word wants them unique, so renumber them
+const JSZip = require(require.resolve("jszip", { paths: [path.dirname(require.resolve("docx"))] }));
+Packer.toBuffer(doc).then(async buf => {
+  const zip = await JSZip.loadAsync(buf);
+  let n = 0;
+  for (const name of Object.keys(zip.files).filter(f => /^word\/(document|header\d*|footer\d*)\.xml$/.test(f))) {
+    const xml = await zip.file(name).async("string");
+    zip.file(name, xml.replace(/<wp:docPr id="\d+"/g, () => `<wp:docPr id="${++n}"`));
+  }
+  buf = await zip.generateAsync({ type: "nodebuffer", compression: "DEFLATE" });
+  fs.writeFileSync(outPath, buf); console.log("wrote", outPath, buf.length, "bytes;", n, "pictures");
+});

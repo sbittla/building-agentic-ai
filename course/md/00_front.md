@@ -6,6 +6,7 @@ This book teaches you to build AI agents from nothing. You start with the Python
 
 Anyone who wants to build AI agents, including complete beginners. You don't need machine-learning experience.
 
+Table: Where to start
 | If you… | Start at |
 | --- | --- |
 | Have never programmed, or aren't sure what JSON or an API is | Chapter 0 and the Python interlude, and do every exercise |
@@ -19,6 +20,7 @@ The interludes (Python, testing, regular expressions, SQL, measuring an agent an
 
 ## What you will build
 
+Table: What you build in each part
 | Part | Chapters | You build | Key idea |
 | --- | --- | --- | --- |
 | 0. Foundations | 0 (+ Python interlude) | Python, JSON and API basics | The ground everything else stands on |
@@ -39,6 +41,7 @@ Each part ends with a **checkpoint**: a short list of things you should now be a
 
 This is a book about building agents. Everything else it teaches, it teaches only as far as agents need it. Chapter 0 and the interludes are focused tours, not complete courses: they give you enough to read and write the code in the chapters that follow, and each one ends with a **Learn more** list for when you want the full picture.
 
+Table: Topics the book teaches only as far as agents need them
 | Topic | What this book gives you | Where to learn the rest |
 | --- | --- | --- |
 | Python | The fundamentals the chapters use, listed in a table in the Python interlude | The official Python tutorial, Python for Everybody, CS50 Python |
@@ -63,6 +66,7 @@ There's no schedule to keep. How long the book takes depends on what you already
 
 This is a long book, and you don't have to read all of it before you build something real. Pick the path that matches where you are, and come back for the rest when you need it.
 
+Table: Three reading paths
 | Path | For | Read |
 | --- | --- | --- |
 | **Fast path** | You want one working, safe agent soon | Chapters 0–4, 9, 12 and 16, then sections 27.1–27.3 and 30.1–30.3. Do the Simple exercises only |
@@ -75,6 +79,7 @@ The interludes are optional on every path: read one when a chapter uses somethin
 
 If you have limited time, these focused paths get you to working code or architectural understanding in half an hour:
 
+Table: Thirty-minute learning paths
 | Goal | Path | Time |
 | --- | --- | --- |
 | **Build your first agent** | Chapter 0 (if new to Python) + Chapter 1 (sections 1.1–1.5) + Chapter 2 (sections 2.1–2.3) | 30 min |
@@ -106,6 +111,7 @@ Every chapter follows the same pattern:
 
 Each exercise has a **Done when** line that tells you when you've finished, and most have a **Hint**. A **Model** label on every exercise tells you what it needs:
 
+Table: Exercises by the model they need
 | Label | Meaning | Exercises |
 | --- | --- | --- |
 | **No model** | Plain Python, SQL, tests or design work: nothing calls a model, so it's free | {{exercises:none}} |
@@ -160,6 +166,7 @@ Concept exercises create an answer file in `workspace/answers`. Build exercises 
 
 You can work through this book with either of two models, and switch between them at any time with one line in `.env`. No code changes.
 
+Table: Claude or the free local model
 | | Claude (the default) | Free local model |
 | --- | --- | --- |
 | Model | `claude-sonnet-5` through the Claude API | `qwen3.5:9b`, an open-source model, in a Docker container on your computer |
@@ -186,6 +193,7 @@ The examples use the Anthropic Python SDK because it keeps the tool-calling mess
 
 The kit has two folders of code:
 
+Table: The two folders of code in the kit
 | Folder | What's in it | How you use it |
 | --- | --- | --- |
 | `course/code` | The chapter programs you read in each chapter, such as `ch04_agent.py` | Copied into your `workspace` folder on first run; you run and edit them there |

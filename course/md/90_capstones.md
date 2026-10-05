@@ -27,6 +27,7 @@ So each capstone is mostly its servers, its system prompt and its rules. The ref
 
 Every capstone uses the same rubric, so you can compare projects and track improvement.
 
+Table: The capstone rubric
 | Area (weight) | Excellent (4) | Adequate (2) | Missing (0) |
 | --- | --- | --- | --- |
 | Functionality (20%) | All core features work end to end on realistic data | Core path works; edge cases fail | Doesn't run |
@@ -55,6 +56,7 @@ Every capstone uses the same rubric, so you can compare projects and track impro
 
 **Architecture**
 
+Table: Capstone 1 servers
 | MCP server | Tools and resources |
 | --- | --- |
 | `helpdesk` | `search_articles`, `read_article`; resource `helpdesk://return-policy` |
@@ -70,6 +72,7 @@ Every capstone uses the same rubric, so you can compare projects and track impro
 
 **Reference solution** (compare after building your own): `solutions/capstones/c1_support/`
 
+Table: Capstone 1 reference solution
 | File | What it does |
 | --- | --- |
 | `data.py` | Generates 50 orders for 20 customers and 20 help-center articles |
@@ -105,6 +108,7 @@ A tempting design is `get_order(order_id, email)`, which checks that the email m
 
 **Architecture**
 
+Table: Capstone 2 servers
 | MCP server | Tools and resources |
 | --- | --- |
 | `warehouse` | `list_tables`, `describe_table`, `run_query` (read-only); resource `warehouse://definitions` |
@@ -119,6 +123,7 @@ A tempting design is `get_order(order_id, email)`, which checks that the email m
 
 **Reference solution** (compare after building your own): `solutions/capstones/c2_analyst/`
 
+Table: Capstone 2 reference solution
 | File | What it does |
 | --- | --- |
 | `warehouse_server.py`, `charts_server.py` | A read-only warehouse over `shop.db`, and two-column results as PNG charts |
@@ -149,6 +154,7 @@ Run it with `./course.sh capstone 2`. Compare: how the agent narrows the schema 
 
 **Architecture**
 
+Table: Capstone 3 servers
 | MCP server | Tools and resources |
 | --- | --- |
 | `logs` | `search_logs(service, start, end, pattern)` |
@@ -165,6 +171,7 @@ Run it with `./course.sh capstone 2`. Compare: how the agent narrows the schema 
 
 **Reference solution** (compare after building your own): `solutions/capstones/c3_incident/`
 
+Table: Capstone 3 reference solution
 | File | What it does |
 | --- | --- |
 | `data.py` | A synthetic incident: at 14:05 a checkout-service deploy adds a synchronous call; logs, metrics, Git history and runbooks |
@@ -195,6 +202,7 @@ Run it with `./course.sh capstone 3`. Compare: whether your agent compares again
 
 **Architecture**
 
+Table: Capstone 4 servers
 | MCP server | Tools and resources |
 | --- | --- |
 | `github` (official) | Read PRs, files and issues; write tools enabled only for the branch step, with approval |
@@ -210,6 +218,7 @@ Run it with `./course.sh capstone 3`. Compare: whether your agent compares again
 
 **Reference solution** (compare after building your own): `solutions/capstones/c4_review/`
 
+Table: Capstone 4 reference solution
 | File | What it does |
 | --- | --- |
 | `data.py` | A small repository with three "pull requests" as branches: `pr-1` adds a bug, `pr-2` is clean, `pr-3` deletes a test |
@@ -240,6 +249,7 @@ Run it with `./course.sh capstone 4` (or `./course.sh capstone 4 pr-3` for one P
 
 **Architecture**
 
+Table: Capstone 5 servers
 | MCP server | Tools and resources |
 | --- | --- |
 | `fetch` (reference) | `fetch(url)` |
@@ -255,6 +265,7 @@ Run it with `./course.sh capstone 4` (or `./course.sh capstone 4 pr-3` for one P
 
 **Reference solution** (compare after building your own): `solutions/capstones/c5_research/`
 
+Table: Capstone 5 reference solution
 | File | What it does |
 | --- | --- |
 | `library_server.py` | The Chapter 6 notes tools over `library/`, as an MCP server |
@@ -284,6 +295,7 @@ Run it with `./course.sh capstone 5 "your question"`. Compare: how subtasks are 
 
 **Architecture**
 
+Table: Capstone 6 components
 | Component | Role |
 | --- | --- |
 | `ch23_backoffice.py` (provided) | The demo web application, run locally in the course container |
@@ -301,6 +313,7 @@ Packaging the browser tools as an MCP server is a good extension once the agent 
 
 **Reference solution** (compare after building your own): `solutions/capstones/c6_backoffice/`
 
+Table: Capstone 6 reference solution
 | File | What it does |
 | --- | --- |
 | `data.py` | A queue of five requests: three address changes (one for the customer whose notes hold an injection) and two credits, one over the application's limit |
@@ -333,6 +346,7 @@ Free, trustworthy places to read more about the real-world problem behind each c
 
 All six capstones run on the free local model (`qwen3.5:9b`, Appendix H) as well as on Claude. Capstone 4 (code review and fix), the multi-agent parts of Capstone 5 and the browser work in Capstone 6 work noticeably better with Claude; with the local model, expect more retries and weaker results.
 
+Table: Which capstone to choose
 | If you want to practice… | Choose |
 | --- | --- |
 | Customer-facing design, memory, identity and handoff | 1. Customer Support |

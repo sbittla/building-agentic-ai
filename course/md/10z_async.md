@@ -25,8 +25,12 @@ Run it with `./course.sh python i_async.py`. Two one-second waits take two secon
 
 @@image d-f6804fb92916.png
 
+Figure: Two requests that overlap with `asyncio.gather`
+Alt: Sequence diagram: your program sends a request to a weather API and one to a news API without waiting for the first; both reply after one second, so with gather the two waits overlap and take about one second in total.
+
 ## A.2 The five ideas
 
+Table: The five async ideas
 | Idea | Syntax | Meaning |
 | --- | --- | --- |
 | Coroutine | `async def f():` | A function that can pause while it waits |

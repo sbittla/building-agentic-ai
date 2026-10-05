@@ -19,6 +19,7 @@ Chapter 6's search tool, Chapter 8's table checks and Chapter 11's citation chec
 
 @@code i_regex.py
 
+Table: The pieces of a regular expression
 | Pattern | Matches | Example |
 | --- | --- | --- |
 | `abc` | The literal text | `ERROR` |
@@ -35,6 +36,7 @@ Chapter 6's search tool, Chapter 8's table checks and Chapter 11's citation chec
 
 ## R.2 The four functions
 
+Table: The four `re` functions
 | Function | Returns | Use for |
 | --- | --- | --- |
 | `re.search(p, text)` | The first match, or `None` | "Does it contain…?" |

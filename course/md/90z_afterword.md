@@ -6,6 +6,7 @@ You started this book with one model call that couldn't tell you today's date. Y
 
 Follow the support agent through the lifecycle of section 1.10, and you've followed the book:
 
+Table: The support agent through the lifecycle
 | Stage | What the support agent got | Where |
 | --- | --- | --- |
 | Decide | Some emails need lookups and judgment, so a fixed workflow isn't enough; refunds stay under rules in code | Sections 1.3 and 1.6 |

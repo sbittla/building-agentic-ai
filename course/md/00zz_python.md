@@ -16,8 +16,9 @@ By the end of this interlude you can:
 
 Chapter 0's tour covers values, lists, dictionaries, functions, loops, errors and files. The chapters also use a handful of features the tour doesn't show. If you've never programmed, take your time with Chapter 0 and this interlude: type the examples, break them and fix them. It's the best investment you'll make in this book. If you can already read the file below without surprises, do exercise P.5 to check yourself, then move on.
 
-This book teaches only the Python that agents need, and teaches it quickly. The table below lists the fundamentals the chapters take for granted, where each one first matters and where to read more. The links point to the free official Python tutorial (docs.python.org/3/tutorial) unless noted. If a row feels shaky, read that section before Chapter 1; you don't need anything beyond this list.
+This book teaches only the Python that agents need, and teaches it quickly. {{t:python-fundamentals}} lists the fundamentals the chapters take for granted, where each one first matters and where to read more. The links point to the free official Python tutorial (docs.python.org/3/tutorial) unless noted. If a row feels shaky, read that section before Chapter 1; you don't need anything beyond this list.
 
+Table: The Python fundamentals this book assumes {#t:python-fundamentals}
 | Fundamental | You'll need it for | Read more |
 | --- | --- | --- |
 | Values, strings, f-strings, `print` | Every program; formatting tool results | Tutorial 3, "An Informal Introduction" |
@@ -39,6 +40,7 @@ Asynchronous code (`async` and `await`) has its own interlude before Chapter 11.
 
 Run it with `./course.sh python i_python.py`. Each section prints a line starting with its number, so you can match output to code.
 
+Table: The six features in `i_python.py`
 | Section | Feature | Where this book uses it |
 | --- | --- | --- |
 | 1 | Comprehensions and `sum(... for ...)` | Collecting tool results (Chapter 4), totals in evals (Chapter 27) |
