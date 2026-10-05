@@ -11,6 +11,10 @@ By the end of this interlude you can:
 - Run blocking code with `asyncio.to_thread`, and set deadlines with `asyncio.wait_for`.
 - Read the async code in Chapters 11, 13 and 19, and avoid the two classic async bugs.
 
+## Prerequisites
+
+The Python interlude (functions and decorators), Chapter 4 (agent loop).
+
 ## Why this interlude
 
 Chapter 11 runs several subagents at the same time, and Chapters 13, 14 and 19 talk to MCP servers and web clients. All of this uses **asynchronous** (async) Python. It looks unusual at first, but you need only five ideas.

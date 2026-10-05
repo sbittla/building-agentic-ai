@@ -11,6 +11,10 @@ By the end of this interlude you can:
 - Break a complex query into steps with a CTE.
 - Review an agent's SQL in a fixed order and spot common mistakes.
 
+## Prerequisites
+
+Chapter 0. You don't need any database experience.
+
 ## Why this interlude
 
 In Chapter 8 an agent writes SQL for you. To judge whether its SQL is right, and to write evaluation queries yourself, you need to read SQL comfortably. **SQL** (Structured Query Language) is the language for asking a database questions. The kit's `shop.db` has four tables:

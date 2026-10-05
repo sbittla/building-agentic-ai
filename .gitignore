@@ -23,3 +23,5 @@ course/code/_index/
 
 # Old tooling and notes kept locally, not part of the course
 _archive/
+course/diagrams/report.json
+course/toc_headings.json

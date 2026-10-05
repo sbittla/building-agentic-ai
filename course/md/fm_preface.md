@@ -34,6 +34,36 @@ You don't need a background in machine learning. You won't train a model in this
 
 The book has ten parts. Part 0 lays the foundations. Part 1 builds your first agent: tool calling and the agent loop. Part 2 gives agents state and lets them explore their environment. Part 3 connects them to real APIs and databases and keeps a human in the loop. Part 4 adds feedback loops and your first teams of agents. Part 5 covers MCP, from your first server to the 2026 protocol. Part 6 engineers what an agent knows: its context, its memory and its knowledge. Part 7 scales autonomy: long-running agents, planning and model routing, multi-agent orchestration, deterministic controls around probabilistic models, computer use and frameworks. Part 8 is about trust, security and identity. Part 9 takes agents to production: evaluation, observability, performance and cost, deployment, and MCP at company scale. Short interludes on Python, testing, regular expressions, SQL, measuring an agent and asynchronous code appear right before the chapters that need them. After Part 9, a case study follows one agent through a release, from requirements and threat model to an incident and its rollback, before the six capstones. "How to Use This Book," which follows, has a table of the parts and advice on where to start.
 
+The diagram below shows how the parts build on each other. An arrow means the later part uses what the earlier one builds, so you can see what to read first if you want to jump ahead. Each chapter's Prerequisites line gives the detail.
+
+```mermaid
+%%{init: {"flowchart": {"rankSpacing": 28, "nodeSpacing": 24}}}%%
+flowchart TB
+  P0["<b>0 · Foundations</b><br>Ch 0, Python"]
+  P1["<b>1 · First agent</b><br>Ch 1–4"]
+  P2["<b>2 · State</b><br>Ch 5–6"]
+  P3["<b>3 · Real-world tools</b><br>Ch 7–9"]
+  P4["<b>4 · Autonomy, teams</b><br>Ch 10–11"]
+  P5["<b>5 · MCP</b><br>Ch 12–15"]
+  P6["<b>6 · Context, memory</b><br>Ch 16–18"]
+  P7["<b>7 · Architectures</b><br>Ch 19–24"]
+  P8["<b>8 · Trust, identity</b><br>Ch 25–26"]
+  P9["<b>9 · Production</b><br>Ch 27–30, then the case study<br>and the capstones"]
+  P0 --> P1 --> P2 --> P3 --> P4
+  P1 --> P5
+  P3 --> P5
+  P2 --> P6
+  P4 --> P7
+  P5 --> P7
+  P6 --> P7
+  P3 --> P8
+  P5 --> P8
+  P7 --> P9
+  P8 --> P9
+```
+Figure: The book at a glance: how the parts build on each other
+Alt: Part 0, Foundations, leads to Part 1, First agent. Part 1 leads to Part 2, State, and to Part 5, MCP. Part 2 leads to Part 3, Real-world tools, and to Part 6, Context and memory. Part 3 leads to Part 4, Autonomy and teams, to Part 5 and to Part 8, Trust and identity. Parts 4, 5 and 6 lead to Part 7, Architectures. Part 5 also leads to Part 8. Parts 7 and 8 lead to Part 9, Production, which is followed by the case study and the capstones.
+
 Every chapter follows the same pattern: learning objectives, a real-world connection, numbered lessons with runnable code, common mistakes, a summary, a list of resources for further reading and exercises at four levels. Every exercise has a reference solution in the course kit.
 
 ## Conventions used in this book

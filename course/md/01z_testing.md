@@ -11,6 +11,10 @@ By the end of this interlude you can:
 - Test code that uses files (`tmp_path`) or slow and costly calls (`monkeypatch`).
 - Explain why you test tools directly and replace the model with a stand-in.
 
+## Prerequisites
+
+Chapter 0 and the Python interlude.
+
 ## Why this interlude
 
 From Chapter 2 on, exercises ask you to "add tests". A **test** is a small program that checks your code does what you think it does. Agents make tests even more important: in Chapter 10 an agent uses tests to know when it has fixed a bug, and in Chapter 27 you test the agent itself. This interlude teaches the five pytest features this book uses.

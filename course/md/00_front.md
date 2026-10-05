@@ -147,7 +147,7 @@ Everything in this book runs inside one Docker image, a packaged, ready-to-run e
 
 1. Install **Docker Desktop** (Windows or macOS) or Docker Engine with the Compose plugin (Linux), and start it.
 2. Get the course kit, the book's companion code repository. With Git: `git clone https://github.com/sbittla/building-agentic-ai.git`. Without Git: download the ZIP from github.com/sbittla/building-agentic-ai and unzip it. Either way you end up with a folder such as `D:\Learning\building-agentic-ai`.
-3. Choose your model (see "Choose your model: Claude or free and local" below). For Claude, get an Anthropic API key first (Chapter 0, section 0.5, walks you through it). Then open a terminal in the kit folder and run the setup. The setup checks Docker, creates your `.env` file, asks which model you want (and, for Claude, the key, without showing it) and generates the other secrets the kit needs:
+3. Choose your model (see "Choose your model: Claude or free and local" below). For Claude, get a Claude API key first (Chapter 0, section 0.5, walks you through it). Then open a terminal in the kit folder and run the setup. The setup checks Docker, creates your `.env` file, asks which model you want (and, for Claude, the key, without showing it) and generates the other secrets the kit needs:
 
 ```bash
 ./course.sh setup          # Windows: .\course.cmd setup

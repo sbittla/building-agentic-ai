@@ -11,6 +11,10 @@ By the end of this interlude you can:
 - Extract values from logs and hide secrets in text.
 - Explain why regex is the wrong tool for security checks such as path validation.
 
+## Prerequisites
+
+Chapter 0 and the Python interlude (strings).
+
 ## Why this interlude
 
 Chapter 6's search tool, Chapter 8's table checks and Chapter 11's citation checker all use **regular expressions** (regex): short patterns that match text. You don't need to master them. You need to read and write simple ones.

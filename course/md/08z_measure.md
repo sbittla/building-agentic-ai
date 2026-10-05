@@ -11,6 +11,10 @@ By the end of this interlude you can:
 - Spot flaky cases, the ones that pass on some runs and fail on others.
 - Decide whether a change made an agent better, worse, or whether you can't tell yet.
 
+## Prerequisites
+
+Chapter 4 (agent loop). The testing interlude helps but isn't required.
+
 ## Why this interlude
 
 From here on, the book keeps asking you to compare: two system prompts, two routers (Chapter 20), with and without a skill (Chapter 24), one framework against another. A model's answers vary from run to run, so a single run can make a worse version look better. Chapter 27 builds a full evaluation system. This interlude gives you the three ideas you need before then: **cases**, **trials** and **margins**.

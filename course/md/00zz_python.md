@@ -12,6 +12,10 @@ By the end of this interlude you can:
 - Write a small class and a dataclass.
 - Read and write a decorator, the pattern behind `@mcp.tool()`.
 
+## Prerequisites
+
+Chapter 0, or some experience writing Python.
+
 ## Who this interlude is for
 
 Chapter 0's tour covers values, lists, dictionaries, functions, loops, errors and files. The chapters also use a handful of features the tour doesn't show. If you've never programmed, take your time with Chapter 0 and this interlude: type the examples, break them and fix them. It's the best investment you'll make in this book. If you can already read the file below without surprises, do exercise P.5 to check yourself, then move on.
