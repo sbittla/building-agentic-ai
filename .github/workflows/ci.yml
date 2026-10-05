@@ -41,13 +41,19 @@ jobs:
           docker compose run --rm -T course check-solutions \
             --junitxml=/workspace/verification/offline-junit.xml -rs 2>&1 | tee workspace/verification/offline.log
           exit ${PIPESTATUS[0]}
+      - name: Security controls are really tested (switching each off must be caught)
+        if: always()
+        run: |
+          docker compose run --rm -T -v "$PWD/dev:/opt/dev:ro" -e COURSE_SOLUTIONS=/solutions course \
+            python /opt/dev/security_mutations.py --out /workspace/verification/security_mutations.json
       - name: Results with provenance (commit, lock, image, environment)
         if: always()
         run: |
+          mkdir -p verification
+          cp workspace/verification/* verification/
           image=$(docker image inspect -f '{{.Id}}' building-agentic-ai:latest | cut -c1-19)
-          python3 dev/verify.py report workspace/verification/offline-junit.xml \
+          python3 dev/verify.py report verification/offline-junit.xml \
             --environment "course image $image, GitHub Actions ${{ runner.os }}"
-          cp workspace/verification/offline-junit.xml workspace/verification/offline.log verification/
       - name: Keep the results
         if: always()
         uses: actions/upload-artifact@v4
