@@ -523,6 +523,7 @@ Logs: [`solutions/outputs/ch29/`](solutions/outputs/ch29/)
 | 29.4 | Budgets that hold | Medium | Build | Local or Claude | [`ex29_4_budgets.py`](solutions/exercises/ch29/ex29_4_budgets.py)<br>[`test_part9.py`](solutions/tests/test_part9.py) | ✔ passed (qwen3.5:9b, 25 s) |
 | 29.5 | Halve the cost | Medium | Build | Claude recommended | [`ex29_5_cost_cut.py`](solutions/exercises/ch29/ex29_5_cost_cut.py)<br>[`test_part9.py`](solutions/tests/test_part9.py) | ✔ passed (qwen3.5:9b, 272 s) |
 | 29.6 | Find the knee | Complex | Build | Local or Claude | [`ex29_6_experiment.py`](solutions/exercises/ch29/ex29_6_experiment.py)<br>[`test_ch29_perf.py`](solutions/tests/test_ch29_perf.py) | ✔ passed (qwen3.5:9b, 148 s) |
+| 29.7 | Benchmark before you choose | Medium | Build | No model | [`ex29_7_crossover.py`](solutions/exercises/ch29/ex29_7_crossover.py)<br>[`test_ch29_benchmark.py`](solutions/tests/test_ch29_benchmark.py) | not run yet |
 
 ## Chapter 30: Deploying Agents: From One Service to an Agent Platform
 

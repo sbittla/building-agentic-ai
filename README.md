@@ -1,6 +1,6 @@
 # Building Agentic AI Systems: code, exercises and solutions
 
-The companion repository for the book *Building Agentic AI Systems: From First Agent to MCP, Multi-Agent Orchestration, and Production* by Srinivasa Rao Bittla. It has every chapter's code, **236 exercises** across 31 chapters and 6 interludes (with starter files, checkers and reference solutions), **six capstone projects**, and one Docker image that runs all of it.
+The companion repository for the book *Building Agentic AI Systems: From First Agent to MCP, Multi-Agent Orchestration, and Production* by Srinivasa Rao Bittla. It has every chapter's code, **237 exercises** across 31 chapters and 6 interludes (with starter files, checkers and reference solutions), **six capstone projects**, and one Docker image that runs all of it.
 
 Everything runs inside Docker, so Docker is the only thing you install. You edit files on your computer with any editor; Docker runs them.
 
@@ -157,15 +157,15 @@ Every reference solution, capstone and exercise command, run against a scripted 
 
 | Passed | Failed | Errors | Skipped (not applicable here) | Tests |
 | ---: | ---: | ---: | ---: | ---: |
-| 466 | 0 | 0 | 5 | 471 |
+| 472 | 0 | 0 | 5 | 477 |
 
-Commit `3b9ff96228a1`; `requirements.lock` sha256 `c28c848a2447`; outside the course image: Linux, requirements.lock installed with pip (Python 3.13); 2026-10-05. Skipped: 2 needs mcp-server-filesystem from the course image; 1 needs mcp-server-git from the course image; 1 needs mcp-server-fetch, mcp-server-memory from the course image; 1 needs mcp-server-fetch, mcp-server-filesystem, mcp-server-git, mcp-server-time from the course image. Details: [verification/README.md](verification/README.md), [verification/offline.json](verification/offline.json).
+Commit `679be0321037`; `requirements.lock` sha256 `c28c848a2447`; outside the course image: Linux, requirements.lock installed with pip (Python 3.13); 2026-10-05. Skipped: 2 needs mcp-server-filesystem from the course image; 1 needs mcp-server-git from the course image; 1 needs mcp-server-fetch, mcp-server-memory from the course image; 1 needs mcp-server-fetch, mcp-server-filesystem, mcp-server-git, mcp-server-time from the course image. Details: [verification/README.md](verification/README.md), [verification/offline.json](verification/offline.json).
 
 ### B. Exercises run with a real model
 
 Every exercise run with its reference solution by `run-chapter` (runs from 2026-09-27 to 2026-09-28; models: `claude-sonnet-5`, `qwen3.5:9b`). **163 of 164 runnable exercises passed (99.4%)**. A real model's answers vary from run to run, so these show that each exercise works end to end, not that it always will. Runs before October 2026 didn't record the commit; newer runs do (`provenance` in each summary.json). Per-exercise results and logs: [EXERCISE_INDEX.md](EXERCISE_INDEX.md), `solutions/outputs/`.
 
-How the totals count: the book has **236 exercises**; the table adds the 6 capstones, so it has 242 rows of work. Every count here, in EXERCISE_INDEX.md and in the book is computed from `course/exercises.json`. *Written answer* exercises have nothing to run; *needs a person* means a person at the keyboard, the Claude Desktop app, a GitHub token or a file the reader creates; *not run yet* means no run has been recorded for this version.
+How the totals count: the book has **237 exercises**; the table adds the 6 capstones, so it has 243 rows of work. Every count here, in EXERCISE_INDEX.md and in the book is computed from `course/exercises.json`. *Written answer* exercises have nothing to run; *needs a person* means a person at the keyboard, the Claude Desktop app, a GitHub token or a file the reader creates; *not run yet* means no run has been recorded for this version.
 
 | Chapter | Exercises | ✔ Passed | ✘ Failed | Written answer | Needs a person | Not run yet | Pass rate |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -204,10 +204,10 @@ How the totals count: the book has **236 exercises**; the table adds the 6 capst
 | Chapter 26: Agent Identity and Authorization | 6 | 4 | 0 | 2 | 0 | 0 | 100% |
 | Chapter 27: Agent Evaluation: Dimensions, Trajectories and Scorecards | 8 | 5 | 1 | 2 | 0 | 0 | 83% |
 | Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents | 7 | 6 | 0 | 1 | 0 | 0 | 100% |
-| Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost | 6 | 5 | 0 | 1 | 0 | 0 | 100% |
+| Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost | 7 | 5 | 0 | 1 | 0 | 1 | 100% |
 | Chapter 30: Deploying Agents: From One Service to an Agent Platform | 11 | 9 | 0 | 2 | 0 | 0 | 100% |
 | Capstone projects C1–C6 | 6 | 6 | 0 | 0 | 0 | 0 | 100% |
-| **Total** | **242** | **163** | **1** | **62** | **14** | **2** | **99.4%** |
+| **Total** | **243** | **163** | **1** | **62** | **14** | **3** | **99.4%** |
 
 Failed: **27.8** (An agent scorecard: exit code 1).
 <!-- results:end -->
