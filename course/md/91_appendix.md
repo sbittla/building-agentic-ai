@@ -132,20 +132,24 @@ Most agent bugs aren't crashes: the agent runs, then does the wrong thing. Work 
 | Agent | An LLM that chooses and calls tools in a loop until a task is done |
 | Agent architecture reference model | The layers of every agent system: user/API, runtime, planning, memory, context, tools, policies, model, MCP/APIs/A2A, environment, with evaluation and observability across (section 1.7) |
 | Agent card | An A2A agent's public JSON description of its skills, endpoint and security, at `/.well-known/agent-card.json` |
+| Agent inventory | One record per agent: its owner, kind, model, tools and scopes, the data it touches, its risk tier and current version; the starting point of agent governance (section 30.12) |
+| Agent lifecycle | The stages every agent goes through: decide, design, build, evaluate, release, operate, improve and, finally, retire (sections 1.10 and 30.13) |
 | Agent SDK | The Claude Agent SDK: the agent runtime behind Claude Code, as a library |
 | Agent Skill | A folder with a `SKILL.md` (name, description, instructions) and optional files, loaded only when a task needs it; an open format |
+| Agent version | The whole bundle that sets an agent's behavior, released together: model id, system prompt, tool definitions and server versions, skills, policies and the eval suite that approved it (section 30.13) |
 | Agentic search | Finding information by letting the model list, search and read |
 | Approval gate | Code that asks a human before a risky tool runs |
 | Audit log | An append-only record of every action an agent took |
 | Blackboard (shared board) | A shared record of a team's tasks and results that agents read and only the orchestrator writes (section 21.3) |
 | BM25 | A classic keyword-ranking formula that weights rare words more |
 | Cache hint (MCP) | `ttlMs` and `cacheScope` on a list result: how long a client may reuse it, and whether it may be shared across users (section 15.3) |
+| Canary release | Sending a small share of real traffic, say 1% and then 10%, to a new version and comparing its SLOs with the current one before going further (section 30.13) |
 | Cascade | Trying a cheaper model first and escalating to a stronger one only when a check fails (section 20.8) |
 | Checkpoint | Saving a step's status and result before the next step starts, so a crashed job can resume (section 19.3) |
 | Compaction | Replacing older conversation turns with a summary to save context |
 | Compensation | Undoing completed steps, newest first, when a long job is abandoned; the saga pattern (section 19.7) |
 | Computer-use agent | An agent that operates a user interface, a web page or a desktop, instead of calling an API (Chapter 23) |
-| Confidence interval (95%) | The range that very likely contains the real pass rate, given how many runs you measured (measurement interlude, Chapter 27) |
+| Confidence interval (95%) | The range that very likely contains the real pass rate, given how many runs you measured; the kit computes it with the Wilson formula (measurement interlude, Chapter 27) |
 | Content block | One part of a model message: text, `tool_use` or `tool_result` |
 | Context engineering | Choosing what goes into the model's context on each call, and what stays out (section 1.7, Chapter 16) |
 | Context window | The maximum tokens a model can consider in one call |
@@ -199,9 +203,12 @@ Most agent bugs aren't crashes: the agent runs, then does the wrong thing. Work 
 | Recall@k / MRR | Retrieval metrics: is the right document in the top k, and how high does it rank |
 | Reciprocal rank fusion | Merging several rankings by adding 1/(60 + rank) for each result |
 | Resource (MCP) | Read-only data a server exposes by URI |
+| Risk tier | How much harm an agent could do, which sets how much review it needs before launch; the EU AI Act sorts AI systems into tiers in the same spirit (section 30.12) |
+| Rollback | Switching traffic back to the previous version by configuration, without a deploy; automatic when a canary burns its error budget (section 30.13) |
 | Routing | A cheap decision before an expensive one; this book uses it for four choices: a tool (Chapter 3), an agent (Chapter 11), context sources (Chapter 16) and a model (Chapter 20) |
 | Scorecard (agent) | One table of quality, safety, cost and latency metrics for a release, compared with the last (section 27.6) |
 | Server tool | A tool that runs on the provider's servers (web search, code execution, tool search), not in your code |
+| Shadow mode | Running a new version on a copy of real traffic without showing its answers or taking its actions, to compare it with the current version (section 30.13) |
 | SLO (service-level objective) | A target for a measured behavior, such as task success ≥ 95% over 30 days (section 28.10) |
 | SSE (Server-Sent Events) | A simple way for a server to stream events to a client over one HTTP response |
 | SSRF | Server-side request forgery: tricking a server or agent into fetching an internal address |

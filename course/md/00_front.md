@@ -43,7 +43,7 @@ This is a book about building agents. Everything else it teaches, it teaches onl
 | --- | --- | --- |
 | Python | The fundamentals the chapters use, listed in a table in the Python interlude | The official Python tutorial, Python for Everybody, CS50 Python |
 | Terminal, JSON, HTTP, Docker | Enough to run the course kit and call web APIs | Chapter 0's Learn more list (MDN, Docker docs) |
-| Testing, regular expressions, SQL, async | One interlude each, sized to the chapter that needs it | Each interlude's Learn more list |
+| Testing, regular expressions, SQL, measurement, async | One interlude each, sized to the chapter that needs it | Each interlude's Learn more list |
 | Machine learning | Not covered. You use models; you don't train them | Not needed here; if you're curious, fast.ai's free Practical Deep Learning course (course.fast.ai) |
 | Web front ends, cloud operations | Only what it takes to put an agent behind an API (Chapter 30) | Chapter 30's Learn more list |
 | Agent frameworks | The ideas behind them, plus a short tour (Chapter 24) | Each framework's own documentation |
