@@ -620,5 +620,9 @@
  ],
  "1.9": [
   "ANSWERS.md"
+ ],
+ "29.7": [
+  "exercises/ex29_7_crossover.py",
+  "tests/test_ch29_benchmark.py"
  ]
 }

@@ -200,7 +200,35 @@ MAP = {
     "28.6": B("ex28_6_dashboard"),
     "28.7": B("ex28_7_taxonomy"),
     "29.6": B("ex29_6_experiment"),
+    "29.7": B("ex29_7_crossover"),
 }
+
+# "{{t:label}}" in an exercise -> "Table 24.2", numbered exactly as course/build.js numbers
+# captions: per chapter (or interlude letter), counting "Table:" / "Figure:" lines outside code.
+INTERLUDE_LETTER = {"00zz_python": "P", "01z_testing": "T", "05z_regex": "R", "07z_sql": "S",
+                    "08z_measure": "M", "10z_async": "A"}
+LABELS = {}
+for md in sorted(MD.glob("*.md")):
+    text, n = md.read_text(), {"Table": 0, "Figure": 0}
+    ch = re.search(r"^# Chapter (\d+):", text, re.M)
+    prefix = ch.group(1) if ch else INTERLUDE_LETTER.get(md.stem)
+    fence = box = False
+    for line in text.splitlines():
+        if line.startswith("```"):
+            fence = not fence
+            continue
+        if re.match(r"^:::(note|tip|warn|ex) ", line):
+            box = True
+        elif line.strip() == ":::":
+            box = False
+        if fence or box:
+            continue
+        m = re.match(r"^(Table|Figure): .*?\{#([tf]:[\w-]+)\}\s*$", line) or re.match(r"^(Table|Figure): ", line)
+        if m:
+            n[m.group(1)] += 1
+            if m.lastindex == 2 and prefix:
+                LABELS[m.group(2)] = f"{m.group(1)} {prefix}.{n[m.group(1)]}"
+resolve = lambda s: re.sub(r"\{\{([tf]:[\w-]+)\}\}", lambda m: LABELS[m.group(1)], s) if s else s
 
 exercises = []
 SKIP = ("00_front", "20_capstones", "21_appendix")
@@ -213,6 +241,7 @@ for md in sorted(p for p in MD.glob("[0-9][0-9]*.md") if p.stem not in SKIP):
         hint = next((l[len("**Hint:**"):].strip() for l in lines if l.startswith("**Hint:**")), None)
         done = next((l[len("**Done when:**"):].strip() for l in lines if l.startswith("**Done when:**")), None)
         task = " ".join(l for l in lines if not l.startswith(("**Hint:**", "**Done when:**")))
+        hint, done, task = resolve(hint), resolve(done), resolve(task)
         entry = {"id": ex_id, "level": level, "title": title, "chapter": chapter_title,
                  "task": task, "hint": hint, "done_when": done}
         entry.update(MAP.get(ex_id, {"kind": "concept"}) if level != "Concept" else {"kind": "concept"})

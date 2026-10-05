@@ -406,6 +406,7 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 29.4 Budgets that hold | `exercises/ex29_4_budgets.py`, `tests/test_part9.py` | A per-request and a per-user daily budget around the Chapter 8 analyst, both enforced in code |
 | 29.5 Halve the cost | `exercises/ex29_5_cost_cut.py`, `tests/test_part9.py` | Cost per successful task before and after two levers: routing easy cases to the small model, and caching the stable prefix |
 | 29.6 Find the knee | `exercises/ex29_6_experiment.py` | A concurrency sweep with the real agent: throughput, goodput, percentiles and the knee |
+| 29.7 Benchmark before you choose | `exercises/ex29_7_crossover.py`, `tests/test_ch29_benchmark.py` | Raises the small model's simulated error rate from 10% to 50%: it stays cheaper per success throughout while its success falls to 55%, so a success floor, not cost per success, decides |
 
 ## Chapter 30: Deploying Agents: From One Service to an Agent Platform
 

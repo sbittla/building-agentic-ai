@@ -50,7 +50,8 @@ RUNTIME = {".env", ".env.tmp", "tasks.json", "tasks.db", "summary.json", "capsto
            "notes_big_answers.txt", "query_log.jsonl", "audit_log.jsonl", "shipping.py", "plan.md",
            "tool_calls.jsonl", "services.json", "agent-card.json", "refund_policy.json", "secret.md",
            "traces.jsonl", "live_report.md", "live_exercises_report.md", "exN_M.md",
-           "shop.db"}                         # built by course/data/generate.py, not committed
+           "shop.db",                         # built by course/data/generate.py, not committed
+           "config.json", "raw.jsonl", "summary.md"}   # written by ch29_benchmark.py into each run folder
 RUNTIME_PATTERNS = [r"^ex[0-9A-Z]+_\d+(_\w+)?\.(py|md|jsonl?)$",     # a reader's exercise file
                     r"^test_\w+\.py$", r"^(my|your)_\w+\.\w+$", r"^\w+\.(log|png|pdf|docx|csv)$"]
 

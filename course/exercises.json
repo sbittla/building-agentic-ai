@@ -2128,7 +2128,7 @@
   "chapter": "Chapter 24: Skills, Frameworks and Agent Runtimes",
   "task": "For each project, choose hand-built, tool runner, Agent SDK or LangChain, and justify: (a) a three-tool internal chatbot; (b) a coding assistant that edits files and runs tests; (c) an agent that must run on three different model providers; (d) a teaching demo.",
   "hint": null,
-  "done_when": "Each choice has a reason tied to the table in section 24.5.",
+  "done_when": "Each choice has a reason tied to Table 24.2 in section 24.5.",
   "kind": "concept"
  },
  {
@@ -2575,6 +2575,17 @@
   "done_when": "You have the table, one run's breakdown whose terms add up to its total, and two or three sentences naming the knee and the limiting resource (provider rate limit, client-side slots or something else) with the numbers that show it.",
   "kind": "build",
   "file": "exercises/ex29_6_experiment.py"
+ },
+ {
+  "id": "29.7",
+  "level": "Medium",
+  "title": "Benchmark before you choose",
+  "chapter": "Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost",
+  "task": "Run `./course.sh python ch29_benchmark.py --quick` and read E3. Then raise the small model's simulated wrong-SQL rate (`SIM_MODELS`, `p_wrong`) from 10% to 50% in steps, rerunning E3 each time, and compare cost per successful task and success rate for the two models.",
+  "hint": "`main([...])` returns the summary, and `--quiet` skips the printed report. Pass `--long-context 0` to run base context only.",
+  "done_when": "You have a table of success rate and cost per success for both models at each error rate, and two or three sentences on which model you'd choose for a support agent that must answer 95% of questions correctly, and why cost per success alone can't decide it.",
+  "kind": "build",
+  "file": "exercises/ex29_7_crossover.py"
  },
  {
   "id": "30.1",
