@@ -18,7 +18,7 @@ Table: The support agent through the lifecycle
 | Improve | Every real failure becomes a new test case | Section 27.8 |
 | Retire | One day it's replaced; its tokens are revoked and its memories handled by policy | Section 30.13 |
 
-Capstone 1 asks you to build that agent yourself. If you've done it, you've done what production teams do.
+The case study before the capstones follows it through one release in detail: the decisions, the evidence for each, what testing changed, and an incident and its rollback. Capstone 1 asks you to build that agent yourself. If you've done it, you've done what production teams do.
 
 ## Chapter 1's question, again
 

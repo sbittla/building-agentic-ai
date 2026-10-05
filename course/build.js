@@ -582,7 +582,7 @@ const PARTS = [
 const PART_EXISTS = f => fs.existsSync(path.join(ROOT, "md", f));
 for (const p of PARTS) p.files = p.files.filter(PART_EXISTS);   // chapters are added part by part
 const FRONT = ["fm_preface.md", "fm_acknowledgments.md", "fm_author.md", "00_front.md"];
-const BACK = ["90_capstones.md", "90z_afterword.md", "91_appendix.md"];
+const BACK = ["89_case_study.md", "90_capstones.md", "90z_afterword.md", "91_appendix.md"];
 const readRaw = f => fs.readFileSync(path.join(ROOT, "md", f), "utf8");
 // "{{exercises:none}}" and friends: counted from the manuscript and model_needs.json, so they never go stale.
 // Kinds: all, none, any, claude-rec, claude-only; "{{exercises-word:claude-only}}" spells the number out.
