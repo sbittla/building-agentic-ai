@@ -99,13 +99,30 @@ function boxParas(lines, fill, color, header) {
   const base = { shading: { type: ShadingType.CLEAR, color: "auto", fill }, border: { left: border }, indent: { left: 200, right: 120 } };
   const out = [];
   if (header) out.push(new Paragraph({ ...base, keepNext: true, spacing: { before: 200, after: 60 }, children: header }));
-  lines.forEach((l, i) => {
-    const last = i === lines.length - 1;
-    let children;
-    const hm = l.match(/^\*\*(Hint|Done when|Run):\*\*\s*(.*)$/);
-    if (hm) children = [new TextRun({ text: hm[1] + ": ", bold: true, color }), ...inline(hm[2])];
-    else children = inline(l);
-    out.push(new Paragraph({ ...base, keepNext: !last, spacing: { before: 0, after: last ? 200 : 80, line: 264 }, children }));
+  // inside a box: ``` fences become monospace lines, "- " lines become bullets
+  const items = [];
+  let code = false;
+  for (const l of lines) {
+    if (l.startsWith("```")) { code = !code; continue; }
+    if (code) items.push({ kind: "code", text: l });
+    else if (l.trim()) items.push({ kind: l.startsWith("- ") ? "bullet" : "text", text: l.startsWith("- ") ? l.slice(2) : l });
+  }
+  items.forEach((it, i) => {
+    const last = i === items.length - 1, next = items[i + 1];
+    let children, extra = {};
+    if (it.kind === "code") {
+      children = [new TextRun({ text: it.text.length ? it.text : " ", font: MONO, size: 14, color: "000000" })];
+      extra = { spacing: { before: 0, after: last ? 200 : (next && next.kind === "code" ? 0 : 80), line: 240 } };
+    } else {
+      const hm = it.text.match(/^\*\*(Hint|Done when|Run):\*\*\s*(.*)$/);
+      if (hm) children = [new TextRun({ text: hm[1] + ": ", bold: true, color }), ...inline(hm[2])];
+      else children = inline(it.text);
+      if (it.kind === "bullet") {
+        children = [new TextRun({ text: "\u2022\t" }), ...children];
+        extra = { indent: { left: 520, right: 120, hanging: 280 }, tabStops: [{ type: TabStopType.LEFT, position: 520 }] };
+      }
+    }
+    out.push(new Paragraph({ ...base, keepNext: !last, spacing: { before: 0, after: last ? 200 : 80, line: 264 }, ...extra, children }));
   });
   return out;
 }
@@ -392,7 +409,7 @@ function convert(md, file) {
     if ((m = line.match(/^:::note (.*)$/))) {              // a titled box without "Tip:"
       flush();
       const buf = []; i++;
-      while (i < lines.length && lines[i].trim() !== ":::") { if (lines[i].trim()) buf.push(lines[i]); i++; }
+      while (i < lines.length && lines[i].trim() !== ":::") { buf.push(lines[i]); i++; }   // boxParas drops blank lines outside code
       i++;
       out.push(...boxParas(buf, "F2F2F2", "404040", [new TextRun({ text: m[1], bold: true, color: "404040" })]));
       continue;
@@ -400,7 +417,7 @@ function convert(md, file) {
     if ((m = line.match(/^:::(tip|warn) (.*)$/))) {
       flush();
       const buf = []; i++;
-      while (i < lines.length && lines[i].trim() !== ":::") { if (lines[i].trim()) buf.push(lines[i]); i++; }
+      while (i < lines.length && lines[i].trim() !== ":::") { buf.push(lines[i]); i++; }   // boxParas drops blank lines outside code
       i++;
       const warn = m[1] === "warn";
       const color = warn ? "000000" : "404040";
@@ -412,7 +429,7 @@ function convert(md, file) {
       flush();
       const [lvl, id, title] = [m[1], m[2], m[3]];
       const buf = []; i++;
-      while (i < lines.length && lines[i].trim() !== ":::") { if (lines[i].trim()) buf.push(lines[i]); i++; }
+      while (i < lines.length && lines[i].trim() !== ":::") { buf.push(lines[i]); i++; }   // boxParas drops blank lines outside code
       i++;
       const color = LEVEL_COLORS[lvl];
       const need = MODEL_NEEDS[id];
