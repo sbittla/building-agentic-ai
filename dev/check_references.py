@@ -19,7 +19,7 @@ from pathlib import Path
 KIT = Path(__file__).resolve().parent.parent
 MD = KIT / "course" / "md"
 DOCS = [KIT / f for f in ("README.md", "LOCAL_MODEL.md", "EXERCISE_INDEX.md", "solutions/README.md",
-                          "solutions/SOLUTIONS.md", "COMPATIBILITY.md", "CHANGELOG.md", "ERRATA.md")]
+                          "solutions/SOLUTIONS.md", "COMPATIBILITY.md", "CHANGELOG.md", "ERRATA.md", "MIGRATION.md")]
 EXERCISES = json.loads((KIT / "course/exercises.json").read_text(encoding="utf-8"))
 IDS = {e["id"] for e in EXERCISES}
 INDEX = json.loads((KIT / "solutions/index.json").read_text(encoding="utf-8"))
@@ -102,7 +102,7 @@ def check_command(where, cmd):
         check_file(where, args[0] + ".py")
 
 def scan(path, text, history=False):
-    """history=True (CHANGELOG, ERRATA): old ids and names are the point, so check commands only."""
+    """history=True (CHANGELOG, ERRATA, MIGRATION): old ids and names are the point, so check commands only."""
     in_fence = False
     for n, line in enumerate(text.split("\n"), 1):
         where = f"{path.relative_to(KIT)}:{n}"
@@ -142,7 +142,7 @@ def scan(path, text, history=False):
                 report(where, f"Capstone {m.group(1)} doesn't exist")
 
 for f in sorted(MD.glob("*.md")) + [d for d in DOCS if d.exists()]:
-    scan(f, f.read_text(encoding="utf-8"), history=f.name in ("CHANGELOG.md", "ERRATA.md"))
+    scan(f, f.read_text(encoding="utf-8"), history=f.name in ("CHANGELOG.md", "ERRATA.md", "MIGRATION.md"))
 
 # every solution file the index promises is there
 for i, files in INDEX.items():
@@ -157,6 +157,35 @@ answers = (KIT / "solutions/ANSWERS.md").read_text(encoding="utf-8")
 for e in EXERCISES:
     if e["id"] not in INDEX and not re.search(r"\*\*" + re.escape(e["id"]) + r" ", answers):
         report("solutions", f"exercise {e['id']} has neither a solution file nor a written answer")
+
+# COMPATIBILITY.md's versions match what the kit actually installs
+LOCK = dict(re.findall(r"^([A-Za-z0-9_.-]+)==(\S+)", (KIT / "requirements.lock").read_text(), re.M))
+LOCK = {k.lower(): v for k, v in LOCK.items()}
+DOCKER = (KIT / "Dockerfile").read_text(encoding="utf-8")
+PRICES_SRC = (KIT / "course/code/ch20/ch20_router.py").read_text(encoding="utf-8")
+for n, line in enumerate((KIT / "COMPATIBILITY.md").read_text(encoding="utf-8").splitlines(), 1):
+    cells = [c.strip() for c in line.strip("|").split("|")] if line.startswith("| `") else []
+    if len(cells) < 2:
+        continue
+    names = re.findall(r"`([^`]+)`", cells[0])
+    versions = [v.strip() for v in cells[1].split("/")]
+    if all(n.lower() in LOCK for n in names) and len(names) == len(versions):
+        for name, ver in zip(names, versions):
+            if LOCK[name.lower()] != ver.split()[0]:
+                report(f"COMPATIBILITY.md:{n}", f"{name} is {ver}, but requirements.lock pins {LOCK[name.lower()]}")
+    elif names and names[0].startswith("claude-"):
+        m = re.search(r"\$([\d.]+) / \$([\d.]+)", cells[2] if len(cells) > 2 else "")
+        p = re.search(re.escape(f'"{names[0]}": (') + r"([\d.]+), ([\d.]+)\)", PRICES_SRC)
+        if not (m and p and float(m.group(1)) == float(p.group(1)) and float(m.group(2)) == float(p.group(2))):
+            report(f"COMPATIBILITY.md:{n}", f"{names[0]}'s price doesn't match PRICES in ch20_router.py")
+for pin in ("pip==26.2.1", "uv==0.12.18", "inspector@2.8.0", "server-filesystem@2026.8.31",
+            "server-memory@2026.8.31", "mcp-server-git==2026.8.18", "mcp-server-fetch==2026.8.18",
+            "mcp-server-time==2026.8.18", "ubuntu:24.04", "python3.12"):
+    ver = re.split(r"==|@|:|python", pin)[-1]
+    if pin not in DOCKER:
+        report("Dockerfile", f"{pin} isn't pinned there any more; update COMPATIBILITY.md")
+    elif ver not in (KIT / "COMPATIBILITY.md").read_text(encoding="utf-8"):
+        report("COMPATIBILITY.md", f"{pin} is in the Dockerfile but not in the matrix")
 
 if problems:
     print(f"{len(problems)} problems:")

@@ -14,6 +14,10 @@ Everything runs inside Docker, so Docker is the only thing you install. You edit
 | [RESOURCES.md](RESOURCES.md) | Every reference from the book: courses, docs, where to ask for help |
 | [solutions/README.md](solutions/README.md) | How the solutions and capstones are organised and run |
 | [solutions/SOLUTIONS.md](solutions/SOLUTIONS.md) | What each reference solution shows |
+| [COMPATIBILITY.md](COMPATIBILITY.md) | The dated matrix of pinned versions, models, prices and protocol versions; protocol vs SDK changes |
+| [CHANGELOG.md](CHANGELOG.md) · [MIGRATION.md](MIGRATION.md) | What changed between tags, and what to change in your code |
+| [ERRATA.md](ERRATA.md) | Mistakes in each printing, and their corrections |
+| [verification/](verification/README.md) · [benchmarks/](benchmarks/README.md) | Test and security results with their provenance; the published benchmark runs |
 | [PILOT.md](PILOT.md) | For the author: testing the book with real learners |
 
 On Windows, replace `./course.sh` with `.\course.cmd` in every command below.
@@ -22,12 +26,12 @@ On Windows, replace `./course.sh` with `.\course.cmd` in every command below.
 
 ## Book editions and code versions
 
-Each printing of the book is matched by a tag, so you can always get the exact code it was tested against. `main` keeps moving: fixes and compatibility updates land there and are listed in [CHANGELOG.md](CHANGELOG.md), never silently.
+Each printing of the book is matched by a tag, so you can always get the exact code it was tested against. `main` keeps moving: fixes and compatibility updates land there and are listed in [CHANGELOG.md](CHANGELOG.md), never silently. A tag never moves, so the code at your printing's tag always matches your book; mistakes in the printed text are in [ERRATA.md](ERRATA.md).
 
 | Book printing | Exercises | Tag | Get it |
 | --- | ---: | --- | --- |
 | First printing, September 2026 | 231 | `edition-1.0` | `git checkout edition-1.0` |
-| Corrected printing, October 2026 | 236 | `edition-1.1` | `git checkout edition-1.1` |
+| Corrected printing, October 2026 | 237 | `edition-1.1` | `git checkout edition-1.1` |
 
 Not sure which printing you have? The copyright page says, and the corrected printing has a List of Figures after the Contents.
 
