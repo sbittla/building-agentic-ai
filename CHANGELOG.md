@@ -30,6 +30,7 @@ What changed in the book and this repository, newest first. Each book printing i
 - Reference documents: [ARCHITECTURE.md](ARCHITECTURE.md), [AGENT_ENGINEERING_PRINCIPLES.md](AGENT_ENGINEERING_PRINCIPLES.md), [DECISION_GUIDE.md](DECISION_GUIDE.md), [AGENT_LIFECYCLE.md](AGENT_LIFECYCLE.md), [SECURITY_MODEL.md](SECURITY_MODEL.md), [PERFORMANCE_MODEL.md](PERFORMANCE_MODEL.md), [EVALUATION_MODEL.md](EVALUATION_MODEL.md), [COST_MODEL.md](COST_MODEL.md), [CURRICULUM_MAP.md](CURRICULUM_MAP.md); COMPATIBILITY.md is now [VERSION_MATRIX.md](VERSION_MATRIX.md), opening with a release matrix.
 - Generated and checked in CI: `dev/cost_model.py --check`, `dev/curriculum_map.py --check`; `dev/check_references.py` now also checks the version matrix's and README's exercise counts and every listing's maturity label (`course/code_maturity.json`).
 - `ch30_gateway.py` redacts arguments in its audit trail; `ch26_identity.py` rotates signing keys (`rotate_signing_key`); `ch27_scorecard.py --release` prints the eleven-quality scorecard; the benchmark labels simulated cost as simulated.
+- `dev/check_links.py` and a weekly `links` workflow check every external link in the book and docs.
 - Security mutations: 12 controls, each caught by a test when removed (checkpoints and idempotency added for S15).
 - Exercises: 231 → 246 (M.1–M.3, 1.9, 17.9, 21.7, 23.7, 24.10, 25.7, 26.7, 28.8, 29.7, 29.8, 30.8 and 30.12 added; 15.5–15.7 renumbered 30.9–30.11).
 - `./course.sh quickstart` and `course/code/quickstart.py`.
