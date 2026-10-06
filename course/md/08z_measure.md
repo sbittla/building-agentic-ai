@@ -2,6 +2,8 @@
 
 Chapter 8 checked the SQL analyst against answers you knew were right. That's the start of measuring an agent, but one run of each question isn't enough: the same agent, asked the same question twice, can pass once and fail once. This short interlude turns checking into measuring. You'll run every case several times, report a pass rate with a margin of error, and learn when a change is really an improvement and when it only looks like one.
 
+**Prerequisites:** Chapter 4 (agent loop). The testing interlude helps but isn't required.
+
 ## Learning objectives
 
 By the end of this interlude you can:
@@ -10,10 +12,6 @@ By the end of this interlude you can:
 - Run every case several times and report the pass rate with a 95% interval.
 - Spot flaky cases, the ones that pass on some runs and fail on others.
 - Decide whether a change made an agent better, worse, or whether you can't tell yet.
-
-## Prerequisites
-
-Chapter 4 (agent loop). The testing interlude helps but isn't required.
 
 ## Why this interlude
 
@@ -34,7 +32,7 @@ A **margin** says how far the true pass rate might be from the one you measured.
 
 This file measures two simulated agents, so you can see the effect without spending anything:
 
-@@code i_measure.py
+@@code i_measure.py::wilson~,load_cases~,contains_expected,run_suite,compare,simulated_agent
 
 Run it with `./course.sh python i_measure.py`:
 
@@ -80,7 +78,7 @@ Write the check in code, not by eye: the expected number appears in the answer, 
 
 `compare` is cautious on purpose: it calls a version better only when the two intervals don't overlap at all. Chapter 27's CI gate uses a sharper statistical test, but the cautious rule never tells you something that isn't there.
 
-## Summary
+## Key takeaways
 
 - A case is a question and a check; keep cases in a JSONL file and add to it whenever the agent fails in a new way.
 - Run every case several times: one run is an anecdote.
@@ -92,13 +90,12 @@ You can now tell a real improvement from luck. Chapter 9 gives an agent its firs
 
 ## Learn more
 
-Free, trustworthy places to read more about this chapter's topics. Start with the **Start here** rows; **Go deeper** rows are for when you want more detail. Links were checked in September 2026; if one has moved, search for its title.
+Start with these. `RESOURCES.md` in the course kit has all 3 links for this chapter, including the **Go deeper** reading, ready to click.
 
-| Resource | What you'll find | Level |
-| --- | --- | --- |
-| **Anthropic: Demystifying evals for AI agents**<br>[anthropic.com/engineering/demystifying-evals-for-ai-agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) | Tasks, trials and graders, and why agents need repeated runs | Start here |
-| **Claude docs: Define success criteria and build evaluations**<br>[platform.claude.com/docs/en/test-and-evaluate/develop-tests](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests) | Writing test cases and checks for a model-based system | Start here |
-| **Wikipedia: Binomial proportion confidence interval**<br>[en.wikipedia.org/wiki/Binomial_proportion_confidence_interval](https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval) | The Wilson interval used in `i_measure.py`, and why simpler formulas fail for small samples | Go deeper |
+| Resource | What you'll find |
+| --- | --- |
+| **Anthropic: Demystifying evals for AI agents**<br>[anthropic.com/engineering/demystifying-evals-for-ai-agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) | Tasks, trials and graders, and why agents need repeated runs |
+| **Claude docs: Define success criteria and build evaluations**<br>[platform.claude.com/docs/en/test-and-evaluate/develop-tests](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests) | Writing test cases and checks for a model-based system |
 
 ## Exercises
 
@@ -113,6 +110,9 @@ Run `i_measure.py`. Then change the two success rates to 0.78 and 0.80 and try 3
 :::
 
 :::ex Medium | M.3 | Measure the SQL analyst
+Measure the SQL analyst on `eval_sql.jsonl`, three trials each, passing when the answer contains the `answer_sql` value. Report rate, interval and flaky cases; change one prompt sentence, re-measure, `compare`.
+**Done when:** two reports, a `compare` verdict, and the flaky cases named.
+---kit---
 Measure the Chapter 8 SQL analyst on the cases in `eval_sql.jsonl`, three trials each: a case passes when the answer contains the value its `answer_sql` returns. Report the pass rate with its interval and the flaky cases. Then add one sentence to the system prompt, measure again and use `compare`.
 **Hint:** `run_suite` takes your agent as a function of the question and your check as a function of the answer and the case; run `answer_sql` on a read-only connection to get the expected value.
 **Done when:** You have two reports and a verdict from `compare`, and you can say which cases were flaky.

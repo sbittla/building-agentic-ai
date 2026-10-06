@@ -20,10 +20,11 @@ jobs:
         run: python dev/cost_model.py --check
       - name: The curriculum map is current
         run: python dev/curriculum_map.py --check
-      - name: README counts and EXERCISE_INDEX.md are up to date
+      - name: README counts, EXERCISE_INDEX.md and RESOURCES.md are up to date
         run: |
           python dev/exercise_index.py
-          git diff --exit-code README.md EXERCISE_INDEX.md
+          python dev/make_resources.py
+          git diff --exit-code README.md EXERCISE_INDEX.md RESOURCES.md
   check:
     runs-on: ubuntu-latest
     timeout-minutes: 60

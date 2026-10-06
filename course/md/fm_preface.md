@@ -26,7 +26,7 @@ The subtitle is the route. Your **first agent** comes early: by Chapter 4 you've
 
 ## Who this book is for
 
-This book is for anyone who wants to build AI agents, including people who have never programmed. Chapter 0 and the Python interlude teach the programming you need; if you already write Python, you can move quickly through them. Developers who have built a simple chatbot will find the later parts (evaluation, security, context engineering, retrieval and deployment) useful on their own. Staff engineers, architects, performance engineers and engineering leaders should start with the reference model, the evaluation, SLO and performance chapters and the enterprise agent platform in Chapter 30; the "Real-world connection" sections and the capstones show what production agent systems require.
+This book is for anyone who wants to build AI agents, including people who have never programmed. Chapter 0 and the Python interlude teach the programming you need; if you already write Python, you can move quickly through them. Developers who have built a simple chatbot will find the later parts (evaluation, security, context engineering, retrieval and deployment) useful on their own. Staff engineers, architects, performance engineers and engineering leaders should start with the reference model, the evaluation, SLO and performance chapters and the enterprise agent platform in Chapter 30; the "In the real world" notes, the case study and the capstones show what production agent systems require.
 
 You don't need a background in machine learning. You won't train a model in this book; you'll learn to build reliable software around one.
 

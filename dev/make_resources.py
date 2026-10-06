@@ -1,5 +1,6 @@
 """Dev tool: write RESOURCES.md (every link in the book, ready to click) from the book's
-markdown: Appendix G's three lists first, then every Learn more table in book order.
+markdown: Appendix G's three lists first, then every chapter's full Learn more list from
+course/learn_more.md (the book prints only the Start here rows).
 Safe to rerun.   python dev/make_resources.py course/md"""
 import re
 import sys
@@ -21,22 +22,19 @@ out = ["# Where to learn more", "",
        "Every link from the book's **Learn more** sections and Appendix G, so you can click them. "
        "Checked September 2026.", ""]
 appendix = (MD / "91_appendix.md").read_text(encoding="utf8")
-g = appendix[appendix.index("## Appendix G"):appendix.index("### Every link in this book")]
+g = appendix[appendix.index("## Appendix G"):appendix.index("## Appendix H")]
 for title, label in [("When you're stuck: where to ask", "When you're stuck: where to ask"),
                      ("Free courses that pair well with this book", "Free courses"),
                      ("Keeping up to date", "Keeping up to date")]:
     part = g[g.index(f"### {title}"):]
     part = part[:part.index("\n### ", 5)] if "\n### " in part[5:] else part
     out += [f"## {label}", ""] + [f"- **[{t}]({u})**: {w}" for t, u, w, _ in rows(part)] + [""]
-for f in ORDER:
-    path = MD / f
-    if not path.exists():
-        continue
-    text = path.read_text(encoding="utf8")
-    m = re.search(r"^## Learn more\n(.*?)(?=^## |\Z)", text, re.M | re.S)
-    found = rows(m.group(1)) if m else []
+# every chapter's full list, in book order (course/learn_more.md is written in book order)
+learn = (KIT / "course/learn_more.md").read_text(encoding="utf8")
+for m in re.finditer(r"^## (.+?)\n(.*?)(?=^## |\Z)", learn, re.M | re.S):
+    found = rows(m.group(2))
     if found:
-        out += [f"## {re.search(r'^# (.+)$', text, re.M).group(1).strip()}", ""]
+        out += [f"## {m.group(1).strip()}", ""]
         out += [f"- [{t}]({u}) ({lvl}): {w}" for t, u, w, lvl in found] + [""]
 (KIT / "RESOURCES.md").write_text("\n".join(out), encoding="utf8")
 print("wrote RESOURCES.md")

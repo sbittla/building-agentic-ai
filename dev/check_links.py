@@ -15,7 +15,7 @@ import urllib.request
 from pathlib import Path
 
 KIT = Path(__file__).resolve().parent.parent
-SOURCES = sorted((KIT / "course" / "md").glob("*.md")) + sorted(KIT.glob("*.md")) + \
+SOURCES = sorted((KIT / "course" / "md").glob("*.md")) + [KIT / "course" / "learn_more.md"] + sorted(KIT.glob("*.md")) + \
     sorted((KIT / "solutions").glob("*.md"))
 URL = re.compile(r"https?://[^\s)<>\"'`|\]]+")
 SKIP = re.compile(r"(127\.0\.0\.1|localhost|0\.0\.0\.0|10\.\d+\.\d+\.\d+|169\.254|host\.docker\.internal|"

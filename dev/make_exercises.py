@@ -246,6 +246,10 @@ for md in sorted(p for p in MD.glob("[0-9][0-9]*.md") if p.stem not in SKIP):
     chapter_title = re.search(r"^# (.+)$", text, re.M).group(1)
     for m in re.finditer(r"^:::ex (\w+) \| ([\w.]+) \| (.+?)\n(.*?)^:::$", text, re.M | re.S):
         level, ex_id, title, body = m.groups()
+        # "---kit---" splits a box: the book prints the short brief above it; the kit
+        # (./course.sh ex) shows the full brief below it.
+        if "\n---kit---\n" in "\n" + body:
+            body = body.split("---kit---", 1)[1]
         lines = [l.strip() for l in body.strip().splitlines() if l.strip()]
         hint = next((l[len("**Hint:**"):].strip() for l in lines if l.startswith("**Hint:**")), None)
         done = next((l[len("**Done when:**"):].strip() for l in lines if l.startswith("**Done when:**")), None)
