@@ -129,5 +129,17 @@
    "S4"
   ],
   "caught": true
+ },
+ {
+  "control": "checkpoints and idempotency",
+  "switched_off": "ch19_durable checkpoints (finished steps forgotten) and keys",
+  "expected_to_fail": [
+   "S15"
+  ],
+  "failed": [
+   "S13",
+   "S15"
+  ],
+  "caught": true
  }
 ]
