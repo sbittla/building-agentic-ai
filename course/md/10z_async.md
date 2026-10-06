@@ -2,6 +2,8 @@
 
 Agents spend most of their time waiting on the model, an API or a server. This short interlude shows you how to make those waits overlap, so a program can do several things at once. You'll run a small timing demo, learn to read async agent code and fix the two most common async bugs.
 
+**Prerequisites:** The Python interlude (functions and decorators), Chapter 4 (agent loop).
+
 ## Learning objectives
 
 By the end of this interlude you can:
@@ -11,10 +13,6 @@ By the end of this interlude you can:
 - Run blocking code with `asyncio.to_thread`, and set deadlines with `asyncio.wait_for`.
 - Read the async code in Chapters 11, 13 and 19, and avoid the two classic async bugs.
 
-## Prerequisites
-
-The Python interlude (functions and decorators), Chapter 4 (agent loop).
-
 ## Why this interlude
 
 Chapter 11 runs several subagents at the same time, and Chapters 13, 14 and 19 talk to MCP servers and web clients. All of this uses **asynchronous** (async) Python. It looks unusual at first, but you need only five ideas.
@@ -23,7 +21,7 @@ Chapter 11 runs several subagents at the same time, and Chapters 13, 14 and 19 t
 
 Most of an agent's time goes to **waiting**: for the model, for an API, for a server. Normal Python code waits for one thing at a time. Async code can start several waits and let them overlap, all in one program.
 
-@@code i_async.py
+@@code i_async.py::fetch,one_after_another,at_the_same_time,slow_blocking_call,with_blocking_code,with_a_timeout
 
 Run it with `./course.sh python i_async.py`. Two one-second waits take two seconds one after the other, but one second with `gather`.
 
@@ -66,7 +64,7 @@ async with MCPHub(config) as hub:
 
 Read it as: *connect to the servers; run all subagents at once and wait for all of them; then disconnect.* The `*` spreads a list of coroutines into separate arguments for `gather`.
 
-## Summary
+## Key takeaways
 
 - Async lets one program overlap many waits: for the model, APIs and servers.
 - `async def` defines, `await` waits, `asyncio.run` starts and `gather` runs things at the same time.
@@ -77,13 +75,11 @@ With these ideas you can read the code in Chapter 11, where a lead agent uses `a
 
 ## Learn more
 
-Free, trustworthy places to read more about this chapter's topics. Start with the **Start here** rows; **Go deeper** rows are for when you want more detail. Links were checked in September 2026; if one has moved, search for its title.
+Start with these. `RESOURCES.md` in the course kit has all 3 links for this chapter, including the **Go deeper** reading, ready to click.
 
-| Resource | What you'll find | Level |
-| --- | --- | --- |
-| **Real Python: Async IO in Python**<br>[realpython.com/async-io-python](https://realpython.com/async-io-python/) | async, await and the event loop, with examples | Start here |
-| **Python docs: asyncio**<br>[docs.python.org/3/library/asyncio.html](https://docs.python.org/3/library/asyncio.html) | The official reference, including gather and timeouts | Go deeper |
-| **Claude docs: Python SDK**<br>[platform.claude.com/docs/en/cli-sdks-libraries/sdks/python](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/python) | Installing the SDK, and AsyncAnthropic for parallel calls | Go deeper |
+| Resource | What you'll find |
+| --- | --- |
+| **Real Python: Async IO in Python**<br>[realpython.com/async-io-python](https://realpython.com/async-io-python/) | async, await and the event loop, with examples |
 
 ## Exercises
 

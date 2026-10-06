@@ -2,6 +2,8 @@
 
 Agent code leans on a few Python features that beginner tours often skip: calling a function with a dictionary of arguments, storing functions in a dictionary, small classes and decorators. This interlude gathers them in one runnable file and one pattern, the tool registry, that you'll see in almost every chapter. By the end, you'll have written your own `run_tool` and a decorator that registers tools.
 
+**Prerequisites:** Chapter 0, or some experience writing Python.
+
 ## Learning objectives
 
 By the end of this interlude you can:
@@ -11,10 +13,6 @@ By the end of this interlude you can:
 - Store functions in dictionaries and sort with `key=lambda ...`.
 - Write a small class and a dataclass.
 - Read and write a decorator, the pattern behind `@mcp.tool()`.
-
-## Prerequisites
-
-Chapter 0, or some experience writing Python.
 
 ## Who this interlude is for
 
@@ -77,7 +75,7 @@ Read it slowly. `REGISTRY[name]` looks up a **function** by its name. `(**args)`
 - **Catching every error silently** (`except: pass`). Catch the errors you expect and report them.
 - **Calling `fn(args)` instead of `fn(**args)`**: the function receives one dictionary instead of named arguments.
 
-## Summary
+## Key takeaways
 
 - Comprehensions build lists and dictionaries in one line.
 - `fn(**args)` calls a function with a dictionary of arguments: this is how tools are called.
@@ -89,19 +87,13 @@ With Part 0 behind you, Chapter 1 puts these pieces to work. You'll make your fi
 
 ## Learn more
 
-Free, trustworthy places to read more about this chapter's topics. Start with the **Start here** rows; **Go deeper** rows are for when you want more detail. Links were checked in September 2026; if one has moved, search for its title.
+Start with these. `RESOURCES.md` in the course kit has all 9 links for this chapter, including the **Go deeper** reading, ready to click.
 
-| Resource | What you'll find | Level |
-| --- | --- | --- |
-| **The official Python tutorial**<br>[docs.python.org/3/tutorial](https://docs.python.org/3/tutorial/) | Free and complete; chapters 3 to 5 and 9 cover this interlude | Start here |
-| **Python for Everybody**<br>[py4e.com](https://www.py4e.com) | A free beginner course with videos, for people who have never programmed | Start here |
-| **CS50's Introduction to Programming with Python**<br>[cs50.harvard.edu/python](https://cs50.harvard.edu/python/) | Harvard's free Python course with lectures and problem sets | Start here |
-| **Automate the Boring Stuff with Python**<br>[automatetheboringstuff.com](https://automatetheboringstuff.com) | Free online book of practical Python for everyday tasks | Start here |
-| **Python Tutor**<br>[pythontutor.com/visualize.html](https://pythontutor.com/visualize.html) | Paste a few lines and watch them run step by step: variables, lists, function calls | Start here |
-| **Exercism: Python track**<br>[exercism.org/tracks/python](https://exercism.org/tracks/python) | Free small exercises with automated feedback, to practice the fundamentals | Start here |
-| **Real Python: Primer on decorators**<br>[realpython.com/primer-on-python-decorators](https://realpython.com/primer-on-python-decorators/) | Decorators explained step by step (section 5) | Go deeper |
-| **Python docs: dataclasses**<br>[docs.python.org/3/library/dataclasses.html](https://docs.python.org/3/library/dataclasses.html) | Reference for @dataclass and field() | Go deeper |
-| **mypy: Type hints cheat sheet**<br>[mypy.readthedocs.io/en/stable/cheat_sheet_py3.html](https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html) | The type-hint syntax MCP uses to build tool schemas (Chapter 12) | Go deeper |
+| Resource | What you'll find |
+| --- | --- |
+| **The official Python tutorial**<br>[docs.python.org/3/tutorial](https://docs.python.org/3/tutorial/) | Free and complete; chapters 3 to 5 and 9 cover this interlude |
+| **Python for Everybody**<br>[py4e.com](https://www.py4e.com) | A free beginner course with videos, for people who have never programmed |
+| **CS50's Introduction to Programming with Python**<br>[cs50.harvard.edu/python](https://cs50.harvard.edu/python/) | Harvard's free Python course with lectures and problem sets |
 
 ## Exercises
 

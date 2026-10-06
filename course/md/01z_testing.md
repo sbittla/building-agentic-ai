@@ -2,6 +2,8 @@
 
 From Chapter 2 on, you'll check your agent code with automated tests, so this short interlude teaches you to write them. You'll run a small test file, break the code on purpose to watch a test catch it, and learn the five pytest patterns the rest of this book relies on. By the end, you'll be able to test code that reads files or calls the network without touching either.
 
+**Prerequisites:** Chapter 0 and the Python interlude.
+
 ## Learning objectives
 
 By the end of this interlude you can:
@@ -10,10 +12,6 @@ By the end of this interlude you can:
 - Run one check over many examples with `parametrize`, and check errors with `pytest.raises`.
 - Test code that uses files (`tmp_path`) or slow and costly calls (`monkeypatch`).
 - Explain why you test tools directly and replace the model with a stand-in.
-
-## Prerequisites
-
-Chapter 0 and the Python interlude.
 
 ## Why this interlude
 
@@ -55,7 +53,7 @@ Model answers vary from run to run, so test your **tools** directly (they're ord
 - **Test edges**: empty input, zero, very large numbers, missing fields.
 - **Make them fast.** You'll run tests that finish in a second often.
 
-## Summary
+## Key takeaways
 
 - A test is a function named `test_*` that asserts; pytest finds and runs it.
 - `parametrize`, `pytest.raises`, `tmp_path` and `monkeypatch` cover almost every test in this book.
@@ -66,14 +64,12 @@ Next comes Chapter 2, where you'll put these habits to work: its exercises ask y
 
 ## Learn more
 
-Free, trustworthy places to read more about this chapter's topics. Start with the **Start here** rows; **Go deeper** rows are for when you want more detail. Links were checked in September 2026; if one has moved, search for its title.
+Start with these. `RESOURCES.md` in the course kit has all 4 links for this chapter, including the **Go deeper** reading, ready to click.
 
-| Resource | What you'll find | Level |
-| --- | --- | --- |
-| **pytest: Get started**<br>[docs.pytest.org/en/stable/getting-started.html](https://docs.pytest.org/en/stable/getting-started.html) | Install, write and run your first tests | Start here |
-| **Real Python: Effective testing with pytest**<br>[realpython.com/pytest-python-testing](https://realpython.com/pytest-python-testing/) | A friendly tour of fixtures, marks and parametrize | Start here |
-| **pytest: How to parametrize tests**<br>[docs.pytest.org/en/stable/how-to/parametrize.html](https://docs.pytest.org/en/stable/how-to/parametrize.html) | One test, many inputs (exercise T.2) | Go deeper |
-| **pytest: How to monkeypatch**<br>[docs.pytest.org/en/stable/how-to/monkeypatch.html](https://docs.pytest.org/en/stable/how-to/monkeypatch.html) | Replacing functions and settings in tests (exercise T.4) | Go deeper |
+| Resource | What you'll find |
+| --- | --- |
+| **pytest: Get started**<br>[docs.pytest.org/en/stable/getting-started.html](https://docs.pytest.org/en/stable/getting-started.html) | Install, write and run your first tests |
+| **Real Python: Effective testing with pytest**<br>[realpython.com/pytest-python-testing](https://realpython.com/pytest-python-testing/) | A friendly tour of fixtures, marks and parametrize |
 
 ## Exercises
 

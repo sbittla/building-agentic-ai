@@ -6,6 +6,37 @@ The appendices are reference material for when you need a fact quickly. They cov
 
 Every exercise runs in the course kit's Docker image. You type commands on your own computer; Docker runs them in the container, against the files in your `workspace` folder. On Windows, use `.\course.cmd` wherever this book shows `./course.sh`.
 
+### What your computer needs
+
+Table: What your computer needs, by model
+Table: What your computer needs, by model
+| | Claude | Free local model |
+| --- | --- | --- |
+| Software | Docker Desktop (Windows, macOS) or Docker Engine with Compose (Linux) | The same |
+| Memory (RAM) | 16 GB recommended | 16 GB minimum, 32 GB recommended |
+| Disk | About 15 GB for the image and data | About 25 GB: the image, data and the 6.6 GB model |
+| Graphics card | Not needed | Optional: an NVIDIA GPU with 8 GB or more makes it fast |
+| Network | To build the image once, then to reach the Claude API | To build the image and download the model once; then none |
+| Money | An API key with a few dollars of credit; about {{cost:learner}} for the whole book | Nothing |
+
+You can start with no model at all: the quick start below, the offline self-test and the 100-plus exercises marked *No model* need neither a key nor the download.
+
+:::warn Before you start: can this computer run Docker?
+- **Installing** Docker Desktop needs administrator rights. On a work laptop, ask IT first; some companies block it.
+- **Windows** needs WSL 2 and hardware virtualization switched on (Docker's installer checks both and explains how to enable them).
+- **Licensing:** Docker Desktop is free for personal use, education and small businesses; larger companies need a paid subscription. Check Docker's current terms.
+- **No Docker possible?** Use a cloud development environment that includes Docker (GitHub Codespaces, for example): open the kit folder there and follow the same steps.
+:::
+
+:::tip If the first commands fail
+- **"Docker is not running"**: start Docker Desktop and wait until it says it's running.
+- **The build stops at `ghcr.io/github/github-mcp-server`**: your network blocks that registry. Add `GITHUB_MCP_IMAGE=nogithub` to `.env` and build again; only exercises 14.3 and 14.4 and Capstone 4 need it.
+- **`check --api` shows `AuthenticationError`**: the key in `.env` is missing or mistyped. Run `./course.sh setup` again.
+- **"Can't reach the local model"**: start it with `./course.sh local up`, and check with `./course.sh local status`.
+
+Appendix B has the full list, and a step-by-step playbook for when an agent runs but does the wrong thing.
+:::
+
 ### What's in the kit
 
 Table: Files and folders in the kit
@@ -355,7 +386,7 @@ The README's *Verified results* section shows both, with passed, failed, written
 
 ## Appendix G: Where to Learn More
 
-Nobody learns this field from one book. This appendix lists where to get help when you're stuck, free courses that complement this one, and how to keep up as models and tools change. Each chapter's **Learn more** section lists the resources for its own topics; the last table here gathers all of them by chapter so you can find any link again.
+Nobody learns this field from one book. This appendix lists where to get help when you're stuck, free courses that complement this one, and how to keep up as models and tools change. Each chapter's **Learn more** section prints the best places to start on its own topics. The full lists, including the **Go deeper** reading, are in `RESOURCES.md` in the course kit, every link ready to click and checked every week.
 
 ### When you're stuck: where to ask
 
@@ -416,11 +447,6 @@ Table: Where changes appear first
 | **Simon Willison's weblog**<br>[simonwillison.net](https://simonwillison.net) | A well-known independent developer's daily notes on LLMs and agent security | Go deeper |
 | **MCP roadmap**<br>[modelcontextprotocol.io/development/roadmap](https://modelcontextprotocol.io/development/roadmap) | The protocol's priorities and upcoming changes | Go deeper |
 
-### Every link in this book, by chapter
-
-Table: Every link in this book, by chapter
-@@all-links-table
-
 ## Appendix H: Run the Book Free with a Local Model
 
 You don't have to pay for API calls to learn from this book. The course kit can run an open-source model, **`qwen3.5:9b`**, in a Docker container on your own computer, and the book's code uses it without any changes. This appendix explains how to set it up, what to expect, and which exercises still need Claude. The same instructions, with every command in one place, are in the course kit's repository as **`LOCAL_MODEL.md`** (github.com/sbittla/building-agentic-ai/blob/main/LOCAL_MODEL.md); check it for updates if a command here doesn't work.
@@ -480,15 +506,7 @@ Table: Choosing the model in `.env`
 | `PROVIDER=claude`, or no `PROVIDER` line | Claude, through the Claude API, with your `ANTHROPIC_API_KEY` |
 | `PROVIDER=local` | `qwen3.5:9b` on your computer; no key needed |
 
-You can switch as often as you like, for example to run one **Claude only** exercise. `./course.sh check` shows which one is active. Other settings you can add to `.env`:
-
-Table: Local-model settings
-| Setting | Default | What it does |
-| --- | --- | --- |
-| `LOCAL_MODEL` | `qwen3.5:9b` | The local model to use. The book is tested with this one. |
-| `LOCAL_CONTEXT` | `32768` | The context window in tokens. Lower it to `16384` if you run short of memory. |
-| `LOCAL_THINKING` | `auto` | `off` skips the model's reasoning step: much faster on a CPU, a little less accurate. |
-| `OLLAMA_URL` | the kit's container | Where Ollama runs; only for the Mac setup above. |
+You can switch as often as you like, for example to run one **Claude only** exercise. `./course.sh check` shows which one is active. `LOCAL_MODEL.md` in the kit lists the other settings: a different local model, a smaller context window (`LOCAL_CONTEXT=16384`) if you run short of memory, and `LOCAL_THINKING=off`, which is much faster on a CPU and a little less accurate.
 
 ### What the kit does for you
 
@@ -526,21 +544,17 @@ Table: Local-model problems and fixes
 | Symptom | Fix |
 | --- | --- |
 | "Can't reach the local model" | Start it: `./course.sh local up`. Check with `./course.sh local status`. |
-| "The model 'qwen3.5:9b' isn't downloaded yet" | Run `./course.sh local up` again; it resumes the download. |
 | The model stops, or Docker says it ran out of memory | Close other programs, set `LOCAL_CONTEXT=16384`, or give Docker more memory (Windows: see `.wslconfig` above). |
 | Very slow | Use `--gpu` if you have an NVIDIA GPU; set `LOCAL_THINKING=off`; see the speed tips above. |
 | "The local model didn't call … correctly after 3 tries" | Run the exercise again (answers vary from run to run), make the prompt or tool description clearer (Chapter 3), or use Claude for that run. |
-| "… needs Claude, not the local model" | The exercise uses a Claude-only feature. Set `PROVIDER=claude` for it. |
-| `--gpu` fails, or the GPU isn't used | Update the NVIDIA driver. On Windows, use Docker Desktop with WSL 2; on Linux, install the NVIDIA Container Toolkit. `./course.sh local logs` shows whether Ollama found the GPU. |
-| Port 11434 is already in use | Ollama is already running as an app on your computer. Quit it, or use it: set `OLLAMA_URL=http://host.docker.internal:11434` and run `./course.sh local up --native`. |
+
+`LOCAL_MODEL.md` in the kit covers the rest: interrupted downloads, GPUs that aren't used and a port already taken by an Ollama app.
 
 ### Which exercises need which model
 
 Every exercise box shows one of four labels. Of the book's {{exercises:all}} exercises, {{exercises:none}} need **no model**, {{exercises:any}} run on **qwen3.5:9b or Claude**, {{exercises:claude-rec}} are **Claude recommended** and {{exercises:claude-only}} are **Claude only**. `./course.sh list` shows the labels too, and `./course.sh ex <id>` warns you before running a Claude-only exercise on the local model.
 
-Table: Exercises by chapter and the model they need
-@@exercise-model-table
-| Capstones 1–6 | — | All six | 4 and 6 (recommended) |
+`./course.sh list <chapter>` shows each exercise's label, and `CURRICULUM_MAP.md` in the kit lists them all.
 
 The exercises that need, or work much better with, Claude:
 

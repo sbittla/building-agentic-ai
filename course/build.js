@@ -51,7 +51,7 @@ function inline(text, base = {}) {
 }
 
 // ---------- block builders ----------
-const para = (text, opts = {}) => new Paragraph({ children: inline(text, opts.run || {}), spacing: { after: 110, line: 264 }, ...opts.p });
+const para = (text, opts = {}) => new Paragraph({ children: inline(text, opts.run || {}), spacing: { after: 80, line: 250 }, ...opts.p });
 
 // ---------- captions: "Table 4.2 Title", "Figure 4.1 Caption", "Listing 4.3 file.py" ----------
 // The number is a Word SEQ field (reset at each chapter's first item), with the number the build
@@ -81,13 +81,13 @@ function captionPara(kind, num, title, opts = {}) {
 const MATURITY = JSON.parse(fs.readFileSync(path.join(ROOT, "code_maturity.json"), "utf8")).files;
 function codeBlock(lines, caption, num, label) {
   const out = [];
-  if (caption) out.push(captionPara("Listing", num, label ? `${caption}  ·  ${label}` : caption, { keepNext: true, spacing: { before: 160, after: 40 },
+  if (caption) out.push(captionPara("Listing", num, label ? `${caption}  ·  ${label}` : caption, { keepNext: true, spacing: { before: 120, after: 30 },
     titleRuns: [new TextRun({ text: num ? "" : "Listing  ", bold: true }), new TextRun({ text: caption, font: MONO, size: 17, bold: false }),
                 ...(label ? [new TextRun({ text: `  ·  ${label}`, italics: true, size: 17, bold: false })] : [])] }));
   const border = { style: BorderStyle.SINGLE, size: 12, color: "A6A6A6", space: 6 };
   lines.forEach((line, i) => {
     out.push(new Paragraph({
-      spacing: { before: i === 0 && !caption ? 120 : 0, after: i === lines.length - 1 ? 160 : 0, line: 240 },
+      spacing: { before: i === 0 && !caption ? 100 : 0, after: i === lines.length - 1 ? 120 : 0, line: 220 },
       shading: { type: ShadingType.CLEAR, color: "auto", fill: "F2F2F2" },
       border: { left: border },
       indent: { left: 120 },
@@ -101,7 +101,7 @@ function boxParas(lines, fill, color, header) {
   const border = { style: BorderStyle.SINGLE, size: 24, color, space: 8 };
   const base = { shading: { type: ShadingType.CLEAR, color: "auto", fill }, border: { left: border }, indent: { left: 200, right: 120 } };
   const out = [];
-  if (header) out.push(new Paragraph({ ...base, keepNext: true, spacing: { before: 200, after: 60 }, children: header }));
+  if (header) out.push(new Paragraph({ ...base, keepNext: true, spacing: { before: 160, after: 40 }, children: header }));
   // inside a box: ``` fences become monospace lines, "- " lines become bullets
   const items = [];
   let code = false;
@@ -115,9 +115,9 @@ function boxParas(lines, fill, color, header) {
     let children, extra = {};
     if (it.kind === "code") {
       children = [new TextRun({ text: it.text.length ? it.text : " ", font: MONO, size: 14, color: "000000" })];
-      extra = { spacing: { before: 0, after: last ? 200 : (next && next.kind === "code" ? 0 : 80), line: 240 } };
+      extra = { spacing: { before: 0, after: last ? 160 : (next && next.kind === "code" ? 0 : 60), line: 220 } };
     } else {
-      const hm = it.text.match(/^\*\*(Hint|Done when|Run):\*\*\s*(.*)$/);
+      const hm = it.text.match(/^\*\*(Hint|Done when|Run|Full brief|Model):\*\*\s*(.*)$/);
       if (hm) children = [new TextRun({ text: hm[1] + ": ", bold: true, color }), ...inline(hm[2])];
       else children = inline(it.text);
       if (it.kind === "bullet") {
@@ -125,7 +125,7 @@ function boxParas(lines, fill, color, header) {
         extra = { indent: { left: 520, right: 120, hanging: 280 }, tabStops: [{ type: TabStopType.LEFT, position: 520 }] };
       }
     }
-    out.push(new Paragraph({ ...base, keepNext: !last, spacing: { before: 0, after: last ? 200 : 80, line: 264 }, ...extra, children }));
+    out.push(new Paragraph({ ...base, keepNext: !last, spacing: { before: 0, after: last ? 160 : 50, line: 250 }, ...extra, children }));
   });
   return out;
 }
@@ -155,8 +155,8 @@ function table(rows) {
         width: { size: widths[ci], type: WidthType.DXA },
         borders,
         shading: ri === 0 ? { type: ShadingType.CLEAR, color: "auto", fill: "D9D9D9" } : undefined,
-        margins: { top: 60, bottom: 60, left: 100, right: 100 },
-        children: cell.trim().split("<br>").map((part, pi) => new Paragraph({ spacing: { after: 0, line: 252 },
+        margins: { top: 30, bottom: 30, left: 90, right: 90 },
+        children: cell.trim().split("<br>").map((part, pi) => new Paragraph({ spacing: { after: 0, line: 235 },
           children: inline(part.trim(), ri === 0 ? { bold: true, size: 17, color: "000000", font: HFONT }
                                                  : { size: pi && cell.trim().startsWith("**") ? 14 : 17 }) })),
       })),
@@ -176,6 +176,8 @@ function solutionFile(id) {           // the one file worth naming in the box
   const code = files.find(f => /\.(py|sh|jsonl?)$/.test(f));
   return code ? path.basename(code) : "ANSWERS.md";
 }
+const MODEL_SHORT = { none: "no model", any: "qwen3.5:9b or Claude", "claude-rec": "Claude recommended",
+                      claude: "Claude only", desktop: "Claude Desktop" };
 const MODEL_LABEL = { none: "none (free)", any: "qwen3.5:9b or Claude", "claude-rec": "Claude recommended (runs on qwen3.5:9b)",
                       claude: "Claude only", desktop: "Claude only" };
 const DIAGRAM_REPORT = [];
@@ -262,7 +264,7 @@ function chapterOpener(text) {
   HEADINGS.push({ id, level: 1, text, find: title, noToc: title === "Contents" });
   CURRENT.title = text; CURRENT.short = label ? `${label.charAt(0) + label.slice(1).toLowerCase()} \u00b7 ${title}`.replace("Interlude \u00b7", "Interlude:") : title;
   if (label && label.startsWith("CHAPTER")) CURRENT.short = `Chapter ${m[1]}: ${title}`;
-  const out = [new Paragraph({ spacing: { before: label ? 1100 : 900, after: 60 },
+  const out = [new Paragraph({ spacing: { before: label ? 500 : 400, after: 40 },
     children: label ? [new TextRun({ text: label, font: HFONT, size: 22, bold: true, color: "595959", characterSpacing: 40 })] : [] })];
   out.push(new Paragraph({ heading: HeadingLevel.HEADING_1, children: [new Bookmark({ id, children: [new TextRun(title)] })] }));
   return out;
@@ -329,6 +331,12 @@ function convert(md, file) {
       } else {
         out.push(new Paragraph({ heading: h, children: [new TextRun(text)] }));
       }
+      if (level === 2 && text === "Exercises") out.push(new Paragraph({ spacing: { after: 80 }, keepNext: true, children: [
+        new TextRun({ text: "Run any exercise with ", italics: true, size: 17, color: "404040" }),
+        new TextRun({ text: "./course.sh ex <id>", font: MONO, size: 15 }),
+        new TextRun({ text: " and print its reference solution with ", italics: true, size: 17, color: "404040" }),
+        new TextRun({ text: "./course.sh solution <id>", font: MONO, size: 15 }),
+        new TextRun({ text: ". Each box names the model it needs (How to Use This Book explains the labels).", italics: true, size: 17, color: "404040" })] }));
       if (api) out.push(new Paragraph({ spacing: { before: 0, after: 120 }, keepNext: true, children: [
         new TextRun({ text: "API-dependent. ", bold: true, size: 17, color: "595959" }),
         new TextRun({ text: "The concept is durable; the names, parameters and prices here change often. "
@@ -386,7 +394,8 @@ function convert(md, file) {
                            { encoding: "utf8" }).replace(/\s+$/, "");
         caption = `${file} (excerpt; full file in the course kit)`;
       } else {
-        src = fs.readFileSync(codePath, "utf8").replace(/\s+$/, "");
+        src = fs.readFileSync(codePath, "utf8").replace(/\s+$/, "")
+          .replace(/\n\s*\n(\s*\n)+/g, "\n\n");    // print one blank line where the file has two (PEP 8)
         caption = file;
       }
       const label = MATURITY[file];
@@ -448,15 +457,20 @@ function convert(md, file) {
       const buf = []; i++;
       while (i < lines.length && lines[i].trim() !== ":::") { buf.push(lines[i]); i++; }   // boxParas drops blank lines outside code
       i++;
+      // "---kit---" ends the printed brief; the rest is the full brief the kit shows (./course.sh ex)
+      const kit = buf.findIndex(l => l.trim() === "---kit---");
+      if (kit >= 0) { buf.splice(kit); buf.push(`**Full brief:** \`./course.sh ex ${id}\``); }
       const color = LEVEL_COLORS[lvl];
       const need = MODEL_NEEDS[id];
       if (!need) throw new Error(`exercise ${id} is missing from model_needs.json`);
-      buf.push(`**Model:** ${MODEL_LABEL[need.model]}${need.note ? `. ${need.note}` : ""}`);
-      buf.push(`**Run:** \`./course.sh ex ${id}\`     **Solution:** \`./course.sh solution ${id}\` (\`${solutionFile(id)}\`)`);
+      solutionFile(id);                                   // still checks every exercise has a solution
+      if (need.note) buf.push(`**Model:** ${need.note}`);
+      // how to run an exercise and see its solution is said once, under "## Exercises"
       out.push(...boxParas(buf, LEVEL_FILL[lvl], color, [
         new TextRun({ text: `Exercise ${id}`, bold: true, color }),
         new TextRun({ text: `   ${lvl.toUpperCase()}   `, bold: true, color: "FFFFFF", shading: { type: ShadingType.CLEAR, color: "auto", fill: color }, size: 16 }),
         new TextRun({ text: `   ${title}`, bold: true }),
+        new TextRun({ text: `   \u00b7  ${MODEL_SHORT[need.model]}`, italics: true, size: 16, color: "595959" }),
       ]));
       continue;
     }
@@ -471,11 +485,11 @@ function convert(md, file) {
       }
       if (pendingTable) {
         const t = pendingTable.match(LABEL_RE);
-        out.push(captionPara("Table", nextNum("Table"), t[1], { keepNext: true, spacing: { before: 200, after: 80 } }));
+        out.push(captionPara("Table", nextNum("Table"), t[1], { keepNext: true, spacing: { before: 160, after: 60 } }));
       } else if (!inLearnMore && plan.prefix) CAPTION_WARNINGS.push(`${file}: table without a title ("${rows[0].join(" | ").slice(0, 60)}")`);
       pendingTable = null;
       out.push(table(rows));
-      out.push(new Paragraph({ spacing: { after: 120 }, children: [] }));
+      out.push(new Paragraph({ spacing: { before: 0, after: 0, line: 110, lineRule: "exact" }, children: [] }));   // a 5.5pt gap
       continue;
     }
     if ((m = line.match(/^(\s*)(- \[ \] |- |\d+\. )(.*)$/))) {
@@ -500,11 +514,11 @@ function convert(md, file) {
         out.push(new Paragraph({
           numbering: check ? undefined : (isNum ? { reference: numRef, level: lvl, instance: inst } : { reference: "bullets", level: lvl }),
           indent: check ? { left: 360 } : undefined,
-          spacing: { after: 60, line: 264 }, children,
+          spacing: { after: 40, line: 250 }, children,
         }));
         i++;
       }
-      out.push(new Paragraph({ spacing: { after: 60 }, children: [] }));
+      out.push(new Paragraph({ spacing: { before: 0, after: 0, line: 80, lineRule: "exact" }, children: [] }));   // a 4pt gap
       continue;
     }
     paraBuf.push(line.trim());
@@ -798,17 +812,17 @@ const doc = new Document({
     paragraphStyles: [
       { id: "Heading1", name: "Heading 1", basedOn: "Normal", next: "Normal", quickFormat: true,
         run: { size: 48, bold: true, color: ACCENT, font: HFONT },
-        paragraph: { spacing: { before: 0, after: 480 }, outlineLevel: 0,
+        paragraph: { spacing: { before: 0, after: 320 }, outlineLevel: 0,
           border: { bottom: { style: BorderStyle.SINGLE, size: 8, color: ACCENT, space: 8 } } } },
       { id: "Heading2", name: "Heading 2", basedOn: "Normal", next: "Normal", quickFormat: true,
         run: { size: 26, bold: true, color: ACCENT, font: HFONT },
-        paragraph: { spacing: { before: 300, after: 110 }, outlineLevel: 1, keepNext: true } },
+        paragraph: { spacing: { before: 240, after: 80 }, outlineLevel: 1, keepNext: true } },
       { id: "Heading3", name: "Heading 3", basedOn: "Normal", next: "Normal", quickFormat: true,
         run: { size: 22, bold: true, color: "000000", font: HFONT },
-        paragraph: { spacing: { before: 220, after: 90 }, outlineLevel: 2, keepNext: true } },
+        paragraph: { spacing: { before: 170, after: 60 }, outlineLevel: 2, keepNext: true } },
       { id: "Caption", name: "caption", basedOn: "Normal", next: "Normal", quickFormat: true,
         run: { size: 18, color: "262626", font: HFONT, bold: true },   // the number is a field: it takes the style's bold
-        paragraph: { spacing: { before: 120, after: 120, line: 252 } } },
+        paragraph: { spacing: { before: 100, after: 100, line: 240 } } },
     ],
   },
   numbering: {

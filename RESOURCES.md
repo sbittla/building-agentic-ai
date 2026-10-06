@@ -203,7 +203,7 @@ Every link from the book's **Learn more** sections and Appendix G, so you can cl
 ## Chapter 14: Using Servers You Didn't Write
 
 - [MCP reference servers](https://github.com/modelcontextprotocol/servers) (Start here): The filesystem, git, fetch, memory and time servers used here
-- [MCP Registry](https://registry.modelcontextprotocol.io) (Start here): The official catalogue of public MCP servers
+- [MCP Registry](https://registry.modelcontextprotocol.io) (Start here): The official catalog of public MCP servers
 - [MCP: Security best practices](https://modelcontextprotocol.io/docs/tutorials/security/security_best_practices) (Go deeper): The protocol's own guidance on attacks and defenses
 - [GitHub MCP server](https://github.com/github/github-mcp-server) (Go deeper): The GitHub server used in this chapter and in capstone 4
 

@@ -2,6 +2,8 @@
 
 Agents often need to find exact text: an error code, a timestamp, a file-and-line citation. Regular expressions are the standard way to describe that kind of text in code. This short interlude teaches you enough to read and write simple patterns, and you'll practice by pulling values out of a log and hiding API keys.
 
+**Prerequisites:** Chapter 0 and the Python interlude (strings).
+
 ## Learning objectives
 
 By the end of this interlude you can:
@@ -10,10 +12,6 @@ By the end of this interlude you can:
 - Choose between `re.search`, `re.findall`, `re.sub` and `re.match`.
 - Extract values from logs and hide secrets in text.
 - Explain why regex is the wrong tool for security checks such as path validation.
-
-## Prerequisites
-
-Chapter 0 and the Python interlude (strings).
 
 ## Why this interlude
 
@@ -54,7 +52,7 @@ Always write patterns as raw strings, such as `r"\d+"`, so Python doesn't treat 
 A regex that checks for `..` in a path can be bypassed (Chapter 6). Use regex to find and extract text. For security checks, use proper tools, such as resolving paths.
 :::
 
-## Summary
+## Key takeaways
 
 - A pattern is built from a few pieces: literals, `\d` `\w` `\s`, sets, repetition, anchors and groups.
 - `search` finds, `findall` extracts, `sub` replaces and `match` checks the start.
@@ -65,14 +63,12 @@ With these pieces you can read the patterns in the chapters ahead. Next, Chapter
 
 ## Learn more
 
-Free, trustworthy places to read more about this chapter's topics. Start with the **Start here** rows; **Go deeper** rows are for when you want more detail. Links were checked in September 2026; if one has moved, search for its title.
+Start with these. `RESOURCES.md` in the course kit has all 4 links for this chapter, including the **Go deeper** reading, ready to click.
 
-| Resource | What you'll find | Level |
-| --- | --- | --- |
-| **RegexOne**<br>[regexone.com](https://regexone.com) | Interactive beginner lessons, one idea at a time | Start here |
-| **regex101**<br>[regex101.com](https://regex101.com) | Test a pattern and see each part explained (choose the Python flavor) | Start here |
-| **Python docs: Regular expression HOWTO**<br>[docs.python.org/3/howto/regex.html](https://docs.python.org/3/howto/regex.html) | The official gentle introduction | Go deeper |
-| **Python docs: re module**<br>[docs.python.org/3/library/re.html](https://docs.python.org/3/library/re.html) | Every function and flag | Go deeper |
+| Resource | What you'll find |
+| --- | --- |
+| **RegexOne**<br>[regexone.com](https://regexone.com) | Interactive beginner lessons, one idea at a time |
+| **regex101**<br>[regex101.com](https://regex101.com) | Test a pattern and see each part explained (choose the Python flavor) |
 
 ## Exercises
 

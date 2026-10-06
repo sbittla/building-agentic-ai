@@ -14,7 +14,8 @@ The repository is a course and a reference implementation. Start with the first 
 | [CURRICULUM_MAP.md](CURRICULUM_MAP.md) | Concept → chapter → exercise → code → solution → capstone, for the whole book (Appendix L) |
 | [EXERCISE_INDEX.md](EXERCISE_INDEX.md) | Every exercise: type, model needed, solution file, latest result |
 | [LOCAL_MODEL.md](LOCAL_MODEL.md) | The free local model in depth (Appendix H of the book) |
-| [RESOURCES.md](RESOURCES.md) | Every reference from the book: courses, docs, where to ask for help |
+| [RESOURCES.md](RESOURCES.md) | Every reference from the book: each chapter's full Learn more list (from `course/learn_more.md`), courses, docs, where to ask for help |
+| [CHAPTER_OUTCOMES.md](CHAPTER_OUTCOMES.md) | What you should be able to do after each chapter, and how you'd know |
 | [solutions/README.md](solutions/README.md) · [solutions/SOLUTIONS.md](solutions/SOLUTIONS.md) | How the solutions and capstones are organised and run; what each one shows |
 
 | Reference | What it's for |

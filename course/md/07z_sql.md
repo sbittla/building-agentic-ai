@@ -2,6 +2,8 @@
 
 In the next chapter an agent writes database queries for you, and you need to tell a right query from a plausible wrong one. This interlude teaches enough SQL to do that in one sitting. You'll run eight queries against a small shop database, learn a checklist for reviewing someone else's SQL and see why user text must never be pasted into a query.
 
+**Prerequisites:** Chapter 0. You don't need any database experience.
+
 ## Learning objectives
 
 By the end of this interlude you can:
@@ -10,10 +12,6 @@ By the end of this interlude you can:
 - Keep user text out of SQL with `?` parameters.
 - Break a complex query into steps with a CTE.
 - Review an agent's SQL in a fixed order and spot common mistakes.
-
-## Prerequisites
-
-Chapter 0. You don't need any database experience.
 
 ## Why this interlude
 
@@ -59,7 +57,7 @@ When an agent shows you a query, check it in this order:
 
 You can also explore interactively: run `./course.sh shell`, then `sqlite3 shop.db`, then type queries ending with `;` (`.tables` lists tables, `.quit` exits).
 
-## Summary
+## Key takeaways
 
 - `SELECT … FROM … WHERE` picks and filters; `ORDER BY` and `LIMIT` sort and trim.
 - Aggregates with `GROUP BY` summarize; `JOIN` combines tables on matching ids.
@@ -70,14 +68,12 @@ You can now read the queries an agent writes. Chapter 8 puts that skill to use: 
 
 ## Learn more
 
-Free, trustworthy places to read more about this chapter's topics. Start with the **Start here** rows; **Go deeper** rows are for when you want more detail. Links were checked in September 2026; if one has moved, search for its title.
+Start with these. `RESOURCES.md` in the course kit has all 4 links for this chapter, including the **Go deeper** reading, ready to click.
 
-| Resource | What you'll find | Level |
-| --- | --- | --- |
-| **SQLBolt**<br>[sqlbolt.com](https://sqlbolt.com) | Free interactive SQL lessons in the browser | Start here |
-| **W3Schools SQL tutorial**<br>[w3schools.com/sql](https://www.w3schools.com/sql/) | Short pages with a try-it editor for each statement | Start here |
-| **SQLite: SQL as understood by SQLite**<br>[sqlite.org/lang.html](https://www.sqlite.org/lang.html) | The reference for the database the kit uses | Go deeper |
-| **Python docs: sqlite3**<br>[docs.python.org/3/library/sqlite3.html](https://docs.python.org/3/library/sqlite3.html) | Running SQL from Python, with placeholders | Go deeper |
+| Resource | What you'll find |
+| --- | --- |
+| **SQLBolt**<br>[sqlbolt.com](https://sqlbolt.com) | Free interactive SQL lessons in the browser |
+| **W3Schools SQL tutorial**<br>[w3schools.com/sql](https://www.w3schools.com/sql/) | Short pages with a try-it editor for each statement |
 
 ## Exercises
 
