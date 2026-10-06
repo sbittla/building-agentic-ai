@@ -38,6 +38,17 @@ MUTATIONS = {
     "memory write gate": ("ch17_memory_policy.gate and can_write",
         "import ch17_memory_policy as m; m.gate = lambda t, s: ('active', 0.9); m.can_write = lambda *a, **k: True", ["S7", "S12"]),
     "safe rendering": ("ch25_guards.sanitize_markdown", "import ch25_guards as g; g.sanitize_markdown = lambda t, h: t", ["S4"]),
+    # S15 has two layers: checkpoints skip finished steps, and idempotency keys make a repeated
+    # step harmless. Either alone protects it, so this switches both off to show the test notices.
+    "checkpoints and idempotency": ("ch19_durable checkpoints (finished steps forgotten) and keys",
+        "import ch19_durable as d, os\n"
+        "o = d._record; d._record = lambda k, key, v: o(k, key + os.urandom(3).hex(), v)\n"
+        "r = d.run_job\n"
+        "def run_forgetting(job_id, *a, **k):\n"
+        "    with d._db() as c:\n"
+        "        c.execute(\"UPDATE steps SET status='pending' WHERE job_id=?\", (job_id,)); c.commit()\n"
+        "    return r(job_id, *a, **k)\n"
+        "d.run_job = run_forgetting", ["S15"]),
 }
 
 PLUGIN = '''

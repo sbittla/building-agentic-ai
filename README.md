@@ -6,19 +6,33 @@ Everything runs inside Docker, so Docker is the only thing you install. You edit
 
 **Where to find what**
 
-| File | What it's for |
+The repository is a course and a reference implementation. Start with the first group to learn; use the second when you design, review or run agents of your own.
+
+| Learn and practise | What it's for |
 | --- | --- |
 | `README.md` (this file) | Setup, how to practise, every command, verified results, troubleshooting |
+| [CURRICULUM_MAP.md](CURRICULUM_MAP.md) | Concept → chapter → exercise → code → solution → capstone, for the whole book (Appendix L) |
 | [EXERCISE_INDEX.md](EXERCISE_INDEX.md) | Every exercise: type, model needed, solution file, latest result |
 | [LOCAL_MODEL.md](LOCAL_MODEL.md) | The free local model in depth (Appendix H of the book) |
 | [RESOURCES.md](RESOURCES.md) | Every reference from the book: courses, docs, where to ask for help |
-| [solutions/README.md](solutions/README.md) | How the solutions and capstones are organised and run |
-| [solutions/SOLUTIONS.md](solutions/SOLUTIONS.md) | What each reference solution shows |
-| [VERSION_MATRIX.md](VERSION_MATRIX.md) | The dated matrix of pinned versions, models, prices and protocol versions; protocol vs SDK changes |
-| [CHANGELOG.md](CHANGELOG.md) · [MIGRATION.md](MIGRATION.md) | What changed between tags, and what to change in your code |
-| [ERRATA.md](ERRATA.md) | Mistakes in each printing, and their corrections |
+| [solutions/README.md](solutions/README.md) · [solutions/SOLUTIONS.md](solutions/SOLUTIONS.md) | How the solutions and capstones are organised and run; what each one shows |
+
+| Reference | What it's for |
+| --- | --- |
+| [ARCHITECTURE.md](ARCHITECTURE.md) | The reference architecture, its layers and trust boundaries, mapped to the code |
+| [AGENT_ENGINEERING_PRINCIPLES.md](AGENT_ENGINEERING_PRINCIPLES.md) | The non-negotiable rules and strong defaults, with how each is enforced |
+| [DECISION_GUIDE.md](DECISION_GUIDE.md) | Workflow, agent or team; MCP, A2A or direct tools; RAG or agentic retrieval; hosted or local; and more (Appendix K) |
+| [AGENT_LIFECYCLE.md](AGENT_LIFECYCLE.md) | Design → build → secure → evaluate → optimize → deploy → operate → improve, with each stage's gate |
+| [SECURITY_MODEL.md](SECURITY_MODEL.md) | Identity, authorization, tools, memory, secrets and trust; the threat model and what the kit doesn't do |
+| [PERFORMANCE_MODEL.md](PERFORMANCE_MODEL.md) | Latency, throughput, tokens, concurrency, queueing, capacity and the benchmark |
+| [EVALUATION_MODEL.md](EVALUATION_MODEL.md) | Outcome, trajectory, tool, safety and regression evaluation; the release scorecard |
+| [COST_MODEL.md](COST_MODEL.md) | What the exercises cost, with every assumption, and the production cost formulas |
+| [VERSION_MATRIX.md](VERSION_MATRIX.md) | Which book printing, tag, Python, models and libraries belong together |
+| [CHANGELOG.md](CHANGELOG.md) · [MIGRATION.md](MIGRATION.md) · [ERRATA.md](ERRATA.md) | What changed between tags, what to change in your code, and mistakes in each printing |
 | [verification/](verification/README.md) · [benchmarks/](benchmarks/README.md) | Test and security results with their provenance; the published benchmark runs |
 | [PILOT.md](PILOT.md) | For the author: testing the book with real learners |
+
+Every code file says what kind of code it is: a learning demo, a prototype or a production pattern (`course/code_maturity.json`). Nothing in the kit is production-hardened; [SECURITY_MODEL.md](SECURITY_MODEL.md) lists what a production deployment adds.
 
 On Windows, replace `./course.sh` with `.\course.cmd` in every command below.
 

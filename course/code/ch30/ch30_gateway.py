@@ -18,6 +18,7 @@ from mcp.server import MCPServer
 from mcp.server.mcpserver.exceptions import ToolError
 from mcp_types import TextContent
 import ch26_identity as identity
+from ch28_agentops import redact      # the same redaction as traces (section 28.3)
 import ch13_todo_server
 import ch13_sql_server
 
@@ -41,6 +42,17 @@ identity.AGENTS.update({                      # which scopes each agent may ever
     "planner-agent": {"todo:read", "todo:write"},
     "analyst-agent": {"shop:read", "orders:read"},
 })
+
+
+def _redacted(value):
+    """Redact every string inside a tool's arguments, keeping their shape."""
+    if isinstance(value, str):
+        return redact(value)
+    if isinstance(value, dict):
+        return {k: _redacted(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [_redacted(v) for v in value]
+    return value
 
 class Gateway(MCPServer):
     def __init__(self, upstreams: dict, policy: dict, progressive: bool = False):
@@ -131,6 +143,8 @@ class Gateway(MCPServer):
         return claims
 
     def _audit(self, token, name, arguments, outcome, seconds):
+        """One line per call, allowed or refused. Arguments are redacted like traces:
+        an audit log is kept for years, so it mustn't become a copy of customer data."""
         try:
             who = identity.verify(token, AUDIENCE)
             agent, user = who["sub"], who["act_for"]
@@ -138,7 +152,7 @@ class Gateway(MCPServer):
             agent = user = "unknown"
         with AUDIT.open("a") as f:
             f.write(json.dumps({"at": time.time(), "agent": agent, "for": user,
-                                "tool": name, "args": arguments, "outcome": outcome,
+                                "tool": name, "args": _redacted(arguments), "outcome": outcome,
                                 "ms": round(seconds * 1000)}) + "\n")
 
 def _token(context) -> str:

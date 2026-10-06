@@ -1,6 +1,6 @@
 # Benchmark: sim backend
 
-Model `claude-sonnet-5` (small: `claude-haiku-4-5`), commit `679be0321037`, data `2b4e6000ed680c6a`, prompts `44cf983056924987`, seed 29, 5 repetitions after 1 discarded warm-up tasks, tool latency 250 ms, Linux-6.18.44-fc-v70-x86_64-with-glibc2.39, 2 CPUs, Python 3.13.16, 2026-10-05 01:38:56 UTC. Total spent: $11.42.
+Model `claude-sonnet-5` (small: `claude-haiku-4-5`), commit `679be0321037`, data `2b4e6000ed680c6a`, prompts `44cf983056924987`, seed 29, 5 repetitions after 1 discarded warm-up tasks, tool latency 250 ms, Linux-6.18.44-fc-v70-x86_64-with-glibc2.39, 2 CPUs, Python 3.13.16, 2026-10-05 01:38:56 UTC. Simulated cost at list prices: $11.42 (nothing was billed).
 
 Rerun: `python ch29_benchmark.py --quiet`
 

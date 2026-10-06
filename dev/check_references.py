@@ -19,7 +19,9 @@ from pathlib import Path
 KIT = Path(__file__).resolve().parent.parent
 MD = KIT / "course" / "md"
 DOCS = [KIT / f for f in ("README.md", "LOCAL_MODEL.md", "EXERCISE_INDEX.md", "solutions/README.md",
-                          "solutions/SOLUTIONS.md", "VERSION_MATRIX.md", "CHANGELOG.md", "ERRATA.md", "MIGRATION.md", "CURRICULUM_MAP.md", "COST_MODEL.md")]
+                          "solutions/SOLUTIONS.md", "VERSION_MATRIX.md", "CHANGELOG.md", "ERRATA.md", "MIGRATION.md", "CURRICULUM_MAP.md", "COST_MODEL.md",
+                          "ARCHITECTURE.md", "AGENT_ENGINEERING_PRINCIPLES.md", "DECISION_GUIDE.md",
+                          "AGENT_LIFECYCLE.md", "SECURITY_MODEL.md", "PERFORMANCE_MODEL.md", "EVALUATION_MODEL.md")]
 EXERCISES = json.loads((KIT / "course/exercises.json").read_text(encoding="utf-8"))
 IDS = {e["id"] for e in EXERCISES}
 INDEX = json.loads((KIT / "solutions/index.json").read_text(encoding="utf-8"))

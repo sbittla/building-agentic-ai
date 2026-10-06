@@ -650,7 +650,9 @@ def markdown(env, summary, spent):
              f"`{env['data_fingerprint']}`, prompts `{env['prompts_sha256']}`, seed {env['seed']}, "
              f"{env['reps']} repetitions after {env['warmup_tasks_discarded']} discarded warm-up tasks, "
              f"tool latency {env['tool_latency_ms']} ms, {env['platform']}, {env['cpus']} CPUs, "
-             f"Python {env['python']}, {env['started']}. Total spent: ${spent:.2f}.", "",
+             f"Python {env['python']}, {env['started']}. "
+             + (f"Simulated cost at list prices: ${spent:.2f} (nothing was billed)." if env["backend"] == "sim"
+                else f"Total spent: ${spent:.2f}."), "",
              f"Rerun: `{env['command']}`", ""]
     if env["backend"] == "sim":
         lines += ["Simulated model: these numbers follow from the assumptions in `SIM_MODELS` (latency, "
