@@ -66,6 +66,42 @@
    "reason": null,
    "seconds": 0.3,
    "log": "ch30/30.7.log"
+  },
+  {
+   "id": "30.8",
+   "title": "Who asked for this, at company scale?",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch30/30.8.log"
+  },
+  {
+   "id": "30.9",
+   "title": "Search what you may use",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 1.5,
+   "log": "ch30/30.9.log"
+  },
+  {
+   "id": "30.10",
+   "title": "Fewer polls, safe retries",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 5.6,
+   "log": "ch30/30.10.log"
+  },
+  {
+   "id": "30.11",
+   "title": "An agent behind the gateway",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 52.7,
+   "log": "ch30/30.11.log"
   }
  ]
 }

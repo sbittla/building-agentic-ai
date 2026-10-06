@@ -2,6 +2,7 @@
 would (in a subprocess, with piped input), using the offline stand-in model."""
 import json
 import os
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -33,6 +34,11 @@ def _cases():
 
 @pytest.mark.parametrize("ex_id,setup,cmd", _cases())
 def test_exercise_command_runs(ws, ex_id, setup, cmd):
+    if "servers_ecosystem.json" in cmd:   # the reference servers ship only in the course image
+        config = json.loads((Path(os.environ.get("COURSE_CODE", "/opt/course/code")) / "servers_ecosystem.json").read_text())
+        missing = sorted(s["command"] for s in config.get("servers", config).values() if not shutil.which(s["command"]))
+        if missing:
+            pytest.skip(f"needs {', '.join(missing)} from the course image")
     env = {**os.environ, "FAKE_MODEL": "1", "PYTHONUNBUFFERED": "1", "HF_HUB_OFFLINE": "1",
            "PYTHONPATH": os.pathsep.join([SITE, str(ws), os.environ.get("PYTHONPATH", "")])}
     if setup:

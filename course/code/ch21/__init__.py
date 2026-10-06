@@ -2,3 +2,4 @@
 from .ch21_a2a_client import *
 from .ch21_a2a_server import *
 from .ch21_orchestrator import *
+from .ch21_coordination import *

@@ -72,6 +72,12 @@ setup() {
 
 if [ "$cmd" = "setup" ]; then setup; exit 0; fi
 
+# which code produced a result: run-chapter records it in every summary.json
+if command -v git >/dev/null 2>&1 && git rev-parse --git-dir >/dev/null 2>&1; then
+  COURSE_COMMIT="$(git rev-parse --short=12 HEAD)$(git diff --quiet HEAD -- course solutions 2>/dev/null || echo '-modified')"
+  export COURSE_COMMIT
+fi
+
 if ! command -v docker >/dev/null 2>&1; then
   echo "Docker is not installed. Run ./course.sh setup for help." >&2
   exit 1

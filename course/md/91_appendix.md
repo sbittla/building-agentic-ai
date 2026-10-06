@@ -1,6 +1,6 @@
 # Appendices
 
-The appendices are reference material for when you need a fact quickly. They cover how to run the course kit, fixes for common errors, a glossary, sources, costs, the solutions folder, where to learn more, the free local model, one-page reference cards and the same concepts on other platforms. You don't need to read them in order: keep them open while you work through the chapters and capstones.
+The appendices are reference material for when you need a fact quickly. They cover how to run the course kit, fixes for common errors, a glossary, sources, costs, the solutions folder, where to learn more, the free local model, one-page reference cards, the same concepts on other platforms, architecture decision records and a map from every chapter to its code, exercises and solutions. You don't need to read them in order: keep them open while you work through the chapters and capstones.
 
 ## Appendix A: Running the Course Kit with Docker
 
@@ -8,6 +8,7 @@ Every exercise runs in the course kit's Docker image. You type commands on your 
 
 ### What's in the kit
 
+Table: Files and folders in the kit
 | File or folder | Purpose |
 | --- | --- |
 | `Dockerfile` | Builds the image: Ubuntu 24.04, Python 3.12, Node.js 24, the MCP SDK, MCP Inspector, the reference servers, GitHub's server, and for the later parts the Claude Agent SDK, LangChain, FastAPI and a small embedding model |
@@ -20,6 +21,7 @@ Every exercise runs in the course kit's Docker image. You type commands on your 
 
 ### Commands
 
+Table: Course kit commands
 | Command | What it does |
 | --- | --- |
 | `./course.sh setup` | First-time setup: checks Docker, creates `.env`, asks which model you want (and your API key for Claude), generates the Chapter 30 secrets |
@@ -54,6 +56,7 @@ Every exercise runs in the course kit's Docker image. You type commands on your 
 
 ### How the ex command runs each kind of exercise
 
+Table: How `ex` runs each kind of exercise
 | Exercise kind | First run | Later runs |
 | --- | --- | --- |
 | Concept | Creates `answers/exN_M.md` with the question | Reminds you where your answer file is |
@@ -75,6 +78,7 @@ Every exercise runs in the course kit's Docker image. You type commands on your 
 
 The first table covers setup and error messages. After it, a debugging playbook covers the harder case: the agent runs, but does the wrong thing.
 
+Table: Common errors and how to fix them
 | Symptom | Likely cause | Fix |
 | --- | --- | --- |
 | `AuthenticationError` or 401 | API key not set in this shell | Export `ANTHROPIC_API_KEY` again, or load `.env` |
@@ -112,6 +116,7 @@ Most agent bugs aren't crashes: the agent runs, then does the wrong thing. Work 
 6. **Shrink the context.** A long conversation or a large system prompt can bury what matters. Try the question in a fresh conversation; if it works, you have a context problem (Chapter 16).
 7. **Turn the bug into a test case.** Add the failing question to your evaluation suite with the answer you expect (Chapter 27), fix it, and run the whole suite. Run it several times: a fix that works once may not work reliably.
 
+Table: Symptoms and where to look first
 | Symptom | First place to look |
 | --- | --- |
 | Answers without calling a tool it should use | The tool description (section 3.2); a "no tool" eval case (section 3.4) |
@@ -125,6 +130,7 @@ Most agent bugs aren't crashes: the agent runs, then does the wrong thing. Work 
 
 ## Appendix C: Glossary
 
+Table: Glossary
 | Term | Meaning |
 | --- | --- |
 | A2A (Agent2Agent) | An open protocol for independent agents to find each other (through agent cards) and hand off tasks; complements MCP (section 21.7) |
@@ -132,39 +138,58 @@ Most agent bugs aren't crashes: the agent runs, then does the wrong thing. Work 
 | Agent | An LLM that chooses and calls tools in a loop until a task is done |
 | Agent architecture reference model | The layers of every agent system: user/API, runtime, planning, memory, context, tools, policies, model, MCP/APIs/A2A, environment, with evaluation and observability across (section 1.7) |
 | Agent card | An A2A agent's public JSON description of its skills, endpoint and security, at `/.well-known/agent-card.json` |
+| Agent engineering lifecycle | The stages every agent goes through: decide once; then design, build, secure, evaluate, optimize, deploy, operate and improve, round again for each version; finally retire (sections 1.10 and 30.13) |
+| Agent improvement loop | Production traces → failures mined into cases → one change → offline evaluation → shadow → canary → promote or roll back; every fixed failure stays in the suite (section 30.14) |
+| Agent inventory | One record per agent: its owner, kind, model, tools and scopes, the data it touches, its risk tier and current version; the starting point of agent governance (section 30.12) |
+| Agent risk model | Risk = capability × autonomy × access × persistence × blast radius, each scored 1–3; the score picks a risk tier and the controls it requires (section 25.11) |
 | Agent SDK | The Claude Agent SDK: the agent runtime behind Claude Code, as a library |
 | Agent Skill | A folder with a `SKILL.md` (name, description, instructions) and optional files, loaded only when a task needs it; an open format |
+| Agent version | The whole bundle that sets an agent's behavior, released together: model id, system prompt, tool definitions and server versions, skills, policies and the eval suite that approved it (section 30.13) |
 | Agentic search | Finding information by letting the model list, search and read |
 | Approval gate | Code that asks a human before a risky tool runs |
+| Architecture decision record (ADR) | A short record of one design decision: context, decision, alternatives, consequences, evidence and when to revisit it (Appendix K) |
 | Audit log | An append-only record of every action an agent took |
 | Blackboard (shared board) | A shared record of a team's tasks and results that agents read and only the orchestrator writes (section 21.3) |
 | BM25 | A classic keyword-ranking formula that weights rare words more |
+| Break-even value | What one right answer must be worth for a team of agents to pay for its extra cost: extra cost per task ÷ success gain (section 21.10) |
+| Business case | An agent's monthly cost compared with the human baseline, with its payback period and the assumptions it rests on (section 29.9) |
 | Cache hint (MCP) | `ttlMs` and `cacheScope` on a list result: how long a client may reuse it, and whether it may be shared across users (section 15.3) |
+| Canary release | Sending a small share of real traffic, say 1% and then 10%, to a new version and comparing its SLOs with the current one before going further (section 30.13) |
 | Cascade | Trying a cheaper model first and escalating to a stronger one only when a check fails (section 20.8) |
 | Checkpoint | Saving a step's status and result before the next step starts, so a crashed job can resume (section 19.3) |
 | Compaction | Replacing older conversation turns with a summary to save context |
 | Compensation | Undoing completed steps, newest first, when a long job is abandoned; the saga pattern (section 19.7) |
 | Computer-use agent | An agent that operates a user interface, a web page or a desktop, instead of calling an API (Chapter 23) |
+| Confidence interval (95%) | The range that very likely contains the real pass rate, given how many runs you measured; the kit computes it with the Wilson formula (measurement interlude, Chapter 27) |
 | Content block | One part of a model message: text, `tool_use` or `tool_result` |
 | Context engineering | Choosing what goes into the model's context on each call, and what stays out (section 1.7, Chapter 16) |
 | Context window | The maximum tokens a model can consider in one call |
+| Continuous profiler | A sampler that records where code spends its time all the time in production, so slow spans can be explained by stacks and resources (section 28.13) |
 | Contract (between agents) | A schema for what one agent hands another, checked in code (section 21.2) |
 | Coordinated omission | Measuring latency only after a request gets service, which hides queueing time |
+| Coordination overhead | What a team of agents adds over one agent: extra model calls, duplicated context, messages, waiting for the slowest worker and more ways to fail (section 21.10) |
+| Descriptor (capability) | The signed, hashed record of a discovered tool server, agent or skill: name, kind, version, protocols, publisher, scopes and the text the model will read (section 26.9) |
+| Deterministic control plane | The code around a model that enforces identity, policy, permissions, validation, budgets, approvals, state transitions, audit and rollback; the model only proposes (sections 22.1 and 25.11) |
 | Deterministic shell | A workflow whose states and transitions are code, with model calls only at chosen steps (section 22.2) |
 | Dimensions of agency | Autonomy, state, planning, tool use, environmental interaction, persistence, feedback, delegation and adaptation: what makes a system more or less agentic (section 1.4) |
+| Discovery | Finding capabilities at run time from servers, registries, agent cards and skill catalogs; finding one is not trusting it (section 26.9) |
 | Durable execution | Running a job so that its progress survives crashes and restarts (Chapter 19) |
 | Effort | A request setting (`low` to `max`) that trades quality for cost and speed |
 | Elicitation | An MCP feature that lets a server ask the user for missing input mid-call |
 | Embedding | A vector of numbers representing a text's meaning; similar texts get similar vectors |
+| Episodic, semantic and procedural memory | Long-term memory of what happened, durable facts and how to do things, each with its own policy (section 17.2) |
 | Error budget | How much failure an SLO allows over a window; spending it fast triggers alerts (section 28.10) |
 | Evaluation (eval) suite | A set of test cases with checks, run after every change |
 | Exfiltration | Getting private data out of a system, for example inside a URL the agent fetches |
-| Extension (MCP) | An optional, named protocol feature, such as Tasks or MCP Apps, used only when client and server both declare it (section 15.8) |
+| Explicit delegation | Handing another agent, possibly in another organization, a narrower token that names who delegated what, for how long (section 26.10) |
+| Extension (MCP) | An optional, named protocol feature, such as Tasks or MCP Apps, used only when client and server both declare it (section 15.4) |
 | Failure taxonomy | The 12 classes of agent failure, each with detection, mitigation and evaluation (section 28.8) |
-| Gateway (MCP) | A server in front of other MCP servers that allow-lists tools, checks tokens, rate-limits and audits every call (section 15.5) |
+| Flaky case | A test case that passes on some runs and fails on others: a sign the agent is guessing (measurement interlude) |
+| Gateway (MCP) | A server in front of other MCP servers that allow-lists tools, checks tokens, rate-limits and audits every call (section 30.9) |
 | Goodput | Successful tasks per second; unlike throughput, it doesn't count tasks that failed or gave up (section 29.5) |
 | Harness | The code around the model: the loop, the tools, the checks and the limits; it decides what's allowed (section 1.7) |
 | Host | The application that runs the model and connects to MCP servers |
+| Human baseline | What the work costs today with people doing it, the comparison an agent's business case must beat (section 29.9) |
 | Idempotency key | A stable key sent with a side effect so the receiving system ignores repeats (section 19.5) |
 | Idempotent | Safe to repeat: calling twice has the same effect as once |
 | JSON Schema | A standard way to describe the shape of JSON data, used for tool inputs |
@@ -183,20 +208,29 @@ Most agent bugs aren't crashes: the agent runs, then does the wrong thing. Work 
 | Output guard | A check in code on what a model wrote, with a safe fallback when it fails (section 22.6) |
 | OWASP Agentic Top 10 | OWASP's list of the ten most critical security risks of agentic applications (ASI01 to ASI10) |
 | p50 / p95 | The latency that 50% / 95% of requests beat |
+| Pass rate | The share of runs that pass their checks; report it with its interval (measurement interlude) |
 | Pass^k | The share of eval cases that pass on every one of k repeated runs |
+| Payback period | Build cost ÷ net monthly saving against the human baseline (section 29.9) |
 | Plan (as data) | A list of steps with tools, dependencies and done conditions that code can check before running (section 20.2) |
 | Programmatic tool calling | The model writes a program that calls your tools in a sandbox, so bulky results stay out of the context |
-| Progressive discovery | Offering tools through search instead of listing them all at once (section 15.5) |
+| Progressive discovery | Offering tools through search instead of listing them all at once (section 30.9) |
 | Prompt (MCP) | A reusable prompt template a server exposes |
 | Prompt caching | Reusing the processed form of an unchanged prompt prefix, at a tenth of the input price |
 | Prompt injection | Text in data (web pages, files, issues) that tries to give the model instructions |
+| Provenance (memory, skill) | Where a memory or a skill came from and who vouched for it, recorded with it so it can be trusted, quarantined or rolled back (sections 17.10 and 24.10) |
+| Quality scorecard | The eleven qualities a release is judged on: outcome, trajectory, safety, tool correctness, groundedness, latency, reliability, cost, observability, security and maintainability (section 27.6) |
 | RAG | Retrieval-augmented generation: fetch similar document chunks, then call the model |
 | Rate limit | A cap on how many requests a caller may make in a period (HTTP 429 when exceeded) |
 | Recall@k / MRR | Retrieval metrics: is the right document in the top k, and how high does it rank |
 | Reciprocal rank fusion | Merging several rankings by adding 1/(60 + rank) for each result |
 | Resource (MCP) | Read-only data a server exposes by URI |
+| Risk tier | How much harm an agent could do, which sets how much review it needs before launch; the EU AI Act sorts AI systems into tiers in the same spirit (section 30.12) |
+| Rollback | Switching traffic back to the previous version by configuration, without a deploy; automatic when a canary burns its error budget (section 30.13) |
+| Routing | A cheap decision before an expensive one; this book uses it for four choices: a tool (Chapter 3), an agent (Chapter 11), context sources (Chapter 16) and a model (Chapter 20) |
 | Scorecard (agent) | One table of quality, safety, cost and latency metrics for a release, compared with the last (section 27.6) |
 | Server tool | A tool that runs on the provider's servers (web search, code execution, tool search), not in your code |
+| Shadow mode | Running a new version on a copy of real traffic without showing its answers or taking its actions, to compare it with the current version (section 30.13) |
+| Skill registry | A catalog of versioned skills with manifests, permissions, trust levels, evaluations and rollback (section 24.10) |
 | SLO (service-level objective) | A target for a measured behavior, such as task success ≥ 95% over 30 days (section 28.10) |
 | SSE (Server-Sent Events) | A simple way for a server to stream events to a client over one HTTP response |
 | SSRF | Server-side request forgery: tricking a server or agent into fetching an internal address |
@@ -205,14 +239,16 @@ Most agent bugs aren't crashes: the agent runs, then does the wrong thing. Work 
 | Stop reason | Why the model stopped: `end_turn`, `tool_use`, `max_tokens` and others |
 | Structured outputs | An API feature that makes the model's reply match a JSON Schema |
 | System prompt | Instructions that set the model's behavior for a whole conversation |
-| Tasks (MCP) | An MCP extension for long-running calls: the server returns a task id that the client polls with `tasks/get` (section 15.4) |
+| Tasks (MCP) | An MCP extension for long-running calls: the server returns a task id that the client polls with `tasks/get` (section 30.8) |
 | Thinking block | A content block holding the model's reasoning, returned before its answer; send it back unchanged |
 | Token | A chunk of text the model reads or writes; the unit of cost |
 | Token bucket | A rate-limit method: each caller's bucket refills at a steady rate and each request takes one token |
 | Tool | A function the model can ask your code to run, described by name, description and schema |
 | Tool search | Deferring most tool definitions and letting the model search for the ones it needs |
 | Trace | The step-by-step record of one agent run |
+| Trust store | Your record of which organizations and keys you trust, for which kinds of capability, and until when (sections 26.9 and 26.10) |
 | Workflow | A fixed sequence of LLM calls and code, with steps decided by the developer |
+| Working memory | What the agent holds during one task: the conversation, the plan and tool results; also called short-term memory (Chapters 5, 16 and 17) |
 
 ## Appendix D: References
 
@@ -247,27 +283,28 @@ Most agent bugs aren't crashes: the agent runs, then does the wrong thing. Work 
 
 ## Appendix E: What the Exercises Cost
 
-Costs depend on the model, how often you rerun exercises, and how long your conversations get. These estimates assume Claude Sonnet 5 at $2 per million input tokens and $10 per million output tokens (2026 prices), a typical exercise run of 3–6 model calls, and a few reruns while debugging. Check current prices on the provider's pricing page.
+Costs depend on the model, how often you rerun exercises, and how long your conversations get. The estimates below come from one cost model, `dev/cost_model.py` in the course kit, which also writes the kit's `COST_MODEL.md`; every cost figure in this book and the kit's README comes from it. It assumes Claude Sonnet 5 at $2 per million input tokens and $10 per million output tokens (2026 prices), and an *agent run* (one task) of 3–4 model calls with 2,500–3,000 input and 500–700 output tokens per call, about {{cost:run}}. It counts how many agent runs each paid exercise makes: most make one, but evaluation suites, benchmarks and load tests make dozens. One clean pass of every paid exercise is {{cost:first}}; a learner reruns while debugging and tries variations, so the table doubles that. Check current prices on the provider's pricing page.
 
-| Part | Estimated cost | Biggest items |
-| --- | --- | --- |
-| 0. Foundations | Under $0.10 | Exercise 0.6 and `check --api` only |
-| 1. Your first agent | $2–4 | Routing evals (3.4, 3.6), tool search (3.7), cost profile (4.5) |
-| 2. State and environment | $3–6 | The 2,000-note scale test (6.6) |
-| 3. Real-world tools | $2–5 | SQL evaluation harness (8.7) |
-| 4. Autonomy | $6–12 | Fixer benchmark (10.7), multi-agent comparison (11.6), the four patterns (11.7) |
-| 5. MCP and interoperability | $2–5 | Coordinator with an analyst agent (13.8) |
-| 6. Context, memory and knowledge | $3–8 | Caching savings (16.5), retrieval evaluation (18.6), verified answers (18.9) |
-| 7. Advanced agent architectures | $6–15 | Router evaluation (20.5), mixed team (21.6), browser queues (23.5, 23.6), framework comparison (24.5), managed agents (24.7) |
-| 8. Trust | $1–4 | Red-team drill (25.6) |
-| 9. Production engineering | $8–20 | Load testing a real agent (29.2), API load drill (30.6) |
-| **All chapters** | **About $35–75** | |
-| Each capstone | $3–10 | Evaluation runs and load tests |
-| Cloud deployment (30.7) | Usually $0 on a free tier | The host's own charges; set a budget alert and delete the service afterward |
+Table: Estimated cost by part, for a learner (twice the first pass, for reruns)
+| Part | Paid exercises | Agent runs, first pass | Estimated cost | Biggest items |
+| --- | ---: | ---: | --- | --- |
+| 0. Foundations | 0 | 0 | $0 | — |
+| 1. Your first agent | 17 | 124 | $7.4–13 | 4.5 (50 runs), 3.4 (20 runs), 3.6 (20 runs) |
+| 2. State and environment | 9 | 42 | $2.5–4.4 | 6.6 (30 runs), 6.2 (3 runs), 6.5 (3 runs) |
+| 3. Real-world tools | 14 | 118 | $7.1–12 | M.3 (72 runs), 8.7 (15 runs), 7.6 (10 runs) |
+| 4. Autonomy | 10 | 61 | $3.7–6.3 | 10.7 (30 runs), 11.6 (20 runs), 11.7 (4 runs) |
+| 5. MCP and interoperability | 9 | 11 | $0.66–1.1 | 13.8 (3 runs) |
+| 6. Context, memory and knowledge | 13 | 49 | $2.9–5.1 | 16.5 (15 runs), 18.6 (10 runs), 18.5 (8 runs) |
+| 7. Advanced agent architectures | 23 | 133 | $8–14 | 24.5 (72 runs), 20.5 (24 runs), 21.6 (10 runs) |
+| 8. Trust | 5 | 22 | $1.3–2.3 | 25.6 (18 runs) |
+| 9. Production engineering | 17 | 378 | $23–39 | 30.6 (200 runs), 29.2 (50 runs), 29.5 (48 runs) |
+| **All chapters** | **117** | **938** | **About $55–100** | First pass alone: $28–49 |
+| Each capstone | — | about 120 | $7.2–12 | Evaluation runs and a load test |
+| Cloud deployment (30.7) | — | — | Usually $0 on a free tier | The host's own charges; set a budget alert and delete the service afterward |
 
 Claude Sonnet 5 uses a new tokenizer that counts about 30% more tokens for the same text than earlier models, and thinking is billed as output, so compare costs by measuring your own runs rather than by reusing older token counts. With Claude Haiku 4.5 ($1 input, $5 output per million tokens), the totals are roughly half. Prompt caching (Chapter 16) and smaller tool outputs cut them further. Running `./course.sh check-solutions` is always free.
 
-**Or pay nothing:** with the free local model (`PROVIDER=local`, Appendix H), every exercise except the five marked **Claude only** costs nothing. A sensible budget plan is to do the book locally and buy a few dollars of Claude credit for those five and the four marked **Claude recommended**.
+**Or pay nothing:** with the free local model (`PROVIDER=local`, Appendix H), every exercise except the {{exercises-word:claude-only}} marked **Claude only** costs nothing. A sensible budget plan is to do the book locally and buy a few dollars of Claude credit for those {{exercises-word:claude-only}} and the {{exercises-word:claude-rec}} marked **Claude recommended**. If you use Claude throughout, the table's biggest items (the load tests and evaluation suites) are the ones worth running on the local model or Claude Haiku 4.5 first.
 
 ### Estimate a run yourself
 
@@ -281,11 +318,12 @@ Every agent in this book reports its input and output tokens, so you can apply t
 
 The `solutions` folder sits next to `course.sh`. Inside the container it's mounted read-only at `/solutions`, so you can read and run it but never change it by accident.
 
+Table: What's in the solutions folder
 | Path | What it holds |
 | --- | --- |
-| `exercises/ch<NN>/ex<id>_*.py` | A new program that solves one exercise, such as `ex4_4_tracer.py`, `ex0_7_expenses.py` or `exS_3_business.py` |
-| `exercises/sol_chNN_*.py` | An improved copy of a chapter file that solves one or more exercises, such as `sol_ch08_sql_tools.py` for 8.5 and 8.6 |
-| `exercises/*.json`, `*.jsonl` | Extra configuration and evaluation data, such as `servers_remote.json` (30.5) and `eval_sql_more.jsonl` (27.3) |
+| `exercises/ch<NN>/`, `exercises/interlude_*/` | One folder per chapter or interlude, with the programs that solve its exercises, such as `ch04/ex4_4_tracer.py` |
+| `sol_chNN_*.py` (in those folders) | An improved copy of a chapter file that solves one or more exercises, such as `sol_ch08_sql_tools.py` for 8.5 and 8.6 |
+| `*.json`, `*.jsonl` (in those folders) | Extra configuration and evaluation data, such as `servers_remote.json` (30.5) and `eval_sql_more.jsonl` (27.3) |
 | `ANSWERS.md` | Written answers for concept exercises, and *what you should see* for exercises that run a chapter file |
 | `tests/test_ex*.py` | Solutions that are themselves tests (T.2–T.4, 6.3, 9.6, 12.7, 16.6) |
 | `tests/test_ch*.py`, `tests/test_capstones.py` | The automated checks behind `check-solutions`; useful as examples of testing agents with a scripted model |
@@ -300,11 +338,20 @@ Solutions build on the chapter files, so run them from your workspace with the s
 
 ```bash
 ./course.sh shell
-export PYTHONPATH=/solutions/exercises/ch04:/solutions/exercises/ch04:/solutions/exercises:$PYTHONPATH
+export PYTHONPATH=/solutions/exercises/ch04:/solutions/exercises:$PYTHONPATH
 python /solutions/exercises/ch04/ex4_4_tracer.py
 ```
 
 To try a solution as a starting point for your own work, copy it into `workspace/exercises` and edit the copy.
+
+### How the solutions are verified, and what that does and doesn't prove
+
+Two kinds of evidence back the solutions, and the repository keeps them apart:
+
+- **Deterministic checks.** `./course.sh check-solutions` runs every reference solution, capstone and exercise command against a scripted stand-in model, with no API key. The same commit gives the same result on any machine, so it proves the code runs and the checks pass, not that a real model will make the same choices. Every push runs it in the course image on GitHub, and `python dev/verify.py` writes the result with the commit, the hash of `requirements.lock` and the environment to `verification/offline.json`. A test that needs a program only the image has is reported as *skipped, needs …*, never as a pass.
+- **Runs with a real model.** `./course.sh run-chapter` runs each exercise's reference solution with the free local model or Claude, and records the model, the commit and the package versions in each chapter's `summary.json`. A model's answers vary between runs, so a pass shows the exercise works end to end, not that it always will; that's what the measurement interlude's repeated trials are for.
+
+The README's *Verified results* section shows both, with passed, failed, written answers, exercises that need a person and exercises not run yet counted separately. Each tagged release (section "Book editions and code versions" in the README) carries its results as files you can download.
 
 ## Appendix G: Where to Learn More
 
@@ -314,6 +361,7 @@ Nobody learns this field from one book. This appendix lists where to get help wh
 
 Before asking, search the exact error message, and include your code, the full error and what you expected. Never paste your API key or `.env` file into a question.
 
+Table: Where to ask for help
 | Resource | What you'll find | Level |
 | --- | --- | --- |
 | **Anthropic Discord**<br>[discord.com/invite/anthropic](https://discord.com/invite/anthropic) | Ask questions about Claude and the API; developers and Anthropic staff | Start here |
@@ -327,6 +375,7 @@ Before asking, search the exact error message, and include your code, the full e
 
 ### Free courses that pair well with this book
 
+Table: Free courses
 | Resource | What you'll find | Level |
 | --- | --- | --- |
 | **Anthropic Academy**<br>[anthropic.skilljar.com](https://anthropic.skilljar.com) | Free courses: Claude API, MCP, Claude Code, agent skills | Start here |
@@ -338,8 +387,26 @@ Before asking, search the exact error message, and include your code, the full e
 
 ### Keeping up to date
 
-Model names, prices and SDK features change every few months. These pages are where changes appear first.
+Model names, prices and SDK features change every few months. Start by checking that your book, your code and your environment belong together:
 
+Table: This printing and the code it was tested with
+| Book printing | Repository tag | Exercises | Python | Default models | MCP specification | Verified |
+| --- | --- | ---: | --- | --- | --- | --- |
+| Second printing, October 2026 | `edition-1.1` | {{exercises:all}} | 3.12 | `claude-sonnet-5`, `claude-haiku-4-5`, `qwen3.5:9b` | 2026-07-28 | 6 October 2026 |
+
+`git describe --tags` in the kit folder prints the tag you have, and `./course.sh check` prints the Python and library versions in the image. Four files in the course kit track what changes after that:
+
+Table: How the course kit tracks change
+| File | What it tells you |
+| --- | --- |
+| `VERSION_MATRIX.md` | The exact version of every library, MCP server, model and protocol the book was tested with, the date, and which sections depend on fast-changing details. It also explains how to tell a protocol change (your agent may behave differently) from an SDK change (your code may stop running). |
+| `CHANGELOG.md` | What changed between tags of the repository |
+| `MIGRATION.md` | What to change in your own code when you move to a newer tag |
+| `ERRATA.md` | Mistakes found in each printing, with corrections. Your printing's tag never moves, so its code always matches your book |
+
+These pages are where changes in the wider world appear first.
+
+Table: Where changes appear first
 | Resource | What you'll find | Level |
 | --- | --- | --- |
 | **Claude Platform release notes**<br>[platform.claude.com/docs/en/release-notes/overview](https://platform.claude.com/docs/en/release-notes/overview) | New models, API features and deprecations, as they ship | Start here |
@@ -351,46 +418,8 @@ Model names, prices and SDK features change every few months. These pages are wh
 
 ### Every link in this book, by chapter
 
-| Chapter | Resources |
-| --- | --- |
-| How to Use This Book | [Anthropic Academy (free courses)](https://anthropic.skilljar.com)<br>[Claude Developer Platform docs](https://platform.claude.com/docs/en/home)<br>[Anthropic courses on GitHub](https://github.com/anthropics/courses)<br>[Claude Cookbooks](https://github.com/anthropics/claude-cookbooks)<br>[Hugging Face AI Agents Course](https://huggingface.co/learn/agents-course) |
-| Chapter 0: Foundations | [MDN: Command line crash course](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Environment_setup/Command_line)<br>[Docker: Get started](https://docs.docker.com/get-started/)<br>[Docker Desktop install guide](https://docs.docker.com/desktop/)<br>[Claude docs: Get your API key](https://platform.claude.com/docs/en/get-api-key)<br>[Claude Console: API keys](https://platform.claude.com/settings/keys)<br>[JSON introduction](https://www.json.org/json-en.html)<br>[JSON Schema: Getting started](https://json-schema.org/learn/getting-started-step-by-step)<br>[MDN: An overview of HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview)<br>[The Twelve-Factor App: Config](https://12factor.net/config) |
-| Interlude: The Python You'll Need | [The official Python tutorial](https://docs.python.org/3/tutorial/)<br>[Python for Everybody](https://www.py4e.com)<br>[CS50's Introduction to Programming with Python](https://cs50.harvard.edu/python/)<br>[Automate the Boring Stuff with Python](https://automatetheboringstuff.com)<br>[Python Tutor](https://pythontutor.com/visualize.html)<br>[Exercism: Python track](https://exercism.org/tracks/python)<br>[Real Python: Primer on decorators](https://realpython.com/primer-on-python-decorators/)<br>[Python docs: dataclasses](https://docs.python.org/3/library/dataclasses.html)<br>[mypy: Type hints cheat sheet](https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html) |
-| Chapter 1: What an Agent Is (and Isn't) | [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)<br>[Claude docs: Get started](https://platform.claude.com/docs/en/get-started)<br>[Claude docs: Messages API reference](https://platform.claude.com/docs/en/api/messages)<br>[Claude docs: Models overview](https://platform.claude.com/docs/en/models/overview)<br>[Anthropic Python SDK](https://github.com/anthropics/anthropic-sdk-python) |
-| Interlude: Testing with pytest | [pytest: Get started](https://docs.pytest.org/en/stable/getting-started.html)<br>[Real Python: Effective testing with pytest](https://realpython.com/pytest-python-testing/)<br>[pytest: How to parametrize tests](https://docs.pytest.org/en/stable/how-to/parametrize.html)<br>[pytest: How to monkeypatch](https://docs.pytest.org/en/stable/how-to/monkeypatch.html) |
-| Chapter 2: Tool Calling (Function Calling) | [Claude docs: Tool use overview](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview)<br>[Claude docs: How to implement tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/implement-tool-use)<br>[Anthropic: Writing effective tools for agents](https://www.anthropic.com/engineering/writing-tools-for-agents)<br>[Python docs: ast module](https://docs.python.org/3/library/ast.html)<br>[OWASP Top 10 for LLM Applications](https://genai.owasp.org/llm-top-10/) |
-| Chapter 3: Tool Selection, Routing and Tool Search | [Claude docs: Structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)<br>[Pydantic documentation](https://pydantic.dev/docs/validation/latest/get-started/)<br>[Claude docs: How to implement tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/implement-tool-use)<br>[Python docs: zoneinfo](https://docs.python.org/3/library/zoneinfo.html)<br>[Claude docs: Tool search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool) |
-| Chapter 4: The Agent Loop | [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)<br>[Claude docs: Handling stop reasons](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons)<br>[Claude docs: Thinking](https://platform.claude.com/docs/en/build-with-claude/thinking)<br>[Claude docs: Streaming messages](https://platform.claude.com/docs/en/build-with-claude/streaming)<br>[ReAct paper (Yao et al., 2022)](https://arxiv.org/abs/2210.03629)<br>[Claude docs: Migrating to Claude Sonnet 5](https://platform.claude.com/docs/en/models/sonnet-5/migration-guide) |
-| Chapter 5: State and Short-Term Memory | [Claude docs: Context windows](https://platform.claude.com/docs/en/build-with-claude/context-windows)<br>[Python docs: json module](https://docs.python.org/3/library/json.html)<br>[Claude docs: Memory tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool)<br>[Claude docs: Token counting](https://platform.claude.com/docs/en/build-with-claude/token-counting) |
-| Interlude: Regular Expressions | [RegexOne](https://regexone.com)<br>[regex101](https://regex101.com)<br>[Python docs: Regular expression HOWTO](https://docs.python.org/3/howto/regex.html)<br>[Python docs: re module](https://docs.python.org/3/library/re.html) |
-| Chapter 6: Agentic Search: Exploring an Environment | [Python docs: pathlib](https://docs.python.org/3/library/pathlib.html)<br>[Claude docs: Text editor tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/text-editor-tool)<br>[Claude Code overview](https://code.claude.com/docs/en/overview)<br>[OWASP: Path traversal](https://owasp.org/www-community/attacks/Path_Traversal) |
-| Chapter 7: Real APIs | [Open-Meteo API documentation](https://open-meteo.com/en/docs)<br>[MDN: HTTP response status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status)<br>[HTTPX documentation](https://www.python-httpx.org)<br>[AWS: Exponential backoff and jitter](https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/)<br>[MDN: Retry-After header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Retry-After)<br>[Claude docs: Rate limits](https://platform.claude.com/docs/en/api/rate-limits)<br>[Public APIs list](https://github.com/public-apis/public-apis) |
-| Interlude: SQL in One Sitting | [SQLBolt](https://sqlbolt.com)<br>[W3Schools SQL tutorial](https://www.w3schools.com/sql/)<br>[SQLite: SQL as understood by SQLite](https://www.sqlite.org/lang.html)<br>[Python docs: sqlite3](https://docs.python.org/3/library/sqlite3.html) |
-| Chapter 8: Self-Correction: A Text-to-SQL Agent | [Uber: QueryGPT](https://www.uber.com/us/en/blog/query-gpt/)<br>[Claude docs: Reduce hallucinations](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations)<br>[OWASP: SQL injection prevention](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)<br>[Reflexion paper (Shinn et al., 2023)](https://arxiv.org/abs/2303.11366) |
-| Chapter 9: Human-in-the-Loop Approval | [Google PAIR: People + AI Guidebook](https://pair.withgoogle.com/guidebook/)<br>[Claude Code: permission modes](https://code.claude.com/docs/en/permission-modes)<br>[NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) |
-| Chapter 10: Feedback Loops | [Python docs: subprocess](https://docs.python.org/3/library/subprocess.html)<br>[Docker: Engine security](https://docs.docker.com/engine/security/)<br>[SWE-bench](https://www.swebench.com)<br>[Claude Code: Security](https://code.claude.com/docs/en/security) |
-| Interlude: Asynchronous Python | [Real Python: Async IO in Python](https://realpython.com/async-io-python/)<br>[Python docs: asyncio](https://docs.python.org/3/library/asyncio.html)<br>[Claude docs: Python SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/python) |
-| Chapter 11: Multi-Agent Systems | [Anthropic: How we built our multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system)<br>[Cognition: Don't build multi-agents](https://cognition.com/blog/dont-build-multi-agents)<br>[Claude Code: Subagents](https://code.claude.com/docs/en/sub-agents)<br>[Agent2Agent (A2A) protocol](https://a2a-protocol.org/latest/) |
-| Chapter 12: MCP Fundamentals and Your First Server | [MCP: Introduction](https://modelcontextprotocol.io/docs/getting-started/intro)<br>[MCP: Build an MCP server](https://modelcontextprotocol.io/docs/develop/build-server)<br>[Anthropic Academy: Introduction to MCP](https://anthropic.skilljar.com/introduction-to-model-context-protocol)<br>[MCP blog: The 2026-07-28 specification](https://blog.modelcontextprotocol.io/posts/2026-07-28/)<br>[DeepLearning.AI: MCP, Build Rich-Context AI Apps with Anthropic](https://www.deeplearning.ai/courses/mcp-build-rich-context-ai-apps-with-anthropic)<br>[MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk)<br>[MCP Inspector](https://modelcontextprotocol.io/docs/tools/inspector)<br>[Hugging Face MCP Course](https://huggingface.co/learn/mcp-course)<br>[MCP blog: MCP Apps](https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/)<br>[MCP blog: The new MCP roadmap](https://blog.modelcontextprotocol.io/posts/mcp-roadmap/) |
-| Chapter 13: Build Your Own MCP Client | [MCP: Build an MCP client](https://modelcontextprotocol.io/docs/develop/build-client)<br>[MCP: Architecture overview](https://modelcontextprotocol.io/docs/learn/architecture)<br>[MCP specification](https://modelcontextprotocol.io/specification)<br>[Claude docs: MCP connector](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector) |
-| Chapter 14: Using Servers You Didn't Write | [MCP reference servers](https://github.com/modelcontextprotocol/servers)<br>[MCP Registry](https://registry.modelcontextprotocol.io)<br>[MCP: Security best practices](https://modelcontextprotocol.io/docs/tutorials/security/security_best_practices)<br>[GitHub MCP server](https://github.com/github/github-mcp-server) |
-| Chapter 27: Agent Evaluation: Dimensions, Trajectories and Scorecards | [Anthropic: Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)<br>[Claude docs: Define success criteria and build evaluations](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests)<br>[LangChain: State of Agent Engineering](https://www.langchain.com/state-of-agent-engineering)<br>[Hamel Husain: Your AI product needs evals](https://hamel.dev/blog/posts/evals/)<br>[Claude docs: Batch processing](https://platform.claude.com/docs/en/build-with-claude/batch-processing)<br>[Wikipedia: Binomial proportion confidence interval](https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval) |
-| Chapter 16: Context Engineering | [Anthropic: Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)<br>[Redis: The state of context engineering 2026](https://redis.io/resources/state-of-context-engineering-2026/)<br>[Claude docs: Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching)<br>[Claude docs: Context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing)<br>[Claude docs: Prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices)<br>[Claude docs: Programmatic tool calling](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling)<br>[Claude docs: Compaction](https://platform.claude.com/docs/en/build-with-claude/compaction) |
-| Chapter 18: Agentic RAG and Knowledge Systems | [Anthropic: Introducing Contextual Retrieval](https://www.anthropic.com/news/contextual-retrieval)<br>[Claude docs: Embeddings](https://platform.claude.com/docs/en/build-with-claude/embeddings)<br>[Claude docs: Citations](https://platform.claude.com/docs/en/build-with-claude/citations)<br>[Wikipedia: Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25)<br>[model2vec](https://github.com/MinishLab/model2vec)<br>[MTEB leaderboard](https://huggingface.co/spaces/mteb/leaderboard)<br>[Singh et al.: Agentic Retrieval-Augmented Generation, a survey](https://arxiv.org/abs/2501.09136) |
-| Chapter 24: Skills, Frameworks and Agent Runtimes | [Claude Agent SDK overview](https://code.claude.com/docs/en/agent-sdk/overview)<br>[Claude Agent SDK for Python](https://github.com/anthropics/claude-agent-sdk-python)<br>[Agent Skills specification](https://agentskills.io/specification)<br>[LangChain documentation](https://docs.langchain.com)<br>[Pydantic AI](https://pydantic.dev/docs/ai/overview/)<br>[Hugging Face smolagents](https://huggingface.co/docs/smolagents)<br>[Claude Managed Agents overview](https://platform.claude.com/docs/en/managed-agents/overview)<br>[Agent2Agent (A2A) protocol](https://a2a-protocol.org/latest/) |
-| Chapter 30: Deploying Agents: From One Service to an Agent Platform | [FastAPI tutorial](https://fastapi.tiangolo.com/tutorial/)<br>[MDN: Using server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events)<br>[Docker Compose documentation](https://docs.docker.com/compose/)<br>[MCP: Authorization](https://modelcontextprotocol.io/docs/tutorials/security/authorization)<br>[OAuth 2.0 Simplified](https://www.oauth.com)<br>[OWASP API Security Top 10](https://owasp.org/API-Security/) |
-| Capstone Projects | [Capstone 1: Intercom Help, Fin AI Agent](https://www.intercom.com/help/en/collections/6485365-fin-ai-agent)<br>[Capstone 2: Uber, QueryGPT](https://www.uber.com/us/en/blog/query-gpt/)<br>[Capstone 3: Google SRE book, Managing incidents](https://sre.google/sre-book/managing-incidents/)<br>[Capstone 3 extension: Gil Tene, How NOT to measure latency](https://www.infoq.com/presentations/latency-response-time/)<br>[Capstone 4: SWE-bench](https://www.swebench.com)<br>[Capstone 5: Anthropic, multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system)<br>[Capstone 6: Anthropic, Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)<br>[Capstone 6: Playwright for Python](https://playwright.dev/python/) |
-| Chapter 17: Agent Memory Engineering | [Claude docs: Memory tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool)<br>[OWASP GenAI: Memory is a feature. It is also an attack surface](https://genai.owasp.org/2026/05/13/memory-is-a-feature-it-is-also-an-attack-surface/)<br>[OWASP Top 10 for Agentic Applications](https://genai.owasp.org/2025/12/09/owasp-top-10-for-agentic-applications-the-benchmark-for-agentic-security-in-the-age-of-autonomous-ai/)<br>[Torra and Bras-Amorós: Memory poisoning and secure multi-agent systems](https://arxiv.org/abs/2603.20357)<br>[SQLite: FTS5 full-text search](https://www.sqlite.org/fts5.html) |
-| Chapter 21: Multi-Agent Orchestration | [Microsoft: Multi-agent patterns](https://learn.microsoft.com/en-us/agents/architecture/multi-agent-patterns)<br>[Anthropic: How we built our multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system)<br>[Cemri et al.: Why do multi-agent LLM systems fail?](https://arxiv.org/abs/2503.13657)<br>[jsonschema for Python](https://python-jsonschema.readthedocs.io/)<br>[Agent2Agent (A2A) protocol](https://a2a-protocol.org/latest/)<br>[A2A Python SDK (a2a-sdk)](https://pypi.org/project/a2a-sdk/)<br>[A2A samples](https://github.com/a2aproject/a2a-samples) |
-| Chapter 19: Long-Running Agents | [Anthropic: Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)<br>[AWS Builders' Library: Timeouts, retries and backoff with jitter](https://builder.aws.com/content/3EumjoZascWd1oZiEgL8ORlv3qE/timeouts-retries-and-backoff-with-jitter)<br>[Stripe: Idempotent requests](https://docs.stripe.com/api/idempotent_requests)<br>[microservices.io: The Saga pattern](https://microservices.io/patterns/data/saga.html)<br>[Temporal documentation](https://docs.temporal.io/) |
-| Chapter 20: Planning and Model Routing | [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)<br>[Python docs: graphlib](https://docs.python.org/3/library/graphlib.html)<br>[Yao et al.: ReAct](https://arxiv.org/abs/2210.03629)<br>[Chen, Zaharia and Zou: FrugalGPT](https://arxiv.org/abs/2305.05176)<br>[Ong et al.: RouteLLM](https://arxiv.org/abs/2406.18665) |
-| Chapter 22: Hybrid Architectures: Probabilistic Intelligence, Deterministic Control | [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)<br>[Salesforce: AI agent trends for 2026](https://www.salesforce.com/blog/ai-agent-trends-2026/)<br>[Python docs: sqlite3 set_authorizer](https://docs.python.org/3/library/sqlite3.html#sqlite3.Connection.set_authorizer) |
-| Chapter 23: Computer-Use Agents | [Playwright for Python](https://playwright.dev/python/)<br>[Claude docs: Computer use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool)<br>[OWASP GenAI: Prompt injection](https://genai.owasp.org/llmrisk/llm01-prompt-injection/) |
-| Chapter 25: Agentic Security | [Simon Willison: The lethal trifecta](https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/)<br>[OWASP Top 10 for Agentic Applications](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/)<br>[Simon Willison: The Dual LLM pattern](https://simonwillison.net/2023/Apr/25/dual-llm-pattern/)<br>[Debenedetti et al.: Defeating prompt injections by design (CaMeL)](https://arxiv.org/abs/2503.18813)<br>[OWASP: SSRF prevention cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html)<br>[NSA: MCP security design considerations](https://www.nsa.gov/Press-Room/Press-Releases-Statements/Press-Release-View/Article/4496698/nsa-releases-security-design-considerations-for-ai-driven-automation-leveraging/) |
-| Chapter 26: Agent Identity and Authorization | [MCP: Authorization](https://modelcontextprotocol.io/docs/tutorials/security/authorization)<br>[PyJWT documentation](https://pyjwt.readthedocs.io/)<br>[OAuth 2.0 Token Exchange (RFC 8693)](https://www.rfc-editor.org/rfc/rfc8693)<br>[OWASP Top 10 for Agentic Applications](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) |
-| Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents | [OpenTelemetry GenAI semantic conventions (repository)](https://github.com/open-telemetry/semantic-conventions-genai)<br>[OpenTelemetry: GenAI semantic conventions](https://opentelemetry.io/docs/specs/semconv/registry/attributes/gen-ai/)<br>[Google SRE book: Service level objectives](https://sre.google/sre-book/service-level-objectives/)<br>[LangChain: State of Agent Engineering](https://www.langchain.com/state-of-agent-engineering)<br>[Moffatt v. Air Canada, 2024 BCCRT 149](https://www.canlii.org/en/bc/bccrt/doc/2024/2024bccrt149/2024bccrt149.html)<br>[Invariant Labs: GitHub MCP exploited](https://invariantlabs.ai/blog/mcp-github-vulnerability)<br>[AI Incident Database](https://incidentdatabase.ai/) |
-| Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost | [Claude docs: Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching)<br>[Claude docs: Rate limits](https://platform.claude.com/docs/en/api/rate-limits)<br>[Gil Tene: How NOT to measure latency](https://www.infoq.com/presentations/latency-response-time/)<br>[Wikipedia: Little's law](https://en.wikipedia.org/wiki/Little%27s_law) |
-| Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure | [MCP blog: The 2026-07-28 specification](https://blog.modelcontextprotocol.io/posts/2026-07-28/)<br>[MCP: Tasks extension](https://modelcontextprotocol.io/extensions/tasks)<br>[The MCP Registry](https://modelcontextprotocol.io/registry/about)<br>[MCP: Enterprise-Managed Authorization](https://modelcontextprotocol.io/extensions/auth/enterprise-managed-authorization)<br>[MCP blog: The new MCP roadmap](https://blog.modelcontextprotocol.io/posts/mcp-roadmap/)<br>[MCP joins the Agentic AI Foundation](https://blog.modelcontextprotocol.io/posts/2025-12-09-mcp-joins-agentic-ai-foundation/) |
+Table: Every link in this book, by chapter
+@@all-links-table
 
 ## Appendix H: Run the Book Free with a Local Model
 
@@ -406,6 +435,7 @@ You don't have to pay for API calls to learn from this book. The course kit can 
 
 ### What you need
 
+Table: Hardware for the local model
 | | Minimum | Recommended |
 | --- | --- | --- |
 | Memory (RAM) | 16 GB | 32 GB |
@@ -444,6 +474,7 @@ That's all. Every `./course.sh` command now uses the local model: exercises, cha
 
 One line in `.env` decides which model every command uses:
 
+Table: Choosing the model in `.env`
 | `.env` line | Model |
 | --- | --- |
 | `PROVIDER=claude`, or no `PROVIDER` line | Claude, through the Claude API, with your `ANTHROPIC_API_KEY` |
@@ -451,6 +482,7 @@ One line in `.env` decides which model every command uses:
 
 You can switch as often as you like, for example to run one **Claude only** exercise. `./course.sh check` shows which one is active. Other settings you can add to `.env`:
 
+Table: Local-model settings
 | Setting | Default | What it does |
 | --- | --- | --- |
 | `LOCAL_MODEL` | `qwen3.5:9b` | The local model to use. The book is tested with this one. |
@@ -462,6 +494,7 @@ You can switch as often as you like, for example to run one **Claude only** exer
 
 Ollama speaks the same Messages API as Claude for everything the chapters use most: messages, system prompts, tools, tool results, streaming and thinking. A few Claude features have no local equivalent, so the kit runs a small **adapter** (`course/local_adapter.py`) between the book's code and Ollama. It fills the gaps so your code doesn't have to change:
 
+Table: What the local-model adapter does
 | Claude feature | Chapters | What the adapter does |
 | --- | --- | --- |
 | Forcing a tool (`tool_choice`) | 3, 11, capstones 3, 5 and 6 | Tells the model to call the tool, and asks again (up to twice) if it answers in text instead |
@@ -478,6 +511,7 @@ The local model is a capable learning partner, but it isn't Claude. It picks the
 
 Speed depends mostly on your hardware:
 
+Table: Local-model speed by hardware
 | Setup | A short answer | A typical agent exercise (3–6 model calls) |
 | --- | --- | --- |
 | NVIDIA GPU with 8 GB or more | 1–3 seconds | 10–40 seconds |
@@ -488,6 +522,7 @@ The first call after `local up` takes longer while the model loads. To speed up 
 
 ### When something goes wrong
 
+Table: Local-model problems and fixes
 | Symptom | Fix |
 | --- | --- |
 | "Can't reach the local model" | Start it: `./course.sh local up`. Check with `./course.sh local status`. |
@@ -501,50 +536,15 @@ The first call after `local up` takes longer while the model loads. To speed up 
 
 ### Which exercises need which model
 
-Every exercise box shows one of four labels. Of the book's 231 exercises, 114 need **no model**, 103 run on **qwen3.5:9b or Claude**, 9 are **Claude recommended** and 5 are **Claude only**. `./course.sh list` shows the labels too, and `./course.sh ex <id>` warns you before running a Claude-only exercise on the local model.
+Every exercise box shows one of four labels. Of the book's {{exercises:all}} exercises, {{exercises:none}} need **no model**, {{exercises:any}} run on **qwen3.5:9b or Claude**, {{exercises:claude-rec}} are **Claude recommended** and {{exercises:claude-only}} are **Claude only**. `./course.sh list` shows the labels too, and `./course.sh ex <id>` warns you before running a Claude-only exercise on the local model.
 
-| Chapter | No model | qwen3.5:9b or Claude | Claude |
-| --- | --- | --- | --- |
-| Chapter 0: Foundations | 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 | — | — |
-| Interlude: The Python You'll Need | P.1, P.2, P.3, P.4, P.5 | — | — |
-| Chapter 1: What an Agent Is (and Isn't) | 1.1, 1.2, 1.7, 1.8 | 1.3, 1.4, 1.5, 1.6 | — |
-| Interlude: Testing with pytest | T.1, T.2, T.3, T.4 | — | — |
-| Chapter 2: Tool Calling (Function Calling) | 2.1, 2.2 | 2.3, 2.4, 2.5, 2.6 | — |
-| Chapter 3: Tool Selection, Routing and Tool Search | 3.1, 3.2 | 3.3, 3.4, 3.5, 3.6 | 3.7 (only) |
-| Chapter 4: The Agent Loop | 4.1 | 4.2, 4.3, 4.4, 4.5 | — |
-| Chapter 5: State and Short-Term Memory | 5.1, 5.2 | 5.3, 5.4, 5.5, 5.6, 5.7 | — |
-| Interlude: Regular Expressions | R.1, R.2, R.3, R.4 | — | — |
-| Chapter 6: Agentic Search: Exploring an Environment | 6.1, 6.4 | 6.2, 6.3, 6.5, 6.6 | — |
-| Chapter 7: Real APIs | 7.1, 7.2 | 7.3, 7.4, 7.5, 7.6 | — |
-| Interlude: SQL in One Sitting | S.1, S.2, S.3, S.4 | — | — |
-| Chapter 8: Self-Correction: A Text-to-SQL Agent | 8.1, 8.2 | 8.3, 8.4, 8.5, 8.6, 8.7 | — |
-| Chapter 9: Human-in-the-Loop Approval | 9.1, 9.2 | 9.3, 9.4, 9.5, 9.6 | — |
-| Chapter 10: Feedback Loops | 10.1, 10.2 | 10.3, 10.4, 10.5, 10.6, 10.7 | — |
-| Interlude: Asynchronous Python | A.1, A.2, A.3, A.4 | — | — |
-| Chapter 11: Multi-Agent Systems | 11.1, 11.2 | 11.3, 11.4, 11.5, 11.6, 11.7 | — |
-| Chapter 12: MCP Fundamentals and Your First Server | 12.1, 12.2, 12.3, 12.4, 12.6, 12.7 | — | 12.5 (only) |
-| Chapter 13: Build Your Own MCP Client | 13.1, 13.2 | 13.3, 13.4, 13.5, 13.6, 13.7, 13.8 | — |
-| Chapter 14: Using Servers You Didn't Write | 14.1, 14.2 | 14.3, 14.4, 14.5 | — |
-| Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure | 15.1, 15.2, 15.3, 15.4, 15.5, 15.6 | 15.7 | — |
-| Chapter 16: Context Engineering | 16.1, 16.2, 16.6 | 16.3, 16.4, 16.8 | 16.5 (recommended), 16.7 (only) |
-| Chapter 17: Agent Memory Engineering | 17.1, 17.2, 17.4, 17.6, 17.7 | 17.3, 17.5, 17.8 | — |
-| Chapter 18: Agentic RAG and Knowledge Systems | 18.1, 18.2, 18.3, 18.4 | 18.5, 18.6, 18.7, 18.8, 18.9 | — |
-| Chapter 19: Long-Running Agents | 19.1, 19.2, 19.4 | 19.3, 19.5, 19.6 | — |
-| Chapter 20: Planning and Model Routing | 20.1, 20.2, 20.3 | 20.4, 20.5, 20.6 | — |
-| Chapter 21: Multi-Agent Orchestration | 21.1, 21.2 | 21.3, 21.4, 21.5 | 21.6 (recommended) |
-| Chapter 22: Hybrid Architectures: Probabilistic Intelligence, Deterministic Control | 22.1, 22.2 | 22.3, 22.4, 22.5, 22.6 | — |
-| Chapter 23: Computer-Use Agents | 23.1, 23.2, 23.3 | — | 23.4 (recommended), 23.5 (recommended), 23.6 (recommended) |
-| Chapter 24: Skills, Frameworks and Agent Runtimes | 24.1, 24.2, 24.9 | 24.8 | 24.3 (recommended), 24.4 (recommended), 24.5 (recommended), 24.6 (only), 24.7 (only) |
-| Chapter 25: Agentic Security | 25.1, 25.2, 25.5 | 25.3, 25.4, 25.6 | — |
-| Chapter 26: Agent Identity and Authorization | 26.1, 26.2, 26.3, 26.5 | 26.4, 26.6 | — |
-| Chapter 27: Agent Evaluation: Dimensions, Trajectories and Scorecards | 27.1, 27.2, 27.7 | 27.3, 27.4, 27.5, 27.6, 27.8 | — |
-| Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents | 28.1, 28.2, 28.4, 28.5, 28.6, 28.7 | 28.3 | — |
-| Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost | 29.1, 29.3 | 29.2, 29.4, 29.6 | 29.5 (recommended) |
-| Chapter 30: Deploying Agents: From One Service to an Agent Platform | 30.1 | 30.2, 30.3, 30.4, 30.5, 30.6, 30.7 | — |
+Table: Exercises by chapter and the model they need
+@@exercise-model-table
 | Capstones 1–6 | — | All six | 4 and 6 (recommended) |
 
 The exercises that need, or work much better with, Claude:
 
+Table: Exercises that need, or work much better with, Claude
 | Exercise | Label | Why |
 | --- | --- | --- |
 | 3.7 Tool search at scale | Claude only | Tool search runs on Anthropic's servers. |
@@ -577,6 +577,7 @@ The book's frameworks on a few pages, for design reviews and on-call. Each card 
 
 ### Card 1: Do you need an agent? (section 1.3)
 
+Table: Options and when to choose each
 | Option | Choose it when |
 | --- | --- |
 | Function | The rules are exact and known |
@@ -593,12 +594,13 @@ Ask: can I draw the flowchart first? What does a wrong step cost? Can I tell whe
 
 Autonomy, state, planning, tool use, environmental interaction, persistence, feedback, delegation, adaptation. Turn up only the dimensions the task needs; each one adds a way to fail and needs its own controls.
 
-### Card 3: The agent architecture reference model (sections 1.7 and 30.9)
+### Card 3: The agent architecture reference model (sections 1.7 and 30.15)
 
 User / API → agent runtime (planning, memory, context, tools, policies) → model → MCP, APIs, A2A → environment, with evaluation and observability across every layer.
 
 ### Card 4: MCP, A2A, API or workflow? (section 21.8)
 
+Table: What to use for each need
 | You need to... | Use |
 | --- | --- |
 | Connect a model to a tool or to data | A tool; an MCP server to share it |
@@ -615,6 +617,7 @@ User / API → agent runtime (planning, memory, context, tools, policies) → mo
 
 For each class: how you detect it, how you mitigate it and how you evaluate the fix.
 
+Table: Failure classes and where to look first
 | Failure | First place to look |
 | --- | --- |
 | 1. Wrong tool | Tool descriptions (Chapter 3); trajectory checks (Chapter 27) |
@@ -632,7 +635,9 @@ For each class: how you detect it, how you mitigate it and how you evaluate the 
 
 ### Card 6: The agent scorecard (section 27.6)
 
-Success rate · reliability (pass^k) · tool accuracy · argument accuracy · task completion · safety violation rate · average steps · p50 and p95 latency · cost per task · cost per successful task. One scorecard per release, compared with the last; hard limits gate the release.
+**Per run:** success rate · reliability (pass^k) · tool accuracy · argument accuracy · task completion · safety violation rate · average steps · p50 and p95 latency · cost per task · cost per successful task.
+
+**Per release, the eleven qualities:** outcome quality · trajectory quality · safety · tool correctness · groundedness · latency · reliability · cost · observability (complete traces) · security (regression scenarios) · maintainability (versioned bundle, eval suite in CI, decision records, a named owner). One scorecard per release, compared with the last; safety and security have no slack, and every quality below its floor holds the release.
 
 ### Card 7: Agent SLOs (section 28.10)
 
@@ -643,9 +648,11 @@ Example targets to adapt, not universal truths: task success ≥ 95%; p95 latenc
 Total latency = model + tool + retrieval + orchestration + queueing + serialization.
 Cost per task = model + tools + retrieval + infrastructure + retries + human review.
 Measure under load: throughput and goodput, p50/p95/p99, tokens per request, cache hit rate, steps per task, cost per task and success rate, at rising concurrency, to find the knee.
+Capacity: tasks in flight = arrival rate × latency (Little's law, section 29.7); the limit is the scarcest of model slots, rate limits and workers. Report cost per *successful* task, not per task.
 
 ### Card 9: Durable concepts and fast-changing details
 
+Table: Durable concepts and fast-changing details
 | Durable concepts (this book's core) | Fast-changing details (marked **API-dependent**) |
 | --- | --- |
 | The agent loop, state, tools, context | Model names and prices |
@@ -653,12 +660,70 @@ Measure under load: throughput and goodput, p50/p95/p99, tokens per request, cac
 | Observability, memory, reliability | Framework APIs and managed services |
 | Performance and cost engineering | MCP specification versions |
 
-Sections whose details change quickly carry an **API-dependent** note under their heading. Learn the concept from the section; take the parameter names from the current documentation.
+Sections whose details change quickly carry an **API-dependent** note under their heading. Learn the concept from the section; take the parameter names from the current documentation. `VERSION_MATRIX.md` in the course kit lists these sections with the versions they were tested on.
+
+### Card 10: Kinds of agents (section 1.9)
+
+Table: Kinds of agents and the risk to control first
+| Kind | Main risk to control first |
+| --- | --- |
+| Assistant with tools | Wrong tool or invented answer (Chapters 2–4) |
+| Knowledge agent | Answers the sources don't support (Chapters 6, 18) |
+| Data analyst | Plausible numbers from a wrong query (Chapter 8) |
+| Action agent behind approvals | Damage from one wrong action (Chapters 9, 22, 26) |
+| Feedback-loop agent | Gaming or editing the check (Chapter 10) |
+| Research team | Cost multiplied by the number of agents (Chapters 11, 21) |
+| Planner | A bad plan run faithfully (Chapter 20) |
+| Long-running agent | Repeated side effects after a restart (Chapter 19) |
+| Computer-use agent | A click that can't be taken back (Chapter 23) |
+
+Real systems combine kinds; name the kind of each part to find the controls it needs.
+
+### Card 11: The agent engineering lifecycle (sections 1.10 and 30.13)
+
+Decide once; then design → build → secure → evaluate → optimize → deploy → operate → improve, and back to design for the next version; retire when the agent is no longer needed.
+
+Table: Lifecycle stages and when to move on
+| Stage | Before you move on |
+| --- | --- |
+| Decide | You can say why a simpler option won't do |
+| Design | Tools, context, rules in code and checks are written down; the decisions are recorded (Appendix K) |
+| Build | Each step works and has a test |
+| Secure | A threat model, a risk tier and its controls, regression scenarios that pass |
+| Evaluate | A case file, several trials, intervals and a scorecard |
+| Optimize | Cost per successful task and p95 latency inside budget, quality unchanged |
+| Deploy | CI gate passed, launch checklist done, shadow and canary planned, rollback ready |
+| Operate | Traces, SLOs, alerts, budgets and a named owner |
+| Improve | Every failure is a new case; one change at a time, through the improvement loop |
+| Retire | Kill switch, revoked identity, gateway routes removed, data handled by policy, audit log kept |
+
+### Card 12: The agent risk model (section 25.11)
+
+**Risk = capability × autonomy × access × persistence × blast radius**, each factor scored 1–3, so 1–243.
+
+Table: Risk tiers at a glance
+| Tier | Score | Adds (each tier keeps the ones below) |
+| --- | --- | --- |
+| 1 Low | 1–8 | A named owner, an evaluation suite that gates changes, an audit log |
+| 2 Moderate | 9–27 | A threat model, scoped tokens, budgets in code, monitoring and alerts |
+| 3 High | 28–81 | Approval gates, a deterministic control plane, regression scenarios, a kill switch; monthly trace review |
+| 4 Critical | 82–243 | Isolation, step-up tokens, a red-team run before launch, a security sign-off; weekly trace review |
+
+Any factor at 3 adds its own controls whatever the total. To lower the risk, cut a factor (an approval step, narrower access, shorter memory), then re-score. It's a judgment aid, not a probability.
+
+### Card 13: The deterministic control plane (sections 22.1 and 25.11)
+
+The model is probabilistic, so it **proposes**; deterministic code **enforces**. The control plane owns identity, policy and permissions, validation, budgets, approvals, state transitions, audit and rollback. The model may choose among allowed tools, propose structured values and actions, and suggest the next step. It never names the user, writes its own audit record or approves its own action. Test for each decision: if it were wrong 1 time in 50, would that be acceptable? If not, code owns it.
+
+### Card 14: Agent and team economics (sections 21.10 and 29.9)
+
+Cost per successful task = monthly running cost ÷ tasks completed correctly. Compare with the human baseline, not with zero: net saving = baseline (people's time and their own failures) − (running cost + takeovers + reviews + the agent's failures). Payback = build cost ÷ net monthly saving; show its sensitivity, not one number. A team of agents is worth it only when (team success − single success) × value of a success > extra cost per task, or when it meets a latency or quality requirement one agent can't. Measure the coordination overhead: extra calls, duplicated context, messages, waiting for the slowest worker and the extra ways to fail.
 
 ## Appendix J: The Same Concepts on Other Platforms
 
 This book's code uses the Claude API, plus a free local model through Ollama (Appendix H). Every concept carries over to other providers and to open-source stacks; only the names change. Use this table to find each concept elsewhere. It was checked in September 2026, and the names in it are the most perishable facts in the book: confirm them in each provider's current documentation before you rely on them.
 
+Table: The same concepts on other platforms
 | Concept | Claude API (this book) | OpenAI API | Google Gemini API | Open source |
 | --- | --- | --- | --- | --- |
 | Tool calling (Chapter 2) | `tools` with `input_schema`; `tool_use` and `tool_result` blocks | Function calling: `function_call` and `function_call_output` items (Responses API) | Function calling | Tool calling in Ollama and vLLM, through OpenAI-compatible APIs |
@@ -666,7 +731,7 @@ This book's code uses the Claude API, plus a free local model through Ollama (Ap
 | Structured outputs (Chapter 3) | JSON Schema output format; strict tools | Structured outputs with a JSON schema | Structured output with a JSON schema | Ollama's `format` with a JSON schema; vLLM structured outputs |
 | Reasoning controls (Chapter 4) | Adaptive thinking and `effort` | `reasoning.effort` | Thinking settings, which vary by model | Ollama's `think` option; reasoning parsers in vLLM |
 | Prompt caching (Chapter 16) | `cache_control` breakpoints, or automatic caching | Automatic caching, with an optional cache key | Implicit (automatic) and explicit context caching | Prefix caching in inference servers such as vLLM |
-| Many tools: tool search (Chapter 3) | Tool search tool with `defer_loading` | Tool search with deferred loading | No direct equivalent found | Build it: search your own tool catalog (section 15.5) |
+| Many tools: tool search (Chapter 3) | Tool search tool with `defer_loading` | Tool search with deferred loading | No direct equivalent found | Build it: search your own tool catalog (section 30.9) |
 | Code execution (Chapter 16) | Code execution tool; programmatic tool calling | Code Interpreter tool | Code execution tool | Your own sandbox (Chapter 10) |
 | Computer and browser use (Chapter 23) | Computer use and browser use tools | Computer use tool | Computer Use tool | Playwright and your own harness (Chapter 23) |
 | Batch processing (Chapter 27) | Message Batches API | Batch API | Batch API | Offline batch inference in vLLM |
@@ -676,3 +741,116 @@ This book's code uses the Claude API, plus a free local model through Ollama (Ap
 | Agent-to-agent (Chapter 21) | Through the A2A SDK, not an API feature | Through the A2A SDK | A2A support in Agent Engine; A2A began at Google and is now a Linux Foundation project | The `a2a-sdk` package; A2A endpoints in LangGraph's agent server |
 
 When you read a chapter, keep three layers apart: the **concept** (tool calling), the **implementation** you run (the Claude API, or the local model through the kit's adapter) and the **equivalent** on the platform you use at work. Chapter 24 shows one agent on several runtimes, and section 24.6 shows the same loop on another provider's SDK.
+
+## Appendix K: Architecture Decision Records
+
+The same seven decisions come up in almost every agent project. An **architecture decision record** (ADR) writes one down: the situation, what was decided, when you'd decide differently, what it costs and the evidence. Write them in the Design stage (section 1.10), keep them next to the code, and revisit one when its evidence changes, for example when a new model makes the single agent good enough.
+
+Each record below gives this book's default and the conditions that overturn it. Copy the template at the end for your own decisions.
+
+### ADR-1: A fixed workflow or an agent
+
+**Context.** Some requests always need the same steps; others need steps that depend on what the tools return.
+
+**Decision.** Default to a **workflow**: code fixes the steps, and the model fills in the parts that need language (section 1.3). Use an agent only for the requests whose steps can't be known in advance.
+
+**Choose an agent when** the number or order of steps depends on intermediate results, the request space is open-ended, or a person would otherwise have to choose the next step.
+
+**Consequences.** Workflows are cheaper, faster and easier to test; they fail visibly when a request doesn't fit. Agents handle more requests but need step limits, traces and trajectory evaluation (Chapter 27).
+
+**Evidence.** In the simulator's E1 (section 29.8), on single-lookup questions, a workflow matched the agent's 97% success at 37% of the cost per success and about two thirds of the p50 latency. The case study routes order status to a workflow for the same reason.
+
+### ADR-2: One agent or a team
+
+**Context.** A task looks big, and splitting it across specialists is tempting.
+
+**Decision.** Default to **one agent** with good context engineering (Chapter 16). Add agents only when the team pays for itself.
+
+**Choose a team when** the work splits into parts that don't need each other's context, the parts can run in parallel and a latency target needs that, or the measured success gain, valued per task, exceeds the extra cost (section 21.10).
+
+**Consequences.** A team adds model calls, duplicated context, messages, waiting for the slowest worker and more ways to fail (section 21.5). It needs contracts, limits and containment (Chapter 21).
+
+**Evidence.** E1 measured a lead with workers at 97% success, the same as one agent, for a third more cost per success. Section 21.10's break-even value tells you what a right answer must be worth before a team is worth building.
+
+### ADR-3: Direct tool calls or MCP
+
+**Context.** Your agent needs tools, and other agents or apps may need the same ones.
+
+**Decision.** Start with **direct tools** in the agent's own code (Chapters 2–11). Move a tool set to an **MCP server** when a second consumer needs it.
+
+**Choose MCP when** more than one agent, app or team uses the tools, the tools belong to another team, or you want to swap hosts (Claude Desktop, an IDE, your own agent) without rewriting integrations (section 12.1). Choose A2A instead when the other side is an agent that owns a task, not a set of tools (section 21.8).
+
+**Consequences.** MCP adds a process boundary, a protocol version to track (VERSION_MATRIX.md) and a supply chain to vet (Chapter 14, section 30.10). In return, one server serves every client, and policies can sit in one place (section 30.9).
+
+**Evidence.** Chapters 12–15 and the gateway in section 30.9.
+
+### ADR-4: Fixed retrieval (RAG) or agentic retrieval
+
+**Context.** The agent must answer from documents or data it wasn't trained on.
+
+**Decision.** Use **one retrieval step** (RAG) when one search usually finds the answer. Use **agentic retrieval** when questions need several sources, follow-up searches or a decision about whether the evidence is enough (section 18.8).
+
+**Choose agentic search over files** for small, changing collections and exact terms such as error codes; choose a vector index for millions of documents and fuzzy meaning (section 6.6).
+
+**Consequences.** Agentic retrieval costs more model calls per question and needs bounded loops, evidence checks and citation verification (sections 18.10 and 18.11). RAG needs an index pipeline and re-indexing when documents change.
+
+**Evidence.** Section 18.6 measures retrieval quality; the case study's first test run found invented policy answers until citations were checked in code.
+
+### ADR-5: A hosted model or a local one
+
+**Context.** You need a model, and cost, privacy, latency and quality pull in different directions.
+
+**Decision.** Default to a **hosted model** for quality and tool use, and choose the smallest one that clears your evaluation bar (Chapter 20). Use a **local model** for learning, for data that must not leave your network, or for high-volume steps a small model handles well.
+
+**Choose local when** data residency or privacy rules forbid a hosted API, the step is simple enough for a small model on your evaluation suite, or the volume makes per-token pricing more expensive than your own hardware.
+
+**Consequences.** Local models are free per call but slower on ordinary hardware, pick the wrong tool more often and need you to run and patch the serving stack (Appendix H). Hosted models change on the provider's schedule, so pin dated ids and re-run your suite on every model change (section 30.13).
+
+**Evidence.** Appendix H's speed table and the evaluation chapters; section 29.9 for the cost per successful task that decides the volume question.
+
+### ADR-6: Synchronous calls or durable execution
+
+**Context.** Some agent work finishes in seconds; some takes minutes or hours and touches systems that mustn't be called twice.
+
+**Decision.** Keep requests **synchronous** while the whole task finishes well inside a request timeout and has no side effects you'd regret repeating. Otherwise make it a **durable job**: checkpoints, retries with limits, idempotency keys and leases (Chapter 19).
+
+**Choose durable execution when** a task can outlive a process or a deploy, a person must approve a step, or any step has an external side effect such as a refund or an email.
+
+**Consequences.** Durable jobs need storage, a worker, status endpoints and compensation for failed steps (sections 19.7 and 30.8). Synchronous calls are simpler but lose all progress on any crash.
+
+**Evidence.** Sections 19.2–19.5 show what breaks without checkpoints and idempotency; section 30.8 applies the pattern to slow MCP tools.
+
+### ADR-7: One tenant or many
+
+**Context.** The agent will serve more than one customer, business unit or team.
+
+**Decision.** Share compute, but **never share** memory, sessions, private caches or tokens across tenants (section 30.12). Every record and every trace carries a tenant id.
+
+**Choose a dedicated deployment per tenant when** a contract or regulation demands physical separation, one tenant's load would dominate the others, or tenants need different model or data-residency choices.
+
+**Consequences.** Multi-tenant platforms need tenant-scoped keys, budgets and rate limits, recall filtered by tenant before ranking (section 17.10), and tests that try to cross the boundary. Dedicated deployments cost more to run and upgrade.
+
+**Evidence.** Section 17.10's demo refuses a recall across tenants; section 30.12 lists what must never be shared.
+
+### A template for your own records
+
+Table: An architecture decision record
+| Field | What to write |
+| --- | --- |
+| Title | The decision as a choice: "X or Y" |
+| Status | Proposed, accepted, superseded by ADR-n |
+| Context | The forces: requirements, constraints, risks, what you measured |
+| Decision | What you chose, in one or two sentences |
+| Alternatives | What you rejected, and why |
+| Consequences | What becomes easier, what becomes harder, what you must now build |
+| Evidence | The evaluation, benchmark or incident that supports it, with a link |
+| Revisit when | The change that would reopen the decision: a new model, a price change, a new requirement |
+
+## Appendix L: From the Book to the Code
+
+The book and the course kit are one curriculum. This map shows, for every chapter and interlude, the concept it teaches, its exercises, the folder its listings come from and the capstones that build on it. The reference solutions sit in the same folder names under `solutions/exercises/` (and the tests under `solutions/tests/`). `CURRICULUM_MAP.md` in the kit goes one level deeper: every exercise with its level, the model it needs and a link to its solution file. Both are generated from the manuscript and the kit's index files, so they can't drift apart.
+
+Table: Every chapter, its exercises, code and capstones
+@@curriculum-map
+
+To work through a row: read the chapter, run its listings with `./course.sh python <file>`, do an exercise with `./course.sh ex <id>`, check it with `./course.sh check <id>` where a checker exists, and compare with `./course.sh solution <id>`.

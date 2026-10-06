@@ -16,7 +16,7 @@ import textwrap
 import time
 from pathlib import Path
 
-COURSE = Path("/opt/course")
+COURSE = Path(os.environ.get("COURSE_HOME", "/opt/course"))   # the image path; tests may point elsewhere
 PRISTINE = COURSE / "code"
 WS = Path(os.environ.get("COURSE_WORKSPACE", "/workspace"))
 EXERCISES = json.loads((COURSE / "exercises.json").read_text())
@@ -82,7 +82,7 @@ def env_for_runs():
     # Include chapter subdirectories in PYTHONPATH so exercises can import modules directly
     # e.g., import ch03_tools from course/code/ch03/ch03_tools.py
     chapter_paths = [str(PRISTINE / f"ch{i:02d}") for i in range(31)]
-    interlude_paths = [str(PRISTINE / d) for d in ["interlude_python", "interlude_regex", "interlude_sql", "interlude_testing"]]
+    interlude_paths = [str(PRISTINE / d) for d in ["interlude_python", "interlude_regex", "interlude_sql", "interlude_testing", "interlude_measure"]]
     all_code_paths = ":".join(chapter_paths + interlude_paths)
     env["PYTHONPATH"] = f"{all_code_paths}:{PRISTINE}:{WS}:{WS / 'exercises'}:{env.get('PYTHONPATH', '')}".rstrip(":")
     return env
@@ -720,6 +720,18 @@ def cmd_check(args):
         say(_c("2", "\nAdd --api to also make one tiny test call to the model."))
     return 1 if bad else 0
 
+def _cost(name: str) -> str:
+    """A figure from course/cost.json, written by dev/cost_model.py (the book quotes the same file)."""
+    try:
+        return json.loads((COURSE / "cost.json").read_text())[name]
+    except Exception:
+        return "see COST_MODEL.md"
+
+def cmd_quickstart(args):
+    """Your first agent with a scripted stand-in model: no API key, no download."""
+    os.chdir(WS)
+    return subprocess.call([sys.executable, "quickstart.py"], env=env_for_runs())
+
 def cmd_selftest(args):
     return subprocess.call([sys.executable, str(COURSE / "selftest" / "selftest.py")])
 
@@ -852,8 +864,7 @@ LIVE_RUNS = [
     ("4", "ch10_fixer.py", "", 6), ("4", "ch11_research_team.py", "", 10),
     ("5", "ch13_mcp_agent.py servers.json", "How many open tasks are there?\nquit\n", 3),
     ("5", "ch14_policy_agent.py", "What time is it in Tokyo?\n" + "n\n" * 4 + "quit\n", 4),
-    ("5", "ch15_modern.py", "", 0), ("5", "ch15_jobs_server.py", "", 0),
-    ("5", "ch15_gateway.py", "", 0),
+    ("5", "ch15_modern.py", "", 0),
     ("6", "ch16_context.py", "", 5), ("6", "ch17_memory.py", "Remember that I prefer Celsius.\nquit\n", 2),
     ("6", "ch16_assemble.py", "", 1), ("6", "ch18_rag.py", "", 3), ("6", "ch18_agentic.py", "", 4),
     ("7", "ch19_durable.py", "", 1), ("7", "ch19_harness.py", "", 5),
@@ -868,6 +879,13 @@ LIVE_RUNS = [
     ("9", "ch27_trajectory.py", "", 5), ("9", "ch28_otel.py", "", 2),
     ("9", "ch28_agentops.py spans.jsonl", "", 0), ("9", "ch29_costs.py", "", 0),
     ("9", "ch27_scorecard.py", "", 0), ("9", "ch28_ops.py", "", 0), ("9", "ch29_perf.py", "", 0),
+    ("9", "ch30_jobs_server.py", "", 0), ("9", "ch30_gateway.py", "", 0),
+    # offline demos added in the corrected printing: no model, so they cost nothing
+    ("6", "ch17_memory_security.py", "", 0), ("7", "ch21_coordination.py", "", 0),
+    ("7", "ch23_reliability.py", "", 0), ("7", "ch24_skill_registry.py", "", 0),
+    ("8", "ch25_risk.py", "", 0), ("8", "ch26_discovery.py", "", 0),
+    ("9", "ch28_profile.py", "", 0), ("9", "ch29_economics.py", "", 0),
+    ("9", "ch30_improvement_loop.py", "", 0),
 ]
 
 def cmd_live_check(args):
@@ -952,7 +970,7 @@ def cmd_live_exercises(args):
         say("Free, but slow on a CPU: allow several hours for all of them. Exercises marked "
             "'Claude only' are skipped.")
     else:
-        say("This uses your API key: roughly $5-15 for all of them.")
+        say(f"This uses your API key: about {_cost('first')} for one pass of every paid exercise (COST_MODEL.md).")
     if "--yes" not in args and input("Continue? [y/N] ").strip().lower() != "y":
         return 0
     rows, report = [], ["# Live exercise report", "",
@@ -1153,6 +1171,27 @@ def _write_log(path, e_id, title, cmd, model, code, secs, body):
         f"# Date:     {stamp}\n# Exit code: {code}\n# Seconds:  {secs:.1f}\n"
         + "#" + "-" * 79 + "\n" + body.rstrip() + "\n", errors="replace")
 
+def _provenance(model_label):
+    """What produced a result: the code (commit), the environment (Python, packages) and the
+    model. Written into every run-chapter summary so a result can be reproduced or explained."""
+    import hashlib
+    import platform
+    from importlib import metadata
+    pkgs = sorted(f"{d.metadata['Name'].lower()}=={d.version}" for d in metadata.distributions()
+                  if d.metadata["Name"])
+    ver = dict(p.split("==", 1) for p in pkgs)
+    local = os.environ.get("PROVIDER") == "local"
+    return {"commit": os.environ.get("COURSE_COMMIT") or "not recorded (run outside course.sh)",
+            "python": platform.python_version(),
+            "packages_sha256": hashlib.sha256("\n".join(pkgs).encode()).hexdigest()[:16],
+            "packages": {k: ver.get(k) for k in ("anthropic", "mcp", "claude-agent-sdk",
+                                                 "langchain", "httpx", "pytest")},
+            "provider": "local" if local else "claude",
+            "model_id": os.environ.get("LOCAL_MODEL", "qwen3.5:9b") if local
+                        else os.environ.get("MODEL", "claude-sonnet-5"),
+            "model_label": model_label}
+
+
 def _refresh_outputs_index(out):
     """Rewrite <outputs>/README.md: a table of every chapter that has a summary.json."""
     order = {_chapter_dir(k): i for i, k in enumerate(_chapter_keys())}
@@ -1280,7 +1319,7 @@ def cmd_run_chapter(args):
         say("--free-only: only exercises that need no model run; the others are skipped.")
     elif uses_model:
         say("Free, but slow on a CPU: allow several hours for everything." if local else
-            "This uses your API key: roughly $5-15 for every chapter.")
+            f"This uses your API key: about {_cost('first')} for one pass of every chapter (COST_MODEL.md).")
         say("Your own files are not used or changed.")
         try:
             if not yes and input("Continue? [y/N] ").strip().lower() != "y":
@@ -1305,6 +1344,7 @@ def cmd_run_chapter(args):
                    COURSE_DATA=str(COURSE / "data"),
                    COURSE_EXERCISES=str(COURSE / "exercises.json"),
                    PYTHONPATH=f"{tmp}:{SOLUTIONS / 'exercises'}:{SOLUTIONS / 'capstones'}")
+        run_provenance = _provenance(label)
         for k in chosen:
             folder = out_root / _chapter_dir(k)
             folder.mkdir(parents=True, exist_ok=True)
@@ -1364,6 +1404,7 @@ def cmd_run_chapter(args):
                     say(_c("2", f"-  {e['id']:<5} skipped: needs your own file (see its log)"))
                     entries.append(entry)
                     continue
+                entry["commit"] = run_provenance["commit"]
                 entry.update(status="passed" if passed else "failed", seconds=round(secs, 1),
                              log=f"{folder.name}/{log.name}",
                              reason=None if passed else
@@ -1387,7 +1428,8 @@ def cmd_run_chapter(args):
                 chapter_model = models.pop() if len(models) == 1 else "mixed: see each exercise"
             summary.write_text(json.dumps({
                 "chapter": k, "title": items[0]["chapter"], "model": chapter_model,
-                "date": time.strftime("%Y-%m-%d %H:%M"), "exercises": entries}, indent=1) + "\n")
+                "date": time.strftime("%Y-%m-%d %H:%M"), "provenance": run_provenance,
+                "exercises": entries}, indent=1) + "\n")
             _refresh_outputs_index(out_root)
     say(f"\n{totals['passed']} passed, {totals['failed']} failed, {totals['skipped']} skipped "
         f"(including written answers). Logs: {_outputs_label(out_root)}/  (index: README.md)")
@@ -1467,6 +1509,7 @@ def cmd_local_status(args):
 HELP = """Building Agentic AI Systems: course commands (run them from the kit folder on your computer)
 
   ./course.sh setup                  first-time setup: Docker check, .env, your API key
+  ./course.sh quickstart             your first agent, free: no API key, no download
   ./course.sh list [chapter]         list exercises, e.g.  list 4  or  list P
   ./course.sh ex <id>                show and run an exercise, e.g.  ex 4.2  or  ex T.2
   ./course.sh ex <id> --info         just show the exercise
@@ -1514,6 +1557,7 @@ COMMANDS = {
     "inspector": cmd_inspector, "serve": cmd_serve, "serve-api": cmd_serve_api,
     "serve-mcp": cmd_serve_mcp, "serve-a2a": cmd_serve_a2a, "desktop-config": cmd_desktop_config,
     "data": cmd_data, "reset": cmd_reset, "check": cmd_check, "selftest": cmd_selftest,
+    "quickstart": cmd_quickstart,
     "sandbox-worker": cmd_sandbox_worker, "solution": cmd_solution,
     "check-solutions": cmd_verify_solutions, "live-check": cmd_live_check, "capstone": cmd_capstone, "verify-solutions": cmd_verify_solutions,
     "local-adapter": lambda a: cmd_local_adapter(a), "local-pull": lambda a: cmd_local_pull(a),
@@ -1532,8 +1576,9 @@ def main(argv):
         os.environ["PROVIDER"] = _run_model(args)      # (default: the free local model)
     if cmd not in ("sandbox-worker", "selftest", "verify-solutions", "check-solutions", "solution",
                    "local-adapter", "local-pull", "local-status"):
-        init()
-        apply_provider()
+        init(quiet=cmd == "quickstart")
+        if cmd != "quickstart":                 # needs no model, so no provider check
+            apply_provider()
     if cmd in COMMANDS:
         if cmd in ("run-chapter", "live-check", "solution", "capstone",
                    "check-solutions", "verify-solutions"):

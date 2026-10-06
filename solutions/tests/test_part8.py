@@ -219,3 +219,28 @@ def test_26_6_orders_api(ident, model):
     from ch04_agent import run_agent
     answer, messages, _ = run_agent("What did I pay?", ex.TOOLS, h.run_tool, verbose=False)
     assert h.token not in json.dumps(messages, default=str)
+
+
+def test_26_signing_key_rotation(ws):
+    """Rotation with a grace period keeps old tokens working until it ends; an emergency
+    rotation (grace=0) stops every old token at once; new tokens use the new key."""
+    import jwt
+    import ch26_identity as i
+    saved = (dict(i.KEYS), i.CURRENT, dict(i.RETIRE_AT))
+    try:
+        old = i.mint("support-agent", "ana", {"orders:read"}, "orders")
+        kid = i.rotate_signing_key("second-dev-key-0123456789-abcdef", grace=900)
+        new = i.mint("support-agent", "ana", {"orders:read"}, "orders")
+        assert jwt.get_unverified_header(new)["kid"] == kid != jwt.get_unverified_header(old)["kid"]
+        assert i.verify(old, "orders") and i.verify(new, "orders")      # inside the grace period
+        i.rotate_signing_key("third-dev-key-0123456789-abcdef", grace=0)  # emergency
+        for t in (old, new):
+            try:
+                i.verify(t, "orders")
+                raise AssertionError("a token signed with a retired key verified")
+            except i.Denied as e:
+                assert "retired" in str(e)
+        assert i.verify(i.mint("support-agent", "ana", {"orders:read"}, "orders"), "orders")
+    finally:
+        i.KEYS.clear(); i.KEYS.update(saved[0]); i.CURRENT = saved[1]
+        i.RETIRE_AT.clear(); i.RETIRE_AT.update(saved[2])

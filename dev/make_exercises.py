@@ -43,6 +43,8 @@ MAP = {
     "S.2": B("exS_2_fix_query"),
     "S.3": B("exS_3_business"),
     "S.4": B("exS_4_parameters"),
+    "M.2": R("python i_measure.py"),
+    "M.3": B("exM_3_sql_suite"),
     "A.1": B("exA_1_measure"),
     "A.2": B("exA_2_fixed"),
     "A.3": B("exA_3_semaphore"),
@@ -112,13 +114,15 @@ MAP = {
     "13.8": B("ex13_8_coordinator"),
     "14.3": R("python ch14_policy_agent.py servers_github.json", needs="github"),
     "14.4": R("python ch14_policy_agent.py servers_github.json", needs="github"),
-    "14.5": R("python ch14_policy_agent.py servers_ecosystem.json", edit=["ch13_mcp_agent.py"]),
+    "14.5": R("python ch14_policy_agent.py servers_ecosystem.json", edit=["ch13_mcp_agent.py"],
+               setup="[ -d .git ] || { git init -q . && git add -A && git -c user.name=course -c user.email=course@example.com commit -qm 'workspace snapshot'; }"),
     "25.6": B("ex25_6_redteam"),
+    "25.7": B("ex25_7_launch"),
     "27.3": R("python ch27_eval.py eval_sql.jsonl 3", edit=["eval_sql.jsonl"]),
     "29.1": R("python ch29_loadtest.py 4 && python ch29_loadtest.py 8 && python ch29_loadtest.py 12",
               edit=["ch29_loadtest.py"]),
     "27.4": B("ex27_4_ci_gate"),
-    "28.1": B("ex28_1_trace_report"),
+    "28.1": B("ex28_1_trace_report", setup="course data traces"),
     "29.2": B("ex29_2_real_loadtest"),
     "27.5": B("ex27_5_calibrate"),
     # ---- Part 6
@@ -136,6 +140,7 @@ MAP = {
     "17.3": R("python ch17_memory.py"),
     "16.5": B("ex16_5_cache_savings"),
     "17.8": B("ex17_8_assistant"),
+    "17.9": B("ex17_9_revert_batch"),
     "16.7": R("python ch16_programmatic.py"),
     "18.3": R("python ch18_rag.py search temperature units && python ch18_rag.py search ERR-4471"),
     "18.4": R("EMBEDDER=hashing python ch18_rag.py eval && EMBEDDER=local python ch18_rag.py eval"),
@@ -143,14 +148,14 @@ MAP = {
     "18.6": B("ex18_6_knowledge_agent"),
     "24.3": R("python ch24_agent_sdk.py Delete all cancelled orders."),
     "24.4": B("ex24_4_sdk_mcp"),
-    "24.5": B("ex24_5_three_ways"),
+    "24.5": B("ex24_5_three_ways", run_args="eval_sql.jsonl 1 4"),
     "24.6": R("python ch24_skills.py"),
     "24.7": R("python ch24_managed_agent.py"),
     "30.2": R("python ch30_client.py && python ch30_client.py stream", service="api"),
     "30.3": R("python ch30_client.py limits", service="api"),
     "30.4": R("python ch30_client.py words", edit=["ch30_service.py", "ch30_client.py"],
                service="api"),
-    "30.5": B("ex30_5_remote_hub"),
+    "30.5": B("ex30_5_remote_hub", service="mcp"),
     "30.6": B("ex30_6_drill"),
     "30.7": R("python ch30_smoke_test.py --help", edit=["ch30_service.Dockerfile"]),
     "19.3": R("python ch19_durable.py --crash 2; python ch19_durable.py", edit=["ch19_durable.py"]),
@@ -165,6 +170,7 @@ MAP = {
     "21.4": B("ex21_4_failures"),
     "21.5": B("ex21_5_a2a_team"),
     "21.6": B("ex21_6_mixed_team"),
+    "21.7": B("ex21_7_team_economics"),
     "22.3": R("python ch22_guarded.py", edit=["ch22_guarded.py"]),
     "22.4": B("ex22_4_policy_json"),
     "22.5": B("ex22_5_attacks"),
@@ -173,7 +179,9 @@ MAP = {
     "23.4": B("ex23_4_injection"),
     "23.5": B("ex23_5_verified_queue"),
     "23.6": B("ex23_6_durable_queue"),
+    "23.7": B("ex23_7_reliable_queue"),
     "24.8": B("ex24_8_skill_eval"),
+    "24.10": B("ex24_10_permission_gate"),
     "25.3": R("python ch25_guards.py", edit=["ch25_guards.py"]),
     "25.4": B("ex25_4_calendar"),
     "25.5": B("ex25_5_evasion"),
@@ -181,6 +189,7 @@ MAP = {
     "26.4": B("ex26_4_team_tokens"),
     "26.5": B("ex26_5_breaker"),
     "26.6": B("ex26_6_orders_api"),
+    "26.7": B("ex26_7_review_queue"),
     "27.6": B("ex27_6_trajectory"),
     "27.7": B("ex27_7_online"),
     "28.3": R("python ch28_otel.py && python ch28_agentops.py spans.jsonl", edit=["ch28_agentops.py"]),
@@ -190,14 +199,45 @@ MAP = {
     "29.5": B("ex29_5_cost_cut"),
     "15.3": T("test_part5_mcp2026"),
     "15.4": B("ex15_4_cache"),
-    "15.5": B("ex15_5_scoped_search"),
-    "15.6": B("ex15_6_jobs"),
-    "15.7": B("ex15_7_gateway_agent"),
+    "30.9": B("ex30_9_scoped_search"),
+    "30.10": B("ex30_10_jobs"),
+    "30.11": B("ex30_11_gateway_agent"),
+    "30.12": B("ex30_12_shadow_slos"),
     "27.8": B("ex27_8_scorecard"),
     "28.6": B("ex28_6_dashboard"),
     "28.7": B("ex28_7_taxonomy"),
+    "28.8": B("ex28_8_network"),
     "29.6": B("ex29_6_experiment"),
+    "29.7": B("ex29_7_crossover"),
+    "29.8": B("ex29_8_model_swap"),
 }
+
+# "{{t:label}}" in an exercise -> "Table 24.2", numbered exactly as course/build.js numbers
+# captions: per chapter (or interlude letter), counting "Table:" / "Figure:" lines outside code.
+INTERLUDE_LETTER = {"00zz_python": "P", "01z_testing": "T", "05z_regex": "R", "07z_sql": "S",
+                    "08z_measure": "M", "10z_async": "A"}
+LABELS = {}
+for md in sorted(MD.glob("*.md")):
+    text, n = md.read_text(), {"Table": 0, "Figure": 0}
+    ch = re.search(r"^# Chapter (\d+):", text, re.M)
+    prefix = ch.group(1) if ch else INTERLUDE_LETTER.get(md.stem)
+    fence = box = False
+    for line in text.splitlines():
+        if line.startswith("```"):
+            fence = not fence
+            continue
+        if re.match(r"^:::(note|tip|warn|ex) ", line):
+            box = True
+        elif line.strip() == ":::":
+            box = False
+        if fence or box:
+            continue
+        m = re.match(r"^(Table|Figure): .*?\{#([tf]:[\w-]+)\}\s*$", line) or re.match(r"^(Table|Figure): ", line)
+        if m:
+            n[m.group(1)] += 1
+            if m.lastindex == 2 and prefix:
+                LABELS[m.group(2)] = f"{m.group(1)} {prefix}.{n[m.group(1)]}"
+resolve = lambda s: re.sub(r"\{\{([tf]:[\w-]+)\}\}", lambda m: LABELS[m.group(1)], s) if s else s
 
 exercises = []
 SKIP = ("00_front", "20_capstones", "21_appendix")
@@ -210,13 +250,15 @@ for md in sorted(p for p in MD.glob("[0-9][0-9]*.md") if p.stem not in SKIP):
         hint = next((l[len("**Hint:**"):].strip() for l in lines if l.startswith("**Hint:**")), None)
         done = next((l[len("**Done when:**"):].strip() for l in lines if l.startswith("**Done when:**")), None)
         task = " ".join(l for l in lines if not l.startswith(("**Hint:**", "**Done when:**")))
+        hint, done, task = resolve(hint), resolve(done), resolve(task)
         entry = {"id": ex_id, "level": level, "title": title, "chapter": chapter_title,
                  "task": task, "hint": hint, "done_when": done}
         entry.update(MAP.get(ex_id, {"kind": "concept"}) if level != "Concept" else {"kind": "concept"})
         exercises.append(entry)
 
 # Exercises that never call the model: don't warn about a missing API key.
-NO_KEY = {"0.3", "0.4", "0.5", "0.6", "0.7", "18.3", "18.4", "18.5"}
+NO_KEY = {"0.3", "0.4", "0.5", "0.6", "0.7", "18.3", "18.4", "18.5",
+          "17.9", "21.7", "23.7", "24.10", "25.7", "26.7", "28.8", "29.8", "30.12"}   # offline
 for e in exercises:
     if e["id"] in NO_KEY or e["id"][0] in "PTRSA":
         e["nokey"] = True

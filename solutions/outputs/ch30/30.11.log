@@ -1,0 +1,54 @@
+# Exercise: 30.11  An agent behind the gateway
+# Command:  python /tmp/solutions-flat/exercises/ex30_11_gateway_agent.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-09-28 00:17:08 UTC
+# Exit code: 0
+# Seconds:  52.7
+#-------------------------------------------------------------------------------
+agent sees: ['company__search_tools', 'company__use_tool']
+[09/28/26 00:16:25] INFO     HTTP Request: POST                  _client.py:1923
+                             http://local-adapter:8787/v1/messag                
+                             es "HTTP/1.1 200 OK"                               
+[step 1] company__search_tools({"query": "task due date book flights", "limit": 5}) -> '[{"name": "todo__add_task", "description": "Add a to-do. due is YYYY-M'
+[09/28/26 00:16:29] INFO     HTTP Request: POST                  _client.py:1923
+                             http://local-adapter:8787/v1/messag                
+                             es "HTTP/1.1 200 OK"                               
+[step 2] company__search_tools({"query": "orders cancelled", "limit": 5}) -> '[]'
+[09/28/26 00:16:32] INFO     HTTP Request: POST                  _client.py:1923
+                             http://local-adapter:8787/v1/messag                
+                             es "HTTP/1.1 200 OK"                               
+[step 3] company__search_tools({"query": "orders cancel count list", "limit": 5}) -> '[{"name": "todo__list_tasks", "description": "List open tasks, optiona'
+[09/28/26 00:16:36] INFO     HTTP Request: POST                  _client.py:1923
+                             http://local-adapter:8787/v1/messag                
+                             es "HTTP/1.1 200 OK"                               
+[step 4] company__search_tools({"query": "orders", "limit": 10}) -> '[]'
+[09/28/26 00:16:39] INFO     HTTP Request: POST                  _client.py:1923
+                             http://local-adapter:8787/v1/messag                
+                             es "HTTP/1.1 200 OK"                               
+[step 5] company__search_tools({"query": "order cancel", "limit": 10}) -> '[]'
+[09/28/26 00:16:43] INFO     HTTP Request: POST                  _client.py:1923
+                             http://local-adapter:8787/v1/messag                
+                             es "HTTP/1.1 200 OK"                               
+[step 6] company__search_tools({"query": "list orders", "limit": 5}) -> '[{"name": "todo__list_tasks", "description": "List open tasks, optiona'
+[09/28/26 00:16:49] INFO     HTTP Request: POST                  _client.py:1923
+                             http://local-adapter:8787/v1/messag                
+                             es "HTTP/1.1 200 OK"                               
+[step 7] company__use_tool({"name": "todo__add_task", "arguments": {"due": "2026-10-02", "title": "Book fli) -> 'Added #2: Book flights'
+[09/28/26 00:16:55] INFO     HTTP Request: POST                  _client.py:1923
+                             http://local-adapter:8787/v1/messag                
+                             es "HTTP/1.1 200 OK"                               
+[step 8] company__search_tools({"query": "order management track stats", "limit": 10}) -> '[]'
+[09/28/26 00:17:00] INFO     HTTP Request: POST                  _client.py:1923
+                             http://local-adapter:8787/v1/messag                
+                             es "HTTP/1.1 200 OK"                               
+[step 9] company__search_tools({"query": "business management stats report", "limit": 10}) -> '[]'
+[09/28/26 00:17:08] INFO     HTTP Request: POST                  _client.py:1923
+                             http://local-adapter:8787/v1/messag                
+                             es "HTTP/1.1 200 OK"                               
+
+Agent: I've added the task 'Book flights' due 2026-10-02, but I haven't been able to find any tools that can help me check how many orders were cancelled. The available tools appear to be primarily task-related (adding, listing, finding, completing tasks). Without access to a tool that can query order cancellation data, I cannot provide you with the number of cancelled orders.
+
+Is there another way you'd like to approach this, or do you have information about where I might find order cancellation counts?
+
+Audit:
+  agent:planner-agent    todo__add_task       ok

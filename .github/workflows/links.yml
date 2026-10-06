@@ -1,0 +1,19 @@
+# Every external link in the book and the docs still answers. Links rot without anyone
+# touching the repository, so this runs every Monday as well as on demand.
+name: links
+on:
+  schedule:
+    - cron: '17 6 * * 1'
+  workflow_dispatch:
+  push:
+    tags: ['edition-*']
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check every external link
+        run: python dev/check_links.py

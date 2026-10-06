@@ -52,6 +52,17 @@ from fakemodel import MODEL, AsyncFacade  # noqa: E402
 anthropic.Anthropic = lambda *a, **k: MODEL
 anthropic.AsyncAnthropic = lambda *a, **k: AsyncFacade(MODEL)
 
+def pytest_configure(config):
+    config.addinivalue_line("markers", "needs(*programs): the test runs a program that only the course "
+                                       "image has; elsewhere it is skipped and the program is named")
+
+def pytest_runtest_setup(item):
+    """Not applicable outside the image is not the same as failed: say exactly what's missing."""
+    for mark in item.iter_markers("needs"):
+        missing = [p for p in mark.args if not shutil.which(p)]
+        if missing:
+            pytest.skip(f"needs {', '.join(missing)} from the course image")
+
 @pytest.fixture
 def model():
     MODEL.reset()

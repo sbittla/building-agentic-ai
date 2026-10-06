@@ -62,6 +62,33 @@ def test_8_7_eval_harness(model):
     assert len(ex.GOLD) == 15 and score == pytest.approx(14 / 15)
     assert [q for q, ok, _ in results if not ok] == ["How many orders were cancelled?"]
 
+def test_m_wilson_and_compare():
+    from i_measure import wilson, run_suite, compare, simulated_agent, CASES
+    low, high = wilson(17, 20)
+    assert round(low, 2) == 0.64 and round(high, 2) == 0.95
+    assert wilson(0, 0) == (0.0, 1.0)
+    a = run_suite(simulated_agent(0.70, seed=1), CASES, 30)
+    b = run_suite(simulated_agent(0.80, seed=2), CASES, 30)
+    assert compare(a, b) == "better" and compare(b, a) == "worse"
+    assert compare(a, a).startswith("can't tell")
+
+def test_m_3_sql_suite(model, ws):
+    import exM_3_sql_suite as ex
+    cases = {c["question"]: c for c in ex.load_cases("eval_sql.jsonl") if "answer_sql" in c}
+    asked = {}
+    def answer(kw):
+        q = last_user_text(kw)
+        asked[q] = asked.get(q, 0) + 1
+        value = ex.expected_value(cases[q])
+        if q == "How many customers do we have?" and asked[q] % 2:   # wrong on every other run
+            value = "I'm not sure"
+        return [text(f"The answer is {value}.")]
+    model.reset(default=answer)
+    before, after = ex.main(trials=2)
+    assert before["runs"] == 2 * len(cases) and "customers" in before["flaky"]
+    assert before["passes"] == before["runs"] - 1
+    assert ex.states_value("We have 1,234 orders.", {"answer_sql": "SELECT 1234"})
+
 def test_9_3_9_4_organizer_decline_then_undo(ws, monkeypatch):
     import builtins, ch09_organizer as o
     o._plans.clear()

@@ -1,9 +1,0 @@
-# Exercise: 15.6  Fewer polls, safe retries
-# Command:  python /tmp/solutions-flat/exercises/ex15_6_jobs.py
-# Model:    none (no model needed)
-# Date:     2026-09-28 00:16:15 UTC
-# Exit code: 0
-# Seconds:  5.6
-#-------------------------------------------------------------------------------
-short polls  {'polls': 4, 'status': 'completed', 'retry_same_job': True}
-long poll    {'polls': 1, 'status': 'completed', 'retry_same_job': True}

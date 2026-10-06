@@ -1,0 +1,17 @@
+{
+  "theme": "base",
+  "themeVariables": {
+    "fontFamily": "Calibri, Carlito, Arial, sans-serif",
+    "fontSize": "16px",
+    "primaryColor": "#F2F2F2",
+    "primaryBorderColor": "#404040",
+    "primaryTextColor": "#000000",
+    "lineColor": "#404040",
+    "secondaryColor": "#E6E6E6",
+    "tertiaryColor": "#FFFFFF",
+    "clusterBkg": "#FFFFFF",
+    "clusterBorder": "#A6A6A6",
+    "edgeLabelBackground": "#FFFFFF"
+  },
+  "flowchart": { "htmlLabels": true, "curve": "basis" }
+}

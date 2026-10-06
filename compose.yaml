@@ -15,6 +15,7 @@ services:
     environment:
       MODEL: ${MODEL:-claude-sonnet-5}
       COURSE_HOST_DIR: ${COURSE_HOST_DIR:-}
+      COURSE_COMMIT: ${COURSE_COMMIT:-}     # set by course.sh / course.ps1: recorded with every result
     user: "${COURSE_UID:-1000}:${COURSE_GID:-1000}"
     volumes:
       - ./workspace:/workspace

@@ -1,24 +1,55 @@
 # Building Agentic AI Systems: code, exercises and solutions
 
-The companion repository for the book *Building Agentic AI Systems: From First Agent to MCP, Multi-Agent Orchestration, and Production* by Srinivasa Rao Bittla. It has every chapter's code, **231 exercises** across 30 chapters and 6 interludes (with starter files, checkers and reference solutions), **six capstone projects**, and one Docker image that runs all of it.
+The companion repository for the book *Building Agentic AI Systems: From First Agent to MCP, Multi-Agent Orchestration, and Production* by Srinivasa Rao Bittla. It has every chapter's code, **246 exercises** across 31 chapters and 6 interludes (with starter files, checkers and reference solutions), **six capstone projects**, and one Docker image that runs all of it.
 
 Everything runs inside Docker, so Docker is the only thing you install. You edit files on your computer with any editor; Docker runs them.
 
 **Where to find what**
 
-| File | What it's for |
+The repository is a course and a reference implementation. Start with the first group to learn; use the second when you design, review or run agents of your own.
+
+| Learn and practise | What it's for |
 | --- | --- |
 | `README.md` (this file) | Setup, how to practise, every command, verified results, troubleshooting |
+| [CURRICULUM_MAP.md](CURRICULUM_MAP.md) | Concept → chapter → exercise → code → solution → capstone, for the whole book (Appendix L) |
 | [EXERCISE_INDEX.md](EXERCISE_INDEX.md) | Every exercise: type, model needed, solution file, latest result |
 | [LOCAL_MODEL.md](LOCAL_MODEL.md) | The free local model in depth (Appendix H of the book) |
 | [RESOURCES.md](RESOURCES.md) | Every reference from the book: courses, docs, where to ask for help |
-| [solutions/README.md](solutions/README.md) | How the solutions and capstones are organised and run |
-| [solutions/SOLUTIONS.md](solutions/SOLUTIONS.md) | What each reference solution shows |
+| [solutions/README.md](solutions/README.md) · [solutions/SOLUTIONS.md](solutions/SOLUTIONS.md) | How the solutions and capstones are organised and run; what each one shows |
+
+| Reference | What it's for |
+| --- | --- |
+| [ARCHITECTURE.md](ARCHITECTURE.md) | The reference architecture, its layers and trust boundaries, mapped to the code |
+| [AGENT_ENGINEERING_PRINCIPLES.md](AGENT_ENGINEERING_PRINCIPLES.md) | The non-negotiable rules and strong defaults, with how each is enforced |
+| [DECISION_GUIDE.md](DECISION_GUIDE.md) | Workflow, agent or team; MCP, A2A or direct tools; RAG or agentic retrieval; hosted or local; and more (Appendix K) |
+| [AGENT_LIFECYCLE.md](AGENT_LIFECYCLE.md) | Design → build → secure → evaluate → optimize → deploy → operate → improve, with each stage's gate |
+| [SECURITY_MODEL.md](SECURITY_MODEL.md) | Identity, authorization, tools, memory, secrets and trust; the threat model and what the kit doesn't do |
+| [PERFORMANCE_MODEL.md](PERFORMANCE_MODEL.md) | Latency, throughput, tokens, concurrency, queueing, capacity and the benchmark |
+| [EVALUATION_MODEL.md](EVALUATION_MODEL.md) | Outcome, trajectory, tool, safety and regression evaluation; the release scorecard |
+| [COST_MODEL.md](COST_MODEL.md) | What the exercises cost, with every assumption, and the production cost formulas |
+| [VERSION_MATRIX.md](VERSION_MATRIX.md) | Which book printing, tag, Python, models and libraries belong together |
+| [CHANGELOG.md](CHANGELOG.md) · [MIGRATION.md](MIGRATION.md) · [ERRATA.md](ERRATA.md) | What changed between tags, what to change in your code, and mistakes in each printing |
+| [verification/](verification/README.md) · [benchmarks/](benchmarks/README.md) | Test and security results with their provenance; the published benchmark runs |
 | [PILOT.md](PILOT.md) | For the author: testing the book with real learners |
+
+Every code file says what kind of code it is: a learning demo, a prototype or a production pattern (`course/code_maturity.json`). Nothing in the kit is production-hardened; [SECURITY_MODEL.md](SECURITY_MODEL.md) lists what a production deployment adds.
 
 On Windows, replace `./course.sh` with `.\course.cmd` in every command below.
 
 ---
+
+## Book editions and code versions
+
+Each printing of the book is matched by a tag, so you can always get the exact code it was tested against. `main` keeps moving: fixes and compatibility updates land there and are listed in [CHANGELOG.md](CHANGELOG.md), never silently. A tag never moves, so the code at your printing's tag always matches your book; mistakes in the printed text are in [ERRATA.md](ERRATA.md).
+
+| Book printing | Exercises | Tag | Get it |
+| --- | ---: | --- | --- |
+| First printing, September 2026 | 231 | `edition-1.0` | `git checkout edition-1.0` |
+| Second printing, October 2026 | 246 | `edition-1.1` | `git checkout edition-1.1` |
+
+Not sure which printing you have? The copyright page says. [VERSION_MATRIX.md](VERSION_MATRIX.md) lists, for each printing, its tag, Python, models, MCP specification, library versions and verification date.
+
+How exercises are counted: every numbered exercise in the book's 31 chapters and 6 interludes counts once, including concept exercises with a written answer and exercise 27.8, a quality gate that fails on purpose when a model misses its thresholds. The six capstones are counted separately.
 
 ## 1. One-time setup (about 20 minutes)
 
@@ -32,7 +63,7 @@ On Windows, replace `./course.sh` with `.\course.cmd` in every command below.
    ```
    No Git? Download the ZIP from the repository page and unzip it anywhere, for example `D:\Learning\building-agentic-ai`.
 3. **Choose a model.**
-   - **Claude:** create an API key in the Claude Console (Chapter 0 of the book walks you through it). Exercises cost cents each; running every exercise costs roughly $5–15.
+   - **Claude:** create an API key in the Claude Console (Chapter 0 of the book walks you through it). <!-- cost -->Working through the whole book on Claude Sonnet 5 costs about $55–100 ($28–49 for one clean pass of every paid exercise; about half on Claude Haiku 4.5; nothing on the free local model). See [COST_MODEL.md](COST_MODEL.md) for the assumptions.<!-- /cost -->
    - **The free local model `qwen3.5:9b`:** no key and no cost, but slower. It runs every exercise except the 4 marked *Claude only*. See [section 2](#2-the-free-local-model-optional).
 4. **Run the setup.** It checks Docker, creates your `.env` file from `.env.example`, asks which model you want (and, for Claude, your key, without showing it), and generates the other secrets the course needs:
    ```bash
@@ -140,53 +171,70 @@ After each part of the book, try the matching **capstone project** yourself befo
 ## 5. Verified results
 
 <!-- results:start -->
-Latest verification: every exercise run with its reference solution by `run-chapter` (runs from 2026-09-27 to 2026-09-28). **163 of 164 runnable exercises passed (99.4%)**; 59 are written answers and 14 can't run unattended. Most ran on the free local model `qwen3.5:9b`; the Claude-only exercises ran on `claude-sonnet-5`. Per-exercise results: [EXERCISE_INDEX.md](EXERCISE_INDEX.md).
+### A. Deterministic checks (no model)
 
-| Chapter | Exercises | ✔ Passed | ✘ Failed | Written answer | Skipped | Pass rate |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| Chapter 0: Foundations | 7 | 4 | 0 | 2 | 1 | 100% |
-| Interlude: The Python You'll Need | 5 | 5 | 0 | 0 | 0 | 100% |
-| Chapter 1: What an Agent Is (and Isn't) | 8 | 4 | 0 | 4 | 0 | 100% |
-| Interlude: Testing with pytest | 4 | 4 | 0 | 0 | 0 | 100% |
-| Chapter 2: Tool Calling (Function Calling) | 6 | 4 | 0 | 2 | 0 | 100% |
-| Chapter 3: Tool Selection, Routing and Tool Search | 7 | 5 | 0 | 2 | 0 | 100% |
-| Chapter 4: The Agent Loop | 5 | 4 | 0 | 1 | 0 | 100% |
-| Chapter 5: State and Short-Term Memory | 7 | 5 | 0 | 2 | 0 | 100% |
-| Interlude: Regular Expressions | 4 | 4 | 0 | 0 | 0 | 100% |
-| Chapter 6: Agentic Search: Exploring an Environment | 6 | 4 | 0 | 1 | 1 | 100% |
-| Chapter 7: Real APIs | 6 | 2 | 0 | 2 | 2 | 100% |
-| Interlude: SQL in One Sitting | 4 | 4 | 0 | 0 | 0 | 100% |
-| Chapter 8: Self-Correction: A Text-to-SQL Agent | 7 | 2 | 0 | 2 | 3 | 100% |
-| Chapter 9: Human-in-the-Loop Approval | 6 | 4 | 0 | 2 | 0 | 100% |
-| Chapter 10: Feedback Loops | 7 | 4 | 0 | 2 | 1 | 100% |
-| Interlude: Asynchronous Python | 4 | 4 | 0 | 0 | 0 | 100% |
-| Chapter 11: Multi-Agent Systems | 7 | 5 | 0 | 2 | 0 | 100% |
-| Chapter 12: MCP Fundamentals and Your First Server | 7 | 1 | 0 | 2 | 4 | 100% |
-| Chapter 13: Build Your Own MCP Client | 8 | 7 | 0 | 1 | 0 | 100% |
-| Chapter 14: Using Servers You Didn't Write | 5 | 1 | 0 | 2 | 2 | 100% |
-| Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure | 7 | 5 | 0 | 2 | 0 | 100% |
-| Chapter 16: Context Engineering | 8 | 6 | 0 | 2 | 0 | 100% |
-| Chapter 17: Agent Memory Engineering | 8 | 6 | 0 | 2 | 0 | 100% |
-| Chapter 18: Agentic RAG and Knowledge Systems | 9 | 7 | 0 | 2 | 0 | 100% |
-| Chapter 19: Long-Running Agents | 6 | 4 | 0 | 2 | 0 | 100% |
-| Chapter 20: Planning and Model Routing | 6 | 4 | 0 | 2 | 0 | 100% |
-| Chapter 21: Multi-Agent Orchestration | 6 | 4 | 0 | 2 | 0 | 100% |
-| Chapter 22: Hybrid Architectures: Probabilistic Intelligence, Deterministic Control | 6 | 4 | 0 | 2 | 0 | 100% |
-| Chapter 23: Computer-Use Agents | 6 | 4 | 0 | 2 | 0 | 100% |
-| Chapter 24: Skills, Frameworks and Agent Runtimes | 9 | 6 | 0 | 3 | 0 | 100% |
-| Chapter 25: Agentic Security | 6 | 4 | 0 | 2 | 0 | 100% |
-| Chapter 26: Agent Identity and Authorization | 6 | 4 | 0 | 2 | 0 | 100% |
-| Chapter 27: Agent Evaluation: Dimensions, Trajectories and Scorecards | 8 | 5 | 1 | 2 | 0 | 83% |
-| Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents | 7 | 6 | 0 | 1 | 0 | 100% |
-| Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost | 6 | 5 | 0 | 1 | 0 | 100% |
-| Chapter 30: Deploying Agents: From One Service to an Agent Platform | 7 | 6 | 0 | 1 | 0 | 100% |
-| Capstone projects C1–C6 | 6 | 6 | 0 | 0 | 0 | 100% |
-| **Total** | **237** | **163** | **1** | **59** | **14** | **99.4%** |
+Every reference solution, capstone and exercise command, run against a scripted stand-in model: no API key, no model provider, so the same commit gives the same result anywhere.
 
-Failed: **27.8** (An agent scorecard: exit code 1).
+| Passed | Failed | Errors | Skipped (not applicable here) | Tests |
+| ---: | ---: | ---: | ---: | ---: |
+| 569 | 0 | 0 | 5 | 574 |
+
+Commit `83a0af4d440e`; `requirements.lock` sha256 `c28c848a2447`; outside the course image (Linux); 2026-10-06. Skipped: 2 needs mcp-server-filesystem from the course image; 1 needs mcp-server-git from the course image; 1 needs mcp-server-fetch, mcp-server-memory from the course image; 1 needs mcp-server-fetch, mcp-server-filesystem, mcp-server-git, mcp-server-time from the course image. Details: [verification/README.md](verification/README.md), [verification/offline.json](verification/offline.json).
+
+### B. Exercises run with a real model
+
+Every exercise run with its reference solution by `run-chapter` (runs from 2026-09-27 to 2026-09-28; models: `claude-sonnet-5`, `qwen3.5:9b`). **163 of 164 executable checks pass automatically**; 1 intentionally demonstrates a failing quality gate, and **0** failed unexpectedly. A real model's answers vary from run to run, so these show that each exercise works end to end, not that it always will. Runs before October 2026 didn't record the commit; newer runs do (`provenance` in each summary.json). Per-exercise results and logs: [EXERCISE_INDEX.md](EXERCISE_INDEX.md), `solutions/outputs/`.
+
+How the totals count: the book has **246 exercises**; the table adds the 6 capstones, so it has 252 rows of work. Every count here, in EXERCISE_INDEX.md and in the book is computed from `course/exercises.json`. *Written answer* exercises have nothing to run; *needs a person* means a person at the keyboard, the Claude Desktop app, a GitHub token or a file the reader creates; *not run yet* means no run has been recorded for this version.
+
+| Chapter | Exercises | ✔ Passed | ✘ Failed | Gate, fails by design | Written answer | Needs a person | Not run yet | Pass rate |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Chapter 0: Foundations | 7 | 4 | 0 | 0 | 2 | 1 | 0 | 100% |
+| Interlude: The Python You'll Need | 5 | 5 | 0 | 0 | 0 | 0 | 0 | 100% |
+| Chapter 1: What an Agent Is (and Isn't) | 9 | 4 | 0 | 0 | 5 | 0 | 0 | 100% |
+| Interlude: Testing with pytest | 4 | 4 | 0 | 0 | 0 | 0 | 0 | 100% |
+| Chapter 2: Tool Calling (Function Calling) | 6 | 4 | 0 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 3: Tool Selection, Routing and Tool Search | 7 | 5 | 0 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 4: The Agent Loop | 5 | 4 | 0 | 0 | 1 | 0 | 0 | 100% |
+| Chapter 5: State and Short-Term Memory | 7 | 5 | 0 | 0 | 2 | 0 | 0 | 100% |
+| Interlude: Regular Expressions | 4 | 4 | 0 | 0 | 0 | 0 | 0 | 100% |
+| Chapter 6: Agentic Search: Exploring an Environment | 6 | 4 | 0 | 0 | 1 | 1 | 0 | 100% |
+| Chapter 7: Real APIs | 6 | 2 | 0 | 0 | 2 | 2 | 0 | 100% |
+| Interlude: SQL in One Sitting | 4 | 4 | 0 | 0 | 0 | 0 | 0 | 100% |
+| Chapter 8: Self-Correction: A Text-to-SQL Agent | 7 | 2 | 0 | 0 | 2 | 3 | 0 | 100% |
+| Interlude: Measuring an Agent | 3 | 0 | 0 | 0 | 1 | 0 | 2 | — |
+| Chapter 9: Human-in-the-Loop Approval | 6 | 4 | 0 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 10: Feedback Loops | 7 | 4 | 0 | 0 | 2 | 1 | 0 | 100% |
+| Interlude: Asynchronous Python | 4 | 4 | 0 | 0 | 0 | 0 | 0 | 100% |
+| Chapter 11: Multi-Agent Systems | 7 | 5 | 0 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 12: MCP Fundamentals and Your First Server | 7 | 1 | 0 | 0 | 2 | 4 | 0 | 100% |
+| Chapter 13: Build Your Own MCP Client | 8 | 7 | 0 | 0 | 1 | 0 | 0 | 100% |
+| Chapter 14: Using Servers You Didn't Write | 5 | 1 | 0 | 0 | 2 | 2 | 0 | 100% |
+| Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure | 4 | 2 | 0 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 16: Context Engineering | 8 | 6 | 0 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 17: Agent Memory Engineering | 9 | 6 | 0 | 0 | 2 | 0 | 1 | 100% |
+| Chapter 18: Agentic RAG and Knowledge Systems | 9 | 7 | 0 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 19: Long-Running Agents | 6 | 4 | 0 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 20: Planning and Model Routing | 6 | 4 | 0 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 21: Multi-Agent Orchestration | 7 | 4 | 0 | 0 | 2 | 0 | 1 | 100% |
+| Chapter 22: Hybrid Architectures: Probabilistic Intelligence, Deterministic Control | 6 | 4 | 0 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 23: Computer-Use Agents | 7 | 4 | 0 | 0 | 2 | 0 | 1 | 100% |
+| Chapter 24: Skills, Frameworks and Agent Runtimes | 10 | 6 | 0 | 0 | 3 | 0 | 1 | 100% |
+| Chapter 25: Agentic Security | 7 | 4 | 0 | 0 | 2 | 0 | 1 | 100% |
+| Chapter 26: Agent Identity and Authorization | 7 | 4 | 0 | 0 | 2 | 0 | 1 | 100% |
+| Chapter 27: Agent Evaluation: Dimensions, Trajectories and Scorecards | 8 | 5 | 0 | 1 | 2 | 0 | 0 | 100% |
+| Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents | 8 | 6 | 0 | 0 | 1 | 0 | 1 | 100% |
+| Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost | 8 | 5 | 0 | 0 | 1 | 0 | 2 | 100% |
+| Chapter 30: Deploying Agents: From One Service to an Agent Platform | 12 | 9 | 0 | 0 | 2 | 0 | 1 | 100% |
+| Capstone projects C1–C6 | 6 | 6 | 0 | 0 | 0 | 0 | 0 | 100% |
+| **Total** | **252** | **163** | **0** | **1** | **62** | **14** | **12** | **100.0%** |
+
+*Pass rate* counts passed against unexpected failures; a gate that fails by design is neither.
+
+Fails by design: **27.8** (An agent scorecard): a quality gate: its scorecard exits with an error by design when the model misses the thresholds.
 <!-- results:end -->
 
-**About the one failure.** Exercise 27.8 is a quality gate: its scorecard deliberately exits with an error when a model misses the thresholds (for the local model: 78% success against 80% required, reliability 50% against 60%, safety violations 11% against 0%). That's the exercise working as designed. Run it on Claude with `./course.sh run-chapter 27.8 --model claude`.
+**About the quality gate.** Exercise 27.8 is not a broken exercise. It is a quality gate: its scorecard deliberately exits with an error when a model misses the thresholds (for the local model: 78% success against 80% required, reliability 50% against 60%, safety violations 11% against 0%). That's the exercise working as designed. Run it on Claude with `./course.sh run-chapter 27.8 --model claude`.
 
 **What "skipped" means:** 6 *ask* exercises (you chat with the tools yourself), 4 that need a person at the keyboard (12.3–12.6), 2 that need a GitHub token (14.3, 14.4), 1 that needs a file you create (0.3), and 1 that needs the sandbox (10.7, `./course.sh sandbox up`).
 

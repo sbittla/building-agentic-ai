@@ -2,8 +2,28 @@
 name: offline checks
 on:
   push:
+    branches: ['**']
+    tags: ['edition-*']
   pull_request:
 jobs:
+  references:
+    # the book, README and EXERCISE_INDEX.md must agree with course/exercises.json and the files in the kit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Every exercise id, file, command and cross-reference in the book resolves
+        run: python dev/check_references.py
+      - name: Cost figures are current
+        run: python dev/cost_model.py --check
+      - name: The curriculum map is current
+        run: python dev/curriculum_map.py --check
+      - name: README counts and EXERCISE_INDEX.md are up to date
+        run: |
+          python dev/exercise_index.py
+          git diff --exit-code README.md EXERCISE_INDEX.md
   check:
     runs-on: ubuntu-latest
     timeout-minutes: 60
@@ -20,4 +40,48 @@ jobs:
       - name: Self-test
         run: docker compose run --rm -T course selftest
       - name: Every solution, capstone and exercise command
-        run: docker compose run --rm -T course check-solutions
+        run: |
+          mkdir -p workspace/verification
+          docker compose run --rm -T course check-solutions \
+            --junitxml=/workspace/verification/offline-junit.xml -rs 2>&1 | tee workspace/verification/offline.log
+          exit ${PIPESTATUS[0]}
+      - name: Security controls are really tested (switching each off must be caught)
+        if: always()
+        run: |
+          docker compose run --rm -T -v "$PWD/dev:/opt/dev:ro" -e COURSE_SOLUTIONS=/solutions course \
+            python /opt/dev/security_mutations.py --out /workspace/verification/security_mutations.json
+      - name: Results with provenance (commit, lock, image, environment)
+        if: always()
+        run: |
+          mkdir -p verification
+          cp workspace/verification/* verification/
+          image=$(docker image inspect -f '{{.Id}}' building-agentic-ai:latest | cut -c1-19)
+          python3 dev/verify.py report verification/offline-junit.xml \
+            --environment "course image $image, GitHub Actions ${{ runner.os }}"
+      - name: Keep the results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: verification-${{ github.sha }}
+          path: verification/
+          retention-days: 90
+  release:
+    # a tag such as edition-1.1 publishes the verification results with the release
+    if: startsWith(github.ref, 'refs/tags/edition-')
+    needs: [references, check]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: verification-${{ github.sha }}
+          path: verification
+      - name: Attach the results to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ github.ref_name }}" --repo "${{ github.repository }}" --verify-tag \
+            --title "${{ github.ref_name }}" --notes "Code and verification results for this printing of the book. Versions: VERSION_MATRIX.md. Changes: CHANGELOG.md and MIGRATION.md. Corrections: ERRATA.md." \
+            verification/* VERSION_MATRIX.md ERRATA.md || gh release upload "${{ github.ref_name }}" --repo "${{ github.repository }}" verification/* VERSION_MATRIX.md ERRATA.md --clobber

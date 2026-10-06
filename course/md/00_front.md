@@ -6,75 +6,57 @@ This book teaches you to build AI agents from nothing. You start with the Python
 
 Anyone who wants to build AI agents, including complete beginners. You don't need machine-learning experience.
 
+Table: Where to start
 | If you… | Start at |
 | --- | --- |
 | Have never programmed, or aren't sure what JSON or an API is | Chapter 0 and the Python interlude, and do every exercise |
 | Know some Python but have never called a web API | Chapter 0: skim it, and do exercises 0.4–0.6 |
 | Write Python and have used web APIs | Chapter 1 |
 | Have built a simple agent already | Read Chapter 1's frameworks, skim the rest of Part 1, then start at Chapter 5, or go straight to Part 5 (MCP and interoperability), Part 6 (context and memory), Part 7 (advanced agent architectures), Part 8 (trust, security and identity) or Part 9 (production engineering) |
-| Are an architect, staff engineer or engineering leader | Chapter 1 (sections 1.3 to 1.8), then Chapters 15, 22, 26 to 30 and Appendix I's reference cards |
+| Are an architect, staff engineer or engineering leader | Chapter 1 (sections 1.3 to 1.8), section 12.1, then Chapters 15, 22, 26 to 30 and Appendix I's reference cards |
 | Are a performance or reliability engineer | Chapter 1, then Chapters 19, 27, 28 and 29 |
 
-The interludes (Python, testing, regular expressions, SQL and asynchronous Python) come right before the chapters that need them. Skip any you already know; each ends with exercises so you can check yourself.
+The interludes (Python, testing, regular expressions, SQL, measuring an agent and asynchronous Python) come right before the chapters that need them. Skip any you already know; each ends with exercises so you can check yourself.
 
 ## What you will build
 
+Table: What you build in each part
 | Part | Chapters | You build | Key idea |
 | --- | --- | --- | --- |
 | 0. Foundations | 0 (+ Python interlude) | Python, JSON and API basics | The ground everything else stands on |
 | 1. Your first agent | 1–4 (+ testing interlude) | Summarizer, calculator agent, multi-tool assistant with tool search, the agent loop | Agent = model + tools + loop |
 | 2. State and environment | 5–6 (+ regex interlude) | To-do agent, notes Q&A agent | Agents change things and look around |
-| 3. Real-world tools | 7–9 (+ SQL interlude) | Weather advisor, SQL analyst, file organizer | APIs fail, agents self-correct, humans approve |
+| 3. Real-world tools | 7–9 (+ SQL and measuring interludes) | Weather advisor, SQL analyst measured with repeated trials, file organizer | APIs fail, agents self-correct, measurements beat impressions, humans approve |
 | 4. Autonomy and multi-agent systems | 10–11 (+ async interlude) | Code fixer, research team, router, handoff, critic and voting teams | Feedback loops, and when several agents beat one |
-| 5. MCP and interoperability | 12–15 | MCP server, MCP client, an agent published as a server, ecosystem servers behind a policy layer, durable jobs and a gateway | Package tools and agents once, use them anywhere, safely and at scale |
+| 5. MCP and interoperability | 12–15 | MCP server, MCP client, an agent published as a server, ecosystem servers behind a policy layer, MCP requests by hand | Package tools and agents once, use them anywhere, safely |
 | 6. Context, memory and knowledge | 16–18 | A context assembler, a memory store with rules, a knowledge agent that checks its citations | Decide what the agent knows at every step |
 | 7. Advanced agent architectures | 19–24 | A durable job runner, a planner and model router, an orchestrated team, a rule-controlled workflow, a browser agent, the same agent on four runtimes | More independence, with code in control |
-| 8. Trust, Security and Identity | 25–26 | An injection-resistant inbox assistant, scoped and short-lived agent tokens | Agents that can't be turned against you |
-| 9. Production engineering | 27–30 | Trajectory evaluations, traces and alerts, cost budgets and a capacity plan, a deployed agent API and remote MCP server | Measured, observed, affordable, deployed |
+| 8. Trust, security and identity | 25–26 | An injection-resistant inbox assistant, scoped and short-lived agent tokens | Agents that can't be turned against you |
+| 9. Production engineering | 27–30 | Trajectory evaluations, traces and alerts, cost budgets and a capacity plan, a deployed agent API and remote MCP server, durable MCP jobs and a gateway | Measured, observed, affordable, deployed, at company scale |
+| Case study | — | The support agent through one release: decisions, evidence, an incident and a rollback | How the pieces work together |
 | Capstones | — | Six end-to-end projects | Prove it on your own build |
 
 Each part ends with a **checkpoint**: a short list of things you should now be able to do. If two or more items feel shaky, revisit the exercises the checkpoint points to before you move on.
 
-## What this book covers, and what it doesn't
-
-This is a book about building agents. Everything else it teaches, it teaches only as far as agents need it. Chapter 0 and the interludes are focused tours, not complete courses: they give you enough to read and write the code in the chapters that follow, and each one ends with a **Learn more** list for when you want the full picture.
-
-| Topic | What this book gives you | Where to learn the rest |
-| --- | --- | --- |
-| Python | The fundamentals the chapters use, listed in a table in the Python interlude | The official Python tutorial, Python for Everybody, CS50 Python |
-| Terminal, JSON, HTTP, Docker | Enough to run the course kit and call web APIs | Chapter 0's Learn more list (MDN, Docker docs) |
-| Testing, regular expressions, SQL, async | One interlude each, sized to the chapter that needs it | Each interlude's Learn more list |
-| Machine learning | Not covered. You use models; you don't train them | Not needed here; if you're curious, fast.ai's free Practical Deep Learning course (course.fast.ai) |
-| Web front ends, cloud operations | Only what it takes to put an agent behind an API (Chapter 30) | Chapter 30's Learn more list |
-| Agent frameworks | The ideas behind them, plus a short tour (Chapter 24) | Each framework's own documentation |
-
-If something in a chapter feels too fast, that's your cue to spend an hour with the linked resource, not a sign that you're behind. Appendix G collects every link in one place.
-
-## Your pace
-
-There's no schedule to keep. How long the book takes depends on what you already know, how many exercises you do and how deep you go, and every reader's path is different. A few habits help:
-
-- **Go one part at a time.** Each part ends with a checkpoint; when you can do what it lists, move on.
-- **Skip what you know.** If an interlude or an early chapter is familiar, do its last exercise to check yourself and keep going.
-- **Do the Simple and Medium exercises first.** Complex exercises and capstones are worth a second pass, once the whole picture is clear.
-- **Short, regular sessions beat long, rare ones.** An hour on most days keeps the ideas fresh from one chapter to the next.
-
 ## Reading paths
 
-This is a long book, and you don't have to read all of it before you build something real. Pick the path that matches where you are, and come back for the rest when you need it.
+This is a long book, and you don't have to read all of it before you build something real. Find your role below; the row is your route through the book. Come back for the rest when you need it.
 
-| Path | For | Read |
-| --- | --- | --- |
-| **Fast path** | You want one working, safe agent soon | Chapters 0–4, 9, 12 and 16, then Chapter 27's first sections and Chapter 30. Do the Simple exercises only |
-| **Builder path** | You're new to agents and want the full skill set | Every part in order, with the interludes you need and the Simple and Medium exercises, then one capstone |
-| **Production path** | You already build agents and want to run them at scale | Chapters 15–30, dipping back into Chapters 9, 11 and 14 when they're referenced, then a capstone to the full rubric |
+Table: Learning paths by role
+| Path | For | Read, in this order | Finish with |
+| --- | --- | --- | --- |
+| **Fast path** | One working, safe agent this week | Chapters 0–4, 9, 12 and 16, then sections 27.1–27.3 and 30.1–30.3. Simple exercises only | Your agent behind an API (section 30.2) |
+| **Builder** | You're new to agents and want the full skill set | First agent (Chapters 1–4) → tools and state (Chapters 5–9) → evaluation (the measurement interlude, sections 27.1–27.7) → MCP (Chapters 12–15) → production (Chapters 28 and 30). Simple and Medium exercises | Capstone 1 |
+| **Production engineer** | You already run services and must ship agents safely | Architecture (sections 1.7, 1.10, 22.1 and 30.15) → security (Chapters 9, 14, 25 and 26) → evaluation (Chapter 27) → performance and cost (Chapter 29) → deployment (Chapter 30) → AgentOps (Chapter 28, sections 30.13 and 30.14) | The case study, then Capstone 3 |
+| **Advanced architect** | You design agent platforms and set standards | Multi-agent systems (Chapters 11 and 21) → discovery (Chapter 15, sections 26.9 and 26.10) → skills (sections 24.7 and 24.10) → memory (Chapter 17) → governance (sections 25.11 and 30.12) → economics (sections 21.10 and 29.9) → long-running systems (Chapters 19 and 20) | Appendix K's decision records, then Capstone 6 |
 
-The interludes are optional on every path: read one when a chapter uses something that's new to you.
+Every path skips what you already know: if a chapter's Prerequisites line names something new to you, read that first. The interludes are optional on every path: read one when a chapter uses something that's new to you.
 
-## 30-Minute Learning Paths
+## Thirty-minute learning paths
 
 If you have limited time, these focused paths get you to working code or architectural understanding in half an hour:
 
+Table: Thirty-minute learning paths
 | Goal | Path | Time |
 | --- | --- | --- |
 | **Build your first agent** | Chapter 0 (if new to Python) + Chapter 1 (sections 1.1–1.5) + Chapter 2 (sections 2.1–2.3) | 30 min |
@@ -88,30 +70,34 @@ If you have limited time, these focused paths get you to working code or archite
 
 Combine paths to go deeper: *First agent* → *Add state* → *Connect tools* → *Add retrieval* = **Agent Q&A over your files** in 2 hours.
 
-## How each chapter is organized
+## From first agent to production
 
-Every chapter follows the same pattern:
+The book is long, but the route is one line. Each milestone ends with something that runs, and a command that shows it works:
 
-1. **Learning objectives**: what you can do after the chapter.
-2. **Real-world connection**: a production system that uses the same pattern.
-3. **Lessons**: numbered subtopics, each with an explanation and runnable code.
-4. **Common mistakes**: the bugs people hit most often.
-5. **Summary**: the chapter in five bullet points.
-6. **Exercises** at four levels:
-    - **Concept**: no code. Explain, classify or design. Checks understanding.
-    - **Simple**: a small change to the chapter's code. Builds confidence.
-    - **Medium**: a new feature that needs a design decision. Builds skill.
-    - **Complex**: an open-ended build with measurements. Builds judgment.
-7. **Learn more**: free, trustworthy sites for the chapter's topics, marked **Start here** or **Go deeper**. Appendix G adds where to ask for help, free courses and how to keep up to date. The kit's `RESOURCES.md` has every link ready to click.
+Table: Five milestones from a first agent to production
+| Milestone | Chapters | You'll have | Check it with |
+| --- | --- | --- | --- |
+| 1. A first agent | 0–4 | A model, tools and the loop, with stop conditions | `./course.sh python ch04_agent.py` |
+| 2. A useful, safe agent | 5–9 | State, files, a real API, a database and approval gates | `./course.sh ex 9.3` |
+| 3. Tools anyone can use | 12–14 | Your tools as MCP servers, your own MCP host, a policy layer | `./course.sh python ch13_mcp_agent.py servers.json` |
+| 4. Measured | The measurement interlude, 27 | An evaluation suite with repeated trials and a release gate | `./course.sh python ch27_eval.py eval_sql.jsonl 3` |
+| 5. Deployed | 28–30 | Traces and SLOs, a cost and capacity model, a service | `./course.sh serve-api` |
 
-Each exercise has a **Done when** line that tells you when you've finished, and most have a **Hint**. A **Model** label on every exercise tells you what it needs:
+The other chapters deepen each milestone: context, memory and retrieval (Part 6), long-running work, planning and teams (Part 7), and security and identity (Part 8).
 
-| Label | Meaning | Exercises |
+## What your computer needs
+
+Table: What your computer needs, by model
+| | Claude | Free local model |
 | --- | --- | --- |
-| **No model** | Plain Python, SQL, tests or design work: nothing calls a model, so it's free | 81 |
-| **qwen3.5:9b or Claude** | Runs on the free local model or on Claude | 83 |
-| **Claude recommended** | Runs on `qwen3.5:9b`, but the result is much better with Claude | 4 |
-| **Claude only** | Uses a feature that only runs on Anthropic's servers, or the Claude Desktop app | 5 |
+| Software | Docker Desktop (Windows, macOS) or Docker Engine with Compose (Linux) | The same |
+| Memory (RAM) | 16 GB recommended | 16 GB minimum, 32 GB recommended |
+| Disk | About 15 GB for the image and data | About 25 GB: the image, data and the 6.6 GB model |
+| Graphics card | Not needed | Optional: an NVIDIA GPU with 8 GB or more makes it fast |
+| Network | To build the image once, then to reach the Claude API | To build the image and download the model once; then none |
+| Money | An API key with a few dollars of credit; about {{cost:learner}} for the whole book | Nothing |
+
+You can start with no model at all: the quick start below, the offline self-test and the 100-plus exercises marked *No model* need neither a key nor the download.
 
 ## Setup (do this once)
 
@@ -126,7 +112,7 @@ Everything in this book runs inside one Docker image, a packaged, ready-to-run e
 
 1. Install **Docker Desktop** (Windows or macOS) or Docker Engine with the Compose plugin (Linux), and start it.
 2. Get the course kit, the book's companion code repository. With Git: `git clone https://github.com/sbittla/building-agentic-ai.git`. Without Git: download the ZIP from github.com/sbittla/building-agentic-ai and unzip it. Either way you end up with a folder such as `D:\Learning\building-agentic-ai`.
-3. Choose your model (see "Choose your model: Claude or free and local" below). For Claude, get an Anthropic API key first (Chapter 0, section 0.5, walks you through it). Then open a terminal in the kit folder and run the setup. The setup checks Docker, creates your `.env` file, asks which model you want (and, for Claude, the key, without showing it) and generates the other secrets the kit needs:
+3. Choose your model (see "Choose your model: Claude or free and local" below). For Claude, get a Claude API key first (Chapter 0, section 0.5, walks you through it). Then open a terminal in the kit folder and run the setup. The setup checks Docker, creates your `.env` file, asks which model you want (and, for Claude, the key, without showing it) and generates the other secrets the kit needs:
 
 ```bash
 ./course.sh setup          # Windows: .\course.cmd setup
@@ -144,6 +130,59 @@ If you chose the free local model, run `./course.sh local up` before `check --ap
 
 The first command also creates a **workspace** folder next to the scripts, with all the chapter code and sample data. Edit files there with any editor on your computer. The container (the running copy of the image) sees your changes immediately, and nothing you write is ever overwritten.
 
+## Your first agent, free
+
+Before you choose a model, see an agent work. Once the image is built, run:
+
+```bash
+./course.sh quickstart
+```
+
+It runs the real agent loop from Chapter 4 with the real date tools from Chapter 3. Only the model is replaced, by a scripted stand-in, so it needs no key and no download. You should see something like this (with today's date):
+
+```
+Question: How many days until July 4 next, and what weekday will it be?
+
+[step 1] get_current_date({}) -> '2026-10-05 (Monday)'  (0 ms)
+[step 2] days_between({"start": "2026-10-05", "end": "2027-07-04"}) -> '272 days; 2027-07-04 is a Sunday'  (0 ms)
+
+ANSWER: It's 272 days until July 4; 2027-07-04 is a Sunday.
+```
+
+That's an agent: the model asked for a tool, your code ran it, the result went back, and the loop repeated until the model answered. Chapter 1 explains the parts and Chapter 4 builds the loop. To see a real model make the same choices on its own, choose one in "Choose your model" below, then run `./course.sh python ch04_agent.py`.
+
+:::tip If the first commands fail
+- **"Docker is not running"**: start Docker Desktop and wait until it says it's running.
+- **The build stops at `ghcr.io/github/github-mcp-server`**: your network blocks that registry. Add `GITHUB_MCP_IMAGE=nogithub` to `.env` and build again; only exercises 14.3 and 14.4 and Capstone 4 need it.
+- **`check --api` shows `AuthenticationError`**: the key in `.env` is missing or mistyped. Run `./course.sh setup` again.
+- **"Can't reach the local model"**: start it with `./course.sh local up`, and check with `./course.sh local status`.
+
+Appendix B has the full list, and a step-by-step playbook for when an agent runs but does the wrong thing.
+:::
+
+## Choose your model: Claude or free and local
+
+You can work through this book with either of two models, and switch between them at any time with one line in `.env`. No code changes.
+
+Table: Claude or the free local model
+| | Claude (the default) | Free local model |
+| --- | --- | --- |
+| Model | `claude-sonnet-5` through the Claude API | `qwen3.5:9b`, an open-source model, in a Docker container on your computer |
+| Cost | Pay per use: about {{cost:learner}} for the whole book | Free |
+| Needs | An API key (Chapter 0, section 0.5) | 16 GB of RAM (32 GB recommended), 10 GB of disk; a GPU is optional |
+| Speed | A few seconds per answer | A few seconds with a GPU; up to a minute or more on a CPU |
+| Quality | Best: agents rarely pick the wrong tool | Good for learning; makes more mistakes from Chapter 8 on |
+| Runs | Every exercise | All except the {{exercises:claude-only}} marked **Claude only** |
+| Turn on | `PROVIDER=claude` in `.env` (or no `PROVIDER` line) | `./course.sh local up`, then `PROVIDER=local` in `.env` |
+
+**Why your results may differ from the book's.** A model's answers vary from run to run, and two models differ more. The sample outputs in the chapters show one run of one model; on the local model, expect different wording, more steps, and more mistakes in tool choice and self-correction, especially from Chapter 8 on, plus slower answers on a CPU. The concepts and the code are the same, and every exercise's *Done when* line describes behavior (the right tool, a refused action, a correct number), not exact text. If a local-model run goes wrong, run it again, then compare with the same exercise on Claude: when one model fails where another succeeds, you've learned something about the model, not about your code. Appendix H lists what the local model does differently, and which exercises need Claude.
+
+A good plan on a tight budget: do the book on the local model, and add a small Claude credit (a few dollars) for the {{exercises-word:claude-only}} **Claude only** exercises and the {{exercises-word:claude-rec}} marked **Claude recommended**. Appendix H has the full local-model guide: hardware, GPUs, Macs, speed tips and exactly what the kit adapts for you. The kit's repository has the same guide as `LOCAL_MODEL.md`, kept up to date.
+
+:::tip Changing the Claude model
+With Claude, the examples read the model name from the `MODEL` environment variable and default to `claude-sonnet-5`, which balances speed and cost well for learning. Model names change over time, so check the current list at platform.claude.com/docs/en/models/overview. To switch, set `MODEL=...` in your `.env` file. With the local model, the kit uses `LOCAL_MODEL` instead (default `qwen3.5:9b`).
+:::
+
 ## Running exercises
 
 Every exercise has a **Run** line with the command that starts it. For example:
@@ -151,30 +190,61 @@ Every exercise has a **Run** line with the command that starts it. For example:
 ```bash
 ./course.sh list 4         # the exercises in chapter 4
 ./course.sh ex 4.2         # show exercise 4.2 and run it
-./course.sh ex 1.5         # first run creates workspace/exercises/ch01/ex1_5_workflow.py
+./course.sh ex 1.5         # first run creates workspace/exercises/ex1_5_workflow.py
 ```
 
 Concept exercises create an answer file in `workspace/answers`. Build exercises create a starter file in `workspace/exercises` the first time, with the function names and examples already in place. You fill in the `TODO`s and run the same command again. Exercises in Chapter 0, the interludes and a few early chapters also have an automatic check: `./course.sh check 0.4` tells you whether your answer is right, and what's wrong if it isn't. You can also run any chapter file directly (for example, `./course.sh python ch04_agent.py`) or chat with a chapter's tools using `./course.sh ask ch08_sql_tools`. Appendix A lists every command. On Windows, use `.\course.cmd` wherever this book shows `./course.sh`.
 
-## Choose your model: Claude or free and local
+## How each chapter is organized
 
-You can work through this book with either of two models, and switch between them at any time with one line in `.env`. No code changes.
+Every chapter follows the same pattern:
 
-| | Claude (the default) | Free local model |
+1. **Learning objectives**: what you can do after the chapter.
+2. **Real-world connection**: a production system that uses the same pattern.
+3. **Lessons**: numbered subtopics, each with an explanation and runnable code.
+4. **Common mistakes**: the bugs people hit most often.
+5. **Summary**: the chapter's key points, in a short bulleted list.
+6. **Exercises** at four levels:
+    - **Concept**: no code. Explain, classify or design. Checks understanding.
+    - **Simple**: a small change to the chapter's code. Builds confidence.
+    - **Medium**: a new feature that needs a design decision. Builds skill.
+    - **Complex**: an open-ended build with measurements. Builds judgment.
+7. **Learn more**: free, trustworthy sites for the chapter's topics, marked **Start here** or **Go deeper**. Appendix G adds where to ask for help, free courses and how to keep up to date. The kit's `RESOURCES.md` has every link ready to click.
+
+Each exercise has a **Done when** line that tells you when you've finished, and most have a **Hint**. A **Model** label on every exercise tells you what it needs:
+
+Table: Exercises by the model they need
+| Label | Meaning | Exercises |
 | --- | --- | --- |
-| Model | `claude-sonnet-5` through the Claude API | `qwen3.5:9b`, an open-source model, in a Docker container on your computer |
-| Cost | Pay per use: about $35–75 for the whole book | Free |
-| Needs | An API key (Chapter 0, section 0.5) | 16 GB of RAM (32 GB recommended), 10 GB of disk; a GPU is optional |
-| Speed | A few seconds per answer | A few seconds with a GPU; up to a minute or more on a CPU |
-| Quality | Best: agents rarely pick the wrong tool | Good for learning; makes more mistakes from Chapter 8 on |
-| Runs | Every exercise | All except the 5 marked **Claude only** |
-| Turn on | `PROVIDER=claude` in `.env` (or no `PROVIDER` line) | `./course.sh local up`, then `PROVIDER=local` in `.env` |
+| **No model** | Plain Python, SQL, tests or design work: nothing calls a model, so it's free | {{exercises:none}} |
+| **qwen3.5:9b or Claude** | Runs on the free local model or on Claude | {{exercises:any}} |
+| **Claude recommended** | Runs on `qwen3.5:9b`, but the result is much better with Claude | {{exercises:claude-rec}} |
+| **Claude only** | Uses a feature that only runs on Anthropic's servers, or the Claude Desktop app | {{exercises:claude-only}} |
 
-A good plan on a tight budget: do the book on the local model, and add a small Claude credit (a few dollars) for the five **Claude only** exercises and the four marked **Claude recommended**. Appendix H has the full local-model guide: hardware, GPUs, Macs, speed tips and exactly what the kit adapts for you. The kit's repository has the same guide as `LOCAL_MODEL.md`, kept up to date.
+## What this book covers, and what it doesn't
 
-:::tip Changing the Claude model
-With Claude, the examples read the model name from the `MODEL` environment variable and default to `claude-sonnet-5`, which balances speed and cost well for learning. Model names change over time, so check the current list at platform.claude.com/docs/en/models/overview. To switch, set `MODEL=...` in your `.env` file. With the local model, the kit uses `LOCAL_MODEL` instead (default `qwen3.5:9b`).
-:::
+This is a book about building agents. Everything else it teaches, it teaches only as far as agents need it. Chapter 0 and the interludes are focused tours, not complete courses: they give you enough to read and write the code in the chapters that follow, and each one ends with a **Learn more** list for when you want the full picture.
+
+Table: Topics the book teaches only as far as agents need them
+| Topic | What this book gives you | Where to learn the rest |
+| --- | --- | --- |
+| Python | The fundamentals the chapters use, listed in a table in the Python interlude | The official Python tutorial, Python for Everybody, CS50 Python |
+| Terminal, JSON, HTTP, Docker | Enough to run the course kit and call web APIs | Chapter 0's Learn more list (MDN, Docker docs) |
+| Testing, regular expressions, SQL, measurement, async | One interlude each, sized to the chapter that needs it | Each interlude's Learn more list |
+| Machine learning | Not covered. You use models; you don't train them | Not needed here; if you're curious, fast.ai's free Practical Deep Learning course (course.fast.ai) |
+| Web front ends, cloud operations | Only what it takes to put an agent behind an API (Chapter 30) | Chapter 30's Learn more list |
+| Agent frameworks | The ideas behind them, plus a short tour (Chapter 24) | Each framework's own documentation |
+
+If something in a chapter feels too fast, that's your cue to spend an hour with the linked resource, not a sign that you're behind. Appendix G collects every link in one place.
+
+## Your pace
+
+There's no schedule to keep. How long the book takes depends on what you already know, how many exercises you do and how deep you go, and every reader's path is different. A few habits help:
+
+- **Go one part at a time.** Each part ends with a checkpoint; when you can do what it lists, move on.
+- **Skip what you know.** If an interlude or an early chapter is familiar, do its last exercise to check yourself and keep going.
+- **Do the Simple and Medium exercises first.** Complex exercises and capstones are worth a second pass, once the whole picture is clear.
+- **Short, regular sessions beat long, rare ones.** An hour on most days keeps the ideas fresh from one chapter to the next.
 
 ## Code conventions
 
@@ -186,6 +256,7 @@ The examples use the Anthropic Python SDK because it keeps the tool-calling mess
 
 The kit has two folders of code:
 
+Table: The two folders of code in the kit
 | Folder | What's in it | How you use it |
 | --- | --- | --- |
 | `course/code` | The chapter programs you read in each chapter, such as `ch04_agent.py` | Copied into your `workspace` folder on first run; you run and edit them there |
@@ -205,6 +276,16 @@ You can reach the solutions in three ways:
 
 Appendix F maps the whole `solutions` folder. Try each exercise yourself before you look: getting stuck and working your way out is where most of the learning happens. When you've finished, compare your version with the solution. There's usually more than one good answer, and seeing a different approach teaches you something too.
 
+## Cost and safety
+
+With Claude, every model call costs money, and an agent makes many calls per question. With Claude Sonnet 5, doing every chapter and exercise costs about **{{cost:learner}} in total**, counting reruns ({{cost:first}} for one clean pass); Appendix E breaks this down by part and states every assumption. With the free local model (Appendix H), calls cost nothing but time. Chapter 4 shows you how to log token counts so you always know what a run cost. To keep costs down:
+
+- Set a monthly spending limit in the Claude Console before you start.
+- Use a smaller, cheaper model while developing (set `MODEL=claude-haiku-4-5` in `.env`) and a larger one for evaluations.
+- Use `./course.sh check-solutions` to test code paths for free; it uses a stand-in model.
+- Always keep the `max_iterations` cap from Chapter 4.
+- Never give an agent write access to anything you care about until Chapter 9 has taught you approval gates.
+
 ## Learn more
 
 Free, trustworthy places to read more about building agents in general. Every chapter ends with its own list like this one. Start with the **Start here** rows; **Go deeper** rows are for when you want more detail. Links were checked in September 2026; if one has moved, search for its title.
@@ -216,15 +297,5 @@ Free, trustworthy places to read more about building agents in general. Every ch
 | **Anthropic courses on GitHub**<br>[github.com/anthropics/courses](https://github.com/anthropics/courses) | Free notebooks: API fundamentals, prompt engineering, tool use | Start here |
 | **Claude Cookbooks**<br>[github.com/anthropics/claude-cookbooks](https://github.com/anthropics/claude-cookbooks) | Short, runnable recipes for common tasks (tools, RAG, caching, agents) | Go deeper |
 | **Hugging Face AI Agents Course**<br>[huggingface.co/learn/agents-course](https://huggingface.co/learn/agents-course) | A free, vendor-neutral course on agents, good as a second viewpoint | Go deeper |
-
-## Cost and safety
-
-With Claude, every model call costs money, and an agent makes many calls per question. With Claude Sonnet 5, doing every chapter and exercise typically costs **$35–75 in total**; Appendix E breaks this down by part. With the free local model (Appendix H), calls cost nothing but time. Chapter 4 shows you how to log token counts so you always know what a run cost. To keep costs down:
-
-- Set a monthly spending limit in the Anthropic Console before you start.
-- Use a smaller, cheaper model while developing (set `MODEL=claude-haiku-4-5` in `.env`) and a larger one for evaluations.
-- Use `./course.sh check-solutions` to test code paths for free; it uses a stand-in model.
-- Always keep the `max_iterations` cap from Chapter 4.
-- Never give an agent write access to anything you care about until Chapter 9 has taught you approval gates.
 
 With the kit installed and your model answering, you're ready for Chapter 0. It covers the foundations every later chapter assumes: the terminal, the Python you'll read, JSON, web APIs, keeping secrets safe and what Docker is doing for you.

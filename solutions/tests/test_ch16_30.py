@@ -241,7 +241,13 @@ def test_24_2_tool_runner_is_the_loop(fake_api):
     results = [b for b in api.requests[2]["messages"][-1]["content"] if b["type"] == "tool_result"]
     assert "2027-07-04 is a Sunday" in json.dumps(results)
 
-def test_24_3_agent_sdk_approval_gate(fake_api, ws):
+@pytest.mark.needs("claude")
+def test_24_3_agent_sdk_approval_gate(fake_api, ws, monkeypatch, tmp_path):
+    # the Agent SDK starts the claude CLI with this process's environment: a machine that runs
+    # Claude Code itself (or has Claude in Chrome set up) would add its own tools. Start clean.
+    for k in [k for k in os.environ if k.startswith("CLAUDE_")]:
+        monkeypatch.delenv(k)
+    monkeypatch.setenv("HOME", str(tmp_path))
     import ch24_agent_sdk as sdk
     api = fake_api([[{"tool": "mcp__shop__run_query", "input": {"sql": "DELETE FROM orders WHERE status='cancelled'"}}],
                     [{"tool": "mcp__shop__run_query", "input": {"sql": "SELECT COUNT(*) FROM orders WHERE status='cancelled'"}}],

@@ -1,0 +1,44 @@
+{
+ "backend": "sim",
+ "model": "claude-sonnet-5",
+ "small_model": "claude-haiku-4-5",
+ "simulated_models": {
+  "claude-haiku-4-5": {
+   "ttft_ms": 300,
+   "ms_per_out_token": 5,
+   "ms_per_1k_in": 25,
+   "p_syntax": 0.1,
+   "p_wrong": 0.1
+  },
+  "claude-sonnet-5": {
+   "ttft_ms": 650,
+   "ms_per_out_token": 12,
+   "ms_per_1k_in": 45,
+   "p_syntax": 0.04,
+   "p_wrong": 0.03
+  }
+ },
+ "commit": "679be0321037",
+ "prompts_sha256": "44cf983056924987",
+ "data_fingerprint": "2b4e6000ed680c6a",
+ "python": "3.13.16",
+ "platform": "Linux-6.18.44-fc-v70-x86_64-with-glibc2.39",
+ "cpus": 2,
+ "seed": 29,
+ "reps": 5,
+ "warmup_tasks_discarded": 1,
+ "tool_latency_ms": 250,
+ "tool_failure_rate_E4": 0.1,
+ "model_slots_E4": 4,
+ "long_context_tokens_E3": 8000,
+ "concurrency_E4": [
+  1,
+  2,
+  4,
+  8,
+  16
+ ],
+ "quick": false,
+ "started": "2026-10-05 01:38:56 UTC",
+ "command": "python ch29_benchmark.py --quiet"
+}

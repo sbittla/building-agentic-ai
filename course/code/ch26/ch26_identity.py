@@ -21,6 +21,9 @@ import jwt
 ISSUER = "course-identity"
 KEY = os.environ.get("TOKEN_SIGNING_KEY", "dev-only-signing-key-change-me-0123456789")
 ALGORITHM = "HS256"        # production: an identity provider and asymmetric keys
+KEYS = {"k1": KEY}         # signing keys by key id ("kid"), so a key can be rotated
+CURRENT = "k1"             # the key new tokens are signed with
+RETIRE_AT: dict[str, float] = {}   # old key id -> when it stops verifying
 
 AGENTS = {   # the registry: which scopes each agent may ever hold
     "support-agent": {"orders:read", "returns:create", "refunds:create"},
@@ -49,12 +52,36 @@ def mint(agent: str, user: str, scopes: set[str], audience: str, ttl: int = 900,
               "aud": audience, "scope": " ".join(sorted(scopes)), "iat": now,
               "exp": now + ttl, "jti": uuid.uuid4().hex, "limits": limits or {},
               "chain": list(chain)}                  # the tokens this one came from
-    return jwt.encode(claims, KEY, algorithm=ALGORITHM)
+    return jwt.encode(claims, KEYS[CURRENT], algorithm=ALGORITHM, headers={"kid": CURRENT})
+
+def _key_for(token: str) -> str:
+    """The key that signed this token, if it's still trusted."""
+    try:
+        kid = jwt.get_unverified_header(token).get("kid", CURRENT)
+    except jwt.PyJWTError as exc:
+        raise Denied(f"invalid token: {exc}") from None
+    if kid not in KEYS or time.time() >= RETIRE_AT.get(kid, float("inf")):
+        raise Denied(f"signing key {kid!r} is unknown or retired")
+    return KEYS[kid]
+
+def rotate_signing_key(new_secret: str, grace: int = 900) -> str:
+    """Sign new tokens with a new key. Tokens signed with the old one keep working for
+    `grace` seconds (set it to the longest token lifetime), then stop. grace=0 is the
+    emergency rotation: every old token stops at once."""
+    global CURRENT
+    kid = f"k{len(KEYS) + 1}"
+    until = time.time() + grace
+    for old in KEYS:                                    # no old key outlives the new deadline
+        RETIRE_AT[old] = min(RETIRE_AT.get(old, until), until)
+    KEYS[kid] = new_secret
+    CURRENT = kid
+    return kid
 
 def verify(token: str, audience: str) -> dict:
-    """Signature, issuer, audience and expiry, then our own revocation lists."""
+    """Signature (with a key that isn't retired), issuer, audience and expiry, then our
+    own revocation lists."""
     try:
-        claims = jwt.decode(token, KEY, algorithms=[ALGORITHM], audience=audience,
+        claims = jwt.decode(token, _key_for(token), algorithms=[ALGORITHM], audience=audience,
                             issuer=ISSUER, options={"require": ["exp", "jti", "sub"]})
     except jwt.PyJWTError as exc:
         raise Denied(f"invalid token: {exc}") from None
