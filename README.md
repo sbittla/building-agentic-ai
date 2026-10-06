@@ -14,7 +14,7 @@ Everything runs inside Docker, so Docker is the only thing you install. You edit
 | [RESOURCES.md](RESOURCES.md) | Every reference from the book: courses, docs, where to ask for help |
 | [solutions/README.md](solutions/README.md) | How the solutions and capstones are organised and run |
 | [solutions/SOLUTIONS.md](solutions/SOLUTIONS.md) | What each reference solution shows |
-| [COMPATIBILITY.md](COMPATIBILITY.md) | The dated matrix of pinned versions, models, prices and protocol versions; protocol vs SDK changes |
+| [VERSION_MATRIX.md](VERSION_MATRIX.md) | The dated matrix of pinned versions, models, prices and protocol versions; protocol vs SDK changes |
 | [CHANGELOG.md](CHANGELOG.md) · [MIGRATION.md](MIGRATION.md) | What changed between tags, and what to change in your code |
 | [ERRATA.md](ERRATA.md) | Mistakes in each printing, and their corrections |
 | [verification/](verification/README.md) · [benchmarks/](benchmarks/README.md) | Test and security results with their provenance; the published benchmark runs |
@@ -31,9 +31,11 @@ Each printing of the book is matched by a tag, so you can always get the exact c
 | Book printing | Exercises | Tag | Get it |
 | --- | ---: | --- | --- |
 | First printing, September 2026 | 231 | `edition-1.0` | `git checkout edition-1.0` |
-| Corrected printing, October 2026 | 237 | `edition-1.1` | `git checkout edition-1.1` |
+| Second printing, October 2026 | 246 | `edition-1.1` | `git checkout edition-1.1` |
 
-Not sure which printing you have? The copyright page says, and in the corrected printing each chapter's sections are listed under it in the Contents, in one short paragraph.
+Not sure which printing you have? The copyright page says. [VERSION_MATRIX.md](VERSION_MATRIX.md) lists, for each printing, its tag, Python, models, MCP specification, library versions and verification date.
+
+How exercises are counted: every numbered exercise in the book's 31 chapters and 6 interludes counts once, including concept exercises with a written answer and exercise 27.8, a quality gate that fails on purpose when a model misses its thresholds. The six capstones are counted separately.
 
 ## 1. One-time setup (about 20 minutes)
 

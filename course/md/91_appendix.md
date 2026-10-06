@@ -370,12 +370,19 @@ Table: Free courses
 
 ### Keeping up to date
 
-Model names, prices and SDK features change every few months. Four files in the course kit track what that means for this book:
+Model names, prices and SDK features change every few months. Start by checking that your book, your code and your environment belong together:
+
+Table: This printing and the code it was tested with
+| Book printing | Repository tag | Exercises | Python | Default models | MCP specification | Verified |
+| --- | --- | ---: | --- | --- | --- | --- |
+| Second printing, October 2026 | `edition-1.1` | {{exercises:all}} | 3.12 | `claude-sonnet-5`, `claude-haiku-4-5`, `qwen3.5:9b` | 2026-07-28 | 6 October 2026 |
+
+`git describe --tags` in the kit folder prints the tag you have, and `./course.sh check` prints the Python and library versions in the image. Four files in the course kit track what changes after that:
 
 Table: How the course kit tracks change
 | File | What it tells you |
 | --- | --- |
-| `COMPATIBILITY.md` | The exact version of every library, MCP server, model and protocol the book was tested with, the date, and which sections depend on fast-changing details. It also explains how to tell a protocol change (your agent may behave differently) from an SDK change (your code may stop running). |
+| `VERSION_MATRIX.md` | The exact version of every library, MCP server, model and protocol the book was tested with, the date, and which sections depend on fast-changing details. It also explains how to tell a protocol change (your agent may behave differently) from an SDK change (your code may stop running). |
 | `CHANGELOG.md` | What changed between tags of the repository |
 | `MIGRATION.md` | What to change in your own code when you move to a newer tag |
 | `ERRATA.md` | Mistakes found in each printing, with corrections. Your printing's tag never moves, so its code always matches your book |
@@ -633,7 +640,7 @@ Table: Durable concepts and fast-changing details
 | Observability, memory, reliability | Framework APIs and managed services |
 | Performance and cost engineering | MCP specification versions |
 
-Sections whose details change quickly carry an **API-dependent** note under their heading. Learn the concept from the section; take the parameter names from the current documentation. `COMPATIBILITY.md` in the course kit lists these sections with the versions they were tested on.
+Sections whose details change quickly carry an **API-dependent** note under their heading. Learn the concept from the section; take the parameter names from the current documentation. `VERSION_MATRIX.md` in the course kit lists these sections with the versions they were tested on.
 
 ### Card 10: Kinds of agents (section 1.9)
 

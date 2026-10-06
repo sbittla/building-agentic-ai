@@ -1,10 +1,25 @@
-# Compatibility
+# Version matrix
 
-What the book was tested against, and what to expect when the world moves on. Every version here is pinned by a file in this repository, and `dev/check_references.py` fails CI if a version or price in this file differs from `requirements.lock`, the `Dockerfile` or `PRICES` in the code.
+Which book, code, environment and models belong together, and what the book was tested against. Every version here is pinned by a file in this repository, and `dev/check_references.py` fails CI if a version or price in this file differs from `requirements.lock`, the `Dockerfile` or `PRICES` in the code.
 
-**As of:** 5 October 2026 · **Tag:** `edition-1.1` · **Book:** corrected printing, October 2026
+## Release matrix
+
+Read across one row: a printing of the book, the repository tag that matches it, and what that tag was verified with.
+
+| Book printing | Repository tag | Exercises | Python | Default models | MCP specification | Main libraries | Verified |
+| --- | --- | ---: | --- | --- | --- | --- | --- |
+| First printing, September 2026 | `edition-1.0` | 231 | 3.12 | `claude-sonnet-5`, `claude-haiku-4-5`, `qwen3.5:9b` | 2026-07-28 | `anthropic` 1.8.0, `mcp` 2.2.0 | September 2026 |
+| Second printing, October 2026 | `edition-1.1` | 246 | 3.12 | `claude-sonnet-5`, `claude-haiku-4-5`, `qwen3.5:9b` | 2026-07-28 | `anthropic` 1.8.0, `mcp` 2.2.0, `claude-agent-sdk` 0.2.159, `langchain` 1.4.2, `a2a-sdk` 1.1.5 | 6 October 2026 (offline suite); see [verification/](verification/README.md) |
+
+How to tell which you have:
+- **The book:** the copyright page names its printing and its tag.
+- **The code:** `git describe --tags` prints the tag; `./course.sh check` prints the Python and library versions inside the image.
+- **The environment:** the Docker image is built from this tag's `Dockerfile` and `requirements.lock`; every run summary records the commit and the lock file's hash (`provenance`).
+- **The results:** `verification/offline.json` names the commit it was run on.
 
 The printed book makes one promise: `git checkout edition-1.1` gives you code, data and solutions that run as printed, with the versions below. Tags are never moved. Newer versions go on `main` and into a new tag, with notes in [CHANGELOG.md](CHANGELOG.md) and [MIGRATION.md](MIGRATION.md). Mistakes in the printed text are listed in [ERRATA.md](ERRATA.md).
+
+**Details as of:** 6 October 2026 · **Tag:** `edition-1.1`
 
 ## Runtime
 
