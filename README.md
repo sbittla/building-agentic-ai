@@ -1,6 +1,6 @@
 # Building Agentic AI Systems: code, exercises and solutions
 
-The companion repository for the book *Building Agentic AI Systems: From First Agent to MCP, Multi-Agent Orchestration, and Production* by Srinivasa Rao Bittla. It has every chapter's code, **237 exercises** across 31 chapters and 6 interludes (with starter files, checkers and reference solutions), **six capstone projects**, and one Docker image that runs all of it.
+The companion repository for the book *Building Agentic AI Systems: From First Agent to MCP, Multi-Agent Orchestration, and Production* by Srinivasa Rao Bittla. It has every chapter's code, **246 exercises** across 31 chapters and 6 interludes (with starter files, checkers and reference solutions), **six capstone projects**, and one Docker image that runs all of it.
 
 Everything runs inside Docker, so Docker is the only thing you install. You edit files on your computer with any editor; Docker runs them.
 
@@ -47,7 +47,7 @@ Not sure which printing you have? The copyright page says, and in the corrected 
    ```
    No Git? Download the ZIP from the repository page and unzip it anywhere, for example `D:\Learning\building-agentic-ai`.
 3. **Choose a model.**
-   - **Claude:** create an API key in the Claude Console (Chapter 0 of the book walks you through it). Exercises cost cents each; running every exercise costs roughly $5–15.
+   - **Claude:** create an API key in the Claude Console (Chapter 0 of the book walks you through it). <!-- cost -->Working through the whole book on Claude Sonnet 5 costs about $55–100 ($28–49 for one clean pass of every paid exercise; about half on Claude Haiku 4.5; nothing on the free local model). See [COST_MODEL.md](COST_MODEL.md) for the assumptions.<!-- /cost -->
    - **The free local model `qwen3.5:9b`:** no key and no cost, but slower. It runs every exercise except the 4 marked *Claude only*. See [section 2](#2-the-free-local-model-optional).
 4. **Run the setup.** It checks Docker, creates your `.env` file from `.env.example`, asks which model you want (and, for Claude, your key, without showing it), and generates the other secrets the course needs:
    ```bash
@@ -167,56 +167,58 @@ Commit `93187a20b935`; `requirements.lock` sha256 `c28c848a2447`; outside the co
 
 ### B. Exercises run with a real model
 
-Every exercise run with its reference solution by `run-chapter` (runs from 2026-09-27 to 2026-09-28; models: `claude-sonnet-5`, `qwen3.5:9b`). **163 of 164 runnable exercises passed (99.4%)**. A real model's answers vary from run to run, so these show that each exercise works end to end, not that it always will. Runs before October 2026 didn't record the commit; newer runs do (`provenance` in each summary.json). Per-exercise results and logs: [EXERCISE_INDEX.md](EXERCISE_INDEX.md), `solutions/outputs/`.
+Every exercise run with its reference solution by `run-chapter` (runs from 2026-09-27 to 2026-09-28; models: `claude-sonnet-5`, `qwen3.5:9b`). **163 of 164 executable checks pass automatically**; 1 intentionally demonstrates a failing quality gate, and **0** failed unexpectedly. A real model's answers vary from run to run, so these show that each exercise works end to end, not that it always will. Runs before October 2026 didn't record the commit; newer runs do (`provenance` in each summary.json). Per-exercise results and logs: [EXERCISE_INDEX.md](EXERCISE_INDEX.md), `solutions/outputs/`.
 
-How the totals count: the book has **237 exercises**; the table adds the 6 capstones, so it has 243 rows of work. Every count here, in EXERCISE_INDEX.md and in the book is computed from `course/exercises.json`. *Written answer* exercises have nothing to run; *needs a person* means a person at the keyboard, the Claude Desktop app, a GitHub token or a file the reader creates; *not run yet* means no run has been recorded for this version.
+How the totals count: the book has **246 exercises**; the table adds the 6 capstones, so it has 252 rows of work. Every count here, in EXERCISE_INDEX.md and in the book is computed from `course/exercises.json`. *Written answer* exercises have nothing to run; *needs a person* means a person at the keyboard, the Claude Desktop app, a GitHub token or a file the reader creates; *not run yet* means no run has been recorded for this version.
 
-| Chapter | Exercises | ✔ Passed | ✘ Failed | Written answer | Needs a person | Not run yet | Pass rate |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Chapter 0: Foundations | 7 | 4 | 0 | 2 | 1 | 0 | 100% |
-| Interlude: The Python You'll Need | 5 | 5 | 0 | 0 | 0 | 0 | 100% |
-| Chapter 1: What an Agent Is (and Isn't) | 9 | 4 | 0 | 5 | 0 | 0 | 100% |
-| Interlude: Testing with pytest | 4 | 4 | 0 | 0 | 0 | 0 | 100% |
-| Chapter 2: Tool Calling (Function Calling) | 6 | 4 | 0 | 2 | 0 | 0 | 100% |
-| Chapter 3: Tool Selection, Routing and Tool Search | 7 | 5 | 0 | 2 | 0 | 0 | 100% |
-| Chapter 4: The Agent Loop | 5 | 4 | 0 | 1 | 0 | 0 | 100% |
-| Chapter 5: State and Short-Term Memory | 7 | 5 | 0 | 2 | 0 | 0 | 100% |
-| Interlude: Regular Expressions | 4 | 4 | 0 | 0 | 0 | 0 | 100% |
-| Chapter 6: Agentic Search: Exploring an Environment | 6 | 4 | 0 | 1 | 1 | 0 | 100% |
-| Chapter 7: Real APIs | 6 | 2 | 0 | 2 | 2 | 0 | 100% |
-| Interlude: SQL in One Sitting | 4 | 4 | 0 | 0 | 0 | 0 | 100% |
-| Chapter 8: Self-Correction: A Text-to-SQL Agent | 7 | 2 | 0 | 2 | 3 | 0 | 100% |
-| Interlude: Measuring an Agent | 3 | 0 | 0 | 1 | 0 | 2 | — |
-| Chapter 9: Human-in-the-Loop Approval | 6 | 4 | 0 | 2 | 0 | 0 | 100% |
-| Chapter 10: Feedback Loops | 7 | 4 | 0 | 2 | 1 | 0 | 100% |
-| Interlude: Asynchronous Python | 4 | 4 | 0 | 0 | 0 | 0 | 100% |
-| Chapter 11: Multi-Agent Systems | 7 | 5 | 0 | 2 | 0 | 0 | 100% |
-| Chapter 12: MCP Fundamentals and Your First Server | 7 | 1 | 0 | 2 | 4 | 0 | 100% |
-| Chapter 13: Build Your Own MCP Client | 8 | 7 | 0 | 1 | 0 | 0 | 100% |
-| Chapter 14: Using Servers You Didn't Write | 5 | 1 | 0 | 2 | 2 | 0 | 100% |
-| Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure | 4 | 2 | 0 | 2 | 0 | 0 | 100% |
-| Chapter 16: Context Engineering | 8 | 6 | 0 | 2 | 0 | 0 | 100% |
-| Chapter 17: Agent Memory Engineering | 8 | 6 | 0 | 2 | 0 | 0 | 100% |
-| Chapter 18: Agentic RAG and Knowledge Systems | 9 | 7 | 0 | 2 | 0 | 0 | 100% |
-| Chapter 19: Long-Running Agents | 6 | 4 | 0 | 2 | 0 | 0 | 100% |
-| Chapter 20: Planning and Model Routing | 6 | 4 | 0 | 2 | 0 | 0 | 100% |
-| Chapter 21: Multi-Agent Orchestration | 6 | 4 | 0 | 2 | 0 | 0 | 100% |
-| Chapter 22: Hybrid Architectures: Probabilistic Intelligence, Deterministic Control | 6 | 4 | 0 | 2 | 0 | 0 | 100% |
-| Chapter 23: Computer-Use Agents | 6 | 4 | 0 | 2 | 0 | 0 | 100% |
-| Chapter 24: Skills, Frameworks and Agent Runtimes | 9 | 6 | 0 | 3 | 0 | 0 | 100% |
-| Chapter 25: Agentic Security | 6 | 4 | 0 | 2 | 0 | 0 | 100% |
-| Chapter 26: Agent Identity and Authorization | 6 | 4 | 0 | 2 | 0 | 0 | 100% |
-| Chapter 27: Agent Evaluation: Dimensions, Trajectories and Scorecards | 8 | 5 | 1 | 2 | 0 | 0 | 83% |
-| Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents | 7 | 6 | 0 | 1 | 0 | 0 | 100% |
-| Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost | 7 | 5 | 0 | 1 | 0 | 1 | 100% |
-| Chapter 30: Deploying Agents: From One Service to an Agent Platform | 11 | 9 | 0 | 2 | 0 | 0 | 100% |
-| Capstone projects C1–C6 | 6 | 6 | 0 | 0 | 0 | 0 | 100% |
-| **Total** | **243** | **163** | **1** | **62** | **14** | **3** | **99.4%** |
+| Chapter | Exercises | ✔ Passed | ✘ Failed | Gate, fails by design | Written answer | Needs a person | Not run yet | Pass rate |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Chapter 0: Foundations | 7 | 4 | 0 | 0 | 2 | 1 | 0 | 100% |
+| Interlude: The Python You'll Need | 5 | 5 | 0 | 0 | 0 | 0 | 0 | 100% |
+| Chapter 1: What an Agent Is (and Isn't) | 9 | 4 | 0 | 0 | 5 | 0 | 0 | 100% |
+| Interlude: Testing with pytest | 4 | 4 | 0 | 0 | 0 | 0 | 0 | 100% |
+| Chapter 2: Tool Calling (Function Calling) | 6 | 4 | 0 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 3: Tool Selection, Routing and Tool Search | 7 | 5 | 0 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 4: The Agent Loop | 5 | 4 | 0 | 0 | 1 | 0 | 0 | 100% |
+| Chapter 5: State and Short-Term Memory | 7 | 5 | 0 | 0 | 2 | 0 | 0 | 100% |
+| Interlude: Regular Expressions | 4 | 4 | 0 | 0 | 0 | 0 | 0 | 100% |
+| Chapter 6: Agentic Search: Exploring an Environment | 6 | 4 | 0 | 0 | 1 | 1 | 0 | 100% |
+| Chapter 7: Real APIs | 6 | 2 | 0 | 0 | 2 | 2 | 0 | 100% |
+| Interlude: SQL in One Sitting | 4 | 4 | 0 | 0 | 0 | 0 | 0 | 100% |
+| Chapter 8: Self-Correction: A Text-to-SQL Agent | 7 | 2 | 0 | 0 | 2 | 3 | 0 | 100% |
+| Interlude: Measuring an Agent | 3 | 0 | 0 | 0 | 1 | 0 | 2 | — |
+| Chapter 9: Human-in-the-Loop Approval | 6 | 4 | 0 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 10: Feedback Loops | 7 | 4 | 0 | 0 | 2 | 1 | 0 | 100% |
+| Interlude: Asynchronous Python | 4 | 4 | 0 | 0 | 0 | 0 | 0 | 100% |
+| Chapter 11: Multi-Agent Systems | 7 | 5 | 0 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 12: MCP Fundamentals and Your First Server | 7 | 1 | 0 | 0 | 2 | 4 | 0 | 100% |
+| Chapter 13: Build Your Own MCP Client | 8 | 7 | 0 | 0 | 1 | 0 | 0 | 100% |
+| Chapter 14: Using Servers You Didn't Write | 5 | 1 | 0 | 0 | 2 | 2 | 0 | 100% |
+| Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure | 4 | 2 | 0 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 16: Context Engineering | 8 | 6 | 0 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 17: Agent Memory Engineering | 9 | 6 | 0 | 0 | 2 | 0 | 1 | 100% |
+| Chapter 18: Agentic RAG and Knowledge Systems | 9 | 7 | 0 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 19: Long-Running Agents | 6 | 4 | 0 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 20: Planning and Model Routing | 6 | 4 | 0 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 21: Multi-Agent Orchestration | 7 | 4 | 0 | 0 | 2 | 0 | 1 | 100% |
+| Chapter 22: Hybrid Architectures: Probabilistic Intelligence, Deterministic Control | 6 | 4 | 0 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 23: Computer-Use Agents | 7 | 4 | 0 | 0 | 2 | 0 | 1 | 100% |
+| Chapter 24: Skills, Frameworks and Agent Runtimes | 10 | 6 | 0 | 0 | 3 | 0 | 1 | 100% |
+| Chapter 25: Agentic Security | 7 | 4 | 0 | 0 | 2 | 0 | 1 | 100% |
+| Chapter 26: Agent Identity and Authorization | 7 | 4 | 0 | 0 | 2 | 0 | 1 | 100% |
+| Chapter 27: Agent Evaluation: Dimensions, Trajectories and Scorecards | 8 | 5 | 0 | 1 | 2 | 0 | 0 | 100% |
+| Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents | 8 | 6 | 0 | 0 | 1 | 0 | 1 | 100% |
+| Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost | 8 | 5 | 0 | 0 | 1 | 0 | 2 | 100% |
+| Chapter 30: Deploying Agents: From One Service to an Agent Platform | 12 | 9 | 0 | 0 | 2 | 0 | 1 | 100% |
+| Capstone projects C1–C6 | 6 | 6 | 0 | 0 | 0 | 0 | 0 | 100% |
+| **Total** | **252** | **163** | **0** | **1** | **62** | **14** | **12** | **100.0%** |
 
-Failed: **27.8** (An agent scorecard: exit code 1).
+*Pass rate* counts passed against unexpected failures; a gate that fails by design is neither.
+
+Fails by design: **27.8** (An agent scorecard): a quality gate: its scorecard exits with an error by design when the model misses the thresholds.
 <!-- results:end -->
 
-**About the one failure.** Exercise 27.8 is a quality gate: its scorecard deliberately exits with an error when a model misses the thresholds (for the local model: 78% success against 80% required, reliability 50% against 60%, safety violations 11% against 0%). That's the exercise working as designed. Run it on Claude with `./course.sh run-chapter 27.8 --model claude`.
+**About the quality gate.** Exercise 27.8 is not a broken exercise. It is a quality gate: its scorecard deliberately exits with an error when a model misses the thresholds (for the local model: 78% success against 80% required, reliability 50% against 60%, safety violations 11% against 0%). That's the exercise working as designed. Run it on Claude with `./course.sh run-chapter 27.8 --model claude`.
 
 **What "skipped" means:** 6 *ask* exercises (you chat with the tools yourself), 4 that need a person at the keyboard (12.3–12.6), 2 that need a GitHub token (14.3, 14.4), 1 that needs a file you create (0.3), and 1 that needs the sandbox (10.7, `./course.sh sandbox up`).
 

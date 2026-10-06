@@ -117,6 +117,7 @@ MAP = {
     "14.5": R("python ch14_policy_agent.py servers_ecosystem.json", edit=["ch13_mcp_agent.py"],
                setup="[ -d .git ] || { git init -q . && git add -A && git -c user.name=course -c user.email=course@example.com commit -qm 'workspace snapshot'; }"),
     "25.6": B("ex25_6_redteam"),
+    "25.7": B("ex25_7_launch"),
     "27.3": R("python ch27_eval.py eval_sql.jsonl 3", edit=["eval_sql.jsonl"]),
     "29.1": R("python ch29_loadtest.py 4 && python ch29_loadtest.py 8 && python ch29_loadtest.py 12",
               edit=["ch29_loadtest.py"]),
@@ -139,6 +140,7 @@ MAP = {
     "17.3": R("python ch17_memory.py"),
     "16.5": B("ex16_5_cache_savings"),
     "17.8": B("ex17_8_assistant"),
+    "17.9": B("ex17_9_revert_batch"),
     "16.7": R("python ch16_programmatic.py"),
     "18.3": R("python ch18_rag.py search temperature units && python ch18_rag.py search ERR-4471"),
     "18.4": R("EMBEDDER=hashing python ch18_rag.py eval && EMBEDDER=local python ch18_rag.py eval"),
@@ -168,6 +170,7 @@ MAP = {
     "21.4": B("ex21_4_failures"),
     "21.5": B("ex21_5_a2a_team"),
     "21.6": B("ex21_6_mixed_team"),
+    "21.7": B("ex21_7_team_economics"),
     "22.3": R("python ch22_guarded.py", edit=["ch22_guarded.py"]),
     "22.4": B("ex22_4_policy_json"),
     "22.5": B("ex22_5_attacks"),
@@ -176,7 +179,9 @@ MAP = {
     "23.4": B("ex23_4_injection"),
     "23.5": B("ex23_5_verified_queue"),
     "23.6": B("ex23_6_durable_queue"),
+    "23.7": B("ex23_7_reliable_queue"),
     "24.8": B("ex24_8_skill_eval"),
+    "24.10": B("ex24_10_permission_gate"),
     "25.3": R("python ch25_guards.py", edit=["ch25_guards.py"]),
     "25.4": B("ex25_4_calendar"),
     "25.5": B("ex25_5_evasion"),
@@ -184,6 +189,7 @@ MAP = {
     "26.4": B("ex26_4_team_tokens"),
     "26.5": B("ex26_5_breaker"),
     "26.6": B("ex26_6_orders_api"),
+    "26.7": B("ex26_7_review_queue"),
     "27.6": B("ex27_6_trajectory"),
     "27.7": B("ex27_7_online"),
     "28.3": R("python ch28_otel.py && python ch28_agentops.py spans.jsonl", edit=["ch28_agentops.py"]),
@@ -196,11 +202,14 @@ MAP = {
     "30.9": B("ex30_9_scoped_search"),
     "30.10": B("ex30_10_jobs"),
     "30.11": B("ex30_11_gateway_agent"),
+    "30.12": B("ex30_12_shadow_slos"),
     "27.8": B("ex27_8_scorecard"),
     "28.6": B("ex28_6_dashboard"),
     "28.7": B("ex28_7_taxonomy"),
+    "28.8": B("ex28_8_network"),
     "29.6": B("ex29_6_experiment"),
     "29.7": B("ex29_7_crossover"),
+    "29.8": B("ex29_8_model_swap"),
 }
 
 # "{{t:label}}" in an exercise -> "Table 24.2", numbered exactly as course/build.js numbers
@@ -248,7 +257,8 @@ for md in sorted(p for p in MD.glob("[0-9][0-9]*.md") if p.stem not in SKIP):
         exercises.append(entry)
 
 # Exercises that never call the model: don't warn about a missing API key.
-NO_KEY = {"0.3", "0.4", "0.5", "0.6", "0.7", "18.3", "18.4", "18.5"}
+NO_KEY = {"0.3", "0.4", "0.5", "0.6", "0.7", "18.3", "18.4", "18.5",
+          "17.9", "21.7", "23.7", "24.10", "25.7", "26.7", "28.8", "29.8", "30.12"}   # offline
 for e in exercises:
     if e["id"] in NO_KEY or e["id"][0] in "PTRSA":
         e["nokey"] = True

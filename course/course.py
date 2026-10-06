@@ -720,6 +720,13 @@ def cmd_check(args):
         say(_c("2", "\nAdd --api to also make one tiny test call to the model."))
     return 1 if bad else 0
 
+def _cost(name: str) -> str:
+    """A figure from course/cost.json, written by dev/cost_model.py (the book quotes the same file)."""
+    try:
+        return json.loads((COURSE / "cost.json").read_text())[name]
+    except Exception:
+        return "see COST_MODEL.md"
+
 def cmd_quickstart(args):
     """Your first agent with a scripted stand-in model: no API key, no download."""
     os.chdir(WS)
@@ -873,6 +880,12 @@ LIVE_RUNS = [
     ("9", "ch28_agentops.py spans.jsonl", "", 0), ("9", "ch29_costs.py", "", 0),
     ("9", "ch27_scorecard.py", "", 0), ("9", "ch28_ops.py", "", 0), ("9", "ch29_perf.py", "", 0),
     ("9", "ch30_jobs_server.py", "", 0), ("9", "ch30_gateway.py", "", 0),
+    # offline demos added in the corrected printing: no model, so they cost nothing
+    ("6", "ch17_memory_security.py", "", 0), ("7", "ch21_coordination.py", "", 0),
+    ("7", "ch23_reliability.py", "", 0), ("7", "ch24_skill_registry.py", "", 0),
+    ("8", "ch25_risk.py", "", 0), ("8", "ch26_discovery.py", "", 0),
+    ("9", "ch28_profile.py", "", 0), ("9", "ch29_economics.py", "", 0),
+    ("9", "ch30_improvement_loop.py", "", 0),
 ]
 
 def cmd_live_check(args):
@@ -957,7 +970,7 @@ def cmd_live_exercises(args):
         say("Free, but slow on a CPU: allow several hours for all of them. Exercises marked "
             "'Claude only' are skipped.")
     else:
-        say("This uses your API key: roughly $5-15 for all of them.")
+        say(f"This uses your API key: about {_cost('first')} for one pass of every paid exercise (COST_MODEL.md).")
     if "--yes" not in args and input("Continue? [y/N] ").strip().lower() != "y":
         return 0
     rows, report = [], ["# Live exercise report", "",
@@ -1306,7 +1319,7 @@ def cmd_run_chapter(args):
         say("--free-only: only exercises that need no model run; the others are skipped.")
     elif uses_model:
         say("Free, but slow on a CPU: allow several hours for everything." if local else
-            "This uses your API key: roughly $5-15 for every chapter.")
+            f"This uses your API key: about {_cost('first')} for one pass of every chapter (COST_MODEL.md).")
         say("Your own files are not used or changed.")
         try:
             if not yes and input("Continue? [y/N] ").strip().lower() != "y":

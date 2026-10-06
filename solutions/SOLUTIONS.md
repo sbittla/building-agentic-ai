@@ -265,6 +265,7 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 17.6 Poison the memory | `exercises/ex17_6_poison.py`, `tests/test_part6.py` | Five poisoning attempts, all quarantined by layered defenses |
 | 17.7 A team memory | `exercises/ex17_7_team_memory.py`, `tests/test_part6.py` | Only the lead writes team memory; workers read it and keep private notes |
 | 17.8 A memory-backed assistant | `exercises/ex17_8_assistant.py` | A to-do assistant with policy-governed memory and a budget |
+| 17.9 Revert one bad batch | `exercises/ex17_9_revert_batch.py`, `tests/test_ch17_security.py` | `revert_batch` finds one batch's writes in the audit log and deletes those records and their content, keeping later good writes that a point-in-time rollback would lose; it leaves a revert audit entry without text, and no replay brings the batch back |
 
 ## Chapter 18: Agentic RAG and Knowledge Systems
 
@@ -312,6 +313,7 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 21.4 A specialist that fails | `exercises/ex21_4_failures.py`, `tests/test_part7.py` | A specialist that fails in three ways, each contained as an ERROR result for the lead, plus one more chance after a contract violation |
 | 21.5 A team of A2A agents | `exercises/ex21_5_a2a_team.py`, `tests/test_a2a.py` | Two agents published with A2A (analyst and to-do keeper), found by their cards and used by one coordinator |
 | 21.6 A mixed team | `exercises/ex21_6_mixed_team.py`, `tests/test_a2a.py` | A team with a remote member. The A2A analyst runs in this process on its own port; the lead delegates to it and to the local analyst, compares the answers, and sends a disagreement to the checker |
+| 21.7 Where does the team pay? | `exercises/ex21_7_team_economics.py`, `tests/test_ch21_coordination.py` | Sweeps tool latency on the simulator to find where a lead with workers beats one agent on p95 (from 2 s tools when the agent runs tools one after another; never when it runs them in parallel), and uses `failure_propagation` to find how many workers keep every-part-right at or above 80% |
 
 ## Chapter 22: Hybrid Architectures: Probabilistic Intelligence, Deterministic Control
 
@@ -334,6 +336,7 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 23.4 The injected note | `exercises/ex23_4_injection.py`, `tests/test_part7.py` | The agent updates Ben's address while his customer notes try to get a $500 credit and an email change. The harness, not the model, stops it |
 | 23.5 Verify, don't trust | `exercises/ex23_5_verified_queue.py`, `tests/test_part7.py` | A queue of address changes, each verified in code by reading the page directly, not by trusting the agent's final answer |
 | 23.6 A queue that survives a crash | `exercises/ex23_6_durable_queue.py`, `tests/test_part7.py` | The browser queue as a Chapter 19 durable job. Each request is a step; address changes are run by the agent and verified in code; credits wait for a person. A crash loses nothing: finished requests stay finished |
+| 23.7 A reliable queue | `exercises/ex23_7_reliable_queue.py`, `tests/test_ch23_reliability.py` | Four back-office requests through the reliable action wrapper on the offline browser with injected faults (missing control, a credit click that never lands, an expired session), then resumed after the person signs in again: each address written once, no duplicate credit, every hand-off logged with snapshot evidence |
 
 ## Chapter 24: Skills, Frameworks and Agent Runtimes
 
@@ -348,6 +351,7 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 24.7 A managed analyst | `exercises/ex24_7_managed.py` | A managed session to completion, and one stopped by a tiny budget |
 | 24.8 Does the skill help? | `exercises/ex24_8_skill_eval.py`, `tests/test_part7.py` | Does the sql-report skill help? Run each request with and without the skill and check the answer's shape in code |
 | 24.9 Choose a runtime | `ANSWERS.md` | The runtime follows from where state must live, how long work runs, and who operates the infrastructure |
+| 24.10 Hold a permission change | `exercises/ex24_10_permission_gate.py`, `tests/test_ch24_skill_registry.py` | A gate in front of `promote`: a skill version that adds permissions must be a new major version and needs a named reviewer's approval before release |
 
 ## Chapter 25: Agentic Security
 
@@ -359,6 +363,7 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 25.4 Quarantine a second source | `exercises/ex25_4_calendar.py`, `tests/test_part8.py` | Calendar invites as a second untrusted source. Only metadata reaches the planner; descriptions go through the quarantined reader |
 | 25.5 Evade the guard, then fix it | `exercises/ex25_5_evasion.py`, `tests/test_part8.py` | Five ways to sneak the canary past the leak scan, and a scan that normalizes before it searches |
 | 25.6 Red team your agent | `exercises/ex25_6_redteam.py` | Red-team the agent with 6 planted attacks x 3 defenses |
+| 25.7 A launch gate from the risk model | `exercises/ex25_7_launch.py`, `tests/test_ch25_risk.py` | Scores the section 25.1 coding agent (54, tier 3), refuses launch and names the missing controls, and shows which single factor cut keeps it useful while dropping it to tier 2 |
 
 ## Chapter 26: Agent Identity and Authorization
 
@@ -370,6 +375,7 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 26.4 Tokens for a team | `exercises/ex26_4_team_tokens.py`, `tests/test_part8.py` | The Chapter 21 team with tokens. The lead's token is attenuated for each specialist: fewer scopes, a shorter life, a record of where it came from. Tools check the token; agents never see it |
 | 26.5 An audit circuit breaker | `exercises/ex26_5_breaker.py`, `tests/test_part8.py` | An audit circuit breaker. A burst of denials, or any attempt on another user's resource, disables the agent at once |
 | 26.6 A token-checked API | `exercises/ex26_6_orders_api.py`, `tests/test_part8.py` | The order tools as an HTTP API that checks bearer tokens. The harness holds the token, renews it when it expires, and the model never sees it |
+| 26.7 A review queue for new versions | `exercises/ex26_7_review_queue.py`, `tests/test_ch26_discovery.py` | Signed-but-unreviewed capability versions wait in a queue with their hash and the scopes that will be dropped; approval pins only the exact hash the reviewer read, so a rug pull falls back to the reviewed version |
 
 ## Chapter 27: Agent Evaluation: Dimensions, Trajectories and Scorecards
 
@@ -395,6 +401,7 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 28.5 An SLO dashboard with burn alerts | `exercises/ex28_5_burn.py`, `tests/test_part9.py` | Hourly SLO reports and an error-budget burn alert: more than 10% failures (for a 90% objective) in two consecutive hours |
 | 28.6 A production dashboard | `exercises/ex28_6_dashboard.py` | A one-page static dashboard: headline tiles, SLOs met or missed, failure classes, per-tool latency |
 | 28.7 Classify real failures | `exercises/ex28_7_taxonomy.py` | Runs classified with the 12-class taxonomy, printed as failure, detection, mitigation, evaluation |
+| 28.8 Find a network incident | `exercises/ex28_8_network.py`, `tests/test_ch28_profile.py` | Adds an `fx_rates` tool and a network incident to the synthetic traffic; the diagnosis names the network for `fx_rates`, leaves the other verdicts unchanged, and shows why joining stack samples on span id beats joining on time alone |
 
 ## Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost
 
@@ -407,6 +414,7 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 29.5 Halve the cost | `exercises/ex29_5_cost_cut.py`, `tests/test_part9.py` | Cost per successful task before and after two levers: routing easy cases to the small model, and caching the stable prefix |
 | 29.6 Find the knee | `exercises/ex29_6_experiment.py` | A concurrency sweep with the real agent: throughput, goodput, percentiles and the knee |
 | 29.7 Benchmark before you choose | `exercises/ex29_7_crossover.py`, `tests/test_ch29_benchmark.py` | Raises the small model's simulated error rate from 10% to 50%: it stays cheaper per success throughout while its success falls to 55%, so a success floor, not cost per success, decides |
+| 29.8 Is the cheaper model cheaper for the business? | `exercises/ex29_8_model_swap.py`, `tests/test_ch29_economics.py` | Compares the support agent's business case on Sonnet 5 and Haiku 4.5 at 3–6% failure rates: Haiku's token saving disappears at a failure rate a fraction of a point above Sonnet's |
 
 ## Chapter 30: Deploying Agents: From One Service to an Agent Platform
 
@@ -423,3 +431,4 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 30.9 Search what you may use | `exercises/ex30_9_scoped_search.py`, `tests/test_part5_mcp2026.py` | search_tools filtered by the caller's token scopes |
 | 30.10 Fewer polls, safe retries | `exercises/ex30_10_jobs.py`, `tests/test_part5_mcp2026.py` | A long-polling job_status: one call instead of several; the same request_id gives the same job |
 | 30.11 An agent behind the gateway | `exercises/ex30_11_gateway_agent.py`, `tests/test_part5_mcp2026.py` | The Chapter 13 agent behind a stdio gateway: tools found by search, writes allowed, the order query refused and audited |
+| 30.12 Catch it in shadow | `exercises/ex30_12_shadow_slos.py`, `tests/test_ch30_improvement_loop.py` | A stricter shadow stage that also measures p95 latency and cost per task from both versions' traces, so the slow release is rejected in shadow before any user sees it, and a pricier candidate is rejected for cost |

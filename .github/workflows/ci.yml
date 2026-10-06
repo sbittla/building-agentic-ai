@@ -16,6 +16,8 @@ jobs:
           python-version: "3.12"
       - name: Every exercise id, file, command and cross-reference in the book resolves
         run: python dev/check_references.py
+      - name: Cost figures are current
+        run: python dev/cost_model.py --check
       - name: README counts and EXERCISE_INDEX.md are up to date
         run: |
           python dev/exercise_index.py

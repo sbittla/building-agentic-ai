@@ -358,6 +358,7 @@ Logs: [`solutions/outputs/ch17/`](solutions/outputs/ch17/)
 | 17.6 | Poison the memory | Medium | Build | No model | [`ex17_6_poison.py`](solutions/exercises/ch17/ex17_6_poison.py)<br>[`test_part6.py`](solutions/tests/test_part6.py) | ✔ passed (qwen3.5:9b, 0 s) |
 | 17.7 | A team memory | Medium | Build | No model | [`ex17_7_team_memory.py`](solutions/exercises/ch17/ex17_7_team_memory.py)<br>[`test_part6.py`](solutions/tests/test_part6.py) | ✔ passed (qwen3.5:9b, 0 s) |
 | 17.8 | A memory-backed assistant | Complex | Build | Local or Claude | [`ex17_8_assistant.py`](solutions/exercises/ch17/ex17_8_assistant.py) | ✔ passed (qwen3.5:9b, 141 s) |
+| 17.9 | Revert one bad batch | Medium | Build | No model | [`ex17_9_revert_batch.py`](solutions/exercises/ch17/ex17_9_revert_batch.py)<br>[`test_ch17_security.py`](solutions/tests/test_ch17_security.py) | not run yet |
 
 ## Chapter 18: Agentic RAG and Knowledge Systems
 
@@ -413,6 +414,7 @@ Logs: [`solutions/outputs/ch21/`](solutions/outputs/ch21/)
 | 21.4 | A specialist that fails | Medium | Build | Local or Claude | [`ex21_4_failures.py`](solutions/exercises/ch21/ex21_4_failures.py)<br>[`test_part7.py`](solutions/tests/test_part7.py) | ✔ passed (qwen3.5:9b, 2 s) |
 | 21.5 | A team of A2A agents | Medium | Build | Local or Claude | [`ex21_5_a2a_team.py`](solutions/exercises/ch21/ex21_5_a2a_team.py)<br>[`test_a2a.py`](solutions/tests/test_a2a.py) | ✔ passed (qwen3.5:9b, 28 s) |
 | 21.6 | A mixed team | Complex | Build | Claude recommended | [`ex21_6_mixed_team.py`](solutions/exercises/ch21/ex21_6_mixed_team.py)<br>[`test_a2a.py`](solutions/tests/test_a2a.py) | ✔ passed (qwen3.5:9b, 41 s) |
+| 21.7 | Where does the team pay? | Medium | Build | No model | [`ex21_7_team_economics.py`](solutions/exercises/ch21/ex21_7_team_economics.py)<br>[`test_ch21_coordination.py`](solutions/tests/test_ch21_coordination.py) | not run yet |
 
 ## Chapter 22: Hybrid Architectures: Probabilistic Intelligence, Deterministic Control
 
@@ -439,6 +441,7 @@ Logs: [`solutions/outputs/ch23/`](solutions/outputs/ch23/)
 | 23.4 | The injected note | Medium | Build | Claude recommended | [`ex23_4_injection.py`](solutions/exercises/ch23/ex23_4_injection.py)<br>[`test_part7.py`](solutions/tests/test_part7.py) | ✔ passed (qwen3.5:9b, 46 s) |
 | 23.5 | Verify, don't trust | Medium | Build | Claude recommended | [`ex23_5_verified_queue.py`](solutions/exercises/ch23/ex23_5_verified_queue.py)<br>[`test_part7.py`](solutions/tests/test_part7.py) | ✔ passed (qwen3.5:9b, 93 s) |
 | 23.6 | A queue that survives a crash | Complex | Build | Claude recommended | [`ex23_6_durable_queue.py`](solutions/exercises/ch23/ex23_6_durable_queue.py)<br>[`test_part7.py`](solutions/tests/test_part7.py) | ✔ passed (qwen3.5:9b, 45 s) |
+| 23.7 | A reliable queue | Medium | Build | No model | [`ex23_7_reliable_queue.py`](solutions/exercises/ch23/ex23_7_reliable_queue.py)<br>[`test_ch23_reliability.py`](solutions/tests/test_ch23_reliability.py) | not run yet |
 
 ## Chapter 24: Skills, Frameworks and Agent Runtimes
 
@@ -455,6 +458,7 @@ Logs: [`solutions/outputs/ch24/`](solutions/outputs/ch24/)
 | 24.7 | A managed analyst | Complex | Run chapter code | Claude only | [`ex24_7_managed.py`](solutions/exercises/ch24/ex24_7_managed.py) | ✔ passed (claude-sonnet-5, 29 s) |
 | 24.8 | Does the skill help? | Medium | Build | Local or Claude | [`ex24_8_skill_eval.py`](solutions/exercises/ch24/ex24_8_skill_eval.py)<br>[`test_part7.py`](solutions/tests/test_part7.py) | ✔ passed (qwen3.5:9b, 379 s) |
 | 24.9 | Choose a runtime | Concept | Written answer | No model | — | written answer |
+| 24.10 | Hold a permission change | Medium | Build | No model | [`ex24_10_permission_gate.py`](solutions/exercises/ch24/ex24_10_permission_gate.py)<br>[`test_ch24_skill_registry.py`](solutions/tests/test_ch24_skill_registry.py) | not run yet |
 
 ## Chapter 25: Agentic Security
 
@@ -468,6 +472,7 @@ Logs: [`solutions/outputs/ch25/`](solutions/outputs/ch25/)
 | 25.4 | Quarantine a second source | Medium | Build | Local or Claude | [`ex25_4_calendar.py`](solutions/exercises/ch25/ex25_4_calendar.py)<br>[`test_part8.py`](solutions/tests/test_part8.py) | ✔ passed (qwen3.5:9b, 216 s) |
 | 25.5 | Evade the guard, then fix it | Medium | Build | No model | [`ex25_5_evasion.py`](solutions/exercises/ch25/ex25_5_evasion.py)<br>[`test_part8.py`](solutions/tests/test_part8.py) | ✔ passed (qwen3.5:9b, 0 s) |
 | 25.6 | Red team your agent | Complex | Build | Local or Claude | [`ex25_6_redteam.py`](solutions/exercises/ch25/ex25_6_redteam.py) | ✔ passed (qwen3.5:9b, 408 s) |
+| 25.7 | A launch gate from the risk model | Medium | Build | No model | [`ex25_7_launch.py`](solutions/exercises/ch25/ex25_7_launch.py)<br>[`test_ch25_risk.py`](solutions/tests/test_ch25_risk.py) | not run yet |
 
 ## Chapter 26: Agent Identity and Authorization
 
@@ -481,6 +486,7 @@ Logs: [`solutions/outputs/ch26/`](solutions/outputs/ch26/)
 | 26.4 | Tokens for a team | Medium | Build | Local or Claude | [`ex26_4_team_tokens.py`](solutions/exercises/ch26/ex26_4_team_tokens.py)<br>[`test_part8.py`](solutions/tests/test_part8.py) | ✔ passed (qwen3.5:9b, 36 s) |
 | 26.5 | An audit circuit breaker | Medium | Build | No model | [`ex26_5_breaker.py`](solutions/exercises/ch26/ex26_5_breaker.py)<br>[`test_part8.py`](solutions/tests/test_part8.py) | ✔ passed (qwen3.5:9b, 0 s) |
 | 26.6 | A token-checked API | Complex | Build | Local or Claude | [`ex26_6_orders_api.py`](solutions/exercises/ch26/ex26_6_orders_api.py)<br>[`test_part8.py`](solutions/tests/test_part8.py) | ✔ passed (qwen3.5:9b, 6 s) |
+| 26.7 | A review queue for new versions | Medium | Build | No model | [`ex26_7_review_queue.py`](solutions/exercises/ch26/ex26_7_review_queue.py)<br>[`test_ch26_discovery.py`](solutions/tests/test_ch26_discovery.py) | not run yet |
 
 ## Chapter 27: Agent Evaluation: Dimensions, Trajectories and Scorecards
 
@@ -510,6 +516,7 @@ Logs: [`solutions/outputs/ch28/`](solutions/outputs/ch28/)
 | 28.5 | An SLO dashboard with burn alerts | Complex | Build | No model | [`ex28_5_burn.py`](solutions/exercises/ch28/ex28_5_burn.py)<br>[`test_part9.py`](solutions/tests/test_part9.py) | ✔ passed (qwen3.5:9b, 2 s) |
 | 28.6 | A production dashboard | Medium | Build | No model | [`ex28_6_dashboard.py`](solutions/exercises/ch28/ex28_6_dashboard.py)<br>[`test_ch28_ops.py`](solutions/tests/test_ch28_ops.py) | ✔ passed (qwen3.5:9b, 2 s) |
 | 28.7 | Classify real failures | Medium | Build | No model | [`ex28_7_taxonomy.py`](solutions/exercises/ch28/ex28_7_taxonomy.py)<br>[`test_ch28_ops.py`](solutions/tests/test_ch28_ops.py) | ✔ passed (qwen3.5:9b, 2 s) |
+| 28.8 | Find a network incident | Medium | Build | No model | [`ex28_8_network.py`](solutions/exercises/ch28/ex28_8_network.py)<br>[`test_ch28_profile.py`](solutions/tests/test_ch28_profile.py) | not run yet |
 
 ## Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost
 
@@ -524,6 +531,7 @@ Logs: [`solutions/outputs/ch29/`](solutions/outputs/ch29/)
 | 29.5 | Halve the cost | Medium | Build | Claude recommended | [`ex29_5_cost_cut.py`](solutions/exercises/ch29/ex29_5_cost_cut.py)<br>[`test_part9.py`](solutions/tests/test_part9.py) | ✔ passed (qwen3.5:9b, 272 s) |
 | 29.6 | Find the knee | Complex | Build | Local or Claude | [`ex29_6_experiment.py`](solutions/exercises/ch29/ex29_6_experiment.py)<br>[`test_ch29_perf.py`](solutions/tests/test_ch29_perf.py) | ✔ passed (qwen3.5:9b, 148 s) |
 | 29.7 | Benchmark before you choose | Medium | Build | No model | [`ex29_7_crossover.py`](solutions/exercises/ch29/ex29_7_crossover.py)<br>[`test_ch29_benchmark.py`](solutions/tests/test_ch29_benchmark.py) | not run yet |
+| 29.8 | Is the cheaper model cheaper for the business? | Medium | Build | No model | [`ex29_8_model_swap.py`](solutions/exercises/ch29/ex29_8_model_swap.py)<br>[`test_ch29_economics.py`](solutions/tests/test_ch29_economics.py) | not run yet |
 
 ## Chapter 30: Deploying Agents: From One Service to an Agent Platform
 
@@ -542,6 +550,7 @@ Logs: [`solutions/outputs/ch30/`](solutions/outputs/ch30/)
 | 30.9 | Search what you may use | Medium | Build | No model | [`ex30_9_scoped_search.py`](solutions/exercises/ch30/ex30_9_scoped_search.py)<br>[`test_part5_mcp2026.py`](solutions/tests/test_part5_mcp2026.py) | ✔ passed (qwen3.5:9b, 2 s) |
 | 30.10 | Fewer polls, safe retries | Medium | Build | No model | [`ex30_10_jobs.py`](solutions/exercises/ch30/ex30_10_jobs.py)<br>[`test_part5_mcp2026.py`](solutions/tests/test_part5_mcp2026.py) | ✔ passed (qwen3.5:9b, 6 s) |
 | 30.11 | An agent behind the gateway | Complex | Build | Local or Claude | [`ex30_11_gateway_agent.py`](solutions/exercises/ch30/ex30_11_gateway_agent.py)<br>[`test_part5_mcp2026.py`](solutions/tests/test_part5_mcp2026.py) | ✔ passed (qwen3.5:9b, 53 s) |
+| 30.12 | Catch it in shadow | Medium | Build | No model | [`ex30_12_shadow_slos.py`](solutions/exercises/ch30/ex30_12_shadow_slos.py)<br>[`test_ch30_improvement_loop.py`](solutions/tests/test_ch30_improvement_loop.py) | not run yet |
 
 ## Capstone projects
 

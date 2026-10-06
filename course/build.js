@@ -657,7 +657,11 @@ const read = f => readRaw(f).replace(/^@@exercise-model-table$/m, () => exercise
   COUNTS = COUNTS || exerciseCounts();
   const n = COUNTS[k] || 0;
   return word ? (WORDS[n] || String(n)) : String(n);
+}).replace(/\{\{cost:([\w-]+)\}\}/g, (_, k) => {           // "{{cost:learner}}": from dev/cost_model.py
+  if (!(k in COSTS)) throw new Error(`{{cost:${k}}}: no such figure in course/cost.json`);
+  return COSTS[k];
 });
+const COSTS = JSON.parse(fs.readFileSync(path.join(ROOT, "cost.json"), "utf8"));
 const h1 = f => read(f).match(/^# (.+)$/m)[1].trim();
 
 // ---------- numbering plan for tables, figures and listings ----------

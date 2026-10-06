@@ -94,7 +94,7 @@ Table: What your computer needs, by model
 | Disk | About 15 GB for the image and data | About 25 GB: the image, data and the 6.6 GB model |
 | Graphics card | Not needed | Optional: an NVIDIA GPU with 8 GB or more makes it fast |
 | Network | To build the image once, then to reach the Claude API | To build the image and download the model once; then none |
-| Money | An API key with a few dollars of credit; about $35–75 for the whole book | Nothing |
+| Money | An API key with a few dollars of credit; about {{cost:learner}} for the whole book | Nothing |
 
 You can start with no model at all: the quick start below, the offline self-test and the 100-plus exercises marked *No model* need neither a key nor the download.
 
@@ -167,7 +167,7 @@ Table: Claude or the free local model
 | | Claude (the default) | Free local model |
 | --- | --- | --- |
 | Model | `claude-sonnet-5` through the Claude API | `qwen3.5:9b`, an open-source model, in a Docker container on your computer |
-| Cost | Pay per use: about $35–75 for the whole book | Free |
+| Cost | Pay per use: about {{cost:learner}} for the whole book | Free |
 | Needs | An API key (Chapter 0, section 0.5) | 16 GB of RAM (32 GB recommended), 10 GB of disk; a GPU is optional |
 | Speed | A few seconds per answer | A few seconds with a GPU; up to a minute or more on a CPU |
 | Quality | Best: agents rarely pick the wrong tool | Good for learning; makes more mistakes from Chapter 8 on |
@@ -277,7 +277,7 @@ Appendix F maps the whole `solutions` folder. Try each exercise yourself before 
 
 ## Cost and safety
 
-With Claude, every model call costs money, and an agent makes many calls per question. With Claude Sonnet 5, doing every chapter and exercise typically costs **$35–75 in total**; Appendix E breaks this down by part. With the free local model (Appendix H), calls cost nothing but time. Chapter 4 shows you how to log token counts so you always know what a run cost. To keep costs down:
+With Claude, every model call costs money, and an agent makes many calls per question. With Claude Sonnet 5, doing every chapter and exercise costs about **{{cost:learner}} in total**, counting reruns ({{cost:first}} for one clean pass); Appendix E breaks this down by part and states every assumption. With the free local model (Appendix H), calls cost nothing but time. Chapter 4 shows you how to log token counts so you always know what a run cost. To keep costs down:
 
 - Set a monthly spending limit in the Claude Console before you start.
 - Use a smaller, cheaper model while developing (set `MODEL=claude-haiku-4-5` in `.env`) and a larger one for evaluations.

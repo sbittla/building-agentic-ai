@@ -80,11 +80,18 @@ def chapters():
     return order
 
 
+# Exercises whose reference run is MEANT to fail: a quality gate that exits with an error when
+# the model misses its thresholds. Counted apart, so a reader never mistakes them for bugs.
+INTENDED_FAILURES = {"27.8": "a quality gate: its scorecard exits with an error by design when the model misses the thresholds"}
+
+
 def tally(entries):
-    t = {"passed": 0, "failed": 0, "written": 0, "skipped": 0, "not run": 0}
+    t = {"passed": 0, "failed": 0, "gate": 0, "written": 0, "skipped": 0, "not run": 0}
     for x in entries:
         if not x:
             t["not run"] += 1
+        elif x["status"] == "failed" and x.get("id") in INTENDED_FAILURES:
+            t["gate"] += 1
         elif x["status"] in ("passed", "failed"):
             t[x["status"]] += 1
         elif (x.get("reason") or "").startswith("concept"):
@@ -164,19 +171,23 @@ def results_table(res):
     for _, _, t in rows:
         for k in total:
             total[k] += t[k]
-    ran = total["passed"] + total["failed"]
+    ran = total["passed"] + total["failed"] + total["gate"]
     dates = sorted(json.loads(p.read_text(encoding="utf-8")).get("date", "")
                    for p in OUTPUTS.glob("*/summary.json"))
     models = sorted({short_model(x.get("model")) for x in res.values() if short_model(x.get("model"))})
     commits = sorted({x["commit"] for x in res.values() if x.get("commit")})
     fails = [f"**{i}** ({x['title']}: {x.get('reason')})" for i, x in res.items()
-             if x["status"] == "failed"]
+             if x["status"] == "failed" and i not in INTENDED_FAILURES]
+    gates = [f"**{i}** ({res[i]['title']}): {why}" for i, why in INTENDED_FAILURES.items()
+             if res.get(i, {}).get("status") == "failed"]
     out = [BEGIN, *offline_summary(),
            "### B. Exercises run with a real model", "",
            f"Every exercise run with its reference solution by `run-chapter` "
            f"(runs from {dates[0][:10]} to {dates[-1][:10]}; models: {', '.join(f'`{m}`' for m in models)}). "
-           f"**{total['passed']} of {ran} runnable exercises passed "
-           f"({100 * total['passed'] / max(ran, 1):.1f}%)**. A real model's answers vary from run to "
+           f"**{total['passed']} of {ran} executable checks pass automatically**"
+           + (f"; {total['gate']} intentionally demonstrate{'s' if total['gate'] == 1 else ''} a failing quality gate"
+              if total["gate"] else "")
+           + f", and **{total['failed']}** failed unexpectedly. A real model's answers vary from run to "
            f"run, so these show that each exercise works end to end, not that it always will. "
            + (f"Commits: {', '.join(f'`{c}`' for c in commits)}. " if commits else
               "Runs before October 2026 didn't record the commit; newer runs do (`provenance` in each summary.json). ")
@@ -187,16 +198,19 @@ def results_table(res):
            f"`course/exercises.json`. *Written answer* exercises have nothing to run; *needs a person* "
            f"means a person at the keyboard, the Claude Desktop app, a GitHub token or a file the "
            f"reader creates; *not run yet* means no run has been recorded for this version.", "",
-           "| Chapter | Exercises | ✔ Passed | ✘ Failed | Written answer | Needs a person | Not run yet | Pass rate |",
-           "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |"]
+           "| Chapter | Exercises | ✔ Passed | ✘ Failed | Gate, fails by design | Written answer | Needs a person | Not run yet | Pass rate |",
+           "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |"]
     for title, n, t in rows:
         r = t["passed"] + t["failed"]
         rate = f"{100 * t['passed'] / r:.0f}%" if r else "—"
-        out.append(f"| {title} | {n} | {t['passed']} | {t['failed']} | {t['written']} | "
+        out.append(f"| {title} | {n} | {t['passed']} | {t['failed']} | {t['gate']} | {t['written']} | "
                    f"{t['skipped']} | {t['not run']} | {rate} |")
     out.append(f"| **Total** | **{sum(n for _, n, _ in rows)}** | **{total['passed']}** | "
-               f"**{total['failed']}** | **{total['written']}** | **{total['skipped']}** | "
-               f"**{total['not run']}** | **{100 * total['passed'] / max(ran, 1):.1f}%** |")
+               f"**{total['failed']}** | **{total['gate']}** | **{total['written']}** | **{total['skipped']}** | "
+               f"**{total['not run']}** | **{100 * total['passed'] / max(total['passed'] + total['failed'], 1):.1f}%** |")
+    out += ["", "*Pass rate* counts passed against unexpected failures; a gate that fails by design is neither."]
+    if gates:
+        out += ["", "Fails by design: " + "; ".join(gates) + "."]
     if fails:
         out += ["", "Failed: " + "; ".join(fails) + "."]
     out.append(END)

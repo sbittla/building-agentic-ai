@@ -266,28 +266,28 @@ Table: Glossary
 
 ## Appendix E: What the Exercises Cost
 
-Costs depend on the model, how often you rerun exercises, and how long your conversations get. These estimates assume Claude Sonnet 5 at $2 per million input tokens and $10 per million output tokens (2026 prices), a typical exercise run of 3–6 model calls, and a few reruns while debugging. Check current prices on the provider's pricing page.
+Costs depend on the model, how often you rerun exercises, and how long your conversations get. The estimates below come from one cost model, `dev/cost_model.py` in the course kit, which also writes the kit's `COST_MODEL.md`; every cost figure in this book and the kit's README comes from it. It assumes Claude Sonnet 5 at $2 per million input tokens and $10 per million output tokens (2026 prices), and an *agent run* (one task) of 3–4 model calls with 2,500–3,000 input and 500–700 output tokens per call, about {{cost:run}}. It counts how many agent runs each paid exercise makes: most make one, but evaluation suites, benchmarks and load tests make dozens. One clean pass of every paid exercise is {{cost:first}}; a learner reruns while debugging and tries variations, so the table doubles that. Check current prices on the provider's pricing page.
 
-Table: Estimated cost by part
-| Part | Estimated cost | Biggest items |
-| --- | --- | --- |
-| 0. Foundations | Under $0.10 | Exercise 0.6 and `check --api` only |
-| 1. Your first agent | $2–4 | Routing evals (3.4, 3.6), tool search (3.7), cost profile (4.5) |
-| 2. State and environment | $3–6 | The 2,000-note scale test (6.6) |
-| 3. Real-world tools | $2–5 | SQL evaluation harness (8.7) |
-| 4. Autonomy | $6–12 | Fixer benchmark (10.7), multi-agent comparison (11.6), the four patterns (11.7) |
-| 5. MCP and interoperability | $2–5 | Coordinator with an analyst agent (13.8) |
-| 6. Context, memory and knowledge | $3–8 | Caching savings (16.5), retrieval evaluation (18.6), verified answers (18.9) |
-| 7. Advanced agent architectures | $6–15 | Router evaluation (20.5), mixed team (21.6), browser queues (23.5, 23.6), framework comparison (24.5), managed agents (24.7) |
-| 8. Trust | $1–4 | Red-team drill (25.6) |
-| 9. Production engineering | $8–20 | Load testing a real agent (29.2), API load drill (30.6) |
-| **All chapters** | **About $35–75** | |
-| Each capstone | $3–10 | Evaluation runs and load tests |
-| Cloud deployment (30.7) | Usually $0 on a free tier | The host's own charges; set a budget alert and delete the service afterward |
+Table: Estimated cost by part, for a learner (twice the first pass, for reruns)
+| Part | Paid exercises | Agent runs, first pass | Estimated cost | Biggest items |
+| --- | ---: | ---: | --- | --- |
+| 0. Foundations | 0 | 0 | $0 | — |
+| 1. Your first agent | 17 | 124 | $7.4–13 | 4.5 (50 runs), 3.4 (20 runs), 3.6 (20 runs) |
+| 2. State and environment | 9 | 42 | $2.5–4.4 | 6.6 (30 runs), 6.2 (3 runs), 6.5 (3 runs) |
+| 3. Real-world tools | 14 | 118 | $7.1–12 | M.3 (72 runs), 8.7 (15 runs), 7.6 (10 runs) |
+| 4. Autonomy | 10 | 61 | $3.7–6.3 | 10.7 (30 runs), 11.6 (20 runs), 11.7 (4 runs) |
+| 5. MCP and interoperability | 9 | 11 | $0.66–1.1 | 13.8 (3 runs) |
+| 6. Context, memory and knowledge | 13 | 49 | $2.9–5.1 | 16.5 (15 runs), 18.6 (10 runs), 18.5 (8 runs) |
+| 7. Advanced agent architectures | 23 | 133 | $8–14 | 24.5 (72 runs), 20.5 (24 runs), 21.6 (10 runs) |
+| 8. Trust | 5 | 22 | $1.3–2.3 | 25.6 (18 runs) |
+| 9. Production engineering | 17 | 378 | $23–39 | 30.6 (200 runs), 29.2 (50 runs), 29.5 (48 runs) |
+| **All chapters** | **117** | **938** | **About $55–100** | First pass alone: $28–49 |
+| Each capstone | — | about 120 | $7.2–12 | Evaluation runs and a load test |
+| Cloud deployment (30.7) | — | — | Usually $0 on a free tier | The host's own charges; set a budget alert and delete the service afterward |
 
 Claude Sonnet 5 uses a new tokenizer that counts about 30% more tokens for the same text than earlier models, and thinking is billed as output, so compare costs by measuring your own runs rather than by reusing older token counts. With Claude Haiku 4.5 ($1 input, $5 output per million tokens), the totals are roughly half. Prompt caching (Chapter 16) and smaller tool outputs cut them further. Running `./course.sh check-solutions` is always free.
 
-**Or pay nothing:** with the free local model (`PROVIDER=local`, Appendix H), every exercise except the {{exercises-word:claude-only}} marked **Claude only** costs nothing. A sensible budget plan is to do the book locally and buy a few dollars of Claude credit for those five and the four marked **Claude recommended**.
+**Or pay nothing:** with the free local model (`PROVIDER=local`, Appendix H), every exercise except the {{exercises-word:claude-only}} marked **Claude only** costs nothing. A sensible budget plan is to do the book locally and buy a few dollars of Claude credit for those {{exercises-word:claude-only}} and the {{exercises-word:claude-rec}} marked **Claude recommended**. If you use Claude throughout, the table's biggest items (the load tests and evaluation suites) are the ones worth running on the local model or Claude Haiku 4.5 first.
 
 ### Estimate a run yourself
 
@@ -570,7 +570,7 @@ Ask: can I draw the flowchart first? What does a wrong step cost? Can I tell whe
 
 Autonomy, state, planning, tool use, environmental interaction, persistence, feedback, delegation, adaptation. Turn up only the dimensions the task needs; each one adds a way to fail and needs its own controls.
 
-### Card 3: The agent architecture reference model (sections 1.7 and 30.14)
+### Card 3: The agent architecture reference model (sections 1.7 and 30.15)
 
 User / API → agent runtime (planning, memory, context, tools, policies) → model → MCP, APIs, A2A → environment, with evaluation and observability across every layer.
 

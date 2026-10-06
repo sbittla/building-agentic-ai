@@ -624,5 +624,41 @@
  "29.7": [
   "exercises/ex29_7_crossover.py",
   "tests/test_ch29_benchmark.py"
+ ],
+ "17.9": [
+  "exercises/ex17_9_revert_batch.py",
+  "tests/test_ch17_security.py"
+ ],
+ "21.7": [
+  "exercises/ex21_7_team_economics.py",
+  "tests/test_ch21_coordination.py"
+ ],
+ "23.7": [
+  "exercises/ex23_7_reliable_queue.py",
+  "tests/test_ch23_reliability.py"
+ ],
+ "24.10": [
+  "exercises/ex24_10_permission_gate.py",
+  "tests/test_ch24_skill_registry.py"
+ ],
+ "25.7": [
+  "exercises/ex25_7_launch.py",
+  "tests/test_ch25_risk.py"
+ ],
+ "26.7": [
+  "exercises/ex26_7_review_queue.py",
+  "tests/test_ch26_discovery.py"
+ ],
+ "28.8": [
+  "exercises/ex28_8_network.py",
+  "tests/test_ch28_profile.py"
+ ],
+ "29.8": [
+  "exercises/ex29_8_model_swap.py",
+  "tests/test_ch29_economics.py"
+ ],
+ "30.12": [
+  "exercises/ex30_12_shadow_slos.py",
+  "tests/test_ch30_improvement_loop.py"
  ]
 }

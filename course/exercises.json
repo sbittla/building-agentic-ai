@@ -1683,6 +1683,18 @@
   "file": "exercises/ex17_8_assistant.py"
  },
  {
+  "id": "17.9",
+  "level": "Medium",
+  "title": "Revert one bad batch",
+  "chapter": "Chapter 17: Agent Memory Engineering",
+  "task": "`rollback` in `ch17_memory_security.py` returns the whole store to a point in time, so good memories written after a bad batch are lost too. Write `revert_batch(store, batch, actor)` that removes only the records one batch wrote (find them in the audit log, not the live store), deletes their content, keeps everything else and leaves one audit entry with the ids but no text.",
+  "hint": "Every `write` audit entry already records its `batch`. `state_at` only restores records whose content is still in the blob store, so deleting the content is what keeps the batch from coming back.",
+  "done_when": "A test writes a good memory, a three-memory bad batch and another good memory, then shows that after `revert_batch` both good memories are recalled, none of the batch is, `state_at` never restores the batch at any point of the log and `verify_audit` still passes.",
+  "kind": "build",
+  "file": "exercises/ex17_9_revert_batch.py",
+  "nokey": true
+ },
+ {
   "id": "18.1",
   "level": "Concept",
   "title": "Choose the chunk size",
@@ -1981,6 +1993,18 @@
   "file": "exercises/ex21_6_mixed_team.py"
  },
  {
+  "id": "21.7",
+  "level": "Medium",
+  "title": "Where does the team pay?",
+  "chapter": "Chapter 21: Multi-Agent Orchestration",
+  "task": "Use `simulated_runs` and `coordination_report` from `ch21_coordination.py` on the multi-part questions, and sweep the tool latency over 0.5, 1, 1.5, 2, 3 and 4 seconds. For each latency, record the p95 of one agent that runs its tool calls one after another, of one agent that runs them at the same time (`parallel_tools=True`), and of the lead with workers, plus the team's extra cost per task. Find the smallest tool latency at which the team beats the first single agent on p95, and say whether it ever beats the second. Then use `failure_propagation` to find how many workers a team with a planning and a synthesis step (`lead_steps=2`) can have, at 97% per step with failures contained, before the chance that every part is right falls below 80%, without retries and with one retry per worker.",
+  "hint": "The simulator uses virtual time, so the whole sweep takes a few seconds. For the second part, increase `n` until `p_task` drops below 0.8.",
+  "done_when": "You have a six-row table, the crossover latency, a yes or no for the parallel single agent and the two worker counts, and a sentence on what each result means for the team's design.",
+  "kind": "build",
+  "file": "exercises/ex21_7_team_economics.py",
+  "nokey": true
+ },
+ {
   "id": "22.1",
   "level": "Concept",
   "title": "Model or code?",
@@ -2112,6 +2136,18 @@
   "file": "exercises/ex23_6_durable_queue.py"
  },
  {
+  "id": "23.7",
+  "level": "Medium",
+  "title": "A reliable queue",
+  "chapter": "Chapter 23: Computer-Use Agents",
+  "task": "Run a queue of four requests through `run_steps` from `ch23_reliability` on an `OfflineBrowser`: the three address changes from exercise 23.5 and a $20 credit for Chen Wei, placed third. Keep a status per request so a second run skips finished ones. Inject three faults: a control that's missing for one read during request 1, a credit click that times out without landing, and a session that expires before request 4. Then sign in again, as the person would, and run the queue again.",
+  "hint": "The page's `missing`, `click_fault` and `app.SESSIONS.clear()` are the fault switches. A lost session should stop the queue; a credit nobody can verify should be parked for a person while the rest continue.",
+  "done_when": "The first run ends done, done, needs a person, session lost; after the resume request 4 is done and the credit still waits for a person; the application's audit shows three address writes and no credit; and the log has a stale retry, an unverified credit that wasn't retried and a hand-off, each with snapshot ids.",
+  "kind": "build",
+  "file": "exercises/ex23_7_reliable_queue.py",
+  "nokey": true
+ },
+ {
   "id": "24.1",
   "level": "Concept",
   "title": "Map the features",
@@ -2209,6 +2245,18 @@
   "kind": "concept"
  },
  {
+  "id": "24.10",
+  "level": "Medium",
+  "title": "Hold a permission change",
+  "chapter": "Chapter 24: Skills, Frameworks and Agent Runtimes",
+  "task": "The regression gate in section 24.10 checks that a new skill version still does its job, but it doesn't notice that 1.3.0 can suddenly send email. Write `promote_reviewed(reg, name, version, approvals)` that runs before `promote`: if the version asks for any permission the current released version doesn't have, it must be a new major version, and `approvals` must name a reviewer for exactly that `(name, version)`. Publish `sql-report` as 1.0.0 and 1.1.0 with the same permissions, then 1.3.0 and 2.0.0 that add `send_email`, and promote them in that order, 2.0.0 first without and then with an approval.",
+  "hint": "Compare the two manifests' `permissions` as sets. A first release has nothing to compare with; its permissions were reviewed when its trust level was set.",
+  "done_when": "1.0.0 and 1.1.0 are promoted, 1.3.0 is held for needing a major version, 2.0.0 is held until approved and then promoted, and the output names the reviewer.",
+  "kind": "build",
+  "file": "exercises/ex24_10_permission_gate.py",
+  "nokey": true
+ },
+ {
   "id": "25.1",
   "level": "Concept",
   "title": "Find the trifecta",
@@ -2276,11 +2324,23 @@
   "file": "exercises/ex25_6_redteam.py"
  },
  {
+  "id": "25.7",
+  "level": "Medium",
+  "title": "A launch gate from the risk model",
+  "chapter": "Chapter 25: Agentic Security",
+  "task": "Score the coding agent from exercise 25.1(a), which reads GitHub issues and pushes to the team's repository on its own, with `ch25_risk.py`: write its profile with a one-line reason for each factor. Write `can_launch(profile, controls_in_place)` that returns whether it may launch and the missing controls, and run it with the controls you'd realistically have on day one. Then write `cuts(profile)`, which scores the agent with each factor cut to 1, and pick the cut that keeps the agent most useful.",
+  "hint": "A person merging every pull request is an autonomy cut, and the required review on the branch is its approval gate. A factor at 3 adds controls whatever the tier.",
+  "done_when": "The gate refuses launch and names what's missing, at least one cut lowers the tier, and a test shows that adding long-term memory to an agent that passed makes the gate refuse it again.",
+  "kind": "build",
+  "file": "exercises/ex25_7_launch.py",
+  "nokey": true
+ },
+ {
   "id": "26.1",
   "level": "Concept",
   "title": "Whose permission?",
   "chapter": "Chapter 26: Agent Identity and Authorization",
-  "task": "For each action, name the user, the agent and the service, the scopes the token needs, and whether it needs a step-up: (a) a calendar agent books a meeting room for Priya; (b) a finance agent pays a supplier invoice of $12,000; (c) a coding agent opens a pull request in the team's repository; (d) a research sub-agent reads three internal wiki pages for its lead; (e) an HR agent reads an employee's salary history to answer the employee's own question.",
+  "task": "For each action, name the user, the agent and the service, the scopes the token needs, and whether it needs a step-up: (a) a calendar agent books a meeting room for Priya; (b) a finance agent pays a supplier invoice of $12,000; (c) a coding agent opens a pull request in the team's repository; (d) a research subagent reads three internal wiki pages for its lead; (e) an HR agent reads an employee's salary history to answer the employee's own question.",
   "hint": null,
   "done_when": "Every action has all three identities, minimal scopes, and a step-up decision with a reason.",
   "kind": "concept"
@@ -2338,6 +2398,18 @@
   "done_when": "A test covers all three, and the audit log shows every request with the agent and the user.",
   "kind": "build",
   "file": "exercises/ex26_6_orders_api.py"
+ },
+ {
+  "id": "26.7",
+  "level": "Medium",
+  "title": "A review queue for new versions",
+  "chapter": "Chapter 26: Agent Identity and Authorization",
+  "task": "ShipFast publishes version 2.2.0 of its pickup agent, signed with its current key. Write `select_reviewed(need, catalog, store)` that picks the newest compatible, reviewed candidate and puts any candidate that fails only because it was never reviewed (`NotReviewed`) into a queue with its hash, its text, the scopes it asks for and the scopes the trust store will drop. Write `approve(store, name, version, digest)` that pins the version only if its hash still matches what the reviewer read. Show the agent using 2.1.0 before review, 2.2.0 after approval, and 2.1.0 again once ShipFast changes 2.2.0's text.",
+  "hint": "Build 2.2.0 with `dataclasses.replace` on the 2.1.0 descriptor and sign it with `sign`; `verify` raises `NotReviewed` only after the publisher, key and signature checks pass.",
+  "done_when": "A test shows all three choices, a queue entry that lists `orders:read` as dropped, and an approval with a stale hash refused without pinning anything.",
+  "kind": "build",
+  "file": "exercises/ex26_7_review_queue.py",
+  "nokey": true
  },
  {
   "id": "27.1",
@@ -2424,7 +2496,7 @@
   "chapter": "Chapter 27: Agent Evaluation: Dimensions, Trajectories and Scorecards",
   "task": "Run the trajectory suite (`eval_trajectory.jsonl`) against the Chapter 8 analyst with `ch27_scorecard.run_suite`, three trials per case, and print the scorecard. Then turn it into a CI gate: exit non-zero if success rate is below 80%, pass^3 below 60%, task completion below 100%, there is any safety violation, or cost per success is above $0.05.",
   "hint": "The file has no escalation flags or budgets yet. Add `expect_escalation` to the delete case and a `max_cost` and `max_ms` to every case when you load them.",
-  "done_when": "The scorecard prints, and making the agent worse (for example, removing `get_schema` from the tools or weakening the system prompt) flips the gate to FAIL.",
+  "done_when": "The scorecard prints, and making the agent worse (for example, removing `get_schema` from the tools or weakening the system prompt) flips the gate to FAIL. On the free local model the gate usually fails as it is (about 78% success against 80% required): that's the gate doing its job, not a broken exercise.",
   "kind": "build",
   "file": "exercises/ex27_8_scorecard.py"
  },
@@ -2509,6 +2581,18 @@
   "file": "exercises/ex28_7_taxonomy.py"
  },
  {
+  "id": "28.8",
+  "level": "Medium",
+  "title": "Find a network incident",
+  "chapter": "Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents",
+  "task": "Add a tool `fx_rates` to the traffic from `ch28_profile.synthetic()`: it calls an external exchange-rate API in parallel with each run's first model call and takes 60 ms of work plus two network round trips. Give it stack samples labeled with its span id: `socket.recv` under `http.get` while it waits, `json.loads` under `parse_rates` after. Make the network to the API degrade from 8:00 to 9:00, with round trips of 150 to 400 ms. Run `attribute`, `correlate` and `diagnose`, then print the top frames of the slowest 5% of `fx_rates` spans twice: joined on span id, and with the span ids removed from the samples so `top_frames` joins on time.",
+  "hint": "Leave `ch28_profile.py` alone: take `synthetic()`'s output, raise `net_ms` in the samples inside the window, then append the new spans and their stack samples.",
+  "done_when": "The diagnosis says `fx_rates` is slow when the network is busy, the existing verdicts for `run_sql` and `render_chart` are unchanged, and the time-only join puts another span's frames at the top, which shows why profile samples should carry the span id.",
+  "kind": "build",
+  "file": "exercises/ex28_8_network.py",
+  "nokey": true
+ },
+ {
   "id": "29.1",
   "level": "Simple",
   "title": "See queueing",
@@ -2586,6 +2670,18 @@
   "done_when": "You have a table of success rate and cost per success for both models at each error rate, and two or three sentences on which model you'd choose for a support agent that must answer 95% of questions correctly, and why cost per success alone can't decide it.",
   "kind": "build",
   "file": "exercises/ex29_7_crossover.py"
+ },
+ {
+  "id": "29.8",
+  "level": "Medium",
+  "title": "Is the cheaper model cheaper for the business?",
+  "chapter": "Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost",
+  "task": "The simulator's E3 measured Claude Haiku 4.5 at $0.0016 per task against Claude Sonnet 5's $0.0031, with success rates of 93% and 98%. Using `business_case` from `ch29_economics.py`, compare the support agent on Sonnet (the default `Assumptions`) with Haiku at `model_cost_per_turn=0.0016` and failure rates of 3%, 4%, 5% and 6%. Then find the failure rate at which Haiku's net monthly saving equals Sonnet's.",
+  "hint": "`dataclasses.replace(Assumptions(), ...)` makes a variant. The net saving is linear in the failure rate, so two points give you the line.",
+  "done_when": "You have a table of monthly token cost, net saving and payback for the five rows, the equal-net failure rate to two decimal places of a percent, and two sentences on what it means for choosing a model by its price per token.",
+  "kind": "build",
+  "file": "exercises/ex29_8_model_swap.py",
+  "nokey": true
  },
  {
   "id": "30.1",
@@ -2716,5 +2812,17 @@
   "done_when": "The agent finds tools through `search_tools`, the task is added, the order query is refused and reported honestly, and the audit trail shows both calls with the agent and the user.",
   "kind": "build",
   "file": "exercises/ex30_11_gateway_agent.py"
+ },
+ {
+  "id": "30.12",
+  "level": "Medium",
+  "title": "Catch it in shadow",
+  "chapter": "Chapter 30: Deploying Agents: From One Service to an Agent Platform",
+  "task": "In section 30.14's demo, release 1.6 gives the right answers but takes over nine seconds, so it passes shadow and only the canary catches it, after real users have waited. Write a stricter shadow stage that also runs both versions through `serve`, measures each side with `measure_arm`, and rejects the candidate when it misses the latency or cost SLO or costs more than 20% above the current version per task. Run `improvement_turn` with your stage in place of `shadow` for releases 1.5 and 1.6.",
+  "hint": "Call the original `shadow` first and add to its `reasons`. `improvement_turn` looks `shadow` up by name in its module, so you can swap it in and put the original back afterwards.",
+  "done_when": "Release 1.6 is rejected at shadow with a reason naming p95 latency and serves no user requests, release 1.5 is still promoted, and a candidate on a pricier model than the current one is rejected for cost.",
+  "kind": "build",
+  "file": "exercises/ex30_12_shadow_slos.py",
+  "nokey": true
  }
 ]

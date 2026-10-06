@@ -2,3 +2,4 @@
 from .ch29_costs import *
 from .ch29_loadtest import *
 from .ch29_perf import *
+from .ch29_economics import *
