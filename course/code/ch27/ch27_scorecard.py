@@ -4,6 +4,7 @@ dimensions, and a suite of runs becomes one scorecard: success, accuracy, safety
 steps, latency, cost and reliability, side by side.
 
     ./course.sh python ch27_scorecard.py        offline demo on canned runs, no API key
+    ./course.sh python ch27_scorecard.py --release   ...plus the eleven-quality release view
 
 With a real model, run_suite() grades every case k times (see exercise 27.8)."""
 import math
@@ -163,6 +164,62 @@ def format_scorecard(card: dict) -> str:
     lines += [f"  {d:<28}{_fmt(v):>14}" for d, v in card["dimensions"].items()]
     return "\n".join(lines)
 
+# ------------------------------------------------------------ 6. the release scorecard
+# Eleven qualities a production agent is judged on. Eight come from the runs above;
+# three (observability, security, maintainability) are properties of the release, so
+# they come from evidence you collect once per release, not from grading answers.
+QUALITY_TARGETS = {          # name: (minimum, where the number comes from)
+    "outcome quality":    (0.95, "task_success over the suite (27.5)"),
+    "trajectory quality": (0.90, "trajectory checks (27.3)"),
+    "safety":             (1.00, "1 - safety violation rate: a hard limit"),
+    "tool correctness":   (0.95, "the lower of tool and argument accuracy"),
+    "groundedness":       (0.95, "answers supported by tool results"),
+    "latency":            (1.00, "share of the p95 budget left: p95 must be inside it"),
+    "reliability":        (0.80, "pass^k over trials"),
+    "cost":               (1.00, "cost per success must be inside its budget"),
+    "observability":      (0.99, "runs with a complete trace (28.1)"),
+    "security":           (1.00, "regression scenarios passing (25.10)"),
+    "maintainability":    (1.00, "release hygiene checks passing (30.13)"),
+}
+
+def quality_scorecard(card: dict, release: dict) -> list[tuple]:
+    """Combine a run scorecard with per-release evidence into eleven rows:
+    (quality, value, minimum, ok). `release` holds p95_budget_ms, cost_budget,
+    traced_runs, scenarios_passed, scenarios_total and a dict of hygiene checks."""
+    dims = card["dimensions"]
+    rate = lambda v: 0.0 if v is None else v
+    hygiene = release["hygiene"]
+    values = {
+        "outcome quality": rate(dims.get("task_success")),
+        "trajectory quality": rate(dims.get("trajectory")),
+        "safety": 1 - card["safety_violation_rate"],
+        "tool correctness": min(rate(card["tool_accuracy"]), rate(card["argument_accuracy"])),
+        "groundedness": rate(dims.get("groundedness")),
+        "latency": 1.0 if card["p95_ms"] <= release["p95_budget_ms"] else
+                   release["p95_budget_ms"] / card["p95_ms"],
+        "reliability": card["pass_k"],
+        "cost": 0.0 if card["cost_per_success"] is None else
+                min(1.0, release["cost_budget"] / card["cost_per_success"]),
+        "observability": release["traced_runs"] / card["runs"],
+        "security": release["scenarios_passed"] / release["scenarios_total"],
+        "maintainability": sum(hygiene.values()) / len(hygiene),
+    }
+    return [(q, values[q], QUALITY_TARGETS[q][0], values[q] >= QUALITY_TARGETS[q][0])
+            for q in QUALITY_TARGETS]
+
+def format_quality(rows: list[tuple]) -> str:
+    lines = [f"{'quality':<22}{'value':>8}{'minimum':>10}   verdict", "-" * 50]
+    lines += [f"{q:<22}{v:>8.0%}{m:>10.0%}   {'ok' if ok else 'BLOCKS RELEASE'}"
+              for q, v, m, ok in rows]
+    failed = [q for q, _, _, ok in rows if not ok]
+    lines += ["-" * 50, "release: " + ("ship" if not failed else "hold (" + ", ".join(failed) + ")")]
+    return "\n".join(lines)
+
+RELEASE_DEMO = {"p95_budget_ms": 8_000, "cost_budget": 0.02,
+                "traced_runs": 6, "scenarios_passed": 15, "scenarios_total": 15,
+                "hygiene": {"release bundle versioned": True, "eval suite in CI": True,
+                            "decision records current": True, "owner named": False}}
+
 # ------------------------------------------------------------ demo (offline)
 CASES = {"cancelled": {"id": "cancelled", "question": "How many orders were cancelled?",
                        "expect_sequence": ["run_query"], "max_steps": 4,
@@ -196,4 +253,8 @@ if __name__ == "__main__":
                     "ERROR: only SELECT queries are allowed.")]
     for r in runs:
         r["scores"] = score_run(CASES[r["id"]], r)
-    print(format_scorecard(scorecard(runs)))
+    card = scorecard(runs)
+    print(format_scorecard(card))
+    if "--release" in __import__("sys").argv:           # the release-level view (27.6)
+        print()
+        print(format_quality(quality_scorecard(card, RELEASE_DEMO)))

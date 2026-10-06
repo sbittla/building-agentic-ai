@@ -34,6 +34,8 @@ IMAGE_PROGS = {"help", "init", "shell", "python", "pytest", "bash", "npx", "sqli
 COMMANDS = SHELL_CMDS | PY_CMDS | IMAGE_PROGS
 SUBCMDS = {"local": {"up", "down", "status", "logs"}, "sandbox": {"up", "down", "status", "logs"}}
 
+APPENDICES = set(re.findall(r"^## Appendix ([A-Z]):", (MD / "91_appendix.md").read_text(encoding="utf-8"), re.M))
+
 # every file in the kit, by base name (code, data, starters, solutions, docs)
 FILES = {}
 for p in KIT.rglob("*"):
@@ -136,7 +138,7 @@ def scan(path, text, history=False):
             if int(m.group(1)) > 30:
                 report(where, f"Chapter {m.group(1)} doesn't exist")
         for m in re.finditer(r"\bAppendix ([A-Z])\b", line):
-            if m.group(1) > "J":
+            if m.group(1) not in APPENDICES:
                 report(where, f"Appendix {m.group(1)} doesn't exist")
         for m in re.finditer(r"\bCapstone (\d+)", line):
             if not 1 <= int(m.group(1)) <= 6:

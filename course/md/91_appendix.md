@@ -1,6 +1,6 @@
 # Appendices
 
-The appendices are reference material for when you need a fact quickly. They cover how to run the course kit, fixes for common errors, a glossary, sources, costs, the solutions folder, where to learn more, the free local model, one-page reference cards and the same concepts on other platforms. You don't need to read them in order: keep them open while you work through the chapters and capstones.
+The appendices are reference material for when you need a fact quickly. They cover how to run the course kit, fixes for common errors, a glossary, sources, costs, the solutions folder, where to learn more, the free local model, one-page reference cards, the same concepts on other platforms, architecture decision records and a map from every chapter to its code, exercises and solutions. You don't need to read them in order: keep them open while you work through the chapters and capstones.
 
 ## Appendix A: Running the Course Kit with Docker
 
@@ -138,16 +138,21 @@ Table: Glossary
 | Agent | An LLM that chooses and calls tools in a loop until a task is done |
 | Agent architecture reference model | The layers of every agent system: user/API, runtime, planning, memory, context, tools, policies, model, MCP/APIs/A2A, environment, with evaluation and observability across (section 1.7) |
 | Agent card | An A2A agent's public JSON description of its skills, endpoint and security, at `/.well-known/agent-card.json` |
+| Agent engineering lifecycle | The stages every agent goes through: decide once; then design, build, secure, evaluate, optimize, deploy, operate and improve, round again for each version; finally retire (sections 1.10 and 30.13) |
+| Agent improvement loop | Production traces → failures mined into cases → one change → offline evaluation → shadow → canary → promote or roll back; every fixed failure stays in the suite (section 30.14) |
 | Agent inventory | One record per agent: its owner, kind, model, tools and scopes, the data it touches, its risk tier and current version; the starting point of agent governance (section 30.12) |
-| Agent lifecycle | The stages every agent goes through: decide, design, build, evaluate, release, operate, improve and, finally, retire (sections 1.10 and 30.13) |
+| Agent risk model | Risk = capability × autonomy × access × persistence × blast radius, each scored 1–3; the score picks a risk tier and the controls it requires (section 25.11) |
 | Agent SDK | The Claude Agent SDK: the agent runtime behind Claude Code, as a library |
 | Agent Skill | A folder with a `SKILL.md` (name, description, instructions) and optional files, loaded only when a task needs it; an open format |
 | Agent version | The whole bundle that sets an agent's behavior, released together: model id, system prompt, tool definitions and server versions, skills, policies and the eval suite that approved it (section 30.13) |
 | Agentic search | Finding information by letting the model list, search and read |
 | Approval gate | Code that asks a human before a risky tool runs |
+| Architecture decision record (ADR) | A short record of one design decision: context, decision, alternatives, consequences, evidence and when to revisit it (Appendix K) |
 | Audit log | An append-only record of every action an agent took |
 | Blackboard (shared board) | A shared record of a team's tasks and results that agents read and only the orchestrator writes (section 21.3) |
 | BM25 | A classic keyword-ranking formula that weights rare words more |
+| Break-even value | What one right answer must be worth for a team of agents to pay for its extra cost: extra cost per task ÷ success gain (section 21.10) |
+| Business case | An agent's monthly cost compared with the human baseline, with its payback period and the assumptions it rests on (section 29.9) |
 | Cache hint (MCP) | `ttlMs` and `cacheScope` on a list result: how long a client may reuse it, and whether it may be shared across users (section 15.3) |
 | Canary release | Sending a small share of real traffic, say 1% and then 10%, to a new version and comparing its SLOs with the current one before going further (section 30.13) |
 | Cascade | Trying a cheaper model first and escalating to a stronger one only when a check fails (section 20.8) |
@@ -159,10 +164,15 @@ Table: Glossary
 | Content block | One part of a model message: text, `tool_use` or `tool_result` |
 | Context engineering | Choosing what goes into the model's context on each call, and what stays out (section 1.7, Chapter 16) |
 | Context window | The maximum tokens a model can consider in one call |
+| Continuous profiler | A sampler that records where code spends its time all the time in production, so slow spans can be explained by stacks and resources (section 28.13) |
 | Contract (between agents) | A schema for what one agent hands another, checked in code (section 21.2) |
 | Coordinated omission | Measuring latency only after a request gets service, which hides queueing time |
+| Coordination overhead | What a team of agents adds over one agent: extra model calls, duplicated context, messages, waiting for the slowest worker and more ways to fail (section 21.10) |
+| Descriptor (capability) | The signed, hashed record of a discovered tool server, agent or skill: name, kind, version, protocols, publisher, scopes and the text the model will read (section 26.9) |
+| Deterministic control plane | The code around a model that enforces identity, policy, permissions, validation, budgets, approvals, state transitions, audit and rollback; the model only proposes (sections 22.1 and 25.11) |
 | Deterministic shell | A workflow whose states and transitions are code, with model calls only at chosen steps (section 22.2) |
 | Dimensions of agency | Autonomy, state, planning, tool use, environmental interaction, persistence, feedback, delegation and adaptation: what makes a system more or less agentic (section 1.4) |
+| Discovery | Finding capabilities at run time from servers, registries, agent cards and skill catalogs; finding one is not trusting it (section 26.9) |
 | Durable execution | Running a job so that its progress survives crashes and restarts (Chapter 19) |
 | Effort | A request setting (`low` to `max`) that trades quality for cost and speed |
 | Elicitation | An MCP feature that lets a server ask the user for missing input mid-call |
@@ -171,6 +181,7 @@ Table: Glossary
 | Error budget | How much failure an SLO allows over a window; spending it fast triggers alerts (section 28.10) |
 | Evaluation (eval) suite | A set of test cases with checks, run after every change |
 | Exfiltration | Getting private data out of a system, for example inside a URL the agent fetches |
+| Explicit delegation | Handing another agent, possibly in another organization, a narrower token that names who delegated what, for how long (section 26.10) |
 | Extension (MCP) | An optional, named protocol feature, such as Tasks or MCP Apps, used only when client and server both declare it (section 15.4) |
 | Failure taxonomy | The 12 classes of agent failure, each with detection, mitigation and evaluation (section 28.8) |
 | Flaky case | A test case that passes on some runs and fails on others: a sign the agent is guessing (measurement interlude) |
@@ -178,6 +189,7 @@ Table: Glossary
 | Goodput | Successful tasks per second; unlike throughput, it doesn't count tasks that failed or gave up (section 29.5) |
 | Harness | The code around the model: the loop, the tools, the checks and the limits; it decides what's allowed (section 1.7) |
 | Host | The application that runs the model and connects to MCP servers |
+| Human baseline | What the work costs today with people doing it, the comparison an agent's business case must beat (section 29.9) |
 | Idempotency key | A stable key sent with a side effect so the receiving system ignores repeats (section 19.5) |
 | Idempotent | Safe to repeat: calling twice has the same effect as once |
 | JSON Schema | A standard way to describe the shape of JSON data, used for tool inputs |
@@ -198,12 +210,15 @@ Table: Glossary
 | p50 / p95 | The latency that 50% / 95% of requests beat |
 | Pass rate | The share of runs that pass their checks; report it with its interval (measurement interlude) |
 | Pass^k | The share of eval cases that pass on every one of k repeated runs |
+| Payback period | Build cost ÷ net monthly saving against the human baseline (section 29.9) |
 | Plan (as data) | A list of steps with tools, dependencies and done conditions that code can check before running (section 20.2) |
 | Programmatic tool calling | The model writes a program that calls your tools in a sandbox, so bulky results stay out of the context |
 | Progressive discovery | Offering tools through search instead of listing them all at once (section 30.9) |
 | Prompt (MCP) | A reusable prompt template a server exposes |
 | Prompt caching | Reusing the processed form of an unchanged prompt prefix, at a tenth of the input price |
 | Prompt injection | Text in data (web pages, files, issues) that tries to give the model instructions |
+| Provenance (memory, skill) | Where a memory or a skill came from and who vouched for it, recorded with it so it can be trusted, quarantined or rolled back (sections 17.10 and 24.10) |
+| Quality scorecard | The eleven qualities a release is judged on: outcome, trajectory, safety, tool correctness, groundedness, latency, reliability, cost, observability, security and maintainability (section 27.6) |
 | RAG | Retrieval-augmented generation: fetch similar document chunks, then call the model |
 | Rate limit | A cap on how many requests a caller may make in a period (HTTP 429 when exceeded) |
 | Recall@k / MRR | Retrieval metrics: is the right document in the top k, and how high does it rank |
@@ -215,6 +230,7 @@ Table: Glossary
 | Scorecard (agent) | One table of quality, safety, cost and latency metrics for a release, compared with the last (section 27.6) |
 | Server tool | A tool that runs on the provider's servers (web search, code execution, tool search), not in your code |
 | Shadow mode | Running a new version on a copy of real traffic without showing its answers or taking its actions, to compare it with the current version (section 30.13) |
+| Skill registry | A catalog of versioned skills with manifests, permissions, trust levels, evaluations and rollback (section 24.10) |
 | SLO (service-level objective) | A target for a measured behavior, such as task success ≥ 95% over 30 days (section 28.10) |
 | SSE (Server-Sent Events) | A simple way for a server to stream events to a client over one HTTP response |
 | SSRF | Server-side request forgery: tricking a server or agent into fetching an internal address |
@@ -230,6 +246,7 @@ Table: Glossary
 | Tool | A function the model can ask your code to run, described by name, description and schema |
 | Tool search | Deferring most tool definitions and letting the model search for the ones it needs |
 | Trace | The step-by-step record of one agent run |
+| Trust store | Your record of which organizations and keys you trust, for which kinds of capability, and until when (sections 26.9 and 26.10) |
 | Workflow | A fixed sequence of LLM calls and code, with steps decided by the developer |
 | Working memory | What the agent holds during one task: the conversation, the plan and tool results; also called short-term memory (Chapters 5, 16 and 17) |
 
@@ -618,7 +635,9 @@ Table: Failure classes and where to look first
 
 ### Card 6: The agent scorecard (section 27.6)
 
-Success rate · reliability (pass^k) · tool accuracy · argument accuracy · task completion · safety violation rate · average steps · p50 and p95 latency · cost per task · cost per successful task. One scorecard per release, compared with the last; hard limits gate the release.
+**Per run:** success rate · reliability (pass^k) · tool accuracy · argument accuracy · task completion · safety violation rate · average steps · p50 and p95 latency · cost per task · cost per successful task.
+
+**Per release, the eleven qualities:** outcome quality · trajectory quality · safety · tool correctness · groundedness · latency · reliability · cost · observability (complete traces) · security (regression scenarios) · maintainability (versioned bundle, eval suite in CI, decision records, a named owner). One scorecard per release, compared with the last; safety and security have no slack, and every quality below its floor holds the release.
 
 ### Card 7: Agent SLOs (section 28.10)
 
@@ -629,6 +648,7 @@ Example targets to adapt, not universal truths: task success ≥ 95%; p95 latenc
 Total latency = model + tool + retrieval + orchestration + queueing + serialization.
 Cost per task = model + tools + retrieval + infrastructure + retries + human review.
 Measure under load: throughput and goodput, p50/p95/p99, tokens per request, cache hit rate, steps per task, cost per task and success rate, at rising concurrency, to find the knee.
+Capacity: tasks in flight = arrival rate × latency (Little's law, section 29.7); the limit is the scarcest of model slots, rate limits and workers. Report cost per *successful* task, not per task.
 
 ### Card 9: Durable concepts and fast-changing details
 
@@ -659,20 +679,45 @@ Table: Kinds of agents and the risk to control first
 
 Real systems combine kinds; name the kind of each part to find the controls it needs.
 
-### Card 11: The agent lifecycle (sections 1.10 and 30.13)
+### Card 11: The agent engineering lifecycle (sections 1.10 and 30.13)
 
-Decide → design → build → evaluate → release → operate → improve, and back to build; retire when the agent is no longer needed.
+Decide once; then design → build → secure → evaluate → optimize → deploy → operate → improve, and back to design for the next version; retire when the agent is no longer needed.
 
 Table: Lifecycle stages and when to move on
 | Stage | Before you move on |
 | --- | --- |
 | Decide | You can say why a simpler option won't do |
-| Design | Tools, context, rules in code and checks are written down |
+| Design | Tools, context, rules in code and checks are written down; the decisions are recorded (Appendix K) |
+| Build | Each step works and has a test |
+| Secure | A threat model, a risk tier and its controls, regression scenarios that pass |
 | Evaluate | A case file, several trials, intervals and a scorecard |
-| Release | CI gate passed, launch checklist done, shadow and canary planned, rollback ready |
+| Optimize | Cost per successful task and p95 latency inside budget, quality unchanged |
+| Deploy | CI gate passed, launch checklist done, shadow and canary planned, rollback ready |
 | Operate | Traces, SLOs, alerts, budgets and a named owner |
-| Improve | Every failure is a new case; one change at a time |
+| Improve | Every failure is a new case; one change at a time, through the improvement loop |
 | Retire | Kill switch, revoked identity, gateway routes removed, data handled by policy, audit log kept |
+
+### Card 12: The agent risk model (section 25.11)
+
+**Risk = capability × autonomy × access × persistence × blast radius**, each factor scored 1–3, so 1–243.
+
+Table: Risk tiers at a glance
+| Tier | Score | Adds (each tier keeps the ones below) |
+| --- | --- | --- |
+| 1 Low | 1–8 | A named owner, an evaluation suite that gates changes, an audit log |
+| 2 Moderate | 9–27 | A threat model, scoped tokens, budgets in code, monitoring and alerts |
+| 3 High | 28–81 | Approval gates, a deterministic control plane, regression scenarios, a kill switch; monthly trace review |
+| 4 Critical | 82–243 | Isolation, step-up tokens, a red-team run before launch, a security sign-off; weekly trace review |
+
+Any factor at 3 adds its own controls whatever the total. To lower the risk, cut a factor (an approval step, narrower access, shorter memory), then re-score. It's a judgment aid, not a probability.
+
+### Card 13: The deterministic control plane (sections 22.1 and 25.11)
+
+The model is probabilistic, so it **proposes**; deterministic code **enforces**. The control plane owns identity, policy and permissions, validation, budgets, approvals, state transitions, audit and rollback. The model may choose among allowed tools, propose structured values and actions, and suggest the next step. It never names the user, writes its own audit record or approves its own action. Test for each decision: if it were wrong 1 time in 50, would that be acceptable? If not, code owns it.
+
+### Card 14: Agent and team economics (sections 21.10 and 29.9)
+
+Cost per successful task = monthly running cost ÷ tasks completed correctly. Compare with the human baseline, not with zero: net saving = baseline (people's time and their own failures) − (running cost + takeovers + reviews + the agent's failures). Payback = build cost ÷ net monthly saving; show its sensitivity, not one number. A team of agents is worth it only when (team success − single success) × value of a success > extra cost per task, or when it meets a latency or quality requirement one agent can't. Measure the coordination overhead: extra calls, duplicated context, messages, waiting for the slowest worker and the extra ways to fail.
 
 ## Appendix J: The Same Concepts on Other Platforms
 
@@ -696,3 +741,107 @@ Table: The same concepts on other platforms
 | Agent-to-agent (Chapter 21) | Through the A2A SDK, not an API feature | Through the A2A SDK | A2A support in Agent Engine; A2A began at Google and is now a Linux Foundation project | The `a2a-sdk` package; A2A endpoints in LangGraph's agent server |
 
 When you read a chapter, keep three layers apart: the **concept** (tool calling), the **implementation** you run (the Claude API, or the local model through the kit's adapter) and the **equivalent** on the platform you use at work. Chapter 24 shows one agent on several runtimes, and section 24.6 shows the same loop on another provider's SDK.
+
+## Appendix K: Architecture Decision Records
+
+The same seven decisions come up in almost every agent project. An **architecture decision record** (ADR) writes one down: the situation, what was decided, when you'd decide differently, what it costs and the evidence. Write them in the Design stage (section 1.10), keep them next to the code, and revisit one when its evidence changes, for example when a new model makes the single agent good enough.
+
+Each record below gives this book's default and the conditions that overturn it. Copy the template at the end for your own decisions.
+
+### ADR-1: A fixed workflow or an agent
+
+**Context.** Some requests always need the same steps; others need steps that depend on what the tools return.
+
+**Decision.** Default to a **workflow**: code fixes the steps, and the model fills in the parts that need language (section 1.3). Use an agent only for the requests whose steps can't be known in advance.
+
+**Choose an agent when** the number or order of steps depends on intermediate results, the request space is open-ended, or a person would otherwise have to choose the next step.
+
+**Consequences.** Workflows are cheaper, faster and easier to test; they fail visibly when a request doesn't fit. Agents handle more requests but need step limits, traces and trajectory evaluation (Chapter 27).
+
+**Evidence.** In the simulator's E1 (section 29.8), on single-lookup questions, a workflow matched the agent's 97% success at 37% of the cost per success and about two thirds of the p50 latency. The case study routes order status to a workflow for the same reason.
+
+### ADR-2: One agent or a team
+
+**Context.** A task looks big, and splitting it across specialists is tempting.
+
+**Decision.** Default to **one agent** with good context engineering (Chapter 16). Add agents only when the team pays for itself.
+
+**Choose a team when** the work splits into parts that don't need each other's context, the parts can run in parallel and a latency target needs that, or the measured success gain, valued per task, exceeds the extra cost (section 21.10).
+
+**Consequences.** A team adds model calls, duplicated context, messages, waiting for the slowest worker and more ways to fail (section 21.5). It needs contracts, limits and containment (Chapter 21).
+
+**Evidence.** E1 measured a lead with workers at 97% success, the same as one agent, for a third more cost per success. Section 21.10's break-even value tells you what a right answer must be worth before a team is worth building.
+
+### ADR-3: Direct tool calls or MCP
+
+**Context.** Your agent needs tools, and other agents or apps may need the same ones.
+
+**Decision.** Start with **direct tools** in the agent's own code (Chapters 2–11). Move a tool set to an **MCP server** when a second consumer needs it.
+
+**Choose MCP when** more than one agent, app or team uses the tools, the tools belong to another team, or you want to swap hosts (Claude Desktop, an IDE, your own agent) without rewriting integrations (section 12.1). Choose A2A instead when the other side is an agent that owns a task, not a set of tools (section 21.8).
+
+**Consequences.** MCP adds a process boundary, a protocol version to track (VERSION_MATRIX.md) and a supply chain to vet (Chapter 14, section 30.10). In return, one server serves every client, and policies can sit in one place (section 30.9).
+
+**Evidence.** Chapters 12–15 and the gateway in section 30.9.
+
+### ADR-4: Fixed retrieval (RAG) or agentic retrieval
+
+**Context.** The agent must answer from documents or data it wasn't trained on.
+
+**Decision.** Use **one retrieval step** (RAG) when one search usually finds the answer. Use **agentic retrieval** when questions need several sources, follow-up searches or a decision about whether the evidence is enough (section 18.8).
+
+**Choose agentic search over files** for small, changing collections and exact terms such as error codes; choose a vector index for millions of documents and fuzzy meaning (section 6.6).
+
+**Consequences.** Agentic retrieval costs more model calls per question and needs bounded loops, evidence checks and citation verification (sections 18.10 and 18.11). RAG needs an index pipeline and re-indexing when documents change.
+
+**Evidence.** Section 18.6 measures retrieval quality; the case study's first test run found invented policy answers until citations were checked in code.
+
+### ADR-5: A hosted model or a local one
+
+**Context.** You need a model, and cost, privacy, latency and quality pull in different directions.
+
+**Decision.** Default to a **hosted model** for quality and tool use, and choose the smallest one that clears your evaluation bar (Chapter 20). Use a **local model** for learning, for data that must not leave your network, or for high-volume steps a small model handles well.
+
+**Choose local when** data residency or privacy rules forbid a hosted API, the step is simple enough for a small model on your evaluation suite, or the volume makes per-token pricing more expensive than your own hardware.
+
+**Consequences.** Local models are free per call but slower on ordinary hardware, pick the wrong tool more often and need you to run and patch the serving stack (Appendix H). Hosted models change on the provider's schedule, so pin dated ids and re-run your suite on every model change (section 30.13).
+
+**Evidence.** Appendix H's speed table and the evaluation chapters; section 29.9 for the cost per successful task that decides the volume question.
+
+### ADR-6: Synchronous calls or durable execution
+
+**Context.** Some agent work finishes in seconds; some takes minutes or hours and touches systems that mustn't be called twice.
+
+**Decision.** Keep requests **synchronous** while the whole task finishes well inside a request timeout and has no side effects you'd regret repeating. Otherwise make it a **durable job**: checkpoints, retries with limits, idempotency keys and leases (Chapter 19).
+
+**Choose durable execution when** a task can outlive a process or a deploy, a person must approve a step, or any step has an external side effect such as a refund or an email.
+
+**Consequences.** Durable jobs need storage, a worker, status endpoints and compensation for failed steps (sections 19.7 and 30.8). Synchronous calls are simpler but lose all progress on any crash.
+
+**Evidence.** Sections 19.2–19.5 show what breaks without checkpoints and idempotency; section 30.8 applies the pattern to slow MCP tools.
+
+### ADR-7: One tenant or many
+
+**Context.** The agent will serve more than one customer, business unit or team.
+
+**Decision.** Share compute, but **never share** memory, sessions, private caches or tokens across tenants (section 30.12). Every record and every trace carries a tenant id.
+
+**Choose a dedicated deployment per tenant when** a contract or regulation demands physical separation, one tenant's load would dominate the others, or tenants need different model or data-residency choices.
+
+**Consequences.** Multi-tenant platforms need tenant-scoped keys, budgets and rate limits, recall filtered by tenant before ranking (section 17.10), and tests that try to cross the boundary. Dedicated deployments cost more to run and upgrade.
+
+**Evidence.** Section 17.10's demo refuses a recall across tenants; section 30.12 lists what must never be shared.
+
+### A template for your own records
+
+Table: An architecture decision record
+| Field | What to write |
+| --- | --- |
+| Title | The decision as a choice: "X or Y" |
+| Status | Proposed, accepted, superseded by ADR-n |
+| Context | The forces: requirements, constraints, risks, what you measured |
+| Decision | What you chose, in one or two sentences |
+| Alternatives | What you rejected, and why |
+| Consequences | What becomes easier, what becomes harder, what you must now build |
+| Evidence | The evaluation, benchmark or incident that supports it, with a link |
+| Revisit when | The change that would reopen the decision: a new model, a price change, a new requirement |

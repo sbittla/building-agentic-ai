@@ -11,11 +11,13 @@ Table: The support agent through the lifecycle
 | --- | --- | --- |
 | Decide | Some emails need lookups and judgment, so a fixed workflow isn't enough; refunds stay under rules in code | Sections 1.3 and 1.6 |
 | Design | A design note: its tools, what it needs to know at each step, what could go wrong | Exercise 1.7 |
-| Build | Tools, a loop, state, a carrier API, approvals, MCP servers, context, memory, a knowledge base, durable refunds, routing, specialists, a state machine, an injection-resistant design and its own identity | Chapters 2–26 |
+| Build | Tools, a loop, state, a carrier API, approvals, MCP servers, context, memory, a knowledge base, durable refunds, routing, specialists and a state machine | Chapters 2–24 |
+| Secure | An injection-resistant design, memory it can't be tricked into keeping, a risk tier and its own identity | Sections 17.10 and 25.11, Chapters 25 and 26 |
 | Evaluate | Real support questions, handoff cases, attempts to read another customer's order and injected instructions, run with trials and summarized in a scorecard | The measurement interlude, Chapter 27 |
-| Release | A CI gate, a launch checklist, a secure container and a gradual rollout | Sections 27.7, 30.7 and 30.13 |
+| Optimize | Retrieval instead of a pasted handbook, a small model where it's enough, a cost per resolved conversation inside budget | Chapters 16, 20 and 29 |
+| Deploy | A CI gate, a launch checklist, a secure container and a gradual rollout | Sections 27.7, 30.7 and 30.13 |
 | Operate | Traces, SLOs, alerts and a cost per resolved conversation | Chapters 28 and 29 |
-| Improve | Every real failure becomes a new test case | Section 27.8 |
+| Improve | Every real failure becomes a new test case, and fixes reach production through the improvement loop | Sections 27.8 and 30.14 |
 | Retire | One day it's replaced; its tokens are revoked and its memories handled by policy | Section 30.13 |
 
 The case study before the capstones follows it through one release in detail: the decisions, the evidence for each, what testing changed, and an incident and its rollback. Capstone 1 asks you to build that agent yourself. If you've done it, you've done what production teams do.
