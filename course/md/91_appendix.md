@@ -845,3 +845,12 @@ Table: An architecture decision record
 | Consequences | What becomes easier, what becomes harder, what you must now build |
 | Evidence | The evaluation, benchmark or incident that supports it, with a link |
 | Revisit when | The change that would reopen the decision: a new model, a price change, a new requirement |
+
+## Appendix L: From the Book to the Code
+
+The book and the course kit are one curriculum. This map shows, for every chapter and interlude, the concept it teaches, its exercises, the folder its listings come from and the capstones that build on it. The reference solutions sit in the same folder names under `solutions/exercises/` (and the tests under `solutions/tests/`). `CURRICULUM_MAP.md` in the kit goes one level deeper: every exercise with its level, the model it needs and a link to its solution file. Both are generated from the manuscript and the kit's index files, so they can't drift apart.
+
+Table: Every chapter, its exercises, code and capstones
+@@curriculum-map
+
+To work through a row: read the chapter, run its listings with `./course.sh python <file>`, do an exercise with `./course.sh ex <id>`, check it with `./course.sh check <id>` where a checker exists, and compare with `./course.sh solution <id>`.

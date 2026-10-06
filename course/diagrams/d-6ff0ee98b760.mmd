@@ -1,0 +1,15 @@
+flowchart TB
+  A[Production traces<br>and grades] --> B[Mine failures<br>Chapter 28 taxonomy]
+  B --> C[New eval cases<br>deduplicated, labeled]
+  C --> D[Baseline: current release<br>on the grown suite]
+  D --> E[Change: prompt, skill,<br>tool or model]
+  E --> F{Offline evaluation}
+  F -->|pass| G{Shadow}
+  G -->|pass| H{Canary: production<br>evaluation}
+  H -->|pass| I[Promote]
+  F -->|fail| X[Reject]
+  G -->|fail| X
+  H -->|fail| R[Roll back]
+  I --> A
+  R --> A
+  X -.->|try another change| E

@@ -69,7 +69,11 @@ Every chapter follows the same pattern: learning objectives, a real-world connec
 ## Conventions used in this book
 
 - `Code font` marks code, file names, commands, functions and values you type.
-- A heading labeled **Listing** introduces a complete file from the course kit. You don't need to type it; it's already in your workspace.
+- A heading labeled **Listing** introduces a file, or an excerpt of one, from the course kit. You don't need to type it; it's already in your workspace. After the file name, each listing says what kind of code it is, so you never mistake teaching code for production code:
+    - *Learning demo*: one idea, shown as plainly as possible. Run it and change it; don't build on it.
+    - *Prototype*: a working agent or tool you can extend. Single user, simple storage, no authentication.
+    - *Production pattern*: the controls, checks and records a production system uses, in a simplified implementation (file or in-memory storage, demo keys, one process). The chapter says what a production version adds.
+    - Nothing in the kit is *production-hardened*. That takes real key management, durable storage, load and failure testing, monitoring and a security review; Chapter 30's launch checklist and the risk tiers of section 25.11 say what's needed.
 - Commands start with `./course.sh`. On Windows, use `.\course.cmd` instead.
 - Boxes labeled **Tip** give shortcuts and good practice. Boxes labeled **Caution** point out mistakes that cost money, lose data or open a security hole. Boxes titled **The support agent so far** follow the book's running example.
 - **You are here** under a chapter's opening names the layers of the reference model (section 1.7) that the chapter builds.

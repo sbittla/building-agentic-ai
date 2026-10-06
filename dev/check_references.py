@@ -19,7 +19,7 @@ from pathlib import Path
 KIT = Path(__file__).resolve().parent.parent
 MD = KIT / "course" / "md"
 DOCS = [KIT / f for f in ("README.md", "LOCAL_MODEL.md", "EXERCISE_INDEX.md", "solutions/README.md",
-                          "solutions/SOLUTIONS.md", "VERSION_MATRIX.md", "CHANGELOG.md", "ERRATA.md", "MIGRATION.md")]
+                          "solutions/SOLUTIONS.md", "VERSION_MATRIX.md", "CHANGELOG.md", "ERRATA.md", "MIGRATION.md", "CURRICULUM_MAP.md", "COST_MODEL.md")]
 EXERCISES = json.loads((KIT / "course/exercises.json").read_text(encoding="utf-8"))
 IDS = {e["id"] for e in EXERCISES}
 INDEX = json.loads((KIT / "solutions/index.json").read_text(encoding="utf-8"))
@@ -199,6 +199,13 @@ if not row or int(row.group(2)) != len(IDS):
 readme_row = re.findall(r"^\| [^|]+printing[^|]*\| (\d+) \| `edition-[\d.]+` \|", (KIT / "README.md").read_text(encoding="utf-8"), re.M)
 if not readme_row or int(readme_row[-1]) != len(IDS):
     report("README.md", f"the last row of 'Book editions and code versions' should say {len(IDS)} exercises")
+
+# every listing of code says what kind of code it is (course/code_maturity.json)
+MATURITY = json.loads((KIT / "course/code_maturity.json").read_text(encoding="utf-8"))
+for f in sorted(MD.glob("*.md")):
+    for name in re.findall(r"^@@code ([\w.]+)", f.read_text(encoding="utf-8"), re.M):
+        if name.endswith((".py", "Dockerfile")) and MATURITY["files"].get(name) not in MATURITY["_labels"]:
+            report(f"course/md/{f.name}", f"{name} has no maturity label in course/code_maturity.json")
 
 if problems:
     print(f"{len(problems)} problems:")

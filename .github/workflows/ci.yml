@@ -18,6 +18,8 @@ jobs:
         run: python dev/check_references.py
       - name: Cost figures are current
         run: python dev/cost_model.py --check
+      - name: The curriculum map is current
+        run: python dev/curriculum_map.py --check
       - name: README counts and EXERCISE_INDEX.md are up to date
         run: |
           python dev/exercise_index.py

@@ -1,0 +1,308 @@
+{
+ "header": [
+  "Chapter",
+  "Concept",
+  "Exercises",
+  "Code",
+  "Solutions",
+  "Capstones"
+ ],
+ "rows": [
+  [
+   "Chapter 0",
+   "Foundations",
+   "0.1–0.7",
+   "`course/code/ch00/`",
+   "`solutions/exercises/ch00/`",
+   "—"
+  ],
+  [
+   "Interlude P",
+   "The Python You'll Need",
+   "P.1–P.5",
+   "`course/code/interlude_python/`",
+   "`solutions/exercises/interlude_python/`",
+   "—"
+  ],
+  [
+   "Chapter 1",
+   "What an Agent Is (and Isn't)",
+   "1.1–1.9",
+   "`course/code/ch01/`",
+   "`solutions/exercises/ch01/`",
+   "—"
+  ],
+  [
+   "Interlude T",
+   "Testing with pytest",
+   "T.1–T.4",
+   "`course/code/interlude_python/`",
+   "`solutions/tests/`",
+   "—"
+  ],
+  [
+   "Chapter 2",
+   "Tool Calling (Function Calling)",
+   "2.1–2.6",
+   "`course/code/ch02/`",
+   "`solutions/exercises/ch02/`, `solutions/tests/`",
+   "—"
+  ],
+  [
+   "Chapter 3",
+   "Tool Selection, Routing and Tool Search",
+   "3.1–3.7",
+   "`course/code/ch03/`",
+   "`solutions/exercises/ch03/`, `solutions/tests/`",
+   "—"
+  ],
+  [
+   "Chapter 4",
+   "The Agent Loop",
+   "4.1–4.5",
+   "`course/code/ch04/`",
+   "`solutions/exercises/ch04/`, `solutions/tests/`",
+   "—"
+  ],
+  [
+   "Chapter 5",
+   "State and Short-Term Memory",
+   "5.1–5.7",
+   "`course/code/ch05/`",
+   "`solutions/exercises/ch05/`, `solutions/tests/`",
+   "—"
+  ],
+  [
+   "Interlude R",
+   "Regular Expressions",
+   "R.1–R.4",
+   "`course/code/interlude_regex/`",
+   "`solutions/exercises/interlude_regex/`",
+   "—"
+  ],
+  [
+   "Chapter 6",
+   "Agentic Search: Exploring an Environment",
+   "6.1–6.6",
+   "`course/code/ch06/`",
+   "`solutions/exercises/ch06/`, `solutions/tests/`",
+   "5"
+  ],
+  [
+   "Chapter 7",
+   "Real APIs",
+   "7.1–7.6",
+   "`course/code/ch07/`",
+   "`solutions/exercises/ch07/`, `solutions/tests/`",
+   "—"
+  ],
+  [
+   "Interlude S",
+   "SQL in One Sitting",
+   "S.1–S.4",
+   "`course/code/interlude_sql/`",
+   "`solutions/exercises/interlude_sql/`",
+   "—"
+  ],
+  [
+   "Chapter 8",
+   "Self-Correction: A Text-to-SQL Agent",
+   "8.1–8.7",
+   "`course/code/ch08/`",
+   "`solutions/exercises/ch08/`, `solutions/tests/`",
+   "2"
+  ],
+  [
+   "Interlude M",
+   "Measuring an Agent",
+   "M.1–M.3",
+   "`course/code/interlude_measure/`",
+   "`solutions/exercises/interlude_measure/`, `solutions/tests/`",
+   "—"
+  ],
+  [
+   "Chapter 9",
+   "Human-in-the-Loop Approval",
+   "9.1–9.6",
+   "`course/code/ch09/`",
+   "`solutions/exercises/ch09/`, `solutions/tests/`",
+   "1"
+  ],
+  [
+   "Chapter 10",
+   "Feedback Loops",
+   "10.1–10.7",
+   "`course/code/ch10/`",
+   "`solutions/exercises/ch10/`, `solutions/tests/`",
+   "4"
+  ],
+  [
+   "Interlude A",
+   "Asynchronous Python",
+   "A.1–A.4",
+   "`course/code/interlude_python/`",
+   "`solutions/exercises/capstones/`",
+   "—"
+  ],
+  [
+   "Chapter 11",
+   "Multi-Agent Systems",
+   "11.1–11.7",
+   "`course/code/ch11/`",
+   "`solutions/exercises/ch11/`, `solutions/tests/`",
+   "5"
+  ],
+  [
+   "Chapter 12",
+   "MCP Fundamentals and Your First Server",
+   "12.1–12.7",
+   "`course/code/ch12/`",
+   "`solutions/exercises/ch12/`, `solutions/tests/`, `solutions/tests/fake_model_site/`",
+   "—"
+  ],
+  [
+   "Chapter 13",
+   "Build Your Own MCP Client",
+   "13.1–13.8",
+   "`course/code/`, `course/code/ch13/`",
+   "`solutions/exercises/ch13/`, `solutions/tests/`",
+   "—"
+  ],
+  [
+   "Chapter 14",
+   "Using Servers You Didn't Write",
+   "14.1–14.5",
+   "`course/code/`, `course/code/ch14/`",
+   "`solutions/exercises/ch14/`",
+   "—"
+  ],
+  [
+   "Chapter 15",
+   "MCP in 2026: From Tool Calling to Agent Infrastructure",
+   "15.1–15.4",
+   "`course/code/ch15/`",
+   "`solutions/exercises/ch15/`, `solutions/tests/`",
+   "—"
+  ],
+  [
+   "Chapter 16",
+   "Context Engineering",
+   "16.1–16.8",
+   "`course/code/ch16/`",
+   "`solutions/exercises/ch16/`, `solutions/tests/`",
+   "1, 3"
+  ],
+  [
+   "Chapter 17",
+   "Agent Memory Engineering",
+   "17.1–17.9",
+   "`course/code/ch17/`",
+   "`solutions/exercises/ch17/`, `solutions/tests/`",
+   "1"
+  ],
+  [
+   "Chapter 18",
+   "Agentic RAG and Knowledge Systems",
+   "18.1–18.9",
+   "`course/code/ch18/`",
+   "`solutions/exercises/ch18/`, `solutions/tests/`",
+   "1, 2, 5"
+  ],
+  [
+   "Chapter 19",
+   "Long-Running Agents",
+   "19.1–19.6",
+   "`course/code/ch19/`",
+   "`solutions/exercises/ch19/`, `solutions/tests/`",
+   "4, 6"
+  ],
+  [
+   "Chapter 20",
+   "Planning and Model Routing",
+   "20.1–20.6",
+   "`course/code/ch20/`",
+   "`solutions/exercises/ch20/`, `solutions/tests/`",
+   "1, 2, 5"
+  ],
+  [
+   "Chapter 21",
+   "Multi-Agent Orchestration",
+   "21.1–21.7",
+   "`course/code/ch21/`",
+   "`solutions/exercises/ch21/`, `solutions/tests/`",
+   "3, 5"
+  ],
+  [
+   "Chapter 22",
+   "Hybrid Architectures: Probabilistic Intelligence, Deterministic Control",
+   "22.1–22.6",
+   "`course/code/ch22/`",
+   "`solutions/exercises/ch22/`, `solutions/tests/`",
+   "1, 2, 6"
+  ],
+  [
+   "Chapter 23",
+   "Computer-Use Agents",
+   "23.1–23.7",
+   "`course/code/ch23/`",
+   "`solutions/exercises/ch23/`, `solutions/tests/`",
+   "6"
+  ],
+  [
+   "Chapter 24",
+   "Skills, Frameworks and Agent Runtimes",
+   "24.1–24.10",
+   "`course/code/ch24/`",
+   "`solutions/exercises/ch24/`, `solutions/tests/`",
+   "—"
+  ],
+  [
+   "Chapter 25",
+   "Agentic Security",
+   "25.1–25.7",
+   "`course/code/ch11/`, `course/code/ch25/`",
+   "`solutions/exercises/ch25/`, `solutions/tests/`",
+   "4, 5, 6"
+  ],
+  [
+   "Chapter 26",
+   "Agent Identity and Authorization",
+   "26.1–26.7",
+   "`course/code/ch26/`",
+   "`solutions/exercises/ch26/`, `solutions/tests/`",
+   "1, 4, 6"
+  ],
+  [
+   "Chapter 27",
+   "Agent Evaluation: Dimensions, Trajectories and Scorecards",
+   "27.1–27.8",
+   "`course/code/`, `course/code/ch27/`",
+   "`solutions/exercises/ch27/`, `solutions/tests/`",
+   "1"
+  ],
+  [
+   "Chapter 28",
+   "AgentOps: Observability, Telemetry and SLOs for Agents",
+   "28.1–28.8",
+   "`course/code/ch28/`",
+   "`solutions/exercises/ch28/`, `solutions/tests/`",
+   "3"
+  ],
+  [
+   "Chapter 29",
+   "Agent Performance Engineering: Latency, Throughput and Cost",
+   "29.1–29.8",
+   "`course/code/ch29/`",
+   "`solutions/exercises/ch29/`, `solutions/tests/`",
+   "—"
+  ],
+  [
+   "Chapter 30",
+   "Deploying Agents: From One Service to an Agent Platform",
+   "30.1–30.12",
+   "`course/code/`, `course/code/ch30/`",
+   "`solutions/exercises/ch30/`, `solutions/tests/`",
+   "1, 3"
+  ]
+ ]
+}

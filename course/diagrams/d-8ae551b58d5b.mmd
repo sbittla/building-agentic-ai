@@ -1,0 +1,7 @@
+%%{init: {"flowchart": {"rankSpacing": 22, "nodeSpacing": 30}}}%%
+flowchart TB
+  Z([Decide once]) --> A
+  A[Design] --> B[Build] --> C[Secure] --> D[Evaluate]
+  D --> E[Optimize] --> F[Deploy] --> G[Operate] --> H[Improve]
+  H -->|next version| A
+  G -.-> R([Retire])

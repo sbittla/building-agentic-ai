@@ -40,16 +40,17 @@ Each part ends with a **checkpoint**: a short list of things you should now be a
 
 ## Reading paths
 
-This is a long book, and you don't have to read all of it before you build something real. Pick the path that matches where you are, and come back for the rest when you need it.
+This is a long book, and you don't have to read all of it before you build something real. Find your role below; the row is your route through the book. Come back for the rest when you need it.
 
-Table: Three reading paths
-| Path | For | Read |
-| --- | --- | --- |
-| **Fast path** | You want one working, safe agent soon | Chapters 0–4, 9, 12 and 16, then sections 27.1–27.3 and 30.1–30.3. Do the Simple exercises only |
-| **Builder path** | You're new to agents and want the full skill set | Every part in order, with the interludes you need and the Simple and Medium exercises, then one capstone |
-| **Production path** | You already build agents and want to run them at scale | Chapters 12–30, skimming Chapters 12–14 if you've used MCP before and dipping back into Chapters 9 and 11 when they're referenced, then a capstone to the full rubric |
+Table: Learning paths by role
+| Path | For | Read, in this order | Finish with |
+| --- | --- | --- | --- |
+| **Fast path** | One working, safe agent this week | Chapters 0–4, 9, 12 and 16, then sections 27.1–27.3 and 30.1–30.3. Simple exercises only | Your agent behind an API (section 30.2) |
+| **Builder** | You're new to agents and want the full skill set | First agent (Chapters 1–4) → tools and state (Chapters 5–9) → evaluation (the measurement interlude, sections 27.1–27.7) → MCP (Chapters 12–15) → production (Chapters 28 and 30). Simple and Medium exercises | Capstone 1 |
+| **Production engineer** | You already run services and must ship agents safely | Architecture (sections 1.7, 1.10, 22.1 and 30.15) → security (Chapters 9, 14, 25 and 26) → evaluation (Chapter 27) → performance and cost (Chapter 29) → deployment (Chapter 30) → AgentOps (Chapter 28, sections 30.13 and 30.14) | The case study, then Capstone 3 |
+| **Advanced architect** | You design agent platforms and set standards | Multi-agent systems (Chapters 11 and 21) → discovery (Chapter 15, sections 26.9 and 26.10) → skills (sections 24.7 and 24.10) → memory (Chapter 17) → governance (sections 25.11 and 30.12) → economics (sections 21.10 and 29.9) → long-running systems (Chapters 19 and 20) | Appendix K's decision records, then Capstone 6 |
 
-The interludes are optional on every path: read one when a chapter uses something that's new to you.
+Every path skips what you already know: if a chapter's Prerequisites line names something new to you, read that first. The interludes are optional on every path: read one when a chapter uses something that's new to you.
 
 ## Thirty-minute learning paths
 

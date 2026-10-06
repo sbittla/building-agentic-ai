@@ -77,10 +77,13 @@ function captionPara(kind, num, title, opts = {}) {
                          spacing: opts.spacing, children });
 }
 
-function codeBlock(lines, caption, num) {
+// What kind of code a listing is (course/code_maturity.json): Learning demo, Prototype or Production pattern
+const MATURITY = JSON.parse(fs.readFileSync(path.join(ROOT, "code_maturity.json"), "utf8")).files;
+function codeBlock(lines, caption, num, label) {
   const out = [];
-  if (caption) out.push(captionPara("Listing", num, caption, { keepNext: true, spacing: { before: 160, after: 40 },
-    titleRuns: [new TextRun({ text: num ? "" : "Listing  ", bold: true }), new TextRun({ text: caption, font: MONO, size: 17, bold: false })] }));
+  if (caption) out.push(captionPara("Listing", num, label ? `${caption}  ·  ${label}` : caption, { keepNext: true, spacing: { before: 160, after: 40 },
+    titleRuns: [new TextRun({ text: num ? "" : "Listing  ", bold: true }), new TextRun({ text: caption, font: MONO, size: 17, bold: false }),
+                ...(label ? [new TextRun({ text: `  ·  ${label}`, italics: true, size: 17, bold: false })] : [])] }));
   const border = { style: BorderStyle.SINGLE, size: 12, color: "A6A6A6", space: 6 };
   lines.forEach((line, i) => {
     out.push(new Paragraph({
@@ -386,7 +389,9 @@ function convert(md, file) {
         src = fs.readFileSync(codePath, "utf8").replace(/\s+$/, "");
         caption = file;
       }
-      out.push(...codeBlock(src.split("\n"), caption, nextNum("Listing")));
+      const label = MATURITY[file];
+      if (/\.(py|Dockerfile)$/.test(file) && !label) throw new Error(`${file}: add it to course/code_maturity.json`);
+      out.push(...codeBlock(src.split("\n"), caption, nextNum("Listing"), label));
       i++; continue;
     }
     if ((m = line.match(/^@@image (\S+)$/))) {
@@ -653,7 +658,19 @@ function allLinksTable() {
   }
   return rows.join("\n");
 }
-const read = f => readRaw(f).replace(/^@@exercise-model-table$/m, () => exerciseModelTable()).replace(/^@@all-links-table$/m, () => allLinksTable()).replace(/\{\{exercises(-word)?:([\w-]+)\}\}/g, (_, word, k) => {
+// "@@curriculum-map": Appendix L, from course/curriculum_map.json (written by dev/curriculum_map.py)
+function curriculumMapTable() {
+  const map = JSON.parse(fs.readFileSync(path.join(ROOT, "curriculum_map.json"), "utf8"));
+  // the solutions column is in CURRICULUM_MAP.md; the book keeps the columns short so they fit the page
+  const rows = ["| Ch. | Concept | Exercises | Code in course/code/ | Capstones |", "| --- | --- | --- | --- | --- |"];
+  for (const r of map.rows) {
+    const ch = r[0].replace(/^Chapter |^Interlude /, "");
+    const code = r[3].replace(/course\/code\//g, "").replace(/``/g, "top-level files");
+    rows.push(`| ${ch} | ${r[1]} | ${r[2]} | ${code} | ${r[5]} |`);
+  }
+  return rows.join("\n");
+}
+const read = f => readRaw(f).replace(/^@@curriculum-map$/m, () => curriculumMapTable()).replace(/^@@exercise-model-table$/m, () => exerciseModelTable()).replace(/^@@all-links-table$/m, () => allLinksTable()).replace(/\{\{exercises(-word)?:([\w-]+)\}\}/g, (_, word, k) => {
   COUNTS = COUNTS || exerciseCounts();
   const n = COUNTS[k] || 0;
   return word ? (WORDS[n] || String(n)) : String(n);

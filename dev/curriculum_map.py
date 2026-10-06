@@ -1,0 +1,168 @@
+"""The book-to-repository map: concept -> chapter -> exercises -> code -> solutions -> capstones.
+
+    python dev/curriculum_map.py           # write CURRICULUM_MAP.md and course/curriculum_map.json
+    python dev/curriculum_map.py --check   # exit 1 if either is out of date (CI runs this)
+
+Everything is derived, so the map can't drift from the book or the repository:
+  - chapters and their order: the manuscript (course/md) in the order build.js prints it
+  - code: the files each chapter shows with @@code, found in course/code
+  - exercises: course/exercises.json; solutions: solutions/index.json
+  - capstones: the chapters each capstone names in course/md/90_capstones.md
+build.js renders course/curriculum_map.json as Appendix L ("@@curriculum-map").
+"""
+import json
+import re
+import sys
+from pathlib import Path
+
+KIT = Path(__file__).resolve().parent.parent
+MD = KIT / "course" / "md"
+CODE = KIT / "course" / "code"
+EXERCISES = json.loads((KIT / "course/exercises.json").read_text(encoding="utf-8"))
+INDEX = json.loads((KIT / "solutions/index.json").read_text(encoding="utf-8"))
+MODEL = json.loads((KIT / "course/model_needs.json").read_text(encoding="utf-8"))
+MATURITY = json.loads((KIT / "course/code_maturity.json").read_text(encoding="utf-8"))["files"]
+
+
+def book_order() -> list[str]:
+    """Chapter and interlude files in printed order, from build.js's PARTS."""
+    js = (KIT / "course/build.js").read_text(encoding="utf-8")
+    parts = js[js.index("const PARTS = ["):js.index("];", js.index("const PARTS = ["))]
+    return [f for arr in re.findall(r"files: \[([^\]]*)\]", parts) for f in re.findall(r'"([^"]+)"', arr)]
+
+
+def solution_paths() -> dict:
+    """Flat solution names in solutions/index.json -> where the file really is."""
+    root = KIT / "solutions"
+    return {p.name: p.relative_to(KIT).as_posix() for p in root.rglob("*") if p.is_file()
+            and "__pycache__" not in p.parts and "outputs" not in p.parts}
+
+
+def code_paths() -> dict:
+    return {p.name: p.relative_to(KIT).as_posix() for p in CODE.rglob("*") if p.is_file()
+            and "__pycache__" not in p.parts}
+
+
+def capstone_chapters() -> dict:
+    """Capstone number -> the chapter numbers its text names."""
+    text = (MD / "90_capstones.md").read_text(encoding="utf-8")
+    out = {}
+    for m in re.finditer(r"^## Capstone (\d): .*?(?=^## |\Z)", text, re.M | re.S):
+        nums = set()
+        for g in re.finditer(r"Chapters? (\d+)((?:(?:, | and |–| to )\d+)*)", m.group(0)):
+            parts = [int(g.group(1))] + [int(x) for x in re.findall(r"\d+", g.group(2))]
+            if "–" in g.group(0) or " to " in g.group(0):
+                nums.update(range(parts[0], parts[-1] + 1))
+            else:
+                nums.update(parts)
+        out[int(m.group(1))] = sorted(nums)
+    return out
+
+
+def ex_range(ids: list[str]) -> str:
+    if not ids:
+        return "—"
+    return ids[0] if len(ids) == 1 else f"{ids[0]}–{ids[-1]}"
+
+
+def build() -> list[dict]:
+    files, caps = code_paths(), capstone_chapters()
+    rows = []
+    for f in book_order():
+        text = (MD / f).read_text(encoding="utf-8")
+        title = re.search(r"^# (.+)$", text, re.M).group(1).strip()
+        m = re.match(r"Chapter (\d+): (.+)", title)
+        key = m.group(1) if m else None
+        ids = [e["id"] for e in EXERCISES if e["chapter"] == title]
+        listed = []
+        for name in re.findall(r"^@@code ([\w.]+)", text, re.M):
+            if name not in listed:
+                listed.append(name)
+        where = solution_paths()
+        sols = sorted({where.get(Path(s).name, "solutions/" + s) for i in ids for s in INDEX.get(i, [])
+                       if s.endswith(".py")})
+        rows.append({
+            "file": f, "title": title,
+            "label": f"Chapter {key}" if key else "Interlude " + (ids[0].split(".")[0] if ids else ""),
+            "concept": m.group(2) if m else title.removeprefix("Interlude: "),
+            "exercises": ids, "exercise_range": ex_range(ids),
+            "code": [files.get(n, n) for n in listed],
+            "solutions": sols,
+            "solution_dirs": sorted({s.rsplit("/", 1)[0] + "/" for s in sols}),
+            "capstones": [c for c, chs in caps.items() if key and int(key) in chs],
+        })
+    return rows
+
+
+def appendix_rows(rows: list[dict]) -> list[list[str]]:
+    """The book's Appendix L table: one row per chapter and interlude."""
+    out = []
+    for r in rows:
+        dirs = sorted({c.rsplit("/", 1)[0] + "/" for c in r["code"]})
+        out.append([r["label"], r["concept"], r["exercise_range"],
+                    ", ".join(f"`{d}`" for d in dirs) or "—",
+                    ", ".join(f"`{d}`" for d in r["solution_dirs"]) or "Written answers",
+                    ", ".join(str(c) for c in r["capstones"]) or "—"])
+    return out
+
+
+def markdown(rows: list[dict]) -> str:
+    lines = ["# Curriculum map", "",
+             "Generated by `python dev/curriculum_map.py` from the manuscript, `course/exercises.json` and",
+             "`solutions/index.json`. Don't edit by hand; CI fails if it's out of date. The book prints the",
+             "chapter-level version as Appendix L.", "",
+             "Every concept the book teaches, where it's taught, the code it uses, the exercises that practice it,",
+             "their reference solutions and the capstones that build on it. Each code file says what kind of",
+             "code it is: a learning demo, a prototype or a production pattern (`course/code_maturity.json`;",
+             "nothing in the kit is production-hardened). Run any exercise with",
+             "`./course.sh ex <id>` and print its solution with `./course.sh solution <id>`.", "",
+             "## By chapter", "",
+             "| Chapter | Concept | Exercises | Code | Solutions | Capstones |",
+             "| --- | --- | --- | --- | --- | --- |"]
+    lines += ["| " + " | ".join(r) + " |" for r in appendix_rows(rows)]
+    lines += ["", "## Every exercise", ""]
+    by_id = {e["id"]: e for e in EXERCISES}
+    where = solution_paths()
+    for r in rows:
+        if not r["exercises"]:
+            continue
+        lines += [f"### {r['title']}", ""]
+        if r["code"]:
+            lines += ["Code: " + ", ".join(f"[`{Path(c).name}`]({c})" + (f" ({MATURITY[Path(c).name].lower()})"
+                                           if Path(c).name in MATURITY else "") for c in r["code"]), ""]
+        lines += ["| Exercise | Level | Title | Model | Solution |", "| --- | --- | --- | --- | --- |"]
+        for i in r["exercises"]:
+            e = by_id[i]
+            sol = ", ".join(f"[`{Path(s).name}`]({where.get(Path(s).name, 'solutions/' + s)})"
+                            if s.endswith((".py", ".sh", ".jsonl")) else f"[{s}](solutions/{s})"
+                            for s in INDEX.get(i, [])) or "[ANSWERS.md](solutions/ANSWERS.md)"
+            lines.append(f"| {i} | {e['level']} | {e['title']} | {MODEL.get(i, {}).get('model', '—')} | {sol} |")
+        lines.append("")
+    caps = capstone_chapters()
+    lines += ["## Capstones", "", "| Capstone | Builds on chapters | Run it |", "| --- | --- | --- |"]
+    lines += [f"| {c} | {', '.join(map(str, chs))} | `./course.sh capstone {c}` |" for c, chs in caps.items()]
+    return "\n".join(lines) + "\n"
+
+
+def main() -> int:
+    rows = build()
+    want = {KIT / "CURRICULUM_MAP.md": markdown(rows),
+            KIT / "course/curriculum_map.json": json.dumps(
+                {"header": ["Chapter", "Concept", "Exercises", "Code", "Solutions", "Capstones"],
+                 "rows": appendix_rows(rows)}, indent=1, ensure_ascii=False) + "\n"}
+    if "--check" in sys.argv:
+        stale = [p.name for p, t in want.items() if not p.exists() or p.read_text(encoding="utf-8") != t]
+        if stale:
+            print("out of date: " + ", ".join(stale) + " (run python dev/curriculum_map.py)")
+            return 1
+        print("OK: curriculum map current")
+        return 0
+    for p, t in want.items():
+        p.write_text(t, encoding="utf-8")
+    print(f"wrote CURRICULUM_MAP.md and course/curriculum_map.json: {len(rows)} chapters and interludes, "
+          f"{sum(len(r['exercises']) for r in rows)} exercises")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
