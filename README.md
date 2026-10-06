@@ -49,6 +49,8 @@ Each printing of the book is matched by a tag, so you can always get the exact c
 
 Not sure which printing you have? The copyright page says. [VERSION_MATRIX.md](VERSION_MATRIX.md) lists, for each printing, its tag, Python, models, MCP specification, library versions and verification date.
 
+**ISBNs:** paperback 979-8177506326 · hardcover 979-8177514734.
+
 How exercises are counted: every numbered exercise in the book's 31 chapters and 6 interludes counts once, including concept exercises with a written answer and exercise 27.8, a quality gate that fails on purpose when a model misses its thresholds. The six capstones are counted separately.
 
 ## 1. One-time setup (about 20 minutes)

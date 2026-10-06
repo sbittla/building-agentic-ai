@@ -1,0 +1,11 @@
+%%{init: {"flowchart": {"rankSpacing": 22, "nodeSpacing": 30}}}%%
+flowchart TB
+  U[User or API caller] --> R[Agent runtime<br>identity from the login, never from the model]
+  R --> P[Policy and authorization boundary<br>scopes, budgets, approvals, tenant]
+  P --> M[Model<br>proposes text and tool calls]
+  M --> S[Tool selection<br>a proposal, not a decision]
+  S --> G[Tool gateway<br>allow-list, rate limit, audit]
+  G --> A[Authentication and authorization<br>token checked at the tool]
+  A --> T[Tool]
+  T --> X[External system]
+  T -.->|results are untrusted text| P

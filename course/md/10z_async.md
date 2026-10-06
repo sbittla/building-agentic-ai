@@ -49,6 +49,10 @@ You'll meet two more: `async with` opens something that must be closed later (su
 **Forgetting `await`:** `result = fetch()` gives you a coroutine object, not a result, and Python warns "coroutine was never awaited". **Blocking the loop:** calling `time.sleep()` or a slow normal function inside async code freezes everything, because all coroutines share one *event loop*, the scheduler that switches between them. Use `await asyncio.sleep()` or `asyncio.to_thread()` instead.
 :::
 
+:::warn Concurrency isn't durability
+`asyncio.gather` overlaps waits inside one process. It doesn't give you crash recovery, durable state, a job that resumes after a deploy or runs for hours, or a pause while a person approves a step. If the process dies, every coroutine dies with it, and nothing remembers what had finished. Async makes an agent *faster*; making it *survive* is Chapter 19's job: checkpoints, idempotency keys, leases and, in production, a durable execution platform such as Temporal.
+:::
+
 ## A.3 Reading async agent code
 
 When you see this in Chapter 11 or 13:

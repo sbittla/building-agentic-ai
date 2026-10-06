@@ -194,7 +194,8 @@ for pin in ("pip==26.2.1", "uv==0.12.18", "inspector@2.8.0", "server-filesystem@
 
 # the release matrix states the exercise count of the current tag
 vm = (KIT / "VERSION_MATRIX.md").read_text(encoding="utf-8")
-row = re.search(r"^\| [^|]+ \| `(edition-[\d.]+)` \| (\d+) \|", vm.split("## Release matrix")[1].split("How to tell")[0].strip().splitlines()[-1], re.M)
+rows_ = [l for l in vm.split("## Release matrix")[1].split("How to tell")[0].splitlines() if l.startswith("| ")]
+row = re.search(r"^\| [^|]+ \| `(edition-[\d.]+)` \| (\d+) \|", rows_[-1]) if rows_ else None
 if not row or int(row.group(2)) != len(IDS):
     report("VERSION_MATRIX.md", f"the last release row should say {len(IDS)} exercises")
 

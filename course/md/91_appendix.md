@@ -430,7 +430,7 @@ You don't have to pay for API calls to learn from this book. The course kit can 
 - **It's good at tool calling, which is what agents do.** Every agent in this book depends on the model choosing the right tool and filling in its arguments. Among open models small enough for an ordinary computer, the Qwen 3.5 family scores at the top on tool-calling benchmarks (the 9B model scores 66.1 on BFCL-V4 and 79.1 on TAU2-Bench, ahead of much larger older models).
 - **It fits.** The download is about 6.6 GB. With a 32k-token context it needs roughly 10–12 GB of memory in total, leaving room for Docker, the course container and your other programs on a 16 GB machine, and plenty on 32 GB.
 - **It runs with or without a GPU.** With an NVIDIA GPU with 8 GB of video memory or more, it runs entirely on the GPU. Without one, it runs on the CPU, slower but usable.
-- **It's free and open.** Apache 2.0 licence: use it for learning and for anything you build.
+- **It's free and open.** Apache 2.0 license: use it for learning and for anything you build.
 - **It thinks before it answers,** like Claude with thinking on, so the book's lessons about thinking blocks apply unchanged.
 
 ### What you need
@@ -713,7 +713,7 @@ Any factor at 3 adds its own controls whatever the total. To lower the risk, cut
 
 ### Card 13: The deterministic control plane (sections 22.1 and 25.11)
 
-The model is probabilistic, so it **proposes**; deterministic code **enforces**. The control plane owns identity, policy and permissions, validation, budgets, approvals, state transitions, audit and rollback. The model may choose among allowed tools, propose structured values and actions, and suggest the next step. It never names the user, writes its own audit record or approves its own action. Test for each decision: if it were wrong 1 time in 50, would that be acceptable? If not, code owns it.
+The model is probabilistic, so it **proposes**; deterministic code **enforces**. The control plane owns identity, policy and permissions, validation, budgets, approvals, state transitions, audit and rollback. The model may choose among allowed tools, propose structured values and actions, and suggest the next step. It never names the user, writes its own audit record or approves its own action. Five decisions are never the model's: authorization, security policy, tenant isolation, financial limits and permission for destructive actions. Test for each decision: if it were wrong 1 time in 50, would that be acceptable? If not, code owns it.
 
 ### Card 14: Agent and team economics (sections 21.10 and 29.9)
 

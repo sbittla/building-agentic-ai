@@ -11,6 +11,8 @@ Read across one row: a printing of the book, the repository tag that matches it,
 | First printing, September 2026 | `edition-1.0` | 231 | 3.12 | `claude-sonnet-5`, `claude-haiku-4-5`, `qwen3.5:9b` | 2026-07-28 | `anthropic` 1.8.0, `mcp` 2.2.0 | September 2026 |
 | Second printing, October 2026 | `edition-1.1` | 246 | 3.12 | `claude-sonnet-5`, `claude-haiku-4-5`, `qwen3.5:9b` | 2026-07-28 | `anthropic` 1.8.0, `mcp` 2.2.0, `claude-agent-sdk` 0.2.159, `langchain` 1.4.2, `a2a-sdk` 1.1.5 | 6 October 2026: 569 offline tests passed, 5 need the course image; 12 of 12 security controls caught ([verification/](verification/README.md)) |
 
+ISBNs of the second printing: paperback 979-8177506326, hardcover 979-8177514734.
+
 How to tell which you have:
 - **The book:** the copyright page names its printing and its tag.
 - **The code:** `git describe --tags` prints the tag; `./course.sh check` prints the Python and library versions inside the image.
