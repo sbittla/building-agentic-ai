@@ -22,6 +22,9 @@ A rule counts as enforced only when something other than the prompt holds it. Se
 | N12 | Discovery is not trust | 14.3, 26.9, 30.10 | `discover` and `verify` kept apart; pins |
 | N13 | Fail closed, and keep secrets out of code, prompts and telemetry | 26.8, 28.3, 30.2 | Service refuses to start without keys; redaction |
 | N14 | Claim an improvement only when trials and intervals show it | Measurement interlude, 27.7 | `run_suite`, `compare`, `gate` |
+| N16 | Five decisions are never the model's: authorization, security policy, tenant isolation, financial limits, destructive actions | 22.1, 25.2, 25.11 | Policy layer, tokens, approval gates; S8, S9, S14 |
+| N17 | Every mutating tool has a written contract: idempotency, failure semantics, safe-retry class, timeout | 7.3, 19.5, 30.7 | Idempotency keys; S13, S15 |
+| N18 | Memory is not automatically truth: candidates stay candidates until validated | 17.8, 17.10 | `promote`, quarantine, trust classes |
 | N15 | Every failure becomes a test case | 25.10, 27.8, 30.14 | Security scenarios with mutations; mined cases |
 | D1 | Use the least autonomy that does the job | 1.3, 1.9, 22.8 | Benchmark E1 |
 | D2 | One agent before a team | 11.5, 21.9, 21.10 | `ch21_coordination.py` |
@@ -111,6 +114,21 @@ Enforced: `run_suite` and `wilson` in `ch27_eval.py`; `compare` in `i_measure.py
 Why: a defense shown once disappears in a refactor; a production failure that isn't in the suite comes back.
 Taught: section 25.10 (both a failure-mode and a mitigation test, plus "what remains"), section 27.8, section 30.14.
 Enforced: `solutions/tests/test_security_scenarios.py` with `security_scenarios.json`; `dev/security_mutations.py` turns each control off and confirms its test fails (results in `verification/SECURITY.md`). `mine_failures` and `to_cases` in `ch30_improvement_loop.py` add deduplicated, labelled cases whatever the release decision. Tests: `test_every_scenario_has_both_tests`, `test_a_fixed_failure_cannot_come_back`.
+
+**N16. Five decisions are never the model's.**
+Why: authorization, security policy, tenant isolation, financial limits and permission for destructive actions are where one persuaded model does the most harm. The model may ask and explain; code decides.
+Taught: section 22.1, the security boundary in section 25.2, the "What agents must never decide" box in section 25.11, Card 13.
+Enforced: the policy layer (`ch14_policy_agent.py`), `authorize` in `ch26_identity.py`, the approval gate in `ch09_organizer.py`; scenarios S8, S9 and S14.
+
+**N17. Every mutating tool has a written contract.**
+Why: a timeout means *unknown*, not *failed*; a blind retry charges the card twice.
+Taught: the "Tool contract for mutations" box and its table in section 7.3, section 19.5, the launch checklist in section 30.7.
+Enforced: idempotency keys and escalation of unkeyed steps in `ch19_durable.py`; scenarios S13 and S15.
+
+**N18. Memory is not automatically truth.**
+Why: a memory is a claim with an author. Tool output, web content, agent inference and claims about other people are candidates until the write gate, provenance and validation accept them.
+Taught: section 17.8, the validated-versus-candidate table in section 17.10.
+Enforced: trust classes, quarantine and `promote` in `ch17_memory_security.py`; scenarios S7 and S12.
 
 ## Strong defaults
 

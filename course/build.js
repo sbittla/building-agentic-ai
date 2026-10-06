@@ -332,7 +332,7 @@ function convert(md, file) {
       if (api) out.push(new Paragraph({ spacing: { before: 0, after: 120 }, keepNext: true, children: [
         new TextRun({ text: "API-dependent. ", bold: true, size: 17, color: "595959" }),
         new TextRun({ text: "The concept is durable; the names, parameters and prices here change often. "
-                          + "Check the current documentation.", italics: true, size: 17, color: "595959" })] }));
+                          + "Check the current documentation, VERSION_MATRIX.md and ERRATA.md in the course kit.", italics: true, size: 17, color: "595959" })] }));
       i++; continue;
     }
     if ((m = line.match(/^@@code (.+)$/))) {
@@ -573,6 +573,8 @@ function copyrightPage() {
     L("Building Agentic AI Systems: From First Agent to MCP, Multi-Agent Orchestration, and Production", { bold: true }),
     L("Copyright © 2026 Srinivasa Rao Bittla. All rights reserved."),
     L("No part of this book may be reproduced, stored in a retrieval system or transmitted in any form or by any means without the prior written permission of the author, except for brief quotations in reviews and articles."),
+    L("ISBN-13: 979-8177506326 (paperback)"),
+    L("ISBN-13: 979-8177514734 (hardcover)"),
     L("Companion code, exercises and solutions: github.com/sbittla/building-agentic-ai"),
     L("First edition: September 2026. Second printing, corrected: October 2026. Companion code: tag edition-1.1 of the repository. Corrections to this printing are listed in ERRATA.md in the repository."),
     L("Trademarks: Claude is a trademark of Anthropic PBC. Python is a registered trademark of the Python Software Foundation. Docker is a trademark of Docker, Inc. Other product and company names mentioned may be trademarks of their respective owners. They are used in an editorial fashion only, with no intention of infringement."),
@@ -599,7 +601,7 @@ const PARTS = [
     blurb: "With a feedback loop, an agent can check its own work. You build an agent that fixes code until the tests pass, inside firm guardrails. Then you build your first teams: a lead with parallel researchers, a router, a handoff pipeline, a writer with a critic and a vote." },
   { num: 5, title: "MCP and Interoperability", files: ["12.md", "13.md", "14.md", "15.md"],
     stages: "Build, Secure, Deploy",
-    blurb: "The Model Context Protocol lets you package tools once and use them from any agent. You build servers and a client, publish an agent as a server, adopt servers you didn't write safely, and see what the 2026 protocol changes on the wire." },
+    blurb: "The Model Context Protocol lets you package tools once and use them from any agent. You build servers and a client, publish an agent as a server, adopt servers you didn't write safely, and see what the 2026 protocol changes on the wire. This edition teaches MCP as of the 2026-07-28 specification: the architecture is durable; headers, cache fields, deprecation timelines and SDK names belong to that revision." },
   { num: 6, title: "Context, Memory and Knowledge", files: ["16.md", "17.md", "18.md"],
     stages: "Build, Secure, Optimize",
     blurb: "What an agent knows at each step decides what it can do. You engineer the context of every call, give agents memory with clear rules about what to keep and for how long, and build knowledge systems in which the agent decides what to look up, where, and whether to trust it." },

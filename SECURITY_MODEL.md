@@ -33,6 +33,10 @@ An agent with **private data**, **exposure to untrusted content** and **a way to
 3. What does it have that someone would want?
 4. Where does a check happen in code, for each harmful action in question 2?
 
+## The security boundary (section 25.2)
+
+The book's central security diagram is one path: user or API caller → agent runtime (identity from the login) → policy and authorization boundary → model (proposes) → tool selection (a proposal, not a decision) → tool gateway → authentication and authorization at the tool → tool → external system, with tool results returning as untrusted text. **The model is not a security boundary**: every check on that path is code. Five decisions never belong to the model: authorization, security policy, tenant isolation, financial limits and permission for destructive actions (section 25.11).
+
 ## Trust boundaries
 
 | Boundary | What crosses it | Treated as | Enforced by |
