@@ -219,7 +219,7 @@ const NUMBER_STARTS = new Set();          // ordered lists that start above 1
 // ---------- static table of contents (page numbers from a first render; see make_toc.py) ----------
 const HEADINGS = [];
 const CURRENT = { title: "", short: "" };
-const SKIP_TOC = /^(Learn more|Learning objectives|Real-world connection|Common mistakes|Summary|Exercises|Solutions for this chapter|Checkpoint)/;
+const SKIP_TOC = /^(Learn more|Learning objectives|Real-world connection|Common mistakes|Summary|Key takeaways|Exercises|Solutions for this chapter|Checkpoint)/;
 const TOC_PAGES_FILE = path.join(__dirname, "toc_pages.json");
 const TOC_PAGES = fs.existsSync(TOC_PAGES_FILE) ? JSON.parse(fs.readFileSync(TOC_PAGES_FILE, "utf8")) : {};
 // One Contents: parts and chapters with page numbers; each chapter's sections run together
@@ -459,12 +459,13 @@ function convert(md, file) {
       i++;
       // "---kit---" ends the printed brief; the rest is the full brief the kit shows (./course.sh ex)
       const kit = buf.findIndex(l => l.trim() === "---kit---");
-      if (kit >= 0) { buf.splice(kit); buf.push(`**Full brief:** \`./course.sh ex ${id}\``); }
+      if (kit >= 0) buf.splice(kit);
       const color = LEVEL_COLORS[lvl];
       const need = MODEL_NEEDS[id];
       if (!need) throw new Error(`exercise ${id} is missing from model_needs.json`);
       solutionFile(id);                                   // still checks every exercise has a solution
       if (need.note) buf.push(`**Model:** ${need.note}`);
+      if (kit >= 0) buf.push(`**Full brief:** \`./course.sh ex ${id}\``);
       // how to run an exercise and see its solution is said once, under "## Exercises"
       out.push(...boxParas(buf, LEVEL_FILL[lvl], color, [
         new TextRun({ text: `Exercise ${id}`, bold: true, color }),
