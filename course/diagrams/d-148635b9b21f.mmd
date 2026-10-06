@@ -1,0 +1,15 @@
+%%{init: {"flowchart": {"rankSpacing": 24, "nodeSpacing": 40}}}%%
+flowchart TB
+  A[Production traces and grades] --> B[Mine failures into eval cases]
+  B --> D[Baseline: current release on the grown suite]
+  D --> E[One change: prompt, skill, tool or model]
+  E --> F[Offline evaluation]
+  F -->|pass| G[Shadow]
+  G -->|pass| H[Canary]
+  H -->|pass| I[Promote]
+  F -->|fail| X[Reject]
+  G -->|fail| X
+  H -->|fail| R[Roll back]
+  X -.->|try another change| E
+  I --> A
+  R --> A
