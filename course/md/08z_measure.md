@@ -4,6 +4,8 @@ Chapter 8 checked the SQL analyst against answers you knew were right. That's th
 
 **Prerequisites:** Chapter 4 (agent loop). The testing interlude helps but isn't required.
 
+**Its job in the book:** experimental evaluation: comparing two versions of an agent fairly. Chapter 27 turns it into release gates, and Chapter 28 watches the released agent in production.
+
 ## Learning objectives
 
 By the end of this interlude you can:

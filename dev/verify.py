@@ -35,11 +35,12 @@ OUT = KIT / "verification"
 AREAS = [(r"test_ch00|test_ex_?T|test_ex_t3|test_checkers", "Chapter 0, interludes and checkers"),
          (r"test_ch01_03|test_ch04_05|test_ch06_07|test_ex6|test_ex9|test_ch08_10", "Parts 1–3: tools, loop, state, APIs, SQL, approval"),
          (r"test_ch11_12|test_multiagent|test_ex12|test_ex13|test_ch13_15|test_part5|test_a2a", "Parts 4–5: teams, MCP, A2A"),
-         (r"test_ex16|test_part6|test_2026", "Part 6: context, memory, retrieval"),
-         (r"test_part7|test_harness|test_ch16_30", "Parts 6–9: chapter code 16–30"),
-         (r"test_security|test_part8", "Part 8: security and identity"),
-         (r"test_part9|test_ch27|test_ch28|test_ch29", "Part 9: evaluation, observability, performance"),
-         (r"test_capstones", "Capstones"),
+         (r"test_ex16|test_part6|test_2026|test_ch17_", "Part 6: context, memory, retrieval"),
+         (r"test_part7|test_harness|test_ch16_30|test_ch2[1-4]_", "Parts 6–9: chapter code 16–30"),
+         (r"test_security|test_part8|test_ch2[56]_", "Part 8: security and identity"),
+         (r"test_part9|test_ch27|test_ch28|test_ch29|test_ch30_", "Part 9: evaluation, observability, performance"),
+         (r"test_ch31", "Part 10: customer production"),
+         (r"test_capstones", "Capstones (C1–C7)"),
          (r"test_run|test_live|test_local_adapter", "The course kit itself")]
 
 

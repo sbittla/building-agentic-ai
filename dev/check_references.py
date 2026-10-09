@@ -201,9 +201,12 @@ row = re.search(r"^\| [^|]+ \| `(edition-[\d.]+)` \| (\d+) \|", rows_[-1]) if ro
 if not row or int(row.group(2)) != len(BOOK_IDS):
     report("VERSION_MATRIX.md", f"the last release row should say {len(BOOK_IDS)} exercises")
 
-readme_row = re.findall(r"^\| [^|]+printing[^|]*\| (\d+) \| `edition-[\d.]+` \|", (KIT / "README.md").read_text(encoding="utf-8"), re.M)
-if not readme_row or int(readme_row[-1]) != len(BOOK_IDS):
+readme_row = re.findall(r"^\| [^|]+printing[^|]*\| (\d+) \| (\d+) \| `edition-[\d.]+` \|", (KIT / "README.md").read_text(encoding="utf-8"), re.M)
+if not readme_row or int(readme_row[-1][0]) != len(BOOK_IDS):
     report("README.md", f"the last row of 'Book editions and code versions' should say {len(BOOK_IDS)} exercises")
+n_capstones = len(re.findall(r"^## Capstone \d+:", (MD / "90_capstones.md").read_text(encoding="utf-8"), re.M))
+if not readme_row or int(readme_row[-1][1]) != n_capstones:
+    report("README.md", f"the last row of 'Book editions and code versions' should say {n_capstones} capstones")
 
 # every listing of code says what kind of code it is (course/code_maturity.json)
 MATURITY = json.loads((KIT / "course/code_maturity.json").read_text(encoding="utf-8"))

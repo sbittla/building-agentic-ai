@@ -810,6 +810,7 @@ def _answer_for(ex_id, text):
                   rf"(?=^\*\*[0-9A-Z]+\.\d+[ *]|^## |\Z)", text, re.S | re.M)
     return m.group(0).strip() if m else None
 
+OFFLINE_CAPSTONES = {"7"}   # capstones whose reference runs without a model
 CAPSTONES = {  # number: (folder, data script or None, program, default arguments)
     "1": ("c1_support", "data.py", "agent.py", []),
     "2": ("c2_analyst", None, "agent.py", []),
@@ -1301,7 +1302,8 @@ def cmd_run_chapter(args):
         whole = not only or any(_chapter_key(w) == k for w in words if w.upper() not in ids)
         plan += [(k, e) for e in _chapter_exercises(k) if whole or e["id"] in only] \
             if not k.startswith("C") \
-            else [(k, {"id": k, "kind": "capstone", "model": "any",
+            else [(k, {"id": k, "kind": "capstone",
+                       "model": "none" if k[1:] in OFFLINE_CAPSTONES else "any",
                        "title": f"Capstone {k[1:]} ({CAPSTONES[k[1:]][0]})",
                        "chapter": f"Capstone {k[1:]}"})]
     uses_model = [e for _, e in plan if e.get("model", "any") != "none"

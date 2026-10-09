@@ -1,6 +1,16 @@
 # Building Agentic AI Systems: code, exercises and solutions
 
-The companion repository for the book *Building Agentic AI Systems: From First Agent to MCP, Multi-Agent Orchestration, and Production* by Srinivasa Rao Bittla. It has every chapter's code, **249 exercises** across 32 chapters and 6 interludes (with starter files, checkers and reference solutions), **seven capstone projects**, and one Docker image that runs all of it.
+The companion repository for the book *Building Agentic AI Systems: From First Agent to MCP, Multi-Agent Orchestration, and Production* by Srinivasa Rao Bittla. **Build agents from first principles, then make them secure, measurable, cost-aware and production-ready.** It has every chapter's code, **249 exercises** across 32 chapters and 6 interludes (with starter files, checkers and reference solutions), **seven capstone projects**, and one Docker image that runs all of it.
+
+> **Use the code that matches your book.** Your printing is on the copyright page. Check out its tag before you start, not `main`:
+>
+> | Your book says | Run |
+> | --- | --- |
+> | Third printing, October 2026 (Part 10, Chapter 31, Capstone 7; 249 exercises) | `git checkout edition-1.2` |
+> | Second printing, October 2026 (246 exercises, six capstones) | `git checkout edition-1.1` |
+> | First printing, September 2026 (231 exercises, six capstones) | `git checkout edition-1.0` |
+>
+> `git describe --tags` tells you which one you have. `main` moves; a tag never does. Details: [Book editions and code versions](#book-editions-and-code-versions) and [VERSION_MATRIX.md](VERSION_MATRIX.md).
 
 Everything runs inside Docker, so Docker is the only thing you install. You edit files on your computer with any editor; Docker runs them.
 
@@ -46,11 +56,11 @@ On Windows, replace `./course.sh` with `.\course.cmd` in every command below.
 
 Each printing of the book is matched by a tag, so you can always get the exact code it was tested against. `main` keeps moving: fixes and compatibility updates land there and are listed in [CHANGELOG.md](CHANGELOG.md), never silently. A tag never moves, so the code at your printing's tag always matches your book; mistakes in the printed text are in [ERRATA.md](ERRATA.md).
 
-| Book printing | Exercises | Tag | Get it |
-| --- | ---: | --- | --- |
-| First printing, September 2026 | 231 | `edition-1.0` | `git checkout edition-1.0` |
-| Second printing, October 2026 | 246 | `edition-1.1` | `git checkout edition-1.1` |
-| Third printing, October 2026 | 249 | `edition-1.2` | `git checkout edition-1.2` |
+| Book printing | Exercises | Capstones | Tag | Get it |
+| --- | ---: | ---: | --- | --- |
+| First printing, September 2026 | 231 | 6 | `edition-1.0` | `git checkout edition-1.0` |
+| Second printing, October 2026 | 246 | 6 | `edition-1.1` | `git checkout edition-1.1` |
+| Third printing, October 2026 | 249 | 7 | `edition-1.2` | `git checkout edition-1.2` |
 
 Not sure which printing you have? The copyright page says. [VERSION_MATRIX.md](VERSION_MATRIX.md) lists, for each printing, its tag, Python, models, MCP specification, library versions and verification date.
 

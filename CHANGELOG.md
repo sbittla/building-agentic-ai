@@ -12,6 +12,10 @@ What changed in the book and this repository, newest first. Each book printing i
 - **Shorter interludes.** The regular-expression interlude keeps the patterns for validating agent inputs, reading logs and hiding secrets (`re.fullmatch` replaces `re.match`); the SQL interlude keeps the queries Chapter 8 needs. Their broader material and exercises moved to the course kit.
 - **Overlaps consolidated.** Chapter 21 no longer repeats Chapter 11's introduction or its "when not to build a team" test; the rule "the model decides, code enforces" is stated once (section 9.3), named in section 22.1 and listed in full in section 25.11, and Chapters 14, 22 and 25 point to it; the measurement interlude, Chapter 27, 28 and 29 form one progression in which the scorecard (section 27.6) defines each metric once.
 - **A forward-deployed path** in "How to Use This Book", Part 10 in the preface's map of the book, four new glossary terms, and the afterword's next steps.
+- **A one-page roadmap** in "How to Use This Book": every part marked essential, optional or advanced for the beginner, agent engineer, production engineer, architect and forward-deployed engineer, with the capstone for each.
+- **Each overlapping chapter states its job** (Chapters 9, 11, 21, 22, 25, 26, 27, 28, 29, 30 and 31, and the measurement interlude): what it adds, and what it leaves to its neighbour.
+- **Section 30.5 shows where each deployment setting comes from**: concurrency cap, instance count, timeout, step and token limits, rate limits and SLO targets, each traced to the Chapter 29 measurement behind it.
+- The preface states the book's positioning: build agents from first principles, then make them secure, measurable, cost-aware and production-ready.
 
 ### Repository
 - `course/code/ch31/ch31_field.py`: the field kit (brief checker, `draft_brief`, slice ranker, design checker, pilot gate, handoff check, field-to-product report). Offline except `draft_brief`.
@@ -20,6 +24,10 @@ What changed in the book and this repository, newest first. Each book printing i
 - [FIELD_GUIDE.md](FIELD_GUIDE.md): the engagement workflow week by week, discovery, design-review, pilot and handoff checklists, the hard conversations and the demo, moved out of Chapter 31.
 - [INTERVIEW_PREP.md](INTERVIEW_PREP.md): a bonus interview guide (the loop, 59 questions with brief answers, five practice cases), kept in the kit instead of the book.
 - [EXTRA_PRACTICE.md](EXTRA_PRACTICE.md) and `course/extras.md`: more regex and SQL, and three extra exercises with the usual commands: X.1 (was R.4), X.2 (was S.3) and X.3 (was 31.6 in the draft). S.4 is now S.3. `dev/make_exercises.py` writes them to `course/extras.json`, which `course.py` loads; the book's counts don't include them.
+- README: a "Use the code that matches your book" box at the top, and a capstone column in the editions table; `dev/check_references.py` checks both counts.
+- `./course.sh run-chapter` records Capstone 7 as needing no model (`OFFLINE_CAPSTONES`); first recorded runs for Chapter 31, Capstone 7 and X.1–X.3 in `solutions/outputs/`.
+- `dev/verify.py` groups the Chapter 31 tests as Part 10; verification re-run for this edition (commit, lock hash and environment in [verification/README.md](verification/README.md)).
+- Model ids and prices checked against Anthropic's pricing page on 8 October 2026 ([VERSION_MATRIX.md](VERSION_MATRIX.md)).
 - Exercises: 246 → 249 in the book, plus 3 extra in the kit.
 
 ## edition-1.1: second printing (October 2026)

@@ -57,6 +57,36 @@ In a hurry? Chapters 0–4, 9, 12 and 16, then sections 27.1–27.3 and 30.1–3
 
 Every path skips what you already know: if a chapter's Prerequisites line names something new to you, read that first. The interludes are optional on every path: read one when a chapter uses something that's new to you.
 
+## The roadmap at a glance
+
+The paths above are routes; this table is the map. Read across a row to see how much each chapter matters for each role: **E** is essential (read it in order), **O** is optional (read it when you need it) and **A** is advanced (come back after your first capstone). No role needs all of it.
+
+Table: Essential, optional and advanced chapters by role {#t:roadmap}
+| Chapters | Beginner | Agent engineer | Production engineer | Architect | Forward-deployed |
+| --- | --- | --- | --- | --- | --- |
+| 0 and the Python interlude (beginner path) | E | O | O | O | O |
+| 1–4: the first agent, testing interlude | E | E | E | O | E |
+| 5–6: state, search, regex interlude | E | E | O | O | O |
+| 7–8: real APIs, SQL; SQL interlude | E | E | E (7) | O | E (7) |
+| Measurement interlude | E | E | E | O | E |
+| 9: approvals | E | E | E | E | E |
+| 10–11: feedback loops, first teams | O | E | O | E (11) | O |
+| 12: your first MCP server | E | E | O | O | O |
+| 13–15: MCP clients, ecosystem, MCP in 2026 | A | E | E (14) | E (15) | O |
+| 16–18: context, memory, retrieval | A | E | O | E (17) | E (16, 18) |
+| 19–20: long-running work, planning, routing | A | E | O | E | O |
+| 21: multi-agent orchestration | A | O | O | E | A |
+| 22: deterministic control | O | E | E | E | E |
+| 23–24: computer use, frameworks, skills | A | O | A | E (24.7, 24.10) | A |
+| 25–26: security, identity | O | E (25) | E | E | E |
+| 27: evaluation and release gates | E (27.1–27.3) | E | E | E | E |
+| 28: AgentOps | A | O | E | O | O |
+| 29: performance and cost | A | O | E | E (29.9) | E (29.1, 29.9) |
+| 30: deployment and the platform | A | O | E | E | E (30.1–30.7, 30.13) |
+| 31: customer production | A | O | O | O | E |
+| The case study | O | O | E | E | O |
+| Your capstone | 1 | 2 or 5 | 3 | 6 | 7 |
+
 ## From first agent to production
 
 The book is long, but the route is one line. Each milestone ends with something that runs, and a command that shows it works:

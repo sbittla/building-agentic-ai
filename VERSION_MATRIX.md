@@ -10,7 +10,6 @@ Read across one row: a printing of the book, the repository tag that matches it,
 | --- | --- | ---: | --- | --- | --- | --- | --- |
 | First printing, September 2026 | `edition-1.0` | 231 | 3.12 | `claude-sonnet-5`, `claude-haiku-4-5`, `qwen3.5:9b` | 2026-07-28 | `anthropic` 1.8.0, `mcp` 2.2.0 | September 2026 |
 | Second printing, October 2026 | `edition-1.1` | 246 | 3.12 | `claude-sonnet-5`, `claude-haiku-4-5`, `qwen3.5:9b` | 2026-07-28 | `anthropic` 1.8.0, `mcp` 2.2.0, `claude-agent-sdk` 0.2.159, `langchain` 1.4.2, `a2a-sdk` 1.1.5 | 6 October 2026: 569 offline tests passed, 5 need the course image; 12 of 12 security controls caught ([verification/](verification/README.md)) |
-
 | Third printing, October 2026 | `edition-1.2` | 249 | 3.12 | `claude-sonnet-5`, `claude-haiku-4-5`, `qwen3.5:9b` | 2026-07-28 | `anthropic` 1.8.0, `mcp` 2.2.0, `claude-agent-sdk` 0.2.159, `langchain` 1.4.2, `a2a-sdk` 1.1.5 | 9 October 2026: 571 offline tests passed outside the course image (13 skipped there); rerun in the image before tagging |
 
 ISBNs of the second and third printings: paperback 979-8177506326, hardcover 979-8177514734.
@@ -75,7 +74,9 @@ Two images are not pinned, because their publishers ship fixes often and the boo
 | `claude-haiku-4-5` | The small model in Chapters 20 and 29 | $1.00 / $5.00 |
 | `qwen3.5:9b` | The free local model (Appendix H) | free |
 
-Prices live in one place, `PRICES` in `course/code/ch20/ch20_router.py`, which Chapters 20 and 29 and Appendix E use. Model ids and prices change more often than anything else in this file; check the Claude docs' models overview before changing `MODEL`.
+Prices live in one place, `PRICES` in `course/code/ch20/ch20_router.py`, which Chapters 20 and 29 and Appendix E use.
+
+**Evidence for the third printing.** On 8 October 2026 the model ids and prices above were checked against Anthropic's pricing page ([platform.claude.com/docs/en/about-claude/pricing](https://platform.claude.com/docs/en/about-claude/pricing)): Claude Sonnet 5 at $2 / $10 and Claude Haiku 4.5 at $1 / $5 per million tokens, matching `PRICES`. `dev/check_references.py` fails CI if this file, the `Dockerfile` and `PRICES` disagree, and `dev/cost_model.py --check` fails if Appendix E's cost figures are stale. Model ids and prices change more often than anything else in this file; check the Claude docs' models overview before changing `MODEL`.
 
 ## Protocols
 
