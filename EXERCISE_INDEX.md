@@ -45,6 +45,7 @@ Practise each exercise yourself first with `./course.sh ex <id>`, then compare w
 - [Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents](#chapter-28-agentops-observability-telemetry-and-slos-for-agents)
 - [Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost](#chapter-29-agent-performance-engineering-latency-throughput-and-cost)
 - [Chapter 30: Deploying Agents: From One Service to an Agent Platform](#chapter-30-deploying-agents-from-one-service-to-an-agent-platform)
+- [Chapter 31: The Forward-Deployed Playbook](#chapter-31-the-forward-deployed-playbook)
 - [Capstone projects](#capstone-projects)
 
 ## Chapter 0: Foundations
@@ -552,9 +553,22 @@ Logs: [`solutions/outputs/ch30/`](solutions/outputs/ch30/)
 | 30.11 | An agent behind the gateway | Complex | Build | Local or Claude | [`ex30_11_gateway_agent.py`](solutions/exercises/ch30/ex30_11_gateway_agent.py)<br>[`test_part5_mcp2026.py`](solutions/tests/test_part5_mcp2026.py) | ✔ passed (qwen3.5:9b, 53 s) |
 | 30.12 | Catch it in shadow | Medium | Build | No model | [`ex30_12_shadow_slos.py`](solutions/exercises/ch30/ex30_12_shadow_slos.py)<br>[`test_ch30_improvement_loop.py`](solutions/tests/test_ch30_improvement_loop.py) | not run yet |
 
+## Chapter 31: The Forward-Deployed Playbook
+
+Logs: [`solutions/outputs/ch31/`](solutions/outputs/ch31/)
+
+| # | Exercise | Level | Type | Model needed | Solution | Latest result |
+| --- | --- | --- | --- | --- | --- | --- |
+| 31.1 | Ready to build? | Concept | Written answer | No model | — | not run yet |
+| 31.2 | A brief that's ready | Simple | Build | No model | [`ex31_2_your_brief.py`](solutions/exercises/ch31/ex31_2_your_brief.py)<br>[`test_ch31_field.py`](solutions/tests/test_ch31_field.py) | not run yet |
+| 31.3 | What reaches the model | Medium | Build | No model | [`ex31_3_prompt_rule.py`](solutions/exercises/ch31/ex31_3_prompt_rule.py)<br>[`test_ch31_field.py`](solutions/tests/test_ch31_field.py) | not run yet |
+| 31.4 | How many more runs? | Medium | Build | No model | [`ex31_4_runs_needed.py`](solutions/exercises/ch31/ex31_4_runs_needed.py)<br>[`test_ch31_field.py`](solutions/tests/test_ch31_field.py) | not run yet |
+| 31.5 | Draft it, then check it | Medium | Build | Local or Claude | [`ex31_5_draft_brief.py`](solutions/exercises/ch31/ex31_5_draft_brief.py)<br>[`test_ch31_field.py`](solutions/tests/test_ch31_field.py) | not run yet |
+| 31.6 | The hard conversations | Concept | Written answer | No model | — | not run yet |
+
 ## Capstone projects
 
-Run a reference capstone with `./course.sh capstone <1-6>`.
+Run a reference capstone with `./course.sh capstone <1-7>`.
 
 | # | Project | Folder | Latest result |
 | --- | --- | --- | --- |
@@ -564,3 +578,4 @@ Run a reference capstone with `./course.sh capstone <1-6>`.
 | C4 | Code review and fix agent | [`solutions/capstones/c4_review/`](solutions/capstones/c4_review/) | ✔ passed (qwen3.5:9b, 117 s) |
 | C5 | Deep research assistant | [`solutions/capstones/c5_research/`](solutions/capstones/c5_research/) | ✔ passed (qwen3.5:9b, 318 s) |
 | C6 | Back-office workflow agent | [`solutions/capstones/c6_backoffice/`](solutions/capstones/c6_backoffice/) | ✔ passed (qwen3.5:9b, 53 s) |
+| C7 | Customer deployment (FDE engagement) | [`solutions/capstones/c7_engagement/`](solutions/capstones/c7_engagement/) | not run yet |

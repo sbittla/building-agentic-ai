@@ -44,7 +44,7 @@ for p in KIT.rglob("*"):
     if p.is_file() and not any(part in (".git", "_archive", "node_modules", "outputs") for part in p.parts):
         FILES.setdefault(p.name, p)
 # files the reader or the code creates at run time, so they aren't in the repository
-RUNTIME = {".env", ".env.tmp", "tasks.json", "tasks.db", "summary.json", "capstone_calls.jsonl", "audit.jsonl",
+RUNTIME = {".env", ".env.tmp", "handovers.jsonl", "ENGAGEMENT.md", "tasks.json", "tasks.db", "summary.json", "capstone_calls.jsonl", "audit.jsonl",
            "notes.json", "plans.json", "memory.db", "jobs.db", "sessions.db", "progress.md", "ANSWERS.md",
            "report.json", "toc_pages.json", "toc_headings.json", "results.json", "trace.jsonl", "spans.jsonl",
            "calls.jsonl", "approvals.jsonl", "out.docx", "policy_log.jsonl", "cache.json", "weather_cache.json",
@@ -99,7 +99,7 @@ def check_command(where, cmd):
         check_id(where, args[0])
     if c == "list" and args and not args[0].startswith(("<", "[")) and not any(i.split(".")[0] == args[0] for i in IDS):
         report(where, f"`./course.sh list {args[0]}`: no exercises in that chapter")
-    if c == "capstone" and args and args[0].isdigit() and not 1 <= int(args[0]) <= 6:
+    if c == "capstone" and args and args[0].isdigit() and not 1 <= int(args[0]) <= 7:
         report(where, f"capstone {args[0]} doesn't exist")
     if c == "python" and args:
         check_file(where, args[0])
@@ -137,13 +137,13 @@ def scan(path, text, history=False):
                 if s not in SECTIONS:
                     report(where, f"section {s} doesn't exist")
         for m in re.finditer(r"\bChapters? (\d+)", line):
-            if int(m.group(1)) > 30:
+            if int(m.group(1)) > 31:
                 report(where, f"Chapter {m.group(1)} doesn't exist")
         for m in re.finditer(r"\bAppendix ([A-Z])\b", line):
             if m.group(1) not in APPENDICES:
                 report(where, f"Appendix {m.group(1)} doesn't exist")
         for m in re.finditer(r"\bCapstone (\d+)", line):
-            if not 1 <= int(m.group(1)) <= 6:
+            if not 1 <= int(m.group(1)) <= 7:
                 report(where, f"Capstone {m.group(1)} doesn't exist")
 
 for f in sorted(MD.glob("*.md")) + [d for d in DOCS if d.exists()]:

@@ -37,7 +37,7 @@ def test_slices_rank_and_reject_with_reasons(f):
     why = {s.name: w for s, w in rejected}
     assert "core_system_write" in why["Approve small claims automatically"][0]
     assert "email_customers" in why["Draft the letter to the customer"][0]
-    assert "isn't available" in why["Flag missing documents at intake"][0]
+    assert "isn't ready" in why["Flag missing documents at intake"][0]
 
 
 def test_write_access_unblocks_core_writes(f):

@@ -30,7 +30,7 @@ from ch27_eval import wilson
 MODEL = os.environ.get("MODEL", "claude-sonnet-5")
 client = Anthropic()
 
-# ------------------------------------------------------------ 1. discovery
+# ---------------------------------------------- 1. discovery
 VAGUE = {"better", "faster", "improve", "improved", "efficiency", "efficient", "easier",
          "happier", "productivity", "ai", "automation", "automate", "experience"}
 
@@ -67,7 +67,7 @@ def check_brief(b: ProblemBrief) -> list[str]:
     if not b.metric.unit.strip() or not words - VAGUE:
         problems.append(f"metric '{b.metric.name}' isn't measurable: give it a unit")
     if b.metric.baseline is None:
-        problems.append("no baseline: measure today's number first, or no gain can be shown")
+        problems.append("no baseline: measure today's number first, or no gain shows")
     elif not b.metric.measured_how.strip():
         problems.append("the baseline has no method: say how and when it was measured")
     if b.metric.target is None:
@@ -78,11 +78,11 @@ def check_brief(b: ProblemBrief) -> list[str]:
         if not better:
             problems.append("the target is no better than the baseline")
     if not b.customer_owner.strip():
-        problems.append("no customer owner: a named person must sign off the result")
+        problems.append("no customer owner: a named person must sign off")
     if not b.constraints:
-        problems.append("no constraints recorded: ask about data, identity, hosting and rules")
+        problems.append("no constraints: ask about data, identity, hosting and rules")
     if not b.non_goals:
-        problems.append("no non-goals: write down what is out of scope, or scope will grow")
+        problems.append("no non-goals: write down what's out of scope, or scope grows")
     return problems
 
 BRIEF_TOOL = {
@@ -92,7 +92,8 @@ BRIEF_TOOL = {
         "users": {"type": "string"}, "job": {"type": "string"},
         "output": {"type": "string"},
         "metric_name": {"type": "string"}, "unit": {"type": "string"},
-        "baseline": {"type": ["number", "null"]}, "target": {"type": ["number", "null"]},
+        "baseline": {"type": ["number", "null"]},
+        "target": {"type": ["number", "null"]},
         "measured_how": {"type": "string"}, "customer_owner": {"type": "string"},
         "constraints": {"type": "array", "items": {"type": "string"}},
         "non_goals": {"type": "array", "items": {"type": "string"}},
@@ -127,7 +128,7 @@ def draft_brief(notes: str, customer: str) -> tuple[ProblemBrief, list[str]]:
                          d.get("non_goals", []), d.get("risks", []))
     return brief, d.get("open_questions", [])
 
-# ------------------------------------------------------------ 2. the smallest valuable slice
+# ---------------------------------------------- 2. the smallest valuable slice
 RISK_FACTOR = {"low": 1.0, "medium": 0.7, "high": 0.4}
 
 @dataclass
@@ -136,7 +137,7 @@ class Slice:
     hours_saved_per_month: float    # an estimate from the baseline: say how you got it
     effort_weeks: float
     risk: str                       # low | medium | high
-    needs: set = field(default_factory=set)   # capabilities: "pii", "core_system_write"...
+    needs: set = field(default_factory=set)   # e.g. "pii", "core_system_write"
     data_ready: bool = True
 
 def score(s: Slice) -> float:
@@ -147,16 +148,16 @@ def rank_slices(slices: list[Slice], blocked: set[str]) -> tuple[list, list]:
     """(feasible slices, best first; rejected slices with their reasons)."""
     ok, rejected = [], []
     for s in slices:
-        why = [f"needs {n}, which the customer doesn't allow yet" for n in sorted(s.needs & blocked)]
+        why = [f"needs {n}, not allowed yet" for n in sorted(s.needs & blocked)]
         if not s.data_ready:
-            why.append("its data isn't available yet")
+            why.append("its data isn't ready")
         (rejected if why else ok).append((s, why) if why else s)
     return sorted(ok, key=score, reverse=True), rejected
 
-# ------------------------------------------------------------ 3. the customer's environment
+# ---------------------------------------------- 3. the customer's environment
 @dataclass
 class Environment:
-    """The customer's rules, collected in discovery and confirmed with their security team."""
+    """The customer's rules, from discovery, confirmed with their security team."""
     data_region: str                            # where their data may live
     allowed_model_hosts: set                    # where a model may run on their data
     egress_allowlist: set                       # hosts the agent may call
@@ -167,7 +168,8 @@ class Environment:
     not_yet: set = field(default_factory=set)   # capabilities agreed out of this phase
 
     def blocked(self) -> set:
-        return set(self.not_yet) | (set() if self.write_access else {"core_system_write"})
+        writes = set() if self.write_access else {"core_system_write"}
+        return set(self.not_yet) | writes
 
 @dataclass
 class Component:
@@ -191,7 +193,7 @@ class Violation:
     fix: str
 
 def check_design(components: list[Component], env: Environment) -> list[Violation]:
-    """Every place a design breaks the customer's rules. Run it on each design review."""
+    """Every place a design breaks the customer's rules. Run it at every review."""
     out = []
     for c in components:
         v = lambda rule, detail, fix: out.append(Violation(rule, c.name, detail, fix))
@@ -220,12 +222,12 @@ def check_design(components: list[Component], env: Environment) -> list[Violatio
             v("audit", "has no audit log", "record who, what and when for every access")
     return out
 
-# ------------------------------------------------------------ 4. pilot to production
+# ---------------------------------------------- 4. pilot to production
 STAGES = ["proof of concept", "pilot", "general release"]
 
 @dataclass(frozen=True)
 class Criteria:
-    """Acceptance criteria, agreed and signed by the customer BEFORE the pilot starts."""
+    """Acceptance criteria, signed by the customer BEFORE the pilot starts."""
     min_success: float = 0.85       # the interval's lower bound must clear it
     max_p95_s: float = 8.0
     max_cost_per_task: float = 0.05
@@ -246,7 +248,8 @@ class PilotResults:
 
 def gain(r: PilotResults) -> float:
     """Relative improvement in the brief's metric: 0.4 means 40% better."""
-    change = (r.metric_now - r.baseline) if r.higher_is_better else (r.baseline - r.metric_now)
+    up, down = r.metric_now - r.baseline, r.baseline - r.metric_now
+    change = up if r.higher_is_better else down
     return change / r.baseline
 
 def pilot_gate(r: PilotResults, c: Criteria = Criteria()) -> dict:
@@ -254,11 +257,11 @@ def pilot_gate(r: PilotResults, c: Criteria = Criteria()) -> dict:
     lo, hi = wilson(r.successes, r.runs)
     stop, hold = [], []
     if r.critical > c.max_critical:
-        stop.append(f"{r.critical} critical failure(s): the criteria allow {c.max_critical}")
+        stop.append(f"{r.critical} critical failure(s): {c.max_critical} allowed")
     if r.runs < c.min_runs:
         hold.append(f"only {r.runs} runs: the criteria need {c.min_runs}")
     elif hi < c.min_success:
-        stop.append(f"success at best {hi:.0%}: below {c.min_success:.0%} even optimistically")
+        stop.append(f"success at best {hi:.0%}: below {c.min_success:.0%} even so")
     elif lo < c.min_success:
         hold.append(f"success {lo:.0%}-{hi:.0%} doesn't clear {c.min_success:.0%} yet")
     if r.p95_s > c.max_p95_s:
@@ -266,7 +269,7 @@ def pilot_gate(r: PilotResults, c: Criteria = Criteria()) -> dict:
     if r.cost_per_task > c.max_cost_per_task:
         hold.append(f"${r.cost_per_task:.3f} a task over ${c.max_cost_per_task:.3f}")
     if gain(r) < c.min_gain:
-        hold.append(f"metric improved {gain(r):.0%}, short of the agreed {c.min_gain:.0%}")
+        hold.append(f"metric improved {gain(r):.0%}, short of {c.min_gain:.0%}")
     decision = "stop" if stop else "hold" if hold else "promote"
     return {"decision": decision, "reasons": stop + hold, "interval": (lo, hi),
             "gain": gain(r)}
@@ -275,7 +278,7 @@ def next_stage(current: str, decision: str) -> str:
     i = STAGES.index(current)
     return STAGES[min(i + 1, len(STAGES) - 1)] if decision == "promote" else current
 
-# ------------------------------------------------------------ 5. handoff
+# ---------------------------------------------- 5. handoff
 HANDOFF = {
     "runbook": "a runbook the customer's on-call team has walked through",
     "owner": "a named team on the customer's side that owns it in production",
@@ -291,7 +294,7 @@ def handoff_gaps(pack: dict) -> list[str]:
     """What's still missing before you can leave. Empty means ready to hand over."""
     return [f"{k}: {why}" for k, why in HANDOFF.items() if not pack.get(k)]
 
-# ------------------------------------------------------------ 6. the field-to-product loop
+# ---------------------------------------------- 6. the field-to-product loop
 @dataclass
 class FieldFix:
     customer: str
@@ -304,12 +307,16 @@ def productize(fixes: list[FieldFix], min_customers: int = 3) -> list[dict]:
     for f in fixes:
         by[f.capability]["customers"].add(f.customer)
         by[f.capability]["hours"] += f.hours
-    rows = [{"capability": k, "customers": len(v["customers"]), "hours": v["hours"],
-             "verdict": "build it into the product" if len(v["customers"]) >= min_customers
-             else "keep it in the field kit"} for k, v in by.items()]
+    rows = []
+    for k, v in by.items():
+        n = len(v["customers"])
+        verdict = ("build it into the product" if n >= min_customers
+                   else "keep it in the field kit")
+        rows.append({"capability": k, "customers": n, "hours": v["hours"],
+                     "verdict": verdict})
     return sorted(rows, key=lambda r: (-r["customers"], -r["hours"]))
 
-# ------------------------------------------------------------ the sample engagement
+# ---------------------------------------------- the sample engagement
 BRIEF = ProblemBrief(
     customer="Lakeside Insurance",
     users="40 claims adjusters in Frankfurt",
@@ -335,8 +342,10 @@ ENV = Environment(
 SLICES = [
     Slice("Summarize a claim file for the adjuster", 320, 3, "low", {"pii"}),
     Slice("Search past similar claims", 120, 5, "medium", {"pii"}),
-    Slice("Draft the letter to the customer", 150, 4, "medium", {"pii", "email_customers"}),
-    Slice("Approve small claims automatically", 600, 8, "high", {"pii", "core_system_write"}),
+    Slice("Draft the letter to the customer", 150, 4, "medium",
+          {"pii", "email_customers"}),
+    Slice("Approve small claims automatically", 600, 8, "high",
+          {"pii", "core_system_write"}),
     Slice("Flag missing documents at intake", 90, 2, "low", {"new_data_feed"},
           data_ready=False),
 ]
@@ -357,17 +366,21 @@ FIXED_DESIGN = [
               model_host="provider-eu", egress={"llm.eu.provider.example"},
               logs_fields={"claim_id", "latency_ms", "tokens"}, retention_days=30,
               audit_log=True),
-    Component("vector index", "eu-central", holds_customer_data=True, audit_log=True),
-    Component("claims connector", "eu-central", holds_customer_data=True, audit_log=True),
+    Component("vector index", "eu-central", holds_customer_data=True,
+              audit_log=True),
+    Component("claims connector", "eu-central", holds_customer_data=True,
+              audit_log=True),
 ]
 
-WEEK_2 = PilotResults(runs=40, successes=37, p95_s=6.8, cost_per_task=0.024, critical=0,
-                      metric_now=11.0, baseline=18)
-WEEK_6 = PilotResults(runs=160, successes=150, p95_s=6.1, cost_per_task=0.021, critical=0,
-                      metric_now=10.5, baseline=18)
+WEEK_2 = PilotResults(runs=40, successes=37, p95_s=6.8, cost_per_task=0.024,
+                      critical=0, metric_now=11.0, baseline=18)
+WEEK_6 = PilotResults(runs=160, successes=150, p95_s=6.1, cost_per_task=0.021,
+                      critical=0, metric_now=10.5, baseline=18)
 
-HANDOFF_PACK = {"runbook": "runbooks/claims-summary.md", "owner": "Claims Platform team",
-                "eval_suite": "evals/claims_cases.jsonl", "dashboard": "Grafana: claims-agent",
+HANDOFF_PACK = {"runbook": "runbooks/claims-summary.md",
+                "owner": "Claims Platform team",
+                "eval_suite": "evals/claims_cases.jsonl",
+                "dashboard": "Grafana: claims-agent",
                 "kill_switch": "tested 12 May", "escalation": "",
                 "training": "", "known_limits": "docs/limits.md"}
 
@@ -403,7 +416,7 @@ def main():
 
     print("\n3. Does the design fit their rules?")
     for v in check_design(DRAFT_DESIGN, ENV):
-        print(f"   [{v.rule}] {v.component} {v.detail} -> {v.fix}")
+        print(f"   [{v.rule}] {v.component} {v.detail}\n      fix: {v.fix}")
     print("   fixed design:", check_design(FIXED_DESIGN, ENV) or "no violations")
 
     print("\n4. The pilot gate (criteria signed before the pilot):")
@@ -411,7 +424,8 @@ def main():
         g = pilot_gate(r)
         lo, hi = g["interval"]
         why = f" ({'; '.join(g['reasons'])})" if g["reasons"] else ""
-        print(f"   {label}: {g['decision']}: success {lo:.0%}-{hi:.0%}, gain {g['gain']:.0%}{why}")
+        print(f"   {label}: {g['decision']}: success {lo:.0%}-{hi:.0%},"
+              f" gain {g['gain']:.0%}{why}")
     print("   next stage:", next_stage("pilot", pilot_gate(WEEK_6)["decision"]))
 
     print("\n5. Before you leave:")
@@ -421,8 +435,8 @@ def main():
     print("\n6. Field fixes that belong in the product:")
     for row in productize(FIELD_FIXES):
         n = row["customers"]
-        print(f"   {row['capability']}: {n} customer{'s' * (n != 1)}, {row['hours']:.0f} hours"
-              f" -> {row['verdict']}")
+        print(f"   {row['capability']}: {n} customer{'s' * (n != 1)},"
+              f" {row['hours']:.0f} hours -> {row['verdict']}")
 
 if __name__ == "__main__":
     if "--draft" in sys.argv:

@@ -760,5 +760,24 @@
  },
  "30.12": {
   "model": "none"
+ },
+ "31.1": {
+  "model": "none"
+ },
+ "31.2": {
+  "model": "none"
+ },
+ "31.3": {
+  "model": "none"
+ },
+ "31.4": {
+  "model": "none"
+ },
+ "31.6": {
+  "model": "none"
+ },
+ "31.5": {
+  "model": "any",
+  "note": "Any model that can make a forced tool call; the brief is still checked in code"
  }
 }

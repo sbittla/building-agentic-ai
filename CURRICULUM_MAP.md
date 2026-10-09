@@ -36,21 +36,22 @@ nothing in the kit is production-hardened). Run any exercise with
 | Chapter 13 | Build Your Own MCP Client | 13.1–13.8 | `course/code/`, `course/code/ch13/` | `solutions/exercises/ch13/`, `solutions/tests/` | — |
 | Chapter 14 | Using Servers You Didn't Write | 14.1–14.5 | `course/code/`, `course/code/ch14/` | `solutions/exercises/ch14/` | — |
 | Chapter 15 | MCP in 2026: From Tool Calling to Agent Infrastructure | 15.1–15.4 | `course/code/ch15/` | `solutions/exercises/ch15/`, `solutions/tests/` | — |
-| Chapter 16 | Context Engineering | 16.1–16.8 | `course/code/ch16/` | `solutions/exercises/ch16/`, `solutions/tests/` | 1, 3 |
-| Chapter 17 | Agent Memory Engineering | 17.1–17.9 | `course/code/ch17/` | `solutions/exercises/ch17/`, `solutions/tests/` | 1 |
-| Chapter 18 | Agentic RAG and Knowledge Systems | 18.1–18.9 | `course/code/ch18/` | `solutions/exercises/ch18/`, `solutions/tests/` | 1, 2, 5 |
+| Chapter 16 | Context Engineering | 16.1–16.8 | `course/code/ch16/` | `solutions/exercises/ch16/`, `solutions/tests/` | 1, 3, 7 |
+| Chapter 17 | Agent Memory Engineering | 17.1–17.9 | `course/code/ch17/` | `solutions/exercises/ch17/`, `solutions/tests/` | 1, 7 |
+| Chapter 18 | Agentic RAG and Knowledge Systems | 18.1–18.9 | `course/code/ch18/` | `solutions/exercises/ch18/`, `solutions/tests/` | 1, 2, 5, 7 |
 | Chapter 19 | Long-Running Agents | 19.1–19.6 | `course/code/ch19/` | `solutions/exercises/ch19/`, `solutions/tests/` | 4, 6 |
 | Chapter 20 | Planning and Model Routing | 20.1–20.6 | `course/code/ch20/` | `solutions/exercises/ch20/`, `solutions/tests/` | 1, 2, 5 |
 | Chapter 21 | Multi-Agent Orchestration | 21.1–21.7 | `course/code/ch21/` | `solutions/exercises/ch21/`, `solutions/tests/` | 3, 5 |
-| Chapter 22 | Hybrid Architectures: Probabilistic Intelligence, Deterministic Control | 22.1–22.6 | `course/code/ch22/` | `solutions/exercises/ch22/`, `solutions/tests/` | 1, 2, 6 |
+| Chapter 22 | Hybrid Architectures: Probabilistic Intelligence, Deterministic Control | 22.1–22.6 | `course/code/ch22/` | `solutions/exercises/ch22/`, `solutions/tests/` | 1, 2, 6, 7 |
 | Chapter 23 | Computer-Use Agents | 23.1–23.7 | `course/code/ch23/` | `solutions/exercises/ch23/`, `solutions/tests/` | 6 |
 | Chapter 24 | Skills, Frameworks and Agent Runtimes | 24.1–24.10 | `course/code/ch24/` | `solutions/exercises/ch24/`, `solutions/tests/` | — |
 | Chapter 25 | Agentic Security | 25.1–25.7 | `course/code/ch11/`, `course/code/ch25/` | `solutions/exercises/ch25/`, `solutions/tests/` | 4, 5, 6 |
 | Chapter 26 | Agent Identity and Authorization | 26.1–26.7 | `course/code/ch26/` | `solutions/exercises/ch26/`, `solutions/tests/` | 1, 4, 6 |
-| Chapter 27 | Agent Evaluation: Dimensions, Trajectories and Scorecards | 27.1–27.8 | `course/code/`, `course/code/ch27/` | `solutions/exercises/ch27/`, `solutions/tests/` | 1 |
+| Chapter 27 | Agent Evaluation: Dimensions, Trajectories and Scorecards | 27.1–27.8 | `course/code/`, `course/code/ch27/` | `solutions/exercises/ch27/`, `solutions/tests/` | 1, 7 |
 | Chapter 28 | AgentOps: Observability, Telemetry and SLOs for Agents | 28.1–28.8 | `course/code/ch28/` | `solutions/exercises/ch28/`, `solutions/tests/` | 3 |
 | Chapter 29 | Agent Performance Engineering: Latency, Throughput and Cost | 29.1–29.8 | `course/code/ch29/` | `solutions/exercises/ch29/`, `solutions/tests/` | — |
 | Chapter 30 | Deploying Agents: From One Service to an Agent Platform | 30.1–30.12 | `course/code/`, `course/code/ch30/` | `solutions/exercises/ch30/`, `solutions/tests/` | 1, 3 |
+| Chapter 31 | The Forward-Deployed Playbook | 31.1–31.6 | `course/code/ch31/` | `solutions/exercises/ch31/`, `solutions/tests/` | 7 |
 
 ## Every exercise
 
@@ -559,6 +560,19 @@ Code: [`ch30_service.py`](course/code/ch30/ch30_service.py) (production pattern)
 | 30.11 | Complex | An agent behind the gateway | any | [`ex30_11_gateway_agent.py`](solutions/exercises/ch30/ex30_11_gateway_agent.py), [`test_part5_mcp2026.py`](solutions/tests/test_part5_mcp2026.py) |
 | 30.12 | Medium | Catch it in shadow | none | [`ex30_12_shadow_slos.py`](solutions/exercises/ch30/ex30_12_shadow_slos.py), [`test_ch30_improvement_loop.py`](solutions/tests/test_ch30_improvement_loop.py) |
 
+### Chapter 31: The Forward-Deployed Playbook
+
+Code: [`ch31_field.py`](course/code/ch31/ch31_field.py) (production pattern)
+
+| Exercise | Level | Title | Model | Solution |
+| --- | --- | --- | --- | --- |
+| 31.1 | Concept | Ready to build? | none | [ANSWERS.md](solutions/ANSWERS.md) |
+| 31.2 | Simple | A brief that's ready | none | [`ex31_2_your_brief.py`](solutions/exercises/ch31/ex31_2_your_brief.py), [`test_ch31_field.py`](solutions/tests/test_ch31_field.py) |
+| 31.3 | Medium | What reaches the model | none | [`ex31_3_prompt_rule.py`](solutions/exercises/ch31/ex31_3_prompt_rule.py), [`test_ch31_field.py`](solutions/tests/test_ch31_field.py) |
+| 31.4 | Medium | How many more runs? | none | [`ex31_4_runs_needed.py`](solutions/exercises/ch31/ex31_4_runs_needed.py), [`test_ch31_field.py`](solutions/tests/test_ch31_field.py) |
+| 31.5 | Medium | Draft it, then check it | any | [`ex31_5_draft_brief.py`](solutions/exercises/ch31/ex31_5_draft_brief.py), [`test_ch31_field.py`](solutions/tests/test_ch31_field.py) |
+| 31.6 | Concept | The hard conversations | none | [ANSWERS.md](solutions/ANSWERS.md) |
+
 ## Capstones
 
 | Capstone | Builds on chapters | Run it |
@@ -569,3 +583,4 @@ Code: [`ch30_service.py`](course/code/ch30/ch30_service.py) (production pattern)
 | 4 | 10, 19, 25, 26 | `./course.sh capstone 4` |
 | 5 | 6, 11, 18, 20, 21, 25 | `./course.sh capstone 5` |
 | 6 | 19, 22, 23, 25, 26 | `./course.sh capstone 6` |
+| 7 | 16, 17, 18, 22, 27, 31 | `./course.sh capstone 7` |

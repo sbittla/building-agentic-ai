@@ -432,3 +432,14 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 30.10 Fewer polls, safe retries | `exercises/ex30_10_jobs.py`, `tests/test_part5_mcp2026.py` | A long-polling job_status: one call instead of several; the same request_id gives the same job |
 | 30.11 An agent behind the gateway | `exercises/ex30_11_gateway_agent.py`, `tests/test_part5_mcp2026.py` | The Chapter 13 agent behind a stdio gateway: tools found by search, writes allowed, the order query refused and audited |
 | 30.12 Catch it in shadow | `exercises/ex30_12_shadow_slos.py`, `tests/test_ch30_improvement_loop.py` | A stricter shadow stage that also measures p95 latency and cost per task from both versions' traces, so the slow release is rejected in shadow before any user sees it, and a pricier candidate is rejected for cost |
+
+## Chapter 31: The Forward-Deployed Playbook
+
+| Exercise | Solution | What it shows |
+| --- | --- | --- |
+| 31.1 Ready to build? | `ANSWERS.md` | What each of three requests is missing before it could become a brief, and the next question to ask |
+| 31.2 A brief that's ready | `exercises/ex31_2_your_brief.py`, `tests/test_ch31_field.py` | A discharge-summary brief for a hospital that passes `check_brief`, against the original request's seven gaps |
+| 31.3 What reaches the model | `exercises/ex31_3_prompt_rule.py`, `tests/test_ch31_field.py` | A rule for personal data sent to a model outside the customer's network: flagged unredacted, still flagged with only names redacted, clean with the model in `customer-vpc` |
+| 31.4 How many more runs? | `exercises/ex31_4_runs_needed.py`, `tests/test_ch31_field.py` | 37 of 40 needs about 83 runs before the interval clears 85%; 42 of 50 never will, so the agent needs fixing, not more runs |
+| 31.5 Draft it, then check it | `exercises/ex31_5_draft_brief.py`, `tests/test_ch31_field.py` | The model drafts a brief from interview notes without inventing a baseline; `check_brief` lists the gaps, and the follow-up answers close them |
+| 31.6 The hard conversations | `ANSWERS.md` | A slip message with the cause, what's done, the new date and a scope option; a reply to "it's wrong" that turns examples into evaluation cases |

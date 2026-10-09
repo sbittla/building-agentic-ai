@@ -2824,5 +2824,72 @@
   "kind": "build",
   "file": "exercises/ex30_12_shadow_slos.py",
   "nokey": true
+ },
+ {
+  "id": "31.1",
+  "level": "Concept",
+  "title": "Ready to build?",
+  "chapter": "Chapter 31: The Forward-Deployed Playbook",
+  "task": "For each request, say what discovery still needs before you could write a brief that passes `check_brief`: (a) \"Use AI to make our call center better\"; (b) \"Cut the time our analysts spend on monthly reports from 3 days to 1; Priya Shah signs off\"; (c) \"Our lawyers want an agent that drafts contract summaries; data can't leave our network\".",
+  "hint": null,
+  "done_when": "Each has its missing parts named (metric and unit, measured baseline, target, owner, constraints, non-goals) and one question you'd ask next.",
+  "kind": "concept"
+ },
+ {
+  "id": "31.2",
+  "level": "Simple",
+  "title": "A brief that's ready",
+  "chapter": "Chapter 31: The Forward-Deployed Playbook",
+  "task": "A regional hospital asks you to \"use AI to reduce clinician paperwork\". Pick one narrow workflow and write its `ProblemBrief`, with a metric, a measured baseline, a target, an owner, constraints and non-goals.",
+  "hint": null,
+  "done_when": "`check_brief` returns no problems for your brief, and at least four for the hospital's original request.",
+  "kind": "build",
+  "file": "exercises/ex31_2_your_brief.py",
+  "nokey": true
+ },
+ {
+  "id": "31.3",
+  "level": "Medium",
+  "title": "What reaches the model",
+  "chapter": "Chapter 31: The Forward-Deployed Playbook",
+  "task": "`check_design` asks where a model runs, not what it's sent. Add a rule: personal data may reach a model outside `customer-vpc` only if those fields are redacted first.",
+  "hint": "Subclass `Component` with `sends_fields` and `redacted` sets, and add your check to `check_design`'s results.",
+  "done_when": "The fixed design's agent service is flagged when it sends names and diagnoses to `provider-eu`, is still flagged with only names redacted, and passes with the model in `customer-vpc`.",
+  "kind": "build",
+  "file": "exercises/ex31_3_prompt_rule.py",
+  "nokey": true
+ },
+ {
+  "id": "31.4",
+  "level": "Medium",
+  "title": "How many more runs?",
+  "chapter": "Chapter 31: The Forward-Deployed Playbook",
+  "task": "At week 2 the pilot passed 37 of 40 runs, and the gate held. Write `runs_needed(passes, runs)`: the total number of runs at the observed rate after which the interval's lower bound clears the signed 85%, or `None` if no number of runs would.",
+  "hint": null,
+  "done_when": "37 of 40 needs about 83 runs, and 42 of 50 returns `None`; you can explain why to the customer owner in one sentence.",
+  "kind": "build",
+  "file": "exercises/ex31_4_runs_needed.py",
+  "nokey": true
+ },
+ {
+  "id": "31.5",
+  "level": "Medium",
+  "title": "Draft it, then check it",
+  "chapter": "Chapter 31: The Forward-Deployed Playbook",
+  "task": "Run `draft_brief` on the sample interview notes, or on notes from a real conversation, print what `check_brief` still finds and the model's questions, then add what a follow-up call would establish and check again.",
+  "hint": null,
+  "done_when": "The draft leaves the baseline empty instead of inventing one, its open questions include how today's time was measured, and the brief passes after the follow-up answers.",
+  "kind": "build",
+  "file": "exercises/ex31_5_draft_brief.py"
+ },
+ {
+  "id": "31.6",
+  "level": "Concept",
+  "title": "The hard conversations",
+  "chapter": "Chapter 31: The Forward-Deployed Playbook",
+  "task": "Write what you'd say, in five sentences or fewer each: (a) to Lakeside's customer owner, when the pilot will slip three weeks because scanned PDFs need OCR; (b) to an adjuster who says \"the summaries are wrong half the time\".",
+  "hint": null,
+  "done_when": "(a) gives the cause, what's done, the new date and an option to cut scope; (b) asks for examples and says how they'll become evaluation cases.",
+  "kind": "concept"
  }
 ]

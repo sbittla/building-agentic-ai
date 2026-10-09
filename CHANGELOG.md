@@ -2,6 +2,22 @@
 
 What changed in the book and this repository, newest first. Each book printing is matched by a tag; see "Book editions and code versions" in [README.md](README.md). Corrections to a printed edition are listed in [ERRATA.md](ERRATA.md).
 
+## edition-1.2: third printing (October 2026)
+
+### Book
+- **Part 10, In the Field, and Chapter 31: The Forward-Deployed Playbook.** What a forward-deployed engineer does (31.1); discovery that ends in a measurable problem brief, with a model drafting it from interview notes and code deciding whether it's ready (31.2); breaking a request into slices and shipping the smallest valuable one (31.3); checking a design against the customer's rules for data residency, model hosting, egress, personal data in logs, retention, sign-in, write access and audit (31.4); pilots against acceptance criteria signed in advance, with a gate that promotes, holds or stops (31.5); demos (31.6); handoff (31.7); the field-to-product loop (31.8); and where each skill is tested in interviews (31.9). Exercises 31.1–31.6 and a Part 10 checkpoint.
+- **Capstone 7: A Customer Deployment.** A whole engagement, from a vague request and a constraint sheet to a signed-off pilot and a handoff, with a scoping score added to the rubric.
+- **Appendix M: Interviewing for Agent Engineering and Forward-Deployed Roles.** The interview loop, a question bank with brief answers mapped to chapters, and three practice cases.
+- **"In the field" notes** in Chapters 7, 9, 18, 26, 27 and 29: what changes when the same technique meets a customer's environment.
+- **A forward-deployed path** in "How to Use This Book", Part 10 in the preface's map of the book, four new glossary terms, and the afterword's next steps.
+
+### Repository
+- `course/code/ch31/ch31_field.py`: the field kit (brief checker, `draft_brief`, slice ranker, design checker, pilot gate, handoff check, field-to-product report). Offline except `draft_brief`.
+- `solutions/exercises/ch31/` (31.2–31.5), `solutions/tests/test_ch31_field.py`, and written answers for 31.1 and 31.6 in `solutions/ANSWERS.md`.
+- `solutions/capstones/c7_engagement/`: the request, the constraint sheet, 30 synthetic handover notes (`data.py`) and the engagement record (`engagement.py`); `./course.sh capstone 7`.
+- [INTERVIEW_PREP.md](INTERVIEW_PREP.md): the full question bank behind Appendix M.
+- Exercises: 246 → 252.
+
 ## edition-1.1: second printing (October 2026)
 
 ### Book

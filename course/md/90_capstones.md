@@ -327,6 +327,57 @@ Run it with `./course.sh capstone 6`, or `./course.sh capstone 6 --crash 2` and 
 - Process two queues at once with two agents that share no browser state.
 - Add a daily report of completed, escalated and failed requests, built from the traces.
 
+## Capstone 7: A Customer Deployment
+
+**Scenario.** You're the forward-deployed engineer on a new account. Bayview Health's VP of Nursing writes: "Our nurses lose a lot of time at shift change. Handover takes forever and things get missed. Can you use AI to fix this? We'd like something live on two wards next quarter." Their security team sends a constraint sheet, and their clinical apps team gives you 30 de-identified handover notes, some of them messy. Take it from that email to a pilot the customer signs off, and a system their team can run without you.
+
+**Real-world version.** This is the work forward-deployed engineers do at AI companies and at the customers who buy from them: discovery, scoping, design under someone else's rules, a pilot judged by criteria agreed in advance, and a handoff (Chapter 31).
+
+**Core features**
+
+- A **problem brief** that passes `check_brief`: users, job, output, a metric with a measured baseline and a target, a named customer owner, constraints and non-goals (section 31.2).
+- A **slice decision**: at least four candidate slices ranked with `rank_slices`, and a written reason why the first one is first (section 31.3).
+- A **design that fits their rules**: every component checked with `check_design` against Bayview's constraint sheet, with no violations, plus the rule from exercise 31.3 for what reaches the model (section 31.4).
+- **The agent itself**: a handover summarizer that drafts an SBAR summary per patient with every fact linked to the note, refuses to merge two patients into one summary, and flags missing vitals instead of inventing them (Chapters 16, 18 and 22).
+- **Acceptance criteria and a gate**: criteria written before the first pilot run, an evaluation suite built from the 30 notes with repeated trials (Chapter 27), and `pilot_gate` deciding promote, hold or stop.
+- **A handoff pack** that passes `handoff_gaps`, and an engagement record a customer could audit.
+
+**Architecture**
+
+Table: Capstone 7 components
+| Component | Role |
+| --- | --- |
+| `ch31_field.py` (provided) | The field kit: brief, slices, design check, pilot gate, handoff and field-to-product report |
+| The handover agent (yours) | Reads one note and returns a structured SBAR summary with citations; code checks the structure, the patient count and every cited fact |
+| An evaluation suite (Chapter 27) | The 30 notes with the nurse's own summary as the reference, run with trials, plus planted cases: a missing allergy, two patients in one note |
+| The engagement record | Brief, scope, design review, criteria, gate decisions by week and the handoff pack, in one Markdown file |
+
+**Milestones**
+
+1. Week 1: discovery and the brief, the constraint sheet as an `Environment`, slices ranked, and the acceptance criteria written and "signed" (a commit the customer owner would approve).
+2. Week 2: a design that passes `check_design`, and the agent working on the clean notes.
+3. Week 3: the messy notes, the evaluation suite with trials, and the first gate decision (expect hold).
+4. Week 4: fixes measured on the same suite, a promote decision or an honest stop, the handoff pack and the engagement record.
+
+**Assessment.** The rubric above applies, plus a **scoping** score (counts as 20% of Functionality): Excellent if the brief passes, the first slice is the smallest valuable one with its reasoning written down, and the criteria were committed before the first pilot run; Adequate if the brief has gaps the record admits; Missing if there's no brief or the criteria were written after the results.
+
+**Reference solution** (compare after building your own): `solutions/capstones/c7_engagement/`
+
+Table: Capstone 7 reference solution
+| File | What it does |
+| --- | --- |
+| `brief.md` | The request as received and Bayview's constraint sheet |
+| `data.py` | Writes `handovers.jsonl`: 30 synthetic handover notes with reference summaries, 13 of them messy |
+| `engagement.py` | The engagement as data: brief, environment, slices, design, criteria and pilot results by week. Runs every Chapter 31 check and writes `ENGAGEMENT.md`; `--week 1` and `--week 3` show the stop and hold decisions on the way to promote |
+
+The reference doesn't include the handover agent itself, because that's the summarizer you've already built in Chapters 16 to 18; it shows the engagement around it. Run it with `./course.sh capstone 7`, or `./course.sh capstone 7 --week 3`. Compare: your brief's metric and baseline, your first slice, and when your criteria were written.
+
+**Extension challenges (no published solution):**
+
+- Run the same agent on a model inside the customer's network (Appendix H) and on the allowed hosted model, and write the one-page trade-off for their security team.
+- Simulate a slip: the scanned notes need OCR. Write the message to the customer owner and the revised plan, and show the gate's decision both ways.
+- Run the field-to-product report across your capstones: which fixes did you build more than once?
+
 ## Learn more
 
 Free, trustworthy places to read more about the real-world problem behind each capstone. Start with the **Start here** rows; **Go deeper** rows are for when you want more detail. Links were checked in September 2026; if one has moved, search for its title.
@@ -341,10 +392,11 @@ Free, trustworthy places to read more about the real-world problem behind each c
 | **Capstone 5: Anthropic, multi-agent research system**<br>[anthropic.com/engineering/multi-agent-research-system](https://www.anthropic.com/engineering/multi-agent-research-system) | The design this capstone is modeled on | Go deeper |
 | **Capstone 6: Anthropic, Effective harnesses for long-running agents**<br>[anthropic.com/engineering/effective-harnesses-for-long-running-agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) | Progress files, feature lists and git checkpoints for agents that work across many sessions | Start here |
 | **Capstone 6: Playwright for Python**<br>[playwright.dev/python](https://playwright.dev/python/) | The browser automation library the computer-use agent drives | Go deeper |
+| **Capstone 7: Palantir, A Day in the Life of a Forward Deployed Software Engineer**<br>[blog.palantir.com/a-day-in-the-life-of-a-palantir-forward-deployed-software-engineer-45ef2de257b1](https://blog.palantir.com/a-day-in-the-life-of-a-palantir-forward-deployed-software-engineer-45ef2de257b1) | What the work around Capstone 7 looks like at a customer | Go deeper |
 
 ## Choosing a capstone
 
-All six capstones run on the free local model (`qwen3.5:9b`, Appendix H) as well as on Claude. Capstone 4 (code review and fix), the multi-agent parts of Capstone 5 and the browser work in Capstone 6 work noticeably better with Claude; with the local model, expect more retries and weaker results.
+All seven capstones run on the free local model (`qwen3.5:9b`, Appendix H) as well as on Claude. Capstone 4 (code review and fix), the multi-agent parts of Capstone 5 and the browser work in Capstone 6 work noticeably better with Claude; with the local model, expect more retries and weaker results.
 
 Table: Which capstone to choose
 | If you want to practice… | Choose |
@@ -355,5 +407,6 @@ Table: Which capstone to choose
 | Feedback loops, sandboxes, scoped tokens and resumable work | 4. Code Review and Fix |
 | Planning, orchestration, verification and budgets | 5. Deep Research |
 | Computer use, long-running jobs and hard controls | 6. Back-Office Workflow |
+| Discovery, scoping, a customer's rules, a signed pilot and a handoff | 7. Customer Deployment |
 
 Whichever capstone you choose, you'll lean on the reference material at the end of the book: the appendices collect the kit commands, troubleshooting fixes, a glossary, costs and further reading, so you can look things up quickly while you build. First, a short afterword puts everything you've learned in one place.

@@ -12,7 +12,7 @@ The subtitle is the route. Your **first agent** comes early: by Chapter 4 you've
 
 **You build everything by hand first.** Before you use a framework, you write the agent loop yourself: call the model, run the tools it asks for, send back the results, repeat. Once you've written it, every framework becomes readable, and you can debug the ones you choose to use.
 
-**Every chapter ends in working code.** You build more than 20 agents and tools along the way, from a safe calculator to a code-fixing agent that runs tests, a SQL analyst that corrects its own queries, a multi-agent research team, a router, a writer-and-critic pair, an agent published as an MCP server and a deployed agent API. Six capstone projects then ask you to design a complete system of your own.
+**Every chapter ends in working code.** You build more than 20 agents and tools along the way, from a safe calculator to a code-fixing agent that runs tests, a SQL analyst that corrects its own queries, a multi-agent research team, a router, a writer-and-critic pair, an agent published as an MCP server and a deployed agent API. Seven capstone projects then ask you to design a complete system of your own, the last one for a customer.
 
 **Safety and measurement are part of the craft, not an afterthought.** Agents act on the world, so the book treats risk the way production teams do: approval gates in code, sandboxes, allow-lists, defenses against prompt injection and data exfiltration, and the "lethal trifecta" of private data, untrusted content and a way out. You also learn to measure. A change isn't an improvement until an evaluation suite says so, with enough trials to tell a real gain from luck.
 
@@ -26,13 +26,13 @@ The subtitle is the route. Your **first agent** comes early: by Chapter 4 you've
 
 ## Who this book is for
 
-This book is for anyone who wants to build AI agents, including people who have never programmed. Chapter 0 and the Python interlude teach the programming you need; if you already write Python, you can move quickly through them. Developers who have built a simple chatbot will find the later parts (evaluation, security, context engineering, retrieval and deployment) useful on their own. Staff engineers, architects, performance engineers and engineering leaders should start with the reference model, the evaluation, SLO and performance chapters and the enterprise agent platform in Chapter 30; the "In the real world" notes, the case study and the capstones show what production agent systems require.
+This book is for anyone who wants to build AI agents, including people who have never programmed. Chapter 0 and the Python interlude teach the programming you need; if you already write Python, you can move quickly through them. Developers who have built a simple chatbot will find the later parts (evaluation, security, context engineering, retrieval and deployment) useful on their own. Staff engineers, architects, performance engineers and engineering leaders should start with the reference model, the evaluation, SLO and performance chapters and the enterprise agent platform in Chapter 30; the "In the real world" notes, the case study and the capstones show what production agent systems require. Engineers who build agents for customers, including forward-deployed engineers, should finish with Chapter 31 and Appendix M.
 
 You don't need a background in machine learning. You won't train a model in this book; you'll learn to build reliable software around one.
 
 ## How the book is organized
 
-The book has ten parts. Part 0 lays the foundations. Part 1 builds your first agent: tool calling and the agent loop. Part 2 gives agents state and lets them explore their environment. Part 3 connects them to real APIs and databases and keeps a human in the loop. Part 4 adds feedback loops and your first teams of agents. Part 5 covers MCP, from your first server to the 2026 protocol. Part 6 engineers what an agent knows: its context, its memory and its knowledge. Part 7 scales autonomy: long-running agents, planning and model routing, multi-agent orchestration, deterministic controls around probabilistic models, computer use and frameworks. Part 8 is about trust, security and identity. Part 9 takes agents to production: evaluation, observability, performance and cost, deployment, and MCP at company scale. Short interludes on Python, testing, regular expressions, SQL, measuring an agent and asynchronous code appear right before the chapters that need them. After Part 9, a case study follows one agent through a release, from requirements and threat model to an incident and its rollback, before the six capstones. "How to Use This Book," which follows, has a table of the parts and advice on where to start.
+The book has eleven parts. Part 0 lays the foundations. Part 1 builds your first agent: tool calling and the agent loop. Part 2 gives agents state and lets them explore their environment. Part 3 connects them to real APIs and databases and keeps a human in the loop. Part 4 adds feedback loops and your first teams of agents. Part 5 covers MCP, from your first server to the 2026 protocol. Part 6 engineers what an agent knows: its context, its memory and its knowledge. Part 7 scales autonomy: long-running agents, planning and model routing, multi-agent orchestration, deterministic controls around probabilistic models, computer use and frameworks. Part 8 is about trust, security and identity. Part 9 takes agents to production: evaluation, observability, performance and cost, deployment, and MCP at company scale. Part 10 takes them into the field: building an agent inside a customer's business, from a vague request to a pilot they signed off, the way forward-deployed engineers do. Short interludes on Python, testing, regular expressions, SQL, measuring an agent and asynchronous code appear right before the chapters that need them. After Part 10, a case study follows one agent through a release, from requirements and threat model to an incident and its rollback, before the seven capstones. "How to Use This Book," which follows, has a table of the parts and advice on where to start.
 
 The diagram below shows how the parts build on each other. An arrow means the later part uses what the earlier one builds, so you can see what to read first if you want to jump ahead. Each chapter's Prerequisites line gives the detail.
 
@@ -48,7 +48,7 @@ flowchart TB
   P6["<b>6 · Context, memory</b><br>Ch 16–18"]
   P7["<b>7 · Architectures</b><br>Ch 19–24"]
   P8["<b>8 · Trust, identity</b><br>Ch 25–26"]
-  P9["<b>9 · Production</b><br>Ch 27–30, then the case study<br>and the capstones"]
+  P9["<b>9 · Production, 10 · Field</b><br>Ch 27–31, then the case study<br>and the capstones"]
   P0 --> P1 --> P2 --> P3 --> P4
   P1 --> P5
   P3 --> P5
@@ -62,7 +62,7 @@ flowchart TB
   P8 --> P9
 ```
 Figure: The book at a glance: how the parts build on each other
-Alt: Part 0, Foundations, leads to Part 1, First agent. Part 1 leads to Part 2, State, and to Part 5, MCP. Part 2 leads to Part 3, Real-world tools, and to Part 6, Context and memory. Part 3 leads to Part 4, Autonomy and teams, to Part 5 and to Part 8, Trust and identity. Parts 4, 5 and 6 lead to Part 7, Architectures. Part 5 also leads to Part 8. Parts 7 and 8 lead to Part 9, Production, which is followed by the case study and the capstones.
+Alt: Part 0, Foundations, leads to Part 1, First agent. Part 1 leads to Part 2, State, and to Part 5, MCP. Part 2 leads to Part 3, Real-world tools, and to Part 6, Context and memory. Part 3 leads to Part 4, Autonomy and teams, to Part 5 and to Part 8, Trust and identity. Parts 4, 5 and 6 lead to Part 7, Architectures. Part 5 also leads to Part 8. Parts 7 and 8 lead to Part 9, Production, and Part 10, In the field, which are followed by the case study and the capstones.
 
 Every chapter follows the same pattern: learning objectives, a real-world connection, numbered lessons with runnable code, common mistakes, a summary, a list of resources for further reading and exercises at four levels. Every exercise has a reference solution in the course kit.
 
@@ -86,7 +86,7 @@ All code, sample data, starter files, checkers and solutions are in the course k
 
 Models, prices and libraries change quickly. The course kit pins every library version so the examples keep working, and Appendix G lists where to look when something has moved.
 
-Each printing of this book is matched by a tag in the repository. This printing's is `edition-1.1`: `git checkout edition-1.1` gives you exactly the code, data and solutions the book was tested against. The tag never moves. `VERSION_MATRIX.md` lists the version of every library, model and protocol it was tested with, `CHANGELOG.md` and `MIGRATION.md` what has changed on `main` since, and `ERRATA.md` any mistakes found in this printing.
+Each printing of this book is matched by a tag in the repository. This printing's is `edition-1.2`: `git checkout edition-1.2` gives you exactly the code, data and solutions the book was tested against. The tag never moves. `VERSION_MATRIX.md` lists the version of every library, model and protocol it was tested with, `CHANGELOG.md` and `MIGRATION.md` what has changed on `main` since, and `ERRATA.md` any mistakes found in this printing.
 
 ## A note on currency
 
