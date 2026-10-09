@@ -1,6 +1,6 @@
 # Case Study: The Support Agent in Production
 
-Six weeks after launch, a release meant to make the support agent sound friendlier started talking upset customers out of reaching a person. Forty minutes later it was rolled back automatically, and fewer than 30 customers had been affected. That quiet ending was settled months before, by decisions about requirements, design, tests and release, and the pages that follow take them in order, up to the incident itself.
+Six weeks after launch, a release meant to make the support agent sound friendlier started talking upset customers out of reaching a person. A few hours later, on a busy sale day, it was rolled back automatically, and fewer than 30 customers had been affected. That quiet ending was settled months before, by decisions about requirements, design, tests and release, and the pages that follow take them in order, up to the incident itself.
 
 The store is fictional: Harbor & Pine, an online homewares shop. Numbers marked *simulator* come from section 29.8's benchmark runs (`benchmarks/sim-edition-1.1` in the repository), so you can reproduce them. The test findings and the incident are a *worked example* at plausible sizes. Your numbers will differ; the reasoning carries over.
 
@@ -81,7 +81,7 @@ Every model call, tool call and handoff is traced, with the release version on e
 
 ## An incident, and the rollback
 
-In the sixth week, release 1.3 rewrote the reply prompt to sound warmer. It passed the gate and went to 10% of traffic as a canary (section 30.13). Within 40 minutes, the missed-handoff SLO was burning its error budget fast enough to page someone: upset customers who asked for a person were being soothed instead of handed off. The warmer prompt had taught the model that calming the customer was the goal.
+In the sixth week, release 1.3 rewrote the reply prompt to sound warmer. It passed the gate and went to 10% of traffic as a canary (section 30.13) on the morning of a sale, so the canary saw about 120 conversations an hour instead of a handful. By early afternoon, enough runs had come in for the comparison to count, and the missed-handoff SLO was burning its error budget fast enough to page someone: upset customers who asked for a person were being soothed instead of handed off. The warmer prompt had taught the model that calming the customer was the goal.
 
 Nobody had to scramble. The old version was still running and traffic was split by configuration, so the burn-rate alert rolled back automatically. The postmortem changed three things:
 

@@ -58,11 +58,7 @@ Model answers vary from run to run, so test your **tools** directly (they're ord
 - `parametrize`, `pytest.raises`, `tmp_path` and `monkeypatch` cover almost every test in this book.
 - Test the model-free parts directly; script a fake model to test the loop.
 
-Keep pytest close. Chapter 2 gives the model its first tool, and a tool is an ordinary function you can test exactly the way you tested `apply_discount`.
-
 ## Learn more
-
-Start with these. `RESOURCES.md` in the course kit has all 4 links for this chapter, including the **Go deeper** reading.
 
 | Resource | What you'll find |
 | --- | --- |
@@ -93,3 +89,7 @@ Write a test for `max_temperature` in `ch00_http.py` that uses `monkeypatch` to 
 **Hint:** The fake response needs `status_code`, `text` and a `json()` method. The starter file includes a small `FakeResponse` class you can use.
 **Done when:** Both tests pass with networking turned off.
 :::
+
+## Up next
+
+Keep pytest close. Chapter 2 gives the model its first tool, and a tool is an ordinary function you can test exactly the way you tested `apply_discount`.

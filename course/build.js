@@ -221,7 +221,7 @@ const HEADINGS = [];
 const CURRENT = { title: "", short: "" };
 // Sections printed as one page of their own (a reference page readers come back to)
 const ONE_PAGE = new Set(["The roadmap at a glance"]);
-const SKIP_TOC = /^(Learn more|Learning objectives|Real-world connection|Common mistakes|Summary|Key takeaways|Exercises|Solutions for this chapter|Checkpoint)/;
+const SKIP_TOC = /^(Up next|Learn more|Learning objectives|Real-world connection|Common mistakes|Summary|Key takeaways|Exercises|Solutions for this chapter|Checkpoint)/;
 const TOC_PAGES_FILE = path.join(__dirname, "toc_pages.json");
 const TOC_PAGES = fs.existsSync(TOC_PAGES_FILE) ? JSON.parse(fs.readFileSync(TOC_PAGES_FILE, "utf8")) : {};
 // One Contents: parts and chapters with page numbers; each chapter's sections run together

@@ -156,7 +156,7 @@ On a tight budget, do the book on the local model and add a few dollars of Claud
 
 ## How each chapter is organized
 
-Every chapter opens with what you'll build, where it sits in the architecture (section 1.7), its **Prerequisites** and **Learning objectives**, and a production system using the same pattern (**In the real world**). Numbered **lessons** follow with runnable code; a listing marked *excerpt* shows the parts that teach. **Common mistakes**, **Key takeaways** and **Learn more** close the chapter.
+Every chapter opens with what you'll build, where it sits in the architecture (section 1.7), its **Prerequisites** and **Learning objectives**, and a production system using the same pattern (**In the real world**). Numbered **lessons** follow with runnable code; a listing marked *excerpt* shows the parts that teach. **Common mistakes**, **Key takeaways** and **Learn more** close the chapter. Each Learn more table lists the two or three best places to start; `RESOURCES.md` in the course kit has every link, including the deeper reading, ready to click. Then come the exercises, the part's checkpoint where there is one, and a short **Up next** that sets up the following chapter.
 
 **Exercises** come at four levels: **Concept** (no code), **Simple** (a small change to the chapter's code), **Medium** (a new feature with a design decision) and **Complex** (an open-ended build with measurements). Each has a measurable **Done when** line. Run one with `./course.sh ex <id>` (a build exercise's first run creates a starter file in `workspace/exercises`), check it with `./course.sh check <id>` where a checker exists, and print the reference solution with `./course.sh solution <id>`. `./course.sh list 4` lists Chapter 4's exercises. Each box also names the model it needs:
 
@@ -204,8 +204,6 @@ An agent makes many model calls per question, and with Claude each one costs mon
 - Don't give an agent write access to anything you care about until Chapter 9's approval gates.
 
 ## Learn more
-
-Start with these. `RESOURCES.md` in the kit has all 5 links, ready to click.
 
 | Resource | What you'll find |
 | --- | --- |

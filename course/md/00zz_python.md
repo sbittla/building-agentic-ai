@@ -83,11 +83,7 @@ Read it slowly. `REGISTRY[name]` looks up a **function** by its name, the way yo
 - Classes bundle data with the functions that use it; dataclasses are classes for data.
 - Decorators wrap or register functions.
 
-You now have every piece of Python an agent needs except the model itself. Chapter 1 adds it: your first call to a model from Python, and a summarizer that hands it real work.
-
 ## Learn more
-
-Start with these. `RESOURCES.md` in the kit has all 9 links, ready to click.
 
 | Resource | What you'll find |
 | --- | --- |
@@ -139,3 +135,7 @@ You're ready if you can, without looking back:
 - [ ] Spot a mutable default argument.
 
 If two feel shaky, redo P.2 and P.3, the patterns you'll use most.
+
+## Up next
+
+You now have every piece of Python an agent needs except the model itself. Chapter 1 adds it: your first call to a model from Python, and a summarizer that hands it real work.

@@ -59,11 +59,7 @@ A regex that looks for `..` in a path is easy to get around, as Chapter 6 shows.
 - Write patterns as raw strings (`r"..."`).
 - Use regex to find and extract text, never as a security check.
 
-In Chapter 6 your agent gets a folder of 20 notes and must answer from them, finding the right lines and citing each one.
-
 ## Learn more
-
-Start with these. `RESOURCES.md` in the course kit has all 4 links for this chapter, including the **Go deeper** reading, ready to click.
 
 | Resource | What you'll find |
 | --- | --- |
@@ -88,3 +84,7 @@ Write `mask(text)` that replaces anything that looks like an API key (`sk-` foll
 Write `citations(text)` that returns every `(file:line)` citation in a text, such as `(work/plan.md:12)`, as `(file, line_number)` pairs. Chapter 6 and exercise 6.4 use exactly this.
 **Done when:** It finds citations with folders, dots and dashes in file names, and ignores `(see page 12)`.
 :::
+
+## Up next
+
+In Chapter 6 your agent gets a folder of 20 notes and must answer from them, finding the right lines and citing each one.

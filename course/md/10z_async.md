@@ -70,11 +70,7 @@ Read it as: *connect to the servers, run all the subagents at once, wait for eve
 - `async def` defines, `await` waits, `asyncio.run` starts and `gather` runs things at once.
 - Always `await` a coroutine, and move blocking code out with `to_thread`.
 
-That's enough to read Chapter 11, where a lead agent sends research subagents off together with `asyncio.gather`. Running them in parallel turns out to be the easy part. The hard question is whether a team beats one agent at 15 times the tokens.
-
 ## Learn more
-
-Start with these. `RESOURCES.md` in the course kit has all 3 links for this chapter, including the **Go deeper** reading, ready to click.
 
 | Resource | What you'll find |
 | --- | --- |
@@ -104,3 +100,7 @@ Using `asyncio.Semaphore`, write `fetch_all(names, limit=3)`, which fetches 10 t
 Fetch five items, one of which takes 10 seconds. Give each fetch a 2-second timeout, and return the results that arrived plus a list of those that timed out.
 **Done when:** The program finishes in about 2 seconds with four results and one timeout.
 :::
+
+## Up next
+
+That's enough to read Chapter 11, where a lead agent sends research subagents off together with `asyncio.gather`. Running them in parallel turns out to be the easy part. The hard question is whether a team beats one agent at 15 times the tokens.

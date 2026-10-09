@@ -64,11 +64,7 @@ To explore on your own, run `./course.sh shell`, then `sqlite3 shop.db`, and typ
 - Parameters prevent SQL injection; CTEs make long queries readable.
 - Review someone else's SQL in order, from FROM and JOIN to ORDER BY.
 
-In Chapter 8 an agent writes SQL you've never seen against `shop.db`, and some of it will be wrong. You'll make sure it can't do damage, and teach it to fix its own mistakes.
-
 ## Learn more
-
-Start with these. `RESOURCES.md` in the course kit has all 4 links for this chapter, including the **Go deeper** reading, ready to click.
 
 | Resource | What you'll find |
 | --- | --- |
@@ -93,3 +89,7 @@ This query is meant to give revenue per customer but is wrong in three ways. Fin
 Write a Python function `orders_for_city(city)` that returns the number of orders from customers in a city, using a `?` parameter. Then show what goes wrong if you build the SQL with an f-string and pass `Pune' OR '1'='1`.
 **Done when:** The parameter version returns 0 for the malicious input, and you can explain what the f-string version did.
 :::
+
+## Up next
+
+In Chapter 8 an agent writes SQL you've never seen against `shop.db`, and some of it will be wrong. You'll make sure it can't do damage, and teach it to fix its own mistakes.

@@ -85,11 +85,7 @@ Write the check in code: the expected number appears in the answer, the right to
 
 Chapter 27 builds on these definitions, adding pass^k (does a case pass on every one of k tries?) and the agent scorecard (section 27.6), where every later metric is defined once. Chapter 28 turns those metrics into SLOs (service-level objectives) for the agent in production, and Chapter 29 into latency, capacity and cost targets.
 
-So far a mistake has cost you a wrong number or a task to delete. In Chapter 9 an agent starts moving files, and a mistake can be a signed contract filed where you'll never find it.
-
 ## Learn more
-
-Start with these. `RESOURCES.md` in the course kit has all 3 links for this chapter, including the **Go deeper** reading, ready to click.
 
 | Resource | What you'll find |
 | --- | --- |
@@ -116,3 +112,7 @@ Measure the Chapter 8 SQL analyst on the cases in `eval_sql.jsonl`, three trials
 **Hint:** `run_suite` takes your agent as a function of the question and your check as a function of the answer and the case; run `answer_sql` on a read-only connection to get the expected value.
 **Done when:** You have two reports and a verdict from `compare`, and you can say which cases were flaky.
 :::
+
+## Up next
+
+So far a mistake has cost you a wrong number or a task to delete. In Chapter 9 an agent starts moving files, and a mistake can be a signed contract filed where you'll never find it.
