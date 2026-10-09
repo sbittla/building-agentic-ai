@@ -310,12 +310,12 @@ SUITE = [{"id": "-".join(normalize(q).split()[:4]), "question": q, "expect": a}
 
 def releases() -> tuple:
     """The demo's releases: 1.4 in production, and two candidates that fix it."""
-    v14 = FakeAgent("support-agent 1.4", wrong={
+    v14 = FakeAgent("sql-analyst 1.4", wrong={
         "How many orders were cancelled?": LOOPS,
         "What was revenue in March?": "Revenue in March was $48,210.",
         "Which region sold the most in March?": "The south region sold the most."})
-    v15 = FakeAgent("support-agent 1.5")               # new prompt and tool description
-    v16 = FakeAgent("support-agent 1.6", slow=3.5)     # the same fixes, far more thinking
+    v15 = FakeAgent("sql-analyst 1.5")               # new prompt and tool description
+    v16 = FakeAgent("sql-analyst 1.6", slow=3.5)     # the same fixes, far more thinking
     return v14, v15, v16
 
 

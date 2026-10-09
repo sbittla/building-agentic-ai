@@ -6,6 +6,7 @@ The companion repository for the book *Building Agentic AI Systems: From First A
 >
 > | Your book says | Run |
 > | --- | --- |
+> | Fourth printing, October 2026 (revised and shortened; 249 exercises, seven capstones) | `git checkout edition-1.3` |
 > | Third printing, October 2026 (Part 10, Chapter 31, Capstone 7; 249 exercises) | `git checkout edition-1.2` |
 > | Second printing, October 2026 (246 exercises, six capstones) | `git checkout edition-1.1` |
 > | First printing, September 2026 (231 exercises, six capstones) | `git checkout edition-1.0` |
@@ -61,6 +62,7 @@ Each printing of the book is matched by a tag, so you can always get the exact c
 | First printing, September 2026 | 231 | 6 | `edition-1.0` | `git checkout edition-1.0` |
 | Second printing, October 2026 | 246 | 6 | `edition-1.1` | `git checkout edition-1.1` |
 | Third printing, October 2026 | 249 | 7 | `edition-1.2` | `git checkout edition-1.2` |
+| Fourth printing, October 2026 | 249 | 7 | `edition-1.3` | `git checkout edition-1.3` |
 
 Not sure which printing you have? The copyright page says. [VERSION_MATRIX.md](VERSION_MATRIX.md) lists, for each printing, its tag, Python, models, MCP specification, library versions and verification date.
 

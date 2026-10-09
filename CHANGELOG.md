@@ -2,6 +2,20 @@
 
 What changed in the book and this repository, newest first. Each book printing is matched by a tag; see "Book editions and code versions" in [README.md](README.md). Corrections to a printed edition are listed in [ERRATA.md](ERRATA.md).
 
+## edition-1.3: fourth printing (October 2026)
+
+A readability edition: the same chapters, sections, exercises, capstones and code, rewritten to read like a book rather than a reference and shortened by about 15%.
+
+### Book
+- **Every chapter rewritten for voice and pace.** Each one now opens with a concrete situation (a customer email, a failed handoff, green dashboards hiding a failing agent) and closes by setting up the next chapter. Prose replaces many bullet lists, jargon is replaced by plain words or defined at first use, and repeated explanations are cut.
+- **Shorter, with nothing removed:** about 165,000 → 140,000 words. The longest chapters lost the most: Chapter 30 (11,100 → 7,300), Chapters 28 and 29 (9,000 → 6,800 each), Chapter 25 (7,400 → 6,500) and the appendices (13,100 → 10,800). Every section number, exercise, figure and listing is unchanged, so references from earlier printings still work.
+- **Consistency fixes found in the final read:** the refund rule ($100 without a person) now agrees across Chapters 25 and 26 and the case study; the scorecard's cost metrics are defined as averages; Chapter 1's route table includes Part 10; order ids, model names and chapter references corrected where they had drifted; the afterword returns to Chapter 1's opening example.
+- "Common mistakes" lists use one plain style; the "Its job in the book" and "Check yourself" lines are folded into the prose.
+
+### Repository
+- `ch30_improvement_loop.py` labels its demo releases `sql-analyst 1.4–1.6`, matching the questions they fail (they were labelled as the support agent).
+- README, VERSION_MATRIX and Appendix G list the fourth printing and `edition-1.3`.
+
 ## edition-1.2: third printing (October 2026)
 
 ### Book

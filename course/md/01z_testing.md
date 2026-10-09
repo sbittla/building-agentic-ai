@@ -1,6 +1,6 @@
 # Interlude: Testing with pytest
 
-From Chapter 2 on, you'll check your agent code with automated tests, so this short interlude teaches you to write them. You'll run a small test file, break the code on purpose to watch a test catch it, and learn the five pytest patterns the rest of this book relies on. By the end, you'll be able to test code that reads files or calls the network without touching either.
+Make one small slip in a discount function and 10% off a $200 order comes out as −$1,800. Python runs it without complaint. A three-line test catches it at once, and from Chapter 2 on your code changes often enough that you'll want that safety net everywhere. You'll start by breaking code on purpose, because watching a test catch a bug is the quickest way to start trusting tests. Then you'll learn to test even code that reads files or calls the network.
 
 **Prerequisites:** Chapter 0 and the Python interlude.
 
@@ -9,17 +9,16 @@ From Chapter 2 on, you'll check your agent code with automated tests, so this sh
 By the end of this interlude you can:
 
 - Write a pytest test that checks a function's result with `assert`.
-- Run one check over many examples with `parametrize`, and check errors with `pytest.raises`.
-- Test code that uses files (`tmp_path`) or slow and costly calls (`monkeypatch`).
+- Use `parametrize`, `pytest.raises`, `tmp_path` and `monkeypatch`.
 - Explain why you test tools directly and replace the model with a stand-in.
 
 ## Why this interlude
 
-From Chapter 2 on, exercises ask you to "add tests". A **test** is a small program that checks your code does what you think it does. Agents make tests even more important: in Chapter 10 an agent uses tests to know when it has fixed a bug, and in Chapter 27 you test the agent itself. This interlude teaches the five pytest features this book uses.
+A **test** is a small program that checks your code does what you think it does. With agents, tests matter twice: in Chapter 10 an agent uses them to know it has fixed a bug, and in Chapter 27 you test the agent itself.
 
 ## T.1 A test is a function that asserts
 
-pytest finds files named `test_*.py`, runs every function named `test_*` and reports which `assert` statements failed. Here's a small module to test:
+pytest finds files named `test_*.py`, runs every function named `test_*` and reports which `assert` statements failed. Here's a module to test:
 
 @@code i_pricing.py
 
@@ -27,7 +26,7 @@ And its tests:
 
 @@code test_i_pricing.py
 
-Run them with `./course.sh pytest -q test_i_pricing.py`. A dot means a test passed. An `F` means it failed, followed by an explanation showing the values that didn't match.
+Run them with `./course.sh pytest -q test_i_pricing.py`. A dot means a test passed. An `F` means it failed, and pytest shows you the values that didn't match.
 
 ## T.2 The five patterns you'll use
 
@@ -38,33 +37,32 @@ Table: The five pytest patterns
 | `@pytest.mark.parametrize` | Running the same check on many examples | `test_parse_price` |
 | `pytest.raises` | Checking that bad input raises an error | `test_rejects_bad_percent` |
 | `tmp_path` fixture | The code reads or writes files | `test_save_receipt` |
-| `monkeypatch` | Temporarily replacing something slow, costly or random (a network call, the model) with a stand-in | `test_replace_a_function` (and exercise T.4 for a real network call) |
+| `monkeypatch` | Swapping something slow, costly or random (a network call, the model) for a stand-in | `test_replace_a_function`; exercise T.4 |
 
 A **fixture** is something pytest prepares for a test and cleans up afterward. You ask for one by naming it as a parameter: `def test_x(tmp_path):` gets a fresh temporary folder.
 
 :::tip Test the model-free parts
-Model answers vary from run to run, so test your **tools** directly (they're ordinary functions) and replace the model with a stand-in when you test the loop. This book's own solution tests do exactly this, with a scripted fake model.
+Model answers vary from run to run, so test your **tools** directly (they're ordinary functions) and swap in a scripted fake model when you test the loop, as the book's solution tests do.
 :::
 
 ## T.3 Good tests
 
 - **One behavior per test**, with a name that says what it checks.
 - **Arrange, act, assert**: set up inputs, call the code, check the result.
-- **Test edges**: empty input, zero, very large numbers, missing fields.
-- **Make them fast.** You'll run tests that finish in a second often.
+- **Test edges**: empty input, zero, huge numbers, missing fields.
+- **Make them fast.** You'll run a one-second suite often and a slow one rarely.
 
 ## Key takeaways
 
 - A test is a function named `test_*` that asserts; pytest finds and runs it.
 - `parametrize`, `pytest.raises`, `tmp_path` and `monkeypatch` cover almost every test in this book.
-- Test the model-free parts directly; replace the model with a scripted stand-in to test the loop.
-- Good tests check one behavior, cover the edges and run fast.
+- Test the model-free parts directly; script a fake model to test the loop.
 
-Next comes Chapter 2, where you'll put these habits to work: its exercises ask you to add tests alongside the new code, and the patterns above are all you need.
+Keep pytest close. Chapter 2 gives the model its first tool, and a tool is an ordinary function you can test exactly the way you tested `apply_discount`.
 
 ## Learn more
 
-Start with these. `RESOURCES.md` in the course kit has all 4 links for this chapter, including the **Go deeper** reading, ready to click.
+Start with these. `RESOURCES.md` in the course kit has all 4 links for this chapter, including the **Go deeper** reading.
 
 | Resource | What you'll find |
 | --- | --- |
@@ -86,7 +84,7 @@ Add a parametrized test for `apply_discount` with at least five cases, including
 :::
 
 :::ex Medium | T.3 | Test your Chapter 0 code
-Write `tests/test_ex_t3.py` for the three functions from exercise 0.4, with an edge case for each (empty text, a tie for most common word, an empty invoice). Import them with `from ex0_4_basics import word_count, most_common_word, invoice_total`; the kit puts `workspace/exercises` on Python's path for you.
+Write `tests/test_ex_t3.py` for the three functions from exercise 0.4, with an edge case for each (empty text, a tie for most common word, an empty invoice). Import them with `from ex0_4_basics import word_count, most_common_word, invoice_total`; the kit puts `workspace/exercises` on Python's path.
 **Done when:** At least nine tests pass, and one of them caught a real bug in your 0.4 code (or you can explain why none did).
 :::
 

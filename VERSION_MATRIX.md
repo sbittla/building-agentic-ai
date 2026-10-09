@@ -11,8 +11,9 @@ Read across one row: a printing of the book, the repository tag that matches it,
 | First printing, September 2026 | `edition-1.0` | 231 | 3.12 | `claude-sonnet-5`, `claude-haiku-4-5`, `qwen3.5:9b` | 2026-07-28 | `anthropic` 1.8.0, `mcp` 2.2.0 | September 2026 |
 | Second printing, October 2026 | `edition-1.1` | 246 | 3.12 | `claude-sonnet-5`, `claude-haiku-4-5`, `qwen3.5:9b` | 2026-07-28 | `anthropic` 1.8.0, `mcp` 2.2.0, `claude-agent-sdk` 0.2.159, `langchain` 1.4.2, `a2a-sdk` 1.1.5 | 6 October 2026: 569 offline tests passed, 5 need the course image; 12 of 12 security controls caught ([verification/](verification/README.md)) |
 | Third printing, October 2026 | `edition-1.2` | 249 | 3.12 | `claude-sonnet-5`, `claude-haiku-4-5`, `qwen3.5:9b` | 2026-07-28 | `anthropic` 1.8.0, `mcp` 2.2.0, `claude-agent-sdk` 0.2.159, `langchain` 1.4.2, `a2a-sdk` 1.1.5 | 9 October 2026, commit `b7770dc`, `requirements.lock` sha256 `c28c848a2447`: 571 offline tests passed, 0 failed, 13 skipped outside the course image (they need its MCP servers); 12 of 12 security controls caught ([verification/](verification/README.md)). CI reruns the suite in the course image on the tag |
+| Fourth printing, October 2026 | `edition-1.3` | 249 | 3.12 | `claude-sonnet-5`, `claude-haiku-4-5`, `qwen3.5:9b` | 2026-07-28 | `anthropic` 1.8.0, `mcp` 2.2.0, `claude-agent-sdk` 0.2.159, `langchain` 1.4.2, `a2a-sdk` 1.1.5 | PENDING |
 
-ISBNs of the second and third printings: paperback 979-8177506326, hardcover 979-8177514734.
+ISBNs of the second, third and fourth printings: paperback 979-8177506326, hardcover 979-8177514734.
 
 How to tell which you have:
 - **The book:** the copyright page names its printing and its tag.
@@ -20,9 +21,9 @@ How to tell which you have:
 - **The environment:** the Docker image is built from this tag's `Dockerfile` and `requirements.lock`; every run summary records the commit and the lock file's hash (`provenance`).
 - **The results:** `verification/offline.json` names the commit it was run on.
 
-The printed book makes one promise: `git checkout edition-1.2` gives you code, data and solutions that run as printed, with the versions below. Tags are never moved. Newer versions go on `main` and into a new tag, with notes in [CHANGELOG.md](CHANGELOG.md) and [MIGRATION.md](MIGRATION.md). Mistakes in the printed text are listed in [ERRATA.md](ERRATA.md).
+The printed book makes one promise: `git checkout edition-1.3` gives you code, data and solutions that run as printed, with the versions below. Tags are never moved. Newer versions go on `main` and into a new tag, with notes in [CHANGELOG.md](CHANGELOG.md) and [MIGRATION.md](MIGRATION.md). Mistakes in the printed text are listed in [ERRATA.md](ERRATA.md).
 
-**Details as of:** 9 October 2026 · **Tag:** `edition-1.2` · **Verified commit:** `b7770dc`
+**Details as of:** 9 October 2026 · **Tag:** `edition-1.3` · **Verified commit:** PENDING
 
 ## Runtime
 
