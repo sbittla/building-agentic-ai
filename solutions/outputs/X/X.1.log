@@ -1,0 +1,12 @@
+# Exercise: X.1  Error codes
+# Command:  python /tmp/solutions-flat/exercises/exX_1_error_codes.py
+# Model:    none (no model needed)
+# Date:     2026-10-08 23:14:44 PDT
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+ok  'Payment failed with ERR-4471 at 14:05'    -> ['ERR-4471']
+ok  'ERR-44 is too short'                      -> []
+ok  'XERR-4471 has a prefix'                   -> []
+ok  'ERR-44710 is too long'                    -> []
+ok  'Seen twice: ERR-4471, then ERR-4417.'     -> ['ERR-4471', 'ERR-4417']

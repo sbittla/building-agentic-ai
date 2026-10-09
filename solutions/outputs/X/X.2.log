@@ -1,0 +1,10 @@
+# Exercise: X.2  Business questions
+# Command:  python /tmp/solutions-flat/exercises/exX_2_business.py
+# Model:    none (no model needed)
+# Date:     2026-10-08 23:14:44 PDT
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+(a) revenue per month, 2025: [('2025-01', 14669.0), ('2025-02', 20227.0), ('2025-03', 7556.0), ('2025-04', 21359.0), ('2025-05', 27352.0), ('2025-06', 45757.0), ('2025-07', 20829.0), ('2025-08', 34562.0), ('2025-09', 15827.0), ('2025-10', 23364.0), ('2025-11', 16635.0), ('2025-12', 9248.0)]
+(b) customers who never cancelled: 11
+(c) most often bought with a Laptop: [('Monitor', 25)]

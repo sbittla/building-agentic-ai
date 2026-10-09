@@ -1,0 +1,35 @@
+{
+ "chapter": "C7",
+ "title": "Capstone 7",
+ "model": "none (--free-only)",
+ "date": "2026-10-08 23:14",
+ "provenance": {
+  "commit": "b2de67c6c601",
+  "python": "3.12.11",
+  "packages_sha256": "95d6b663897ac0b2",
+  "packages": {
+   "anthropic": "1.8.0",
+   "mcp": "2.2.0",
+   "claude-agent-sdk": "0.2.159",
+   "langchain": "1.4.2",
+   "httpx": "0.28.1",
+   "pytest": "9.1.1"
+  },
+  "provider": "local",
+  "model_id": "qwen3.5:9b",
+  "model_label": "qwen3.5:9b (local, through Ollama)"
+ },
+ "exercises": [
+  {
+   "id": "C7",
+   "title": "Capstone 7 (c7_engagement)",
+   "kind": "capstone",
+   "status": "passed",
+   "reason": null,
+   "seconds": 1.2,
+   "log": "C7/C7.log",
+   "model": "none",
+   "commit": "b2de67c6c601"
+  }
+ ]
+}

@@ -557,11 +557,11 @@ Logs: [`solutions/outputs/ch31/`](solutions/outputs/ch31/)
 
 | # | Exercise | Level | Type | Model needed | Solution | Latest result |
 | --- | --- | --- | --- | --- | --- | --- |
-| 31.1 | Ready to build? | Concept | Written answer | No model | — | not run yet |
-| 31.2 | A brief that's ready | Simple | Build | No model | [`ex31_2_your_brief.py`](solutions/exercises/ch31/ex31_2_your_brief.py)<br>[`test_ch31_field.py`](solutions/tests/test_ch31_field.py) | not run yet |
-| 31.3 | What reaches the model | Medium | Build | No model | [`ex31_3_prompt_rule.py`](solutions/exercises/ch31/ex31_3_prompt_rule.py)<br>[`test_ch31_field.py`](solutions/tests/test_ch31_field.py) | not run yet |
-| 31.4 | How many more runs? | Medium | Build | No model | [`ex31_4_runs_needed.py`](solutions/exercises/ch31/ex31_4_runs_needed.py)<br>[`test_ch31_field.py`](solutions/tests/test_ch31_field.py) | not run yet |
-| 31.5 | Draft it, then check it | Medium | Build | Local or Claude | [`ex31_5_draft_brief.py`](solutions/exercises/ch31/ex31_5_draft_brief.py)<br>[`test_ch31_field.py`](solutions/tests/test_ch31_field.py) | not run yet |
+| 31.1 | Ready to build? | Concept | Written answer | No model | — | written answer |
+| 31.2 | A brief that's ready | Simple | Build | No model | [`ex31_2_your_brief.py`](solutions/exercises/ch31/ex31_2_your_brief.py)<br>[`test_ch31_field.py`](solutions/tests/test_ch31_field.py) | ✔ passed (1 s) |
+| 31.3 | What reaches the model | Medium | Build | No model | [`ex31_3_prompt_rule.py`](solutions/exercises/ch31/ex31_3_prompt_rule.py)<br>[`test_ch31_field.py`](solutions/tests/test_ch31_field.py) | ✔ passed (1 s) |
+| 31.4 | How many more runs? | Medium | Build | No model | [`ex31_4_runs_needed.py`](solutions/exercises/ch31/ex31_4_runs_needed.py)<br>[`test_ch31_field.py`](solutions/tests/test_ch31_field.py) | ✔ passed (1 s) |
+| 31.5 | Draft it, then check it | Medium | Build | Local or Claude | [`ex31_5_draft_brief.py`](solutions/exercises/ch31/ex31_5_draft_brief.py)<br>[`test_ch31_field.py`](solutions/tests/test_ch31_field.py) | skipped: needs a model (--free-only) |
 
 ## Capstone projects
 
@@ -575,4 +575,4 @@ Run a reference capstone with `./course.sh capstone <1-7>`.
 | C4 | Code review and fix agent | [`solutions/capstones/c4_review/`](solutions/capstones/c4_review/) | ✔ passed (qwen3.5:9b, 117 s) |
 | C5 | Deep research assistant | [`solutions/capstones/c5_research/`](solutions/capstones/c5_research/) | ✔ passed (qwen3.5:9b, 318 s) |
 | C6 | Back-office workflow agent | [`solutions/capstones/c6_backoffice/`](solutions/capstones/c6_backoffice/) | ✔ passed (qwen3.5:9b, 53 s) |
-| C7 | Customer deployment (FDE engagement) | [`solutions/capstones/c7_engagement/`](solutions/capstones/c7_engagement/) | not run yet |
+| C7 | Customer deployment (FDE engagement) | [`solutions/capstones/c7_engagement/`](solutions/capstones/c7_engagement/) | ✔ passed (1 s) |

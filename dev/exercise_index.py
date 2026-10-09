@@ -97,6 +97,8 @@ def tally(entries):
             t[x["status"]] += 1
         elif (x.get("reason") or "").startswith("concept"):
             t["written"] += 1
+        elif (x.get("reason") or "").startswith("needs a model"):
+            t["not run"] += 1          # skipped by --free-only: no model run recorded yet
         else:
             t["skipped"] += 1
     return t

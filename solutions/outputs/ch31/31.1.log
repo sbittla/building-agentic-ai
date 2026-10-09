@@ -1,0 +1,8 @@
+# Exercise: 31.1  Ready to build?
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-10-08 23:14:40 PDT
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**31.1 Ready to build?** (a) Almost everything is missing: "better" has no unit, so ask which number would show it (average handling time in minutes, first-contact resolution as a rate), then measure today's value; there's no target, no named owner, no constraints and no non-goals. Ask next: "Which call types cost you the most time, and who decides whether a pilot goes ahead?" (b) Close: the metric (days per monthly report), the target (1) and the owner (Priya Shah) are there. Missing: how the 3-day baseline was measured (one person's memory or timesheets over several months?), the constraints (which data, which systems, who may see the reports) and the non-goals. Ask next: "Can we look at the last three months' timesheets for the reports?" (c) It has one constraint (data stays inside their network, which also rules out hosted models unless they run there) but no metric, baseline, target, owner or non-goals. Ask next: "How long does a contract summary take a lawyer today, and who would judge whether the agent's are good enough?"

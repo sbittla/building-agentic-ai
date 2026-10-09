@@ -200,7 +200,7 @@ Commit `83a0af4d440e`; `requirements.lock` sha256 `c28c848a2447`; outside the co
 
 ### B. Exercises run with a real model
 
-Every exercise run with its reference solution by `run-chapter` (runs from 2026-09-27 to 2026-09-28; models: `claude-sonnet-5`, `qwen3.5:9b`). **161 of 162 executable checks pass automatically**; 1 intentionally demonstrates a failing quality gate, and **0** failed unexpectedly. A real model's answers vary from run to run, so these show that each exercise works end to end, not that it always will. Runs before October 2026 didn't record the commit; newer runs do (`provenance` in each summary.json). Per-exercise results and logs: [EXERCISE_INDEX.md](EXERCISE_INDEX.md), `solutions/outputs/`.
+Every exercise run with its reference solution by `run-chapter` (runs from 2026-09-27 to 2026-10-08; models: `claude-sonnet-5`, `qwen3.5:9b`). **165 of 166 executable checks pass automatically**; 1 intentionally demonstrates a failing quality gate, and **0** failed unexpectedly. A real model's answers vary from run to run, so these show that each exercise works end to end, not that it always will. Commits: `b2de67c6c601`. Per-exercise results and logs: [EXERCISE_INDEX.md](EXERCISE_INDEX.md), `solutions/outputs/`.
 
 How the totals count: the book has **249 exercises**; the table adds the 7 capstones, so it has 256 rows of work. Every count here, in EXERCISE_INDEX.md and in the book is computed from `course/exercises.json`. *Written answer* exercises have nothing to run; *needs a person* means a person at the keyboard, the Claude Desktop app, a GitHub token or a file the reader creates; *not run yet* means no run has been recorded for this version.
 
@@ -243,9 +243,9 @@ How the totals count: the book has **249 exercises**; the table adds the 7 capst
 | Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents | 8 | 6 | 0 | 0 | 1 | 0 | 1 | 100% |
 | Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost | 8 | 5 | 0 | 0 | 1 | 0 | 2 | 100% |
 | Chapter 30: Deploying Agents: From One Service to an Agent Platform | 12 | 9 | 0 | 0 | 2 | 0 | 1 | 100% |
-| Chapter 31: From Prototype to Customer Production | 5 | 0 | 0 | 0 | 1 | 0 | 4 | — |
-| Capstone projects C1–C7 | 7 | 6 | 0 | 0 | 0 | 0 | 1 | 100% |
-| **Total** | **256** | **161** | **0** | **1** | **63** | **14** | **17** | **100.0%** |
+| Chapter 31: From Prototype to Customer Production | 5 | 3 | 0 | 0 | 1 | 0 | 1 | 100% |
+| Capstone projects C1–C7 | 7 | 7 | 0 | 0 | 0 | 0 | 0 | 100% |
+| **Total** | **256** | **165** | **0** | **1** | **63** | **14** | **13** | **100.0%** |
 
 *Pass rate* counts passed against unexpected failures; a gate that fails by design is neither.
 

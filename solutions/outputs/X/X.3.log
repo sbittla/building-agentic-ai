@@ -1,0 +1,8 @@
+# Exercise: X.3  The hard conversations
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-10-08 23:14:44 PDT
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**X.3 The hard conversations.** (a) "Anna, the pilot will start three weeks later than planned, on 2 June. About 40% of claim files are scanned PDFs, and the summaries missed facts in them, so we're adding text recognition and testing it on 200 of your files. The read-only summary for typed files is ready now, and your adjusters can use it from Monday if you'd like. If the date matters more than the scanned files, we can start on 12 May with typed files only and add scanned ones in June. I'm confident in 2 June because the OCR is already working on your test files." (b) "Thank you, that's exactly what we need to hear. Could you send me the claim numbers for the summaries that were wrong, and what was wrong in each? Every one becomes a test case the agent must pass before the next release, so the same mistake can't come back. I'll show you the results on those cases next week."

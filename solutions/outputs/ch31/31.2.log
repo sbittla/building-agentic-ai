@@ -1,0 +1,16 @@
+# Exercise: 31.2  A brief that's ready
+# Command:  python /tmp/solutions-flat/exercises/ex31_2_your_brief.py
+# Model:    none (no model needed)
+# Date:     2026-10-08 23:14:41 PDT
+# Exit code: 0
+# Seconds:  1.0
+#-------------------------------------------------------------------------------
+Vague request:
+  - metric 'less paperwork' isn't measurable: give it a unit
+  - no baseline: measure today's number first, or no gain shows
+  - no target: agree the number that counts as success
+  - no customer owner: a named person must sign off
+  - no constraints: ask about data, identity, hosting and rules
+  - no non-goals: write down what's out of scope, or scope grows
+
+Discharge-summary brief: ready to build

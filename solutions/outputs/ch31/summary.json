@@ -1,0 +1,77 @@
+{
+ "chapter": "31",
+ "title": "Chapter 31: From Prototype to Customer Production",
+ "model": "none (--free-only)",
+ "date": "2026-10-08 23:14",
+ "provenance": {
+  "commit": "b2de67c6c601",
+  "python": "3.12.11",
+  "packages_sha256": "95d6b663897ac0b2",
+  "packages": {
+   "anthropic": "1.8.0",
+   "mcp": "2.2.0",
+   "claude-agent-sdk": "0.2.159",
+   "langchain": "1.4.2",
+   "httpx": "0.28.1",
+   "pytest": "9.1.1"
+  },
+  "provider": "local",
+  "model_id": "qwen3.5:9b",
+  "model_label": "qwen3.5:9b (local, through Ollama)"
+ },
+ "exercises": [
+  {
+   "id": "31.1",
+   "title": "Ready to build?",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "ch31/31.1.log",
+   "model": "none"
+  },
+  {
+   "id": "31.2",
+   "title": "A brief that's ready",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 1.0,
+   "log": "ch31/31.2.log",
+   "model": "none",
+   "commit": "b2de67c6c601"
+  },
+  {
+   "id": "31.3",
+   "title": "What reaches the model",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 1.0,
+   "log": "ch31/31.3.log",
+   "model": "none",
+   "commit": "b2de67c6c601"
+  },
+  {
+   "id": "31.4",
+   "title": "How many more runs?",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 1.0,
+   "log": "ch31/31.4.log",
+   "model": "none",
+   "commit": "b2de67c6c601"
+  },
+  {
+   "id": "31.5",
+   "title": "Draft it, then check it",
+   "kind": "build",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
+   "model": "qwen3.5:9b (local, through Ollama)"
+  }
+ ]
+}
