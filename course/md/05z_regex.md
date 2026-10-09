@@ -1,6 +1,6 @@
 # Interlude: Regular Expressions
 
-Agents often need to find exact text: an error code, a timestamp, a file-and-line citation. Regular expressions are the standard way to describe that kind of text in code. This short interlude teaches you enough to read and write simple patterns, and you'll practice by pulling values out of a log and hiding API keys.
+Agents need exact text in three places: checking the inputs a model hands to a tool (an order id, a date), pulling values out of logs and traces, and finding sensitive data such as API keys before it's stored or shown. Regular expressions are the standard way to describe that kind of text in code. This short interlude teaches only the patterns those three jobs need; `EXTRA_PRACTICE.md` in the course kit has the broader tutorial and more exercises.
 
 **Prerequisites:** Chapter 0 and the Python interlude (strings).
 
@@ -9,13 +9,13 @@ Agents often need to find exact text: an error code, a timestamp, a file-and-lin
 By the end of this interlude you can:
 
 - Read and write simple regular expressions with digits, words, sets, repetition and groups.
-- Choose between `re.search`, `re.findall`, `re.sub` and `re.match`.
-- Extract values from logs and hide secrets in text.
+- Choose between `re.search`, `re.findall`, `re.sub` and `re.fullmatch`.
+- Validate an agent's tool input, extract values from logs and hide secrets in text.
 - Explain why regex is the wrong tool for security checks such as path validation.
 
 ## Why this interlude
 
-Chapter 6's search tool, Chapter 8's table checks and Chapter 11's citation checker all use **regular expressions** (regex): short patterns that match text. You don't need to master them. You need to read and write simple ones.
+Chapter 6's search tool, Chapter 8's table checks, Chapter 11's citation checker and Chapter 28's redaction of traces all use **regular expressions** (regex): short patterns that match text. You don't need to master them. You need to read and write simple ones.
 
 ## R.1 The pieces
 
@@ -44,7 +44,7 @@ Table: The four `re` functions
 | `re.search(p, text)` | The first match, or `None` | "Does it contain…?" |
 | `re.findall(p, text)` | A list of all matches (or of the captured groups) | Extracting values |
 | `re.sub(p, new, text)` | Text with matches replaced | Hiding secrets in logs |
-| `re.match(p, text)` | A match only at the very start | Parsing a fixed format |
+| `re.fullmatch(p, text)` | A match only if the whole text fits | Validating a tool input, such as an order id |
 
 Always write patterns as raw strings, such as `r"\d+"`, so Python doesn't treat the backslashes specially.
 
@@ -55,7 +55,7 @@ A regex that checks for `..` in a path can be bypassed (Chapter 6). Use regex to
 ## Key takeaways
 
 - A pattern is built from a few pieces: literals, `\d` `\w` `\s`, sets, repetition, anchors and groups.
-- `search` finds, `findall` extracts, `sub` replaces and `match` checks the start.
+- `search` finds, `findall` extracts, `sub` replaces and `fullmatch` validates a whole input.
 - Write patterns as raw strings (`r"..."`).
 - Use regex to find and extract text, never as a security check.
 
@@ -87,10 +87,4 @@ Write `mask(text)` that replaces anything that looks like an API key (`sk-` foll
 :::ex Medium | R.3 | Parse citations
 Write `citations(text)` that returns every `(file:line)` citation in a text, such as `(work/plan.md:12)`, as `(file, line_number)` pairs. Chapter 6 and exercise 6.4 use exactly this.
 **Done when:** It finds citations with folders, dots and dashes in file names, and ignores `(see page 12)`.
-:::
-
-:::ex Medium | R.4 | Error codes
-Write a pattern that finds error codes like `ERR-4471` but not `ERR-44` or `XERR-4471`, and explain why embedding-based search (Chapter 18) might confuse `ERR-4471` with `ERR-4417` while this pattern can't.
-**Hint:** `\b` matches a word boundary.
-**Done when:** Your pattern passes five examples you write, and your explanation is two sentences.
 :::

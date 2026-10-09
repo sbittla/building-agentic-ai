@@ -1,6 +1,6 @@
 # Interlude: SQL in One Sitting
 
-In the next chapter an agent writes database queries for you, and you need to tell a right query from a plausible wrong one. This interlude teaches enough SQL to do that in one sitting. You'll run eight queries against a small shop database, learn a checklist for reviewing someone else's SQL and see why user text must never be pasted into a query.
+In the next chapter an agent writes database queries for you, and you need to tell a right query from a plausible wrong one. This interlude teaches only the SQL Chapter 8 needs, in one sitting. You'll run eight queries against a small shop database, learn a checklist for reviewing someone else's SQL and see why user text must never be pasted into a query. Window functions, self-joins and more practice are in `EXTRA_PRACTICE.md` in the course kit.
 
 **Prerequisites:** Chapter 0. You don't need any database experience.
 
@@ -89,13 +89,7 @@ This query is meant to give revenue per customer but is wrong in three ways. Fin
 **Done when:** You've named all three bugs and written the fixed query.
 :::
 
-:::ex Medium | S.3 | Business questions
-Write queries for: (a) revenue per month in 2025, excluding cancelled orders; (b) customers who have never cancelled an order; (c) the product most often bought together with a Laptop.
-**Hint:** For (c), join `order_items` to itself on `order_id`.
-**Done when:** Each query runs and you can explain every line.
-:::
-
-:::ex Medium | S.4 | Safe parameters
+:::ex Medium | S.3 | Safe parameters
 Write a Python function `orders_for_city(city)` that returns the number of orders from customers in a city, using a `?` parameter. Then show what goes wrong if you build the SQL with an f-string and pass `Pune' OR '1'='1`.
 **Done when:** The parameter version returns 0 for the malicious input, and you can explain what the f-string version did.
 :::

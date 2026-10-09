@@ -45,7 +45,7 @@ Practise each exercise yourself first with `./course.sh ex <id>`, then compare w
 - [Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents](#chapter-28-agentops-observability-telemetry-and-slos-for-agents)
 - [Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost](#chapter-29-agent-performance-engineering-latency-throughput-and-cost)
 - [Chapter 30: Deploying Agents: From One Service to an Agent Platform](#chapter-30-deploying-agents-from-one-service-to-an-agent-platform)
-- [Chapter 31: The Forward-Deployed Playbook](#chapter-31-the-forward-deployed-playbook)
+- [Chapter 31: From Prototype to Customer Production](#chapter-31-from-prototype-to-customer-production)
 - [Capstone projects](#capstone-projects)
 
 ## Chapter 0: Foundations
@@ -163,7 +163,6 @@ Logs: [`solutions/outputs/R/`](solutions/outputs/R/)
 | R.1 | Extract from logs | Simple | Build | No model | [`exR_1_logs.py`](solutions/exercises/interlude_regex/exR_1_logs.py) | ✔ passed (qwen3.5:9b, 0 s) |
 | R.2 | Mask secrets | Simple | Build | No model | [`exR_2_mask.py`](solutions/exercises/interlude_regex/exR_2_mask.py) | ✔ passed (qwen3.5:9b, 0 s) |
 | R.3 | Parse citations | Medium | Build | No model | [`exR_3_citations.py`](solutions/exercises/interlude_regex/exR_3_citations.py) | ✔ passed (qwen3.5:9b, 0 s) |
-| R.4 | Error codes | Medium | Build | No model | [`exR_4_error_codes.py`](solutions/exercises/interlude_regex/exR_4_error_codes.py)<br>[`ANSWERS.md`](solutions/ANSWERS.md) | ✔ passed (qwen3.5:9b, 0 s) |
 
 ## Chapter 6: Agentic Search: Exploring an Environment
 
@@ -199,8 +198,7 @@ Logs: [`solutions/outputs/S/`](solutions/outputs/S/)
 | --- | --- | --- | --- | --- | --- | --- |
 | S.1 | Warm-up queries | Simple | Build | No model | [`exS_1_warmup.py`](solutions/exercises/interlude_sql/exS_1_warmup.py) | ✔ passed (qwen3.5:9b, 1 s) |
 | S.2 | Spot the bug | Simple | Build | No model | [`exS_2_fix_query.py`](solutions/exercises/interlude_sql/exS_2_fix_query.py)<br>[`ANSWERS.md`](solutions/ANSWERS.md) | ✔ passed (qwen3.5:9b, 0 s) |
-| S.3 | Business questions | Medium | Build | No model | [`exS_3_business.py`](solutions/exercises/interlude_sql/exS_3_business.py) | ✔ passed (qwen3.5:9b, 0 s) |
-| S.4 | Safe parameters | Medium | Build | No model | [`exS_4_parameters.py`](solutions/exercises/interlude_sql/exS_4_parameters.py)<br>[`ANSWERS.md`](solutions/ANSWERS.md) | ✔ passed (qwen3.5:9b, 0 s) |
+| S.3 | Safe parameters | Medium | Build | No model | [`exS_3_parameters.py`](solutions/exercises/interlude_sql/exS_3_parameters.py)<br>[`ANSWERS.md`](solutions/ANSWERS.md) | ✔ passed (qwen3.5:9b, 0 s) |
 
 ## Chapter 8: Self-Correction: A Text-to-SQL Agent
 
@@ -553,7 +551,7 @@ Logs: [`solutions/outputs/ch30/`](solutions/outputs/ch30/)
 | 30.11 | An agent behind the gateway | Complex | Build | Local or Claude | [`ex30_11_gateway_agent.py`](solutions/exercises/ch30/ex30_11_gateway_agent.py)<br>[`test_part5_mcp2026.py`](solutions/tests/test_part5_mcp2026.py) | ✔ passed (qwen3.5:9b, 53 s) |
 | 30.12 | Catch it in shadow | Medium | Build | No model | [`ex30_12_shadow_slos.py`](solutions/exercises/ch30/ex30_12_shadow_slos.py)<br>[`test_ch30_improvement_loop.py`](solutions/tests/test_ch30_improvement_loop.py) | not run yet |
 
-## Chapter 31: The Forward-Deployed Playbook
+## Chapter 31: From Prototype to Customer Production
 
 Logs: [`solutions/outputs/ch31/`](solutions/outputs/ch31/)
 
@@ -564,7 +562,6 @@ Logs: [`solutions/outputs/ch31/`](solutions/outputs/ch31/)
 | 31.3 | What reaches the model | Medium | Build | No model | [`ex31_3_prompt_rule.py`](solutions/exercises/ch31/ex31_3_prompt_rule.py)<br>[`test_ch31_field.py`](solutions/tests/test_ch31_field.py) | not run yet |
 | 31.4 | How many more runs? | Medium | Build | No model | [`ex31_4_runs_needed.py`](solutions/exercises/ch31/ex31_4_runs_needed.py)<br>[`test_ch31_field.py`](solutions/tests/test_ch31_field.py) | not run yet |
 | 31.5 | Draft it, then check it | Medium | Build | Local or Claude | [`ex31_5_draft_brief.py`](solutions/exercises/ch31/ex31_5_draft_brief.py)<br>[`test_ch31_field.py`](solutions/tests/test_ch31_field.py) | not run yet |
-| 31.6 | The hard conversations | Concept | Written answer | No model | — | not run yet |
 
 ## Capstone projects
 

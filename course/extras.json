@@ -1,0 +1,40 @@
+[
+ {
+  "id": "X.1",
+  "level": "Medium",
+  "title": "Error codes",
+  "chapter": "Extra Practice (course kit)",
+  "task": "Write a pattern that finds error codes like `ERR-4471` but not `ERR-44` or `XERR-4471`, and explain why embedding-based search (Chapter 18) might confuse `ERR-4471` with `ERR-4417` while this pattern can't.",
+  "hint": "`\\b` matches a word boundary.",
+  "done_when": "Your pattern passes five examples you write, and your explanation is two sentences.",
+  "kind": "build",
+  "file": "exercises/exX_1_error_codes.py",
+  "extra": true,
+  "nokey": true
+ },
+ {
+  "id": "X.2",
+  "level": "Medium",
+  "title": "Business questions",
+  "chapter": "Extra Practice (course kit)",
+  "task": "Write queries for: (a) revenue per month in 2025, excluding cancelled orders; (b) customers who have never cancelled an order; (c) the product most often bought together with a Laptop.",
+  "hint": "For (c), join `order_items` to itself on `order_id`.",
+  "done_when": "Each query runs and you can explain every line.",
+  "kind": "build",
+  "file": "exercises/exX_2_business.py",
+  "extra": true,
+  "nokey": true
+ },
+ {
+  "id": "X.3",
+  "level": "Concept",
+  "title": "The hard conversations",
+  "chapter": "Extra Practice (course kit)",
+  "task": "Write what you'd say, in five sentences or fewer each: (a) to Lakeside's customer owner (Chapter 31), when the pilot will slip three weeks because scanned PDFs need OCR; (b) to an adjuster who says \"the summaries are wrong half the time\".",
+  "hint": null,
+  "done_when": "(a) gives the cause, what's done, the new date and an option to cut scope; (b) asks for examples and says how they'll become evaluation cases.",
+  "kind": "concept",
+  "extra": true,
+  "nokey": true
+ }
+]

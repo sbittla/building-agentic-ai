@@ -69,31 +69,31 @@ def test_r3_citations():
     from exR_3_citations import citations
     assert citations("(a/b-c.d.md:12) (see page 12) (x.txt:3)") == [("a/b-c.d.md", 12), ("x.txt", 3)]
 
-def test_r4_error_codes():
-    import exR_4_error_codes as ex
+def test_x1_error_codes():
+    import exX_1_error_codes as ex
     for text, expected in ex.EXAMPLES.items():
         assert ex.error_codes(text) == expected
 
 # ---------------- SQL
-def test_s1_to_s4(ws):
+def test_s1_to_s3_and_x2(ws):
     import sqlite3
-    import exS_1_warmup, exS_2_fix_query, exS_3_business, exS_4_parameters as s4
+    import exS_1_warmup, exS_2_fix_query, exX_2_business, exS_3_parameters as s3
     con = sqlite3.connect("shop.db")
     assert len(exS_1_warmup.berlin_customers()) == con.execute(
         "SELECT COUNT(*) FROM customers WHERE city='Berlin'").fetchone()[0]
     assert exS_1_warmup.cheapest_products()[0][1] == con.execute(
         "SELECT MIN(price) FROM products").fetchone()[0]
-    fixed = exS_3_business.run(exS_2_fix_query.FIXED)
+    fixed = exX_2_business.run(exS_2_fix_query.FIXED)
     total = con.execute("SELECT SUM(oi.quantity*p.price) FROM order_items oi JOIN products p "
                         "ON p.id=oi.product_id JOIN orders o ON o.id=oi.order_id "
                         "WHERE o.status!='cancelled'").fetchone()[0]
     assert round(sum(r[2] for r in fixed), 2) == round(total, 2)   # every order counted once
-    months = exS_3_business.run(exS_3_business.REVENUE_PER_MONTH)
+    months = exX_2_business.run(exX_2_business.REVENUE_PER_MONTH)
     assert all(m.startswith("2025-") for m, _ in months)
-    assert exS_3_business.run(exS_3_business.BOUGHT_WITH_LAPTOP)[0][0] != "Laptop"
+    assert exX_2_business.run(exX_2_business.BOUGHT_WITH_LAPTOP)[0][0] != "Laptop"
     evil = "Pune' OR '1'='1"
-    assert s4.orders_for_city(evil) == 0
-    assert s4.orders_for_city_unsafe(evil) == con.execute("SELECT COUNT(*) FROM orders").fetchone()[0]
+    assert s3.orders_for_city(evil) == 0
+    assert s3.orders_for_city_unsafe(evil) == con.execute("SELECT COUNT(*) FROM orders").fetchone()[0]
 
 # ---------------- async
 def test_a1_measure():

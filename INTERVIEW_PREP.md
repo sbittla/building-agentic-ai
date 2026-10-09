@@ -1,15 +1,28 @@
 # Interview Prep: Agent Engineering and Forward-Deployed Roles
 
-The full question bank behind Appendix M of *Building Agentic AI Systems*. Each answer is a starting point: say it in your own words and back it with something you built. The section or chapter in brackets is where the book teaches it.
+A bonus guide to *Building Agentic AI Systems*: how interviews for agent engineering and forward-deployed engineer (FDE) roles run, a question bank with brief answers, and cases to practise. Each answer is a starting point: say it in your own words and back it with something you built. The section or chapter in brackets is where the book teaches it; [FIELD_GUIDE.md](FIELD_GUIDE.md) has the engagement workflow and checklists behind the customer questions.
 
-Forward-deployed engineer (FDE) loops usually run five to eight rounds: recruiter and hiring manager, practical coding, system design for a real customer, an open-ended decomposition case, AI depth, a client simulation, behavioral, and at some companies a take-home. Interviewers score the same habits in every round: you ask before you build, you measure, you respect the customer's constraints and you own the outcome.
+## The interview loop
+
+| Round | What it tests | Prepare with |
+| --- | --- | --- |
+| Recruiter and hiring manager | Motivation, and a deep dive on one or two projects you owned | Your capstones: be ready to explain every decision and number |
+| Practical coding | Working code on messy input, edge cases and failures, not puzzles | Chapters 7, 8 and 19 |
+| System design | A deployment for a real customer: data flow, identity, observability, failure modes | Chapters 18, 25, 26, 28 and 30, section 31.4 |
+| Decomposition or case | A vague problem with no single right answer | Sections 31.2 and 31.3 |
+| AI depth | Prompting, retrieval, agents, evaluation, cost | Chapters 1, 16, 18, 27 and 29 |
+| Client simulation | A frustrated or non-technical stakeholder | Section 31.5, sections 4 and 5 of the field guide |
+| Behavioral | Ownership, conflict and failure, told as stories | Your engagement record and capstones |
+| Take-home (some companies) | A small build in four to eight hours | Any chapter's Complex exercise, done end to end |
+
+In every round, interviewers listen for the same habits: you ask before you build, you measure, you respect the customer's constraints and you own the outcome.
 
 ## 1. The role
 
 1. **What does a forward-deployed engineer do?** Ships working software inside one customer's business, in their environment, and stays until it moves the customer's metric; then hands it over so it runs without them. (31.1)
 2. **How is it different from a solutions engineer?** A solutions engineer helps win the deal with demos and proofs of concept; an FDE owns the outcome after it, and writes production code in the customer's environment. (31.1)
-3. **How is it different from a consultant?** A consultant leaves a plan; an FDE leaves a working system, an owner and a runbook. (31.1, 31.7)
-4. **What makes an FDE valuable to the product team?** They see what customers actually need. Fixes built by hand at several customers are evidence for product features. (31.8)
+3. **How is it different from a consultant?** A consultant leaves a plan; an FDE leaves a working system, an owner and a runbook. (31.1, 31.6)
+4. **What makes an FDE valuable to the product team?** They see what customers actually need. Fixes built by hand at several customers are evidence for product features. (31.7)
 
 ## 2. Discovery and scoping
 
@@ -65,7 +78,7 @@ Forward-deployed engineer (FDE) loops usually run five to eight rounds: recruite
 42. **How do you roll out?** Shadow, then a canary on a small share of traffic with SLOs deciding, then the rest; version the whole agent. (30.13)
 43. **What do you monitor in production?** Traces of every model and tool call, failure classes, SLOs on what users feel, error-budget burn, cost per success. (28)
 44. **How does the agent improve after launch?** Mine production failures into labeled eval cases, then move each change through offline, shadow and canary gates. (30.14)
-45. **What do you hand over when you leave?** Runbook, owner, eval suite with the signed criteria, dashboard, tested kill switch, escalation contacts, training and known limits. (31.7)
+45. **What do you hand over when you leave?** Runbook, owner, eval suite with the signed criteria, dashboard, tested kill switch, escalation contacts, training and known limits. (31.6)
 
 ## 7. Practical coding
 
@@ -80,8 +93,8 @@ Forward-deployed engineer (FDE) loops usually run five to eight rounds: recruite
 51. **Tell the CTO the deployment will slip three weeks.** Early and plain: cause, what's done, the new date and confidence, what they can have now, an option to cut scope. (31.5)
 52. **"It's wrong 20% of the time."** Ask for examples, classify them, fix the biggest class, add every example to the suite, report on the agreed metric. (28.8, 31.5)
 53. **The customer wants a feature that breaks their own security rule.** Say so plainly, show the rule, and offer the closest design that keeps it; let their security owner decide on any exception in writing. (31.4)
-54. **A stakeholder wants a demo next week on "everything".** Demo one slice on their real data, show the boundaries and end with the brief's metric. (31.6)
-55. **The pilot succeeded but nobody uses it.** Go back to the users: watch them work, find what stops them (trust, workflow fit, training) and treat adoption as the metric for the next iteration. (31.2, 31.7)
+54. **A stakeholder wants a demo next week on "everything".** Demo one slice on their real data, show the boundaries and end with the brief's metric. (Field guide, section 5)
+55. **The pilot succeeded but nobody uses it.** Go back to the users: watch them work, find what stops them (trust, workflow fit, training) and treat adoption as the metric for the next iteration. (31.2, 31.6)
 
 ## 9. Behavioral
 

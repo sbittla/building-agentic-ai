@@ -74,10 +74,6 @@ T.2, T.3 and T.4 are test files; see `./course.sh solution T.2` (and T.3, T.4).
 
 **5.6 Clarify, don't guess (what you should see).** "Complete the milk task" makes the agent call `find_tasks`, find two matches, and **ask** which one instead of completing either. After "the oat one", it calls `complete_task` with the id of "Buy oat milk". If it guesses, strengthen the system prompt rule: "If more than one task matches, ask; never guess."
 
-## Regular-expression interlude
-
-**R.4 (the explanation).** An embedding model turns text into a vector that captures meaning. `ERR-4471` and `ERR-4417` contain the same characters and appear in the same kinds of sentences, so their vectors are almost identical and a vector search can return the wrong one. A regular expression compares characters exactly, so `\bERR-4471\b` matches only that code. The code for R.1–R.4 is in `./course.sh solution R.1` and so on.
-
 ## Chapter 6
 
 **6.1 Break the sandbox.** `../secrets.txt` (blocked by both checks), `/etc/passwd` (an absolute path: the string check misses it; `_safe` blocks it because `ROOT / "/etc/passwd"` resolves to `/etc/passwd`), `work/../../x` (both block), a symlink `notes/link → /etc/shadow` (the string check misses it; `_safe` blocks it because `resolve()` follows the link), and `....//....//x` (not actually a traversal after normalization; `_safe` resolves it inside `ROOT`). The lesson: resolve first, then check containment.
@@ -104,7 +100,7 @@ T.2, T.3 and T.4 are test files; see `./course.sh solution T.2` (and T.3, T.4).
 
 **S.2 Spot the bug.** (1) `JOIN orders o ON o.id = c.id` joins each customer to the order with the *same number*, not to that customer's orders; it must be `o.customer_id = c.id`. (2) `SUM(p.price)` ignores how many were bought; revenue is `SUM(oi.quantity * p.price)`. (3) `GROUP BY c.name` merges different customers who share a name; group by `c.id` (and show the name). Most businesses also exclude cancelled orders from revenue. The fixed query is in `./course.sh solution S.2`.
 
-**S.4 (the explanation).** With an f-string, the input becomes part of the SQL: `WHERE c.city = 'Pune' OR '1'='1'`. The quote in the input ends the string early, and `OR '1'='1'` is true for every row, so the query counts **all** orders. With a `?` parameter, the whole input is treated as one value, a city literally named `Pune' OR '1'='1`, and no customer lives there, so the answer is 0.
+**S.3 (the explanation).** With an f-string, the input becomes part of the SQL: `WHERE c.city = 'Pune' OR '1'='1'`. The quote in the input ends the string early, and `OR '1'='1'` is true for every row, so the query counts **all** orders. With a `?` parameter, the whole input is treated as one value, a city literally named `Pune' OR '1'='1`, and no customer lives there, so the answer is 0.
 
 ## Chapter 8
 
@@ -349,7 +345,13 @@ The gap to close first is ASI03: a narrower token removes a whole class of damag
 
 **31.1 Ready to build?** (a) Almost everything is missing: "better" has no unit, so ask which number would show it (average handling time in minutes, first-contact resolution as a rate), then measure today's value; there's no target, no named owner, no constraints and no non-goals. Ask next: "Which call types cost you the most time, and who decides whether a pilot goes ahead?" (b) Close: the metric (days per monthly report), the target (1) and the owner (Priya Shah) are there. Missing: how the 3-day baseline was measured (one person's memory or timesheets over several months?), the constraints (which data, which systems, who may see the reports) and the non-goals. Ask next: "Can we look at the last three months' timesheets for the reports?" (c) It has one constraint (data stays inside their network, which also rules out hosted models unless they run there) but no metric, baseline, target, owner or non-goals. Ask next: "How long does a contract summary take a lawyer today, and who would judge whether the agent's are good enough?"
 
-**31.6 The hard conversations.** (a) "Anna, the pilot will start three weeks later than planned, on 2 June. About 40% of claim files are scanned PDFs, and the summaries missed facts in them, so we're adding text recognition and testing it on 200 of your files. The read-only summary for typed files is ready now, and your adjusters can use it from Monday if you'd like. If the date matters more than the scanned files, we can start on 12 May with typed files only and add scanned ones in June. I'm confident in 2 June because the OCR is already working on your test files." (b) "Thank you, that's exactly what we need to hear. Could you send me the claim numbers for the summaries that were wrong, and what was wrong in each? Every one becomes a test case the agent must pass before the next release, so the same mistake can't come back. I'll show you the results on those cases next week."
+## Extra practice
+
+The exercises in `EXTRA_PRACTICE.md`, beyond the book.
+
+**X.1 Error codes (the explanation).** An embedding model turns text into a vector that captures meaning. `ERR-4471` and `ERR-4417` contain the same characters and appear in the same kinds of sentences, so their vectors are almost identical and a vector search can return the wrong one. A regular expression compares characters exactly, so `\bERR-4471\b` matches only that code. The code is in `./course.sh solution X.1`.
+
+**X.3 The hard conversations.** (a) "Anna, the pilot will start three weeks later than planned, on 2 June. About 40% of claim files are scanned PDFs, and the summaries missed facts in them, so we're adding text recognition and testing it on 200 of your files. The read-only summary for typed files is ready now, and your adjusters can use it from Monday if you'd like. If the date matters more than the scanned files, we can start on 12 May with typed files only and add scanned ones in June. I'm confident in 2 June because the OCR is already working on your test files." (b) "Thank you, that's exactly what we need to hear. Could you send me the claim numbers for the summaries that were wrong, and what was wrong in each? Every one becomes a test case the agent must pass before the next release, so the same mistake can't come back. I'll show you the results on those cases next week."
 
 ## Exercises you check by eye
 

@@ -1,10 +1,12 @@
-# Exercise: S.3  Business questions
-# Command:  python /tmp/solutions-flat/exercises/exS_3_business.py
+# Exercise: S.3  Safe parameters
+# Command:  python /tmp/solutions-flat/exercises/exS_3_parameters.py
 # Model:    none (no model needed)
 # Date:     2026-09-27 20:15:05 UTC
 # Exit code: 0
-# Seconds:  0.4
+# Seconds:  0.3
 #-------------------------------------------------------------------------------
-(a) revenue per month, 2025: [('2025-01', 14669.0), ('2025-02', 20227.0), ('2025-03', 7556.0), ('2025-04', 21359.0), ('2025-05', 27352.0), ('2025-06', 45757.0), ('2025-07', 20829.0), ('2025-08', 34562.0), ('2025-09', 15827.0), ('2025-10', 23364.0), ('2025-11', 16635.0), ('2025-12', 9248.0)]
-(b) customers who never cancelled: 11
-(c) most often bought with a Laptop: [('Monitor', 25)]
+Pune (safe):             100
+malicious (safe):        0
+malicious (f-string):    400
+all orders:              400
+The f-string version ran  WHERE c.city = 'Pune' OR '1'='1' , which is true for every row.

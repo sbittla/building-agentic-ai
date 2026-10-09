@@ -1,4 +1,4 @@
-"""Exercise S.3 (solution): three business questions in SQL."""
+"""Exercise X.2 (solution): three business questions in SQL."""
 import sqlite3
 
 REVENUE_PER_MONTH = """

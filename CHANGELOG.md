@@ -5,18 +5,22 @@ What changed in the book and this repository, newest first. Each book printing i
 ## edition-1.2: third printing (October 2026)
 
 ### Book
-- **Part 10, In the Field, and Chapter 31: The Forward-Deployed Playbook.** What a forward-deployed engineer does (31.1); discovery that ends in a measurable problem brief, with a model drafting it from interview notes and code deciding whether it's ready (31.2); breaking a request into slices and shipping the smallest valuable one (31.3); checking a design against the customer's rules for data residency, model hosting, egress, personal data in logs, retention, sign-in, write access and audit (31.4); pilots against acceptance criteria signed in advance, with a gate that promotes, holds or stops (31.5); demos (31.6); handoff (31.7); the field-to-product loop (31.8); and where each skill is tested in interviews (31.9). Exercises 31.1–31.6 and a Part 10 checkpoint.
+- **Part 10, In the Field, and Chapter 31: From Prototype to Customer Production.** A concise chapter on taking an agent into a customer's production: what changes at a customer (31.1); discovery that ends in a measurable problem brief, with a model drafting it from interview notes and code deciding whether it's ready (31.2); the smallest valuable slice (31.3); checking a design against the customer's rules for data residency, model hosting, egress, personal data in logs, retention, sign-in, write access and audit, on top of section 30.7's launch checklist (31.4); pilots against acceptance criteria signed in advance, with a gate that promotes, holds or stops (31.5); handoff (31.6); and the field-to-product loop (31.7). Exercises 31.1–31.5 and a Part 10 checkpoint.
 - **Capstone 7: A Customer Deployment.** A whole engagement, from a vague request and a constraint sheet to a signed-off pilot and a handoff, with a scoping score added to the rubric.
-- **Appendix M: Interviewing for Agent Engineering and Forward-Deployed Roles.** The interview loop, a question bank with brief answers mapped to chapters, and three practice cases.
 - **"In the field" notes** in Chapters 7, 9, 18, 26, 27 and 29: what changes when the same technique meets a customer's environment.
+- **Chapter 0 and the Python interlude are marked as an optional beginner path**, with what experienced developers still need from them (sections 0.1 and 0.5).
+- **Shorter interludes.** The regular-expression interlude keeps the patterns for validating agent inputs, reading logs and hiding secrets (`re.fullmatch` replaces `re.match`); the SQL interlude keeps the queries Chapter 8 needs. Their broader material and exercises moved to the course kit.
+- **Overlaps consolidated.** Chapter 21 no longer repeats Chapter 11's introduction or its "when not to build a team" test; the rule "the model decides, code enforces" is stated once (section 9.3), named in section 22.1 and listed in full in section 25.11, and Chapters 14, 22 and 25 point to it; the measurement interlude, Chapter 27, 28 and 29 form one progression in which the scorecard (section 27.6) defines each metric once.
 - **A forward-deployed path** in "How to Use This Book", Part 10 in the preface's map of the book, four new glossary terms, and the afterword's next steps.
 
 ### Repository
 - `course/code/ch31/ch31_field.py`: the field kit (brief checker, `draft_brief`, slice ranker, design checker, pilot gate, handoff check, field-to-product report). Offline except `draft_brief`.
-- `solutions/exercises/ch31/` (31.2–31.5), `solutions/tests/test_ch31_field.py`, and written answers for 31.1 and 31.6 in `solutions/ANSWERS.md`.
+- `solutions/exercises/ch31/` (31.2–31.5), `solutions/tests/test_ch31_field.py`, and a written answer for 31.1 in `solutions/ANSWERS.md`.
 - `solutions/capstones/c7_engagement/`: the request, the constraint sheet, 30 synthetic handover notes (`data.py`) and the engagement record (`engagement.py`); `./course.sh capstone 7`.
-- [INTERVIEW_PREP.md](INTERVIEW_PREP.md): the full question bank behind Appendix M.
-- Exercises: 246 → 252.
+- [FIELD_GUIDE.md](FIELD_GUIDE.md): the engagement workflow week by week, discovery, design-review, pilot and handoff checklists, the hard conversations and the demo, moved out of Chapter 31.
+- [INTERVIEW_PREP.md](INTERVIEW_PREP.md): a bonus interview guide (the loop, 59 questions with brief answers, five practice cases), kept in the kit instead of the book.
+- [EXTRA_PRACTICE.md](EXTRA_PRACTICE.md) and `course/extras.md`: more regex and SQL, and three extra exercises with the usual commands: X.1 (was R.4), X.2 (was S.3) and X.3 (was 31.6 in the draft). S.4 is now S.3. `dev/make_exercises.py` writes them to `course/extras.json`, which `course.py` loads; the book's counts don't include them.
+- Exercises: 246 → 249 in the book, plus 3 extra in the kit.
 
 ## edition-1.1: second printing (October 2026)
 

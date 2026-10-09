@@ -1,4 +1,4 @@
-"""Exercise S.4 (solution): parameters versus string-built SQL."""
+"""Exercise S.3 (solution): parameters versus string-built SQL."""
 import sqlite3
 
 def con():

@@ -6,7 +6,7 @@ This folder has a worked solution for every exercise in the book and working ver
 
 | Path | Contents |
 | --- | --- |
-| `exercises/` | Solutions for every hands-on exercise: `ex<id>_*.py` (for example `ex4_4_tracer.py`, `exS_3_business.py`), plus `sol_chNN_*.py` for exercises that extend a chapter's file |
+| `exercises/` | Solutions for every hands-on exercise: `ex<id>_*.py` (for example `ex4_4_tracer.py`, `exS_3_parameters.py`), plus `sol_chNN_*.py` for exercises that extend a chapter's file |
 | `capstones/` | Complete capstone projects: sample data, MCP servers, the agent and evaluation cases |
 | `ANSWERS.md` | Sample answers for every concept exercise, the written parts of other exercises, and what you should see for exercises that print results |
 | `tests/` | Automated checks that run every solution and capstone |

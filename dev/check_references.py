@@ -23,7 +23,9 @@ DOCS = [KIT / f for f in ("README.md", "LOCAL_MODEL.md", "EXERCISE_INDEX.md", "s
                           "ARCHITECTURE.md", "AGENT_ENGINEERING_PRINCIPLES.md", "DECISION_GUIDE.md",
                           "AGENT_LIFECYCLE.md", "SECURITY_MODEL.md", "PERFORMANCE_MODEL.md", "EVALUATION_MODEL.md")]
 EXERCISES = json.loads((KIT / "course/exercises.json").read_text(encoding="utf-8"))
-IDS = {e["id"] for e in EXERCISES}
+EXTRAS = json.loads((KIT / "course/extras.json").read_text(encoding="utf-8"))   # kit-only (EXTRA_PRACTICE.md)
+BOOK_IDS = {e["id"] for e in EXERCISES}
+IDS = BOOK_IDS | {e["id"] for e in EXTRAS}
 INDEX = json.loads((KIT / "solutions/index.json").read_text(encoding="utf-8"))
 CHECKS = {p.stem[len("check_"):].replace("_", ".") for p in (KIT / "course/checks").glob("check_*.py")}
 
@@ -159,7 +161,7 @@ for i, files in INDEX.items():
             report("solutions/index.json", f"{i}: {rel} is missing")
 # every exercise has a solution or a written answer
 answers = (KIT / "solutions/ANSWERS.md").read_text(encoding="utf-8")
-for e in EXERCISES:
+for e in EXERCISES + EXTRAS:
     if e["id"] not in INDEX and not re.search(r"\*\*" + re.escape(e["id"]) + r" ", answers):
         report("solutions", f"exercise {e['id']} has neither a solution file nor a written answer")
 
@@ -196,12 +198,12 @@ for pin in ("pip==26.2.1", "uv==0.12.18", "inspector@2.8.0", "server-filesystem@
 vm = (KIT / "VERSION_MATRIX.md").read_text(encoding="utf-8")
 rows_ = [l for l in vm.split("## Release matrix")[1].split("How to tell")[0].splitlines() if l.startswith("| ")]
 row = re.search(r"^\| [^|]+ \| `(edition-[\d.]+)` \| (\d+) \|", rows_[-1]) if rows_ else None
-if not row or int(row.group(2)) != len(IDS):
-    report("VERSION_MATRIX.md", f"the last release row should say {len(IDS)} exercises")
+if not row or int(row.group(2)) != len(BOOK_IDS):
+    report("VERSION_MATRIX.md", f"the last release row should say {len(BOOK_IDS)} exercises")
 
 readme_row = re.findall(r"^\| [^|]+printing[^|]*\| (\d+) \| `edition-[\d.]+` \|", (KIT / "README.md").read_text(encoding="utf-8"), re.M)
-if not readme_row or int(readme_row[-1]) != len(IDS):
-    report("README.md", f"the last row of 'Book editions and code versions' should say {len(IDS)} exercises")
+if not readme_row or int(readme_row[-1]) != len(BOOK_IDS):
+    report("README.md", f"the last row of 'Book editions and code versions' should say {len(BOOK_IDS)} exercises")
 
 # every listing of code says what kind of code it is (course/code_maturity.json)
 MATURITY = json.loads((KIT / "course/code_maturity.json").read_text(encoding="utf-8"))
@@ -215,5 +217,5 @@ if problems:
     for p in problems:
         print("  " + p)
     sys.exit(1)
-print(f"OK: {len(IDS)} exercises, {len(INDEX)} solution entries, {len(SECTIONS)} sections; "
+print(f"OK: {len(BOOK_IDS)} exercises (+{len(IDS) - len(BOOK_IDS)} extra), {len(INDEX)} solution entries, {len(SECTIONS)} sections; "
       "every exercise id, file, command and cross-reference in the book and docs resolves.")

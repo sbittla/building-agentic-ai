@@ -1,6 +1,6 @@
 # Building Agentic AI Systems: code, exercises and solutions
 
-The companion repository for the book *Building Agentic AI Systems: From First Agent to MCP, Multi-Agent Orchestration, and Production* by Srinivasa Rao Bittla. It has every chapter's code, **252 exercises** across 32 chapters and 6 interludes (with starter files, checkers and reference solutions), **seven capstone projects**, and one Docker image that runs all of it.
+The companion repository for the book *Building Agentic AI Systems: From First Agent to MCP, Multi-Agent Orchestration, and Production* by Srinivasa Rao Bittla. It has every chapter's code, **249 exercises** across 32 chapters and 6 interludes (with starter files, checkers and reference solutions), **seven capstone projects**, and one Docker image that runs all of it.
 
 Everything runs inside Docker, so Docker is the only thing you install. You edit files on your computer with any editor; Docker runs them.
 
@@ -16,7 +16,9 @@ The repository is a course and a reference implementation. Start with the first 
 | [LOCAL_MODEL.md](LOCAL_MODEL.md) | The free local model in depth (Appendix H of the book) |
 | [RESOURCES.md](RESOURCES.md) | Every reference from the book: each chapter's full Learn more list (from `course/learn_more.md`), courses, docs, where to ask for help |
 | [CHAPTER_OUTCOMES.md](CHAPTER_OUTCOMES.md) | What you should be able to do after each chapter, and how you'd know |
-| [INTERVIEW_PREP.md](INTERVIEW_PREP.md) | Interview questions with brief answers for agent engineering and forward-deployed roles (Appendix M) |
+| [FIELD_GUIDE.md](FIELD_GUIDE.md) | Running a customer engagement: the role, a week-by-week workflow, discovery, design-review, pilot and handoff checklists, the hard conversations and the demo (Chapter 31's companion) |
+| [INTERVIEW_PREP.md](INTERVIEW_PREP.md) | Bonus guide: the interview loop, questions with brief answers and practice cases for agent engineering and forward-deployed roles |
+| [EXTRA_PRACTICE.md](EXTRA_PRACTICE.md) | More regular expressions and SQL than the book's interludes need, plus extra exercises X.1–X.3 with checks and solutions |
 | [solutions/README.md](solutions/README.md) · [solutions/SOLUTIONS.md](solutions/SOLUTIONS.md) | How the solutions and capstones are organised and run; what each one shows |
 
 | Reference | What it's for |
@@ -48,7 +50,7 @@ Each printing of the book is matched by a tag, so you can always get the exact c
 | --- | ---: | --- | --- |
 | First printing, September 2026 | 231 | `edition-1.0` | `git checkout edition-1.0` |
 | Second printing, October 2026 | 246 | `edition-1.1` | `git checkout edition-1.1` |
-| Third printing, October 2026 | 252 | `edition-1.2` | `git checkout edition-1.2` |
+| Third printing, October 2026 | 249 | `edition-1.2` | `git checkout edition-1.2` |
 
 Not sure which printing you have? The copyright page says. [VERSION_MATRIX.md](VERSION_MATRIX.md) lists, for each printing, its tag, Python, models, MCP specification, library versions and verification date.
 
@@ -188,9 +190,9 @@ Commit `83a0af4d440e`; `requirements.lock` sha256 `c28c848a2447`; outside the co
 
 ### B. Exercises run with a real model
 
-Every exercise run with its reference solution by `run-chapter` (runs from 2026-09-27 to 2026-09-28; models: `claude-sonnet-5`, `qwen3.5:9b`). **163 of 164 executable checks pass automatically**; 1 intentionally demonstrates a failing quality gate, and **0** failed unexpectedly. A real model's answers vary from run to run, so these show that each exercise works end to end, not that it always will. Runs before October 2026 didn't record the commit; newer runs do (`provenance` in each summary.json). Per-exercise results and logs: [EXERCISE_INDEX.md](EXERCISE_INDEX.md), `solutions/outputs/`.
+Every exercise run with its reference solution by `run-chapter` (runs from 2026-09-27 to 2026-09-28; models: `claude-sonnet-5`, `qwen3.5:9b`). **161 of 162 executable checks pass automatically**; 1 intentionally demonstrates a failing quality gate, and **0** failed unexpectedly. A real model's answers vary from run to run, so these show that each exercise works end to end, not that it always will. Runs before October 2026 didn't record the commit; newer runs do (`provenance` in each summary.json). Per-exercise results and logs: [EXERCISE_INDEX.md](EXERCISE_INDEX.md), `solutions/outputs/`.
 
-How the totals count: the book has **252 exercises**; the table adds the 7 capstones, so it has 259 rows of work. Every count here, in EXERCISE_INDEX.md and in the book is computed from `course/exercises.json`. *Written answer* exercises have nothing to run; *needs a person* means a person at the keyboard, the Claude Desktop app, a GitHub token or a file the reader creates; *not run yet* means no run has been recorded for this version.
+How the totals count: the book has **249 exercises**; the table adds the 7 capstones, so it has 256 rows of work. Every count here, in EXERCISE_INDEX.md and in the book is computed from `course/exercises.json`. *Written answer* exercises have nothing to run; *needs a person* means a person at the keyboard, the Claude Desktop app, a GitHub token or a file the reader creates; *not run yet* means no run has been recorded for this version.
 
 | Chapter | Exercises | ✔ Passed | ✘ Failed | Gate, fails by design | Written answer | Needs a person | Not run yet | Pass rate |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -202,10 +204,10 @@ How the totals count: the book has **252 exercises**; the table adds the 7 capst
 | Chapter 3: Tool Selection, Routing and Tool Search | 7 | 5 | 0 | 0 | 2 | 0 | 0 | 100% |
 | Chapter 4: The Agent Loop | 5 | 4 | 0 | 0 | 1 | 0 | 0 | 100% |
 | Chapter 5: State and Short-Term Memory | 7 | 5 | 0 | 0 | 2 | 0 | 0 | 100% |
-| Interlude: Regular Expressions | 4 | 4 | 0 | 0 | 0 | 0 | 0 | 100% |
+| Interlude: Regular Expressions | 3 | 3 | 0 | 0 | 0 | 0 | 0 | 100% |
 | Chapter 6: Agentic Search: Exploring an Environment | 6 | 4 | 0 | 0 | 1 | 1 | 0 | 100% |
 | Chapter 7: Real APIs | 6 | 2 | 0 | 0 | 2 | 2 | 0 | 100% |
-| Interlude: SQL in One Sitting | 4 | 4 | 0 | 0 | 0 | 0 | 0 | 100% |
+| Interlude: SQL in One Sitting | 3 | 3 | 0 | 0 | 0 | 0 | 0 | 100% |
 | Chapter 8: Self-Correction: A Text-to-SQL Agent | 7 | 2 | 0 | 0 | 2 | 3 | 0 | 100% |
 | Interlude: Measuring an Agent | 3 | 0 | 0 | 0 | 1 | 0 | 2 | — |
 | Chapter 9: Human-in-the-Loop Approval | 6 | 4 | 0 | 0 | 2 | 0 | 0 | 100% |
@@ -231,9 +233,9 @@ How the totals count: the book has **252 exercises**; the table adds the 7 capst
 | Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents | 8 | 6 | 0 | 0 | 1 | 0 | 1 | 100% |
 | Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost | 8 | 5 | 0 | 0 | 1 | 0 | 2 | 100% |
 | Chapter 30: Deploying Agents: From One Service to an Agent Platform | 12 | 9 | 0 | 0 | 2 | 0 | 1 | 100% |
-| Chapter 31: The Forward-Deployed Playbook | 6 | 0 | 0 | 0 | 2 | 0 | 4 | — |
+| Chapter 31: From Prototype to Customer Production | 5 | 0 | 0 | 0 | 1 | 0 | 4 | — |
 | Capstone projects C1–C7 | 7 | 6 | 0 | 0 | 0 | 0 | 1 | 100% |
-| **Total** | **259** | **163** | **0** | **1** | **64** | **14** | **17** | **100.0%** |
+| **Total** | **256** | **161** | **0** | **1** | **63** | **14** | **17** | **100.0%** |
 
 *Pass rate* counts passed against unexpected failures; a gate that fails by design is neither.
 

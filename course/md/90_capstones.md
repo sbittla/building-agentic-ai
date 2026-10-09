@@ -375,7 +375,7 @@ The reference doesn't include the handover agent itself, because that's the summ
 **Extension challenges (no published solution):**
 
 - Run the same agent on a model inside the customer's network (Appendix H) and on the allowed hosted model, and write the one-page trade-off for their security team.
-- Simulate a slip: the scanned notes need OCR. Write the message to the customer owner and the revised plan, and show the gate's decision both ways.
+- Simulate a slip: the scanned notes need OCR. Write the message to the customer owner and the revised plan (`FIELD_GUIDE.md` in the course kit has the pattern), and show the gate's decision both ways.
 - Run the field-to-product report across your capstones: which fixes did you build more than once?
 
 ## Learn more

@@ -601,7 +601,7 @@ function copyrightPage() {
 // ---------- book structure ----------
 const PARTS = [
   { num: 0, title: "Foundations", files: ["00z_ch00.md", "00zz_python.md"],
-    blurb: "Before you build an agent, you need a few basics: the terminal, Python, JSON, web APIs, secrets and Docker. This part teaches exactly those, and nothing more. If you already write Python and have called a web API, skim it and do the checkpoint." },
+    blurb: "An optional beginner path. Before you build an agent, you need a few basics: the terminal, Python, JSON, web APIs, secrets and Docker. This part teaches exactly those, and nothing more. If you already write Python and have called a web API, set up the course kit (section 0.1) and your API key (section 0.5), do the checkpoint and go on to Part 1." },
   { num: 1, title: "Your First Agent", files: ["01.md", "01z_testing.md", "02.md", "03.md", "04.md"],
     stages: "Decide, Design, Build, Evaluate",
     blurb: "An agent is a model plus tools plus a loop. You make your first model call, give the model tools, teach it to choose between them, even among dozens, and write the loop that lets it work step by step until the job is done." },

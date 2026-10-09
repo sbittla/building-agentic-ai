@@ -1,4 +1,4 @@
-"""Exercise R.4 (solution): match error codes exactly.
+"""Exercise X.1 (solution): match error codes exactly.
 
 Why embeddings confuse ERR-4471 and ERR-4417: an embedding turns text into a
 meaning-vector, and two codes made of the same characters "mean" almost the same

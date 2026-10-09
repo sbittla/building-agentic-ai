@@ -51,7 +51,7 @@ A few developments you'll meet as you keep building. Each reuses what you alread
 ## What to do next
 
 - **Build a capstone**, if you haven't: pick the one that matches the work you want to do (the table at the end of the capstones), and take it to the full rubric.
-- **Build one for someone else.** If your work puts you in front of customers, Chapter 31's playbook and Capstone 7 turn everything here into an engagement: a measurable brief, the smallest valuable slice, a design that fits their rules and a pilot they agreed to judge. Appendix M collects the interview questions for these roles.
+- **Build one for someone else.** If your work puts you in front of customers, Chapter 31 and Capstone 7 turn everything here into an engagement: a measurable brief, the smallest valuable slice, a design that fits their rules and a pilot they agreed to judge. `INTERVIEW_PREP.md` in the course kit collects the interview questions for these roles.
 - **Bring one agent to work.** Start with a read-only assistant over data your team already asks about. Write its eval suite before you show it to anyone.
 - **Keep up without chasing.** Appendix G lists where to ask for help and how to follow the field. When a new feature appears, ask which layer of the reference model it belongs to and which control it needs; you'll usually find you already know how to use it safely.
 

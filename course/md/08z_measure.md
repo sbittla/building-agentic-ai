@@ -86,6 +86,8 @@ Write the check in code, not by eye: the expected number appears in the answer, 
 - A change is an improvement only when the intervals say so; when they overlap, you can't tell yet.
 - Flaky cases show where the agent is guessing.
 
+These definitions are the start of one progression. Chapter 27 builds on them without redefining them: it adds pass^k and the agent scorecard (section 27.6), where every metric the rest of the book uses is defined once. Chapter 28 turns those metrics into SLOs, and Chapter 29 into latency, capacity and cost targets.
+
 You can now tell a real improvement from luck. Chapter 9 gives an agent its first actions that change things, behind an approval gate, and from then on every comparison in this book can be measured this way.
 
 ## Learn more

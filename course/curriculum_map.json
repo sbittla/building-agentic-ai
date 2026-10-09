@@ -75,7 +75,7 @@
   [
    "Interlude R",
    "Regular Expressions",
-   "R.1–R.4",
+   "R.1–R.3",
    "`course/code/interlude_regex/`",
    "`solutions/exercises/interlude_regex/`",
    "—"
@@ -99,7 +99,7 @@
   [
    "Interlude S",
    "SQL in One Sitting",
-   "S.1–S.4",
+   "S.1–S.3",
    "`course/code/interlude_sql/`",
    "`solutions/exercises/interlude_sql/`",
    "—"
@@ -306,8 +306,8 @@
   ],
   [
    "Chapter 31",
-   "The Forward-Deployed Playbook",
-   "31.1–31.6",
+   "From Prototype to Customer Production",
+   "31.1–31.5",
    "`course/code/ch31/`",
    "`solutions/exercises/ch31/`, `solutions/tests/`",
    "7"

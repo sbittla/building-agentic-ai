@@ -344,12 +344,12 @@ Every link from the book's **Learn more** sections and Appendix G, so you can cl
 - [OAuth 2.0 Simplified](https://www.oauth.com) (Go deeper): Tokens, scopes and flows in plain language
 - [OWASP API Security Top 10](https://owasp.org/API-Security/) (Go deeper): The common ways web APIs get attacked
 
-## Chapter 31: The Forward-Deployed Playbook
+## Chapter 31: From Prototype to Customer Production
 
 - [Palantir: A Day in the Life of a Forward Deployed Software Engineer](https://blog.palantir.com/a-day-in-the-life-of-a-palantir-forward-deployed-software-engineer-45ef2de257b1) (Start here): The role where it began, described by the people who do it
 - [Palantir: Dev versus Delta](https://blog.palantir.com/dev-versus-delta-demystifying-engineering-roles-at-palantir-ad44c2a6e87) (Start here): How forward-deployed and product engineering divide the work
 - [PostHog: WTF is a forward deployed engineer?](https://posthog.com/blog/forward-deployed-engineer) (Start here): Why AI companies are hiring them, and what the work looks like day to day
-- [Aced: Forward Deployed Engineer Interview, the 2026 guide](https://www.aced.io/blog/forward-deployed-engineer-interview-the-definitive-2026-guide-fde) (Go deeper): The interview loop round by round, with example questions (Appendix M)
+- [Aced: Forward Deployed Engineer Interview, the 2026 guide](https://www.aced.io/blog/forward-deployed-engineer-interview-the-definitive-2026-guide-fde) (Go deeper): The interview loop round by round, with example questions (and `INTERVIEW_PREP.md` in the course kit)
 
 ## Capstone Projects
 

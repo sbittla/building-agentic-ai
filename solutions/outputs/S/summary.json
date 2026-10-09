@@ -24,21 +24,12 @@
   },
   {
    "id": "S.3",
-   "title": "Business questions",
-   "kind": "build",
-   "status": "passed",
-   "reason": null,
-   "seconds": 0.4,
-   "log": "S/S.3.log"
-  },
-  {
-   "id": "S.4",
    "title": "Safe parameters",
    "kind": "build",
    "status": "passed",
    "reason": null,
    "seconds": 0.3,
-   "log": "S/S.4.log"
+   "log": "S/S.3.log"
   }
  ]
 }

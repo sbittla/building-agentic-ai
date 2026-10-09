@@ -30,15 +30,6 @@
    "reason": null,
    "seconds": 0.0,
    "log": "R/R.3.log"
-  },
-  {
-   "id": "R.4",
-   "title": "Error codes",
-   "kind": "build",
-   "status": "passed",
-   "reason": null,
-   "seconds": 0.0,
-   "log": "R/R.4.log"
   }
  ]
 }

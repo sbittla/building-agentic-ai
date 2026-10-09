@@ -20,6 +20,9 @@ COURSE = Path(os.environ.get("COURSE_HOME", "/opt/course"))   # the image path; 
 PRISTINE = COURSE / "code"
 WS = Path(os.environ.get("COURSE_WORKSPACE", "/workspace"))
 EXERCISES = json.loads((COURSE / "exercises.json").read_text())
+# Extra practice beyond the book (EXTRA_PRACTICE.md): same commands, ids X.1, X.2, ...
+_EXTRAS = COURSE / "extras.json"
+EXERCISES += json.loads(_EXTRAS.read_text()) if _EXTRAS.exists() else []
 STARTERS = COURSE / "starters"          # starter files with signatures and examples
 CHECKS = COURSE / "checks"              # ./course.sh check <id>
 CHECK_TARGET = {"3.3": "ch03_tools.py"}   # checked in place

@@ -38,11 +38,12 @@ MAP = {
     "R.1": B("exR_1_logs"),
     "R.2": B("exR_2_mask"),
     "R.3": B("exR_3_citations"),
-    "R.4": B("exR_4_error_codes"),
     "S.1": B("exS_1_warmup"),
     "S.2": B("exS_2_fix_query"),
-    "S.3": B("exS_3_business"),
-    "S.4": B("exS_4_parameters"),
+    "S.3": B("exS_3_parameters"),
+    # ---- extra practice (course/extras.md, kit only)
+    "X.1": B("exX_1_error_codes"),
+    "X.2": B("exX_2_business"),
     "M.2": R("python i_measure.py"),
     "M.3": B("exM_3_sql_suite"),
     "A.1": B("exA_1_measure"),
@@ -243,9 +244,9 @@ for md in sorted(MD.glob("*.md")):
                 LABELS[m.group(2)] = f"{m.group(1)} {prefix}.{n[m.group(1)]}"
 resolve = lambda s: re.sub(r"\{\{([tf]:[\w-]+)\}\}", lambda m: LABELS[m.group(1)], s) if s else s
 
-exercises = []
-SKIP = ("00_front", "20_capstones", "21_appendix")
-for md in sorted(p for p in MD.glob("[0-9][0-9]*.md") if p.stem not in SKIP):
+def parse(md):
+    """Every :::ex box in one markdown file, as exercise entries."""
+    out = []
     text = md.read_text()
     chapter_title = re.search(r"^# (.+)$", text, re.M).group(1)
     for m in re.finditer(r"^:::ex (\w+) \| ([\w.]+) \| (.+?)\n(.*?)^:::$", text, re.M | re.S):
@@ -262,16 +263,30 @@ for md in sorted(p for p in MD.glob("[0-9][0-9]*.md") if p.stem not in SKIP):
         entry = {"id": ex_id, "level": level, "title": title, "chapter": chapter_title,
                  "task": task, "hint": hint, "done_when": done}
         entry.update(MAP.get(ex_id, {"kind": "concept"}) if level != "Concept" else {"kind": "concept"})
-        exercises.append(entry)
+        out.append(entry)
+    return out
+
+SKIP = ("00_front", "20_capstones", "21_appendix")
+exercises = [e for md in sorted(p for p in MD.glob("[0-9][0-9]*.md") if p.stem not in SKIP)
+             for e in parse(md)]
+# Extra practice that lives only in the course kit (EXTRA_PRACTICE.md), not in the book:
+# written to its own file so the book's exercise counts stay the book's.
+EXTRAS_MD = MD.parent / "extras.md"
+extras = parse(EXTRAS_MD) if EXTRAS_MD.exists() else []
+for e in extras:
+    e["extra"] = True
 
 # Exercises that never call the model: don't warn about a missing API key.
 NO_KEY = {"0.3", "0.4", "0.5", "0.6", "0.7", "18.3", "18.4", "18.5",
           "17.9", "21.7", "23.7", "24.10", "25.7", "26.7", "28.8", "29.8", "30.12", "31.2", "31.3", "31.4"}   # offline
-for e in exercises:
-    if e["id"] in NO_KEY or e["id"][0] in "PTRSA":
+for e in exercises + extras:
+    if e["id"] in NO_KEY or e["id"][0] in "PTRSAX":
         e["nokey"] = True
 
-missing = [e["id"] for e in exercises if e["level"] != "Concept" and e["id"] not in MAP]
+missing = [e["id"] for e in exercises + extras if e["level"] != "Concept" and e["id"] not in MAP]
 assert not missing, missing
 OUT.write_text(json.dumps(exercises, indent=1))
 print(f"{len(exercises)} exercises -> {OUT}")
+if extras:
+    (OUT.parent / "extras.json").write_text(json.dumps(extras, indent=1))
+    print(f"{len(extras)} extra exercises -> {OUT.parent / 'extras.json'}")

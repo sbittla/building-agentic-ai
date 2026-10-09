@@ -13,5 +13,5 @@ print(re.findall(r"^\S+ \S+ (ERROR|WARN)", log, re.MULTILINE))  # ^ = line start
 print(bool(re.search(r"timeout", "TIMEOUT", re.IGNORECASE)))    # ignore case
 print(re.sub(r"order=\w+", "order=<hidden>", log.splitlines()[0])) # replace
 
-m = re.match(r"(?P<date>\d{4}-\d{2}-\d{2}) (?P<time>[\d:]+) (?P<level>\w+)", log)
-print(m.group("date"), m.group("level"))            # named groups
+for order_id in ["A1001", "A1001; DROP TABLE"]:    # check a model's tool input
+    print(order_id, bool(re.fullmatch(r"[A-Z]\d{4}", order_id)))  # whole text must fit

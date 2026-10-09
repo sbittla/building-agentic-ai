@@ -2,7 +2,7 @@
 
 Agent code leans on a few Python features that beginner tours often skip: calling a function with a dictionary of arguments, storing functions in a dictionary, small classes and decorators. This interlude gathers them in one runnable file and one pattern, the tool registry, that you'll see in almost every chapter. By the end, you'll have written your own `run_tool` and a decorator that registers tools.
 
-**Prerequisites:** Chapter 0, or some experience writing Python.
+**Prerequisites:** Chapter 0, or some experience writing Python. Like Chapter 0, this interlude is part of the **optional beginner path**: if `fn(**args)`, a dictionary of functions, a dataclass and a decorator all look familiar, skip to Chapter 1 and come back only if a listing puzzles you.
 
 ## Learning objectives
 

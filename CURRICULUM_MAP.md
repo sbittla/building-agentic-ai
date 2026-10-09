@@ -22,10 +22,10 @@ nothing in the kit is production-hardened). Run any exercise with
 | Chapter 3 | Tool Selection, Routing and Tool Search | 3.1–3.7 | `course/code/ch03/` | `solutions/exercises/ch03/`, `solutions/tests/` | — |
 | Chapter 4 | The Agent Loop | 4.1–4.5 | `course/code/ch04/` | `solutions/exercises/ch04/`, `solutions/tests/` | — |
 | Chapter 5 | State and Short-Term Memory | 5.1–5.7 | `course/code/ch05/` | `solutions/exercises/ch05/`, `solutions/tests/` | — |
-| Interlude R | Regular Expressions | R.1–R.4 | `course/code/interlude_regex/` | `solutions/exercises/interlude_regex/` | — |
+| Interlude R | Regular Expressions | R.1–R.3 | `course/code/interlude_regex/` | `solutions/exercises/interlude_regex/` | — |
 | Chapter 6 | Agentic Search: Exploring an Environment | 6.1–6.6 | `course/code/ch06/` | `solutions/exercises/ch06/`, `solutions/tests/` | 5 |
 | Chapter 7 | Real APIs | 7.1–7.6 | `course/code/ch07/` | `solutions/exercises/ch07/`, `solutions/tests/` | — |
-| Interlude S | SQL in One Sitting | S.1–S.4 | `course/code/interlude_sql/` | `solutions/exercises/interlude_sql/` | — |
+| Interlude S | SQL in One Sitting | S.1–S.3 | `course/code/interlude_sql/` | `solutions/exercises/interlude_sql/` | — |
 | Chapter 8 | Self-Correction: A Text-to-SQL Agent | 8.1–8.7 | `course/code/ch08/` | `solutions/exercises/ch08/`, `solutions/tests/` | 2 |
 | Interlude M | Measuring an Agent | M.1–M.3 | `course/code/interlude_measure/` | `solutions/exercises/interlude_measure/`, `solutions/tests/` | — |
 | Chapter 9 | Human-in-the-Loop Approval | 9.1–9.6 | `course/code/ch09/` | `solutions/exercises/ch09/`, `solutions/tests/` | 1 |
@@ -51,7 +51,7 @@ nothing in the kit is production-hardened). Run any exercise with
 | Chapter 28 | AgentOps: Observability, Telemetry and SLOs for Agents | 28.1–28.8 | `course/code/ch28/` | `solutions/exercises/ch28/`, `solutions/tests/` | 3 |
 | Chapter 29 | Agent Performance Engineering: Latency, Throughput and Cost | 29.1–29.8 | `course/code/ch29/` | `solutions/exercises/ch29/`, `solutions/tests/` | — |
 | Chapter 30 | Deploying Agents: From One Service to an Agent Platform | 30.1–30.12 | `course/code/`, `course/code/ch30/` | `solutions/exercises/ch30/`, `solutions/tests/` | 1, 3 |
-| Chapter 31 | The Forward-Deployed Playbook | 31.1–31.6 | `course/code/ch31/` | `solutions/exercises/ch31/`, `solutions/tests/` | 7 |
+| Chapter 31 | From Prototype to Customer Production | 31.1–31.5 | `course/code/ch31/` | `solutions/exercises/ch31/`, `solutions/tests/` | 7 |
 
 ## Every exercise
 
@@ -170,7 +170,6 @@ Code: [`i_regex.py`](course/code/interlude_regex/i_regex.py) (learning demo)
 | R.1 | Simple | Extract from logs | none | [`exR_1_logs.py`](solutions/exercises/interlude_regex/exR_1_logs.py) |
 | R.2 | Simple | Mask secrets | none | [`exR_2_mask.py`](solutions/exercises/interlude_regex/exR_2_mask.py) |
 | R.3 | Medium | Parse citations | none | [`exR_3_citations.py`](solutions/exercises/interlude_regex/exR_3_citations.py) |
-| R.4 | Medium | Error codes | none | [`exR_4_error_codes.py`](solutions/exercises/interlude_regex/exR_4_error_codes.py), [ANSWERS.md](solutions/ANSWERS.md) |
 
 ### Chapter 6: Agentic Search: Exploring an Environment
 
@@ -206,8 +205,7 @@ Code: [`i_sql.py`](course/code/interlude_sql/i_sql.py) (learning demo)
 | --- | --- | --- | --- | --- |
 | S.1 | Simple | Warm-up queries | none | [`exS_1_warmup.py`](solutions/exercises/interlude_sql/exS_1_warmup.py) |
 | S.2 | Simple | Spot the bug | none | [`exS_2_fix_query.py`](solutions/exercises/interlude_sql/exS_2_fix_query.py), [ANSWERS.md](solutions/ANSWERS.md) |
-| S.3 | Medium | Business questions | none | [`exS_3_business.py`](solutions/exercises/interlude_sql/exS_3_business.py) |
-| S.4 | Medium | Safe parameters | none | [`exS_4_parameters.py`](solutions/exercises/interlude_sql/exS_4_parameters.py), [ANSWERS.md](solutions/ANSWERS.md) |
+| S.3 | Medium | Safe parameters | none | [`exS_3_parameters.py`](solutions/exercises/interlude_sql/exS_3_parameters.py), [ANSWERS.md](solutions/ANSWERS.md) |
 
 ### Chapter 8: Self-Correction: A Text-to-SQL Agent
 
@@ -560,7 +558,7 @@ Code: [`ch30_service.py`](course/code/ch30/ch30_service.py) (production pattern)
 | 30.11 | Complex | An agent behind the gateway | any | [`ex30_11_gateway_agent.py`](solutions/exercises/ch30/ex30_11_gateway_agent.py), [`test_part5_mcp2026.py`](solutions/tests/test_part5_mcp2026.py) |
 | 30.12 | Medium | Catch it in shadow | none | [`ex30_12_shadow_slos.py`](solutions/exercises/ch30/ex30_12_shadow_slos.py), [`test_ch30_improvement_loop.py`](solutions/tests/test_ch30_improvement_loop.py) |
 
-### Chapter 31: The Forward-Deployed Playbook
+### Chapter 31: From Prototype to Customer Production
 
 Code: [`ch31_field.py`](course/code/ch31/ch31_field.py) (production pattern)
 
@@ -571,7 +569,6 @@ Code: [`ch31_field.py`](course/code/ch31/ch31_field.py) (production pattern)
 | 31.3 | Medium | What reaches the model | none | [`ex31_3_prompt_rule.py`](solutions/exercises/ch31/ex31_3_prompt_rule.py), [`test_ch31_field.py`](solutions/tests/test_ch31_field.py) |
 | 31.4 | Medium | How many more runs? | none | [`ex31_4_runs_needed.py`](solutions/exercises/ch31/ex31_4_runs_needed.py), [`test_ch31_field.py`](solutions/tests/test_ch31_field.py) |
 | 31.5 | Medium | Draft it, then check it | any | [`ex31_5_draft_brief.py`](solutions/exercises/ch31/ex31_5_draft_brief.py), [`test_ch31_field.py`](solutions/tests/test_ch31_field.py) |
-| 31.6 | Concept | The hard conversations | none | [ANSWERS.md](solutions/ANSWERS.md) |
 
 ## Capstones
 

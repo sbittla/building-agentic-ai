@@ -279,11 +279,11 @@ What you should be able to do after each chapter, and how you'd know. Each outco
 - Run `ch30_gateway.py` and explain each refusal; then change `search_tools` so a caller finds only the tools its token allows, and nothing without a token (exercise 30.9).
 - Run `ch30_improvement_loop.py` and explain why 1.5 is promoted and 1.6 rolled back at the canary; then write a stricter shadow stage (exercise 30.12) that rejects 1.6 for p95 latency before any user sees it.
 
-## Chapter 31: The Forward-Deployed Playbook
+## Chapter 31: From Prototype to Customer Production
 
 - Name what's missing from three vague requests before a brief could pass `check_brief`, with the question you'd ask next for each (exercise 31.1).
 - Write a `ProblemBrief` for a narrow workflow of your choice that passes `check_brief`, and show the original request fails it on at least four counts (exercise 31.2).
 - Run `ch31_field.py`, explain why the claim summary is the first slice and why automatic approval isn't, and fix each of the eight violations in the draft design (sections 31.3 and 31.4).
 - Add a rule for the personal data a design sends to a model, and show it catches an unredacted design and passes one whose model runs in the customer's network (exercise 31.3).
 - Read a pilot's results with `pilot_gate`, explain hold, promote and stop to a customer owner, and say how many more runs a held pilot needs (exercise 31.4).
-- Draft a brief from interview notes with `draft_brief`, find what `check_brief` still flags and close the gaps with follow-up answers (exercise 31.5); write the slip and complaint conversations (exercise 31.6).
+- Draft a brief from interview notes with `draft_brief`, find what `check_brief` still flags and close the gaps with follow-up answers (exercise 31.5).

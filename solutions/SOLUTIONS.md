@@ -99,7 +99,6 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | R.1 Extract from logs | `exercises/exR_1_logs.py` | Pull fields out of a log with regular expressions |
 | R.2 Mask secrets | `exercises/exR_2_mask.py` | Hide anything that looks like an API key |
 | R.3 Parse citations | `exercises/exR_3_citations.py` | Find (file:line) citations in an answer |
-| R.4 Error codes | `exercises/exR_4_error_codes.py`, `ANSWERS.md` | Match error codes exactly |
 
 ## Chapter 6: Agentic Search: Exploring an Environment
 
@@ -129,8 +128,7 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | --- | --- | --- |
 | S.1 Warm-up queries | `exercises/exS_1_warmup.py` | Warm-up queries, each checked a second way |
 | S.2 Spot the bug | `exercises/exS_2_fix_query.py`, `ANSWERS.md` | The broken revenue query, and the fix |
-| S.3 Business questions | `exercises/exS_3_business.py` | Three business questions in SQL |
-| S.4 Safe parameters | `exercises/exS_4_parameters.py`, `ANSWERS.md` | Parameters versus string-built SQL |
+| S.3 Safe parameters | `exercises/exS_3_parameters.py`, `ANSWERS.md` | Parameters versus string-built SQL |
 
 ## Chapter 8: Self-Correction: A Text-to-SQL Agent
 
@@ -433,7 +431,7 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 30.11 An agent behind the gateway | `exercises/ex30_11_gateway_agent.py`, `tests/test_part5_mcp2026.py` | The Chapter 13 agent behind a stdio gateway: tools found by search, writes allowed, the order query refused and audited |
 | 30.12 Catch it in shadow | `exercises/ex30_12_shadow_slos.py`, `tests/test_ch30_improvement_loop.py` | A stricter shadow stage that also measures p95 latency and cost per task from both versions' traces, so the slow release is rejected in shadow before any user sees it, and a pricier candidate is rejected for cost |
 
-## Chapter 31: The Forward-Deployed Playbook
+## Chapter 31: From Prototype to Customer Production
 
 | Exercise | Solution | What it shows |
 | --- | --- | --- |
@@ -442,4 +440,12 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 31.3 What reaches the model | `exercises/ex31_3_prompt_rule.py`, `tests/test_ch31_field.py` | A rule for personal data sent to a model outside the customer's network: flagged unredacted, still flagged with only names redacted, clean with the model in `customer-vpc` |
 | 31.4 How many more runs? | `exercises/ex31_4_runs_needed.py`, `tests/test_ch31_field.py` | 37 of 40 needs about 83 runs before the interval clears 85%; 42 of 50 never will, so the agent needs fixing, not more runs |
 | 31.5 Draft it, then check it | `exercises/ex31_5_draft_brief.py`, `tests/test_ch31_field.py` | The model drafts a brief from interview notes without inventing a baseline; `check_brief` lists the gaps, and the follow-up answers close them |
-| 31.6 The hard conversations | `ANSWERS.md` | A slip message with the cause, what's done, the new date and a scope option; a reply to "it's wrong" that turns examples into evaluation cases |
+
+
+## Extra practice (EXTRA_PRACTICE.md)
+
+| Exercise | Solution | What it shows |
+| --- | --- | --- |
+| X.1 Error codes | `exercises/exX_1_error_codes.py`, `ANSWERS.md` | Match error codes exactly, and why embeddings can't |
+| X.2 Business questions | `exercises/exX_2_business.py` | Three business questions in SQL, including a self-join |
+| X.3 The hard conversations | `ANSWERS.md` | A slip message with the cause, what's done, the new date and a scope option; a reply to "it's wrong" that turns examples into evaluation cases |
