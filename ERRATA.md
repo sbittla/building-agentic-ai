@@ -9,6 +9,24 @@ How corrections work:
 
 To report a mistake, open an issue on the repository with the printing, the page or section, and what you expected. Include `./course.sh check` output for anything about the code.
 
+## Fourth printing, October 2026 (`edition-1.3`)
+
+No errata reported yet.
+
+## Third printing, October 2026 (`edition-1.2`)
+
+These are fixed in the fourth printing and in `edition-1.3`.
+
+| Where | What's wrong | Correction |
+| --- | --- | --- |
+| Section 25.2 | "Questions 2 and 3 together" expose the lethal trifecta | Questions 1 to 3 together: untrusted content is question 1 |
+| Chapter 26, the refund note | Says every refund needs a person | Refunds up to $100 don't; above that, a person approves (as in section 25.11 and the case study) |
+| Section 27.6, the scorecard lines | Cost per task and cost per success read as totals | Both are averages: total spend divided by runs, or by successful runs |
+| Section 31.5 | The pilot promotes at 10.5 minutes although the brief's target is 9 | The signed pilot criterion is a 30% gain; the 9-minute target belongs to general release |
+| Exercise 29.8 (kit text) | E3's figures are described as measurements of Claude models | They are simulator figures, priced as Haiku 4.5 and Sonnet 5 |
+| The case study, capacity plan | A limit of twelve in flight contradicts the knee E4 measures | Two deployments of four in flight each, derived from E4 (fourth printing) |
+| Section 1.8, the route table | Part 10 is missing | Part 10: can it work in someone else's business? Chapter 31 |
+
 ## Second printing, October 2026 (`edition-1.1`)
 
 No errata reported yet.

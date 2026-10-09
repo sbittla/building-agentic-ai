@@ -48,13 +48,13 @@ Table: Learning paths by role
 | --- | --- | --- | --- |
 | **Beginner** | You're new to programming, or new to agents | Chapter 0 and the interludes you need → first agent (Chapters 1–4) → state, real tools and approvals (Chapters 5–9) → measuring an agent (the measurement interlude, sections 27.1–27.3) → your first MCP server (Chapter 12). Simple exercises first | Capstone 1 |
 | **Agent engineer** | You write Python and want to build capable agents | Chapters 1–4 quickly → state, tools and approvals (Chapters 5–9) and the measurement interlude → feedback loops and teams (Chapters 10–11) → MCP (Chapters 12–15) → context, memory and knowledge (Chapters 16–18) → long-running work, planning, orchestration and control (Chapters 19–22) → security (Chapter 25) → evaluation (Chapter 27). Simple and Medium exercises | Capstone 2 or 5 |
-| **Production engineer** | You already run services and must ship agents safely | Chapters 1–4 quickly → a real API (Chapter 7) and the measurement interlude → approvals (Chapter 9) → the MCP policy layer (Chapter 14) → deterministic control (Chapter 22) → security and identity (Chapters 25 and 26) → evaluation (Chapter 27) → AgentOps (Chapter 28) → performance and cost (Chapter 29) → deployment and the platform (Chapter 30) | The case study, then Capstone 3 |
-| **Architect** | You design agent platforms and set standards | Chapter 1's frameworks → approvals (Chapter 9) → teams and orchestration (Chapters 11 and 21) → MCP in 2026 and discovery (Chapter 15) → memory (Chapter 17) → long-running work and planning (Chapters 19 and 20) → deterministic control (Chapter 22) → skills (sections 24.7 and 24.10) → security and identity (Chapters 25 and 26) → evaluation (Chapter 27) → economics (section 29.9) → the platform (Chapter 30) → the case study | Appendix I's cards and Appendix K's decision records, then Capstone 6 |
-| **Forward-deployed** | You build agents with and for customers, or are interviewing for these roles | Chapters 1–4 quickly → a real API (Chapter 7) and the measurement interlude → approvals (Chapter 9) → context (Chapter 16) → retrieval (Chapter 18) → deterministic control (Chapter 22) → security and identity (sections 25.1–25.5, Chapter 26) → evaluation (Chapter 27) → cost and payback (sections 29.1 and 29.9) → deployment and lifecycle (sections 30.1–30.7 and 30.13) → customer production (Chapter 31) | Capstone 7, then `FIELD_GUIDE.md` and `INTERVIEW_PREP.md` in the course kit |
+| **Production engineer** | You already run services and must ship agents safely | Chapters 1–4 quickly → a real API (Chapter 7) and the measurement interlude → approvals (Chapter 9) → MCP and its policy layer (Chapters 12–14) → deterministic control (Chapter 22) → security and identity (Chapters 25 and 26) → evaluation (Chapter 27) → AgentOps (Chapter 28) → performance and cost (Chapter 29) → deployment and the platform (Chapter 30) | The case study, then Capstone 3 |
+| **Architect** | You design agent platforms and set standards | Chapter 1's frameworks → approvals (Chapter 9) → teams and orchestration (Chapters 11 and 21) → MCP, from a first server to discovery (Chapters 12–15) → memory (Chapter 17) → long-running work and planning (Chapters 19 and 20) → deterministic control (Chapter 22) → skills (sections 24.7 and 24.10) → security and identity (Chapters 25 and 26) → evaluation (Chapter 27) → economics (section 29.9) → the platform (Chapter 30) → the case study | Appendix I's cards and Appendix K's decision records, then Capstone 6 |
+| **Forward-deployed** | You build agents with and for customers, or are interviewing for these roles | Chapters 1–4 quickly → state and search (Chapters 5–6) → a real API (Chapter 7) and the measurement interlude → approvals (Chapter 9) → context (Chapter 16) → retrieval (Chapter 18) → deterministic control (Chapter 22) → security and identity (sections 25.1–25.5, Chapter 26) → evaluation (Chapter 27) → cost and payback (sections 29.1 and 29.9) → deployment and lifecycle (sections 30.1–30.7 and 30.13) → customer production (Chapter 31) | Capstone 7, then `FIELD_GUIDE.md` and `INTERVIEW_PREP.md` in the course kit |
 
-In a hurry? Chapters 0–4, 9, 12 and 16, then sections 27.1–27.3 and 30.1–30.3, give you one working, safe agent behind an API (section 30.2).
+In a hurry? Chapters 0–7 and 9, then the measurement interlude and sections 27.1–27.3, give you one working, safe agent whose quality you've measured. Chapter 12 then turns its tools into your first MCP server.
 
-If a chapter's Prerequisites line names something new to you, read that first.
+The paths are shortcuts, not contracts. Every chapter's **Prerequisites** line is the real dependency list, and later chapters (from Part 7 on, and all of Part 9) assume the earlier ones' exercises; if a Prerequisites line names something you skipped, read that first.
 
 ## The roadmap at a glance
 
@@ -65,13 +65,13 @@ Table: Essential, optional and advanced chapters by role {#t:roadmap}
 | --- | --- | --- | --- | --- | --- |
 | 0 and the Python interlude (beginner path) | E | O | O | O | O |
 | 1–4: the first agent, testing interlude | E | E | E | E (1) | E |
-| 5–6: state, search, regex interlude | E | E | O | O | O |
+| 5–6: state, search, regex interlude | E | E | O | O | E |
 | 7–8: real APIs, SQL; SQL interlude | E | E | E (7) | O | E (7) |
 | Measurement interlude | E | E | E | O | E |
 | 9: approvals | E | E | E | E | E |
 | 10–11: feedback loops, first teams | O | E | O | E (11) | O |
-| 12: your first MCP server | E | E | O | O | O |
-| 13–15: MCP clients, ecosystem, MCP in 2026 | A | E | E (14) | E (15) | O |
+| 12: your first MCP server | E | E | E | E | O |
+| 13–15: MCP clients, ecosystem, MCP in 2026 | A | E | E (13, 14) | E | O |
 | 16–18: context, memory, retrieval | A | E | O | E (17) | E (16, 18) |
 | 19–20: long-running work, planning, routing | A | E | O | E | O |
 | 21: multi-agent orchestration | A | E | O | E | A |
@@ -158,7 +158,7 @@ On a tight budget, do the book on the local model and add a few dollars of Claud
 
 Every chapter opens with what you'll build, where it sits in the architecture (section 1.7), its **Prerequisites** and **Learning objectives**, and a production system using the same pattern (**In the real world**). Numbered **lessons** follow with runnable code; a listing marked *excerpt* shows the parts that teach. **Common mistakes**, **Key takeaways** and **Learn more** close the chapter. Each Learn more table lists the two or three best places to start; `RESOURCES.md` in the course kit has every link, including the deeper reading, ready to click. Then come the exercises, the part's checkpoint where there is one, and a short **Up next** that sets up the following chapter.
 
-**Exercises** come at four levels: **Concept** (no code), **Simple** (a small change to the chapter's code), **Medium** (a new feature with a design decision) and **Complex** (an open-ended build with measurements). Each has a measurable **Done when** line. Run one with `./course.sh ex <id>` (a build exercise's first run creates a starter file in `workspace/exercises`), check it with `./course.sh check <id>` where a checker exists, and print the reference solution with `./course.sh solution <id>`. `./course.sh list 4` lists Chapter 4's exercises. Each box also names the model it needs:
+**Exercises** come at four levels: **Concept** (no code), **Simple** (a small change to the chapter's code), **Medium** (a new feature with a design decision) and **Complex** (an open-ended build with measurements). Each has a measurable **Done when** line. Exercises are numbered in the order the chapter teaches their topics, not by difficulty, so use the level label to choose: Simple and Medium first, Complex when you want a project. Run one with `./course.sh ex <id>` (a build exercise's first run creates a starter file in `workspace/exercises`), check it with `./course.sh check <id>` where a checker exists, and print the reference solution with `./course.sh solution <id>`. `./course.sh list 4` lists Chapter 4's exercises. Each box also names the model it needs:
 
 Table: Exercises by the model they need
 | Label | Meaning | Exercises |

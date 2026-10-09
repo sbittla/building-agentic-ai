@@ -2,6 +2,14 @@
 
 What to change in your own code, or in your reading, when you move from one tag of this repository to the next. Versions are in [VERSION_MATRIX.md](VERSION_MATRIX.md); the full list of changes is in [CHANGELOG.md](CHANGELOG.md).
 
+## edition-1.2 → edition-1.3
+
+Nothing to change in your code. The fourth printing rewrites the book's text; every chapter, section number, exercise id, file and command is the same. The one code change is cosmetic: `ch30_improvement_loop.py` labels its demo releases `sql-analyst` instead of `support-agent`.
+
+## edition-1.1 → edition-1.2
+
+Exercise R.4 is now extra exercise X.1, S.3 is X.2, and S.4 is renumbered S.3 (`./course.sh ex S.3`). The draft exercise 31.6 is X.3. See [EXTRA_PRACTICE.md](EXTRA_PRACTICE.md).
+
 ## edition-1.0 → edition-1.1
 
 Code from the first printing runs unchanged on edition-1.1's versions; the library pins didn't change. What moved:

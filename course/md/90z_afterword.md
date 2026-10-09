@@ -12,7 +12,7 @@ Table: The support agent through the lifecycle
 | Decide | Emails need lookups and judgment, so a fixed workflow isn't enough; refunds stay under rules in code | Sections 1.3 and 1.6 |
 | Design | A design note: tools, what it needs to know, what could go wrong | Exercise 1.7 |
 | Build | Tools, a loop, state, approvals, MCP servers, memory, a knowledge base, durable refunds, routing and a state machine | Chapters 2–24 |
-| Secure | Injection resistance, guarded memory, a risk tier and its own identity | Chapters 17, 25 and 26 |
+| Secure | Approvals, injection resistance, guarded memory, a risk tier and its own identity | Chapters 9, 17, 25 and 26 |
 | Evaluate | Real questions, handoffs, cross-customer reads and injected instructions, run with trials and summarized in a scorecard | The measurement interlude, Chapter 27 |
 | Optimize | Retrieval instead of a pasted handbook, a small model where it's enough, cost per resolved conversation inside budget | Chapters 16, 20 and 29 |
 | Deploy | A CI gate, a launch checklist and a gradual rollout | Sections 27.7, 30.7 and 30.13 |
