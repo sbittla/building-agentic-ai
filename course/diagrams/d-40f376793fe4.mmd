@@ -1,0 +1,23 @@
+%%{init: {"flowchart": {"rankSpacing": 28, "nodeSpacing": 24}}}%%
+flowchart TB
+  P0["<b>0 · Foundations</b><br>Ch 0, Python"]
+  P1["<b>1 · First agent</b><br>Ch 1–4"]
+  P2["<b>2 · State</b><br>Ch 5–6"]
+  P3["<b>3 · Real-world tools</b><br>Ch 7–9"]
+  P4["<b>4 · Autonomy, teams</b><br>Ch 10–11"]
+  P5["<b>5 · MCP</b><br>Ch 12–15"]
+  P6["<b>6 · Context, memory</b><br>Ch 16–18"]
+  P7["<b>7 · Architectures</b><br>Ch 19–24"]
+  P8["<b>8 · Trust, identity</b><br>Ch 25–26"]
+  P9["<b>9 · Production, 10 · Field</b><br>Ch 27–31, then the case study<br>and the capstones"]
+  P0 --> P1 --> P2 --> P3 --> P4
+  P1 --> P5
+  P3 --> P5
+  P2 --> P6
+  P4 --> P7
+  P5 --> P7
+  P6 --> P7
+  P3 --> P8
+  P5 --> P8
+  P7 --> P9
+  P8 --> P9
