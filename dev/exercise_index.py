@@ -17,7 +17,8 @@ CAPSTONES = {"C1": ("c1_support", "Customer support agent"),
              "C3": ("c3_incident", "Incident triage"),
              "C4": ("c4_review", "Code review and fix agent"),
              "C5": ("c5_research", "Deep research assistant"),
-             "C6": ("c6_backoffice", "Back-office workflow agent")}
+             "C6": ("c6_backoffice", "Back-office workflow agent"),
+             "C7": ("c7_engagement", "Customer deployment (FDE engagement)")}
 KIND = {"concept": "Written answer", "run": "Run chapter code", "build": "Build",
         "test": "Write tests", "ask": "Chat with tools", "inspector": "MCP Inspector",
         "desktop": "Claude Desktop"}
@@ -130,7 +131,7 @@ def write_index(res, files):
                          f"{KIND.get(e['kind'], e['kind'])} | {need} | {sol} | "
                          f"{status(res.get(e['id']))} |")
     lines += ["", "## Capstone projects", "",
-              "Run a reference capstone with `./course.sh capstone <1-6>`.", "",
+              "Run a reference capstone with `./course.sh capstone <1-7>`.", "",
               "| # | Project | Folder | Latest result |", "| --- | --- | --- | --- |"]
     for key, (folder, name) in CAPSTONES.items():
         lines.append(f"| {key} | {name} | [`solutions/capstones/{folder}/`]"
@@ -167,7 +168,7 @@ def results_table(res):
                    for e in exercises])
         rows.append((title, len(exercises), t))
     caps = tally([res.get(k) for k in CAPSTONES])
-    rows.append(("Capstone projects C1–C6", len(CAPSTONES), caps))
+    rows.append(("Capstone projects C1–C7", len(CAPSTONES), caps))
     for _, _, t in rows:
         for k in total:
             total[k] += t[k]

@@ -814,10 +814,11 @@ CAPSTONES = {  # number: (folder, data script or None, program, default argument
     "4": ("c4_review", "data.py", "agent.py", []),
     "5": ("c5_research", None, "research.py", []),
     "6": ("c6_backoffice", "data.py", "agent.py", []),
+    "7": ("c7_engagement", "data.py", "engagement.py", []),
 }
 
 def cmd_capstone(args):
-    """Run a reference capstone:  capstone <1-6> [arguments]"""
+    """Run a reference capstone:  capstone <1-7> [arguments]"""
     if not args or args[0] not in CAPSTONES:
         head("Reference capstones (build your own first!):")
         for n, (folder, _, prog, _) in CAPSTONES.items():
@@ -1056,7 +1057,7 @@ def _run_model(args):
     return choice if choice in RUN_MODELS else None
 
 def _chapter_keys():
-    """Chapter keys in book order (0, P, 1, T, 2, ...), then the capstones C1..C6."""
+    """Chapter keys in book order (0, P, 1, T, 2, ...), then the capstones C1..C7."""
     keys = []
     for e in EXERCISES:                              # exercises.json is in book order
         k = e["id"].split(".")[0]
@@ -1546,7 +1547,7 @@ HELP = """Building Agentic AI Systems: course commands (run them from the kit fo
 
   Solutions (try the exercise first!):
   ./course.sh solution <id>          show the solution for an exercise, e.g.  solution 4.4
-  ./course.sh capstone <1-6>         run a reference capstone
+  ./course.sh capstone <1-7>         run a reference capstone
   ./course.sh check-solutions        run every solution and capstone offline (no API key)
 
 Your files live in the 'workspace' folder next to course.sh. Edit them with any editor.

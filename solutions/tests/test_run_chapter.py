@@ -55,7 +55,7 @@ def test_model_selection(course, monkeypatch, capsys):
 def test_chapter_selection(course):
     keys = course._chapter_keys()
     assert keys[:5] == ["0", "P", "1", "T", "2"]
-    assert keys[-6:] == ["C1", "C2", "C3", "C4", "C5", "C6"]
+    assert keys[-7:] == ["C1", "C2", "C3", "C4", "C5", "C6", "C7"]
     assert keys.index("A") == keys.index("10") + 1
     assert [course._chapter_key(k) for k in ("ch07", "07", "p", "c1", "capstone2")] == \
         ["7", "7", "P", "C1", "C2"]

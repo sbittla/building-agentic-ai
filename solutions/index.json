@@ -660,5 +660,21 @@
  "30.12": [
   "exercises/ex30_12_shadow_slos.py",
   "tests/test_ch30_improvement_loop.py"
+ ],
+ "31.2": [
+  "exercises/ex31_2_your_brief.py",
+  "tests/test_ch31_field.py"
+ ],
+ "31.3": [
+  "exercises/ex31_3_prompt_rule.py",
+  "tests/test_ch31_field.py"
+ ],
+ "31.4": [
+  "exercises/ex31_4_runs_needed.py",
+  "tests/test_ch31_field.py"
+ ],
+ "31.5": [
+  "exercises/ex31_5_draft_brief.py",
+  "tests/test_ch31_field.py"
  ]
 }

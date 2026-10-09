@@ -165,6 +165,7 @@ Table: Glossary
 | Term | Meaning |
 | --- | --- |
 | A2A (Agent2Agent) | An open protocol for independent agents to find each other (through agent cards) and hand off tasks; complements MCP (section 21.7) |
+| Acceptance criteria | The thresholds a customer signs before a pilot starts (success rate, latency, cost, critical failures, the brief's metric); a gate in code applies them (section 31.5) |
 | Adaptive thinking | The model decides how much to reason before each answer or tool call; on by default on current Claude models |
 | Agent | An LLM that chooses and calls tools in a loop until a task is done |
 | Agent architecture reference model | The layers of every agent system: user/API, runtime, planning, memory, context, tools, policies, model, MCP/APIs/A2A, environment, with evaluation and observability across (section 1.7) |
@@ -216,6 +217,7 @@ Table: Glossary
 | Extension (MCP) | An optional, named protocol feature, such as Tasks or MCP Apps, used only when client and server both declare it (section 15.4) |
 | Failure taxonomy | The 12 classes of agent failure, each with detection, mitigation and evaluation (section 28.8) |
 | Flaky case | A test case that passes on some runs and fails on others: a sign the agent is guessing (measurement interlude) |
+| Forward-deployed engineer (FDE) | An engineer who builds and ships software inside one customer's business, in their environment, and stays until it delivers the customer's outcome (Chapter 31) |
 | Gateway (MCP) | A server in front of other MCP servers that allow-lists tools, checks tokens, rate-limits and audits every call (section 30.9) |
 | Goodput | Successful tasks per second; unlike throughput, it doesn't count tasks that failed or gave up (section 29.5) |
 | Harness | The code around the model: the loop, the tools, the checks and the limits; it decides what's allowed (section 1.7) |
@@ -243,6 +245,7 @@ Table: Glossary
 | Pass^k | The share of eval cases that pass on every one of k repeated runs |
 | Payback period | Build cost ÷ net monthly saving against the human baseline (section 29.9) |
 | Plan (as data) | A list of steps with tools, dependencies and done conditions that code can check before running (section 20.2) |
+| Problem brief | The output of discovery: users, job, output, a metric with a measured baseline and a target, a customer owner, constraints and non-goals (section 31.2) |
 | Programmatic tool calling | The model writes a program that calls your tools in a sandbox, so bulky results stay out of the context |
 | Progressive discovery | Offering tools through search instead of listing them all at once (section 30.9) |
 | Prompt (MCP) | A reusable prompt template a server exposes |
@@ -263,6 +266,7 @@ Table: Glossary
 | Shadow mode | Running a new version on a copy of real traffic without showing its answers or taking its actions, to compare it with the current version (section 30.13) |
 | Skill registry | A catalog of versioned skills with manifests, permissions, trust levels, evaluations and rollback (section 24.10) |
 | SLO (service-level objective) | A target for a measured behavior, such as task success ≥ 95% over 30 days (section 28.10) |
+| Smallest valuable slice | The first piece of a customer's problem to ship: the one that moves the brief's metric at the least effort and risk, within the constraints (section 31.3) |
 | SSE (Server-Sent Events) | A simple way for a server to stream events to a client over one HTTP response |
 | SSRF | Server-side request forgery: tricking a server or agent into fetching an internal address |
 | Stateless protocol | Each request carries everything the server needs, so any copy of the server can answer it; MCP since 2026-07-28 (section 15.2) |
@@ -329,7 +333,8 @@ Table: Estimated cost by part, for a learner (twice the first pass, for reruns)
 | 7. Advanced agent architectures | 23 | 133 | $8–14 | 24.5 (72 runs), 20.5 (24 runs), 21.6 (10 runs) |
 | 8. Trust | 5 | 22 | $1.3–2.3 | 25.6 (18 runs) |
 | 9. Production engineering | 17 | 378 | $23–39 | 30.6 (200 runs), 29.2 (50 runs), 29.5 (48 runs) |
-| **All chapters** | **117** | **938** | **About $55–100** | First pass alone: $28–49 |
+| 10. In the field | 1 | 1 | $0.06–0.10 | — |
+| **All chapters** | **118** | **939** | **About $55–100** | First pass alone: $28–49 |
 | Each capstone | — | about 120 | $7.2–12 | Evaluation runs and a load test |
 | Cloud deployment (30.7) | — | — | Usually $0 on a free tier | The host's own charges; set a budget alert and delete the service afterward |
 
@@ -359,7 +364,7 @@ Table: What's in the solutions folder
 | `tests/test_ex*.py` | Solutions that are themselves tests (T.2–T.4, 6.3, 9.6, 12.7, 16.6) |
 | `tests/test_ch*.py`, `tests/test_capstones.py` | The automated checks behind `check-solutions`; useful as examples of testing agents with a scripted model |
 | `capstones/common.py` | The shared host for all capstones: MCP hub, policy layer and approvals |
-| `capstones/c1_support/` … `c6_backoffice/` | The six reference capstones (see the end of each capstone) |
+| `capstones/c1_support/` … `c7_engagement/` | The seven reference capstones (see the end of each capstone) |
 | `SOLUTIONS.md` | Every exercise, chapter by chapter, with its solution file and what the solution shows |
 | `index.json` | Which files solve which exercise; `./course.sh solution` reads it |
 
@@ -423,7 +428,7 @@ Model names, prices and SDK features change every few months. Start by checking 
 Table: This printing and the code it was tested with
 | Book printing | Repository tag | Exercises | Python | Default models | MCP specification | Verified |
 | --- | --- | ---: | --- | --- | --- | --- |
-| Second printing, October 2026 | `edition-1.1` | {{exercises:all}} | 3.12 | `claude-sonnet-5`, `claude-haiku-4-5`, `qwen3.5:9b` | 2026-07-28 | 6 October 2026 |
+| Third printing, October 2026 | `edition-1.2` | {{exercises:all}} | 3.12 | `claude-sonnet-5`, `claude-haiku-4-5`, `qwen3.5:9b` | 2026-07-28 | 9 October 2026 |
 
 `git describe --tags` in the kit folder prints the tag you have, and `./course.sh check` prints the Python and library versions in the image. Four files in the course kit track what changes after that:
 
@@ -868,3 +873,81 @@ Table: Every chapter, its exercises, code and capstones
 @@curriculum-map
 
 To work through a row: read the chapter, run its listings with `./course.sh python <file>`, do an exercise with `./course.sh ex <id>`, check it with `./course.sh check <id>` where a checker exists, and compare with `./course.sh solution <id>`.
+
+## Appendix M: Interviewing for Agent Engineering and Forward-Deployed Roles
+
+Teams hiring engineers to build agents, and especially forward-deployed engineers (FDEs), test more than code. This appendix shows how a typical interview loop runs, then gives a question bank with brief answers and the chapter behind each. The answers are starting points: say them in your own words, and back each with something you built. The full bank, with more questions and longer answers, is `INTERVIEW_PREP.md` in the course kit.
+
+### The interview loop
+
+Table: A typical forward-deployed engineer interview loop
+| Round | What it tests | Prepare with |
+| --- | --- | --- |
+| Recruiter and hiring manager | Motivation, and a deep dive on one or two projects you owned | Your capstones: be ready to explain every decision and number |
+| Practical coding | Working code on messy input, edge cases and failures, not puzzles | Chapters 7, 8 and 19 |
+| System design | A deployment for a real customer: data flow, identity, observability, failure modes | Chapters 18, 25, 26, 28 and 30, section 31.4 |
+| Decomposition or case | A vague problem with no single right answer | Sections 31.2 and 31.3 |
+| AI depth | Prompting, retrieval, agents, evaluation, cost | Chapters 1, 16, 18, 27 and 29 |
+| Client simulation | A frustrated or non-technical stakeholder | Sections 31.5 to 31.7 |
+| Behavioral | Ownership, conflict and failure, told as stories | Your engagement record and capstones |
+| Take-home (some companies) | A small build in four to eight hours | Any chapter's Complex exercise, done end to end |
+
+In every round, interviewers listen for the same things: do you ask before you build, do you measure, do you keep the customer's constraints, and do you own the result.
+
+### Problem breakdown and scoping
+
+**A hospital wants AI to reduce clinicians' paperwork. Where do you start?** With people and a number, not a solution. Talk to the clinicians, watch the work, pick one narrow workflow such as discharge summaries, and measure today's time per summary. Agree a target, an owner, the constraints (patient data, the health record) and the non-goals, then ship the smallest slice that moves the number. *(Sections 31.2 and 31.3)*
+
+**The request is vague and the deadline is fixed. What do you do?** Scope down, not up. Write what's in and out and what "done" means, get the owner to agree, and ship an early slice that works. Trading scope for date is a decision for the customer owner; make it an explicit choice. *(Sections 31.2 and 31.5)*
+
+**How do you decide whether a problem needs an agent at all?** Use the least autonomous option that does the job: a function when the rules are exact, a workflow when the steps are known, retrieval for answering from documents, an agent only when the steps depend on what you find. *(Section 1.3, Card 1)*
+
+### System design
+
+**Design a document assistant for a healthcare customer whose data can't leave their cloud.** Deploy inside their network: a model they allow (one hosted in their account, or a local one), the index in their account, sign-in through their identity provider and permission checks at retrieval time, so a user only gets passages they may read. Keep personal data out of logs, keep an audit trail, and check every citation against the retrieved text. *(Chapters 18, 25 and 26, section 31.4)*
+
+**Search takes 1.5 seconds and the customer needs 100 milliseconds. What do you do?** Measure where the time goes first, span by span. Then pull the levers in order: caching, a smaller or routed model, precomputed embeddings, fewer steps, parallel calls and streaming. If 100 ms is a hard requirement, take the model out of the request path and use it ahead of time or asynchronously. *(Chapter 29)*
+
+**How do you let an agent act in a customer's production systems safely?** Give it its own identity with short-lived, narrowly scoped tokens; make tools read-only by default; put approvals for writes in code; log every action with a way to undo it; and break the lethal trifecta of private data, untrusted content and a way out. *(Chapters 9, 25 and 26)*
+
+**How would you serve agents for many customers from one platform?** Isolate tenants: separate keys, budgets, memory, caches and traces per tenant, a gateway that checks every call, and evaluation and cost reported per tenant. *(Sections 30.9 and 30.12)*
+
+### AI depth
+
+**When do you prompt, use retrieval or fine-tune?** Prompt first: it's fast to change and to evaluate. Add retrieval when answers depend on private or changing knowledge. Fine-tune for a format, style or narrow skill that prompting can't reach reliably, or to cut cost and latency at volume. Decide with an evaluation suite, not opinions. *(Chapters 16, 18 and 27)*
+
+**How do you know an agent is ready for production?** An evaluation suite built from real tasks, run with repeated trials and read as intervals, passes the release criteria; trajectory checks hold; safety has zero failures; cost and latency are inside budget; SLOs, alerts and a rollback plan exist. *(Chapters 27, 28 and 30)*
+
+**One agent or several?** Start with one. Add a team only for broad work that splits into independent parts, when a measured quality gain pays for several times the tokens, with contracts between agents and one orchestrator. *(Chapters 11 and 21)*
+
+**How do you stop prompt injection?** You can't prompt it away. Treat everything the agent reads as data, keep the model that reads untrusted text away from the tools that act, allow-list where data may go, and guard actions in code. *(Chapter 25)*
+
+### Practical coding
+
+**Write a rate limiter with per-user and global limits.** A token bucket per user and one global bucket, both checked before a request proceeds; return how long to wait; test bursts, concurrency and the clock. *(Sections 7.6 and 30.2)*
+
+**This tool call fails sometimes. Make it production-grade.** A timeout; retries with backoff only for errors that are safe to retry; an idempotency key for anything that changes state; a clear error the model can act on; and a test for each failure. *(Sections 7.3 and 19.4)*
+
+**Parse this messy export into records.** Validate every field, keep the rows you can't parse with the reason instead of dropping them silently, and report counts at the end. *(Section 7.3, the regular-expressions interlude)*
+
+### Customer conversations
+
+**Tell the customer's CTO the deployment will slip three weeks.** Early and plainly: the cause, what you've already done, the new date and your confidence in it, what they can have now, and an option to cut scope instead. *(Section 31.5)*
+
+**The customer says the agent is wrong 20% of the time.** Ask for the examples, classify them with the failure taxonomy, fix the largest class first, and add every example to the evaluation suite. Report progress on the agreed metric. *(Sections 28.8, 30.14 and 31.5)*
+
+**The customer's security team blocks your preferred model. What now?** Don't argue the rule; measure. Evaluate the allowed model against the brief's target; if it clears the bar for the first slice, ship with it, and bring numbers to any request for an exception. *(Section 31.4)*
+
+### Behavioral
+
+**Tell me about something you owned end to end.** Use a situation, the task, what you did and the result, with numbers, and show you went beyond the code: you scoped it, measured it, shipped it and handed it over. Capstone 7's engagement record is built to be this story.
+
+**Tell me about a time you were wrong.** Pick a real mistake, say how you found out (ideally from a measurement), what you changed and what you do differently now.
+
+### Three cases to practice
+
+Each takes about 30 minutes. Talk through users, decisions, data, constraints and the first slice; then the design; then how you'd know it worked.
+
+1. **A logistics company** wants to "use AI in customer service". Calls are about late deliveries, address changes and damage claims; the order system has an API but no sandbox; customer data must stay in the EU.
+2. **A bank's compliance team** spends two days a month assembling evidence for an internal audit from tickets, chat logs and spreadsheets. Nothing may be written to the ticketing system, and every answer needs a source.
+3. **A manufacturer** wants an agent that answers technicians' questions on the factory floor from 4,000 PDF manuals, many of them scanned, on tablets with poor connectivity.

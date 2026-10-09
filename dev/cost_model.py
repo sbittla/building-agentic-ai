@@ -54,7 +54,8 @@ PARTS = [("0. Foundations", ["0", "P"]), ("1. Your first agent", ["1", "T", "2",
          ("4. Autonomy", ["10", "A", "11"]), ("5. MCP and interoperability", ["12", "13", "14", "15"]),
          ("6. Context, memory and knowledge", ["16", "17", "18"]),
          ("7. Advanced agent architectures", ["19", "20", "21", "22", "23", "24"]),
-         ("8. Trust", ["25", "26"]), ("9. Production engineering", ["27", "28", "29", "30"])]
+         ("8. Trust", ["25", "26"]), ("9. Production engineering", ["27", "28", "29", "30"]),
+         ("10. In the field", ["31"])]
 
 
 def run_cost(level: str, model: str = MODEL) -> float:

@@ -32,8 +32,8 @@ model replaces it.
 | Agent runs per capstone | 120 | 120 | Development, a 30-case suite × 3 trials, a load test |
 | Haiku 4.5 prices | $1.00 / $5.00 | | Same token counts |
 
-Exercises that call a paid model: **117** (model need `any`, `claude-rec` or `claude`).
-Agent runs in one clean pass: **938**. Exercises that run many tasks and how many runs each
+Exercises that call a paid model: **118** (model need `any`, `claude-rec` or `claude`).
+Agent runs in one clean pass: **939**. Exercises that run many tasks and how many runs each
 makes are listed in `RUNS` in `dev/cost_model.py`, taken from each exercise's text.
 
 ## By part (learner)
@@ -50,7 +50,8 @@ makes are listed in `RUNS` in `dev/cost_model.py`, taken from each exercise's te
 | 7. Advanced agent architectures | 23 | 133 | $8–14 | 24.5 (72 runs), 20.5 (24 runs), 21.6 (10 runs) |
 | 8. Trust | 5 | 22 | $1.3–2.3 | 25.6 (18 runs) |
 | 9. Production engineering | 17 | 378 | $23–39 | 30.6 (200 runs), 29.2 (50 runs), 29.5 (48 runs) |
-| **All chapters** | **117** | **938** | **About $55–100** | First pass alone: $28–49 |
+| 10. In the field | 1 | 1 | $0.06–0.10 | — |
+| **All chapters** | **118** | **939** | **About $55–100** | First pass alone: $28–49 |
 | Each capstone | — | about 120 | $7.2–12 | Evaluation runs and a load test |
 | Cloud deployment (30.7) | — | — | Usually $0 on a free tier | The host's own charges; set a budget alert and delete the service afterward |
 

@@ -1,6 +1,6 @@
 # Building Agentic AI Systems: code, exercises and solutions
 
-The companion repository for the book *Building Agentic AI Systems: From First Agent to MCP, Multi-Agent Orchestration, and Production* by Srinivasa Rao Bittla. It has every chapter's code, **246 exercises** across 31 chapters and 6 interludes (with starter files, checkers and reference solutions), **six capstone projects**, and one Docker image that runs all of it.
+The companion repository for the book *Building Agentic AI Systems: From First Agent to MCP, Multi-Agent Orchestration, and Production* by Srinivasa Rao Bittla. It has every chapter's code, **252 exercises** across 32 chapters and 6 interludes (with starter files, checkers and reference solutions), **seven capstone projects**, and one Docker image that runs all of it.
 
 Everything runs inside Docker, so Docker is the only thing you install. You edit files on your computer with any editor; Docker runs them.
 
@@ -16,6 +16,7 @@ The repository is a course and a reference implementation. Start with the first 
 | [LOCAL_MODEL.md](LOCAL_MODEL.md) | The free local model in depth (Appendix H of the book) |
 | [RESOURCES.md](RESOURCES.md) | Every reference from the book: each chapter's full Learn more list (from `course/learn_more.md`), courses, docs, where to ask for help |
 | [CHAPTER_OUTCOMES.md](CHAPTER_OUTCOMES.md) | What you should be able to do after each chapter, and how you'd know |
+| [INTERVIEW_PREP.md](INTERVIEW_PREP.md) | Interview questions with brief answers for agent engineering and forward-deployed roles (Appendix M) |
 | [solutions/README.md](solutions/README.md) · [solutions/SOLUTIONS.md](solutions/SOLUTIONS.md) | How the solutions and capstones are organised and run; what each one shows |
 
 | Reference | What it's for |
@@ -47,12 +48,13 @@ Each printing of the book is matched by a tag, so you can always get the exact c
 | --- | ---: | --- | --- |
 | First printing, September 2026 | 231 | `edition-1.0` | `git checkout edition-1.0` |
 | Second printing, October 2026 | 246 | `edition-1.1` | `git checkout edition-1.1` |
+| Third printing, October 2026 | 252 | `edition-1.2` | `git checkout edition-1.2` |
 
 Not sure which printing you have? The copyright page says. [VERSION_MATRIX.md](VERSION_MATRIX.md) lists, for each printing, its tag, Python, models, MCP specification, library versions and verification date.
 
 **ISBNs:** paperback 979-8177506326 · hardcover 979-8177514734.
 
-How exercises are counted: every numbered exercise in the book's 31 chapters and 6 interludes counts once, including concept exercises with a written answer and exercise 27.8, a quality gate that fails on purpose when a model misses its thresholds. The six capstones are counted separately.
+How exercises are counted: every numbered exercise in the book's 32 chapters and 6 interludes counts once, including concept exercises with a written answer and exercise 27.8, a quality gate that fails on purpose when a model misses its thresholds. The seven capstones are counted separately.
 
 ## 1. One-time setup (about 20 minutes)
 
@@ -159,7 +161,7 @@ After each part of the book, try the matching **capstone project** yourself befo
 ./course.sh run-chapter 7                        # one chapter, on the free local model
 ./course.sh run-chapter 7 13 24                  # several chapters
 ./course.sh run-chapter 3.7 24.6 --model claude  # single exercises, on Claude
-./course.sh run-chapter capstones                # the six capstones
+./course.sh run-chapter capstones                # the seven capstones
 ./course.sh run-chapter all                      # everything, in book order (several hours locally)
 ./course.sh run-chapter all --free-only          # only the exercises that need no model
 ```
@@ -188,7 +190,7 @@ Commit `83a0af4d440e`; `requirements.lock` sha256 `c28c848a2447`; outside the co
 
 Every exercise run with its reference solution by `run-chapter` (runs from 2026-09-27 to 2026-09-28; models: `claude-sonnet-5`, `qwen3.5:9b`). **163 of 164 executable checks pass automatically**; 1 intentionally demonstrates a failing quality gate, and **0** failed unexpectedly. A real model's answers vary from run to run, so these show that each exercise works end to end, not that it always will. Runs before October 2026 didn't record the commit; newer runs do (`provenance` in each summary.json). Per-exercise results and logs: [EXERCISE_INDEX.md](EXERCISE_INDEX.md), `solutions/outputs/`.
 
-How the totals count: the book has **246 exercises**; the table adds the 6 capstones, so it has 252 rows of work. Every count here, in EXERCISE_INDEX.md and in the book is computed from `course/exercises.json`. *Written answer* exercises have nothing to run; *needs a person* means a person at the keyboard, the Claude Desktop app, a GitHub token or a file the reader creates; *not run yet* means no run has been recorded for this version.
+How the totals count: the book has **252 exercises**; the table adds the 7 capstones, so it has 259 rows of work. Every count here, in EXERCISE_INDEX.md and in the book is computed from `course/exercises.json`. *Written answer* exercises have nothing to run; *needs a person* means a person at the keyboard, the Claude Desktop app, a GitHub token or a file the reader creates; *not run yet* means no run has been recorded for this version.
 
 | Chapter | Exercises | ✔ Passed | ✘ Failed | Gate, fails by design | Written answer | Needs a person | Not run yet | Pass rate |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -229,8 +231,9 @@ How the totals count: the book has **246 exercises**; the table adds the 6 capst
 | Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents | 8 | 6 | 0 | 0 | 1 | 0 | 1 | 100% |
 | Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost | 8 | 5 | 0 | 0 | 1 | 0 | 2 | 100% |
 | Chapter 30: Deploying Agents: From One Service to an Agent Platform | 12 | 9 | 0 | 0 | 2 | 0 | 1 | 100% |
-| Capstone projects C1–C6 | 6 | 6 | 0 | 0 | 0 | 0 | 0 | 100% |
-| **Total** | **252** | **163** | **0** | **1** | **62** | **14** | **12** | **100.0%** |
+| Chapter 31: The Forward-Deployed Playbook | 6 | 0 | 0 | 0 | 2 | 0 | 4 | — |
+| Capstone projects C1–C7 | 7 | 6 | 0 | 0 | 0 | 0 | 1 | 100% |
+| **Total** | **259** | **163** | **0** | **1** | **64** | **14** | **17** | **100.0%** |
 
 *Pass rate* counts passed against unexpected failures; a gate that fails by design is neither.
 
@@ -243,7 +246,7 @@ Fails by design: **27.8** (An agent scorecard): a quality gate: its scorecard ex
 
 ## 6. Solutions
 
-The `solutions/` folder has a worked solution for every exercise and reference versions of all six capstones. The book shows where each lives: every exercise box names its solution file, [solutions/SOLUTIONS.md](solutions/SOLUTIONS.md) lists them all, every capstone ends with a *Reference solution* table, and Appendix F maps the folder.
+The `solutions/` folder has a worked solution for every exercise and reference versions of all seven capstones. The book shows where each lives: every exercise box names its solution file, [solutions/SOLUTIONS.md](solutions/SOLUTIONS.md) lists them all, every capstone ends with a *Reference solution* table, and Appendix F maps the folder.
 
 ```bash
 ./course.sh solution 4.4        # show the solution for exercise 4.4

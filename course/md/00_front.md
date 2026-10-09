@@ -1,6 +1,6 @@
 # How to Use This Book
 
-This book teaches you to build AI agents from nothing. You start with the Python and web basics you need and finish with production agents that use the Model Context Protocol (MCP), retrieval, memory and frameworks, and run as secure services. You'll build a working agent in almost every chapter, practice the supporting skills in short interludes and finish with at least one of six capstone projects. This page shows you where to start, how the book is organized and how to set up the course kit once so every example runs. There's no schedule to keep: go one part at a time, skip what you know, and do the Simple and Medium exercises before the Complex ones.
+This book teaches you to build AI agents from nothing. You start with the Python and web basics you need and finish with production agents that use the Model Context Protocol (MCP), retrieval, memory and frameworks, and run as secure services. You'll build a working agent in almost every chapter, practice the supporting skills in short interludes and finish with at least one of seven capstone projects. This page shows you where to start, how the book is organized and how to set up the course kit once so every example runs. There's no schedule to keep: go one part at a time, skip what you know, and do the Simple and Medium exercises before the Complex ones.
 
 ## Who this is for
 
@@ -15,6 +15,7 @@ Table: Where to start
 | Have built a simple agent already | Read Chapter 1's frameworks, skim the rest of Part 1, then start at Chapter 5, or go straight to Part 5 (MCP and interoperability), Part 6 (context and memory), Part 7 (advanced agent architectures), Part 8 (trust, security and identity) or Part 9 (production engineering) |
 | Are an architect, staff engineer or engineering leader | Chapter 1 (sections 1.3 to 1.8), section 12.1, then Chapters 15, 22, 26 to 30 and Appendix I's reference cards |
 | Are a performance or reliability engineer | Chapter 1, then Chapters 19, 27, 28 and 29 |
+| Build agents for customers, or are preparing for a forward-deployed engineer interview | The forward-deployed path below, then Appendix M |
 
 The interludes (Python, testing, regular expressions, SQL, measuring an agent and asynchronous Python) come right before the chapters that need them. Skip any you already know; each ends with exercises so you can check yourself.
 
@@ -33,8 +34,9 @@ Table: What you build in each part
 | 7. Advanced agent architectures | 19–24 | A durable job runner, a planner and model router, an orchestrated team, a rule-controlled workflow, a browser agent, the same agent on four runtimes | More independence, with code in control |
 | 8. Trust, security and identity | 25–26 | An injection-resistant inbox assistant, scoped and short-lived agent tokens | Agents that can't be turned against you |
 | 9. Production engineering | 27–30 | Trajectory evaluations, traces and alerts, cost budgets and a capacity plan, a deployed agent API and remote MCP server, durable MCP jobs and a gateway | Measured, observed, affordable, deployed, at company scale |
+| 10. In the field | 31 | A field kit: a brief checker, a slice ranker, a design checker for the customer's rules, a pilot gate and a handoff check | Ship an agent inside someone else's business, on their terms |
 | Case study | — | The support agent through one release: decisions, evidence, an incident and a rollback | How the pieces work together |
-| Capstones | — | Six end-to-end projects | Prove it on your own build |
+| Capstones | — | Seven end-to-end projects, the last one a whole customer engagement | Prove it on your own build |
 
 Each part ends with a **checkpoint**: a short list of things you should now be able to do. If two or more items feel shaky, revisit the exercises the checkpoint points to before you move on.
 
@@ -49,6 +51,7 @@ Table: Learning paths by role
 | **Agent engineer** | You write Python and want to build capable agents | Chapters 1–4 quickly → state, tools and approvals (Chapters 5–9) → feedback loops and teams (Chapters 10–11) → MCP (Chapters 12–15) → context, memory and knowledge (Chapters 16–18) → architectures (Chapters 19–24) → evaluation (Chapter 27). Simple and Medium exercises | Capstone 2 or 5 |
 | **Production agent engineer** | You already run services and must ship agents safely | Architecture (sections 1.7, 1.10, 22.1 and 30.15) → security (Chapters 9, 14, 25 and 26, starting with the security boundary in section 25.2) → evaluation (Chapter 27) → performance and cost (Chapter 29) → deployment (Chapter 30) → AgentOps (Chapter 28, sections 30.13 and 30.14) | The case study, then Capstone 3 |
 | **Advanced architect** | You design agent platforms and set standards | Multi-agent systems (Chapters 11 and 21) → discovery (Chapter 15, sections 26.9 and 26.10) → skills (sections 24.7 and 24.10) → memory (Chapter 17) → governance (sections 25.11 and 30.12) → economics (sections 21.10 and 29.9) → long-running systems (Chapters 19 and 20) | Appendix K's decision records, then Capstone 6 |
+| **Forward-deployed engineer** | You build agents with and for customers, or are interviewing for these roles | Chapters 1–4 quickly → approvals (Chapter 9) → the system prompt and context (section 4.10, Chapter 16) → retrieval (Chapter 18) → security and identity (sections 25.1–25.5, Chapter 26) → evaluation (Chapter 27) → cost and payback (sections 29.1 and 29.9) → deployment and lifecycle (sections 30.1–30.7 and 30.13) → the field playbook (Chapter 31) | Capstone 7, then Appendix M |
 
 In a hurry? Chapters 0–4, 9, 12 and 16, then sections 27.1–27.3 and 30.1–30.3, give you one working, safe agent behind an API (section 30.2).
 

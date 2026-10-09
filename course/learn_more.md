@@ -391,6 +391,15 @@ The book prints up to three **Start here** links per chapter; this file has the 
 | **OAuth 2.0 Simplified**<br>[oauth.com](https://www.oauth.com) | Tokens, scopes and flows in plain language | Go deeper |
 | **OWASP API Security Top 10**<br>[owasp.org/API-Security](https://owasp.org/API-Security/) | The common ways web APIs get attacked | Go deeper |
 
+## Chapter 31: The Forward-Deployed Playbook
+
+| Resource | What you'll find | Level |
+| --- | --- | --- |
+| **Palantir: A Day in the Life of a Forward Deployed Software Engineer**<br>[blog.palantir.com/a-day-in-the-life-of-a-palantir-forward-deployed-software-engineer-45ef2de257b1](https://blog.palantir.com/a-day-in-the-life-of-a-palantir-forward-deployed-software-engineer-45ef2de257b1) | The role where it began, described by the people who do it | Start here |
+| **Palantir: Dev versus Delta**<br>[blog.palantir.com/dev-versus-delta-demystifying-engineering-roles-at-palantir-ad44c2a6e87](https://blog.palantir.com/dev-versus-delta-demystifying-engineering-roles-at-palantir-ad44c2a6e87) | How forward-deployed and product engineering divide the work | Start here |
+| **PostHog: WTF is a forward deployed engineer?**<br>[posthog.com/blog/forward-deployed-engineer](https://posthog.com/blog/forward-deployed-engineer) | Why AI companies are hiring them, and what the work looks like day to day | Start here |
+| **Aced: Forward Deployed Engineer Interview, the 2026 guide**<br>[aced.io/blog/forward-deployed-engineer-interview-the-definitive-2026-guide-fde](https://www.aced.io/blog/forward-deployed-engineer-interview-the-definitive-2026-guide-fde) | The interview loop round by round, with example questions (Appendix M) | Go deeper |
+
 ## Capstone Projects
 
 | Resource | What you'll find | Level |
@@ -403,3 +412,4 @@ The book prints up to three **Start here** links per chapter; this file has the 
 | **Capstone 5: Anthropic, multi-agent research system**<br>[anthropic.com/engineering/multi-agent-research-system](https://www.anthropic.com/engineering/multi-agent-research-system) | The design this capstone is modeled on | Go deeper |
 | **Capstone 6: Anthropic, Effective harnesses for long-running agents**<br>[anthropic.com/engineering/effective-harnesses-for-long-running-agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) | Progress files, feature lists and git checkpoints for agents that work across many sessions | Start here |
 | **Capstone 6: Playwright for Python**<br>[playwright.dev/python](https://playwright.dev/python/) | The browser automation library the computer-use agent drives | Go deeper |
+| **Capstone 7: Palantir, A Day in the Life of a Forward Deployed Software Engineer**<br>[blog.palantir.com/a-day-in-the-life-of-a-palantir-forward-deployed-software-engineer-45ef2de257b1](https://blog.palantir.com/a-day-in-the-life-of-a-palantir-forward-deployed-software-engineer-45ef2de257b1) | What the work around Capstone 7 looks like at a customer | Go deeper |

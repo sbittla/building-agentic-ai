@@ -344,6 +344,13 @@ Every link from the book's **Learn more** sections and Appendix G, so you can cl
 - [OAuth 2.0 Simplified](https://www.oauth.com) (Go deeper): Tokens, scopes and flows in plain language
 - [OWASP API Security Top 10](https://owasp.org/API-Security/) (Go deeper): The common ways web APIs get attacked
 
+## Chapter 31: The Forward-Deployed Playbook
+
+- [Palantir: A Day in the Life of a Forward Deployed Software Engineer](https://blog.palantir.com/a-day-in-the-life-of-a-palantir-forward-deployed-software-engineer-45ef2de257b1) (Start here): The role where it began, described by the people who do it
+- [Palantir: Dev versus Delta](https://blog.palantir.com/dev-versus-delta-demystifying-engineering-roles-at-palantir-ad44c2a6e87) (Start here): How forward-deployed and product engineering divide the work
+- [PostHog: WTF is a forward deployed engineer?](https://posthog.com/blog/forward-deployed-engineer) (Start here): Why AI companies are hiring them, and what the work looks like day to day
+- [Aced: Forward Deployed Engineer Interview, the 2026 guide](https://www.aced.io/blog/forward-deployed-engineer-interview-the-definitive-2026-guide-fde) (Go deeper): The interview loop round by round, with example questions (Appendix M)
+
 ## Capstone Projects
 
 - [Capstone 1: Intercom Help, Fin AI Agent](https://www.intercom.com/help/en/collections/6485365-fin-ai-agent) (Go deeper): How a production support agent is set up, measured and handed off
@@ -354,3 +361,4 @@ Every link from the book's **Learn more** sections and Appendix G, so you can cl
 - [Capstone 5: Anthropic, multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system) (Go deeper): The design this capstone is modeled on
 - [Capstone 6: Anthropic, Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) (Start here): Progress files, feature lists and git checkpoints for agents that work across many sessions
 - [Capstone 6: Playwright for Python](https://playwright.dev/python/) (Go deeper): The browser automation library the computer-use agent drives
+- [Capstone 7: Palantir, A Day in the Life of a Forward Deployed Software Engineer](https://blog.palantir.com/a-day-in-the-life-of-a-palantir-forward-deployed-software-engineer-45ef2de257b1) (Go deeper): What the work around Capstone 7 looks like at a customer

@@ -94,6 +94,7 @@
   "i_python.py": "Learning demo",
   "i_regex.py": "Learning demo",
   "i_sql.py": "Learning demo",
-  "test_i_pricing.py": "Learning demo"
+  "test_i_pricing.py": "Learning demo",
+  "ch31_field.py": "Production pattern"
  }
 }

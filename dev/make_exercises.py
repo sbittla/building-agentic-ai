@@ -210,6 +210,10 @@ MAP = {
     "29.6": B("ex29_6_experiment"),
     "29.7": B("ex29_7_crossover"),
     "29.8": B("ex29_8_model_swap"),
+    "31.2": B("ex31_2_your_brief"),
+    "31.3": B("ex31_3_prompt_rule"),
+    "31.4": B("ex31_4_runs_needed"),
+    "31.5": B("ex31_5_draft_brief"),
 }
 
 # "{{t:label}}" in an exercise -> "Table 24.2", numbered exactly as course/build.js numbers
@@ -262,7 +266,7 @@ for md in sorted(p for p in MD.glob("[0-9][0-9]*.md") if p.stem not in SKIP):
 
 # Exercises that never call the model: don't warn about a missing API key.
 NO_KEY = {"0.3", "0.4", "0.5", "0.6", "0.7", "18.3", "18.4", "18.5",
-          "17.9", "21.7", "23.7", "24.10", "25.7", "26.7", "28.8", "29.8", "30.12"}   # offline
+          "17.9", "21.7", "23.7", "24.10", "25.7", "26.7", "28.8", "29.8", "30.12", "31.2", "31.3", "31.4"}   # offline
 for e in exercises:
     if e["id"] in NO_KEY or e["id"][0] in "PTRSA":
         e["nokey"] = True

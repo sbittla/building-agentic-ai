@@ -12,7 +12,7 @@ ORDER = ["00_front.md", "00z_ch00.md", "00zz_python.md", "01.md", "01z_testing.m
          "04.md", "05.md", "05z_regex.md", "06.md", "07.md", "07z_sql.md", "08.md", "08z_measure.md",
          "09.md", "10.md", "10z_async.md", "11.md", "12.md", "13.md", "14.md", "15.md", "16.md",
          "17.md", "18.md", "19.md", "20.md", "21.md", "22.md", "23.md", "24.md", "25.md", "26.md",
-         "27.md", "28.md", "29.md", "30.md", "90_capstones.md"]
+         "27.md", "28.md", "29.md", "30.md", "31.md", "90_capstones.md"]
 ROW = re.compile(r"^\| \*\*(.+?)\*\*<br>\[[^\]]*\]\(([^)]+)\) \| (.+?) \| (Start here|Go deeper) \|$")
 
 def rows(text):

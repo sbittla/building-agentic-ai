@@ -591,7 +591,7 @@ function copyrightPage() {
     L("ISBN-13: 979-8177506326 (paperback)"),
     L("ISBN-13: 979-8177514734 (hardcover)"),
     L("Companion code, exercises and solutions: github.com/sbittla/building-agentic-ai"),
-    L("First edition: September 2026. Second printing, corrected: October 2026. Companion code: tag edition-1.1 of the repository. Corrections to this printing are listed in ERRATA.md in the repository."),
+    L("First edition: September 2026. Second printing, corrected: October 2026. Third printing, with Part 10 and Capstone 7: October 2026. Companion code: tag edition-1.2 of the repository. Corrections to this printing are listed in ERRATA.md in the repository."),
     L("Trademarks: Claude is a trademark of Anthropic PBC. Python is a registered trademark of the Python Software Foundation. Docker is a trademark of Docker, Inc. Other product and company names mentioned may be trademarks of their respective owners. They are used in an editorial fashion only, with no intention of infringement."),
     L("While every precaution has been taken in preparing this book, the author assumes no responsibility for errors or omissions, or for damages resulting from the use of the information or code it contains. AI models, APIs, prices and libraries change often; check current documentation before relying on any detail in production. Running the examples uses a paid API; you are responsible for your own usage and costs."),
     L("The code, data and solutions in the companion repository are released under the MIT License: you may use, copy and adapt them in your own projects, including commercial ones, provided the copyright and license notice are kept. The license applies to the code only; the text of this book remains all rights reserved."),
@@ -629,6 +629,9 @@ const PARTS = [
   { num: 9, title: "Production Engineering", files: ["27.md", "28.md", "29.md", "30.md"],
     stages: "Evaluate, Optimize, Deploy, Operate, Improve, Retire",
     blurb: "Production agents are measured, observed, economical and deployed. You evaluate whole trajectories continuously, trace every decision, engineer cost per successful task, ship your agent as a secure service and run MCP at company scale behind a gateway." },
+  { num: 10, title: "In the Field", files: ["31.md"],
+    stages: "Decide, Design, Evaluate, Deploy, Improve",
+    blurb: "Most agents in production are built with a customer, on their data, under their rules. You turn a vague request into a measurable brief, ship the smallest valuable slice, check every design against the customer's environment, run a pilot against criteria they signed, and hand over a system they can run without you." },
 ];
 const PART_EXISTS = f => fs.existsSync(path.join(ROOT, "md", f));
 for (const p of PARTS) p.files = p.files.filter(PART_EXISTS);   // chapters are added part by part

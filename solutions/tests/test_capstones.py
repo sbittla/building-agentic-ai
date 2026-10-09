@@ -236,3 +236,22 @@ def test_c6_backoffice(ws, model):
     finally:
         d.DB, d.SERVICES = saved
         app.reset()
+
+# ---------------- capstone 7: a customer deployment (no model)
+def test_c7_engagement(ws):
+    sys.path.insert(0, str(CAP / "c7_engagement")); sys.modules.pop("data", None)
+    import data
+    rows = data.build(str(ws / "handovers.jsonl"))
+    sys.path.remove(str(CAP / "c7_engagement")); sys.modules.pop("data", None)
+    assert len(rows) == 30 and sum(1 for r in rows if r["messy"]) == 13
+    assert any("two patients in one note" in r["messy"] for r in rows)
+    e = _load("c7_engagement/engagement.py")
+    assert e.check_brief(e.BRIEF) == [] and e.check_design(e.DESIGN, e.ENV) == []
+    text, decision = e.record(1)
+    assert decision == "stop" and "critical failure" in text
+    text, decision = e.record(3)
+    assert decision == "hold" and "only 90 runs" in text
+    text, decision = e.record(6)
+    assert decision == "promote" and "general release" in text
+    assert "Everything the customer needs is in place." in text
+    assert "medical abbreviation expansion: 2 customer(s) -> build it" in text
