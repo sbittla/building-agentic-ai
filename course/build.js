@@ -219,6 +219,8 @@ const NUMBER_STARTS = new Set();          // ordered lists that start above 1
 // ---------- static table of contents (page numbers from a first render; see make_toc.py) ----------
 const HEADINGS = [];
 const CURRENT = { title: "", short: "" };
+// Sections printed as one page of their own (a reference page readers come back to)
+const ONE_PAGE = new Set(["The roadmap at a glance"]);
 const SKIP_TOC = /^(Learn more|Learning objectives|Real-world connection|Common mistakes|Summary|Key takeaways|Exercises|Solutions for this chapter|Checkpoint)/;
 const TOC_PAGES_FILE = path.join(__dirname, "toc_pages.json");
 const TOC_PAGES = fs.existsSync(TOC_PAGES_FILE) ? JSON.parse(fs.readFileSync(TOC_PAGES_FILE, "utf8")) : {};
@@ -327,7 +329,8 @@ function convert(md, file) {
       } else if (level === 2 && !SKIP_TOC.test(text)) {
         const id = `toc_${HEADINGS.length}`;
         HEADINGS.push({ id, level, text, find: text });
-        out.push(new Paragraph({ heading: h, children: [new Bookmark({ id, children: [new TextRun(text)] })] }));
+        out.push(new Paragraph({ heading: h, pageBreakBefore: ONE_PAGE.has(text),
+                                 children: [new Bookmark({ id, children: [new TextRun(text)] })] }));
       } else {
         out.push(new Paragraph({ heading: h, children: [new TextRun(text)] }));
       }
