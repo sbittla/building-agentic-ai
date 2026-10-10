@@ -198,7 +198,7 @@ Every reference solution, capstone and exercise command, run against a scripted 
 | ---: | ---: | ---: | ---: | ---: |
 | 571 | 0 | 0 | 13 | 584 |
 
-Commit `b7770dc19959`; `requirements.lock` sha256 `c28c848a2447`; outside the course image (Linux); 2026-10-09. Skipped: 8 runs in the course image; 2 needs mcp-server-filesystem from the course image; 1 needs mcp-server-git from the course image; 1 needs mcp-server-fetch, mcp-server-memory from the course image; 1 needs mcp-server-fetch, mcp-server-filesystem, mcp-server-git, mcp-server-time from the course image. Details: [verification/README.md](verification/README.md), [verification/offline.json](verification/offline.json).
+Commit `10ac07df051d`; `requirements.lock` sha256 `c28c848a2447`; outside the course image (Linux); 2026-10-09. Skipped: 8 runs in the course image; 2 needs mcp-server-filesystem from the course image; 1 needs mcp-server-git from the course image; 1 needs mcp-server-fetch, mcp-server-memory from the course image; 1 needs mcp-server-fetch, mcp-server-filesystem, mcp-server-git, mcp-server-time from the course image. Details: [verification/README.md](verification/README.md), [verification/offline.json](verification/offline.json).
 
 ### B. Exercises run with a real model
 
