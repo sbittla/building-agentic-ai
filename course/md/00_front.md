@@ -4,7 +4,7 @@ Fifteen minutes from now, an agent can be running on your computer, picking its 
 
 ## Who this is for
 
-Anyone who wants to build AI agents, including complete beginners; you don't need machine-learning experience. Find the row that sounds most like you, and it points to one of the reading paths below.
+Anyone who wants to build AI agents; you don't need machine-learning experience. Complete beginners can finish Parts 0 to 4 with this book alone. The later parts assume you've done those exercises, and the level steps up at Parts 5, 7 and 9. Find the row that sounds most like you, and it points to one of the reading paths below.
 
 Table: Where to start
 | If you… | Follow | Start at |

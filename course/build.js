@@ -321,7 +321,13 @@ function convert(md, file) {
   const nextNum = kind => { seen[kind]++; return plan.prefix ? `${plan.prefix}.${seen[kind]}` : null; };
   let pendingTable = null, inLearnMore = false;
   let i = 0, paraBuf = [];
-  const flush = () => { if (paraBuf.length) { out.push(para(paraBuf.join(" "))); paraBuf = []; } };
+  // A line indented with em spaces (the index's sub-entries) becomes an indented paragraph.
+  const flush = () => { if (paraBuf.length) {
+    const text = paraBuf.join(" ");
+    out.push(text.startsWith("\u0001")
+      ? para(text.slice(1), { p: { indent: { left: 360, hanging: 240 }, spacing: { after: 40, line: 240 } } })
+      : para(text));
+    paraBuf = []; } };
   while (i < lines.length) {
     const line = lines[i];
     if (!line.trim()) { flush(); i++; continue; }
@@ -535,7 +541,7 @@ function convert(md, file) {
       out.push(new Paragraph({ spacing: { before: 0, after: 0, line: 80, lineRule: "exact" }, children: [] }));   // a 4pt gap
       continue;
     }
-    paraBuf.push(line.trim());
+    paraBuf.push((/^\u2003/.test(line) ? "\u0001" : "") + line.trim());
     i++;
   }
   flush();

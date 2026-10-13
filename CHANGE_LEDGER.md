@@ -27,7 +27,7 @@ For volatile facts (models, prices, protocols, SDKs), see [CLAIMS_AUDIT.md](CLAI
 | Chapter 24 (24.9) | Dated decision matrix comparing a custom loop, frameworks, provider runtimes and managed services | Readers choosing a production stack |
 | Appendix M | Production Deployment Reference, covering multi-tenant isolation, secret rotation, retention, scanning, backups, incident ownership and rollback criteria | The kit is not production-hardened; readers need to know what production adds |
 | Appendix G | "What 'verified' means": deterministic tests, live-model runs and production readiness | So that a deterministic pass is never read as production evidence |
-| Index | New index of the glossary terms and frequently looked-up names, generated from the final layout (`course/make_index.py`) | A reference book needs one (R15) |
+| Index | New index, generated from the final layout (`course/make_index.py`); curated in release candidate 2 (below) | A reference book needs one (R15) |
 
 ## Evidence for claims (technical)
 
@@ -55,6 +55,18 @@ For volatile facts (models, prices, protocols, SDKs), see [CLAIMS_AUDIT.md](CLAI
 | 19–24 | Which errors are transient (19.4); when to replan; A2A context ids; paired comparisons with the same random numbers; what each listing is (demo, prototype or production pattern) | Methodology, protocol behavior, maturity labels |
 | 25–28 | Quarantine limits; that `gaps` trusts its input; that revocation and audit stores live in memory in the kit; how `misread_result` is detected | Safety, deployment limits |
 | 29–31 | Little's law at 8 in flight; cache expiry while queued; how the simulator works; protocol requirements for remote MCP; the mix-up attack and issuer validation; retiring an agent; the known-limitations handoff item | Methodology, attack and defense, deployment limits |
+
+## Release candidate 2 (editorial)
+
+| Where | Change | Reason |
+| --- | --- | --- |
+| Index (`course/index_terms.json`, `course/make_index.py`) | Rebuilt from a curated list of about 290 terms with sub-entries and cross-references. Each sense is searched only in the chapters that teach it, the glossary pages are excluded, and at most six page ranges are kept per entry | The generated index mixed senses ("canary release", "canary token") and listed every glossary mention |
+| Preface, How to Use This Book, Chapter 0 | The beginner promise is now precise: complete beginners can finish Parts 0 to 4 with the book alone; later parts assume those exercises | "For complete beginners" overstated what Parts 5–10 ask of a reader |
+| Chapters 12, 15, 21, 24, 25, 27, 28, 29 | The full "Conditions behind…" tables moved to `benchmarks/README.md`; each chapter keeps a two- or three-sentence note. Table 29.8 (`bench-conditions`) is cut to seven rows | Reference tables broke the reading flow; the conditions stay reproducible in the repository |
+| Chapters 12, 15, 21, 24, 25, 28 | The eight unresolved claims narrowed to what a source or the pinned code confirms | CLAIMS_AUDIT.md: no unresolved rows remain |
+| Appendix H | Structured outputs, evals and load tests point to the chapters that now hold them (3, 4, 11, 18, 20, 25, 27; Chapter 27; exercises 29.2 and 29.6) | Stale references from an earlier chapter order |
+| Exercises 10.3, 12.7, 27.3 | The setup command is in the text (10.3, 27.3); 12.7 describes the `sitecustomize.py` approach the solution uses | Instructions referred to a "Run line" the printed book doesn't show |
+| Case study | Load-test token figure consistent with Chapter 29's E4 (about 1,200 tokens per task) | It said 6,000, which contradicted the benchmark it cites |
 
 ## Layout
 

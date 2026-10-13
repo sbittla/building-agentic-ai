@@ -26,7 +26,7 @@ I came to agents from performance engineering, after twenty years of making syst
 
 ## Who this book is for
 
-Anyone who wants to build AI agents. If you've never programmed, Chapter 0 and the Python interlude teach the programming you need, and Parts 1 to 4 are written with you in mind; the later parts get steadily more demanding and assume you've done the earlier exercises, which is exactly what makes them reachable. You don't need a background in machine learning, because you won't train a model here; you'll build reliable software around one. Architects, production engineers and forward-deployed engineers each get their own reading path in "How to Use This Book."
+Anyone who wants to build AI agents. If you've never programmed, Chapter 0 and the Python interlude teach the programming you need, and you can complete Parts 0 to 4 with this book alone. From Part 5 on, the chapters assume you've done the earlier exercises and can read a page of Python and a stack trace without help; that's what the first four parts give you. You don't need a background in machine learning, because you won't train a model here; you'll build reliable software around one. Architects, production engineers and forward-deployed engineers each get their own reading path in "How to Use This Book."
 
 ## How the book is organized
 

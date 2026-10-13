@@ -8,6 +8,7 @@ that refuses automated requests (401, 403, 429) is reported as "blocked", not br
 it in a browser before changing the book. Local, internal and example addresses are skipped.
 """
 import concurrent.futures as cf
+import os
 import re
 import sys
 import urllib.error
@@ -67,6 +68,10 @@ def main() -> int:
         print(f"blocked {why}  {u}")
     for u, (_, why) in sorted(broken.items()):
         print(f"BROKEN  {why}  {u}  ({', '.join(found[u][:3])})")
+        if os.environ.get("GITHUB_ACTIONS"):               # one annotation per place the link appears
+            for where in found[u][:5]:
+                file, line = where.rsplit(":", 1)
+                print(f"::error file={file},line={line}::broken link ({why}): {u}")
     print(f"{len(found)} links: {len(found) - len(broken) - len(blocked)} ok, {len(blocked)} blocked, "
           f"{len(broken)} broken")
     return 1 if broken else 0

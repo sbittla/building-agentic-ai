@@ -1,0 +1,3912 @@
+[
+ {
+  "term": "Agent",
+  "patterns": [
+   "(?i)\\bwhat an agent is\\b",
+   "(?i)\\bagent is an LLM\\b",
+   "(?i)\\bfour parts of an agent\\b"
+  ],
+  "chapters": "1,APP",
+  "see_also": [
+   "Agent loop",
+   "Workflow"
+  ],
+  "sub": [
+   {
+    "term": "four parts of",
+    "patterns": [
+     "(?i)\\bfour parts\\b"
+    ],
+    "chapters": "1"
+   },
+   {
+    "term": "kinds of",
+    "patterns": [
+     "(?i)\\bkinds of agents?\\b"
+    ],
+    "chapters": "1,APP"
+   },
+   {
+    "term": "when not to use",
+    "patterns": [
+     "(?i)\\bneed an agent\\b",
+     "(?i)\\bdon't need an agent\\b"
+    ],
+    "chapters": "1,APP"
+   }
+  ]
+ },
+ {
+  "term": "Thinking block",
+  "patterns": [
+   "(?i)\\bthinking blocks?\\b"
+  ],
+  "chapters": "1,4,APP",
+  "see_also": [
+   "Thinking"
+  ]
+ },
+ {
+  "term": "Adaptive thinking",
+  "patterns": [
+   "(?i)\\badaptive thinking\\b"
+  ],
+  "chapters": "4,APP",
+  "see_also": [
+   "Thinking"
+  ]
+ },
+ {
+  "term": "Agent SDK",
+  "see": "Claude Agent SDK"
+ },
+ {
+  "term": "Percentiles",
+  "see": "p50 / p95"
+ },
+ {
+  "term": "Dimensions of agency",
+  "patterns": [
+   "(?i)\\bdimensions of agency\\b",
+   "(?i)\\bmakes a system agentic\\b"
+  ],
+  "chapters": "1,APP"
+ },
+ {
+  "term": "Agent architecture reference model",
+  "patterns": [
+   "(?i)\\barchitecture reference model\\b"
+  ],
+  "chapters": "1,30,APP",
+  "see_also": [
+   "Reference architecture"
+  ]
+ },
+ {
+  "term": "Agent engineering lifecycle",
+  "patterns": [
+   "(?i)\\bengineering lifecycle\\b",
+   "(?i)\\bagent lifecycle\\b"
+  ],
+  "chapters": "1,30,APP",
+  "see_also": [
+   "Agent version"
+  ]
+ },
+ {
+  "term": "LLM (large language model)",
+  "patterns": [
+   "\\bLLMs?\\b",
+   "(?i)\\blarge language models?\\b"
+  ],
+  "chapters": "0,1,APP"
+ },
+ {
+  "term": "Messages API",
+  "patterns": [
+   "(?i)\\bMessages API\\b",
+   "\\bmessages\\.create\\b"
+  ],
+  "chapters": "1,2,4,16,24"
+ },
+ {
+  "term": "Content block",
+  "patterns": [
+   "(?i)\\bcontent blocks?\\b"
+  ],
+  "chapters": "1,APP",
+  "see_also": [
+   "tool_use block",
+   "tool_result block"
+  ]
+ },
+ {
+  "term": "Token (unit of text)",
+  "patterns": [
+   "(?i)\\btokens? (?:in|out)\\b",
+   "(?i)\\binput tokens?\\b",
+   "(?i)\\boutput tokens?\\b",
+   "(?i)\\btoken counts?\\b"
+  ],
+  "chapters": "1,4,16,28,29,APP",
+  "see_also": [
+   "Access token",
+   "Cost"
+  ]
+ },
+ {
+  "term": "max_tokens",
+  "patterns": [
+   "\\bmax_tokens\\b"
+  ],
+  "chapters": "1,4,APP"
+ },
+ {
+  "term": "Stop reason (stop_reason)",
+  "patterns": [
+   "\\bstop_reason\\b",
+   "(?i)\\bstop reasons?\\b"
+  ],
+  "chapters": "1,2,4,APP",
+  "sub": [
+   {
+    "term": "end_turn",
+    "patterns": [
+     "\\bend_turn\\b"
+    ],
+    "chapters": "1,4,APP"
+   },
+   {
+    "term": "tool_use",
+    "patterns": [
+     "\\bstop_reason\\b[^.]{0,40}\\\"?tool_use\\b",
+     "\\b\\\"tool_use\\\"",
+     "`tool_use`"
+    ],
+    "chapters": "1,2,4,APP"
+   }
+  ]
+ },
+ {
+  "term": "Hallucination",
+  "patterns": [
+   "(?i)\\bhallucinat\\w*"
+  ]
+ },
+ {
+  "term": "System prompt",
+  "patterns": [
+   "(?i)\\bsystem prompts?\\b"
+  ],
+  "see_also": [
+   "Context engineering",
+   "Prompt caching"
+  ],
+  "sub": [
+   {
+    "term": "as design",
+    "patterns": [
+     "(?i)\\bsystem prompts and tool sets\\b"
+    ],
+    "chapters": "16"
+   }
+  ]
+ },
+ {
+  "term": "Thinking",
+  "patterns": [
+   "(?i)\\bextended thinking\\b",
+   "(?i)\\bthinking blocks?\\b",
+   "(?i)\\badaptive thinking\\b",
+   "(?i)\\bthinking and effort\\b"
+  ],
+  "chapters": "1,4,APP"
+ },
+ {
+  "term": "Effort (request setting)",
+  "patterns": [
+   "\\beffort\\b(?=[^.]{0,30}\\b(?:low|high|max|medium|setting|parameter)\\b)",
+   "`effort`",
+   "(?i)\\bthinking and effort\\b",
+   "\\beffort=\\\"?\\w"
+  ],
+  "chapters": "4,20,29,APP",
+  "see_also": [
+   "Thinking",
+   "Model routing"
+  ]
+ },
+ {
+  "term": "JSON",
+  "patterns": [
+   "\\bJSON\\b"
+  ],
+  "chapters": "0,P,2"
+ },
+ {
+  "term": "JSON Schema",
+  "patterns": [
+   "\\bJSON Schemas?\\b"
+  ],
+  "chapters": "0,2,3,12,22,APP",
+  "see_also": [
+   "Structured outputs"
+  ]
+ },
+ {
+  "term": "HTTP",
+  "patterns": [
+   "\\bHTTP\\b(?! 4\\d\\d)"
+  ],
+  "chapters": "0,7,12,30"
+ },
+ {
+  "term": "Environment variables",
+  "patterns": [
+   "(?i)\\benvironment variables?\\b",
+   "\\bANTHROPIC_API_KEY\\b",
+   "\\.env\\b"
+  ],
+  "chapters": "0,30,APP"
+ },
+ {
+  "term": "API key",
+  "patterns": [
+   "(?i)\\bAPI keys?\\b"
+  ],
+  "chapters": "0,7,26,APP"
+ },
+ {
+  "term": "Docker",
+  "patterns": [
+   "\\bDocker\\b"
+  ],
+  "chapters": "0,12,30,CAP,APP",
+  "see_also": [
+   "Course kit"
+  ]
+ },
+ {
+  "term": "Course kit",
+  "patterns": [
+   "\\./course\\.sh\\b",
+   "(?i)\\bcourse kit\\b"
+  ],
+  "chapters": "0,P,T,R,S,M,A,1-31,CAP,APP",
+  "see_also": [
+   "Docker",
+   "Exercises"
+  ],
+  "sub": [
+   {
+    "term": "`./course.sh ex`",
+    "patterns": [
+     "\\./course\\.sh ex(?![\\w-])"
+    ],
+    "chapters": "0,4,12,16,APP"
+   },
+   {
+    "term": "`./course.sh check`",
+    "patterns": [
+     "\\./course\\.sh check(?![\\w-])"
+    ],
+    "chapters": "0,P,T,3,R,S,A,22,25,26,CAP,APP"
+   },
+   {
+    "term": "`./course.sh check-solutions`",
+    "patterns": [
+     "\\./course\\.sh check-solutions\\b"
+    ]
+   },
+   {
+    "term": "`./course.sh solution`",
+    "patterns": [
+     "\\./course\\.sh solution(?![\\w-])"
+    ],
+    "chapters": "APP"
+   },
+   {
+    "term": "`./course.sh local`",
+    "patterns": [
+     "\\./course\\.sh local\\b"
+    ],
+    "chapters": "0,APP"
+   },
+   {
+    "term": "`./course.sh capstone`",
+    "patterns": [
+     "\\./course\\.sh capstone\\b"
+    ],
+    "chapters": "CAP,APP"
+   }
+  ]
+ },
+ {
+  "term": "Exercises",
+  "patterns": [
+   "(?i)\\bexercise \\d+\\.\\d+\\b"
+  ],
+  "see_also": [
+   "Course kit",
+   "Solutions folder"
+  ]
+ },
+ {
+  "term": "Solutions folder",
+  "patterns": [
+   "(?i)\\bsolutions? folder\\b",
+   "\\bsolutions/"
+  ],
+  "chapters": "0,APP"
+ },
+ {
+  "term": "Local model",
+  "patterns": [
+   "(?i)\\blocal model\\b",
+   "(?i)\\bfree local model\\b"
+  ],
+  "chapters": "0,1,24,APP",
+  "see_also": [
+   "Ollama",
+   "qwen3.5:9b"
+  ]
+ },
+ {
+  "term": "Ollama",
+  "patterns": [
+   "\\bOllama\\b"
+  ],
+  "chapters": "2,24,APP",
+  "see_also": [
+   "Local model"
+  ]
+ },
+ {
+  "term": "qwen3.5:9b",
+  "patterns": [
+   "\\bqwen3\\.5:9b\\b"
+  ],
+  "chapters": "0,1,23,24,30,CAP,APP",
+  "see_also": [
+   "Local model"
+  ]
+ },
+ {
+  "term": "Python",
+  "patterns": [
+   "(?i)\\bPython\\b"
+  ],
+  "chapters": "0,P,A",
+  "sub": [
+   {
+    "term": "dataclasses",
+    "patterns": [
+     "(?i)\\bdataclass(?:es)?\\b"
+    ],
+    "chapters": "P,5"
+   },
+   {
+    "term": "decorators",
+    "patterns": [
+     "(?i)\\bdecorators?\\b"
+    ],
+    "chapters": "P,12"
+   },
+   {
+    "term": "dictionary of functions",
+    "patterns": [
+     "(?i)\\bdictionary of functions\\b",
+     "\\bfn\\(\\*\\*args\\)"
+    ],
+    "chapters": "P,2,3"
+   },
+   {
+    "term": "type hints",
+    "patterns": [
+     "(?i)\\btype hints?\\b"
+    ],
+    "chapters": "P,2,12"
+   }
+  ]
+ },
+ {
+  "term": "pytest",
+  "patterns": [
+   "\\bpytest\\b"
+  ],
+  "chapters": "1,T,6,9,10,12,APP",
+  "sub": [
+   {
+    "term": "assert",
+    "patterns": [
+     "\\bassert\\b"
+    ],
+    "chapters": "T"
+   },
+   {
+    "term": "fixtures",
+    "patterns": [
+     "(?i)\\bfixtures?\\b"
+    ],
+    "chapters": "T"
+   },
+   {
+    "term": "parametrize",
+    "patterns": [
+     "(?i)\\bparametri[sz]e\\b"
+    ],
+    "chapters": "T"
+   }
+  ]
+ },
+ {
+  "term": "Regular expressions",
+  "patterns": [
+   "(?i)\\bregular expressions?\\b",
+   "(?i)\\bregex(?:es)?\\b"
+  ],
+  "chapters": "R,8,25",
+  "see_also": [
+   "re module"
+  ],
+  "sub": [
+   {
+    "term": "re.search / re.findall",
+    "patterns": [
+     "\\bre\\.(?:search|findall|sub|match|fullmatch)\\b"
+    ],
+    "chapters": "R,25"
+   }
+  ]
+ },
+ {
+  "term": "re module",
+  "see": "Regular expressions"
+ },
+ {
+  "term": "SQL",
+  "patterns": [
+   "\\bSQL\\b"
+  ],
+  "chapters": "S,8,22",
+  "see_also": [
+   "SQLite",
+   "Text-to-SQL agent"
+  ],
+  "sub": [
+   {
+    "term": "SELECT",
+    "patterns": [
+     "\\bSELECT\\b"
+    ],
+    "chapters": "S,8"
+   },
+   {
+    "term": "JOIN",
+    "patterns": [
+     "\\bJOIN\\b"
+    ],
+    "chapters": "S,8"
+   },
+   {
+    "term": "GROUP BY",
+    "patterns": [
+     "\\bGROUP BY\\b"
+    ],
+    "chapters": "S,8"
+   },
+   {
+    "term": "read-only queries",
+    "patterns": [
+     "(?i)\\bread-only\\b"
+    ],
+    "chapters": "8"
+   }
+  ]
+ },
+ {
+  "term": "SQLite",
+  "patterns": [
+   "\\bSQLite\\b",
+   "\\bsqlite3\\b"
+  ],
+  "chapters": "5,8,14,17,19,22,30,S,APP",
+  "see_also": [
+   "SQL",
+   "shop.db"
+  ]
+ },
+ {
+  "term": "shop.db",
+  "patterns": [
+   "\\bshop\\.db\\b"
+  ],
+  "chapters": "S,8,CAP"
+ },
+ {
+  "term": "Async Python",
+  "patterns": [
+   "\\basyncio\\b",
+   "(?i)\\basync(?:hronous)?\\b",
+   "\\bawait\\b"
+  ],
+  "chapters": "A,11,13,19,20,29",
+  "sub": [
+   {
+    "term": "asyncio.gather",
+    "patterns": [
+     "\\basyncio\\.gather\\b",
+     "\\bgather\\b"
+    ],
+    "chapters": "A,11,29"
+   },
+   {
+    "term": "semaphores",
+    "patterns": [
+     "(?i)\\bsemaphores?\\b"
+    ],
+    "chapters": "A,11,29"
+   }
+  ]
+ },
+ {
+  "term": "Tool",
+  "patterns": [
+   "(?i)\\bwhat a tool is\\b",
+   "(?i)\\btool definitions?\\b",
+   "(?i)\\btool descriptions?\\b"
+  ],
+  "chapters": "2,3,APP",
+  "see_also": [
+   "Tool calling (function calling)",
+   "MCP (Model Context Protocol)"
+  ],
+  "sub": [
+   {
+    "term": "definitions",
+    "patterns": [
+     "(?i)\\btool definitions?\\b"
+    ],
+    "chapters": "2,3,16,APP"
+   },
+   {
+    "term": "descriptions",
+    "patterns": [
+     "(?i)\\btool descriptions?\\b",
+     "(?i)\\bwriting descriptions\\b"
+    ],
+    "chapters": "2,3,14,16"
+   },
+   {
+    "term": "input_schema",
+    "patterns": [
+     "\\binput_schema\\b",
+     "\\binputSchema\\b"
+    ],
+    "chapters": "2,3,12"
+   },
+   {
+    "term": "errors as data",
+    "patterns": [
+     "(?i)\\berrors are data\\b",
+     "\\bis_error\\b"
+    ],
+    "chapters": "2,4,7"
+   }
+  ]
+ },
+ {
+  "term": "Tool calling (function calling)",
+  "patterns": [
+   "(?i)\\btool calling\\b",
+   "(?i)\\bfunction calling\\b",
+   "(?i)\\btool calls?\\b"
+  ],
+  "chapters": "1-4,15,16,APP",
+  "see_also": [
+   "Agent loop",
+   "Tool use",
+   "tool_choice"
+  ],
+  "sub": [
+   {
+    "term": "round-trip",
+    "patterns": [
+     "(?i)\\bround-trip\\b"
+    ],
+    "chapters": "2"
+   },
+   {
+    "term": "parallel tool calls",
+    "patterns": [
+     "(?i)\\bseveral tool calls\\b",
+     "(?i)\\bparallel tool calls?\\b"
+    ],
+    "chapters": "4"
+   },
+   {
+    "term": "tool_use_id",
+    "patterns": [
+     "\\btool_use_id\\b"
+    ],
+    "chapters": "2,4,16"
+   }
+  ]
+ },
+ {
+  "term": "Tool use",
+  "patterns": [
+   "(?i)\\btool use\\b"
+  ],
+  "chapters": "1-3,APP",
+  "see_also": [
+   "Tool calling (function calling)"
+  ]
+ },
+ {
+  "term": "tool_use block",
+  "patterns": [
+   "`tool_use`",
+   "\\btool_use blocks?\\b",
+   "\\\"tool_use\\\""
+  ],
+  "chapters": "1,2,4,APP"
+ },
+ {
+  "term": "tool_result block",
+  "patterns": [
+   "\\btool_result\\b"
+  ],
+  "chapters": "2,3,4,16,24,APP"
+ },
+ {
+  "term": "tool_choice",
+  "patterns": [
+   "\\btool_choice\\b"
+  ],
+  "chapters": "2,3,11,27,APP",
+  "see_also": [
+   "Routing"
+  ]
+ },
+ {
+  "term": "Tool selection",
+  "patterns": [
+   "(?i)\\btool selection\\b",
+   "(?i)\\bhow the model chooses\\b",
+   "(?i)\\brouting accuracy\\b"
+  ],
+  "chapters": "3",
+  "see_also": [
+   "Routing",
+   "Tool search"
+  ]
+ },
+ {
+  "term": "Tool search",
+  "patterns": [
+   "(?i)\\btool search\\b"
+  ],
+  "chapters": "3,30,APP",
+  "see_also": [
+   "Progressive discovery"
+  ]
+ },
+ {
+  "term": "Programmatic tool calling",
+  "patterns": [
+   "(?i)\\bprogrammatic tool calling\\b"
+  ],
+  "chapters": "16,APP"
+ },
+ {
+  "term": "Server tool",
+  "patterns": [
+   "(?i)\\bserver tools?\\b"
+  ],
+  "chapters": "2,3,APP"
+ },
+ {
+  "term": "Argument validation",
+  "patterns": [
+   "(?i)\\bvalidat\\w+ (?:the )?arguments\\b",
+   "(?i)\\bargument validation\\b"
+  ],
+  "chapters": "3,12",
+  "see_also": [
+   "JSON Schema",
+   "Pydantic"
+  ]
+ },
+ {
+  "term": "Pydantic",
+  "patterns": [
+   "\\bPydantic\\b"
+  ],
+  "chapters": "3,12"
+ },
+ {
+  "term": "Tool runner",
+  "patterns": [
+   "(?i)\\btool runner\\b"
+  ],
+  "chapters": "24,25",
+  "see_also": [
+   "Claude Agent SDK"
+  ]
+ },
+ {
+  "term": "Structured outputs",
+  "patterns": [
+   "(?i)\\bstructured outputs?\\b"
+  ],
+  "chapters": "3,11,16,18,20,22,24,APP",
+  "see_also": [
+   "JSON Schema"
+  ]
+ },
+ {
+  "term": "Agent loop",
+  "patterns": [
+   "(?i)\\bagent loop\\b",
+   "(?i)\\bthe loop\\b"
+  ],
+  "chapters": "1,4,5,13,19,24,APP",
+  "see_also": [
+   "Harness",
+   "Stop conditions"
+  ],
+  "sub": [
+   {
+    "term": "max turns",
+    "patterns": [
+     "(?i)\\bmax(?:imum)?[_ ]turns\\b",
+     "(?i)\\bturn limit\\b"
+    ],
+    "chapters": "4,10,24"
+   },
+   {
+    "term": "multi-turn chat",
+    "patterns": [
+     "(?i)\\bmulti-turn\\b"
+    ],
+    "chapters": "4"
+   }
+  ]
+ },
+ {
+  "term": "Stop conditions",
+  "patterns": [
+   "(?i)\\bstop conditions?\\b"
+  ],
+  "chapters": "4,10"
+ },
+ {
+  "term": "Budget (task)",
+  "patterns": [
+   "(?i)\\bbudgets?\\b"
+  ],
+  "chapters": "4,7,10,19,22,29",
+  "see_also": [
+   "Cost",
+   "Kill switch"
+  ],
+  "sub": [
+   {
+    "term": "for a whole task",
+    "patterns": [
+     "(?i)\\bbudgets for a whole task\\b",
+     "(?i)\\btask budgets?\\b"
+    ],
+    "chapters": "4"
+   },
+   {
+    "term": "for external calls",
+    "patterns": [
+     "(?i)\\bbudgets for external calls\\b"
+    ],
+    "chapters": "7"
+   },
+   {
+    "term": "in code",
+    "patterns": [
+     "(?i)\\bbudgets in code\\b"
+    ],
+    "chapters": "29"
+   }
+  ]
+ },
+ {
+  "term": "Harness",
+  "patterns": [
+   "(?i)\\bharness\\b"
+  ],
+  "chapters": "1,8,19,22,23,26,27,APP",
+  "see_also": [
+   "Agent loop",
+   "Computer-use agent"
+  ]
+ },
+ {
+  "term": "History (conversation)",
+  "patterns": [
+   "(?i)\\bhistory grows\\b",
+   "(?i)\\bconversation history\\b",
+   "(?i)\\bmessage history\\b"
+  ],
+  "chapters": "4,5,16"
+ },
+ {
+  "term": "Workflow",
+  "patterns": [
+   "(?i)\\bfixed workflow\\b",
+   "(?i)\\bworkflows?\\b"
+  ],
+  "chapters": "1,21,22,APP",
+  "see_also": [
+   "Agent",
+   "Deterministic shell"
+  ]
+ },
+ {
+  "term": "Memory",
+  "patterns": [
+   "(?i)\\bmemor(?:y|ies)\\b"
+  ],
+  "chapters": "5,17,18,APP",
+  "see_also": [
+   "Context engineering",
+   "RAG (retrieval-augmented generation)"
+  ],
+  "sub": [
+   {
+    "term": "working (short-term)",
+    "patterns": [
+     "(?i)\\bworking memory\\b",
+     "(?i)\\bshort-term memory\\b"
+    ],
+    "chapters": "5,17,APP"
+   },
+   {
+    "term": "long-term",
+    "patterns": [
+     "(?i)\\blong-term memor(?:y|ies)\\b"
+    ],
+    "chapters": "5,17,APP"
+   },
+   {
+    "term": "episodic",
+    "patterns": [
+     "(?i)\\bepisodic\\b"
+    ],
+    "chapters": "17,APP"
+   },
+   {
+    "term": "semantic",
+    "patterns": [
+     "(?i)\\bsemantic memor(?:y|ies)\\b",
+     "(?i)\\bsemantic\\b(?= (?:and|,) procedural)"
+    ],
+    "chapters": "17,APP"
+   },
+   {
+    "term": "procedural",
+    "patterns": [
+     "(?i)\\bprocedural\\b"
+    ],
+    "chapters": "17,APP"
+   },
+   {
+    "term": "memory policy",
+    "patterns": [
+     "(?i)\\bmemory polic(?:y|ies)\\b"
+    ],
+    "chapters": "17"
+   },
+   {
+    "term": "recall by relevance",
+    "patterns": [
+     "(?i)\\brecall by relevance\\b",
+     "(?i)\\brecall\\w*\\b"
+    ],
+    "chapters": "17"
+   },
+   {
+    "term": "forgetting and staleness",
+    "patterns": [
+     "(?i)\\bforget\\w*\\b",
+     "(?i)\\bstale(?:ness)?\\b"
+    ],
+    "chapters": "17"
+   },
+   {
+    "term": "scopes and sharing",
+    "patterns": [
+     "(?i)\\bmemory scopes?\\b",
+     "(?i)\\bscopes and sharing\\b",
+     "(?i)\\bwho owns a memory\\b"
+    ],
+    "chapters": "17"
+   },
+   {
+    "term": "poisoning",
+    "patterns": [
+     "(?i)\\bmemory poisoning\\b",
+     "(?i)\\bpoison\\w*\\b"
+    ],
+    "chapters": "17,25"
+   }
+  ]
+ },
+ {
+  "term": "Working memory",
+  "patterns": [
+   "(?i)\\bworking memory\\b",
+   "(?i)\\bshort-term memory\\b"
+  ],
+  "chapters": "5,17,APP"
+ },
+ {
+  "term": "Episodic, semantic and procedural memory",
+  "patterns": [
+   "(?i)\\bepisodic\\b",
+   "(?i)\\bprocedural memory\\b"
+  ],
+  "chapters": "17,APP"
+ },
+ {
+  "term": "To-do tools",
+  "patterns": [
+   "(?i)\\bto-do tools?\\b",
+   "\\btodo_\\w+\\b",
+   "(?i)\\bto-do list\\b"
+  ],
+  "chapters": "5,30"
+ },
+ {
+  "term": "Provenance",
+  "patterns": [
+   "(?i)\\bprovenance\\b"
+  ],
+  "chapters": "16,17,24,26,APP",
+  "see_also": [
+   "Freshness"
+  ]
+ },
+ {
+  "term": "Freshness",
+  "patterns": [
+   "(?i)\\bfreshness\\b"
+  ],
+  "chapters": "16,17,18"
+ },
+ {
+  "term": "Ambiguity (ask, don't guess)",
+  "patterns": [
+   "(?i)\\bambigu\\w+\\b",
+   "(?i)\\bask, don't guess\\b"
+  ],
+  "chapters": "5,7",
+  "see_also": [
+   "Clarifying questions"
+  ]
+ },
+ {
+  "term": "Clarifying questions",
+  "see": "Ambiguity (ask, don't guess)"
+ },
+ {
+  "term": "Idempotent",
+  "patterns": [
+   "(?i)\\bidempoten(?:t|cy)\\b"
+  ],
+  "chapters": "5,7,19,23,25,APP",
+  "see_also": [
+   "Idempotency key"
+  ]
+ },
+ {
+  "term": "Idempotency key",
+  "patterns": [
+   "(?i)\\bidempotency keys?\\b"
+  ],
+  "chapters": "5,7,19,22,30,CS,APP",
+  "see_also": [
+   "Idempotent",
+   "Retries"
+  ]
+ },
+ {
+  "term": "Agentic search",
+  "patterns": [
+   "(?i)\\bagentic search\\b"
+  ],
+  "chapters": "1,6,18,APP",
+  "see_also": [
+   "RAG (retrieval-augmented generation)",
+   "Agentic retrieval"
+  ]
+ },
+ {
+  "term": "Sandbox",
+  "patterns": [
+   "(?i)\\bsandbox(?:ed|es|ing)?\\b"
+  ],
+  "chapters": "6,10,16,23,24,APP",
+  "see_also": [
+   "Path traversal"
+  ]
+ },
+ {
+  "term": "Path traversal",
+  "patterns": [
+   "(?i)\\bpath traversal\\b",
+   "\\.\\./"
+  ],
+  "chapters": "6,10,25"
+ },
+ {
+  "term": "Citations",
+  "patterns": [
+   "(?i)\\bcitations?\\b",
+   "(?i)\\bcit(?:e|es|ing)\\b"
+  ],
+  "chapters": "6,11,16,18,CS,CAP",
+  "sub": [
+   {
+    "term": "checking",
+    "patterns": [
+     "(?i)\\bcheck\\w* (?:the )?citations?\\b",
+     "(?i)\\bcitations? checks?\\b"
+    ],
+    "chapters": "6,18"
+   }
+  ]
+ },
+ {
+  "term": "Weather tools",
+  "patterns": [
+   "(?i)\\bweather tools?\\b",
+   "\\bget_weather\\b",
+   "\\bget_forecast\\b"
+  ],
+  "chapters": "7"
+ },
+ {
+  "term": "Open-Meteo",
+  "patterns": [
+   "\\bOpen-Meteo\\b"
+  ],
+  "chapters": "0,7,APP"
+ },
+ {
+  "term": "Rate limit",
+  "patterns": [
+   "(?i)\\brate[- ]limit\\w*\\b",
+   "\\b429\\b"
+  ],
+  "chapters": "7,19,26,29,30,APP",
+  "see_also": [
+   "Token bucket"
+  ]
+ },
+ {
+  "term": "Token bucket",
+  "patterns": [
+   "(?i)\\btoken buckets?\\b"
+  ],
+  "chapters": "7,29,30,APP"
+ },
+ {
+  "term": "Retries",
+  "patterns": [
+   "(?i)\\bretr(?:y|ies|ying|ied)\\b"
+  ],
+  "chapters": "7,19,29",
+  "see_also": [
+   "Exponential backoff",
+   "Idempotency key"
+  ],
+  "sub": [
+   {
+    "term": "errors you mustn't retry",
+    "patterns": [
+     "(?i)\\bmustn't retry\\b",
+     "(?i)\\bnot retry\\b",
+     "(?i)\\bdon't retry\\b"
+    ],
+    "chapters": "7,19"
+   }
+  ]
+ },
+ {
+  "term": "Exponential backoff",
+  "patterns": [
+   "(?i)\\bbackoff\\b",
+   "(?i)\\bback off\\b"
+  ],
+  "chapters": "7,19,29"
+ },
+ {
+  "term": "Timeouts",
+  "patterns": [
+   "(?i)\\btimeouts?\\b",
+   "(?i)\\btime out\\b"
+  ],
+  "chapters": "7,19,29,30,A"
+ },
+ {
+  "term": "Caching (API results)",
+  "patterns": [
+   "(?i)\\bcach(?:e|es|ed|ing)\\b"
+  ],
+  "chapters": "7",
+  "see_also": [
+   "Prompt caching",
+   "Cache hint (MCP)"
+  ]
+ },
+ {
+  "term": "Text-to-SQL agent",
+  "patterns": [
+   "(?i)\\btext-to-SQL\\b"
+  ],
+  "chapters": "8,CAP",
+  "see_also": [
+   "SQL",
+   "Self-correction"
+  ]
+ },
+ {
+  "term": "Self-correction",
+  "patterns": [
+   "(?i)\\bself-correct\\w*\\b",
+   "(?i)\\berror-driven\\b"
+  ],
+  "chapters": "8,10"
+ },
+ {
+  "term": "Safety in layers (defense in depth)",
+  "patterns": [
+   "(?i)\\bsafety in layers\\b",
+   "(?i)\\bdefen[cs]e in depth\\b",
+   "(?i)\\blayers of (?:defen[cs]e|safety)\\b"
+  ],
+  "chapters": "8,14,25"
+ },
+ {
+  "term": "Human-in-the-loop",
+  "patterns": [
+   "(?i)\\bhuman-in-the-loop\\b"
+  ],
+  "chapters": "9,22",
+  "see_also": [
+   "Approval gate"
+  ]
+ },
+ {
+  "term": "Approval gate",
+  "patterns": [
+   "(?i)\\bapproval gates?\\b",
+   "(?i)\\bthe gate\\b"
+  ],
+  "chapters": "9,14,22-26,28,APP",
+  "see_also": [
+   "Human-in-the-loop",
+   "Step-up",
+   "Risk tier"
+  ],
+  "sub": [
+   {
+    "term": "in code",
+    "patterns": [
+     "(?i)\\bgate lives in code\\b"
+    ],
+    "chapters": "9"
+   },
+   {
+    "term": "auto-approval policies",
+    "patterns": [
+     "(?i)\\bauto-approv\\w+\\b"
+    ],
+    "chapters": "9"
+   }
+  ]
+ },
+ {
+  "term": "Risk rating (actions)",
+  "patterns": [
+   "(?i)\\brate actions by risk\\b",
+   "(?i)\\brisk levels?\\b",
+   "(?i)\\b(?:low|medium|high)-risk\\b"
+  ],
+  "chapters": "9,22,25,26"
+ },
+ {
+  "term": "Audit log",
+  "patterns": [
+   "(?i)\\baudit (?:log|trail)s?\\b"
+  ],
+  "chapters": "9,14,22,25,26,30,APP",
+  "see_also": [
+   "Observability"
+  ]
+ },
+ {
+  "term": "Feedback loops",
+  "patterns": [
+   "(?i)\\bfeedback loops?\\b"
+  ],
+  "chapters": "10",
+  "see_also": [
+   "Self-correction"
+  ]
+ },
+ {
+  "term": "Fixer agent",
+  "patterns": [
+   "(?i)\\bfixer\\b"
+  ],
+  "chapters": "10"
+ },
+ {
+  "term": "Review by diff",
+  "patterns": [
+   "(?i)\\breview by diff\\b",
+   "(?i)\\bdiffs?\\b"
+  ],
+  "chapters": "10"
+ },
+ {
+  "term": "Multi-agent systems",
+  "patterns": [
+   "(?i)\\bmulti-agent\\b",
+   "(?i)\\bteams? of agents\\b"
+  ],
+  "chapters": "11,21",
+  "see_also": [
+   "Orchestration patterns",
+   "Subagent"
+  ],
+  "sub": [
+   {
+    "term": "research team",
+    "patterns": [
+     "(?i)\\bresearch team\\b"
+    ],
+    "chapters": "11"
+   },
+   {
+    "term": "cost of",
+    "patterns": [
+     "(?i)\\bcost and when not\\b",
+     "(?i)\\bcoordination overhead\\b"
+    ],
+    "chapters": "11,21"
+   },
+   {
+    "term": "failure containment",
+    "patterns": [
+     "(?i)\\bcontainment\\b",
+     "(?i)\\bhow teams fail\\b"
+    ],
+    "chapters": "21"
+   },
+   {
+    "term": "resolving disagreement",
+    "patterns": [
+     "(?i)\\bdisagree\\w*\\b"
+    ],
+    "chapters": "21"
+   }
+  ]
+ },
+ {
+  "term": "Subagent",
+  "patterns": [
+   "(?i)\\bsubagents?\\b"
+  ],
+  "chapters": "11,16,21,24,26,CAP"
+ },
+ {
+  "term": "Orchestration patterns",
+  "patterns": [
+   "(?i)\\btopolog(?:y|ies)\\b",
+   "(?i)\\bfour more patterns\\b",
+   "(?i)\\borchestrat\\w+\\b"
+  ],
+  "chapters": "11,21",
+  "see_also": [
+   "Multi-agent systems"
+  ],
+  "sub": [
+   {
+    "term": "orchestrator-worker",
+    "patterns": [
+     "(?i)\\borchestrator[-–]worker\\b",
+     "(?i)\\borchestrator\\b"
+    ],
+    "chapters": "11,21,APP"
+   },
+   {
+    "term": "pipeline (sequential)",
+    "patterns": [
+     "(?i)\\bpipelines?\\b",
+     "(?i)\\bsequential\\b"
+    ],
+    "chapters": "11,21"
+   },
+   {
+    "term": "parallel fan-out",
+    "patterns": [
+     "(?i)\\bfan(?:-| )out\\b",
+     "(?i)\\bin parallel\\b"
+    ],
+    "chapters": "11,21"
+   },
+   {
+    "term": "debate and voting",
+    "patterns": [
+     "(?i)\\bdebate\\b",
+     "(?i)\\bvot(?:e|es|ing)\\b"
+    ],
+    "chapters": "11,21"
+   }
+  ]
+ },
+ {
+  "term": "Orchestrator–worker",
+  "patterns": [
+   "(?i)\\borchestrator[-–]worker\\b",
+   "(?i)\\borchestrators?\\b"
+  ],
+  "chapters": "11,21,APP",
+  "see_also": [
+   "Subagent"
+  ]
+ },
+ {
+  "term": "Blackboard (shared board)",
+  "patterns": [
+   "(?i)\\bblackboard\\b",
+   "(?i)\\bshared board\\b"
+  ],
+  "chapters": "21,24,APP"
+ },
+ {
+  "term": "Contract (between agents)",
+  "patterns": [
+   "(?i)\\bcontracts? between agents\\b",
+   "(?i)\\bcontracts?\\b"
+  ],
+  "chapters": "11,21,APP"
+ },
+ {
+  "term": "Briefs, not histories",
+  "patterns": [
+   "(?i)\\bbriefs?, not histor\\w+\\b",
+   "(?i)\\bbriefs?\\b"
+  ],
+  "chapters": "11,20,21"
+ },
+ {
+  "term": "Coordination overhead",
+  "patterns": [
+   "(?i)\\bcoordination overhead\\b"
+  ],
+  "chapters": "21,APP"
+ },
+ {
+  "term": "Break-even value",
+  "patterns": [
+   "(?i)\\bbreak-even\\b"
+  ],
+  "chapters": "21,29,APP"
+ },
+ {
+  "term": "A2A (Agent2Agent)",
+  "patterns": [
+   "\\bA2A\\b",
+   "\\bAgent2Agent\\b"
+  ],
+  "chapters": "1,11,13,21,24-26,30,CAP,APP",
+  "see_also": [
+   "MCP (Model Context Protocol)",
+   "Agent card"
+  ],
+  "sub": [
+   {
+    "term": "MCP or A2A",
+    "patterns": [
+     "(?i)\\bMCP or A2A\\b",
+     "(?i)\\bMCP, A2A\\b"
+    ],
+    "chapters": "21,APP"
+   }
+  ]
+ },
+ {
+  "term": "Agent card",
+  "patterns": [
+   "(?i)\\bagent cards?\\b",
+   "agent-card\\.json"
+  ],
+  "chapters": "21,26,APP"
+ },
+ {
+  "term": "Agent2Agent",
+  "see": "A2A (Agent2Agent)"
+ },
+ {
+  "term": "MCP (Model Context Protocol)",
+  "patterns": [
+   "\\bMCP\\b",
+   "\\bModel Context Protocol\\b"
+  ],
+  "chapters": "1,11-15,21,23-26,30,CAP,APP",
+  "see_also": [
+   "A2A (Agent2Agent)",
+   "MCP server",
+   "MCP client"
+  ],
+  "sub": [
+   {
+    "term": "hosts",
+    "patterns": [
+     "(?i)\\bMCP hosts?\\b",
+     "(?i)\\bthe host\\b",
+     "(?i)\\bhosts, clients\\b"
+    ],
+    "chapters": "12,13,15"
+   },
+   {
+    "term": "clients",
+    "patterns": [
+     "(?i)\\bMCP clients?\\b",
+     "(?i)\\bclient sessions?\\b",
+     "\\bClientSession\\b"
+    ],
+    "chapters": "12,13,30"
+   },
+   {
+    "term": "servers",
+    "patterns": [
+     "(?i)\\bMCP servers?\\b"
+    ],
+    "chapters": "1,12-15,24,26,30,CAP"
+   },
+   {
+    "term": "tools",
+    "patterns": [
+     "\\btools/(?:list|call)\\b",
+     "@mcp\\.tool\\b",
+     "(?i)\\bMCP tools?\\b"
+    ],
+    "chapters": "12-15,30"
+   },
+   {
+    "term": "resources",
+    "patterns": [
+     "\\bresources/(?:read|list|templates)\\b",
+     "(?i)\\bresource templates?\\b",
+     "(?i)\\bMCP resources?\\b",
+     "@mcp\\.resource\\b",
+     "\\bresources and prompts\\b",
+     "\\bread_resource\\b"
+    ],
+    "chapters": "12,13,15"
+   },
+   {
+    "term": "prompts",
+    "patterns": [
+     "\\bprompts/(?:get|list)\\b",
+     "(?i)\\bMCP prompts?\\b",
+     "@mcp\\.prompt\\b",
+     "\\bresources and prompts\\b",
+     "\\bget_prompt\\b"
+    ],
+    "chapters": "12,13,15"
+   },
+   {
+    "term": "transports",
+    "patterns": [
+     "(?i)\\btransports?\\b",
+     "(?i)\\bStreamable HTTP\\b",
+     "\\bstdio\\b"
+    ],
+    "chapters": "12,15,30"
+   },
+   {
+    "term": "connection lifecycle",
+    "patterns": [
+     "(?i)\\bconnection lifecycle\\b",
+     "\\binitialize\\b"
+    ],
+    "chapters": "13,15"
+   },
+   {
+    "term": "elicitation",
+    "patterns": [
+     "(?i)\\belicitation\\b"
+    ],
+    "chapters": "12,13,15"
+   },
+   {
+    "term": "sampling",
+    "patterns": [
+     "(?i)\\bsampling\\b"
+    ],
+    "chapters": "12,13,15"
+   },
+   {
+    "term": "roots",
+    "patterns": [
+     "\\broots\\b"
+    ],
+    "chapters": "15"
+   },
+   {
+    "term": "tasks",
+    "patterns": [
+     "\\btasks/get\\b",
+     "(?i)\\bTasks extension\\b",
+     "(?i)\\bMCP tasks?\\b",
+     "\\*\\*Tasks\\*\\*",
+     "\\bio\\.modelcontextprotocol/tasks\\b"
+    ],
+    "chapters": "12,15,30"
+   },
+   {
+    "term": "extensions",
+    "patterns": [
+     "(?i)\\bextensions?\\b"
+    ],
+    "chapters": "12,15,30"
+   },
+   {
+    "term": "gateway",
+    "patterns": [
+     "(?i)\\bMCP gateways?\\b",
+     "(?i)\\bgateways?\\b"
+    ],
+    "chapters": "14,15,30"
+   },
+   {
+    "term": "registry",
+    "patterns": [
+     "(?i)\\bMCP Registry\\b",
+     "(?i)\\bregistr(?:y|ies) and the supply chain\\b",
+     "(?i)\\bserver registr(?:y|ies)\\b"
+    ],
+    "chapters": "14,15,30"
+   },
+   {
+    "term": "authorization",
+    "patterns": [
+     "(?i)\\bauthori[sz]ation\\b",
+     "\\bOAuth\\b"
+    ],
+    "chapters": "12,15,30"
+   },
+   {
+    "term": "specification versions",
+    "patterns": [
+     "\\b20\\d\\d-\\d\\d-\\d\\d\\b(?= (?:spec|version|revision|MCP))",
+     "\\bMCP 20\\d\\d-\\d\\d-\\d\\d\\b",
+     "(?i)\\bspec(?:ification)? (?:version|revision)s?\\b"
+    ],
+    "chapters": "12,15,APP"
+   },
+   {
+    "term": "agents as MCP servers",
+    "patterns": [
+     "(?i)\\bagents? as (?:an )?MCP servers?\\b"
+    ],
+    "chapters": "13"
+   },
+   {
+    "term": "trusting a server",
+    "patterns": [
+     "(?i)\\btrusting a server\\b",
+     "(?i)\\btrust (?:a|the) server\\b"
+    ],
+    "chapters": "14,26"
+   }
+  ]
+ },
+ {
+  "term": "Model Context Protocol",
+  "see": "MCP (Model Context Protocol)"
+ },
+ {
+  "term": "MCP host",
+  "patterns": [
+   "(?i)\\bMCP hosts?\\b",
+   "(?i)\\bthe host\\b"
+  ],
+  "chapters": "12,13,15,APP"
+ },
+ {
+  "term": "Host (MCP)",
+  "see": "MCP host"
+ },
+ {
+  "term": "MCP client",
+  "patterns": [
+   "(?i)\\bMCP clients?\\b",
+   "\\bClientSession\\b"
+  ],
+  "chapters": "12,13,30,APP",
+  "see_also": [
+   "MCP host"
+  ],
+  "sub": [
+   {
+    "term": "building your own",
+    "patterns": [
+     "(?i)\\bbuild your own MCP client\\b",
+     "(?i)\\byour own client\\b"
+    ],
+    "chapters": "13"
+   }
+  ]
+ },
+ {
+  "term": "MCP server",
+  "patterns": [
+   "(?i)\\bMCP servers?\\b"
+  ],
+  "chapters": "1,12-15,21,23,24,26,30,CAP,APP",
+  "see_also": [
+   "MCP Inspector",
+   "Remote MCP server"
+  ],
+  "sub": [
+   {
+    "term": "reference servers",
+    "patterns": [
+     "(?i)\\breference servers?\\b"
+    ],
+    "chapters": "14"
+   },
+   {
+    "term": "policy layer",
+    "patterns": [
+     "(?i)\\bpolicy layer\\b"
+    ],
+    "chapters": "14"
+   }
+  ]
+ },
+ {
+  "term": "Remote MCP server",
+  "patterns": [
+   "(?i)\\bremote MCP servers?\\b",
+   "(?i)\\bremote server\\b"
+  ],
+  "chapters": "15,30"
+ },
+ {
+  "term": "Resource (MCP)",
+  "patterns": [
+   "\\bresources/(?:read|list|templates)\\b",
+   "(?i)\\bresource templates?\\b",
+   "(?i)\\bMCP resources?\\b",
+   "@mcp\\.resource\\b",
+   "\\bresources and prompts\\b",
+   "\\bread_resource\\b"
+  ],
+  "chapters": "12,13,15,APP"
+ },
+ {
+  "term": "Prompt (MCP)",
+  "patterns": [
+   "\\bprompts/(?:get|list)\\b",
+   "(?i)\\bMCP prompts?\\b",
+   "@mcp\\.prompt\\b",
+   "\\bresources and prompts\\b",
+   "\\bget_prompt\\b"
+  ],
+  "chapters": "12,13,15,APP"
+ },
+ {
+  "term": "Transports (MCP)",
+  "patterns": [
+   "(?i)\\btransports?\\b"
+  ],
+  "chapters": "12,15,30,APP",
+  "see_also": [
+   "stdio",
+   "Streamable HTTP",
+   "SSE (Server-Sent Events)"
+  ]
+ },
+ {
+  "term": "stdio",
+  "patterns": [
+   "\\bstdio\\b"
+  ],
+  "chapters": "12,24,30,APP"
+ },
+ {
+  "term": "Streamable HTTP",
+  "patterns": [
+   "(?i)\\bStreamable HTTP\\b"
+  ],
+  "chapters": "12,15,30,APP"
+ },
+ {
+  "term": "SSE (Server-Sent Events)",
+  "patterns": [
+   "\\bSSE\\b",
+   "(?i)\\bServer-Sent Events\\b"
+  ],
+  "chapters": "12,15,30,APP",
+  "see_also": [
+   "Streaming"
+  ]
+ },
+ {
+  "term": "Elicitation",
+  "patterns": [
+   "(?i)\\belicitation\\b",
+   "\\belicit\\b"
+  ],
+  "chapters": "12,13,15,APP"
+ },
+ {
+  "term": "Tasks (MCP)",
+  "patterns": [
+   "\\btasks/get\\b",
+   "(?i)\\bTasks extension\\b",
+   "(?i)\\bMCP tasks?\\b",
+   "\\*\\*Tasks\\*\\*",
+   "\\bio\\.modelcontextprotocol/tasks\\b"
+  ],
+  "chapters": "12,15,30,APP",
+  "see_also": [
+   "Long-running tools"
+  ]
+ },
+ {
+  "term": "Extension (MCP)",
+  "patterns": [
+   "(?i)\\bextensions?\\b"
+  ],
+  "chapters": "12,15,30,APP",
+  "see_also": [
+   "MCP Apps",
+   "Tasks (MCP)"
+  ]
+ },
+ {
+  "term": "MCP Apps",
+  "patterns": [
+   "\\bMCP Apps\\b"
+  ],
+  "chapters": "12,15,APP"
+ },
+ {
+  "term": "Multi round-trip request",
+  "patterns": [
+   "(?i)\\bmulti round-trip\\b"
+  ],
+  "chapters": "12,APP"
+ },
+ {
+  "term": "Cache hint (MCP)",
+  "patterns": [
+   "(?i)\\bcache hints?\\b",
+   "\\bttlMs\\b",
+   "\\bcacheScope\\b"
+  ],
+  "chapters": "12,15,30,APP"
+ },
+ {
+  "term": "Gateway (MCP)",
+  "patterns": [
+   "(?i)\\bgateways?\\b"
+  ],
+  "chapters": "14,15,26,30,APP",
+  "see_also": [
+   "Progressive discovery"
+  ]
+ },
+ {
+  "term": "MCP Registry",
+  "patterns": [
+   "(?i)\\bMCP Registry\\b",
+   "(?i)\\bregistr(?:y|ies) and the supply chain\\b"
+  ],
+  "chapters": "14,30,APP",
+  "see_also": [
+   "Supply chain"
+  ]
+ },
+ {
+  "term": "Supply chain",
+  "patterns": [
+   "(?i)\\bsupply chain\\b"
+  ],
+  "chapters": "14,24,25,30"
+ },
+ {
+  "term": "Progressive discovery",
+  "patterns": [
+   "(?i)\\bprogressive discovery\\b"
+  ],
+  "chapters": "12,15,30,APP",
+  "see_also": [
+   "Tool search"
+  ]
+ },
+ {
+  "term": "Stateless protocol",
+  "patterns": [
+   "(?i)\\bstateless\\b"
+  ],
+  "chapters": "15,30,APP"
+ },
+ {
+  "term": "JSON-RPC",
+  "patterns": [
+   "\\bJSON-RPC\\b"
+  ],
+  "chapters": "12,15"
+ },
+ {
+  "term": "MCP Inspector",
+  "patterns": [
+   "\\bMCP Inspector\\b",
+   "\\bInspector\\b"
+  ],
+  "chapters": "12,APP"
+ },
+ {
+  "term": "Claude Desktop",
+  "patterns": [
+   "\\bClaude Desktop\\b"
+  ],
+  "chapters": "0,1,9,12,13,APP",
+  "see_also": [
+   "MCP host"
+  ]
+ },
+ {
+  "term": "Prompt injection through tool output",
+  "patterns": [
+   "(?i)\\binjection through tool output\\b",
+   "(?i)\\bthrough tool output\\b"
+  ],
+  "chapters": "14"
+ },
+ {
+  "term": "Context engineering",
+  "patterns": [
+   "(?i)\\bcontext engineering\\b"
+  ],
+  "chapters": "16,APP",
+  "see_also": [
+   "System prompt",
+   "Compaction",
+   "Prompt caching"
+  ],
+  "sub": [
+   {
+    "term": "vs prompt engineering",
+    "patterns": [
+     "(?i)\\bprompt engineering\\b"
+    ],
+    "chapters": "16"
+   },
+   {
+    "term": "measuring context",
+    "patterns": [
+     "(?i)\\bwhat fills the context\\b",
+     "\\bcount_tokens\\b"
+    ],
+    "chapters": "16"
+   },
+   {
+    "term": "trimming tool results",
+    "patterns": [
+     "(?i)\\btrim\\w*\\b"
+    ],
+    "chapters": "16"
+   },
+   {
+    "term": "context editing",
+    "patterns": [
+     "(?i)\\bcontext editing\\b",
+     "(?i)\\bclear_tool_uses\\b",
+     "(?i)\\bAPI manage context\\b"
+    ],
+    "chapters": "16"
+   }
+  ]
+ },
+ {
+  "term": "Context window",
+  "patterns": [
+   "(?i)\\bcontext windows?\\b"
+  ],
+  "chapters": "1,5,6,8,15-17,19,APP",
+  "see_also": [
+   "Context engineering"
+  ],
+  "sub": [
+   {
+    "term": "protecting",
+    "patterns": [
+     "(?i)\\bprotecting the context window\\b"
+    ],
+    "chapters": "6"
+   }
+  ]
+ },
+ {
+  "term": "Compaction",
+  "patterns": [
+   "(?i)\\bcompact(?:ion|ing|ed|s)?\\b"
+  ],
+  "chapters": "16,17,24,29,APP",
+  "see_also": [
+   "Context engineering"
+  ]
+ },
+ {
+  "term": "Prompt caching",
+  "patterns": [
+   "(?i)\\bprompt caching\\b",
+   "\\bcache_control\\b",
+   "(?i)\\bcache (?:reads?|writes?|hits?)\\b"
+  ],
+  "chapters": "16,21,29,APP",
+  "see_also": [
+   "Cost"
+  ],
+  "sub": [
+   {
+    "term": "cache_control",
+    "patterns": [
+     "\\bcache_control\\b"
+    ],
+    "chapters": "16,29"
+   }
+  ]
+ },
+ {
+  "term": "Notes outside the context",
+  "patterns": [
+   "(?i)\\bnotes outside the context\\b",
+   "(?i)\\bnotes file\\b",
+   "(?i)\\bprogress (?:file|notes)\\b"
+  ],
+  "chapters": "16,19"
+ },
+ {
+  "term": "RAG (retrieval-augmented generation)",
+  "patterns": [
+   "\\bRAG\\b",
+   "(?i)\\bretrieval-augmented\\b"
+  ],
+  "chapters": "1,6,11,18,21,APP",
+  "see_also": [
+   "Agentic search",
+   "Embedding",
+   "Hybrid search"
+  ],
+  "sub": [
+   {
+    "term": "pipeline",
+    "patterns": [
+     "(?i)\\bthe pipeline\\b",
+     "(?i)\\bRAG pipeline\\b",
+     "(?i)\\bingest\\w*\\b"
+    ],
+    "chapters": "18"
+   },
+   {
+    "term": "retrieval as a tool",
+    "patterns": [
+     "(?i)\\bretrieval as a tool\\b"
+    ],
+    "chapters": "18"
+   },
+   {
+    "term": "evidence sufficiency",
+    "patterns": [
+     "(?i)\\bevidence (?:is )?enough\\b",
+     "(?i)\\benough evidence\\b"
+    ],
+    "chapters": "18"
+   },
+   {
+    "term": "agentic search or RAG",
+    "patterns": [
+     "(?i)\\bagentic search or RAG\\b"
+    ],
+    "chapters": "6"
+   }
+  ]
+ },
+ {
+  "term": "Retrieval-augmented generation",
+  "see": "RAG (retrieval-augmented generation)"
+ },
+ {
+  "term": "Agentic retrieval",
+  "patterns": [
+   "(?i)\\bagentic retrieval\\b",
+   "(?i)\\bagentic RAG\\b"
+  ],
+  "chapters": "18,APP"
+ },
+ {
+  "term": "Chunking",
+  "patterns": [
+   "(?i)\\bchunk(?:s|ing|ed)?\\b"
+  ],
+  "chapters": "18"
+ },
+ {
+  "term": "Embedding",
+  "patterns": [
+   "(?i)\\bembeddings?\\b"
+  ],
+  "chapters": "6,17,18,30,APP",
+  "see_also": [
+   "Vector search",
+   "Cosine similarity"
+  ]
+ },
+ {
+  "term": "Cosine similarity",
+  "patterns": [
+   "(?i)\\bcosine\\b"
+  ],
+  "chapters": "17,18"
+ },
+ {
+  "term": "Vector search",
+  "patterns": [
+   "(?i)\\bvectors?\\b"
+  ],
+  "chapters": "17,18,APP"
+ },
+ {
+  "term": "Keyword search",
+  "patterns": [
+   "(?i)\\bkeyword (?:search|ranking|scores?)\\b"
+  ],
+  "chapters": "18,APP",
+  "see_also": [
+   "BM25"
+  ]
+ },
+ {
+  "term": "BM25",
+  "patterns": [
+   "\\bBM25\\b"
+  ],
+  "chapters": "18,APP"
+ },
+ {
+  "term": "Hybrid search",
+  "patterns": [
+   "(?i)\\bhybrid (?:search|ranking|retrieval)\\b"
+  ],
+  "chapters": "18,30",
+  "see_also": [
+   "Reciprocal rank fusion",
+   "Reranking"
+  ]
+ },
+ {
+  "term": "Reciprocal rank fusion",
+  "patterns": [
+   "(?i)\\breciprocal rank fusion\\b",
+   "\\bRRF\\b"
+  ],
+  "chapters": "18,APP"
+ },
+ {
+  "term": "Reranking",
+  "patterns": [
+   "(?i)\\brerank\\w*\\b"
+  ],
+  "chapters": "18"
+ },
+ {
+  "term": "Recall@k / MRR",
+  "patterns": [
+   "(?i)\\brecall@k\\b",
+   "\\bMRR\\b",
+   "(?i)\\brecall@\\d\\b"
+  ],
+  "chapters": "18,APP"
+ },
+ {
+  "term": "Long-running agents",
+  "patterns": [
+   "(?i)\\blong-running\\b"
+  ],
+  "chapters": "19,20,30",
+  "see_also": [
+   "Durable execution",
+   "Checkpoint"
+  ],
+  "sub": [
+   {
+    "term": "harness across sessions",
+    "patterns": [
+     "(?i)\\bharness across sessions\\b",
+     "(?i)\\bacross sessions\\b"
+    ],
+    "chapters": "19"
+   }
+  ]
+ },
+ {
+  "term": "Durable execution",
+  "patterns": [
+   "(?i)\\bdurable execution\\b",
+   "(?i)\\bdurable\\b"
+  ],
+  "chapters": "A,19,APP",
+  "see_also": [
+   "Checkpoint",
+   "Lease",
+   "Temporal"
+  ]
+ },
+ {
+  "term": "Temporal",
+  "patterns": [
+   "\\bTemporal\\b"
+  ],
+  "chapters": "A,19"
+ },
+ {
+  "term": "Checkpoint",
+  "patterns": [
+   "(?i)\\bcheckpoint(?:s|ed|ing)?\\b(?!: end of)"
+  ],
+  "chapters": "19,20,23,24,APP",
+  "see_also": [
+   "Durable execution"
+  ],
+  "sub": [
+   {
+    "term": "a job is data",
+    "patterns": [
+     "(?i)\\ba job is data\\b"
+    ],
+    "chapters": "19"
+   }
+  ]
+ },
+ {
+  "term": "Lease",
+  "patterns": [
+   "(?i)\\bleases?\\b"
+  ],
+  "chapters": "19,20,30,APP",
+  "see_also": [
+   "Task queue"
+  ]
+ },
+ {
+  "term": "Task queue",
+  "patterns": [
+   "(?i)\\btask queues?\\b",
+   "(?i)\\bjob queues?\\b",
+   "(?i)\\bqueue\\b"
+  ],
+  "chapters": "19,29,30"
+ },
+ {
+  "term": "Escalation (handoff to a human)",
+  "patterns": [
+   "(?i)\\bescalat\\w+\\b",
+   "(?i)\\bhandoffs?\\b",
+   "(?i)\\bhand(?:s|ed)? (?:it )?off to (?:a )?(?:humans?|person|people)\\b"
+  ],
+  "chapters": "9,19,20,22,27-29,CS,CAP",
+  "see_also": [
+   "Approval gate"
+  ]
+ },
+ {
+  "term": "Handoff (between agents)",
+  "patterns": [
+   "(?i)\\bhandoffs?\\b",
+   "(?i)\\bhand(?:s|ing)? off\\b"
+  ],
+  "chapters": "11,21",
+  "see_also": [
+   "Orchestration patterns"
+  ]
+ },
+ {
+  "term": "Compensation",
+  "patterns": [
+   "(?i)\\bcompensat\\w+\\b"
+  ],
+  "chapters": "19,APP"
+ },
+ {
+  "term": "Planning",
+  "patterns": [
+   "(?i)\\bplanning\\b",
+   "(?i)\\bplans?\\b"
+  ],
+  "chapters": "9,20,22",
+  "see_also": [
+   "Plan (as data)",
+   "Replanning"
+  ],
+  "sub": [
+   {
+    "term": "step by step or plan first",
+    "patterns": [
+     "(?i)\\bstep by step, or plan first\\b",
+     "(?i)\\bplan first\\b"
+    ],
+    "chapters": "20"
+   },
+   {
+    "term": "checking a plan",
+    "patterns": [
+     "(?i)\\bcheck the plan\\b",
+     "(?i)\\bplan check\\w*\\b",
+     "(?i)\\bvalidate_plan\\b"
+    ],
+    "chapters": "20"
+   }
+  ]
+ },
+ {
+  "term": "Plan (as data)",
+  "patterns": [
+   "(?i)\\bplan is data\\b",
+   "(?i)\\bplans? as data\\b"
+  ],
+  "chapters": "20,APP"
+ },
+ {
+  "term": "Replanning",
+  "patterns": [
+   "(?i)\\breplan\\w*\\b"
+  ],
+  "chapters": "20"
+ },
+ {
+  "term": "Routing",
+  "patterns": [
+   "(?i)\\brout(?:ing|er|ers|e to)\\b"
+  ],
+  "chapters": "3,11,16,20,APP",
+  "see_also": [
+   "Model routing",
+   "tool_choice"
+  ],
+  "sub": [
+   {
+    "term": "routing accuracy",
+    "patterns": [
+     "(?i)\\brouting accuracy\\b"
+    ],
+    "chapters": "3"
+   }
+  ]
+ },
+ {
+  "term": "Model routing",
+  "patterns": [
+   "(?i)\\bmodel routing\\b",
+   "(?i)\\brouters?\\b"
+  ],
+  "chapters": "20,29,APP",
+  "see_also": [
+   "Cascade",
+   "Effort (request setting)"
+  ]
+ },
+ {
+  "term": "Cascade",
+  "patterns": [
+   "(?i)\\bcascad\\w+\\b"
+  ],
+  "chapters": "20,29,APP"
+ },
+ {
+  "term": "Cost per successful task",
+  "patterns": [
+   "(?i)\\bcost per success\\w*(?: task)?\\b"
+  ],
+  "chapters": "20,24,27-30,CS,CAP,APP",
+  "see_also": [
+   "Cost",
+   "Goodput"
+  ]
+ },
+ {
+  "term": "Deterministic control plane",
+  "patterns": [
+   "(?i)\\bdeterministic control plane\\b",
+   "(?i)\\bcontrol plane\\b"
+  ],
+  "chapters": "9,22,25,30,APP",
+  "see_also": [
+   "Deterministic shell",
+   "Approval gate"
+  ]
+ },
+ {
+  "term": "Deterministic shell",
+  "patterns": [
+   "(?i)\\bdeterministic shell\\b"
+  ],
+  "chapters": "22,APP",
+  "see_also": [
+   "Workflow"
+  ]
+ },
+ {
+  "term": "Hybrid architectures",
+  "patterns": [
+   "(?i)\\bhybrid architectures?\\b",
+   "(?i)\\bprobabilistic intelligence\\b"
+  ],
+  "chapters": "22"
+ },
+ {
+  "term": "State machine",
+  "patterns": [
+   "(?i)\\bstate machines?\\b",
+   "(?i)\\bstates and transitions\\b",
+   "(?i)\\btransitions?\\b"
+  ],
+  "chapters": "1,21,22,CS,APP"
+ },
+ {
+  "term": "Model outputs are proposals",
+  "patterns": [
+   "(?i)\\bproposals?\\b",
+   "(?i)\\bmodel only proposes\\b"
+  ],
+  "chapters": "22,25,APP"
+ },
+ {
+  "term": "Rules as data",
+  "patterns": [
+   "(?i)\\brules as data\\b",
+   "(?i)\\bnumbers from records\\b"
+  ],
+  "chapters": "22"
+ },
+ {
+  "term": "Output guard",
+  "patterns": [
+   "(?i)\\boutput guards?\\b",
+   "(?i)\\bguard what the model says\\b"
+  ],
+  "chapters": "22,25,APP"
+ },
+ {
+  "term": "Computer-use agent",
+  "patterns": [
+   "(?i)\\bcomputer[- ]use\\b"
+  ],
+  "chapters": "23,APP",
+  "see_also": [
+   "Harness",
+   "Playwright"
+  ],
+  "sub": [
+   {
+    "term": "screenshots",
+    "patterns": [
+     "(?i)\\bscreenshots?\\b"
+    ],
+    "chapters": "23"
+   },
+   {
+    "term": "acting and checking",
+    "patterns": [
+     "(?i)\\bacting and checking\\b",
+     "(?i)\\bverif\\w+\\b"
+    ],
+    "chapters": "23"
+   }
+  ]
+ },
+ {
+  "term": "Playwright",
+  "patterns": [
+   "\\bPlaywright\\b"
+  ],
+  "chapters": "14,23,CAP,APP"
+ },
+ {
+  "term": "Agent frameworks",
+  "patterns": [
+   "(?i)\\bframeworks?\\b"
+  ],
+  "chapters": "24",
+  "see_also": [
+   "LangChain",
+   "LangGraph",
+   "Claude Agent SDK"
+  ],
+  "sub": [
+   {
+    "term": "choosing a runtime",
+    "patterns": [
+     "(?i)\\bchoosing a runtime\\b",
+     "(?i)\\bruntimes?\\b"
+    ],
+    "chapters": "24"
+   }
+  ]
+ },
+ {
+  "term": "Claude Agent SDK",
+  "patterns": [
+   "\\bClaude Agent SDK\\b",
+   "\\bAgent SDK\\b",
+   "\\bclaude_agent_sdk\\b"
+  ],
+  "chapters": "24,CAP,APP",
+  "see_also": [
+   "Claude Code",
+   "Tool runner"
+  ]
+ },
+ {
+  "term": "Claude Code",
+  "patterns": [
+   "\\bClaude Code\\b"
+  ],
+  "chapters": "24,APP"
+ },
+ {
+  "term": "LangChain",
+  "patterns": [
+   "\\bLangChain\\b"
+  ],
+  "chapters": "24,27-29,APP"
+ },
+ {
+  "term": "LangGraph",
+  "patterns": [
+   "\\bLangGraph\\b"
+  ],
+  "chapters": "24,APP"
+ },
+ {
+  "term": "Managed Agents",
+  "patterns": [
+   "(?i)\\bmanaged agents?\\b"
+  ],
+  "chapters": "4,24,30,APP"
+ },
+ {
+  "term": "Agent Skills",
+  "patterns": [
+   "\\bAgent Skills?\\b",
+   "\\bSKILL\\.md\\b"
+  ],
+  "chapters": "24,APP",
+  "see_also": [
+   "Skill registry",
+   "Provenance"
+  ],
+  "sub": [
+   {
+    "term": "SKILL.md",
+    "patterns": [
+     "\\bSKILL\\.md\\b"
+    ],
+    "chapters": "24,APP"
+   },
+   {
+    "term": "as software",
+    "patterns": [
+     "(?i)\\bskills as software\\b"
+    ],
+    "chapters": "24"
+   }
+  ]
+ },
+ {
+  "term": "Skill registry",
+  "patterns": [
+   "(?i)\\bskill registr(?:y|ies)\\b"
+  ],
+  "chapters": "24,APP"
+ },
+ {
+  "term": "Other model providers",
+  "patterns": [
+   "(?i)\\bother model providers\\b",
+   "(?i)\\bmodel-agnostic\\b",
+   "\\bOpenAI\\b",
+   "\\bGemini\\b"
+  ],
+  "chapters": "24,APP"
+ },
+ {
+  "term": "Agentic security",
+  "patterns": [
+   "(?i)\\battack surface\\b",
+   "(?i)\\bthreat[- ]model\\w*\\b"
+  ],
+  "chapters": "25,CS",
+  "see_also": [
+   "Prompt injection",
+   "Lethal trifecta"
+  ],
+  "sub": [
+   {
+    "term": "attack surface",
+    "patterns": [
+     "(?i)\\battack surface\\b"
+    ],
+    "chapters": "25"
+   },
+   {
+    "term": "threat modeling",
+    "patterns": [
+     "(?i)\\bthreat[- ]model\\w*\\b"
+    ],
+    "chapters": "25,CS"
+   },
+   {
+    "term": "red teaming",
+    "patterns": [
+     "(?i)\\bred[- ]team\\w*\\b"
+    ],
+    "chapters": "25"
+   },
+   {
+    "term": "industry lists",
+    "patterns": [
+     "(?i)\\bindustry lists\\b",
+     "\\bOWASP\\b"
+    ],
+    "chapters": "25"
+   }
+  ]
+ },
+ {
+  "term": "Prompt injection",
+  "patterns": [
+   "(?i)\\bprompt injection\\b",
+   "(?i)\\binjection\\b"
+  ],
+  "chapters": "6,8,9,14,17,21,23,25,APP",
+  "see_also": [
+   "Lethal trifecta",
+   "Quarantine (dual-LLM pattern)"
+  ],
+  "sub": [
+   {
+    "term": "through tool output",
+    "patterns": [
+     "(?i)\\bthrough tool output\\b"
+    ],
+    "chapters": "14"
+   },
+   {
+    "term": "through the screen",
+    "patterns": [
+     "(?i)\\binjection through the screen\\b"
+    ],
+    "chapters": "23"
+   }
+  ]
+ },
+ {
+  "term": "Lethal trifecta",
+  "patterns": [
+   "(?i)\\blethal trifecta\\b"
+  ],
+  "chapters": "24-26,28,CS,APP",
+  "see_also": [
+   "Exfiltration"
+  ]
+ },
+ {
+  "term": "Exfiltration",
+  "patterns": [
+   "(?i)\\bexfiltrat\\w+\\b",
+   "(?i)\\bdata leaving\\b"
+  ],
+  "chapters": "25,31,APP",
+  "see_also": [
+   "SSRF (server-side request forgery)",
+   "Egress allowlist"
+  ]
+ },
+ {
+  "term": "SSRF (server-side request forgery)",
+  "patterns": [
+   "\\bSSRF\\b",
+   "(?i)\\bserver-side request forgery\\b"
+  ],
+  "chapters": "25,APP"
+ },
+ {
+  "term": "Egress allowlist",
+  "patterns": [
+   "(?i)\\begress\\b",
+   "(?i)\\ballowlist\\w*\\b",
+   "(?i)\\ballowed sites\\b"
+  ],
+  "chapters": "25,30"
+ },
+ {
+  "term": "Leak scan",
+  "patterns": [
+   "(?i)\\bleak scan\\w*\\b"
+  ],
+  "chapters": "25,30"
+ },
+ {
+  "term": "Canary token",
+  "patterns": [
+   "(?i)\\bcanary tokens?\\b",
+   "(?i)\\bcanaries\\b",
+   "(?i)\\bcanary alert\\b"
+  ],
+  "chapters": "25,28,30",
+  "see_also": [
+   "Exfiltration"
+  ]
+ },
+ {
+  "term": "Quarantine (dual-LLM pattern)",
+  "patterns": [
+   "(?i)\\bquarantin\\w+\\b",
+   "(?i)\\bdual[- ]LLM\\b"
+  ],
+  "chapters": "17,25,APP",
+  "see_also": [
+   "Prompt injection"
+  ]
+ },
+ {
+  "term": "Safe rendering",
+  "patterns": [
+   "(?i)\\bsafe rendering\\b",
+   "(?i)\\bsanitiz\\w+\\b"
+  ],
+  "chapters": "25,30"
+ },
+ {
+  "term": "Model output is untrusted",
+  "patterns": [
+   "(?i)\\boutput is untrusted\\b",
+   "(?i)\\buntrusted (?:text|content|output|data)\\b"
+  ],
+  "chapters": "14,22,25,APP"
+ },
+ {
+  "term": "OWASP Agentic Top 10",
+  "patterns": [
+   "\\bOWASP\\b",
+   "\\bASI\\d\\d\\b"
+  ],
+  "chapters": "17,25,26,APP"
+ },
+ {
+  "term": "Agent risk model",
+  "patterns": [
+   "(?i)\\brisk model\\b",
+   "(?i)\\bblast radius\\b",
+   "(?i)\\bsizing the risk\\b"
+  ],
+  "chapters": "25,APP",
+  "see_also": [
+   "Risk tier"
+  ]
+ },
+ {
+  "term": "Risk tier",
+  "patterns": [
+   "(?i)\\brisk tiers?\\b"
+  ],
+  "chapters": "25,26,30,APP"
+ },
+ {
+  "term": "Agent identity",
+  "patterns": [
+   "(?i)\\bagent identit(?:y|ies)\\b",
+   "(?i)\\bwho is acting\\b"
+  ],
+  "chapters": "1,12,15,26,30",
+  "see_also": [
+   "OAuth",
+   "Scopes",
+   "Explicit delegation"
+  ],
+  "sub": [
+   {
+    "term": "checking at the tool",
+    "patterns": [
+     "(?i)\\bchecking at the tool\\b",
+     "(?i)\\bcheck\\w* at the tool\\b"
+    ],
+    "chapters": "26"
+   },
+   {
+    "term": "audit and revocation",
+    "patterns": [
+     "(?i)\\brevo(?:ke|cation|ked)\\b"
+    ],
+    "chapters": "26,30"
+   },
+   {
+    "term": "across organizations",
+    "patterns": [
+     "(?i)\\bacross organi[sz]ations\\b"
+    ],
+    "chapters": "26"
+   }
+  ]
+ },
+ {
+  "term": "OAuth",
+  "patterns": [
+   "\\bOAuth(?: 2\\.\\d)?\\b"
+  ],
+  "chapters": "12,21,26,30,CAP",
+  "see_also": [
+   "Access token",
+   "Scopes"
+  ]
+ },
+ {
+  "term": "Access token",
+  "patterns": [
+   "(?i)\\baccess tokens?\\b",
+   "(?i)\\bbearer tokens?\\b",
+   "(?i)\\btokens that say what's allowed\\b",
+   "\\bJWTs?\\b"
+  ],
+  "chapters": "14,26,30",
+  "see_also": [
+   "Token (unit of text)",
+   "Scopes"
+  ],
+  "sub": [
+   {
+    "term": "JWT",
+    "patterns": [
+     "\\bJWTs?\\b"
+    ],
+    "chapters": "26,30"
+   },
+   {
+    "term": "token exchange",
+    "patterns": [
+     "(?i)\\btoken exchange\\b"
+    ],
+    "chapters": "26,30"
+   },
+   {
+    "term": "audience",
+    "patterns": [
+     "(?i)\\baudience\\b",
+     "\\baud\\b"
+    ],
+    "chapters": "26,30"
+   }
+  ]
+ },
+ {
+  "term": "Scopes",
+  "patterns": [
+   "(?i)\\bscopes?\\b"
+  ],
+  "chapters": "26,30",
+  "see_also": [
+   "Least privilege"
+  ]
+ },
+ {
+  "term": "Least privilege",
+  "patterns": [
+   "(?i)\\bleast privilege\\b",
+   "(?i)\\bleast-privilege\\b",
+   "(?i)\\bnarrow(?:er|est)? tokens?\\b"
+  ],
+  "chapters": "14,25,26,30"
+ },
+ {
+  "term": "Explicit delegation",
+  "patterns": [
+   "(?i)\\bexplicit delegation\\b",
+   "(?i)\\bnarrower tokens for subagents\\b",
+   "(?i)\\bdelegat\\w+\\b"
+  ],
+  "chapters": "26,APP"
+ },
+ {
+  "term": "Step-up",
+  "patterns": [
+   "(?i)\\bstep-up\\b"
+  ],
+  "chapters": "25,26,30,CS,APP",
+  "see_also": [
+   "Approval gate"
+  ]
+ },
+ {
+  "term": "Kill switch",
+  "patterns": [
+   "(?i)\\bkill switch\\w*\\b"
+  ],
+  "chapters": "25,26,30,31,APP"
+ },
+ {
+  "term": "Discovery (capability)",
+  "patterns": [
+   "(?i)\\bdiscovery\\b"
+  ],
+  "chapters": "12,13,15,26,30,APP",
+  "see_also": [
+   "Trust store",
+   "Descriptor (capability)",
+   "Progressive discovery"
+  ],
+  "sub": [
+   {
+    "term": "is not trust",
+    "patterns": [
+     "(?i)\\bfinding (?:a capability|one) is not trusting\\b",
+     "(?i)\\bnot trusting it\\b"
+    ],
+    "chapters": "26,APP"
+   }
+  ]
+ },
+ {
+  "term": "Descriptor (capability)",
+  "patterns": [
+   "(?i)\\bdescriptors?\\b"
+  ],
+  "chapters": "26,APP"
+ },
+ {
+  "term": "Trust store",
+  "patterns": [
+   "(?i)\\btrust stores?\\b"
+  ],
+  "chapters": "26,APP"
+ },
+ {
+  "term": "Authorization for companies",
+  "patterns": [
+   "(?i)\\bauthori[sz]ation for companies\\b",
+   "(?i)\\benterprise (?:auth|identity|SSO)\\b",
+   "\\bSSO\\b",
+   "(?i)\\bidentity provider\\b"
+  ],
+  "chapters": "26,30"
+ },
+ {
+  "term": "Evaluation (eval)",
+  "patterns": [
+   "(?i)\\bevals?\\b",
+   "(?i)\\bevaluation\\b"
+  ],
+  "chapters": "M,27,30,APP",
+  "see_also": [
+   "Pass rate",
+   "Scorecard (agent)",
+   "Regression gate",
+   "LLM judge (model-graded check)"
+  ],
+  "sub": [
+   {
+    "term": "cases and trials",
+    "patterns": [
+     "(?i)\\bcases, trials\\b",
+     "(?i)\\btrials?\\b"
+    ],
+    "chapters": "M,27"
+   },
+   {
+    "term": "outcome, process and cost",
+    "patterns": [
+     "(?i)\\boutcome, process and cost\\b",
+     "(?i)\\boutcome checks?\\b"
+    ],
+    "chapters": "27"
+   },
+   {
+    "term": "ten dimensions of quality",
+    "patterns": [
+     "(?i)\\bten dimensions\\b",
+     "(?i)\\bdimensions of agent quality\\b"
+    ],
+    "chapters": "27"
+   },
+   {
+    "term": "continuous evaluation",
+    "patterns": [
+     "(?i)\\bcontinuous evaluation\\b"
+    ],
+    "chapters": "27"
+   }
+  ]
+ },
+ {
+  "term": "Eval",
+  "see": "Evaluation (eval)"
+ },
+ {
+  "term": "Evaluation (eval) suite",
+  "patterns": [
+   "(?i)\\beval(?:uation)? suites?\\b"
+  ],
+  "chapters": "M,27,30,CS,APP"
+ },
+ {
+  "term": "Pass rate",
+  "patterns": [
+   "(?i)\\bpass rates?\\b"
+  ],
+  "chapters": "M,8,27,30,CS,APP",
+  "see_also": [
+   "Wilson interval",
+   "pass^k"
+  ]
+ },
+ {
+  "term": "pass^k",
+  "patterns": [
+   "(?i)\\bpass\\^k\\b",
+   "(?i)\\bpass\\^\\d\\b"
+  ],
+  "chapters": "M,27,APP",
+  "see_also": [
+   "Flaky case"
+  ]
+ },
+ {
+  "term": "Flaky case",
+  "patterns": [
+   "(?i)\\bflaky\\b"
+  ],
+  "chapters": "M,27,APP"
+ },
+ {
+  "term": "Confidence interval (95%)",
+  "patterns": [
+   "(?i)\\bconfidence intervals?\\b",
+   "(?i)\\b95% interval\\b",
+   "(?i)\\bmargins?\\b"
+  ],
+  "chapters": "M,27,APP",
+  "see_also": [
+   "Wilson interval"
+  ]
+ },
+ {
+  "term": "Wilson interval",
+  "patterns": [
+   "(?i)\\bWilson\\b"
+  ],
+  "chapters": "M,27,29-31"
+ },
+ {
+  "term": "LLM judge (model-graded check)",
+  "patterns": [
+   "(?i)\\bLLM[- ](?:as[- ]a[- ])?judges?\\b",
+   "(?i)\\bmodel-graded\\b",
+   "(?i)\\bjudges?\\b"
+  ],
+  "chapters": "M,18,25,27,28,30",
+  "see_also": [
+   "Evaluation (eval)"
+  ],
+  "sub": [
+   {
+    "term": "calibrating",
+    "patterns": [
+     "(?i)\\bcalibrat\\w+\\b"
+    ],
+    "chapters": "27"
+   },
+   {
+    "term": "rubric",
+    "patterns": [
+     "(?i)\\brubrics?\\b"
+    ],
+    "chapters": "27,CAP"
+   }
+  ]
+ },
+ {
+  "term": "Trajectory",
+  "patterns": [
+   "(?i)\\btrajector(?:y|ies)\\b"
+  ],
+  "chapters": "19,27,28,30,CAP,APP",
+  "see_also": [
+   "Trace"
+  ],
+  "sub": [
+   {
+    "term": "checking",
+    "patterns": [
+     "(?i)\\bchecking the trajectory\\b",
+     "(?i)\\btrajectory checks?\\b"
+    ],
+    "chapters": "27"
+   },
+   {
+    "term": "visualizing",
+    "patterns": [
+     "(?i)\\bvisuali[sz]ing a trajectory\\b"
+    ],
+    "chapters": "28"
+   }
+  ]
+ },
+ {
+  "term": "Scorecard (agent)",
+  "patterns": [
+   "(?i)\\bscorecards?\\b"
+  ],
+  "chapters": "27,28,30,31,APP",
+  "see_also": [
+   "Quality scorecard",
+   "Regression gate"
+  ]
+ },
+ {
+  "term": "Quality scorecard",
+  "patterns": [
+   "(?i)\\bquality scorecard\\b",
+   "(?i)\\beleven qualities\\b"
+  ],
+  "chapters": "27,APP"
+ },
+ {
+  "term": "Regression gate",
+  "patterns": [
+   "(?i)\\bregression gates?\\b"
+  ],
+  "chapters": "24,27,28,30,APP",
+  "see_also": [
+   "Continuous integration (CI)"
+  ]
+ },
+ {
+  "term": "Continuous integration (CI)",
+  "patterns": [
+   "\\bCI\\b"
+  ],
+  "chapters": "27,30"
+ },
+ {
+  "term": "Observability",
+  "patterns": [
+   "(?i)\\bobservab\\w+\\b",
+   "(?i)\\bAgentOps\\b"
+  ],
+  "chapters": "1,28,30,CS",
+  "see_also": [
+   "OpenTelemetry",
+   "Trace",
+   "SLO (service-level objective)"
+  ],
+  "sub": [
+   {
+    "term": "structured logs",
+    "patterns": [
+     "(?i)\\bstructured (?:agent )?logs?\\b",
+     "(?i)\\bstructured logging\\b"
+    ],
+    "chapters": "28"
+   },
+   {
+    "term": "what never goes into telemetry",
+    "patterns": [
+     "(?i)\\bnever goes into telemetry\\b",
+     "(?i)\\bredact\\w*\\b"
+    ],
+    "chapters": "28"
+   },
+   {
+    "term": "dashboards",
+    "patterns": [
+     "(?i)\\bdashboards?\\b"
+    ],
+    "chapters": "28,30"
+   },
+   {
+    "term": "alerting",
+    "patterns": [
+     "(?i)\\balert\\w*\\b"
+    ],
+    "chapters": "28,30,CS"
+   }
+  ]
+ },
+ {
+  "term": "OpenTelemetry",
+  "patterns": [
+   "\\bOpenTelemetry\\b",
+   "\\bOTel\\b",
+   "\\bopentelemetry\\b"
+  ],
+  "chapters": "12,15,28,30,CAP,APP",
+  "see_also": [
+   "Trace",
+   "Span"
+  ],
+  "sub": [
+   {
+    "term": "GenAI semantic conventions",
+    "patterns": [
+     "(?i)\\bsemantic conventions?\\b",
+     "\\bgen_ai\\.\\w+"
+    ],
+    "chapters": "28"
+   }
+  ]
+ },
+ {
+  "term": "Trace",
+  "patterns": [
+   "(?i)\\btraces?\\b",
+   "(?i)\\btracing\\b"
+  ],
+  "chapters": "4,11,27-30,CS,CAP,APP",
+  "see_also": [
+   "Span",
+   "Trajectory"
+  ],
+  "sub": [
+   {
+    "term": "tracing your agent",
+    "patterns": [
+     "(?i)\\btracing: see what your agent does\\b",
+     "(?i)\\btrace\\b"
+    ],
+    "chapters": "4"
+   },
+   {
+    "term": "trace id",
+    "patterns": [
+     "(?i)\\btrace[_ ]ids?\\b"
+    ],
+    "chapters": "28,30"
+   }
+  ]
+ },
+ {
+  "term": "Span",
+  "patterns": [
+   "(?i)\\bspans?\\b"
+  ],
+  "chapters": "28,29,CS,APP"
+ },
+ {
+  "term": "Latency breakdown",
+  "patterns": [
+   "(?i)\\blatency breakdown\\b"
+  ],
+  "chapters": "28,29"
+ },
+ {
+  "term": "Failure taxonomy",
+  "patterns": [
+   "(?i)\\bfailure taxonomy\\b",
+   "(?i)\\bfailure class(?:es)?\\b",
+   "(?i)\\bclasses of agent failure\\b"
+  ],
+  "chapters": "28,APP",
+  "sub": [
+   {
+    "term": "guard_blocked",
+    "patterns": [
+     "\\bguard_blocked\\b"
+    ],
+    "chapters": "28"
+   }
+  ]
+ },
+ {
+  "term": "SLO (service-level objective)",
+  "patterns": [
+   "\\bSLOs?\\b",
+   "(?i)\\bservice-level objectives?\\b"
+  ],
+  "chapters": "27-30,CS,APP",
+  "see_also": [
+   "Error budget",
+   "Burn rate"
+  ],
+  "sub": [
+   {
+    "term": "SLOs for agents",
+    "patterns": [
+     "(?i)\\bSLOs for agents\\b",
+     "(?i)\\bagent SLOs\\b"
+    ],
+    "chapters": "28,APP"
+   },
+   {
+    "term": "SLI",
+    "patterns": [
+     "\\bSLIs?\\b"
+    ],
+    "chapters": "28"
+   }
+  ]
+ },
+ {
+  "term": "Error budget",
+  "patterns": [
+   "(?i)\\berror budgets?\\b"
+  ],
+  "chapters": "28,30,CS,APP",
+  "see_also": [
+   "Burn rate"
+  ]
+ },
+ {
+  "term": "Burn rate",
+  "patterns": [
+   "(?i)\\bburn rates?\\b"
+  ],
+  "chapters": "28,30,CS"
+ },
+ {
+  "term": "Continuous profiler",
+  "patterns": [
+   "(?i)\\bcontinuous(?:ly)? profil\\w+\\b",
+   "(?i)\\bprofil(?:e|er|ing)\\b"
+  ],
+  "chapters": "28,APP",
+  "see_also": [
+   "Pyroscope"
+  ]
+ },
+ {
+  "term": "Pyroscope",
+  "patterns": [
+   "\\bPyroscope\\b"
+  ],
+  "chapters": "28"
+ },
+ {
+  "term": "Agent performance model",
+  "patterns": [
+   "(?i)\\bperformance model\\b"
+  ],
+  "chapters": "29,APP",
+  "see_also": [
+   "Latency",
+   "Throughput",
+   "Cost"
+  ]
+ },
+ {
+  "term": "Latency",
+  "patterns": [
+   "(?i)\\blatency\\b",
+   "(?i)\\blatencies\\b"
+  ],
+  "chapters": "4,28,29,CS,APP",
+  "see_also": [
+   "p50 / p95",
+   "Time to first token"
+  ],
+  "sub": [
+   {
+    "term": "levers",
+    "patterns": [
+     "(?i)\\bthe levers\\b",
+     "(?i)\\blevers?\\b"
+    ],
+    "chapters": "29"
+   }
+  ]
+ },
+ {
+  "term": "p50 / p95",
+  "patterns": [
+   "\\bp50\\b",
+   "\\bp95\\b",
+   "\\bp99\\b"
+  ],
+  "chapters": "M,21,27-30,CS,CAP,APP",
+  "see_also": [
+   "Latency"
+  ]
+ },
+ {
+  "term": "Time to first token",
+  "patterns": [
+   "(?i)\\btime to first token\\b",
+   "\\bTTFT\\b"
+  ],
+  "chapters": "29,30"
+ },
+ {
+  "term": "Throughput",
+  "patterns": [
+   "(?i)\\bthroughput\\b"
+  ],
+  "chapters": "29,APP",
+  "see_also": [
+   "Goodput"
+  ]
+ },
+ {
+  "term": "Goodput",
+  "patterns": [
+   "(?i)\\bgoodput\\b"
+  ],
+  "chapters": "29,30,CS,APP"
+ },
+ {
+  "term": "Knee (of a load curve)",
+  "patterns": [
+   "(?i)\\bknee\\b"
+  ],
+  "chapters": "29,30,CS,APP",
+  "see_also": [
+   "Load testing"
+  ]
+ },
+ {
+  "term": "Little's law",
+  "patterns": [
+   "(?i)\\bLittle's law\\b"
+  ],
+  "chapters": "29,CS,APP",
+  "see_also": [
+   "Concurrency"
+  ]
+ },
+ {
+  "term": "Concurrency",
+  "patterns": [
+   "(?i)\\bconcurren(?:cy|t)\\b"
+  ],
+  "chapters": "A,29,30"
+ },
+ {
+  "term": "Load testing",
+  "patterns": [
+   "(?i)\\bload[- ]test\\w*\\b"
+  ],
+  "chapters": "29,CS,CAP",
+  "see_also": [
+   "Open-loop load test",
+   "Coordinated omission",
+   "Knee (of a load curve)"
+  ],
+  "sub": [
+   {
+    "term": "at an arrival rate",
+    "patterns": [
+     "(?i)\\barrival rates?\\b"
+    ],
+    "chapters": "29,CS"
+   },
+   {
+    "term": "performance experiments",
+    "patterns": [
+     "(?i)\\bperformance experiments?\\b"
+    ],
+    "chapters": "29"
+   }
+  ]
+ },
+ {
+  "term": "Open-loop load test",
+  "patterns": [
+   "(?i)\\bopen[- ]loop\\b"
+  ],
+  "chapters": "29,30,CS,CAP",
+  "see_also": [
+   "Coordinated omission"
+  ]
+ },
+ {
+  "term": "Coordinated omission",
+  "patterns": [
+   "(?i)\\bcoordinated omission\\b"
+  ],
+  "chapters": "29,CAP,APP"
+ },
+ {
+  "term": "Capacity planning",
+  "patterns": [
+   "(?i)\\bcapacity\\b"
+  ],
+  "chapters": "29,30,CS"
+ },
+ {
+  "term": "Benchmark (reproducible)",
+  "patterns": [
+   "(?i)\\bbenchmarks?\\b"
+  ],
+  "chapters": "29"
+ },
+ {
+  "term": "Cost",
+  "patterns": [
+   "(?i)\\bcost per (?:task|run|call|conversation|request)\\b",
+   "(?i)\\bcosts? of\\b",
+   "(?i)\\btoken costs?\\b"
+  ],
+  "chapters": "4,11,16,20,21,28,29,APP",
+  "see_also": [
+   "Cost per successful task",
+   "Prompt caching",
+   "Business case"
+  ],
+  "sub": [
+   {
+    "term": "of exercises",
+    "patterns": [
+     "(?i)\\bwhat the exercises cost\\b"
+    ],
+    "chapters": "APP"
+   }
+  ]
+ },
+ {
+  "term": "Agent economics",
+  "patterns": [
+   "(?i)\\beconomics\\b"
+  ],
+  "chapters": "21,29,APP",
+  "see_also": [
+   "Business case"
+  ]
+ },
+ {
+  "term": "Business case",
+  "patterns": [
+   "(?i)\\bbusiness case\\b"
+  ],
+  "chapters": "29,30,APP",
+  "see_also": [
+   "Human baseline",
+   "Payback period"
+  ]
+ },
+ {
+  "term": "Human baseline",
+  "patterns": [
+   "(?i)\\bhuman baseline\\b"
+  ],
+  "chapters": "29,31,APP"
+ },
+ {
+  "term": "Payback period",
+  "patterns": [
+   "(?i)\\bpayback\\b"
+  ],
+  "chapters": "29,31,APP"
+ },
+ {
+  "term": "Streaming",
+  "patterns": [
+   "(?i)\\bstream(?:ing|s|ed)?\\b"
+  ],
+  "chapters": "4,12,29,30",
+  "see_also": [
+   "SSE (Server-Sent Events)"
+  ]
+ },
+ {
+  "term": "Deployment",
+  "patterns": [
+   "(?i)\\bdeploy(?:ing|ment|ments|ed)?\\b"
+  ],
+  "chapters": "30,CS,APP",
+  "see_also": [
+   "Launch checklist",
+   "Canary release",
+   "Shadow mode"
+  ],
+  "sub": [
+   {
+    "term": "the agent API",
+    "patterns": [
+     "(?i)\\bagent API\\b"
+    ],
+    "chapters": "30"
+   },
+   {
+    "term": "to the cloud",
+    "patterns": [
+     "(?i)\\bto the cloud\\b",
+     "\\bCloud Run\\b"
+    ],
+    "chapters": "30"
+   }
+  ]
+ },
+ {
+  "term": "Cloud Run",
+  "patterns": [
+   "\\bCloud Run\\b"
+  ],
+  "chapters": "30"
+ },
+ {
+  "term": "FastAPI",
+  "patterns": [
+   "\\bFastAPI\\b"
+  ],
+  "chapters": "30,APP"
+ },
+ {
+  "term": "Launch checklist",
+  "patterns": [
+   "(?i)\\blaunch checklists?\\b"
+  ],
+  "chapters": "7,27,30,31,APP"
+ },
+ {
+  "term": "Long-running tools",
+  "patterns": [
+   "(?i)\\blong-running tools?\\b",
+   "(?i)\\bstart, then check\\b",
+   "(?i)\\bstart-and-poll\\b"
+  ],
+  "chapters": "15,30",
+  "see_also": [
+   "Tasks (MCP)"
+  ]
+ },
+ {
+  "term": "Canary release",
+  "patterns": [
+   "(?i)\\bcanary release\\b",
+   "(?i)\\bcanar(?:y|ied)\\b(?! token| alert)",
+   "\\*\\*canary\\*\\*"
+  ],
+  "chapters": "24,30,CS,APP",
+  "see_also": [
+   "Shadow mode",
+   "Rollback",
+   "Canary token"
+  ]
+ },
+ {
+  "term": "Shadow mode",
+  "patterns": [
+   "(?i)\\bshadow\\b"
+  ],
+  "chapters": "24,30,APP",
+  "see_also": [
+   "Canary release"
+  ]
+ },
+ {
+  "term": "Rollback",
+  "patterns": [
+   "(?i)\\broll(?:s|ed|ing)? ?back\\b",
+   "(?i)\\brollbacks?\\b"
+  ],
+  "chapters": "24,30,CS,APP"
+ },
+ {
+  "term": "Agent version",
+  "patterns": [
+   "(?i)\\bagent versions?\\b",
+   "(?i)\\breleased together\\b",
+   "(?i)\\brelease version\\b"
+  ],
+  "chapters": "24,30,CS,APP"
+ },
+ {
+  "term": "Agent inventory",
+  "patterns": [
+   "(?i)\\bagent inventor(?:y|ies)\\b",
+   "(?i)\\binventory\\b"
+  ],
+  "chapters": "25,30,APP"
+ },
+ {
+  "term": "Agent platform",
+  "patterns": [
+   "(?i)\\bagent platforms?\\b"
+  ],
+  "chapters": "30"
+ },
+ {
+  "term": "Agent improvement loop",
+  "patterns": [
+   "(?i)\\bimprovement loop\\b"
+  ],
+  "chapters": "30,31,APP"
+ },
+ {
+  "term": "Reference architecture",
+  "patterns": [
+   "(?i)\\breference architecture\\b"
+  ],
+  "chapters": "30",
+  "see_also": [
+   "Agent architecture reference model"
+  ]
+ },
+ {
+  "term": "Multi-tenancy",
+  "patterns": [
+   "(?i)\\bmulti-tenan\\w+\\b",
+   "(?i)\\btenants?\\b"
+  ],
+  "chapters": "17,26,30,APP"
+ },
+ {
+  "term": "Architecture decision record (ADR)",
+  "patterns": [
+   "\\bADRs?\\b",
+   "(?i)\\barchitecture decision records?\\b"
+  ],
+  "chapters": "APP",
+  "sub": [
+   {
+    "term": "workflow or agent",
+    "patterns": [
+     "(?i)\\bfixed workflow or an agent\\b"
+    ],
+    "chapters": "APP"
+   },
+   {
+    "term": "one agent or a team",
+    "patterns": [
+     "(?i)\\bone agent or a team\\b"
+    ],
+    "chapters": "APP"
+   },
+   {
+    "term": "direct tool calls or MCP",
+    "patterns": [
+     "(?i)\\bdirect tool calls or MCP\\b"
+    ],
+    "chapters": "APP"
+   },
+   {
+    "term": "hosted or local model",
+    "patterns": [
+     "(?i)\\bhosted model or a local one\\b"
+    ],
+    "chapters": "APP"
+   },
+   {
+    "term": "synchronous or durable",
+    "patterns": [
+     "(?i)\\bsynchronous calls or durable\\b"
+    ],
+    "chapters": "APP"
+   }
+  ]
+ },
+ {
+  "term": "Reference cards",
+  "patterns": [
+   "(?i)\\breference cards?\\b",
+   "\\bCard \\d+\\b"
+  ],
+  "chapters": "APP"
+ },
+ {
+  "term": "Forward-deployed engineer (FDE)",
+  "patterns": [
+   "(?i)\\bforward[- ]deployed\\b",
+   "\\bFDEs?\\b"
+  ],
+  "chapters": "30,31,CAP,APP",
+  "see_also": [
+   "Problem brief",
+   "Pilot gate"
+  ]
+ },
+ {
+  "term": "Customer discovery",
+  "patterns": [
+   "(?i)\\bdiscovery\\b"
+  ],
+  "chapters": "31,CAP",
+  "see_also": [
+   "Problem brief"
+  ]
+ },
+ {
+  "term": "Problem brief",
+  "patterns": [
+   "(?i)\\bproblem brief\\b",
+   "(?i)\\bthe brief\\b"
+  ],
+  "chapters": "31,CAP,APP"
+ },
+ {
+  "term": "Smallest valuable slice",
+  "patterns": [
+   "(?i)\\bsmallest valuable slice\\b",
+   "(?i)\\bvaluable slice\\b"
+  ],
+  "chapters": "31,APP"
+ },
+ {
+  "term": "Acceptance criteria",
+  "patterns": [
+   "(?i)\\bacceptance criteria\\b"
+  ],
+  "chapters": "18,27,29,31,CAP,APP"
+ },
+ {
+  "term": "Pilot",
+  "patterns": [
+   "(?i)\\bpilots?\\b"
+  ],
+  "chapters": "31,CAP",
+  "see_also": [
+   "Pilot gate"
+  ]
+ },
+ {
+  "term": "Pilot gate",
+  "patterns": [
+   "(?i)\\bpilot gate\\b"
+  ],
+  "chapters": "31,CAP"
+ },
+ {
+  "term": "Handoff (to the customer)",
+  "patterns": [
+   "(?i)\\bhandoff\\b",
+   "(?i)\\bhandoff_gaps\\b"
+  ],
+  "chapters": "31",
+  "see_also": [
+   "Forward-deployed engineer (FDE)"
+  ]
+ },
+ {
+  "term": "Field-to-product loop",
+  "patterns": [
+   "(?i)\\bfield-to-product\\b"
+  ],
+  "chapters": "31"
+ },
+ {
+  "term": "Designing for the customer's environment",
+  "patterns": [
+   "(?i)\\btheir environment\\b",
+   "(?i)\\bon-prem\\w*\\b",
+   "(?i)\\bdata residency\\b"
+  ],
+  "chapters": "31"
+ },
+ {
+  "term": "Support agent (running example)",
+  "patterns": [
+   "(?i)\\bsupport agent\\b"
+  ],
+  "chapters": "1-5,7,9,12,14,16-22,25-31,CS,CAP",
+  "see_also": [
+   "Priya",
+   "Harbor & Pine"
+  ]
+ },
+ {
+  "term": "Priya",
+  "patterns": [
+   "\\bPriya\\b"
+  ],
+  "chapters": "1,2,26,31"
+ },
+ {
+  "term": "Harbor & Pine",
+  "patterns": [
+   "\\bHarbor & Pine\\b"
+  ],
+  "chapters": "29,CS"
+ },
+ {
+  "term": "Lakeside Insurance",
+  "patterns": [
+   "\\bLakeside(?: Insurance)?\\b"
+  ],
+  "chapters": "31"
+ },
+ {
+  "term": "Bayview Health",
+  "patterns": [
+   "\\bBayview(?: Health)?\\b"
+  ],
+  "chapters": "31,CAP"
+ },
+ {
+  "term": "Case study",
+  "patterns": [
+   "(?i)\\bcase study\\b"
+  ],
+  "chapters": "CS"
+ },
+ {
+  "term": "Capstone projects",
+  "patterns": [
+   "(?i)\\bcapstones?\\b"
+  ],
+  "chapters": "CAP,APP",
+  "sub": [
+   {
+    "term": "customer support agent",
+    "patterns": [
+     "(?i)\\bcustomer support agent\\b"
+    ],
+    "chapters": "CAP"
+   },
+   {
+    "term": "data analyst",
+    "patterns": [
+     "(?i)\\bdata analyst\\b"
+    ],
+    "chapters": "CAP"
+   },
+   {
+    "term": "incident triage assistant",
+    "patterns": [
+     "(?i)\\bincident triage\\b"
+    ],
+    "chapters": "CAP"
+   },
+   {
+    "term": "code review and fix agent",
+    "patterns": [
+     "(?i)\\bcode review and fix\\b"
+    ],
+    "chapters": "CAP"
+   },
+   {
+    "term": "deep research assistant",
+    "patterns": [
+     "(?i)\\bdeep research\\b"
+    ],
+    "chapters": "CAP"
+   },
+   {
+    "term": "back-office workflow agent",
+    "patterns": [
+     "(?i)\\bback-office\\b"
+    ],
+    "chapters": "CAP"
+   },
+   {
+    "term": "customer deployment",
+    "patterns": [
+     "(?i)\\bcustomer deployment\\b"
+    ],
+    "chapters": "CAP"
+   }
+  ]
+ },
+ {
+  "term": "Troubleshooting",
+  "patterns": [
+   "(?i)\\btroubleshoot\\w*\\b",
+   "(?i)\\bdebugging playbook\\b"
+  ],
+  "chapters": "APP"
+ }
+]
