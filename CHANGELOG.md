@@ -11,7 +11,9 @@ The first public release: the book's First edition and the repository release th
 - **Paid and free paths stated plainly.** The copyright page, Chapter 0 and Appendix H say which exercises need the paid API, which run on the free local model, and which need an app, a token or a person.
 - **"How to Use This Book"** now covers the full start: choosing a path, setting up, choosing a model, checking out `book-v1.0.0`, running a first example, the three kinds of exercise (written answer, executable, model-dependent) and where to get help.
 - **A bridge from beginner to production.** Each part's checkpoint ends with a "Ready for the next part?" box, and the step-ups at Parts 5, 7 and 9 are named. Worked examples show how to read a pytest failure (testing interlude), an agent trace (Chapter 4), an evaluation result (Chapter 27) and a production trace (Chapter 28).
-- **"Before you move on"** in the difficult chapters (1, 4, 12, 15–31) lists what to understand, what to build, the exercise that proves it, one failure to provoke and one decision to defend.
+- **"Before you move on"** in every chapter (1–31) lists what to understand, what to build, the exercise that proves it, one failure to provoke and one decision to defend.
+- **An index** of the glossary terms and the names readers look up most, generated from the final layout (`course/make_index.py`).
+- **Two corrections from the claims audit:** what MCP 2026-07-28 makes optional (15.4) and the Sonnet 5 tokenizer figure (Appendix E).
 - **Evidence for claims.** Security sections show the attack and the code that enforces the defense, and name the regression scenario that proves it. Every major benchmark (21.10, 27, 28.13, 29.5–29.9) states its conditions and whether each number is measured, estimated or illustrative. A warning in Chapter 29 says its thresholds are examples, not production targets.
 - **A dated decision matrix** in Chapter 24: a custom loop, framework-managed agents, provider runtimes and managed services, compared on control, portability, observability, deployment effort, vendor dependency and cost.
 - **Appendix M: Production Deployment Reference.** It covers multi-tenant isolation, secret rotation, data retention, dependency and container scanning, backups and recovery, incident ownership and rollback criteria, and states plainly that the course kit is not production-hardened.
@@ -19,6 +21,7 @@ The first public release: the book's First edition and the repository release th
 - A recovery pass restored explanations, failure demonstrations and safety caveats that the earlier shortening had cut. Code listings name their full repository path.
 
 ### Repository
+- [CLAIMS_AUDIT.md](CLAIMS_AUDIT.md): 80 version-sensitive claims with location, source, version tested and result. [CHANGE_LEDGER.md](CHANGE_LEDGER.md): every manuscript change for this release and its reason.
 - `RELEASE_MANIFEST.json` records the release's tag, commit, lock-file hash, MCP specification and test status. `dev/release_manifest.py --check` runs in CI and fails if the manifest, README, VERSION_MATRIX or the book disagree.
 - README: a quick start at the top, the release table with development snapshots marked as such, and the three kinds of verification evidence kept apart.
 - VERSION_MATRIX: a reproducibility warning for the two unpinned images (GitHub MCP server, Ollama), what depends on each, the tested fallback and how to pin them by digest.

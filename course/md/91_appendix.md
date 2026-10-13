@@ -331,7 +331,7 @@ Table: Estimated cost by part, for a learner (twice the first pass, for reruns)
 | Each capstone | — | about 120 | $7.2–12 | Evaluation runs and a load test |
 | Cloud deployment (30.7) | — | — | Usually $0 on a free tier | The host's own charges; set a budget alert and delete the service afterward |
 
-Claude Sonnet 5's tokenizer counts about 30% more tokens than earlier models, and thinking is billed as output, so measure your own runs rather than reuse old token counts. Claude Haiku 4.5 ($1 input, $5 output per million tokens) roughly halves the totals, and prompt caching (Chapter 16) and smaller tool outputs cut them further.
+Claude Sonnet 5's tokenizer counts up to about 35% more tokens than earlier models, depending on the content, and thinking is billed as output, so measure your own runs rather than reuse old token counts. Claude Haiku 4.5 ($1 input, $5 output per million tokens) roughly halves the totals, and prompt caching (Chapter 16) and smaller tool outputs cut them further.
 
 **Or pay nothing:** with the free local model (`PROVIDER=local`, Appendix H), every exercise except the {{exercises-word:claude-only}} marked **Claude only** costs nothing. A sensible plan: do the book locally, and buy a few dollars of Claude credit for those {{exercises-word:claude-only}} and the {{exercises-word:claude-rec}} marked **Claude recommended**. On Claude throughout, try the table's biggest items on the local model or Haiku first.
 

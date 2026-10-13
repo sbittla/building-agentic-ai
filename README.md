@@ -49,7 +49,8 @@ The repository is a course and a reference implementation. Start with the first 
 | [EVALUATION_MODEL.md](EVALUATION_MODEL.md) | Outcome, trajectory, tool, safety and regression evaluation; the release scorecard |
 | [COST_MODEL.md](COST_MODEL.md) | What the exercises cost, with every assumption, and the production cost formulas |
 | [VERSION_MATRIX.md](VERSION_MATRIX.md) | Which book edition, release tag, Python, models and libraries belong together, and what "verified" means |
-| [CHANGELOG.md](CHANGELOG.md) · [MIGRATION.md](MIGRATION.md) · [ERRATA.md](ERRATA.md) | What changed between releases, what to change in your code, and mistakes in each printing |
+| [CHANGELOG.md](CHANGELOG.md) · [MIGRATION.md](MIGRATION.md) · [ERRATA.md](ERRATA.md) | What changed between releases, what to change in your code, and corrections to the published text |
+| [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) · [CLAIMS_AUDIT.md](CLAIMS_AUDIT.md) · [CHANGE_LEDGER.md](CHANGE_LEDGER.md) | The release record (tag, commit, lock hash, test status, open gates), the audit of every version-sensitive claim, and what changed in the manuscript for this release and why |
 | [verification/](verification/README.md) · [benchmarks/](benchmarks/README.md) | Test and security results with their provenance; the published benchmark runs |
 | [PILOT.md](PILOT.md) | For the author: testing the book with real learners |
 
@@ -65,7 +66,7 @@ The book's **First edition** is matched by the repository release **`book-v1.0.0
 
 | Book asset | Exercises | Capstones | Matching repository release | Status |
 | --- | ---: | ---: | --- | --- |
-| First edition (2026) | 249 | 7 | `book-v1.0.0` | Release candidate `book-v1.0.0-rc1` until the open gates in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) are closed |
+| First edition (2026) | 249 | 7 | `book-v1.0.0` | Release candidate `book-v1.0.0-rc1` until the `open_gates` in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) are closed |
 | Development snapshots | — | — | Historical `edition-*` tags | Internal development history; not published book editions |
 
 This repository was developed through several internal manuscript and code snapshots before the book's first public edition. The historical development tags (`edition-1.0`, `edition-1.1`, `edition-1.2`) are kept for traceability. They do not indicate earlier commercial printings.

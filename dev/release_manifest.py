@@ -118,7 +118,30 @@ def build():
                                 "evidence": "verification/offline.json"},
         "model_test_status": live,
         "known_limitations": limitations,
+        "open_gates": open_gates(live, prov),
+        "commit_note": ("git_commit is the commit the tests ran on. The release tag may sit on a later "
+                        "commit that adds only verification artifacts and docs; release_manifest.py --check "
+                        "fails if any code, solution, test or environment file changed in between."),
     }
+
+
+def open_gates(live, prov):
+    """What must still happen before book-v1.0.0 replaces the release candidate."""
+    gates = []
+    if "outside the course image" in prov["environment"]:
+        gates.append("Run the deterministic suite inside the course image (CI does this on a book-v* tag) "
+                     "and record it with python dev/verify.py report.")
+    if live["not_run_yet"]:
+        gates.append("Record live-model runs for " + ", ".join(live["not_run_yet"]) +
+                     " (./course.sh run-chapter <ids> --model claude), or approve them as exceptions here.")
+    gates += ["Clean setup from a fresh checkout on Windows, macOS and Linux "
+              "(./course.sh setup, build, selftest, quickstart).",
+              "Independent technical review and a beginner-reader pilot (PILOT.md), with findings recorded.",
+              "Final proof of the print files, and KDP preview of paperback and hardcover "
+              "(trim, gutter, spine, cover, ISBN and metadata).",
+              "Confirm the ISBN registrations match the title, subtitle, author and imprint.",
+              "Run dev/check_links.py with network access."]
+    return gates
 
 
 def is_future_patch(tag):

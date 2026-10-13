@@ -10,7 +10,7 @@ Which book, code, environment and models belong together, and what the book was 
 
 ISBNs of the First edition: paperback 979-8177506326, hardcover 979-8177514734.
 
-**Release status.** `book-v1.0.0-rc1` is the release candidate. It becomes `book-v1.0.0` on the same commit once the open release gates in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) (`known_limitations`) are closed. Until then, treat the candidate as the code that matches the book.
+**Release status.** `book-v1.0.0-rc1` is the release candidate. It becomes `book-v1.0.0` on the same commit once the `open_gates` listed in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) are closed. Until then, treat the candidate as the code that matches the book.
 
 **Development history.** This repository was developed through several internal manuscript and code snapshots before the book's first public edition. The historical tags `edition-1.0`, `edition-1.1` and `edition-1.2` are kept for traceability. They are development snapshots, not earlier commercial printings, and nothing in the book refers to them.
 
