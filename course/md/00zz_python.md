@@ -1,8 +1,8 @@
 # Interlude: The Python You'll Need
 
-Agent code leans on a few Python features that beginner tours often skip: calling a function with a dictionary of arguments, storing functions in a dictionary, small classes and decorators. This interlude gathers them in one runnable file and one pattern, the tool registry, that you'll see in almost every chapter. By the end, you'll have written your own `run_tool` and a decorator that registers tools.
+One line of Python turns up in this book more than any other: `REGISTRY[name](**args)`. If it reads like line noise right now, this interlude is for you. It gathers the features beginner tours skip into one runnable file and one pattern, the tool registry. By the end, you'll have written your own `run_tool` and a decorator that registers tools.
 
-**Prerequisites:** Chapter 0, or some experience writing Python. Like Chapter 0, this interlude is part of the **optional beginner path**: if `fn(**args)`, a dictionary of functions, a dataclass and a decorator all look familiar, skip to Chapter 1 and come back only if a listing puzzles you.
+**Prerequisites:** Chapter 0, or some experience writing Python. Like Chapter 0, this interlude is on the **optional beginner path**: if `fn(**args)`, a dictionary of functions, a dataclass and a decorator all look familiar, skip to Chapter 1.
 
 ## Learning objectives
 
@@ -16,9 +16,9 @@ By the end of this interlude you can:
 
 ## Who this interlude is for
 
-Chapter 0's tour covers values, lists, dictionaries, functions, loops, errors and files. The chapters also use a handful of features the tour doesn't show. If you've never programmed, take your time with Chapter 0 and this interlude: type the examples, break them and fix them. It's the best investment you'll make in this book. If you can already read the file below without surprises, do exercise P.5 to check yourself, then move on.
+If you've never programmed, take your time here: type the examples, break them on purpose and fix them. Every agent later in the book is built from these few patterns, so an hour here saves several later. If you can already read the file below without surprises, do exercise P.5 to check yourself, then move on.
 
-This book teaches only the Python that agents need, and teaches it quickly. {{t:python-fundamentals}} lists the fundamentals the chapters take for granted, where each one first matters and where to read more. The links point to the free official Python tutorial (docs.python.org/3/tutorial) unless noted. If a row feels shaky, read that section before Chapter 1; you don't need anything beyond this list.
+{{t:python-fundamentals}} lists the fundamentals the chapters take for granted, where each first matters and where to read more, in the free official Python tutorial (docs.python.org/3/tutorial) unless noted. If a row feels shaky, read that section before Chapter 1. You don't need anything beyond this list.
 
 Table: The Python fundamentals this book assumes {#t:python-fundamentals}
 | Fundamental | You'll need it for | Read more |
@@ -29,18 +29,18 @@ Table: The Python fundamentals this book assumes {#t:python-fundamentals}
 | Lists, dictionaries, comprehensions | Messages, tool inputs and results | Tutorial 5, "Data Structures" |
 | Modules, `import`, packages | Splitting agents into files; the SDK | Tutorial 6, "Modules" |
 | Files, `pathlib`, the `json` module | Saved state and notes (Chapters 5–6) | Tutorial 7, "Input and Output" |
-| Exceptions: `try`, `except`, `raise` | Turning tool errors into text (Chapter 7) | Tutorial 8, "Errors and Exceptions" |
+| Exceptions: `try`, `except`, `raise` | Turning tool errors into text (Chapter 2) | Tutorial 8, "Errors and Exceptions" |
 | Classes and `@dataclass` | The MCP hub and policy layer (Chapters 13–14) | Tutorial 9, "Classes" |
 | Type hints (`str`, `int`, `list[str]`, `dict`) | MCP builds tool schemas from them (Chapter 12) | mypy's "Type hints cheat sheet" |
 | Virtual environments and `pip` | Running your own projects outside the course kit | Tutorial 12, "Virtual Environments and Packages" |
 
-Asynchronous code (`async` and `await`) has its own interlude before Chapter 11. For a longer, gentler start, the courses in this interlude's **Learn more** section teach the same fundamentals from scratch, and Python Tutor lets you watch your code run one line at a time.
+Asynchronous code (`async` and `await`) gets its own interlude before Chapter 11. For a gentler start, try the courses under **Learn more**, or Python Tutor, which lets you watch your code run line by line.
 
 ## P.1 Six features, one file
 
 @@code i_python.py
 
-Run it with `./course.sh python i_python.py`. Each section prints a line starting with its number, so you can match output to code.
+Run it with `./course.sh python i_python.py`. Each section's output starts with its number, so you can match output to code.
 
 Table: The six features in `i_python.py`
 | Section | Feature | Where this book uses it |
@@ -66,28 +66,24 @@ def run_tool(name, args):
         return f"ERROR: {type(exc).__name__}: {exc}"
 ```
 
-Read it slowly. `REGISTRY[name]` looks up a **function** by its name. `(**args)` calls it with the model's arguments, unpacking the dictionary into named arguments. `try/except` turns any failure into text the model can read. Understand these lines and you understand how an agent's tools are wired. Exercise P.2 has you write it.
+Read it slowly. `REGISTRY[name]` looks up a **function** by its name, the way you'd look up a phone number by a person's name. `(**args)` calls that function with the model's arguments, unpacking the dictionary so `{"title": "Buy milk"}` becomes `add_task(title="Buy milk")`. Then `try/except` turns any failure into text the model can read, instead of a crash. Every agent's tools are wired this way, and exercise P.2 has you write it yourself.
 
 ## Common mistakes
 
-- **Using `[]` or `{}` as a default argument.** Every call shares the same list. Use `None` and create the list inside the function, or `field(default_factory=list)` in a dataclass.
-- **Forgetting `self`** as the first parameter of a method.
-- **Catching every error silently** (`except: pass`). Catch the errors you expect and report them.
-- **Calling `fn(args)` instead of `fn(**args)`**: the function receives one dictionary instead of named arguments.
+- Using `[]` or `{}` as a default argument. Every call shares the same list. Use `None` and create it inside, or `field(default_factory=list)` in a dataclass.
+- Forgetting `self` as the first parameter of a method.
+- Catching every error silently (`except: pass`). Catch the errors you expect, and report them.
+- Calling `fn(args)` instead of `fn(**args)`: the function receives one dictionary instead of named arguments.
 
 ## Key takeaways
 
 - Comprehensions build lists and dictionaries in one line.
-- `fn(**args)` calls a function with a dictionary of arguments: this is how tools are called.
+- `fn(**args)` calls a function with a dictionary of arguments, which is how tools are called.
 - Functions are values: store them in dictionaries and pass them around.
 - Classes bundle data with the functions that use it; dataclasses are classes for data.
 - Decorators wrap or register functions.
 
-With Part 0 behind you, Chapter 1 puts these pieces to work. You'll make your first call to the model from Python and build a summarizer, the first small program in this book that hands real work to a model.
-
 ## Learn more
-
-Start with these. `RESOURCES.md` in the course kit has all 9 links for this chapter, including the **Go deeper** reading, ready to click.
 
 | Resource | What you'll find |
 | --- | --- |
@@ -97,7 +93,7 @@ Start with these. `RESOURCES.md` in the course kit has all 9 links for this chap
 
 ## Exercises
 
-Every exercise here comes with a starter file (with the function names and examples in place) and a checker: run `./course.sh check <id>` to see whether your code is right.
+Every exercise comes with a starter file and a checker: `./course.sh check <id>` tells you whether your code is right.
 
 :::ex Simple | P.1 | Comprehensions
 In the starter, write `shipped_ids(orders)` (the ids of shipped orders, in order), `totals_by_status(orders)` (a dictionary of status to total amount) and `names_over(products, min_price)` (names of products above a price), each in one or two lines.
@@ -106,7 +102,7 @@ In the starter, write `shipped_ids(orders)` (the ids of shipped orders, in order
 :::
 
 :::ex Simple | P.2 | Call tools by name
-Write `run_tool(name, args)` that looks up `name` in the starter's `REGISTRY`, calls it with `**args` and returns the result as text. An unknown name or a failing call must return a string starting with `ERROR:`, never crash.
+Write `run_tool(name, args)`: look up `name` in the starter's `REGISTRY`, call it with `**args` and return the result as text. An unknown name or a failing call must return a string starting with `ERROR:`, never crash.
 **Hint:** Section P.2 above is almost the whole answer. Test it with a wrong argument name too.
 **Done when:** `./course.sh check P.2` passes.
 :::
@@ -130,7 +126,7 @@ The starter file has three functions, each with one bug: a shared default list, 
 
 ## Checkpoint: ready for Chapter 1?
 
-You're ready to move on if you can, without looking back:
+You're ready if you can, without looking back:
 
 - [ ] Build a filtered list from a list of dictionaries in one line.
 - [ ] Explain what `REGISTRY[name](**args)` does, piece by piece.
@@ -138,4 +134,8 @@ You're ready to move on if you can, without looking back:
 - [ ] Explain what `@tool` above a function does.
 - [ ] Spot a mutable default argument.
 
-If two or more feel shaky, redo P.2 and P.3: they're the patterns you'll use most.
+If two feel shaky, redo P.2 and P.3, the patterns you'll use most.
+
+## Up next
+
+You now have every piece of Python an agent needs except the model itself. Chapter 1 adds it: your first call to a model from Python, and a summarizer that hands it real work.

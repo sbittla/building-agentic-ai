@@ -1,0 +1,23 @@
+# Exercise: M.2  Watch the margins
+# Command:  python i_measure.py
+# Model:    none (no model needed)
+# Date:     2026-10-13 13:29:28 PDT
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+Version A really succeeds 70% of the time, version B 80%.
+
+1 trial(s) per case, 10 cases
+  version A      7/10   =  70%   95% interval  40% to  89%
+  version B      7/10   =  70%   95% interval  40% to  89%
+  B against A: can't tell yet: the intervals overlap, so run more trials or more cases 
+
+3 trial(s) per case, 10 cases
+  version A     21/30   =  70%   95% interval  52% to  83%
+  version B     24/30   =  80%   95% interval  63% to  90%
+  B against A: can't tell yet: the intervals overlap, so run more trials or more cases 
+
+30 trial(s) per case, 10 cases
+  version A    208/300  =  69%   95% interval  64% to  74%
+  version B    242/300  =  81%   95% interval  76% to  85%
+  B against A: better

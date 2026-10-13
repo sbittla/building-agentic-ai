@@ -92,7 +92,7 @@ def test_slow_candidate_rolls_back_at_canary(loop, world):
 
 def test_candidate_that_breaks_an_old_case_is_rejected_offline(loop, world):
     v14, *_, production = world
-    bad = loop.FakeAgent("support-agent 1.5-bad", wrong={
+    bad = loop.FakeAgent("sql-analyst 1.5-bad", wrong={
         "How many customers do we have?": "We have 30 customers."})
     t = turn(loop, v14, bad, production)
     assert t["decision"] == "reject" and t["stopped_at"] == "offline"
@@ -105,7 +105,7 @@ def test_candidate_that_breaks_an_old_case_is_rejected_offline(loop, world):
 def test_a_fixed_failure_cannot_come_back(loop, world):
     v14, v15, _, production = world
     first = turn(loop, v14, v15, production)
-    relapse = loop.FakeAgent("support-agent 1.7", wrong={
+    relapse = loop.FakeAgent("sql-analyst 1.7", wrong={
         "What was revenue in March?": "Revenue in March was $48,210."})
     t = loop.offline_eval(v15, relapse, first["suite"], [])
     assert not t["passed"] and t["broken"] == [

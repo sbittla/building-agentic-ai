@@ -1,0 +1,66 @@
+{
+  "book_title": "Building Agentic AI Systems: From First Agent to MCP, Multi-Agent Orchestration, and Production",
+  "author": "Srinivasa Rao Bittla",
+  "book_edition": "First edition",
+  "book_release": "1.0.0",
+  "repository_tag": "book-v1.0.0",
+  "release_candidate_tag": "book-v1.0.0-rc1",
+  "isbn": {
+    "paperback": "979-8177506326",
+    "hardcover": "979-8177514734"
+  },
+  "exercises": 249,
+  "capstones": 7,
+  "git_commit": "abaab3d230f80db0d31860d721b237e1579804b7",
+  "python_version": "3.12.11",
+  "dependency_lock_sha256": "c28c848a2447e2358d5d5ee80dbb69d99ac4c946c2c442d792bd9e1f3f28b119",
+  "mcp_specification": "2026-07-28",
+  "verification_date": "2026-10-13",
+  "offline_test_status": {
+    "passed": 571,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 13,
+    "tests": 584,
+    "environment": "outside the course image (Linux)",
+    "model": "scripted stand-in (solutions/tests/fakemodel.py); no API key, no model provider called",
+    "evidence": "verification/offline.json"
+  },
+  "model_test_status": {
+    "exercises_and_capstones": 256,
+    "by_outcome": {
+      "written answer": 63,
+      "needs a person or service": 14,
+      "passed": 176,
+      "failed": 1
+    },
+    "runs_by_provider": {
+      "local (qwen3.5:9b)": 140,
+      "Claude API": 4,
+      "no model": 33
+    },
+    "not_run_yet": [
+      "M.3",
+      "31.5"
+    ],
+    "dates": "2026-09-27 to 2026-10-13",
+    "evidence": "solutions/outputs/*/summary.json (each records its own commit and lock hash)"
+  },
+  "known_limitations": [
+    "The deterministic suite was run outside the course image; 13 tests that need the image's MCP servers were skipped. CI reruns the suite inside the image when a book-v* tag is pushed.",
+    "2 model-dependent exercises have no recorded live-model run yet: M.3, 31.5. Record them with ./course.sh run-chapter <ids> --model claude.",
+    "Live-model runs were recorded on earlier commits than the verified one; each summary.json names its own commit.",
+    "Two runtime images are not pinned: ghcr.io/github/github-mcp-server:latest (exercises 14.3, 14.4, Capstone 4) and ollama/ollama:latest (the free local model). See VERSION_MATRIX.md for the fallback and how to pin them.",
+    "Production readiness is not claimed: the course kit is not production-hardened (Appendix M of the book, SECURITY_MODEL.md)."
+  ],
+  "open_gates": [
+    "Run the deterministic suite inside the course image (CI does this on a book-v* tag) and record it with python dev/verify.py report.",
+    "Record live-model runs for M.3, 31.5 (./course.sh run-chapter <ids> --model claude), or approve them as exceptions here.",
+    "Clean setup from a fresh checkout on Windows, macOS and Linux (./course.sh setup, build, selftest, quickstart).",
+    "Independent technical review and a beginner-reader pilot (PILOT.md), with findings recorded.",
+    "Final proof of the print files, and KDP preview of paperback and hardcover (trim, gutter, spine, cover, ISBN and metadata).",
+    "Confirm the ISBN registrations match the title, subtitle, author and imprint.",
+    "Run dev/check_links.py with network access."
+  ],
+  "commit_note": "git_commit is the commit the tests ran on. The release tag may sit on a later commit that adds only verification artifacts and docs; release_manifest.py --check fails if any code, solution, test or environment file changed in between."
+}

@@ -1,0 +1,22 @@
+# Exercise: 28.8  Find a network incident
+# Command:  python /tmp/solutions-flat/exercises/ex28_8_network.py
+# Model:    none (no model needed)
+# Date:     2026-10-13 13:29:30 PDT
+# Exit code: 0
+# Seconds:  0.3
+#-------------------------------------------------------------------------------
+DIAGNOSIS with a network incident at 8:00-9:00
+  - tool `fx_rates` is slow when the network is busy: p50 599 ms while saturated vs 68 ms (x8.9, 29 spans, r=0.68), not when the CPU is (x1.0), not when the database is (x1.0)
+  - model calls: latency follows output tokens (r=0.99), not local resources: the work itself, not contention
+  - queue waits: p95 28 ms, nothing to explain
+  - tool `render_chart` is slow when the CPU is busy: p50 835 ms while saturated vs 252 ms (x3.3, 45 spans, r=0.38), not when the database is (x1.0), not when the network is (x1.0)
+  - tool `run_sql` is slow when the database is busy: p50 2,059 ms while saturated vs 164 ms (x12.5, 59 spans, r=0.90), not when the CPU is (x1.0), not when the network is (x0.9)
+
+SLOWEST 5% OF fx_rates (15 spans)
+joined on span id:
+   93%  socket.recv      called from http.get
+    7%  json.loads       called from parse_rates
+joined on time only (other requests' stacks mixed in):
+   80%  ssl.recv         called from http.read
+   16%  socket.recv      called from http.get
+    1%  json.loads       called from parse_rates

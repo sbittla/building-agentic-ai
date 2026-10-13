@@ -1,0 +1,15 @@
+# Exercise: 23.7  A reliable queue
+# Command:  python /tmp/solutions-flat/exercises/ex23_7_reliable_queue.py
+# Model:    none (no model needed)
+# Date:     2026-10-13 13:29:30 PDT
+# Exit code: 0
+# Seconds:  0.4
+#-------------------------------------------------------------------------------
+first run:    {1: 'done', 2: 'done', 3: 'needs_human', 4: 'session_lost'}
+after resume: {1: 'done', 2: 'done', 3: 'needs_human', 4: 'done'}
+address writes: 3, credits issued: 0, Chen's balance $25.00
+evidence: 45 log entries, 13 snapshots
+  type address 1   stale                    ERROR: no control e1 on this page; read the page a
+  issue credit 3   error                    TimeoutError: click timed out
+  issue credit 3   unverified; not retried  
+  open 3           handoff                  'Sign in - Backoffice': a person must sign in or v

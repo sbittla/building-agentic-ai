@@ -1,0 +1,35 @@
+# Exercise: 30.12  Catch it in shadow
+# Command:  python /tmp/solutions-flat/exercises/ex30_12_shadow_slos.py
+# Model:    none (no model needed)
+# Date:     2026-10-13 13:29:34 PDT
+# Exit code: 0
+# Seconds:  1.0
+#-------------------------------------------------------------------------------
+sql-analyst 1.5 (replacing sql-analyst 1.4)
+  mined     44 failed runs -> 3 new cases (41 duplicates dropped)
+              hallucination-c524fb    What was revenue in March
+              infinite_loop-b93a3c    how many orders were CANCELLED ?
+              misread_result-8b4974   Which region sold the most in March?
+  offline   PASS  10 cases x 3 trials: baseline 70%, candidate 100%
+            z=-3.25, old cases broken 0, mined cases passed 100%
+  shadow    PASS  100 mirrored requests: candidate better on 21, worse on 0
+            users saw only sql-analyst 1.4's answers
+  canary    PASS  44 runs: success 100%, p95 2,760 ms, $0.014/task, burn 0.0
+            current version: success 84%, burn 3.3
+  decision  PROMOTE
+
+  sql-analyst 1.5: promote at the end; requests it served to users: 44
+
+sql-analyst 1.6 (replacing sql-analyst 1.4)
+  mined     44 failed runs -> 3 new cases (41 duplicates dropped)
+              hallucination-c524fb    What was revenue in March
+              infinite_loop-b93a3c    how many orders were CANCELLED ?
+              misread_result-8b4974   Which region sold the most in March?
+  offline   PASS  10 cases x 3 trials: baseline 70%, candidate 100%
+            z=-3.25, old cases broken 0, mined cases passed 100%
+  shadow    STOP  100 mirrored requests: candidate better on 21, worse on 0
+            users saw only sql-analyst 1.4's answers
+            because: missed p95 latency (ms)
+  decision  REJECT
+
+  sql-analyst 1.6: reject at shadow; requests it served to users: 0

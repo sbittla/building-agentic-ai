@@ -145,7 +145,54 @@ def write_markdown(r):
     bad = [c for c in r["not_passed"] if c["outcome"] in ("failed", "error")]
     if bad:
         lines += ["", "**Failures:**", ""] + [f"- `{c['test']}`: {c['message']}" for c in bad]
+    lines += evidence_by_kind(r)
     (OUT / "README.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+KINDS = [("MCP integration tests", r"test_ch11_12|test_ch13_15|test_part5|test_ex12|test_ex13|test_a2a|test_ch30_gateway"),
+         ("Security regression tests", r"test_security|test_part8|test_ch17_security|test_ch25|test_ch26"),
+         ("Performance benchmarks (simulator)", r"test_ch29|test_ch28_profile")]
+
+
+def evidence_by_kind(r):
+    """One row per kind of evidence, so a deterministic pass is never read as a live-model pass."""
+    p = r["provenance"]
+    where = f"commit `{(p['commit'] or '')[:12]}`, {p['environment']}, {p['date_utc'][:10]}"
+    rows = [("Deterministic tests (scripted stand-in model)", r["totals"], where,
+             "`python dev/verify.py run`", "`verification/offline.json`")]
+    for name, pat in KINDS:
+        c = Counter(t["outcome"] for t in r["tests"] if re.search(pat, t["test"]))
+        rows.append((name, c, where, "part of the deterministic run", "`verification/offline.json`"))
+    out = ["", "## Evidence by kind", "",
+           "Each kind proves something different. A deterministic pass shows the code and its controls "
+           "behave as the book says with a scripted model; it says nothing about how a real model "
+           "behaves. Live-model results are recorded separately, per exercise, with their own commit "
+           "and date. Production readiness is not claimed (Appendix M of the book).", "",
+           "| Kind | Passed | Failed | Skipped | Where and when | Command | Artifact |",
+           "| --- | ---: | ---: | ---: | --- | --- | --- |"]
+    for name, c, w, cmd, art in rows:
+        out.append(f"| {name} | {c.get('passed', 0)} | {c.get('failed', 0) + c.get('error', 0)} | "
+                   f"{c.get('skipped', 0)} | {w} | {cmd} | {art} |")
+    mut = OUT / "security_mutations.json"
+    if mut.exists():
+        m = json.loads(mut.read_text(encoding="utf-8"))
+        out.append(f"| Security controls switched off (mutation check) | {sum(x['caught'] for x in m)} caught | "
+                   f"{sum(not x['caught'] for x in m)} missed | 0 | {where} | `python dev/security_mutations.py` | "
+                   "`verification/SECURITY.md` |")
+    sys.path.insert(0, str(KIT / "dev"))
+    import release_manifest
+    live = release_manifest.live_runs()
+    prov = live["runs_by_provider"]
+    for label, key in (("Live runs: free local model", "local (qwen3.5:9b)"), ("Live runs: paid Claude API", "Claude API"),
+                       ("Runs that need no model", "no model")):
+        out.append(f"| {label} | {prov.get(key, 0)} recorded | see index | — | {live['dates']}, each run's own commit | "
+                   "`./course.sh run-chapter` | `solutions/outputs/`, `EXERCISE_INDEX.md` |")
+    o = live["by_outcome"]
+    out.append(f"| Human-only or externally dependent | — | — | {o.get('needs a person or service', 0)} | "
+               "a person, Claude Desktop, a token or the sandbox | — | `EXERCISE_INDEX.md` |")
+    out.append(f"| Not run yet with a live model | — | — | {len(live['not_run_yet'])} | "
+               + (", ".join(live["not_run_yet"]) or "none") + " | `./course.sh run-chapter <ids> --model claude` | — |")
+    return out
 
 
 def write_security(cases, prov):

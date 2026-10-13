@@ -1,0 +1,16 @@
+# Exercise: 29.8  Is the cheaper model cheaper for the business?
+# Command:  python /tmp/solutions-flat/exercises/ex29_8_model_swap.py
+# Model:    none (no model needed)
+# Date:     2026-10-13 13:29:33 PDT
+# Exit code: 0
+# Seconds:  0.9
+#-------------------------------------------------------------------------------
+Configuration              tokens $/mo  net $/mo  payback
+Sonnet 5, 3% failures              167    39,059     3.8m
+Haiku 4.5, 3% failures              86    39,140     3.8m
+Haiku 4.5, 4% failures              86    34,640     4.3m
+Haiku 4.5, 5% failures              86    30,140     5.0m
+Haiku 4.5, 6% failures              86    25,640     5.9m
+
+Haiku saves $81 a month in tokens. Its net equals Sonnet's at a failure rate of 3.02%: 0.02 points above Sonnet's 3%.
+Any model that fails noticeably more often costs the business more, however cheap its tokens: choose by cost per SUCCESS and failure cost.

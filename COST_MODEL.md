@@ -23,7 +23,7 @@ model replaces it.
 | Assumption | Low | High | Why |
 | --- | ---: | ---: | --- |
 | Model | `claude-sonnet-5` | | The book's default `MODEL` |
-| Price per million tokens, input / output | $2.00 / $10.00 | | `PRICES` in `ch20_router.py`, at printing |
+| Price per million tokens, input / output | $2.00 / $10.00 | | `PRICES` in `ch20_router.py`, at release (checked October 2026) |
 | Model calls per agent run | 3 | 4 | The book's agents take 2–6 steps for a typical task |
 | Input tokens per call (average over a run; the history grows) | 2,500 | 3,000 | System prompt, tools, question and history |
 | Output tokens per call, including thinking | 500 | 700 | Thinking is billed as output |

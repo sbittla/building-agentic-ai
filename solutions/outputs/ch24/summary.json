@@ -2,7 +2,23 @@
  "chapter": "24",
  "title": "Chapter 24: Skills, Frameworks and Agent Runtimes",
  "model": "mixed: see each exercise",
- "date": "2026-09-28 01:50",
+ "date": "2026-10-13 13:29",
+ "provenance": {
+  "commit": "abaab3d230f8",
+  "python": "3.12.11",
+  "packages_sha256": "95d6b663897ac0b2",
+  "packages": {
+   "anthropic": "1.8.0",
+   "mcp": "2.2.0",
+   "claude-agent-sdk": "0.2.159",
+   "langchain": "1.4.2",
+   "httpx": "0.28.1",
+   "pytest": "9.1.1"
+  },
+  "provider": "local",
+  "model_id": "qwen3.5:9b",
+  "model_label": "qwen3.5:9b (local, through Ollama)"
+ },
  "exercises": [
   {
    "id": "24.1",
@@ -93,6 +109,17 @@
    "seconds": 0,
    "log": "ch24/24.9.log",
    "model": "none"
+  },
+  {
+   "id": "24.10",
+   "title": "Hold a permission change",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 0.1,
+   "log": "ch24/24.10.log",
+   "model": "none",
+   "commit": "abaab3d230f8"
   }
  ]
 }

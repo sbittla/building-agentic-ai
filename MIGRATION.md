@@ -1,10 +1,26 @@
 # Migration notes
 
-What to change in your own code, or in your reading, when you move from one tag of this repository to the next. Versions are in [VERSION_MATRIX.md](VERSION_MATRIX.md); the full list of changes is in [CHANGELOG.md](CHANGELOG.md).
+What to change in your own code, or in your reading, when you move from one release of this repository to the next. Versions are in [VERSION_MATRIX.md](VERSION_MATRIX.md); the full list of changes is in [CHANGELOG.md](CHANGELOG.md).
 
-## edition-1.0 → edition-1.1
+## book-v1.0.0 (First edition)
 
-Code from the first printing runs unchanged on edition-1.1's versions; the library pins didn't change. What moved:
+This is the first public release, so readers of the book have nothing to migrate: check out `book-v1.0.0` and start. Future patch releases (`book-v1.0.1`, ...) will list here anything you need to change.
+
+## Development snapshots
+
+Only relevant if you worked from an internal snapshot of the repository before the First edition.
+
+### edition-1.2 → book-v1.0.0
+
+Nothing to change in your code. The First edition's text was rewritten from the edition-1.2 snapshot; every chapter, section number, exercise id, file and command is the same. The one code change is cosmetic: `ch30_improvement_loop.py` labels its demo releases `sql-analyst` instead of `support-agent`.
+
+### edition-1.1 → edition-1.2 (internal snapshots)
+
+Exercise R.4 is now extra exercise X.1, S.3 is X.2, and S.4 is renumbered S.3 (`./course.sh ex S.3`). The draft exercise 31.6 is X.3. See [EXTRA_PRACTICE.md](EXTRA_PRACTICE.md).
+
+### edition-1.0 → edition-1.1 (internal snapshots)
+
+Code from the first snapshot runs unchanged on edition-1.1's versions; the library pins didn't change. What moved:
 
 | In edition-1.0 | In edition-1.1 |
 | --- | --- |
@@ -18,9 +34,9 @@ Code from the first printing runs unchanged on edition-1.1's versions; the libra
 | `solutions/exercises/ch00/sol_chNN_*.py` (and `ch01/`, `ch03/`) | `solutions/exercises/chNN/sol_chNN_*.py` |
 | `ch03_tool_search.py` imported tools from Chapters 4–8 | It uses only Chapter 3's tools and a catalogue of stand-ins; exercise 3.7 changed to match |
 
-If you're reading the first printing, stay on `edition-1.0` for exercise numbers that match your book, or use the table above.
+If you're reading the first snapshot, stay on `edition-1.0` for exercise numbers that match your book, or use the table above.
 
-### New in edition-1.1 (nothing to change in your code)
+#### New in edition-1.1 (nothing to change in your code)
 
 These are additions; code written against edition-1.0 keeps working:
 
