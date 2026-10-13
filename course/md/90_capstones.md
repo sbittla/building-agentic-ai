@@ -15,7 +15,7 @@ Reference versions are in `solutions/capstones`. Read them **after** you've buil
 
 All of them share one small host, `solutions/capstones/common.py`. The MCP hub and loop come from Chapter 13 (`ch13_mcp_agent.py`), with each capstone's servers in a `CONFIG` dictionary. The policy layer comes from Chapter 14 (`CapstonePolicy`): a `RULES` dictionary says which tools the model may see (`allow`) and which need a human's OK (`needs_approval`), and every approval decision is logged to `capstone_calls.jsonl`. Capstones 3 and 4 end with a forced tool call (Chapter 3), so the result is a JSON report.
 
-So each capstone is mostly its servers, its system prompt and its rules. The references show the **architecture**, not a full rubric score: their evaluation sets are starters, with no load-test reports, dashboards or CI pipelines (automated build-and-test runs). That part is yours. Run any of them with `./course.sh capstone <n>` (it creates the sample data first); `./course.sh check-solutions` runs them all offline with a scripted model.
+So each capstone is mostly its servers, its system prompt and its rules. The references show the **architecture**, not a full rubric score: their evaluation sets are starters, with no load-test reports, dashboards or CI pipelines (automated build-and-test runs). That part is yours. They're also teaching code, not production code: Capstone 1's sign-in is simulated with an environment variable per session, approvals are typed at the terminal, and the approval log is a local file. Appendix M lists what a real deployment adds. Run any of them with `./course.sh capstone <n>` (it creates the sample data first); `./course.sh check-solutions` runs them all offline with a scripted model.
 
 ## How capstones are assessed
 
@@ -235,7 +235,7 @@ Run it with `./course.sh capstone 4` (or `./course.sh capstone 4 pr-3` for one P
 
 **Core features**
 
-- A lead that writes a structured plan (objectives, boundaries and effort per subtask) and stops at a budget (Chapter 20).
+- A lead agent, the orchestrator, that writes a structured plan (objectives, boundaries and effort per subtask) and stops at a budget (Chapter 20).
 - Parallel subagents with web fetch and a local document library, each with its own brief (Chapter 21).
 - Every claim checked against the fetched source text; unsupported claims revised or dropped (Chapter 18).
 - A critic pass and one revision (exercise 11.5).

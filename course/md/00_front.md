@@ -103,7 +103,18 @@ Parts 6, 7 and 8 deepen each milestone.
 
 ## Setup (do this once)
 
-Everything runs inside one Docker image with Python, Node.js, the MCP SDK, reference MCP servers, sample data and the chapter code. The only thing you install is **Docker** (Docker Desktop on Windows and macOS, Docker Engine with Compose on Linux). Then get the course kit with `git clone https://github.com/sbittla/building-agentic-ai.git` (or download the ZIP), open a terminal in its folder and run:
+Everything runs inside one Docker image with Python, Node.js, the MCP SDK, reference MCP servers, sample data and the chapter code. The only thing you install is **Docker** (Docker Desktop on Windows and macOS, Docker Engine with Compose on Linux). Appendix A lists what your computer needs: 16 GB of RAM is recommended with Claude and is the minimum for the free local model, which also needs more disk (Appendix H).
+
+Get the course kit, and check out the release that matches this book, so the code you run is the code the book was written against:
+
+```bash
+git clone https://github.com/sbittla/building-agentic-ai.git
+cd building-agentic-ai
+git checkout book-v1.0.0
+git describe --tags        # prints book-v1.0.0
+```
+
+The `main` branch moves as the kit is updated; the tag never does. Then run:
 
 ```bash
 ./course.sh setup          # checks Docker, creates .env, asks Claude or local model (and the key)
@@ -158,6 +169,8 @@ On a tight budget, do the book on the local model and add a few dollars of Claud
 
 Every chapter opens with what you'll build, where it sits in the architecture (section 1.7), its **Prerequisites** and **Learning objectives**, and a production system using the same pattern (**In the real world**). Numbered **lessons** follow with runnable code; a listing marked *excerpt* shows the parts that teach. **Common mistakes**, **Key takeaways** and **Learn more** close the chapter. Each Learn more table lists the two or three best places to start; `RESOURCES.md` in the course kit has every link, including the deeper reading, ready to click. Then come the exercises, the part's checkpoint where there is one, and a short **Up next** that sets up the following chapter.
 
+Exercises come in three kinds, and the kit treats each differently. A **written-answer** exercise (level Concept) has nothing to run: you write your answer, then compare it with `./course.sh solution <id>`. An **executable** exercise gives you a starter file and, for many, an automatic check. A **model-dependent** exercise also calls a model, so its output varies from run to run; its *Done when* line checks behavior (the right tool, a refused action, a correct number), not exact wording.
+
 **Exercises** come at four levels: **Concept** (no code), **Simple** (a small change to the chapter's code), **Medium** (a new feature with a design decision) and **Complex** (an open-ended build with measurements). Each has a measurable **Done when** line. Exercises are numbered in the order the chapter teaches their topics, not by difficulty, so use the level label to choose: Simple and Medium first, Complex when you want a project. Run one with `./course.sh ex <id>` (a build exercise's first run creates a starter file in `workspace/exercises`), check it with `./course.sh check <id>` where a checker exists, and print the reference solution with `./course.sh solution <id>`. `./course.sh list 4` lists Chapter 4's exercises. Each box also names the model it needs:
 
 Table: Exercises by the model they need
@@ -202,6 +215,10 @@ An agent makes many model calls per question, and with Claude each one costs mon
 - Develop on a cheaper model (`MODEL=claude-haiku-4-5` in `.env`) and evaluate on a larger one.
 - Always keep the `max_iterations` cap from Chapter 4.
 - Don't give an agent write access to anything you care about until Chapter 9's approval gates.
+
+## Getting help
+
+When something doesn't work, look in this order: the exercise's *Done when* line and its reference solution (`./course.sh solution <id>`), Appendix B (troubleshooting), then `ERRATA.md` in the course kit for known mistakes in this edition. If you've found a new problem, open an issue on the repository using its book-issue template: it asks for the page, the repository tag and commit (`git describe --tags`), your operating system, the model, the exact command and what you expected. Never paste API keys, private prompts or customer data into an issue.
 
 ## Learn more
 

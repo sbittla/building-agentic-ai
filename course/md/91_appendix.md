@@ -120,6 +120,11 @@ Table: Common errors and how to fix them
 | MCP server "disconnected" right away | A crash at start-up, or (outside Python's SDK) output written to stdout | Run the server by itself to see the error; log to stderr |
 | Claude Desktop doesn't show your tools | Wrong path in the config, or the app wasn't restarted | Use absolute paths; fully quit and restart the app |
 | `Couldn't reach the agent API` (Chapter 30) | `serve-api` isn't running | Run `./course.sh serve-api` in another terminal |
+| "... needs Claude, not the local model" | A **Claude only** exercise run with `PROVIDER=local` | Set `PROVIDER=claude` and add an API key with credit; this is paid usage (Appendix H) |
+| "This exercise needs GITHUB_PERSONAL_ACCESS_TOKEN" | Exercises 14.3 and 14.4 use your own GitHub account | Add a read-only, fine-grained token to `.env`; it costs nothing |
+| "This exercise needs the isolated test sandbox" | Exercise 10.7 runs code in the network-less sandbox | Run `./course.sh sandbox up` first |
+
+Some of these aren't bugs: the exercise needs something your setup doesn't have yet. Before you debug, read the exercise's label with `./course.sh ex <id> --info`. Of the {{exercises:all}} exercises, {{exercises:none}} need no model, {{exercises:any}} run free on `qwen3.5:9b`, the {{exercises-word:claude-rec}} **Claude recommended** ones also run free but work much better on paid Claude, and the {{exercises-word:claude-only}} **Claude only** ones need paid Claude usage or, for 12.5, the Claude Desktop app. Appendix H's *Which exercises need which model* lists them, with the few that need an account, an app or a person.
 
 ### When your agent doesn't work: a debugging playbook
 
@@ -306,6 +311,8 @@ Table: Glossary
 
 Every cost figure in this book and the kit's README comes from one cost model, `dev/cost_model.py`, which also writes the kit's `COST_MODEL.md`. It assumes Claude Sonnet 5 at $2 per million input tokens and $10 per million output tokens (2026 prices), and an *agent run* (one task) of 3–4 model calls with 2,500–3,000 input and 500–700 output tokens per call: about {{cost:run}}. Most paid exercises make one run; evaluation suites, benchmarks and load tests make dozens. One clean pass of every paid exercise is {{cost:first}}; since you'll rerun while debugging, the table doubles that.
 
+Three more assumptions sit behind the table. It prices every exercise that calls a model as if you ran it on Claude, including the ones that also run free on the local model; the Claude Desktop exercise (12.5) uses the app's own plan and isn't counted. It assumes no prompt caching, which would lower the input term. And it counts each model call once, with no automatic retries by the client (section 19.4): the doubling stands for your own repeated attempts while debugging, not for those.
+
 Table: Estimated cost by part, for a learner (twice the first pass, for reruns)
 | Part | Paid exercises | Agent runs, first pass | Estimated cost | Biggest items |
 | --- | ---: | ---: | --- | --- |
@@ -412,12 +419,12 @@ Table: Free courses
 
 Model names, prices and SDK features change every few months. First check that your book, code and environment match:
 
-Table: This printing and the code it was tested with
-| Book printing | Repository tag | Exercises | Python | Default models | MCP specification | Verified |
+Table: This edition and the code it was tested with
+| Book | Repository tag | Exercises | Python | Default models | MCP specification | Verified |
 | --- | --- | ---: | --- | --- | --- | --- |
-| Fourth printing, October 2026 | `edition-1.3` | {{exercises:all}} | 3.12 | `claude-sonnet-5`, `claude-haiku-4-5`, `qwen3.5:9b` | 2026-07-28 | 9 October 2026 |
+| First edition | `book-v1.0.0` | {{exercises:all}} | 3.12 | `claude-sonnet-5`, `claude-haiku-4-5`, `qwen3.5:9b` | 2026-07-28 | October 2026 |
 
-`git describe --tags` prints your tag, and `./course.sh check` prints the image's Python and library versions. Four kit files track later changes:
+`git describe --tags` prints your tag, and `./course.sh check` prints the image's Python and library versions. The *Verified* column has a narrow meaning, explained at the end of this appendix. Four kit files track later changes:
 
 Table: How the course kit tracks change
 | File | What it tells you |
@@ -425,7 +432,7 @@ Table: How the course kit tracks change
 | `VERSION_MATRIX.md` | The exact tested versions of every library, server, model and protocol, and which sections depend on them; also how to tell a protocol change (behavior differs) from an SDK change (code breaks) |
 | `CHANGELOG.md` | What changed between tags of the repository |
 | `MIGRATION.md` | What to change in your own code when you move to a newer tag |
-| `ERRATA.md` | Corrections for each printing; your printing's tag never moves, so its code always matches your book |
+| `ERRATA.md` | Corrections for this edition; its tag never moves, so its code always matches your book |
 
 Changes in the wider world appear first on these pages:
 
@@ -438,6 +445,16 @@ Table: Where changes appear first
 | **MCP blog**<br>[blog.modelcontextprotocol.io](https://blog.modelcontextprotocol.io) | Protocol changes and new specification versions | Go deeper |
 | **Simon Willison's weblog**<br>[simonwillison.net](https://simonwillison.net) | A well-known independent developer's daily notes on LLMs and agent security | Go deeper |
 | **MCP roadmap**<br>[modelcontextprotocol.io/development/roadmap](https://modelcontextprotocol.io/development/roadmap) | The protocol's priorities and upcoming changes | Go deeper |
+
+### What "verified" means
+
+"Verified" in this appendix's edition table covers two kinds of evidence, and leaves out a third that only you can produce. Keep them apart when you read a result or quote one:
+
+1. **Deterministic tests with a scripted stand-in model.** `./course.sh check-solutions` replays fixed model replies, so it runs offline, needs no key and gives the same result on every machine. It proves that the code paths and the controls work: the approval gate stops an unapproved call, the policy refuses a hidden tool, the checkpoint skips a finished step. It says nothing about whether a real model will make the same choices. The record of each run, with its commit and environment, is `verification/offline.json`.
+2. **Live-model exercise runs**, on the free local model or on paid Claude. `./course.sh run-chapter <chapter|all>` runs each exercise's reference solution against a real model and writes its logs and a `summary.json` to `solutions/outputs/`. These results vary from run to run, because the model does; a pass shows that the exercise can work end to end, and repeated trials (Chapter 27) tell you how often.
+3. **Production readiness.** The kit doesn't provide it, and no number in this book claims it. It takes your own evaluation suite on your own data, a load test at your expected peak, a security review and someone to operate the system. Appendix M lists what that involves.
+
+Appendix F describes how the first two are run for the solutions folder.
 
 ## Appendix H: Run the Book Free with a Local Model
 
@@ -534,6 +551,20 @@ Table: Local-model problems and fixes
 ### Which exercises need which model
 
 Every exercise box shows one of four labels. Of the book's {{exercises:all}} exercises, {{exercises:none}} need **no model**, {{exercises:any}} run on **qwen3.5:9b or Claude**, {{exercises:claude-rec}} are **Claude recommended** and {{exercises:claude-only}} are **Claude only**. `./course.sh list <chapter>` shows the labels, and `./course.sh ex <id>` warns before running a Claude-only exercise locally.
+
+Table: What each exercise needs, and what it costs
+| Label | Exercises | Runs free? | Paid usage |
+| --- | ---: | --- | --- |
+| **No model** | {{exercises:none}} | Yes, with no model at all | Never |
+| **qwen3.5:9b or Claude** | {{exercises:any}} | Yes, on `qwen3.5:9b` | Only if you choose Claude |
+| **Claude recommended** | {{exercises:claude-rec}} | Yes, on `qwen3.5:9b`, with weaker results | Optional, for much better results |
+| **Claude only** | {{exercises:claude-only}} | No (12.5 aside, below) | Required for 3.7, 16.7, 24.6 and 24.7 |
+
+A few exercises need something besides a model:
+
+- **An app:** 12.5 uses the Claude Desktop app. A free Claude plan works, and no API key or local model is involved.
+- **An account:** 14.3 and 14.4 read your own GitHub repositories with a read-only token (free). Exercise 30.7 deploys to a managed container host; most have a free tier, but set a budget alert and delete the service afterward.
+- **A person:** exercises with an approval gate stop and wait for you to type *y* or *n*; you're the person in the loop. Exercise 3.1 asks a classmate or colleague to try to break your tool descriptions.
 
 Table: Exercises that need, or work much better with, Claude
 | Exercise | Label | Why |
@@ -729,7 +760,7 @@ Table: The same concepts on other platforms
 | Agent runtimes (Chapter 24) | Claude Agent SDK; Claude Managed Agents | Agents SDK; AgentKit | Agent Development Kit (ADK); Agent Engine | LangGraph, self-hosted or managed |
 | Agent-to-agent (Chapter 21) | Through the A2A SDK, not an API feature | Through the A2A SDK | A2A support in Agent Engine (A2A began at Google; now a Linux Foundation project) | The `a2a-sdk` package; A2A endpoints in LangGraph's agent server |
 
-Keep three layers apart: the **concept** (tool calling), the **implementation** you run (Claude, or the local model) and the **equivalent** at work. Section 24.6 shows the same loop on another provider's SDK.
+Keep three layers apart: the **concept** (tool calling), the **implementation** you run (Claude, or the local model) and the **equivalent** at work. Section 24.6 shows the same loop on another provider's SDK. When the question is which runtime to use rather than what it's called, turn to the decision matrix "Choosing how to run an agent (as of October 2026)" in Chapter 24.
 
 ## Appendix K: Architecture Decision Records
 
@@ -841,3 +872,34 @@ Table: Every chapter, its exercises, code and capstones
 @@curriculum-map
 
 To work through a row: read the chapter, run its listings with `./course.sh python <file>`, do an exercise with `./course.sh ex <id>`, check it with `./course.sh check <id>` where a checker exists, and compare with `./course.sh solution <id>`.
+
+## Appendix M: Production Deployment Reference
+
+Start with the limit: **the course kit is not production-hardened.** In `course/code_maturity.json`, the security, memory and durability code is labeled *Production pattern*, which means the controls and records have the real shape but the implementation is simplified: in-memory or file storage, demo keys, one process. Nothing in the kit carries the *Production-hardened* label, and Appendix G explains why passing the kit's tests doesn't make a system ready for real users. `SECURITY_MODEL.md` lists, control by control, what the kit leaves out.
+
+This appendix is the list a platform or operations team works through before an agent from this book serves real users. Section 30.7's launch checklist asks whether you built each control; this one asks whether you can keep it running. Every row needs an owner and a date.
+
+Table: What a production deployment adds to the kit
+| Topic | What to do | Minimum bar | Where the book touches it |
+| --- | --- | --- | --- |
+| Multi-tenant isolation | Put a tenant id on every record, session, cache key, token and trace. Filter by tenant before ranking. Give each tenant its own keys, budgets and rate limits, and enforce isolation in the database too | A test per store (memory, sessions, vector index, caches, traces) that tries to read another tenant's data, fails, and runs in CI | Sections 17.10, 30.2 and 30.12; ADR-7 (Appendix K); scenarios S5 and S6 in `SECURITY_MODEL.md` |
+| Secret rotation | Keep every secret in a secrets manager and inject it at run time. Sign tokens with your identity provider's asymmetric keys. Rotate on a schedule and on suspicion | No default keys; each secret has an owner and a rotation interval; one scheduled and one emergency rotation rehearsed without an outage | Sections 26.7, 26.8, 30.2 and 30.6 |
+| Data retention and deletion | Set a retention period for each store, owned by your legal team. Purge on schedule. Make a deletion request reach every copy | An inventory of stores holding personal data; a deletion test showing the data gone from memory, indexes, embeddings, caches and traces | Sections 17.6, 17.10, 28.3, 30.12 and 30.13 |
+| Dependency and container scanning | Lock dependencies with hashes, pin the base image by digest, produce an SBOM for every image, scan dependencies and images in CI and on a schedule, sign images, run as a non-root user | CI fails on a critical known vulnerability unless an exception is recorded; the running image's digest matches a signed build; nothing deployed as "latest" | Sections 14.3, 24.10, 30.6 and 30.10 |
+| Backups and recovery | Back up sessions, job checkpoints, memory stores, audit logs and evaluation suites; rebuild or back up vector indexes. Write an RPO and an RTO for each | A restore into a clean environment, timed against the RTO, at least once before launch and then on a schedule | Sections 17.10, 18.1, 19.3 and 30.6 |
+| Incident ownership | Name the owning team, an on-call rotation, a runbook per alert and an escalation path on both sides of any customer boundary | Every page reaches a named person within an agreed time; the kill switch has been tested; every incident ends in a postmortem and a new evaluation case | Sections 26.7, 28.11, 28.12, 30.12 and 31.6; the case study |
+| Rollback criteria | Write down which signals trigger a rollback, who may decide, and the path back. Keep the previous release deployable by configuration | The rollback path rehearsed on a canary; the on-call engineer may roll back without asking anyone | Sections 27.7, 28.10 and 30.13; the case study |
+
+**Multi-tenant isolation.** The kit's `SecureMemoryStore` checks tenant and owner in application code, which is the right order of operations and the wrong place to stop. Add isolation that holds even when application code is wrong: row-level security or a database per tenant, and per-tenant encryption keys. ADR-7 says when a tenant needs its own deployment.
+
+**Secret rotation.** The kit signs tokens with one shared HS256 key that falls back to a built-in development key, and its API keys have no scopes or expiry. Section 26.7 shows the mechanism: tokens name their key, a scheduled rotation keeps the old key for the longest token lifetime, and an emergency rotation keeps it for none. The OWASP Secrets Management Cheat Sheet covers storage and access.
+
+**Data retention and deletion.** Section 17.10's store shows the shape: time to live on every record, `forget_user`, and an audit log that holds hashes and metadata, never content. In production, deletion must also reach search indexes, embeddings and caches, and per-tenant keys let you make backups unreadable by destroying a key.
+
+**Dependency and container scanning.** `requirements.lock` pins exact versions, and section 30.6's image installs exact versions and runs as an unprivileged user. The kit doesn't record hashes, pin the base image by digest, generate an SBOM, scan or sign images; those belong in your build pipeline. Treat MCP servers and skills the same way (sections 14.3 and 24.10): pinned, reviewed, re-reviewed on change. NIST's Secure Software Development Framework (SP 800-218) sets the practices, SLSA describes build provenance, and the CIS Docker Benchmark covers image and runtime settings.
+
+**Backups and recovery.** The *recovery point objective* (RPO) is how much recent data you can afford to lose; the *recovery time objective* (RTO) is how long the service may be down. Sessions live in a SQLite file inside one container in the kit (section 30.6), so a production deployment moves them to a shared database with its own backups. Job checkpoints (section 19.3) are what let a crashed job resume, so lose them and work repeats. A vector index can be rebuilt from its source documents (section 18.1); back it up only if rebuilding takes longer than your RTO. Audit logs go to append-only storage the agent can't write; check the hash chain after a restore. Evaluation suites are your release gate, so keep them in version control. One rule is easy to break: a restore must not bring back data a user asked you to delete. Section 17.10's rollback refuses to, and your backup process must too. The Google SRE book's chapter on data integrity is a good companion.
+
+**Incident ownership.** Alerts page on symptoms users feel (section 28.11), and section 28.12's steps are the start of a runbook. Decide in advance who may flip the kill switch (section 26.7) and who calls whom at 3 a.m.; section 31.6 shows how often that's the missing piece. The Google SRE book's chapters on being on-call, managing incidents and postmortem culture describe the practice.
+
+**Rollback criteria.** Typical triggers: the canary burns its error budget (section 28.10), the regression gate fails on the same suite (section 27.7), an unsafe action or a guard alert, or cost per successful task over budget. The on-call engineer decides to roll back, on any one of these, without waiting for a meeting; the release owner decides when the fixed version tries again. Version the whole agent as one release (section 30.13), so the path back is a configuration change, as in the case study, rather than a rebuild. A rollback doesn't undo what the agent already did: memories written by a bad release need section 17.10's point-in-time rollback, and side effects need the compensation steps of section 19.7.

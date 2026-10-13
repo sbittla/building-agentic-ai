@@ -2,28 +2,37 @@
 
 Which book, code, environment and models belong together, and what the book was tested against. Every version here is pinned by a file in this repository, and `dev/check_references.py` fails CI if a version or price in this file differs from `requirements.lock`, the `Dockerfile` or `PRICES` in the code.
 
-## Release matrix
+## Release
 
-Read across one row: a printing of the book, the repository tag that matches it, and what that tag was verified with.
+| Book | Repository tag | Exercises | Capstones | Python | Default models | MCP specification | Main libraries | Verified |
+| --- | --- | ---: | ---: | --- | --- | --- | --- | --- |
+| First edition (2026) | `book-v1.0.0` | 249 | 7 | 3.12 | `claude-sonnet-5`, `claude-haiku-4-5`, `qwen3.5:9b` | 2026-07-28 | `anthropic` 1.8.0, `mcp` 2.2.0, `claude-agent-sdk` 0.2.159, `langchain` 1.4.2, `a2a-sdk` 1.1.5 | See [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) and "What verified means" below |
 
-| Book printing | Repository tag | Exercises | Python | Default models | MCP specification | Main libraries | Verified |
-| --- | --- | ---: | --- | --- | --- | --- | --- |
-| First printing, September 2026 | `edition-1.0` | 231 | 3.12 | `claude-sonnet-5`, `claude-haiku-4-5`, `qwen3.5:9b` | 2026-07-28 | `anthropic` 1.8.0, `mcp` 2.2.0 | September 2026 |
-| Second printing, October 2026 | `edition-1.1` | 246 | 3.12 | `claude-sonnet-5`, `claude-haiku-4-5`, `qwen3.5:9b` | 2026-07-28 | `anthropic` 1.8.0, `mcp` 2.2.0, `claude-agent-sdk` 0.2.159, `langchain` 1.4.2, `a2a-sdk` 1.1.5 | 6 October 2026: 569 offline tests passed, 5 need the course image; 12 of 12 security controls caught ([verification/](verification/README.md)) |
-| Third printing, October 2026 | `edition-1.2` | 249 | 3.12 | `claude-sonnet-5`, `claude-haiku-4-5`, `qwen3.5:9b` | 2026-07-28 | `anthropic` 1.8.0, `mcp` 2.2.0, `claude-agent-sdk` 0.2.159, `langchain` 1.4.2, `a2a-sdk` 1.1.5 | 9 October 2026, commit `b7770dc`, `requirements.lock` sha256 `c28c848a2447`: 571 offline tests passed, 0 failed, 13 skipped outside the course image (they need its MCP servers); 12 of 12 security controls caught ([verification/](verification/README.md)). CI reruns the suite in the course image on the tag |
-| Fourth printing, October 2026 | `edition-1.3` | 249 | 3.12 | `claude-sonnet-5`, `claude-haiku-4-5`, `qwen3.5:9b` | 2026-07-28 | `anthropic` 1.8.0, `mcp` 2.2.0, `claude-agent-sdk` 0.2.159, `langchain` 1.4.2, `a2a-sdk` 1.1.5 | 9 October 2026, commit `10ac07d`, `requirements.lock` sha256 `c28c848a2447`: 571 offline tests passed, 0 failed, 13 skipped outside the course image; 12 of 12 security controls caught ([verification/](verification/README.md)). CI reruns the suite in the course image on the tag |
+ISBNs of the First edition: paperback 979-8177506326, hardcover 979-8177514734.
 
-ISBNs of the second, third and fourth printings: paperback 979-8177506326, hardcover 979-8177514734.
+**Release status.** `book-v1.0.0-rc1` is the release candidate. It becomes `book-v1.0.0` on the same commit once the open release gates in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) (`known_limitations`) are closed. Until then, treat the candidate as the code that matches the book.
+
+**Development history.** This repository was developed through several internal manuscript and code snapshots before the book's first public edition. The historical tags `edition-1.0`, `edition-1.1` and `edition-1.2` are kept for traceability. They are development snapshots, not earlier commercial printings, and nothing in the book refers to them.
 
 How to tell which you have:
-- **The book:** the copyright page names its printing and its tag.
+- **The book:** the copyright page names the edition and the repository tag (`book-v1.0.0`).
 - **The code:** `git describe --tags` prints the tag; `./course.sh check` prints the Python and library versions inside the image.
-- **The environment:** the Docker image is built from this tag's `Dockerfile` and `requirements.lock`; every run summary records the commit and the lock file's hash (`provenance`).
-- **The results:** `verification/offline.json` names the commit it was run on.
+- **The environment:** the Docker image is built from this tag's `Dockerfile` and `requirements.lock`. Every run summary records the commit and the lock file's hash (`provenance`).
+- **The results:** `verification/offline.json` names the commit it was run on, and `RELEASE_MANIFEST.json` names the tag, commit, lock hash and test status together.
 
-The printed book makes one promise: `git checkout edition-1.3` gives you code, data and solutions that run as printed, with the versions below. Tags are never moved. Newer versions go on `main` and into a new tag, with notes in [CHANGELOG.md](CHANGELOG.md) and [MIGRATION.md](MIGRATION.md). Mistakes in the printed text are listed in [ERRATA.md](ERRATA.md).
+The book makes one promise: `git checkout book-v1.0.0` gives you the code, data and solutions it was written against, with the versions below. Two runtime images are not pinned (see "MCP servers and tools"), so that promise covers everything except those two images. Tags never move. Fixes go on `main` and into patch releases such as `book-v1.0.1`, with notes in [CHANGELOG.md](CHANGELOG.md). Mistakes in the printed text are listed in [ERRATA.md](ERRATA.md).
 
-**Details as of:** 9 October 2026 · **Tag:** `edition-1.3` · **Verified commit:** `10ac07d`
+### What "verified" means
+
+The repository provides three different kinds of evidence. Keep them apart.
+
+| Kind of evidence | What it proves | What it doesn't | Where it is |
+| --- | --- | --- | --- |
+| **Deterministic tests** with a scripted stand-in model | Every code path, control and checker behaves as the book says. The tests are offline and give the same result on any machine, and the security tests use a model that obeys the attacker completely | How well a real model chooses tools or answers | `verification/offline.json`, `verification/README.md` (`python dev/verify.py run`) |
+| **Live-model exercise runs**, on the free local model or the paid Claude API | Each exercise works end to end with a real model on the recorded date | That it always will: answers vary from run to run and between models | `solutions/outputs/*/summary.json` and logs (`./course.sh run-chapter`), summarized in README "Verified results" |
+| **Production readiness** | Not provided by this kit | — | Needs your own evaluation suite, load test, security review and operations; see Appendix M of the book and [SECURITY_MODEL.md](SECURITY_MODEL.md) |
+
+"Passed" in a deterministic test, "passed" in a live-model run and "ready for production" are three different claims. This repository makes only the first two, and for each one it says which commit and environment the claim covers.
 
 ## Runtime
 
@@ -65,11 +74,31 @@ Every package, including indirect dependencies, is pinned to an exact version in
 | GitHub MCP server | `latest` at build time (**not pinned**) | `Dockerfile` (`GITHUB_MCP_IMAGE`) |
 | Ollama (local model server) | `latest` at pull time (**not pinned**) | `compose.yaml` |
 
-Two images are not pinned, because their publishers ship fixes often and the book uses only their stable surface (exercises 14.3, 14.4 and Capstone 4 for GitHub; the OpenAI-compatible chat endpoint for Ollama). To pin one, replace `latest` with a version tag from the publisher's release page, rebuild and run the checks below.
+> [!WARNING]
+> **Reproducibility warning: two images are not pinned.** Both the GitHub MCP server and Ollama resolve `latest` when you build or pull, so two builds of the same tag can get different versions of these two images. Everything else in the image is pinned.
+
+| Image | What depends on it | If it changes or is unavailable |
+| --- | --- | --- |
+| `ghcr.io/github/github-mcp-server:latest` | Exercises 14.3 and 14.4 and Capstone 4. Nothing else uses it | Build without it: put `GITHUB_MCP_IMAGE=nogithub` in `.env` (or pass `--build-arg GITHUB_MCP_IMAGE=nogithub`). The `nogithub` stage in the `Dockerfile` builds an image without the GitHub server, and every other exercise runs unchanged |
+| `ollama/ollama:latest` (`compose.yaml`, `compose.gpu.yaml`) | The free local model (`PROVIDER=local`, Appendix H), through its OpenAI-compatible chat endpoint only | Use the Claude API (`PROVIDER=claude`), which needs no local image, or pin a version you have tested |
+
+They aren't pinned because both publishers ship fixes often and the book uses only their stable surface. To pin either one by digest yourself:
+
+```bash
+docker pull ghcr.io/github/github-mcp-server:latest
+docker inspect --format '{{index .RepoDigests 0}}' ghcr.io/github/github-mcp-server:latest
+# put the result in .env:  GITHUB_MCP_IMAGE=ghcr.io/github/github-mcp-server@sha256:...
+
+docker pull ollama/ollama:latest
+docker inspect --format '{{index .RepoDigests 0}}' ollama/ollama:latest
+# replace "ollama/ollama:latest" in compose.yaml (and compose.gpu.yaml) with ollama/ollama@sha256:...
+```
+
+Then rebuild and run the checks under "Upgrading the pinned versions". The release's verification (`verification/offline.json`) runs without either image: the GitHub exercises need a personal token and aren't part of it, and the deterministic suite never calls the local model.
 
 ## Models and prices
 
-| Model | Where | Price at printing (per million tokens, input / output) |
+| Model | Where | Price at release (per million tokens, input / output) |
 | --- | --- | --- |
 | `claude-sonnet-5` | Default `MODEL` (`Dockerfile`, `.env`) | $2.00 / $10.00 |
 | `claude-haiku-4-5` | The small model in Chapters 20 and 29 | $1.00 / $5.00 |
@@ -77,7 +106,7 @@ Two images are not pinned, because their publishers ship fixes often and the boo
 
 Prices live in one place, `PRICES` in `course/code/ch20/ch20_router.py`, which Chapters 20 and 29 and Appendix E use.
 
-**Evidence for the third printing.** On 8 October 2026 the model ids and prices above were checked against Anthropic's pricing page ([platform.claude.com/docs/en/about-claude/pricing](https://platform.claude.com/docs/en/about-claude/pricing)): Claude Sonnet 5 at $2 / $10 and Claude Haiku 4.5 at $1 / $5 per million tokens, matching `PRICES`. `dev/check_references.py` fails CI if this file, the `Dockerfile` and `PRICES` disagree, and `dev/cost_model.py --check` fails if Appendix E's cost figures are stale. Model ids and prices change more often than anything else in this file; check the Claude docs' models overview before changing `MODEL`.
+**Evidence for the First edition.** On 8 October 2026 the model ids and prices above were checked against Anthropic's pricing page ([platform.claude.com/docs/en/about-claude/pricing](https://platform.claude.com/docs/en/about-claude/pricing)): Claude Sonnet 5 at $2 / $10 and Claude Haiku 4.5 at $1 / $5 per million tokens, matching `PRICES`. `dev/check_references.py` fails CI if this file, the `Dockerfile` and `PRICES` disagree, and `dev/cost_model.py --check` fails if Appendix E's cost figures are stale. Model ids and prices change more often than anything else in this file; check the Claude docs' models overview before changing `MODEL`.
 
 ## Protocols
 

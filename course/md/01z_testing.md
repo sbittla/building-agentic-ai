@@ -28,6 +28,26 @@ And its tests:
 
 Run them with `./course.sh pytest -q test_i_pricing.py`. A dot means a test passed. An `F` means it failed, and pytest shows you the values that didn't match.
 
+:::tip Reading a pytest failure
+As an illustration, here's what you'd see if `apply_discount` dropped the `/ 100` and computed `amount * (1 - percent)` (output trimmed slightly):
+
+```
+F......                                                                  [100%]
+_____________________________ test_ten_percent_off _____________________________
+
+    def test_ten_percent_off():                       # 1. plain test: arrange, act, assert
+>       assert apply_discount(200, 10) == 180
+E       assert -1800 == 180
+E        +  where -1800 = apply_discount(200, 10)
+
+test_i_pricing.py:7: AssertionError
+FAILED test_i_pricing.py::test_ten_percent_off - assert -1800 == 180
+1 failed, 6 passed in 0.18s
+```
+
+The `>` marks the line that failed, and `test_i_pricing.py:7` says where it is. In `assert -1800 == 180`, the left side is what your code returned and the right side is what the test expected; the `where` line shows which call produced the left side. Now decide who's wrong. Work the answer out by hand: 10% off $200 is $180, so the test's expectation is right and the bug is in `apply_discount`. If your hand calculation had agreed with the code instead, you'd fix the test. Never change the expected value just to make the run go green.
+:::
+
 ## T.2 The five patterns you'll use
 
 Table: The five pytest patterns

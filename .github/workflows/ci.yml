@@ -3,7 +3,7 @@ name: offline checks
 on:
   push:
     branches: ['**']
-    tags: ['edition-*']
+    tags: ['book-v*']
   pull_request:
 jobs:
   references:
@@ -11,11 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0                 # the manifest check compares the verified commit with HEAD
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - name: Every exercise id, file, command and cross-reference in the book resolves
         run: python dev/check_references.py
+      - name: The release manifest, README, version matrix and book name the same release
+        run: python dev/release_manifest.py --check
       - name: Cost figures are current
         run: python dev/cost_model.py --check
       - name: The curriculum map is current
@@ -67,8 +71,8 @@ jobs:
           path: verification/
           retention-days: 90
   release:
-    # a tag such as edition-1.1 publishes the verification results with the release
-    if: startsWith(github.ref, 'refs/tags/edition-')
+    # a book release tag (book-v1.0.0, book-v1.0.0-rc1, ...) publishes the verification results with the release
+    if: startsWith(github.ref, 'refs/tags/book-v')
     needs: [references, check]
     runs-on: ubuntu-latest
     permissions:
@@ -84,5 +88,5 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release create "${{ github.ref_name }}" --repo "${{ github.repository }}" --verify-tag \
-            --title "${{ github.ref_name }}" --notes "Code and verification results for this printing of the book. Versions: VERSION_MATRIX.md. Changes: CHANGELOG.md and MIGRATION.md. Corrections: ERRATA.md." \
-            verification/* VERSION_MATRIX.md ERRATA.md || gh release upload "${{ github.ref_name }}" --repo "${{ github.repository }}" verification/* VERSION_MATRIX.md ERRATA.md --clobber
+            --title "Building Agentic AI Systems — Book Release ${{ github.ref_name }}" --notes "Code and verification results for the First edition of the book. Release facts: RELEASE_MANIFEST.json. Versions: VERSION_MATRIX.md. Changes: CHANGELOG.md. Corrections: ERRATA.md." \
+            $( [[ "${{ github.ref_name }}" == *-rc* ]] && echo --prerelease ) verification/* VERSION_MATRIX.md ERRATA.md RELEASE_MANIFEST.json || gh release upload "${{ github.ref_name }}" --repo "${{ github.repository }}" verification/* VERSION_MATRIX.md ERRATA.md RELEASE_MANIFEST.json --clobber

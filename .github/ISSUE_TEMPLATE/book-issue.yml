@@ -1,0 +1,56 @@
+name: Book or code problem
+description: Report a mistake in the book or a problem running the course kit
+labels: ["reader report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. **Never paste API keys, tokens, `.env` contents, customer data or private prompts.** Remove them from any output before you paste it.
+  - type: input
+    id: edition
+    attributes:
+      label: Book edition, and the page or section
+      placeholder: "First edition, page 212 (section 16.7)"
+    validations:
+      required: true
+  - type: input
+    id: tag
+    attributes:
+      label: Repository tag and commit
+      description: "Output of `git describe --tags` and `git rev-parse --short HEAD`"
+      placeholder: "book-v1.0.0, a1b2c3d"
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Operating system and Docker version
+      placeholder: "Windows 11, Docker Desktop 4.x (output of `docker --version`)"
+  - type: dropdown
+    id: model
+    attributes:
+      label: Model and provider
+      options:
+        - Claude API (claude-sonnet-5)
+        - Claude API (another model)
+        - Free local model (qwen3.5:9b)
+        - No model needed
+        - Not sure
+  - type: textarea
+    id: command
+    attributes:
+      label: Exact command
+      render: shell
+      placeholder: "./course.sh ex 16.7"
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected versus actual result
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Error output (sanitized)
+      description: "Include `./course.sh check` output for problems with the code."
+      render: text

@@ -55,7 +55,7 @@ Version A really succeeds 70% of the time, version B 80%.
   B against A: better
 ```
 
-B really is better. With one run per case the two versions tie, and with three you still can't be sure. Only at thirty do the intervals separate.
+B really is better. With one run per case the two versions tie, and with three you still can't be sure. With thirty runs per case, the intervals finally separate.
 
 ## M.2 Reading the results
 

@@ -10,7 +10,7 @@ Published runs of `course/code/ch29/ch29_benchmark.py` (section 29.8 of the book
 
 | Run | Backend | What it tells you |
 | --- | --- | --- |
-| `sim-edition-1.1/` | Simulator | The mechanics of each design, exactly: same seed, same numbers on any machine. Not how good a real model is. The book's Tables 29.x come from this run. |
+| `sim-book-v1.0/` | Simulator | The mechanics of each design, exactly: same seed, same numbers on any machine. Not how good a real model is. The book's Tables 29.x come from this run. |
 
 ## Adding a run with a real model
 
@@ -22,4 +22,4 @@ From the kit folder, with your key in `.env` (Claude) or the local model started
 ./course.sh python ch29_benchmark.py --backend claude --quick       # about $1: one repetition, 8 questions
 ```
 
-Each writes `workspace/benchmarks/<backend>-<time>/`. To publish one, copy the folder here, rename it (`claude-edition-1.1/`), and add a row to the table above. Compare runs only when their `config.json` matches on everything but what you changed, and read differences against the confidence intervals: a difference inside the overlap isn't one.
+Each writes `workspace/benchmarks/<backend>-<time>/`. To publish one, copy the folder here, rename it (`claude-book-v1.0/`), and add a row to the table above. Compare runs only when their `config.json` matches on everything but what you changed, and read differences against the confidence intervals: a difference inside the overlap isn't one.

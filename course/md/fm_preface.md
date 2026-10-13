@@ -84,11 +84,11 @@ All code, sample data, starter files, checkers and solutions are in the course k
 
 The kit pins every library version so the examples keep working as the field moves.
 
-Each printing of this book is matched by a tag in the repository. This printing's is `edition-1.3`: `git checkout edition-1.3` gives you exactly the code, data and solutions the book was tested against. The tag never moves. `VERSION_MATRIX.md` lists the version of every library, model and protocol it was tested with, `CHANGELOG.md` and `MIGRATION.md` what has changed on `main` since, and `ERRATA.md` any mistakes found in this printing.
+This edition is matched by a release of the repository tagged `book-v1.0.0`: `git checkout book-v1.0.0` gives you the code, data and solutions this book was written against, and the tag never moves. `VERSION_MATRIX.md` lists the version of every library, model and protocol it was tested with, and exactly what that testing covered; `CHANGELOG.md` lists what changes on `main` after release, and `ERRATA.md` any mistakes found in this edition.
 
 ## A note on currency
 
-This book was written and tested in September 2026, and revised and retested for this printing in October 2026. Its core ideas (the agent loop, tool design, approval gates, evaluation, context management and the lethal trifecta) have held steady as models improved, and I expect them to keep holding. When model names and API details change, check `VERSION_MATRIX.md` and Appendix G first.
+This book was written and tested in September and October 2026. Its core ideas (the agent loop, tool design, approval gates, evaluation, context management and the lethal trifecta) have held steady as models improved, and I expect them to keep holding. When model names and API details change, check `VERSION_MATRIX.md` and Appendix G first.
 
 The first agent you'll build is a few dozen lines long, and it will answer that July 4 question correctly. Open the course kit, run the setup, and let's build it together.
 

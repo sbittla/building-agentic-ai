@@ -142,6 +142,16 @@ function table(rows) {
                                         ...rows.slice(1).map(r => longestWord(r[c]) * 1.2)))));
   const total = lens.reduce((a, b) => a + b, 0);
   const widths = lens.map(l => Math.floor(CONTENT_W * l / total));
+  // no column narrower than its longest word: borrow the room from the widest columns
+  const need = Array.from({ length: ncol }, (_, c) =>
+    Math.round(320 + 125 * Math.max(longestWord(rows[0][c]) * 1.1, ...rows.slice(1).map(r => longestWord(r[c])))));
+  for (let c = 0; c < ncol; c++) {
+    while (widths[c] < need[c]) {
+      const donor = widths.indexOf(Math.max(...widths));
+      if (donor === c || widths[donor] - 50 < need[donor]) break;
+      widths[donor] -= 50; widths[c] += 50;
+    }
+  }
   widths[ncol - 1] += CONTENT_W - widths.reduce((a, b) => a + b, 0);
   const cellBorder = { style: BorderStyle.SINGLE, size: 4, color: "BFBFBF" };
   const borders = { top: cellBorder, bottom: cellBorder, left: cellBorder, right: cellBorder };
@@ -221,7 +231,7 @@ const HEADINGS = [];
 const CURRENT = { title: "", short: "" };
 // Sections printed as one page of their own (a reference page readers come back to)
 const ONE_PAGE = new Set(["The roadmap at a glance"]);
-const SKIP_TOC = /^(Up next|Learn more|Learning objectives|Real-world connection|Common mistakes|Summary|Key takeaways|Exercises|Solutions for this chapter|Checkpoint)/;
+const SKIP_TOC = /^(Before you move on|Up next|Learn more|Learning objectives|Real-world connection|Common mistakes|Summary|Key takeaways|Exercises|Solutions for this chapter|Checkpoint)/;
 const TOC_PAGES_FILE = path.join(__dirname, "toc_pages.json");
 const TOC_PAGES = fs.existsSync(TOC_PAGES_FILE) ? JSON.parse(fs.readFileSync(TOC_PAGES_FILE, "utf8")) : {};
 // One Contents: parts and chapters with page numbers; each chapter's sections run together
@@ -395,11 +405,11 @@ function convert(md, file) {
       if (names) {
         src = execFileSync("python3", [path.join(ROOT, "excerpt.py"), codePath, names],
                            { encoding: "utf8" }).replace(/\s+$/, "");
-        caption = `${file} (excerpt; full file in the course kit)`;
+        caption = `${file} (excerpt; full file: ${path.relative(path.join(ROOT, ".."), codePath).split(path.sep).join("/")})`;
       } else {
         src = fs.readFileSync(codePath, "utf8").replace(/\s+$/, "")
           .replace(/\n\s*\n(\s*\n)+/g, "\n\n");    // print one blank line where the file has two (PEP 8)
-        caption = file;
+        caption = path.relative(path.join(ROOT, ".."), codePath).split(path.sep).join("/");
       }
       const label = MATURITY[file];
       if (/\.(py|Dockerfile)$/.test(file) && !label) throw new Error(`${file}: add it to course/code_maturity.json`);
@@ -594,10 +604,12 @@ function copyrightPage() {
     L("ISBN-13: 979-8177506326 (paperback)"),
     L("ISBN-13: 979-8177514734 (hardcover)"),
     L("Companion code, exercises and solutions: github.com/sbittla/building-agentic-ai"),
-    L("First edition: September 2026. Second printing, corrected: October 2026. Third printing, with Part 10 and Capstone 7: October 2026. Fourth printing, revised and shortened: October 2026. Companion code: tag edition-1.3 of the repository. Corrections to this printing are listed in ERRATA.md in the repository."),
+    L("First edition: 2026"),
+    L("The companion repository release matching this edition is tagged book-v1.0.0. Check out that tag to get the code, sample data, exercises and reference solutions that correspond to this book."),
+    L("Corrections and clarifications to the published text are listed in ERRATA.md in the companion repository. Model names, APIs, protocol specifications, prices and software dependencies may change; consult the repository's VERSION_MATRIX.md and current official documentation before using these examples in production."),
     L("Trademarks: Claude is a trademark of Anthropic PBC. Python is a registered trademark of the Python Software Foundation. Docker is a trademark of Docker, Inc. Other product and company names mentioned may be trademarks of their respective owners. They are used in an editorial fashion only, with no intention of infringement."),
-    L("While every precaution has been taken in preparing this book, the author assumes no responsibility for errors or omissions, or for damages resulting from the use of the information or code it contains. AI models, APIs, prices and libraries change often; check current documentation before relying on any detail in production. Running the examples uses a paid API; you are responsible for your own usage and costs."),
-    L("The code, data and solutions in the companion repository are released under the MIT License: you may use, copy and adapt them in your own projects, including commercial ones, provided the copyright and license notice are kept. The license applies to the code only; the text of this book remains all rights reserved."),
+    L("While every precaution has been taken in preparing this book, the author assumes no responsibility for errors or omissions, or for damages resulting from the use of the information or code it contains. AI models, APIs, prices and libraries change often; check current documentation before relying on any detail in production. Some examples use a paid model API and may incur usage charges, for which you are responsible. A free local-model path is provided for supported exercises, although model behavior and performance may differ. See Appendix H and the companion repository for setup instructions, compatibility requirements and limitations."),
+    L("The code, data and solutions in the companion repository are copyright © 2026 Srinivasa Rao Bittla. All rights reserved. You may download, run and modify them for your own learning while working through this book; any other use, including redistribution or use in other products, requires the author's written permission."),
   ];
 }
 

@@ -885,7 +885,7 @@ LIVE_RUNS = [
     ("9", "ch28_agentops.py spans.jsonl", "", 0), ("9", "ch29_costs.py", "", 0),
     ("9", "ch27_scorecard.py", "", 0), ("9", "ch28_ops.py", "", 0), ("9", "ch29_perf.py", "", 0),
     ("9", "ch30_jobs_server.py", "", 0), ("9", "ch30_gateway.py", "", 0),
-    # offline demos added in the corrected printing: no model, so they cost nothing
+    # offline demos: no model, so they cost nothing
     ("6", "ch17_memory_security.py", "", 0), ("7", "ch21_coordination.py", "", 0),
     ("7", "ch23_reliability.py", "", 0), ("7", "ch24_skill_registry.py", "", 0),
     ("8", "ch25_risk.py", "", 0), ("8", "ch26_discovery.py", "", 0),
