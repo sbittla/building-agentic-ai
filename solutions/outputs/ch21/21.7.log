@@ -1,0 +1,17 @@
+# Exercise: 21.7  Where does the team pay?
+# Command:  python /tmp/solutions-flat/exercises/ex21_7_team_economics.py
+# Model:    none (no model needed)
+# Date:     2026-10-13 13:29:29 PDT
+# Exit code: 0
+# Seconds:  1.8
+#-------------------------------------------------------------------------------
+ tool ms  one agent p95  parallel tools  team p95  extra $/task
+     500            6.6             6.0       8.4        0.0044
+    1000            8.6             7.1       9.6        0.0044
+    1500           10.9             8.7      11.0        0.0044
+    2000           13.2            10.3      12.6        0.0044
+    3000           17.4            13.5      15.7        0.0044
+    4000           21.8            16.8      18.9        0.0044
+
+The team beats one agent with sequential tools from 2000 ms tools; it beats one agent with parallel tool calls at: none of these latencies.
+Workers before every-part-right drops below 80%: 5 contained, 180 with one retry each.

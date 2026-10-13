@@ -45,7 +45,7 @@ def live_runs():
     for summary in (KIT / "solutions/outputs").glob("*/summary.json"):
         data = json.loads(summary.read_text(encoding="utf-8"))
         for x in data["exercises"]:
-            runs[x["id"]] = dict(x, model=data.get("model", ""), date=data.get("date", ""))
+            runs[x["id"]] = dict(x, model=x.get("model") or data.get("model", ""), date=x.get("date") or data.get("date", ""))
     ids = [e["id"] for e in ex] + [f"C{n}" for n in range(1, 8)]
     outcome, provider, not_run, dates = Counter(), Counter(), [], []
     for i in ids:
@@ -121,6 +121,13 @@ def build():
     }
 
 
+def is_future_patch(tag):
+    """book-v1.0.1, book-v1.0.2, ...: named as examples of later patch releases, allowed."""
+    m = re.fullmatch(r"book-v(\d+)\.(\d+)\.(\d+)", tag)
+    base = RELEASE.split(".")
+    return bool(m) and m.group(1, 2) == tuple(base[:2]) and int(m.group(3)) > int(base[2])
+
+
 def check():
     problems = []
     if not OUT.exists():
@@ -135,7 +142,8 @@ def check():
             "How to Use This Book": KIT / "course/md/00_front.md"}
     for name, path in docs.items():
         text = path.read_text(encoding="utf-8")
-        tags = set(re.findall(r"book-v\d+\.\d+\.\d+(?:-rc\d+)?", text)) - {TAG, CANDIDATE}
+        tags = {x for x in re.findall(r"book-v\d+\.\d+\.\d+(?:-rc\d+)?", text)
+                if x not in (TAG, CANDIDATE) and not is_future_patch(x)}
         if TAG not in text:
             problems.append(f"{name} doesn't name the release tag {TAG}")
         if tags:

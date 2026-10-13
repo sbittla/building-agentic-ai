@@ -1,0 +1,55 @@
+{
+ "chapter": "M",
+ "title": "Interlude: Measuring an Agent",
+ "model": "none (--free-only)",
+ "date": "2026-10-13 13:29",
+ "provenance": {
+  "commit": "abaab3d230f8",
+  "python": "3.12.11",
+  "packages_sha256": "95d6b663897ac0b2",
+  "packages": {
+   "anthropic": "1.8.0",
+   "mcp": "2.2.0",
+   "claude-agent-sdk": "0.2.159",
+   "langchain": "1.4.2",
+   "httpx": "0.28.1",
+   "pytest": "9.1.1"
+  },
+  "provider": "local",
+  "model_id": "qwen3.5:9b",
+  "model_label": "qwen3.5:9b (local, through Ollama)"
+ },
+ "exercises": [
+  {
+   "id": "M.1",
+   "title": "Is B better?",
+   "kind": "concept",
+   "status": "skipped",
+   "reason": "concept exercise: written answer copied from ANSWERS.md",
+   "seconds": 0,
+   "log": "M/M.1.log",
+   "model": "none"
+  },
+  {
+   "id": "M.2",
+   "title": "Watch the margins",
+   "kind": "run",
+   "status": "passed",
+   "reason": null,
+   "seconds": 0.0,
+   "log": "M/M.2.log",
+   "model": "none",
+   "commit": "abaab3d230f8"
+  },
+  {
+   "id": "M.3",
+   "title": "Measure the SQL analyst",
+   "kind": "build",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
+   "model": "qwen3.5:9b (local, through Ollama)"
+  }
+ ]
+}

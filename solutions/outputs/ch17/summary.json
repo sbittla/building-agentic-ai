@@ -2,7 +2,23 @@
  "chapter": "17",
  "title": "Chapter 17: Agent Memory Engineering",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-09-27 22:06",
+ "date": "2026-10-13 13:29",
+ "provenance": {
+  "commit": "abaab3d230f8",
+  "python": "3.12.11",
+  "packages_sha256": "95d6b663897ac0b2",
+  "packages": {
+   "anthropic": "1.8.0",
+   "mcp": "2.2.0",
+   "claude-agent-sdk": "0.2.159",
+   "langchain": "1.4.2",
+   "httpx": "0.28.1",
+   "pytest": "9.1.1"
+  },
+  "provider": "local",
+  "model_id": "qwen3.5:9b",
+  "model_label": "qwen3.5:9b (local, through Ollama)"
+ },
  "exercises": [
   {
    "id": "17.1",
@@ -11,7 +27,8 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch17/17.1.log"
+   "log": "ch17/17.1.log",
+   "model": "none"
   },
   {
    "id": "17.2",
@@ -20,7 +37,8 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch17/17.2.log"
+   "log": "ch17/17.2.log",
+   "model": "none"
   },
   {
    "id": "17.3",
@@ -29,7 +47,8 @@
    "status": "passed",
    "reason": null,
    "seconds": 4.7,
-   "log": "ch17/17.3.log"
+   "log": "ch17/17.3.log",
+   "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "17.4",
@@ -38,7 +57,8 @@
    "status": "passed",
    "reason": null,
    "seconds": 0.1,
-   "log": "ch17/17.4.log"
+   "log": "ch17/17.4.log",
+   "model": "none"
   },
   {
    "id": "17.5",
@@ -47,7 +67,8 @@
    "status": "passed",
    "reason": null,
    "seconds": 4.4,
-   "log": "ch17/17.5.log"
+   "log": "ch17/17.5.log",
+   "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "17.6",
@@ -56,7 +77,8 @@
    "status": "passed",
    "reason": null,
    "seconds": 0.1,
-   "log": "ch17/17.6.log"
+   "log": "ch17/17.6.log",
+   "model": "none"
   },
   {
    "id": "17.7",
@@ -65,7 +87,8 @@
    "status": "passed",
    "reason": null,
    "seconds": 0.1,
-   "log": "ch17/17.7.log"
+   "log": "ch17/17.7.log",
+   "model": "none"
   },
   {
    "id": "17.8",
@@ -74,7 +97,19 @@
    "status": "passed",
    "reason": null,
    "seconds": 140.6,
-   "log": "ch17/17.8.log"
+   "log": "ch17/17.8.log",
+   "model": "qwen3.5:9b (local, through Ollama)"
+  },
+  {
+   "id": "17.9",
+   "title": "Revert one bad batch",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 0.1,
+   "log": "ch17/17.9.log",
+   "model": "none",
+   "commit": "abaab3d230f8"
   }
  ]
 }

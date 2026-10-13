@@ -2,7 +2,23 @@
  "chapter": "21",
  "title": "Chapter 21: Multi-Agent Orchestration",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-09-27 22:28",
+ "date": "2026-10-13 13:29",
+ "provenance": {
+  "commit": "abaab3d230f8",
+  "python": "3.12.11",
+  "packages_sha256": "95d6b663897ac0b2",
+  "packages": {
+   "anthropic": "1.8.0",
+   "mcp": "2.2.0",
+   "claude-agent-sdk": "0.2.159",
+   "langchain": "1.4.2",
+   "httpx": "0.28.1",
+   "pytest": "9.1.1"
+  },
+  "provider": "local",
+  "model_id": "qwen3.5:9b",
+  "model_label": "qwen3.5:9b (local, through Ollama)"
+ },
  "exercises": [
   {
    "id": "21.1",
@@ -11,7 +27,8 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch21/21.1.log"
+   "log": "ch21/21.1.log",
+   "model": "none"
   },
   {
    "id": "21.2",
@@ -20,7 +37,8 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch21/21.2.log"
+   "log": "ch21/21.2.log",
+   "model": "none"
   },
   {
    "id": "21.3",
@@ -29,7 +47,8 @@
    "status": "passed",
    "reason": null,
    "seconds": 149.4,
-   "log": "ch21/21.3.log"
+   "log": "ch21/21.3.log",
+   "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "21.4",
@@ -38,7 +57,8 @@
    "status": "passed",
    "reason": null,
    "seconds": 1.8,
-   "log": "ch21/21.4.log"
+   "log": "ch21/21.4.log",
+   "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "21.5",
@@ -47,7 +67,8 @@
    "status": "passed",
    "reason": null,
    "seconds": 27.6,
-   "log": "ch21/21.5.log"
+   "log": "ch21/21.5.log",
+   "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "21.6",
@@ -56,7 +77,19 @@
    "status": "passed",
    "reason": null,
    "seconds": 41.2,
-   "log": "ch21/21.6.log"
+   "log": "ch21/21.6.log",
+   "model": "qwen3.5:9b (local, through Ollama)"
+  },
+  {
+   "id": "21.7",
+   "title": "Where does the team pay?",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 1.8,
+   "log": "ch21/21.7.log",
+   "model": "none",
+   "commit": "abaab3d230f8"
   }
  ]
 }
