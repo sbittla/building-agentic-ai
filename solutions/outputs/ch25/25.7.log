@@ -1,0 +1,24 @@
+# Exercise: 25.7  A launch gate from the risk model
+# Command:  python /tmp/solutions-flat/exercises/ex25_7_launch.py
+# Model:    none (no model needed)
+# Date:     2026-10-13 13:29:30 PDT
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+Coding agent: 54, tier 3 (high), 13 controls required
+Launch allowed: False
+  missing scoped_tokens  its own identity with least-privilege tokens (26.3)
+  missing monitoring     dashboards and alerts on its actions (28.9, 28.11)
+  missing approval_gate  a person approves hard-to-reverse actions, in code (9.3)
+  missing control_plane  states, rules and limits in code; the model proposes (Chapter 22)
+  missing regression     a security regression scenario per defense (25.10)
+  missing kill_switch    one action disables it and every token it holds (26.7)
+  missing review_monthly a person reviews a sample of its traces every month
+
+Cut one factor to 1:
+  capability   54 ->  18, tier 2 <- lower tier
+  autonomy     54 ->  18, tier 2 <- lower tier
+  access       54 ->  18, tier 2 <- lower tier
+  blast_radius 54 ->  27, tier 2 <- lower tier
+
+With a person merging every pull request: 18, tier 2; still missing: scoped_tokens, monitoring

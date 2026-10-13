@@ -1,0 +1,13 @@
+# Exercise: 17.9  Revert one bad batch
+# Command:  python /tmp/solutions-flat/exercises/ex17_9_revert_batch.py
+# Model:    none (no model needed)
+# Date:     2026-10-13 13:29:28 PDT
+# Exit code: 0
+# Seconds:  0.1
+#-------------------------------------------------------------------------------
+reverted                   [2, 3, 4]
+rollback_would_also_lose   [2, 3, 4, 5]
+recalled                   ["Ana's invoices go to the finance team", 'Ana prefers email updates']
+batch_ever_restored        False
+audit_ok                   True
+revert_entry               {'op': 'revert', 'batch': 'sync-42', 'count': 3}

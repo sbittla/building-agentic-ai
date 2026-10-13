@@ -1,6 +1,6 @@
 """Exercise 30.12: catch it in shadow.
 
-In the chapter's demo, support-agent 1.6 is right on every question but slow. It passes
+In the chapter's demo, sql-analyst 1.6 is right on every question but slow. It passes
 offline evaluation and shadow, and only the canary catches it, after real users have
 waited nine seconds for answers. Shadow traffic has everything needed to catch it
 earlier: run both versions through `serve`, measure each side's SLOs from the traces

@@ -170,7 +170,7 @@ def format_scorecard(card: dict) -> str:
 # they come from evidence you collect once per release, not from grading answers.
 QUALITY_TARGETS = {          # name: (minimum, where the number comes from)
     "outcome quality":    (0.95, "task_success over the suite (27.5)"),
-    "trajectory quality": (0.90, "trajectory checks (27.3)"),
+    "trajectory quality": (0.90, "trajectory checks (27.4)"),
     "safety":             (1.00, "1 - safety violation rate: a hard limit"),
     "tool correctness":   (0.95, "the lower of tool and argument accuracy"),
     "groundedness":       (0.95, "answers supported by tool results"),

@@ -2,7 +2,23 @@
  "chapter": "28",
  "title": "Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-09-27 23:51",
+ "date": "2026-10-13 13:29",
+ "provenance": {
+  "commit": "abaab3d230f8",
+  "python": "3.12.11",
+  "packages_sha256": "95d6b663897ac0b2",
+  "packages": {
+   "anthropic": "1.8.0",
+   "mcp": "2.2.0",
+   "claude-agent-sdk": "0.2.159",
+   "langchain": "1.4.2",
+   "httpx": "0.28.1",
+   "pytest": "9.1.1"
+  },
+  "provider": "local",
+  "model_id": "qwen3.5:9b",
+  "model_label": "qwen3.5:9b (local, through Ollama)"
+ },
  "exercises": [
   {
    "id": "28.1",
@@ -11,7 +27,8 @@
    "status": "passed",
    "reason": null,
    "seconds": 1.5,
-   "log": "ch28/28.1.log"
+   "log": "ch28/28.1.log",
+   "model": "none"
   },
   {
    "id": "28.2",
@@ -20,7 +37,8 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch28/28.2.log"
+   "log": "ch28/28.2.log",
+   "model": "none"
   },
   {
    "id": "28.3",
@@ -29,7 +47,8 @@
    "status": "passed",
    "reason": null,
    "seconds": 13.3,
-   "log": "ch28/28.3.log"
+   "log": "ch28/28.3.log",
+   "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "28.4",
@@ -38,7 +57,8 @@
    "status": "passed",
    "reason": null,
    "seconds": 1.8,
-   "log": "ch28/28.4.log"
+   "log": "ch28/28.4.log",
+   "model": "none"
   },
   {
    "id": "28.5",
@@ -47,7 +67,8 @@
    "status": "passed",
    "reason": null,
    "seconds": 1.8,
-   "log": "ch28/28.5.log"
+   "log": "ch28/28.5.log",
+   "model": "none"
   },
   {
    "id": "28.6",
@@ -56,7 +77,8 @@
    "status": "passed",
    "reason": null,
    "seconds": 1.8,
-   "log": "ch28/28.6.log"
+   "log": "ch28/28.6.log",
+   "model": "none"
   },
   {
    "id": "28.7",
@@ -65,7 +87,19 @@
    "status": "passed",
    "reason": null,
    "seconds": 1.8,
-   "log": "ch28/28.7.log"
+   "log": "ch28/28.7.log",
+   "model": "none"
+  },
+  {
+   "id": "28.8",
+   "title": "Find a network incident",
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 0.3,
+   "log": "ch28/28.8.log",
+   "model": "none",
+   "commit": "abaab3d230f8"
   }
  ]
 }

@@ -1,38 +1,36 @@
 # Interlude: Measuring an Agent
 
-Chapter 8 checked the SQL analyst against answers you knew were right. That's the start of measuring an agent, but one run of each question isn't enough: the same agent, asked the same question twice, can pass once and fail once. This short interlude turns checking into measuring. You'll run every case several times, report a pass rate with a margin of error, and learn when a change is really an improvement and when it only looks like one.
+You change one sentence in the SQL analyst's system prompt, rerun your ten questions, and the score goes from 7 to 8. Did the change help? The same agent asked the same question twice can pass once and fail once, so one run can't say. This interlude shows you how to compare two versions of an agent fairly: run every case several times, report a pass rate with a margin of error and tell a real improvement from luck.
 
 **Prerequisites:** Chapter 4 (agent loop). The testing interlude helps but isn't required.
-
-**Its job in the book:** experimental evaluation: comparing two versions of an agent fairly. Chapter 27 turns it into release gates, and Chapter 28 watches the released agent in production.
 
 ## Learning objectives
 
 By the end of this interlude you can:
 
-- Keep test cases for an agent in a case file, one JSON object per line.
+- Keep test cases in a file, one JSON object per line.
 - Run every case several times and report the pass rate with a 95% interval.
-- Spot flaky cases, the ones that pass on some runs and fail on others.
-- Decide whether a change made an agent better, worse, or whether you can't tell yet.
+- Spot flaky cases, which pass on some runs and fail on others.
+- Decide whether a change made an agent better, worse, or you can't tell yet.
 
 ## Why this interlude
 
-From here on, the book keeps asking you to compare: two system prompts, two routers (Chapter 20), with and without a skill (Chapter 24), one framework against another. A model's answers vary from run to run, so a single run can make a worse version look better. Chapter 27 builds a full evaluation system. This interlude gives you the three ideas you need before then: **cases**, **trials** and **margins**.
+From here on you'll keep comparing: two system prompts, two routers (Chapter 20), with and without a skill (Chapter 24). Chapter 27 builds a full evaluation system; until then you need three ideas: **cases**, **trials** and **margins**.
 
 ## M.1 Cases, trials and margins
 
-A **case** is a question plus a way to check the answer. Keep cases in a file, one JSON object per line (the **JSONL** format), so they're easy to add to and to review. The kit already has one for the SQL analyst, `eval_sql.jsonl`:
+A **case** is a question plus a way to check the answer. Keep cases in a file with one JSON object per line (the **JSONL** format). The kit has one for the SQL analyst, `eval_sql.jsonl`:
 
 ```
 {"id": "order-count", "question": "How many orders are there in total?", "answer_sql": "SELECT COUNT(*) FROM orders"}
 {"id": "customers", "question": "How many customers do we have?", "answer_sql": "SELECT COUNT(*) FROM customers"}
 ```
 
-A **trial** is one run of one case. Run each case several times, because the model doesn't give the same answer every time.
+A **trial** is one run of one case. You run each case several times, because the model varies.
 
-A **margin** says how far the true pass rate might be from the one you measured. Nine passes out of ten sounds like 90%, but with only ten runs the agent's real rate could be anywhere from about 60% to 98%. The **95% interval** is the range that, with that much data, very likely contains the real rate.
+A **margin** says how far the true pass rate might be from the one you measured. Nine passes out of ten sounds like 90%, but with only ten runs the real rate could be anywhere from about 60% to 98%. The **95% interval** is the range that very likely contains the real rate, given that much data.
 
-This file measures two simulated agents, so you can see the effect without spending anything:
+This file measures two simulated agents, so watching the effect costs nothing:
 
 @@code i_measure.py::wilson~,load_cases~,contains_expected,run_suite,compare,simulated_agent
 
@@ -57,7 +55,7 @@ Version A really succeeds 70% of the time, version B 80%.
   B against A: better
 ```
 
-B really is better, but with one run per case the two versions tie, and with three runs per case you still can't be sure. Only with enough runs do the intervals separate.
+B really is better. With one run per case the two versions tie, and with three you still can't be sure. With thirty runs per case, the intervals finally separate.
 
 ## M.2 Reading the results
 
@@ -67,34 +65,27 @@ Table: Reading two measured versions
 | The intervals don't overlap | The difference is real | Keep the better version |
 | The intervals overlap | You don't know yet | Run more trials or, better, add cases |
 | A case passes on some runs and fails on others | The case is **flaky** | Read its failing runs; the agent is guessing there |
-| 100% on ten runs | The real rate is probably above 70%, nothing more | Add harder cases before you celebrate |
+| 100% on ten runs | The real rate is probably above 70%, nothing more | Add harder cases before celebrating |
 
-Two habits make measurements trustworthy:
-
-- **More cases beat more trials of the same case.** Thirty different questions tell you more than ten questions run three times, because they cover more of what users will ask. Trials catch the randomness; new cases catch the blind spots.
-- **Change one thing at a time.** If you change the system prompt and the tools together, you can't say which one helped.
+When you have time for more runs, spend it on new cases rather than repeats: thirty different questions tell you more than ten run three times, because trials catch randomness while new cases catch blind spots. And change one thing at a time, or you can't say which change helped.
 
 :::tip The same check, every time
-Write the check in code, not by eye: the expected number appears in the answer, the right tool was called, the query ran read-only. A check you apply by eye drifts with your mood. Chapter 27 adds model-graded checks for things code can't judge, and shows how to make sure they agree with people.
+Write the check in code: the expected number appears in the answer, the right tool was called, the query ran read-only. A check you apply by eye drifts with your mood. Chapter 27 adds model-graded checks for what code can't judge.
 :::
 
-`compare` is cautious on purpose: it calls a version better only when the two intervals don't overlap at all. Chapter 27's CI gate uses a sharper statistical test, but the cautious rule never tells you something that isn't there.
+`compare` is cautious on purpose: it calls a version better only when the intervals don't overlap at all. Chapter 27's release gate uses a sharper test, but the cautious rule never reports a difference that isn't there.
 
 ## Key takeaways
 
-- A case is a question and a check; keep cases in a JSONL file and add to it whenever the agent fails in a new way.
+- A case is a question and a check; add one to your JSONL file whenever the agent fails in a new way.
 - Run every case several times: one run is an anecdote.
 - Report a pass rate with its 95% interval; small samples have wide intervals.
-- A change is an improvement only when the intervals say so; when they overlap, you can't tell yet.
+- When the intervals overlap, you can't tell yet.
 - Flaky cases show where the agent is guessing.
 
-These definitions are the start of one progression. Chapter 27 builds on them without redefining them: it adds pass^k and the agent scorecard (section 27.6), where every metric the rest of the book uses is defined once. Chapter 28 turns those metrics into SLOs, and Chapter 29 into latency, capacity and cost targets.
-
-You can now tell a real improvement from luck. Chapter 9 gives an agent its first actions that change things, behind an approval gate, and from then on every comparison in this book can be measured this way.
+Chapter 27 builds on these definitions, adding pass^k (does a case pass on every one of k tries?) and the agent scorecard (section 27.6), where every later metric is defined once. Chapter 28 turns those metrics into SLOs (service-level objectives) for the agent in production, and Chapter 29 into latency, capacity and cost targets.
 
 ## Learn more
-
-Start with these. `RESOURCES.md` in the course kit has all 3 links for this chapter, including the **Go deeper** reading, ready to click.
 
 | Resource | What you'll find |
 | --- | --- |
@@ -121,3 +112,7 @@ Measure the Chapter 8 SQL analyst on the cases in `eval_sql.jsonl`, three trials
 **Hint:** `run_suite` takes your agent as a function of the question and your check as a function of the answer and the case; run `answer_sql` on a read-only connection to get the expected value.
 **Done when:** You have two reports and a verdict from `compare`, and you can say which cases were flaky.
 :::
+
+## Up next
+
+So far a mistake has cost you a wrong number or a task to delete. In Chapter 9 an agent starts moving files, and a mistake can be a signed contract filed where you'll never find it.

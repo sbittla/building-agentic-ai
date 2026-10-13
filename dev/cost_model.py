@@ -150,7 +150,7 @@ model replaces it.
 | Assumption | Low | High | Why |
 | --- | ---: | ---: | --- |
 | Model | `{MODEL}` | | The book's default `MODEL` |
-| Price per million tokens, input / output | ${p_in:.2f} / ${p_out:.2f} | | `PRICES` in `ch20_router.py`, at printing |
+| Price per million tokens, input / output | ${p_in:.2f} / ${p_out:.2f} | | `PRICES` in `ch20_router.py`, at release (checked October 2026) |
 | Model calls per agent run | {r_lo['calls']} | {r_hi['calls']} | The book's agents take 2–6 steps for a typical task |
 | Input tokens per call (average over a run; the history grows) | {r_lo['in_per_call']:,} | {r_hi['in_per_call']:,} | System prompt, tools, question and history |
 | Output tokens per call, including thinking | {r_lo['out_per_call']:,} | {r_hi['out_per_call']:,} | Thinking is billed as output |

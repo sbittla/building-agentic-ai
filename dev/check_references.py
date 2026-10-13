@@ -194,19 +194,15 @@ for pin in ("pip==26.2.1", "uv==0.12.18", "inspector@2.8.0", "server-filesystem@
     elif ver not in (KIT / "VERSION_MATRIX.md").read_text(encoding="utf-8"):
         report("VERSION_MATRIX.md", f"{pin} is in the Dockerfile but not in the matrix")
 
-# the release matrix states the exercise count of the current tag
-vm = (KIT / "VERSION_MATRIX.md").read_text(encoding="utf-8")
-rows_ = [l for l in vm.split("## Release matrix")[1].split("How to tell")[0].splitlines() if l.startswith("| ")]
-row = re.search(r"^\| [^|]+ \| `(edition-[\d.]+)` \| (\d+) \|", rows_[-1]) if rows_ else None
-if not row or int(row.group(2)) != len(BOOK_IDS):
-    report("VERSION_MATRIX.md", f"the last release row should say {len(BOOK_IDS)} exercises")
-
-readme_row = re.findall(r"^\| [^|]+printing[^|]*\| (\d+) \| (\d+) \| `edition-[\d.]+` \|", (KIT / "README.md").read_text(encoding="utf-8"), re.M)
-if not readme_row or int(readme_row[-1][0]) != len(BOOK_IDS):
-    report("README.md", f"the last row of 'Book editions and code versions' should say {len(BOOK_IDS)} exercises")
+# the release tables state the exercise and capstone counts of the book release
 n_capstones = len(re.findall(r"^## Capstone \d+:", (MD / "90_capstones.md").read_text(encoding="utf-8"), re.M))
-if not readme_row or int(readme_row[-1][1]) != n_capstones:
-    report("README.md", f"the last row of 'Book editions and code versions' should say {n_capstones} capstones")
+vm = (KIT / "VERSION_MATRIX.md").read_text(encoding="utf-8")
+row = re.search(r"^\| First edition[^|]*\| `(book-v[\d.]+)` \| (\d+) \| (\d+) \|", vm, re.M)
+if not row or int(row.group(2)) != len(BOOK_IDS) or int(row.group(3)) != n_capstones:
+    report("VERSION_MATRIX.md", f"the First edition row should say {len(BOOK_IDS)} exercises and {n_capstones} capstones")
+readme_row = re.search(r"^\| First edition[^|]*\| (\d+) \| (\d+) \| `book-v[\d.]+` \|", (KIT / "README.md").read_text(encoding="utf-8"), re.M)
+if not readme_row or int(readme_row.group(1)) != len(BOOK_IDS) or int(readme_row.group(2)) != n_capstones:
+    report("README.md", f"the First edition row of 'Book editions and code versions' should say {len(BOOK_IDS)} exercises and {n_capstones} capstones")
 
 # every listing of code says what kind of code it is (course/code_maturity.json)
 MATURITY = json.loads((KIT / "course/code_maturity.json").read_text(encoding="utf-8"))

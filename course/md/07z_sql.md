@@ -1,6 +1,6 @@
 # Interlude: SQL in One Sitting
 
-In the next chapter an agent writes database queries for you, and you need to tell a right query from a plausible wrong one. This interlude teaches only the SQL Chapter 8 needs, in one sitting. You'll run eight queries against a small shop database, learn a checklist for reviewing someone else's SQL and see why user text must never be pasted into a query. Window functions, self-joins and more practice are in `EXTRA_PRACTICE.md` in the course kit.
+An agent hands you a tidy table of revenue per customer. Is it right? A query that summed prices instead of quantity × price looks just as tidy. This interlude teaches enough SQL to tell, in one sitting: eight queries against a small shop database, a checklist for reviewing someone else's SQL, and why user text never goes into a query. `EXTRA_PRACTICE.md` in the course kit has more.
 
 **Prerequisites:** Chapter 0. You don't need any database experience.
 
@@ -8,14 +8,14 @@ In the next chapter an agent writes database queries for you, and you need to te
 
 By the end of this interlude you can:
 
-- Read and write SELECT queries with filters, sorting, aggregates, grouping and joins.
+- Write SELECT queries with filters, sorting, aggregates, grouping and joins.
 - Keep user text out of SQL with `?` parameters.
 - Break a complex query into steps with a CTE.
 - Review an agent's SQL in a fixed order and spot common mistakes.
 
 ## Why this interlude
 
-In Chapter 8 an agent writes SQL for you. To judge whether its SQL is right, and to write evaluation queries yourself, you need to read SQL comfortably. **SQL** (Structured Query Language) is the language for asking a database questions. The kit's `shop.db` has four tables:
+**SQL** (Structured Query Language) is how you ask a database questions. Chapter 8 needs it twice: to judge the agent's queries and to write your own evaluation queries. The kit's `shop.db` has four tables:
 
 Table: The tables in `shop.db`
 | Table | Columns | One row is |
@@ -34,7 +34,7 @@ Alt: Entity-relationship diagram: a customer places zero or more orders; an orde
 
 @@code i_sql.py
 
-Run it with `./course.sh python i_sql.py`, and read each query alongside its result:
+Run it with `./course.sh python i_sql.py` and read each query next to its result:
 
 1. `SELECT … FROM … WHERE …` picks columns and filters rows.
 2. `ORDER BY … DESC LIMIT n` sorts and keeps the top n.
@@ -42,8 +42,8 @@ Run it with `./course.sh python i_sql.py`, and read each query alongside its res
 4. `GROUP BY` summarizes per group: one result row per status.
 5. `JOIN … ON …` combines tables using matching ids.
 6. Joins and grouping together answer real questions, such as revenue per category.
-7. `?` **parameters** keep user text out of the SQL itself. Pasting user text into SQL causes *SQL injection*, where crafted input changes what the query does.
-8. `WITH name AS (…)` (a **CTE**) names an intermediate result so a complex query reads in steps.
+7. `?` **parameters** keep user text out of the SQL itself. Paste user text into SQL and you invite *SQL injection*, where crafted input changes what the query does.
+8. `WITH name AS (…)` (a **CTE**) names an intermediate result, so a complex query reads in steps.
 
 ## S.2 Reading someone else's SQL
 
@@ -55,20 +55,16 @@ When an agent shows you a query, check it in this order:
 4. **SELECT**: are the numbers computed correctly (quantity × price, not just price)?
 5. **ORDER BY / LIMIT**: is "top 5" really sorted by the right thing?
 
-You can also explore interactively: run `./course.sh shell`, then `sqlite3 shop.db`, then type queries ending with `;` (`.tables` lists tables, `.quit` exits).
+To explore on your own, run `./course.sh shell`, then `sqlite3 shop.db`, and type queries ending with `;` (`.tables` lists tables, `.quit` exits).
 
 ## Key takeaways
 
 - `SELECT … FROM … WHERE` picks and filters; `ORDER BY` and `LIMIT` sort and trim.
 - Aggregates with `GROUP BY` summarize; `JOIN` combines tables on matching ids.
 - Parameters prevent SQL injection; CTEs make long queries readable.
-- Check someone else's SQL from FROM and JOIN through to ORDER BY.
-
-You can now read the queries an agent writes. Chapter 8 puts that skill to use: you'll build an agent that answers questions about `shop.db` by writing SQL, catches its own errors and checks its answers against results you know are right.
+- Review someone else's SQL in order, from FROM and JOIN to ORDER BY.
 
 ## Learn more
-
-Start with these. `RESOURCES.md` in the course kit has all 4 links for this chapter, including the **Go deeper** reading, ready to click.
 
 | Resource | What you'll find |
 | --- | --- |
@@ -93,3 +89,7 @@ This query is meant to give revenue per customer but is wrong in three ways. Fin
 Write a Python function `orders_for_city(city)` that returns the number of orders from customers in a city, using a `?` parameter. Then show what goes wrong if you build the SQL with an f-string and pass `Pune' OR '1'='1`.
 **Done when:** The parameter version returns 0 for the malicious input, and you can explain what the f-string version did.
 :::
+
+## Up next
+
+In Chapter 8 an agent writes SQL you've never seen against `shop.db`, and some of it will be wrong. You'll make sure it can't do damage, and teach it to fix its own mistakes.

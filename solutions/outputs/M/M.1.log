@@ -1,0 +1,8 @@
+# Exercise: M.1  Is B better?
+# Command:  (none: a written answer)
+# Model:    none
+# Date:     2026-10-13 13:29:27 PDT
+# Exit code: 0
+# Seconds:  0.0
+#-------------------------------------------------------------------------------
+**M.1 Is B better?** A: 17/20 = 85%, 95% interval 64% to 95%. B: 19/20 = 95%, interval 76% to 99%. The intervals overlap, so you can't call B better yet: two more passes out of twenty is well within what luck can do. Next step: add cases (aim for 30 or more different questions) and run each three times; if B is really better, the intervals will separate.

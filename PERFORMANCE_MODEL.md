@@ -174,7 +174,7 @@ Why the numbers are trustworthy: success means a right answer, checked against t
 
 Other flags: `--experiments E1,E3`, `--reps`, `--slots`, `--concurrency 1,2,4`, `--long-context 0`, `--tool-ms`, `--fail-rate`, `--quiet`. Each run writes a folder (`workspace/benchmarks/<backend>-<time>/`) with `config.json` (commit, model ids, prompts hash, data fingerprint, seed, repetitions, warm-up, tool latency, hardware, Python), `raw.jsonl` (one line per task), `summary.json` and `summary.md`. Compare runs only when their configs match on everything but what you changed.
 
-### Published simulator results (`benchmarks/sim-edition-1.1/`)
+### Published simulator results (`benchmarks/sim-book-v1.0/`)
 
 Simulated model, seed 29, 5 repetitions after 1 warm-up, 250 ms tools. Dollar figures are token counts at list prices; nobody was billed.
 
@@ -231,4 +231,4 @@ From `course/code_maturity.json`: `ch29_perf.py` is a Learning demo; `ch29_bench
 - Section 29.1 (the two sums), 29.2 (history), 29.3 (levers), 29.4 (budgets), 29.5 (the knee), 29.6 (open-loop load), 29.7 (Little's law and rate limits), 29.8 (benchmark), 29.9 (economics); exercises 29.1–29.8
 - Section 28.13 (continuous profiling); section 21.10 (coordination overhead); Cards 8 and 14 in Appendix I
 - `course/code/ch29/ch29_perf.py`, `ch29_costs.py`, `ch29_loadtest.py`, `ch29_benchmark.py`, `ch29_economics.py`; `course/code/ch28/ch28_profile.py`; `course/code/ch21/ch21_coordination.py`
-- `benchmarks/README.md`, `benchmarks/sim-edition-1.1/summary.md`
+- `benchmarks/README.md`, `benchmarks/sim-book-v1.0/summary.md`

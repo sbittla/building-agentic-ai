@@ -1,10 +1,54 @@
 # Changelog
 
-What changed in the book and this repository, newest first. Each book printing is matched by a tag; see "Book editions and code versions" in [README.md](README.md). Corrections to a printed edition are listed in [ERRATA.md](ERRATA.md).
+What changed in the book and this repository, newest first. The book's First edition is matched by the release `book-v1.0.0`; see "Book editions and code versions" in [README.md](README.md). Corrections to the published text are listed in [ERRATA.md](ERRATA.md). Later fixes to the code go into patch releases such as `book-v1.0.1`.
 
-## edition-1.2: third printing (October 2026)
+## book-v1.0.0: First edition (2026)
+
+The first public release: the book's First edition and the repository release that matches it. 32 chapters and 6 interludes, 249 exercises, seven capstones. `book-v1.0.0-rc1` is the release candidate; [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) lists what it was verified with and the gates still open.
 
 ### Book
+- **One edition statement.** The copyright page says "First edition: 2026" and names the matching repository tag, `book-v1.0.0`. The internal snapshots that came before (below) are not described anywhere in the book as printings.
+- **Paid and free paths stated plainly.** The copyright page, Chapter 0 and Appendix H say which exercises need the paid API, which run on the free local model, and which need an app, a token or a person.
+- **"How to Use This Book"** now covers the full start: choosing a path, setting up, choosing a model, checking out `book-v1.0.0`, running a first example, the three kinds of exercise (written answer, executable, model-dependent) and where to get help.
+- **A bridge from beginner to production.** Each part's checkpoint ends with a "Ready for the next part?" box, and the step-ups at Parts 5, 7 and 9 are named. Worked examples show how to read a pytest failure (testing interlude), an agent trace (Chapter 4), an evaluation result (Chapter 27) and a production trace (Chapter 28).
+- **"Before you move on"** in every chapter (1–31) lists what to understand, what to build, the exercise that proves it, one failure to provoke and one decision to defend.
+- **An index** of the glossary terms and the names readers look up most, generated from the final layout (`course/make_index.py`).
+- **Two corrections from the claims audit:** what MCP 2026-07-28 makes optional (15.4) and the Sonnet 5 tokenizer figure (Appendix E).
+- **Evidence for claims.** Security sections show the attack and the code that enforces the defense, and name the regression scenario that proves it. Every major benchmark (21.10, 27, 28.13, 29.5–29.9) states its conditions and whether each number is measured, estimated or illustrative. A warning in Chapter 29 says its thresholds are examples, not production targets.
+- **A dated decision matrix** in Chapter 24: a custom loop, framework-managed agents, provider runtimes and managed services, compared on control, portability, observability, deployment effort, vendor dependency and cost.
+- **Appendix M: Production Deployment Reference.** It covers multi-tenant isolation, secret rotation, data retention, dependency and container scanning, backups and recovery, incident ownership and rollback criteria, and states plainly that the course kit is not production-hardened.
+- **Appendix G** explains what "verified" means: deterministic tests, live-model runs and production readiness are three different claims.
+- A recovery pass restored explanations, failure demonstrations and safety caveats that the earlier shortening had cut. Code listings name their full repository path.
+
+### Repository
+- [CLAIMS_AUDIT.md](CLAIMS_AUDIT.md): 80 version-sensitive claims with location, source, version tested and result. [CHANGE_LEDGER.md](CHANGE_LEDGER.md): every manuscript change for this release and its reason.
+- `RELEASE_MANIFEST.json` records the release's tag, commit, lock-file hash, MCP specification and test status. `dev/release_manifest.py --check` runs in CI and fails if the manifest, README, VERSION_MATRIX or the book disagree.
+- README: a quick start at the top, the release table with development snapshots marked as such, and the three kinds of verification evidence kept apart.
+- VERSION_MATRIX: a reproducibility warning for the two unpinned images (GitHub MCP server, Ollama), what depends on each, the tested fallback and how to pin them by digest.
+- A book-issue template (`.github/ISSUE_TEMPLATE/book-issue.yml`).
+- `LICENSE`: all rights reserved, with permission to use the code for learning from the book.
+- CI publishes book releases on `book-v*` tags; release candidates are marked as prereleases.
+
+## Pre-release development history
+
+These are internal snapshots of the manuscript and code made before the First edition. Their tags (`edition-1.0`, `edition-1.1`, `edition-1.2`) are kept for traceability. They are not published editions or printings.
+
+### Readability pass (internal, October 2026; no tag)
+
+A readability pass: the same chapters, sections, exercises, capstones and code, rewritten to read like a book rather than a reference and shortened by about 15%.
+
+#### Book
+- **Every chapter rewritten for voice and pace.** Each one now opens with a concrete situation (a customer email, a failed handoff, green dashboards hiding a failing agent) and closes by setting up the next chapter. Prose replaces many bullet lists, jargon is replaced by plain words or defined at first use, and repeated explanations are cut.
+- **Shorter, with nothing removed:** about 165,000 → 140,000 words. The longest chapters lost the most: Chapter 30 (11,100 → 7,300), Chapters 28 and 29 (9,000 → 6,800 each), Chapter 25 (7,400 → 6,500) and the appendices (13,100 → 10,800). Every section number, exercise, figure and listing is unchanged, so references from earlier snapshots still work.
+- **Consistency fixes found in the final read:** the refund rule ($100 without a person) now agrees across Chapters 25 and 26 and the case study; the scorecard's cost metrics are defined as averages; Chapter 1's route table includes Part 10; order ids, model names and chapter references corrected where they had drifted; the afterword returns to Chapter 1's opening example.
+- "Common mistakes" lists use one plain style; the "Its job in the book" and "Check yourself" lines are folded into the prose.
+
+#### Repository
+- `ch30_improvement_loop.py` labels its demo releases `sql-analyst 1.4–1.6`, matching the questions they fail (they were labelled as the support agent).
+
+### Snapshot edition-1.2 (internal, October 2026)
+
+#### Book
 - **Part 10, In the Field, and Chapter 31: From Prototype to Customer Production.** A concise chapter on taking an agent into a customer's production: what changes at a customer (31.1); discovery that ends in a measurable problem brief, with a model drafting it from interview notes and code deciding whether it's ready (31.2); the smallest valuable slice (31.3); checking a design against the customer's rules for data residency, model hosting, egress, personal data in logs, retention, sign-in, write access and audit, on top of section 30.7's launch checklist (31.4); pilots against acceptance criteria signed in advance, with a gate that promotes, holds or stops (31.5); handoff (31.6); and the field-to-product loop (31.7). Exercises 31.1–31.5 and a Part 10 checkpoint.
 - **Capstone 7: A Customer Deployment.** A whole engagement, from a vague request and a constraint sheet to a signed-off pilot and a handoff, with a scoping score added to the rubric.
 - **"In the field" notes** in Chapters 7, 9, 18, 26, 27 and 29: what changes when the same technique meets a customer's environment.
@@ -17,7 +61,7 @@ What changed in the book and this repository, newest first. Each book printing i
 - **Section 30.5 shows where each deployment setting comes from**: concurrency cap, instance count, timeout, step and token limits, rate limits and SLO targets, each traced to the Chapter 29 measurement behind it.
 - The preface states the book's positioning: build agents from first principles, then make them secure, measurable, cost-aware and production-ready.
 
-### Repository
+#### Repository
 - `course/code/ch31/ch31_field.py`: the field kit (brief checker, `draft_brief`, slice ranker, design checker, pilot gate, handoff check, field-to-product report). Offline except `draft_brief`.
 - `solutions/exercises/ch31/` (31.2–31.5), `solutions/tests/test_ch31_field.py`, and a written answer for 31.1 in `solutions/ANSWERS.md`.
 - `solutions/capstones/c7_engagement/`: the request, the constraint sheet, 30 synthetic handover notes (`data.py`) and the engagement record (`engagement.py`); `./course.sh capstone 7`.
@@ -30,9 +74,9 @@ What changed in the book and this repository, newest first. Each book printing i
 - Model ids and prices checked against Anthropic's pricing page on 8 October 2026 ([VERSION_MATRIX.md](VERSION_MATRIX.md)).
 - Exercises: 246 → 249 in the book, plus 3 extra in the kit.
 
-## edition-1.1: second printing (October 2026)
+### Snapshot edition-1.1 (internal, October 2026)
 
-### Book
+#### Book
 - **New material:** sections 1.9 (kinds of agents), 1.10 (the agent engineering lifecycle), 4.10 (writing the system prompt), 30.12 governance and 30.13 (the agent lifecycle in production); the interlude *Measuring an Agent* (after Chapter 8, exercises M.1–M.3); an Afterword; reference cards 10–14.
 - **New engineering sections, each with code, tests and an exercise:** 17.10 memory as a security boundary; 21.10 coordination economics (does the team pay for itself?); 23.9 reliability engineering for computer use; 24.10 skills as software (registry, versions, trust, evaluation, rollback); 25.11 the agent risk model and the deterministic control plane; 26.9 discovery (finding a capability is not trusting it) and 26.10 trust across organizations; 28.13 continuous profiling; 29.9 agent economics and payback; 30.14 the agent improvement loop (the reference architecture is now 30.15). Section 26.7 adds signing-key rotation.
 - **Signature frameworks:** the agent engineering lifecycle (design, build, secure, evaluate, optimize, deploy, operate, improve) runs through 1.10, every part opener, 30.13, the Afterword and Card 11; the eleven-quality release scorecard (27.6); the agent risk model and the deterministic control plane (22.1, 25.11, Cards 12 and 13).
@@ -57,7 +101,7 @@ What changed in the book and this repository, newest first. Each book printing i
 - **Getting started:** a free five-minute quick start (`./course.sh quickstart`, no key and no download), what your computer needs, what to do when the first commands fail, a path from first agent to production, and why your results may differ on the local model. Chapters 0, 1 and 4 show the output you should see and the common errors.
 - **Durability:** the copyright page and preface name the matching tag; this changelog, [ERRATA.md](ERRATA.md), [VERSION_MATRIX.md](VERSION_MATRIX.md) and [MIGRATION.md](MIGRATION.md) are referenced from Appendix G.
 
-### Repository
+#### Repository
 - Reference documents: [ARCHITECTURE.md](ARCHITECTURE.md), [AGENT_ENGINEERING_PRINCIPLES.md](AGENT_ENGINEERING_PRINCIPLES.md), [DECISION_GUIDE.md](DECISION_GUIDE.md), [AGENT_LIFECYCLE.md](AGENT_LIFECYCLE.md), [SECURITY_MODEL.md](SECURITY_MODEL.md), [PERFORMANCE_MODEL.md](PERFORMANCE_MODEL.md), [EVALUATION_MODEL.md](EVALUATION_MODEL.md), [COST_MODEL.md](COST_MODEL.md), [CURRICULUM_MAP.md](CURRICULUM_MAP.md); COMPATIBILITY.md is now [VERSION_MATRIX.md](VERSION_MATRIX.md), opening with a release matrix.
 - Generated and checked in CI: `dev/cost_model.py --check`, `dev/curriculum_map.py --check`; `dev/check_references.py` now also checks the version matrix's and README's exercise counts and every listing's maturity label (`course/code_maturity.json`).
 - `ch30_gateway.py` redacts arguments in its audit trail; `ch26_identity.py` rotates signing keys (`rotate_signing_key`); `ch27_scorecard.py --release` prints the eleven-quality scorecard; the benchmark labels simulated cost as simulated.
@@ -74,5 +118,5 @@ What changed in the book and this repository, newest first. Each book printing i
 - `dev/check_references.py`: checks every exercise id, file, command and cross-reference in the book and docs; runs in CI.
 - README counts and EXERCISE_INDEX.md are generated from `course/exercises.json`, and CI fails if they're stale.
 
-## edition-1.0: first printing (September 2026)
+### Snapshot edition-1.0 (internal, September 2026)
 - 31 chapters, 5 interludes, 231 exercises, 6 capstones.

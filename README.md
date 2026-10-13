@@ -2,15 +2,22 @@
 
 The companion repository for the book *Building Agentic AI Systems: From First Agent to MCP, Multi-Agent Orchestration, and Production* by Srinivasa Rao Bittla. **Build agents from first principles, then make them secure, measurable, cost-aware and production-ready.** It has every chapter's code, **249 exercises** across 32 chapters and 6 interludes (with starter files, checkers and reference solutions), **seven capstone projects**, and one Docker image that runs all of it.
 
-> **Use the code that matches your book.** Your printing is on the copyright page. Check out its tag before you start, not `main`:
->
-> | Your book says | Run |
-> | --- | --- |
-> | Third printing, October 2026 (Part 10, Chapter 31, Capstone 7; 249 exercises) | `git checkout edition-1.2` |
-> | Second printing, October 2026 (246 exercises, six capstones) | `git checkout edition-1.1` |
-> | First printing, September 2026 (231 exercises, six capstones) | `git checkout edition-1.0` |
->
-> `git describe --tags` tells you which one you have. `main` moves; a tag never does. Details: [Book editions and code versions](#book-editions-and-code-versions) and [VERSION_MATRIX.md](VERSION_MATRIX.md).
+## Quick start
+
+You need Docker (16 GB of RAM, about 15 GB of disk) and, for the paid path, a Claude API key. The free local model needs no key.
+
+```bash
+git clone https://github.com/sbittla/building-agentic-ai.git
+cd building-agentic-ai
+git checkout book-v1.0.0          # the release that matches the First edition of the book
+./course.sh setup                 # checks Docker, creates .env, asks Claude or local model
+./course.sh build                 # builds the image (5-10 minutes, once)
+./course.sh quickstart            # your first agent, no key needed
+./course.sh ex 4.2                # your first exercise
+./course.sh solution 4.2          # compare with the reference solution
+```
+
+On Windows use `.\course.cmd` instead of `./course.sh`. If something fails, see [9. Troubleshooting](#9-troubleshooting). The rest of this README covers each step in detail.
 
 Everything runs inside Docker, so Docker is the only thing you install. You edit files on your computer with any editor; Docker runs them.
 
@@ -41,8 +48,9 @@ The repository is a course and a reference implementation. Start with the first 
 | [PERFORMANCE_MODEL.md](PERFORMANCE_MODEL.md) | Latency, throughput, tokens, concurrency, queueing, capacity and the benchmark |
 | [EVALUATION_MODEL.md](EVALUATION_MODEL.md) | Outcome, trajectory, tool, safety and regression evaluation; the release scorecard |
 | [COST_MODEL.md](COST_MODEL.md) | What the exercises cost, with every assumption, and the production cost formulas |
-| [VERSION_MATRIX.md](VERSION_MATRIX.md) | Which book printing, tag, Python, models and libraries belong together |
-| [CHANGELOG.md](CHANGELOG.md) · [MIGRATION.md](MIGRATION.md) · [ERRATA.md](ERRATA.md) | What changed between tags, what to change in your code, and mistakes in each printing |
+| [VERSION_MATRIX.md](VERSION_MATRIX.md) | Which book edition, release tag, Python, models and libraries belong together, and what "verified" means |
+| [CHANGELOG.md](CHANGELOG.md) · [MIGRATION.md](MIGRATION.md) · [ERRATA.md](ERRATA.md) | What changed between releases, what to change in your code, and corrections to the published text |
+| [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) · [CLAIMS_AUDIT.md](CLAIMS_AUDIT.md) · [CHANGE_LEDGER.md](CHANGE_LEDGER.md) | The release record (tag, commit, lock hash, test status, open gates), the audit of every version-sensitive claim, and what changed in the manuscript for this release and why |
 | [verification/](verification/README.md) · [benchmarks/](benchmarks/README.md) | Test and security results with their provenance; the published benchmark runs |
 | [PILOT.md](PILOT.md) | For the author: testing the book with real learners |
 
@@ -54,17 +62,18 @@ On Windows, replace `./course.sh` with `.\course.cmd` in every command below.
 
 ## Book editions and code versions
 
-Each printing of the book is matched by a tag, so you can always get the exact code it was tested against. `main` keeps moving: fixes and compatibility updates land there and are listed in [CHANGELOG.md](CHANGELOG.md), never silently. A tag never moves, so the code at your printing's tag always matches your book; mistakes in the printed text are in [ERRATA.md](ERRATA.md).
+The book's **First edition** is matched by the repository release **`book-v1.0.0`**. Check it out before you start, not `main`: `git checkout book-v1.0.0`, then `git describe --tags` should print `book-v1.0.0`. `main` keeps moving, and fixes and compatibility updates land there, listed in [CHANGELOG.md](CHANGELOG.md), never silently. A tag never moves, so the code at the book's tag always matches the book. Mistakes in the printed text are in [ERRATA.md](ERRATA.md).
 
-| Book printing | Exercises | Capstones | Tag | Get it |
+| Book asset | Exercises | Capstones | Matching repository release | Status |
 | --- | ---: | ---: | --- | --- |
-| First printing, September 2026 | 231 | 6 | `edition-1.0` | `git checkout edition-1.0` |
-| Second printing, October 2026 | 246 | 6 | `edition-1.1` | `git checkout edition-1.1` |
-| Third printing, October 2026 | 249 | 7 | `edition-1.2` | `git checkout edition-1.2` |
+| First edition (2026) | 249 | 7 | `book-v1.0.0` | Release candidate `book-v1.0.0-rc1` until the `open_gates` in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) are closed |
+| Development snapshots | — | — | Historical `edition-*` tags | Internal development history; not published book editions |
 
-Not sure which printing you have? The copyright page says. [VERSION_MATRIX.md](VERSION_MATRIX.md) lists, for each printing, its tag, Python, models, MCP specification, library versions and verification date.
+This repository was developed through several internal manuscript and code snapshots before the book's first public edition. The historical development tags (`edition-1.0`, `edition-1.1`, `edition-1.2`) are kept for traceability. They do not indicate earlier commercial printings.
 
-**ISBNs:** paperback 979-8177506326 · hardcover 979-8177514734.
+[VERSION_MATRIX.md](VERSION_MATRIX.md) lists the release's Python, models, MCP specification and library versions, which two runtime images aren't pinned, and what "verified" means. [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) records the tag, commit, lock-file hash and test status in one machine-readable file.
+
+**ISBNs (First edition):** paperback 979-8177506326 · hardcover 979-8177514734.
 
 How exercises are counted: every numbered exercise in the book's 32 chapters and 6 interludes counts once, including concept exercises with a written answer and exercise 27.8, a quality gate that fails on purpose when a model misses its thresholds. The seven capstones are counted separately.
 
@@ -77,6 +86,7 @@ How exercises are counted: every numbered exercise in the book's 32 chapters and
    ```bash
    git clone https://github.com/sbittla/building-agentic-ai.git
    cd building-agentic-ai
+   git checkout book-v1.0.0
    ```
    No Git? Download the ZIP from the repository page and unzip it anywhere, for example `D:\Learning\building-agentic-ai`.
 3. **Choose a model.**
@@ -187,6 +197,8 @@ After each part of the book, try the matching **capstone project** yourself befo
 
 ## 5. Verified results
 
+Three different claims, kept apart below and in [verification/README.md](verification/README.md). **Deterministic tests** use a scripted stand-in model: they prove the code paths and controls, and give the same result on any machine. **Live-model runs** show each exercise working end to end with a real model on the recorded date; answers vary from run to run. **Production readiness** is not claimed: the kit is not production-hardened (Appendix M of the book). [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) lists the release's test status and its open gates.
+
 <!-- results:start -->
 ### A. Deterministic checks (no model)
 
@@ -196,11 +208,11 @@ Every reference solution, capstone and exercise command, run against a scripted 
 | ---: | ---: | ---: | ---: | ---: |
 | 571 | 0 | 0 | 13 | 584 |
 
-Commit `b7770dc19959`; `requirements.lock` sha256 `c28c848a2447`; outside the course image (Linux); 2026-10-09. Skipped: 8 runs in the course image; 2 needs mcp-server-filesystem from the course image; 1 needs mcp-server-git from the course image; 1 needs mcp-server-fetch, mcp-server-memory from the course image; 1 needs mcp-server-fetch, mcp-server-filesystem, mcp-server-git, mcp-server-time from the course image. Details: [verification/README.md](verification/README.md), [verification/offline.json](verification/offline.json).
+Commit `abaab3d230f8`; `requirements.lock` sha256 `c28c848a2447`; outside the course image (Linux); 2026-10-13. Skipped: 8 runs in the course image; 2 needs mcp-server-filesystem from the course image; 1 needs mcp-server-git from the course image; 1 needs mcp-server-fetch, mcp-server-memory from the course image; 1 needs mcp-server-fetch, mcp-server-filesystem, mcp-server-git, mcp-server-time from the course image. Details: [verification/README.md](verification/README.md), [verification/offline.json](verification/offline.json).
 
 ### B. Exercises run with a real model
 
-Every exercise run with its reference solution by `run-chapter` (runs from 2026-09-27 to 2026-10-08; models: `claude-sonnet-5`, `qwen3.5:9b`). **165 of 166 executable checks pass automatically**; 1 intentionally demonstrates a failing quality gate, and **0** failed unexpectedly. A real model's answers vary from run to run, so these show that each exercise works end to end, not that it always will. Commits: `b2de67c6c601`. Per-exercise results and logs: [EXERCISE_INDEX.md](EXERCISE_INDEX.md), `solutions/outputs/`.
+Every exercise run with its reference solution by `run-chapter` (runs from 2026-09-27 to 2026-10-13; models: `claude-sonnet-5`, `qwen3.5:9b`). **176 of 177 executable checks pass automatically**; 1 intentionally demonstrates a failing quality gate, and **0** failed unexpectedly. A real model's answers vary from run to run, so these show that each exercise works end to end, not that it always will. Commits: `abaab3d230f8`, `b2de67c6c601`. Per-exercise results and logs: [EXERCISE_INDEX.md](EXERCISE_INDEX.md), `solutions/outputs/`.
 
 How the totals count: the book has **249 exercises**; the table adds the 7 capstones, so it has 256 rows of work. Every count here, in EXERCISE_INDEX.md and in the book is computed from `course/exercises.json`. *Written answer* exercises have nothing to run; *needs a person* means a person at the keyboard, the Claude Desktop app, a GitHub token or a file the reader creates; *not run yet* means no run has been recorded for this version.
 
@@ -219,7 +231,7 @@ How the totals count: the book has **249 exercises**; the table adds the 7 capst
 | Chapter 7: Real APIs | 6 | 2 | 0 | 0 | 2 | 2 | 0 | 100% |
 | Interlude: SQL in One Sitting | 3 | 3 | 0 | 0 | 0 | 0 | 0 | 100% |
 | Chapter 8: Self-Correction: A Text-to-SQL Agent | 7 | 2 | 0 | 0 | 2 | 3 | 0 | 100% |
-| Interlude: Measuring an Agent | 3 | 0 | 0 | 0 | 1 | 0 | 2 | — |
+| Interlude: Measuring an Agent | 3 | 1 | 0 | 0 | 1 | 0 | 1 | 100% |
 | Chapter 9: Human-in-the-Loop Approval | 6 | 4 | 0 | 0 | 2 | 0 | 0 | 100% |
 | Chapter 10: Feedback Loops | 7 | 4 | 0 | 0 | 2 | 1 | 0 | 100% |
 | Interlude: Asynchronous Python | 4 | 4 | 0 | 0 | 0 | 0 | 0 | 100% |
@@ -229,23 +241,23 @@ How the totals count: the book has **249 exercises**; the table adds the 7 capst
 | Chapter 14: Using Servers You Didn't Write | 5 | 1 | 0 | 0 | 2 | 2 | 0 | 100% |
 | Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure | 4 | 2 | 0 | 0 | 2 | 0 | 0 | 100% |
 | Chapter 16: Context Engineering | 8 | 6 | 0 | 0 | 2 | 0 | 0 | 100% |
-| Chapter 17: Agent Memory Engineering | 9 | 6 | 0 | 0 | 2 | 0 | 1 | 100% |
+| Chapter 17: Agent Memory Engineering | 9 | 7 | 0 | 0 | 2 | 0 | 0 | 100% |
 | Chapter 18: Agentic RAG and Knowledge Systems | 9 | 7 | 0 | 0 | 2 | 0 | 0 | 100% |
 | Chapter 19: Long-Running Agents | 6 | 4 | 0 | 0 | 2 | 0 | 0 | 100% |
 | Chapter 20: Planning and Model Routing | 6 | 4 | 0 | 0 | 2 | 0 | 0 | 100% |
-| Chapter 21: Multi-Agent Orchestration | 7 | 4 | 0 | 0 | 2 | 0 | 1 | 100% |
+| Chapter 21: Multi-Agent Orchestration | 7 | 5 | 0 | 0 | 2 | 0 | 0 | 100% |
 | Chapter 22: Hybrid Architectures: Probabilistic Intelligence, Deterministic Control | 6 | 4 | 0 | 0 | 2 | 0 | 0 | 100% |
-| Chapter 23: Computer-Use Agents | 7 | 4 | 0 | 0 | 2 | 0 | 1 | 100% |
-| Chapter 24: Skills, Frameworks and Agent Runtimes | 10 | 6 | 0 | 0 | 3 | 0 | 1 | 100% |
-| Chapter 25: Agentic Security | 7 | 4 | 0 | 0 | 2 | 0 | 1 | 100% |
-| Chapter 26: Agent Identity and Authorization | 7 | 4 | 0 | 0 | 2 | 0 | 1 | 100% |
+| Chapter 23: Computer-Use Agents | 7 | 5 | 0 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 24: Skills, Frameworks and Agent Runtimes | 10 | 7 | 0 | 0 | 3 | 0 | 0 | 100% |
+| Chapter 25: Agentic Security | 7 | 5 | 0 | 0 | 2 | 0 | 0 | 100% |
+| Chapter 26: Agent Identity and Authorization | 7 | 5 | 0 | 0 | 2 | 0 | 0 | 100% |
 | Chapter 27: Agent Evaluation: Dimensions, Trajectories and Scorecards | 8 | 5 | 0 | 1 | 2 | 0 | 0 | 100% |
-| Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents | 8 | 6 | 0 | 0 | 1 | 0 | 1 | 100% |
-| Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost | 8 | 5 | 0 | 0 | 1 | 0 | 2 | 100% |
-| Chapter 30: Deploying Agents: From One Service to an Agent Platform | 12 | 9 | 0 | 0 | 2 | 0 | 1 | 100% |
+| Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents | 8 | 7 | 0 | 0 | 1 | 0 | 0 | 100% |
+| Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost | 8 | 7 | 0 | 0 | 1 | 0 | 0 | 100% |
+| Chapter 30: Deploying Agents: From One Service to an Agent Platform | 12 | 10 | 0 | 0 | 2 | 0 | 0 | 100% |
 | Chapter 31: From Prototype to Customer Production | 5 | 3 | 0 | 0 | 1 | 0 | 1 | 100% |
 | Capstone projects C1–C7 | 7 | 7 | 0 | 0 | 0 | 0 | 0 | 100% |
-| **Total** | **256** | **165** | **0** | **1** | **63** | **14** | **13** | **100.0%** |
+| **Total** | **256** | **176** | **0** | **1** | **63** | **14** | **2** | **100.0%** |
 
 *Pass rate* counts passed against unexpected failures; a gate that fails by design is neither.
 
@@ -326,4 +338,4 @@ To deploy the Chapter 30 agent API, build `ch30_service.Dockerfile` from your wo
 
 ## License
 
-The author will choose the license for this repository before it is published. Until a `LICENSE` file is added, all rights are reserved.
+Copyright © 2026 Srinivasa Rao Bittla. All rights reserved. You may download, run and modify the code, data and solutions for your own learning while working through the book *Building Agentic AI Systems*. Any other use, including redistribution or use in other products, requires the author's written permission. See [LICENSE](LICENSE).

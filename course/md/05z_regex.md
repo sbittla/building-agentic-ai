@@ -1,6 +1,6 @@
 # Interlude: Regular Expressions
 
-Agents need exact text in three places: checking the inputs a model hands to a tool (an order id, a date), pulling values out of logs and traces, and finding sensitive data such as API keys before it's stored or shown. Regular expressions are the standard way to describe that kind of text in code. This short interlude teaches only the patterns those three jobs need; `EXTRA_PRACTICE.md` in the course kit has the broader tutorial and more exercises.
+A model hands your tool the order id `A1001; DROP TABLE`. A trace you're about to store contains an API key. The latency you need is buried in a noisy log line. Each time, you need to say exactly what text looks like, and regular expressions are how code says it. This interlude teaches only the patterns those three jobs need; `EXTRA_PRACTICE.md` in the course kit has the broader tutorial.
 
 **Prerequisites:** Chapter 0 and the Python interlude (strings).
 
@@ -8,14 +8,14 @@ Agents need exact text in three places: checking the inputs a model hands to a t
 
 By the end of this interlude you can:
 
-- Read and write simple regular expressions with digits, words, sets, repetition and groups.
+- Read and write simple patterns with digits, words, sets, repetition and groups.
 - Choose between `re.search`, `re.findall`, `re.sub` and `re.fullmatch`.
-- Validate an agent's tool input, extract values from logs and hide secrets in text.
+- Validate a tool input, extract values from logs and hide secrets.
 - Explain why regex is the wrong tool for security checks such as path validation.
 
 ## Why this interlude
 
-Chapter 6's search tool, Chapter 8's table checks, Chapter 11's citation checker and Chapter 28's redaction of traces all use **regular expressions** (regex): short patterns that match text. You don't need to master them. You need to read and write simple ones.
+Chapter 6's search tool, the citation checker in exercise 6.4, Chapter 11's web-page cleaner and Chapter 28's trace redaction all use **regular expressions** (regex): short patterns that match text. Regex has a reputation for being unreadable, and long patterns earn it. You only need to read and write short ones.
 
 ## R.1 The pieces
 
@@ -46,24 +46,20 @@ Table: The four `re` functions
 | `re.sub(p, new, text)` | Text with matches replaced | Hiding secrets in logs |
 | `re.fullmatch(p, text)` | A match only if the whole text fits | Validating a tool input, such as an order id |
 
-Always write patterns as raw strings, such as `r"\d+"`, so Python doesn't treat the backslashes specially.
+Write patterns as raw strings, such as `r"\d+"`, so Python leaves the backslashes alone.
 
 :::warn Don't over-trust regex for security
-A regex that checks for `..` in a path can be bypassed (Chapter 6). Use regex to find and extract text. For security checks, use proper tools, such as resolving paths.
+A regex that looks for `..` in a path is easy to get around, as Chapter 6 shows. Use regex to find and extract text. For security, resolve the path instead.
 :::
 
 ## Key takeaways
 
-- A pattern is built from a few pieces: literals, `\d` `\w` `\s`, sets, repetition, anchors and groups.
-- `search` finds, `findall` extracts, `sub` replaces and `fullmatch` validates a whole input.
+- Patterns are built from literals, `\d` `\w` `\s`, sets, repetition, anchors and groups.
+- `search` finds, `findall` extracts, `sub` replaces, `fullmatch` validates a whole input.
 - Write patterns as raw strings (`r"..."`).
 - Use regex to find and extract text, never as a security check.
 
-With these pieces you can read the patterns in the chapters ahead. Next, Chapter 6 puts them to work: you'll build an agent that lists, searches and reads a folder of notes, and cites exactly where each answer came from.
-
 ## Learn more
-
-Start with these. `RESOURCES.md` in the course kit has all 4 links for this chapter, including the **Go deeper** reading, ready to click.
 
 | Resource | What you'll find |
 | --- | --- |
@@ -88,3 +84,7 @@ Write `mask(text)` that replaces anything that looks like an API key (`sk-` foll
 Write `citations(text)` that returns every `(file:line)` citation in a text, such as `(work/plan.md:12)`, as `(file, line_number)` pairs. Chapter 6 and exercise 6.4 use exactly this.
 **Done when:** It finds citations with folders, dots and dashes in file names, and ignores `(see page 12)`.
 :::
+
+## Up next
+
+In Chapter 6 your agent gets a folder of 20 notes and must answer from them, finding the right lines and citing each one.
