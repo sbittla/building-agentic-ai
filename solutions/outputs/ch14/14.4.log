@@ -1,0 +1,32 @@
+# Exercise: 14.4  Weekly engineering digest
+# Command:  python /tmp/solutions-flat/exercises/ex14_4_digest.py
+# Model:    claude-sonnet-5 (Claude API)
+# Date:     2026-10-14 02:14:46 UTC
+# Exit code: 0
+# Seconds:  29.6
+#-------------------------------------------------------------------------------
+[step 1] time__get_current_time({"timezone": "Etc/UTC"}) -> '{\n  "timezone": "Etc/UTC",\n  "datetime": "2026-10-14T02:14:25+00:00",\n'
+[step 1] github__list_commits({"owner": "modelcontextprotocol", "repo": "servers", "perPage": 100}) -> '[{"sha":"bbb701e7ac1e57f3edd1c2836b94c5457eaf7b9c","html_url":"https:/'
+[step 1] github__list_issues({"owner": "modelcontextprotocol", "repo": "servers", "state": "OPEN", "perPage":) -> '{"issues":[{"created_at":"2026-10-13T18:38:56Z","labels":["enhancement'
+# Weekly Engineering Digest — modelcontextprotocol/servers
+**Week of Oct 7–14, 2026** (today: Wed, Oct 14, 2026)
+
+## 1. v1.0.0 release stabilization
+The team spent most of the week hardening the `v2/release/1.0.0` branch via cherry-picks. A cluster of filesystem fixes closed race conditions in roots refresh handling — e.g., **#5094** (revoke access when an update leaves no valid root) and **#5097/#5101** (apply only the newest roots refresh, hold calls during any pending refresh). The fetch tool also got missing annotations (**#3572**, closed), and the npm publish pipeline was fixed to use Node 24's bundled npm instead of installing one (**#5104**).
+
+## 2. Dependency hygiene & supply-chain sweeps
+Dependabot PRs were replaced with three scheduled issue-filing workflows — dependency-refresh, dependabot-alerts, and an SDK watch — built via **#5065** (closing tracker **#4874**). This week's alert sweep also produced a wave of direct pins for known CVEs: urllib3, pyjwt, cryptography, soupsieve, gitpython, and several npm transitive deps (hono, qs, nanoid, ip-address).
+
+## 3. CI/process guardrails
+New automated checks landed: a DCO signoff verifier for PRs (**#4919**, merged as **#5055**), a case-insensitive fix for the GitHub Actions pin-verification script (**#4934**), and a "main-source guard" workflow ported ahead of the next milestone merge (**#5119**).
+
+## 4. Security/safety gaps in reference servers (open issues)
+Several issues flag that example servers can leak data or fetch unsafely by default: **#5130** (everything's gzip-resource fetch allows SSRF to private/metadata IPs, and get-env dumps the full process environment) and **#4882** (same get-env exposure, filed separately). **#5129** reports that git tools print non-ASCII paths as octal escapes, breaking round-trips with `git_add`.
+
+## 5. Tool annotation & documentation accuracy
+A recurring theme in new issues is mismatched tool-safety annotations: **#5058** (memory's create/add tools marked non-destructive despite dropping untouched data) and **#5059** (git's `git_create_branch` marked non-destructive but silently resets existing branches). Related: **#5151** proposes adding source-path/untrusted flags to read results, and the broader hardening tracker **#4958** covers tool-definition authorization and parameter bounds across reference servers.
+
+---
+**Snapshot:** ~130 commits merged this week (mostly release/cherry-pick traffic); 200 open issues total, with the newest batch concentrated on security hardening and tool-annotation correctness for the bundled reference servers (filesystem, git, everything, fetch, memory).
+
+Audit log: 3 tool calls, decisions ['allow']: ['github__list_commits', 'github__list_issues', 'time__get_current_time']

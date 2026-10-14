@@ -1,47 +1,33 @@
 # Exercise: 14.3  Read-only GitHub
 # Command:  python /tmp/solutions-flat/exercises/ex14_3_readonly.py
 # Model:    claude-sonnet-5 (Claude API)
-# Date:     2026-10-14 01:39:01 UTC
+# Date:     2026-10-14 02:45:20 UTC
 # Exit code: 0
-# Seconds:  29.8
+# Seconds:  21.9
 #-------------------------------------------------------------------------------
 19 GitHub tools, write tools among them: none
 [step 1] github__list_issues({"owner": "modelcontextprotocol", "repo": "servers", "state": "OPEN", "perPage":) -> '{"issues":[{"created_at":"2026-10-13T18:38:56Z","labels":["enhancement'
 
 Summary:
-I pulled the open issues from `modelcontextprotocol/servers` (GitHub reports **200 open issues** in total; I retrieved the 100 most recent to analyze themes).
+The repository **modelcontextprotocol/servers** currently has **200 open issues**.
 
-## Summary
+**Main themes:**
 
-**Total open issues: 200**
+1. **Filesystem server reliability & security** – by far the most common topic: path traversal/validation bugs, Windows-specific path issues (spaces, umlauts, drive letters), symlink/roots handling, crashes on malformed JSON-RPC input, write failures, and timeouts (e.g. #3752 "path traversal → arbitrary file read/write", #3281 "Frequent timeout or outright failures since Claude Desktop 1.1.1520", #4138 "write_file silently returns success but never writes to disk on Windows").
 
-### Main themes
+2. **Security hardening across servers** – SSRF risks in the fetch server, environment-variable leakage in the "everything" server's `get-env` tool, unconstrained/missing input-schema validation, and git-server path/branch handling bugs (e.g. #4882 "get-env returns full process environment", #3537 "Unconstrained string parameters across all official servers", #5130 "gzip-file-as-resource fetches private/metadata IPs").
 
-1. **Filesystem server bugs & platform quirks** (by far the largest cluster)
-   - Windows path handling (spaces, umlauts, `npx` launch hangs), symlink/tilde handling, roots-protocol conflicts with CLI-allowed dirs, crashes on malformed/oversized JSON‑RPC messages, `move_file` returning wrong type, search hangs on macOS CloudStorage paths.
-   - Examples: **#4138** (write_file silently fails on Windows), **#4207**/**#4206** (crash on large/malformed stdio messages), **#3752** (path traversal security concern).
+3. **Schema/tooling quality and protocol compliance** – missing property descriptions, missing tool annotations (idempotent/destructive hints), JSON-Schema validation issues, and lifecycle/handshake bypasses (e.g. #3669 "missing property descriptions across official MCP servers", #4195 "tools/list succeeds without initialize handshake").
 
-2. **Security hardening across servers** (SSRF, injection, over-broad data exposure)
-   - `fetch` server SSRF risks, `everything` server's `get-env` leaking the full process environment, unconstrained string parameters, missing tool annotations (destructive/idempotent hints), git server path-validation bypass.
-   - Examples: **#5130** (gzip-as-resource fetches internal/metadata IPs; get-env dumps env vars), **#3537** (security audit of unconstrained string params across all servers), **#4550** (git server path validation bypass).
+4. **Packaging/release/CI maintenance** – stale npm releases lagging behind repo tags, Docker build failures, deprecated packages, and repo-wide triage/tracking issues for backlog management (e.g. #3799 npm version lag, #4782 Docker build failures, #4875 "Tracker: Triage the open issue and PR backlog").
 
-3. **Fetch server reliability/content handling**
-   - Missing Content-Type handling breaking readability extraction, no retry/backoff on 429/5xx, hardcoded timeouts, dropped SSR/streamed content.
-   - Examples: **#5134**, **#4448** (hardcoded 30s timeout), **#3878** (drops SSR content).
+5. **Feature requests/enhancements** – things like time-zone defaults, roots-based directory restriction, log rotation, tool annotations, and registry additions.
 
-4. **Schema/tooling quality & MCP protocol compliance**
-   - Missing JSON Schema property descriptions/types, missing tool annotations, lifecycle handshake bypass (tools/list before initialize), Streamable HTTP support questions.
-   - Examples: **#3669** (schema descriptions missing across official servers), **#4195** (initialize handshake bypass), **#5125** (decide on Streamable HTTP entry points).
-
-5. **Packaging/release/maintenance housekeeping**
-   - Stale npm packages, Docker build failures, version mismatches between repo tags and npm, deprecated package messaging, and a batch of meta "triage the backlog" / workflow-automation issues (labeled `v2`, `chore`) clearly tied to an internal cleanup effort.
-   - Examples: **#4782** (Docker build fails for all 4 TS servers), **#4875**/**#4876**/**#4877** (tracker issues to triage the open issue/PR backlog).
-
-If you'd like, I can dig deeper into any one theme (e.g., all filesystem-server bugs) or pull the remaining ~100 issues for a fuller count breakdown by label.
+Overall, the issue tracker reflects active maintenance strain on a few heavily-used reference servers (filesystem, fetch, everything, git), with security hardening and cross-platform (especially Windows) bugs as the dominant recurring concerns.
 
 Close issue 3:
-I'm not able to do that — I don't have a tool to close issues, only to read/search them (and the GitHub ones are for a different test repo, not `modelcontextprotocol/servers`). I can only retrieve information, not modify issues in this repository.
+I'm not able to close issues — my tools only support reading data from GitHub (issues, commits, releases, etc.), not making changes like closing, commenting, or editing. You'll need to close issue #3 directly on GitHub (or via a tool/token that has write access).
 
-If you have write access, you'd close it directly on GitHub (or via `gh issue close 3 --repo modelcontextprotocol/servers` if you use the CLI). Let me know if you'd like me to fetch the details of issue #3 instead, in case that's useful context before you close it.
+If it's helpful, I can look up the details of issue #3 so you have the context handy before closing it — just let me know.
 
 Audit log: 1 tool calls: ['github__list_issues']
