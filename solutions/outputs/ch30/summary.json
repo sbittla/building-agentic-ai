@@ -2,9 +2,9 @@
  "chapter": "30",
  "title": "Chapter 30: Deploying Agents: From One Service to an Agent Platform",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-14 08:29",
+ "date": "2026-10-14 15:36",
  "provenance": {
-  "commit": "2850f35235c4-modified",
+  "commit": "03d1fad7c5f4-modified",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -34,12 +34,12 @@
    "id": "30.2",
    "title": "Call your agent API",
    "kind": "run",
-   "status": "failed",
-   "reason": "output lacks /'answer': '[^']*\\b400\\b/",
-   "seconds": 29.3,
+   "status": "passed",
+   "reason": null,
+   "seconds": 77.7,
    "log": "ch30/30.2.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "03d1fad7c5f4-modified"
   },
   {
    "id": "30.3",
@@ -67,12 +67,12 @@
    "id": "30.5",
    "title": "Remote MCP with your agent",
    "kind": "build",
-   "status": "failed",
-   "reason": "output lacks /(?s)=== read-only token.*team__add_task\\(.*-> '[^']*(not allowed|read-only|forbidden|denied|scope|permission)/",
-   "seconds": 24.7,
+   "status": "passed",
+   "reason": null,
+   "seconds": 39.6,
    "log": "ch30/30.5.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "03d1fad7c5f4-modified"
   },
   {
    "id": "30.6",
@@ -89,12 +89,12 @@
    "id": "30.7",
    "title": "Ship it",
    "kind": "run",
-   "status": "failed",
-   "reason": "exit code 1",
-   "seconds": 6.0,
+   "status": "passed",
+   "reason": null,
+   "seconds": 15.6,
    "log": "ch30/30.7.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "03d1fad7c5f4-modified"
   },
   {
    "id": "30.8",
@@ -132,12 +132,12 @@
    "id": "30.11",
    "title": "An agent behind the gateway",
    "kind": "build",
-   "status": "failed",
-   "reason": "output lacks /company__use_tool\\(\\{\"name\": \"todo__add_task\"/",
-   "seconds": 20.0,
+   "status": "passed",
+   "reason": null,
+   "seconds": 61.5,
    "log": "ch30/30.11.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "03d1fad7c5f4-modified"
   },
   {
    "id": "30.12",

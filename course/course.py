@@ -476,7 +476,7 @@ def cmd_serve_api(args):
     say("Other course containers reach it as http://agentic-ai-api:8080. Ctrl+C to stop.")
     env = env_for_runs()
     return subprocess.call(["python", "-m", "uvicorn", "ch30_service:app", "--host", "0.0.0.0",
-                            "--port", "8080", *args], cwd=WS, env=env)
+                            "--port", "8080", "--no-server-header", *args], cwd=WS, env=env)
 
 def cmd_serve_mcp(args):
     """Chapter 30: the token-protected remote MCP server on http://localhost:8000/mcp"""
@@ -1299,8 +1299,8 @@ def _start_service(e, cwd, env):
         if not env.get("AGENT_API_KEYS"):
             env["AGENT_API_KEYS"] = secrets.token_urlsafe(24)
         cmd, port = [sys.executable, "-m", "uvicorn", e.get("service_app", "ch30_service:app"),
-                     "--host",
-                     "127.0.0.1", "--port", "8080"], 8080
+                     "--host", "127.0.0.1", "--port", "8080",
+                     "--no-server-header"], 8080      # the smoke test checks for no banner
     elif e.get("service") == "mcp":
         env = dict(env, MCP_HOST="127.0.0.1", MCP_PORT="8000")
         for var in ("MCP_TOKEN", "MCP_READONLY_TOKEN"):

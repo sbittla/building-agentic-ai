@@ -229,7 +229,7 @@
  "30.2": {"expect": ["'answer': '[^']*\\b400\\b", "'answer': '[^']*\\b88\\b", "\\[answer\\]"]},
  "30.3": {"env": {"AGENT_RATE_PER_MINUTE": "2"}, "expect": ["request [34]: 429\\s+Retry-After=\\d+", "wrong key: 401"]},
  "30.4": {"service_app": "sol_ch30_service:app", "cmd": "python {SOL}/exercises/run30_4_words.py", "expect": ["pieces over [\\d.]+ s", "arrived in [2-9]\\d* pieces|arrived in \\d\\d+ pieces"], "expect_not": ["no /v1/chat/stream_text endpoint"]},
- "30.5": {"cmd": "python {SOL}/exercises/ex30_5_remote_hub.py --demo", "expect": ["team__add_task\\(", "=== a wrong token ===\\nERROR: .*401", "(?s)=== read-only token.*team__list_tasks\\(", "(?s)=== read-only token.*team__add_task\\(.*-> '[^']*(not allowed|read-only|forbidden|denied|scope|permission)"]},
+ "30.5": {"cmd": "python {SOL}/exercises/ex30_5_remote_hub.py --demo", "expect": ["team__add_task\\(", "=== a wrong token ===\\nERROR: .*401", "(?s)=== read-only token.*team__list_tasks\\(", "(?s)=== read-only token.*team__add_task\\(.*-> ['\"][^\\n]*(not allowed|read-only|forbidden|denied|scope|permission)"]},
  "30.6": {"service": "api", "env": {"AGENT_API_KEYS": "k1,k2,k3,k4,k5", "AGENT_RATE_PER_MINUTE": "30"}, "cmd": "python {SOL}/exercises/ex30_6_drill.py --compare 6 2 60",
           "expect": ["\\| 6 users \\| \\d+ \\| [1-9]\\d* \\|", "\\| 2 users \\| \\d+ \\| [1-9]\\d* \\|", "One change: 6 -> 2 concurrent users"]},
  "30.7": {"service": "api", "cmd": "AGENT_API_KEY=${AGENT_API_KEYS%%,*} python ch30_smoke_test.py http://127.0.0.1:8080 --chat", "expect": ["Smoke test: http://127.0.0.1:8080"], "expect_not": ["FAIL"]},

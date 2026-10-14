@@ -2,9 +2,9 @@
  "chapter": "13",
  "title": "Chapter 13: Build Your Own MCP Client",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-14 06:20",
+ "date": "2026-10-14 16:12",
  "provenance": {
-  "commit": "2850f35235c4-modified",
+  "commit": "03d1fad7c5f4-modified",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -56,12 +56,12 @@
    "id": "13.4",
    "title": "Resources at start-up",
    "kind": "run",
-   "status": "failed",
-   "reason": "output lacks /SQL excludes cancelled orders \\(the definition from shopdb://definitions\\): True/",
-   "seconds": 38.5,
+   "status": "passed",
+   "reason": null,
+   "seconds": 35.1,
    "log": "ch13/13.4.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "03d1fad7c5f4-modified"
   },
   {
    "id": "13.5",
@@ -78,12 +78,12 @@
    "id": "13.6",
    "title": "Resilience",
    "kind": "run",
-   "status": "failed",
-   "reason": "exit code 1",
-   "seconds": 17.1,
+   "status": "passed",
+   "reason": null,
+   "seconds": 66.3,
    "log": "ch13/13.6.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "03d1fad7c5f4-modified"
   },
   {
    "id": "13.7",

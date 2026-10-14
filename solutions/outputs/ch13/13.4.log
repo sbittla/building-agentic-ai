@@ -1,32 +1,32 @@
 # Exercise: 13.4  Resources at start-up
 # Command:  python /tmp/solutions-flat/exercises/run13_hub.py resources
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 06:17:18 UTC
+# Date:     2026-10-14 16:11:12 UTC
 # Exit code: 0
-# Seconds:  38.5
+# Seconds:  35.1
 #-------------------------------------------------------------------------------
 Resources loaded at start-up:
 ## shopdb: shopdb://definitions
 Revenue = SUM(quantity * price) over orders whose status != 'cancelled'.
 
 You: What was our total revenue? Give the number and the SQL you used.
-[10/14/26 06:16:56] INFO     Tool 'run_query' failed: 'Error       server.py:444
+[10/14/26 16:10:51] INFO     Tool 'run_query' failed: 'Error       server.py:444
                              executing tool run_query: ERROR: no                
-                             such column: o.quantity. Check                     
+                             such column: quantity. Check                       
                              table/column names with get_schema                 
                              and retry.'                                        
-[step 1] shopdb__run_query({"query": "SELECT SUM(o.quantity * p.price) AS total_revenue FROM orders o JOIN ) -> 'Error executing tool run_query: ERROR: no such column: o.quantity. Che'
+[step 1] shopdb__run_query({"query": "SELECT SUM(quantity * price) as total_revenue FROM orders WHERE statu) -> 'Error executing tool run_query: ERROR: no such column: quantity. Check'
 [step 2] shopdb__get_schema({}) -> 'CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, city TEXT, '
-[step 3] shopdb__run_query({"query": "SELECT SUM(oi.quantity * p.price) AS total_revenue FROM orders o JOIN) -> 'total_revenue\n410609.0'
-Agent: Your total revenue was **410,609.0**.
+[step 3] shopdb__run_query({"query": "SELECT SUM(oi.quantity * p.price) as total_revenue FROM order_items o) -> 'total_revenue\n410609.0'
+Agent: Our total revenue was **$410,609.0**.
 
-The SQL used was:
+The SQL I used was:
 ```sql
-SELECT SUM(oi.quantity * p.price) AS total_revenue 
-FROM orders o 
-JOIN order_items oi ON o.id = oi.order_id 
+SELECT SUM(oi.quantity * p.price) as total_revenue 
+FROM order_items oi 
 JOIN products p ON oi.product_id = p.id 
+JOIN orders o ON oi.order_id = o.id 
 WHERE o.status != 'cancelled'
 ```
 
-SQL excludes cancelled orders (the definition from shopdb://definitions): False
+SQL excludes cancelled orders (the definition from shopdb://definitions): True

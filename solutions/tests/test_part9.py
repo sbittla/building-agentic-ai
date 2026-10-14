@@ -165,8 +165,11 @@ def test_29_estimate_and_capacity():
     assert c.concurrency_needed(10, 8) == 80
     assert round(c.rate_limited_capacity(4000, 2_000_000, 6, 60_000)) == 33
 
-def test_29_4_budgets(model, ws):
+def test_29_4_budgets(model, ws, monkeypatch):
+    import ch04_agent
     import ex29_4_budgets as ex
+    # price the scripted calls as claude-sonnet-5, even when MODEL names the free local model
+    monkeypatch.setattr(ch04_agent, "MODEL", "claude-sonnet-5")
     ex.DAILY.spent.clear()
     model.reset(default=lambda kw: [tool("run_query", {"sql": "SELECT 1"})])
     answer, stats = ex.ask("ana", "Keep querying forever", per_request=0.0035)

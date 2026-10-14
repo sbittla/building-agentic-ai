@@ -1,21 +1,33 @@
 # Exercise: 11.3  Run the team
 # Command:  python ch11_research_team.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 06:04:58 UTC
+# Date:     2026-10-14 15:58:19 UTC
 # Exit code: 0
-# Seconds:  165.6
+# Seconds:  137.6
 #-------------------------------------------------------------------------------
 PLAN: [
-  "Analyze the costs associated with agentic search vs RAG for internal documentation",
-  "Evaluate how effectively agentic search maintains freshness compared to RAG",
-  "Assess accuracy differences between agentic search and RAG specifically for retrieving exact error codes"
+  "Identify the specific costs associated with Agentic Search (LLM token usage per step) versus RAG (single query embedding + retrieval)",
+  "Analyze freshness dynamics: how quickly does each method reflect new documentation updates?",
+  "Evaluate accuracy on exact error code retrieval for both approaches, focusing on parameterized queries in Agentic Search versus vector similarity limits in RAG"
 ]
 
-[161.1s, {'input_tokens': 7705, 'output_tokens': 1818, 'calls': 13}]
-Based on the research findings, here is a comparison of **Agentic Search** versus **RAG** for internal documentation:
+[134.3s, {'input_tokens': 6836, 'output_tokens': 1952, 'calls': 13}]
+Based on the research findings, here is the comparison between Agentic Search and RAG for internal documentation:
 
-*   **Cost:** Agentic search eliminates upfront indexing overhead and storage costs associated with maintaining vector stores but incurs higher per-query compute costs due to multiple model steps and token amplification in multi-agent setups. RAG involves significant maintenance costs for re-indexing workflows but generally has more predictable, lower per-query compute costs once the index is built.
-*   **Freshness:** Agentic search offers perfect freshness by dynamically accessing source files at runtime without needing scheduled updates. In contrast, RAG suffers from staleness; its vector indexes become outdated after document changes unless explicit re-indexing jobs are implemented and managed.
-*   **Accuracy on Exact Error Codes:** Agentic search (specifically utilizing regex-based exact matching) is superior for retrieving precise error codes like `ERR-4471` versus `ERR-4417`. Standard RAG embedding models often fail here, treating distinct error code strings as semantically similar, which leads to ambiguous or incorrect retrievals.
+**Cost**
+*   **Agentic Search:** Costs scale with the number of model steps (LLM token usage per step) as agents iteratively list, search, and read files. While multi-agent systems can use significantly more tokens than single chats, costs remain predictable through budgets and iteration caps. *(Sources: agentic-search.md:2, cost-of-agents.md:2)*
+*   **RAG:** Generally cheaper per call as it relies on a single query embedding and retrieval. It involves an upfront cost for splitting documents into chunks and embedding them once during indexing, plus re-indexing when content changes. *(Sources: rag-overview.md:2, agentic-search.md:2)*
 
-**Disagreements/Nuances:** The findings suggest a trade-off: while Agentic search is more accurate and fresh for exact terms (like error codes) due to its lack of reliance on embeddings, RAG can be cost-effective if combined with keyword/BM25 search in a hybrid approach to mitigate accuracy issues, though this hybrid method still depends on an index that can go stale unless managed externally.
+**Freshness**
+*   **Agentic Search:** Results are always fresh because the system has no index overhead; it does not require scheduled re-indexing jobs or triggered updates to reflect new documentation. *(Sources: agentic-search.md:2, freshness.md:2)*
+*   **RAG:** Vector indexes become stale immediately when source documents change. Freshness must be managed via scheduled re-indexing jobs or event-driven triggers rather than real-time reflection in the index itself. While retrieval at query time pulls the most similar chunks, new content isn't fully reflected until a new query occurs after indexing updates. *(Sources: freshness.md:2, rag-overview.md:2)*
+*   **Latency Note:** Agentic chains may take longer to propagate updates due to sequential model calls, whereas RAG latency is tied to the re-indexing cycle. *(Source: latency.md:1)*
+
+**Accuracy on Exact Error Codes**
+*   **Agentic Search:** Offers high precision for structured identifiers like exact error codes (`ERR-4471`, `ERR-4417`) by using parameterized queries, keyword searches, or regex. This avoids the semantic confusion where different but similar codes are treated as identical. *(Sources: agentic-search.md:2, error-codes.md:2)*
+*   **RAG:** Suffers from accuracy limits due to vector similarity; semantic approximations often blur fine-grained distinctions, causing exact identifiers to be missed or confused in favor of semantically related content. *(Sources: rag-overview.md:2, error-codes.md:2)*
+
+**Disagreements/Contradictions in Findings**
+There are no direct contradictions between the sources; rather, they highlight a **precision vs. scalability trade-off**:
+*   RAG is positioned as the scalable solution for millions of documents (rag-overview.md:2), whereas Agentic Search is positioned as the high-precision solution that sacrifices some cost efficiency for exact identifier matching (agentic-search.md:2).
+*   Both sources agree that RAG requires re-indexing for freshness, while Agents do not, but they frame the latency implication differently: one notes it delays update propagation in agents (latency.md:1), while the other emphasizes that the lack of an index keeps Agentic results "always fresh" compared to RAG's staleness (agentic-search.md:2).

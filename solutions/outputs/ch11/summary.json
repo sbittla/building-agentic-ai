@@ -2,9 +2,9 @@
  "chapter": "11",
  "title": "Chapter 11: Multi-Agent Systems",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-14 06:15",
+ "date": "2026-10-14 16:10",
  "provenance": {
-  "commit": "2850f35235c4-modified",
+  "commit": "03d1fad7c5f4-modified",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -44,12 +44,12 @@
    "id": "11.3",
    "title": "Run the team",
    "kind": "run",
-   "status": "failed",
-   "reason": "output lacks /\\.md/",
-   "seconds": 165.6,
+   "status": "passed",
+   "reason": null,
+   "seconds": 137.6,
    "log": "ch11/11.3.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "03d1fad7c5f4-modified"
   },
   {
    "id": "11.4",
@@ -79,10 +79,10 @@
    "kind": "build",
    "status": "failed",
    "reason": "exit code 1",
-   "seconds": 61.3,
+   "seconds": 737.1,
    "log": "ch11/11.6.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "03d1fad7c5f4-modified"
   },
   {
    "id": "11.7",

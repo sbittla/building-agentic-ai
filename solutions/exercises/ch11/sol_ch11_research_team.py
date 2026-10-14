@@ -42,7 +42,12 @@ async def research(question: str, parallel: bool = True, critic: bool = True,
     plan = await _call(tools=[PLAN_TOOL], tool_choice={"type": "tool", "name": "make_plan"},
                        messages=[{"role": "user", "content": question}])
     subtasks = next(b.input["subtasks"] for b in plan.content if b.type == "tool_use")
-    for s in subtasks:            # a model can skip "required" fields: check, don't trust
+    for i, s in enumerate(subtasks):  # a model can skip or rename "required" fields: check
+        if isinstance(s, str):
+            s = subtasks[i] = {"objective": s}
+        if not s.get("objective"):
+            s["objective"] = next((s[k] for k in ("task", "description", "question", "title")
+                                   if isinstance(s.get(k), str)), question)
         s.setdefault("out_of_scope", "the other subtasks")
         if s.get("effort") not in EFFORT_STEPS:
             s["effort"] = "deep"

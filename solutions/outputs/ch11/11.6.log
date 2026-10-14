@@ -1,10 +1,12 @@
 # Exercise: 11.6  Is it worth it?
 # Command:  python /tmp/solutions-flat/exercises/ex11_6_compare.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 06:11:43 UTC
+# Date:     2026-10-14 16:10:36 UTC
 # Exit code: 1
-# Seconds:  61.3
+# Seconds:  737.1
 #-------------------------------------------------------------------------------
+/tmp/solutions-flat/exercises/sol_ch11_research_team.py:-1: RuntimeWarning: coroutine 'run_subagent' was never awaited
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
 Traceback (most recent call last):
   File "/tmp/solutions-flat/exercises/ex11_6_compare.py", line 58, in <module>
     main()
@@ -23,10 +25,10 @@ Traceback (most recent call last):
   File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
     return future.result()
            ^^^^^^^^^^^^^^^
-  File "/tmp/solutions-flat/exercises/sol_ch11_research_team.py", line 45, in research
+  File "/tmp/solutions-flat/exercises/sol_ch11_research_team.py", line 49, in research
     jobs = [base.run_subagent(brief(s), max_iterations=EFFORT_STEPS[s["effort"]]) for s in subtasks]
                               ^^^^^^^^
-  File "/tmp/solutions-flat/exercises/sol_ch11_research_team.py", line 35, in brief
-    f"{sub['out_of_scope']}\nEffort: {sub['effort']}")
-                                      ~~~^^^^^^^^^^
-KeyError: 'effort'
+  File "/tmp/solutions-flat/exercises/sol_ch11_research_team.py", line 34, in brief
+    return (f"Objective: {sub['objective']}\nOut of scope (a colleague covers it): "
+                          ~~~^^^^^^^^^^^^^
+KeyError: 'objective'

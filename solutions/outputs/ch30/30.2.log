@@ -1,12 +1,12 @@
 # Exercise: 30.2  Call your agent API
 # Command:  python ch30_client.py && python ch30_client.py stream
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 08:25:25 UTC
+# Date:     2026-10-14 15:34:31 UTC
 # Exit code: 0
-# Seconds:  29.3
+# Seconds:  77.7
 #-------------------------------------------------------------------------------
-{'session_id': 'ad47b286622a42cda60b404782993833', 'answer': '```sql\nSELECT COUNT(*) FROM orders\n```\n\n**4** orders are in total.', 'steps': 2, 'tool_calls': 1, 'input_tokens': 357, 'output_tokens': 34}
-{'session_id': 'ad47b286622a42cda60b404782993833', 'answer': '**88** orders were cancelled.', 'steps': 2, 'tool_calls': 1, 'input_tokens': 100, 'output_tokens': 46}
+{'session_id': '013580067320499997f26a53f0034445', 'answer': '400', 'steps': 3, 'tool_calls': 2, 'input_tokens': 581, 'output_tokens': 50}
+{'session_id': '013580067320499997f26a53f0034445', 'answer': '88', 'steps': 2, 'tool_calls': 1, 'input_tokens': 84, 'output_tokens': 40}
 [tool] {'name': 'get_schema', 'input': {}, 'result_preview': 'CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, city TEXT, joined DATE)\nCREATE TABLE products  (id INTEGER PRIMARY KEY, name TEXT, category TEXT, price REAL)\nCREATE TABLE orders    (id INTE'}
-[tool] {'name': 'run_query', 'input': {'sql': "SELECT p.category, SUM(CASE WHEN o.status != 'cancelled' THEN oi.quantity * p.price ELSE 0 END) AS revenue\nFROM order_items oi\nJOIN products p ON oi.product_id = p.id\nJOIN orders o ON oi.order_id = o.id\nGROUP BY p.category\nORDER BY revenue DESC\nLIMIT 1"}, 'result_preview': 'category | revenue\nelectronics | 312150.0'}
-[answer] {'session_id': '17bc6b0bc7d04046baffaaaaa06ce540', 'answer': 'electronics earns the most revenue: 312150.0', 'steps': 3, 'tool_calls': 2, 'input_tokens': 485, 'output_tokens': 124, 'stop_reason': 'end_turn', 'model': 'qwen3.5:9b'}
+[tool] {'name': 'run_query', 'input': {'sql': "SELECT p.category, SUM(o_i.quantity * p.price) AS total_revenue FROM order_items o_i JOIN products p ON o_i.product_id = p.id LEFT JOIN orders o ON o_i.order_id = o.id WHERE o.status != 'cancelled' GROUP BY p.category ORDER BY total_revenue DESC LIMIT 1"}, 'result_preview': 'category | total_revenue\nelectronics | 312150.0'}
+[answer] {'session_id': '286fec0988cd48ad9984bee26bd38e9d', 'answer': 'The product category that earns the most revenue is electronics, with a total of $312,150.0 in revenue.', 'steps': 3, 'tool_calls': 2, 'input_tokens': 652, 'output_tokens': 133, 'stop_reason': 'end_turn', 'model': 'qwen3.5:9b'}

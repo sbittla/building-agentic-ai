@@ -12,8 +12,11 @@ from ch13_mcp_agent import MCPHub, run_mcp_agent
 from ch30_gateway import AUDIENCE, AUDIT
 
 SYSTEM = ("You work for Ana. Company tools sit behind a gateway: find them with "
-          "company__search_tools, then call them with company__use_tool. If a call "
-          "is not allowed, say so plainly; don't look for a way around it.")
+          "company__search_tools, then call them with company__use_tool. Search with "
+          "short keywords: the to-do tools mention 'task', the shop database tools "
+          "'SQL' or 'query'. As soon as a search finds the tool you need, call it "
+          "before searching for anything else. If a call is not allowed, say so "
+          "plainly; don't look for a way around it.")
 
 def config_for(agent: str, user: str, scopes: set[str]) -> dict:
     token = identity.mint(agent, user, scopes, AUDIENCE, ttl=900)

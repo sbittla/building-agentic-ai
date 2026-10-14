@@ -1,36 +1,41 @@
 # Exercise: 30.11  An agent behind the gateway
 # Command:  python /tmp/solutions-flat/exercises/ex30_11_gateway_agent.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 08:29:10 UTC
+# Date:     2026-10-14 15:36:28 UTC
 # Exit code: 0
-# Seconds:  20.0
+# Seconds:  61.5
 #-------------------------------------------------------------------------------
 agent sees: ['company__search_tools', 'company__use_tool']
-[10/14/26 08:29:00] INFO     HTTP Request: POST                  _client.py:1923
+[10/14/26 15:35:41] INFO     HTTP Request: POST                  _client.py:1923
                              http://local-adapter:8787/v1/messag                
                              es "HTTP/1.1 200 OK"                               
-[step 1] company__search_tools({"query": "task create due date"}) -> '[{"name": "todo__add_task", "description": "Add a to-do. due is YYYY-M'
-[step 1] company__search_tools({"query": "order cancelled count"}) -> '[]'
-[10/14/26 08:29:02] INFO     HTTP Request: POST                  _client.py:1923
+[step 1] company__search_tools({"query": "task add", "limit": 5}) -> '[{"name": "todo__add_task", "description": "Add a to-do. due is YYYY-M'
+[10/14/26 15:35:53] INFO     HTTP Request: POST                  _client.py:1923
                              http://local-adapter:8787/v1/messag                
                              es "HTTP/1.1 200 OK"                               
-[step 2] company__search_tools({"query": "order cancelled"}) -> '[]'
-[10/14/26 08:29:04] INFO     HTTP Request: POST                  _client.py:1923
+[step 2] company__use_tool({"name": "todo__add_task", "arguments": {"due": "2026-10-02", "title": "Book fli) -> 'Added #2: Book flights'
+[10/14/26 15:36:02] INFO     HTTP Request: POST                  _client.py:1923
                              http://local-adapter:8787/v1/messag                
                              es "HTTP/1.1 200 OK"                               
-[step 3] company__search_tools({"query": "order"}) -> '[]'
-[10/14/26 08:29:06] INFO     HTTP Request: POST                  _client.py:1923
+[step 3] company__search_tools({"query": "order cancelled", "limit": 5}) -> '[]'
+[10/14/26 15:36:08] INFO     HTTP Request: POST                  _client.py:1923
                              http://local-adapter:8787/v1/messag                
                              es "HTTP/1.1 200 OK"                               
-[step 4] company__search_tools({"query": "cancel order"}) -> '[]'
-[10/14/26 08:29:08] INFO     HTTP Request: POST                  _client.py:1923
+[step 4] company__search_tools({"query": "SQL order", "limit": 5}) -> '[{"name": "shopdb__get_schema", "description": "CREATE TABLE statement'
+[10/14/26 15:36:18] INFO     HTTP Request: POST                  _client.py:1923
                              http://local-adapter:8787/v1/messag                
                              es "HTTP/1.1 200 OK"                               
-[step 5] company__search_tools({"query": "database orders"}) -> '[]'
-[10/14/26 08:29:10] INFO     HTTP Request: POST                  _client.py:1923
+[10/14/26 15:36:18] INFO     Tool 'use_tool' failed: 'Not allowed: server.py:444
+                             token lacks shop:read'                             
+[step 5] company__use_tool({"name": "shopdb__get_schema", "arguments": {}}) -> 'Not allowed: token lacks shop:read'
+[10/14/26 15:36:27] INFO     HTTP Request: POST                  _client.py:1923
                              http://local-adapter:8787/v1/messag                
                              es "HTTP/1.1 200 OK"                               
 
-Agent: I'll first add the task with the specified due date using the `todo__add_task` tool, and then search for tools that can help retrieve information about cancelled orders.
+Agent: I'm unable to call `shopdb__get_schema` because the current token doesn't have the 'shop:read' permission. Since I cannot retrieve the database schema or run any SQL queries due to this restriction, I cannot determine how many orders were cancelled.
 
-Audit: empty (the agent made no calls through use_tool)
+The task 'Book flights' was successfully added with a due date of 2026-10-02. However, I am unable to provide the number of cancelled orders as required by your request.
+
+Audit:
+  agent:planner-agent    todo__add_task       ok
+  agent:planner-agent    shopdb__get_schema   denied: token lacks shop:read

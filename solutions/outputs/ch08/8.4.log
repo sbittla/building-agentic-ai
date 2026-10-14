@@ -1,18 +1,18 @@
 # Exercise: 8.4  Watch it self-correct
 # Command:  python /tmp/solutions-flat/exercises/ex8_4_self_correct.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 04:50:22 UTC
+# Date:     2026-10-14 15:54:38 UTC
 # Exit code: 0
-# Seconds:  12.9
+# Seconds:  15.8
 #-------------------------------------------------------------------------------
-[step 1] get_schema({}) -> 'CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, city TEXT, joined DAT'  (14 ms)
-[step 2] run_query({"sql": "SELECT city, COUNT(*) AS customer_count FROM customers GROUP BY city ORDER BY customer_count DESC LIMIT 1"}) -> 'city | customer_count\nBerlin | 14'  (11 ms)
+[step 1] get_schema({}) -> 'CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, city TEXT, joined DAT'  (18 ms)
+[step 2] run_query({"sql": "SELECT city, COUNT(*) as customer_count FROM customers GROUP BY city ORDER BY customer_count DESC LIMIT 1"}) -> 'city | customer_count\nBerlin | 14'  (15 ms)
 
-Based on the SQL query I ran, **Berlin** has the most customers with 14 customers.
+The city with the most customers is **Berlin**, which has **14** customers.
 
-Final SQL:
+Final SQL used:
 ```sql
-SELECT city, COUNT(*) AS customer_count 
+SELECT city, COUNT(*) as customer_count 
 FROM customers 
 GROUP BY city 
 ORDER BY customer_count DESC 
