@@ -23,8 +23,8 @@ nothing in the kit is production-hardened). Run any exercise with
 | Chapter 4 | The Agent Loop | 4.1–4.5 | `course/code/ch04/` | `solutions/exercises/ch04/`, `solutions/tests/` | — |
 | Chapter 5 | State and Short-Term Memory | 5.1–5.7 | `course/code/ch05/` | `solutions/exercises/ch05/`, `solutions/tests/` | — |
 | Interlude R | Regular Expressions | R.1–R.3 | `course/code/interlude_regex/` | `solutions/exercises/interlude_regex/` | — |
-| Chapter 6 | Agentic Search: Exploring an Environment | 6.1–6.6 | `course/code/ch06/` | `solutions/exercises/ch06/`, `solutions/tests/` | 5 |
-| Chapter 7 | Real APIs | 7.1–7.6 | `course/code/ch07/` | `solutions/exercises/ch07/`, `solutions/tests/` | — |
+| Chapter 6 | Agentic Search: Exploring an Environment | 6.1–6.6 | `course/code/ch06/` | `solutions/exercises/`, `solutions/exercises/ch06/`, `solutions/tests/` | 5 |
+| Chapter 7 | Real APIs | 7.1–7.6 | `course/code/ch07/` | `solutions/exercises/`, `solutions/exercises/ch07/`, `solutions/tests/` | — |
 | Interlude S | SQL in One Sitting | S.1–S.3 | `course/code/interlude_sql/` | `solutions/exercises/interlude_sql/` | — |
 | Chapter 8 | Self-Correction: A Text-to-SQL Agent | 8.1–8.7 | `course/code/ch08/` | `solutions/exercises/ch08/`, `solutions/tests/` | 2 |
 | Interlude M | Measuring an Agent | M.1–M.3 | `course/code/interlude_measure/` | `solutions/exercises/interlude_measure/`, `solutions/tests/` | — |
@@ -33,11 +33,11 @@ nothing in the kit is production-hardened). Run any exercise with
 | Interlude A | Asynchronous Python | A.1–A.4 | `course/code/interlude_python/` | `solutions/exercises/capstones/` | — |
 | Chapter 11 | Multi-Agent Systems | 11.1–11.7 | `course/code/ch11/` | `solutions/exercises/ch11/`, `solutions/tests/` | 5 |
 | Chapter 12 | MCP Fundamentals and Your First Server | 12.1–12.7 | `course/code/ch12/` | `solutions/exercises/ch12/`, `solutions/tests/`, `solutions/tests/fake_model_site/` | — |
-| Chapter 13 | Build Your Own MCP Client | 13.1–13.8 | `course/code/`, `course/code/ch13/` | `solutions/exercises/ch13/`, `solutions/tests/` | — |
+| Chapter 13 | Build Your Own MCP Client | 13.1–13.8 | `course/code/`, `course/code/ch13/` | `solutions/exercises/`, `solutions/exercises/ch13/`, `solutions/tests/` | — |
 | Chapter 14 | Using Servers You Didn't Write | 14.1–14.5 | `course/code/`, `course/code/ch14/` | `solutions/exercises/ch14/` | — |
 | Chapter 15 | MCP in 2026: From Tool Calling to Agent Infrastructure | 15.1–15.4 | `course/code/ch15/` | `solutions/exercises/ch15/`, `solutions/tests/` | — |
 | Chapter 16 | Context Engineering | 16.1–16.8 | `course/code/ch16/` | `solutions/exercises/ch16/`, `solutions/tests/` | 1, 3, 7 |
-| Chapter 17 | Agent Memory Engineering | 17.1–17.9 | `course/code/ch17/` | `solutions/exercises/ch17/`, `solutions/tests/` | 1, 7 |
+| Chapter 17 | Agent Memory Engineering | 17.1–17.9 | `course/code/ch17/` | `solutions/exercises/`, `solutions/exercises/ch17/`, `solutions/tests/` | 1, 7 |
 | Chapter 18 | Agentic RAG and Knowledge Systems | 18.1–18.9 | `course/code/ch18/` | `solutions/exercises/ch18/`, `solutions/tests/` | 1, 2, 5, 7 |
 | Chapter 19 | Long-Running Agents | 19.1–19.6 | `course/code/ch19/` | `solutions/exercises/ch19/`, `solutions/tests/` | 4, 6 |
 | Chapter 20 | Planning and Model Routing | 20.1–20.6 | `course/code/ch20/` | `solutions/exercises/ch20/`, `solutions/tests/` | 1, 2, 5 |
@@ -155,10 +155,10 @@ Code: [`ch05_todo_tools.py`](course/code/ch05/ch05_todo_tools.py) (prototype)
 | --- | --- | --- | --- | --- |
 | 5.1 | Concept | What survives a restart? | none | [ANSWERS.md](solutions/ANSWERS.md) |
 | 5.2 | Concept | Idempotency audit | none | [ANSWERS.md](solutions/ANSWERS.md) |
-| 5.3 | Simple | Run the to-do agent | any | [ANSWERS.md](solutions/ANSWERS.md), [`test_ch04_05.py`](solutions/tests/test_ch04_05.py) |
-| 5.4 | Simple | Add delete and edit | any | [`sol_ch05_todo_tools.py`](solutions/exercises/ch05/sol_ch05_todo_tools.py) |
-| 5.5 | Medium | What's due this week? | any | [`sol_ch05_todo_tools.py`](solutions/exercises/ch05/sol_ch05_todo_tools.py) |
-| 5.6 | Medium | Clarify, don't guess | any | [ANSWERS.md](solutions/ANSWERS.md), [`test_ch04_05.py`](solutions/tests/test_ch04_05.py) |
+| 5.3 | Simple | Run the to-do agent | any | [ANSWERS.md](solutions/ANSWERS.md), [`test_ch04_05.py`](solutions/tests/test_ch04_05.py), [`run5_todo.py`](solutions/exercises/ch05/run5_todo.py) |
+| 5.4 | Simple | Add delete and edit | any | [`sol_ch05_todo_tools.py`](solutions/exercises/ch05/sol_ch05_todo_tools.py), [`run5_todo.py`](solutions/exercises/ch05/run5_todo.py) |
+| 5.5 | Medium | What's due this week? | any | [`sol_ch05_todo_tools.py`](solutions/exercises/ch05/sol_ch05_todo_tools.py), [`run5_todo.py`](solutions/exercises/ch05/run5_todo.py) |
+| 5.6 | Medium | Clarify, don't guess | any | [ANSWERS.md](solutions/ANSWERS.md), [`test_ch04_05.py`](solutions/tests/test_ch04_05.py), [`run5_todo.py`](solutions/exercises/ch05/run5_todo.py) |
 | 5.7 | Complex | Move to SQLite | any | [`sol_ch05_todo_sqlite.py`](solutions/exercises/ch05/sol_ch05_todo_sqlite.py), [`test_ch04_05.py`](solutions/tests/test_ch04_05.py) |
 
 ### Interlude: Regular Expressions
@@ -178,7 +178,7 @@ Code: [`ch06_notes_tools.py`](course/code/ch06/ch06_notes_tools.py) (prototype)
 | Exercise | Level | Title | Model | Solution |
 | --- | --- | --- | --- | --- |
 | 6.1 | Concept | Break the sandbox | none | [ANSWERS.md](solutions/ANSWERS.md) |
-| 6.2 | Simple | Ask your notes | any | [ANSWERS.md](solutions/ANSWERS.md), [`test_ch06_07.py`](solutions/tests/test_ch06_07.py) |
+| 6.2 | Simple | Ask your notes | any | [ANSWERS.md](solutions/ANSWERS.md), [`test_ch06_07.py`](solutions/tests/test_ch06_07.py), [`ask.py`](solutions/exercises/ask.py) |
 | 6.3 | Simple | Prove the sandbox | any | [`test_ex6_3_sandbox.py`](solutions/tests/test_ex6_3_sandbox.py) |
 | 6.4 | Medium | Check the citations | none | [`ex6_4_citation_checker.py`](solutions/exercises/ch06/ex6_4_citation_checker.py) |
 | 6.5 | Medium | Search by filename and date | any | [`sol_ch06_notes_tools.py`](solutions/exercises/ch06/sol_ch06_notes_tools.py) |
@@ -192,7 +192,7 @@ Code: [`ch07_weather_tools.py`](course/code/ch07/ch07_weather_tools.py) (prototy
 | --- | --- | --- | --- | --- |
 | 7.1 | Concept | Failure table | none | [ANSWERS.md](solutions/ANSWERS.md) |
 | 7.2 | Concept | Cache or not? | none | [ANSWERS.md](solutions/ANSWERS.md) |
-| 7.3 | Simple | Pack for a trip | any | [ANSWERS.md](solutions/ANSWERS.md), [`test_ch06_07.py`](solutions/tests/test_ch06_07.py) |
+| 7.3 | Simple | Pack for a trip | any | [ANSWERS.md](solutions/ANSWERS.md), [`test_ch06_07.py`](solutions/tests/test_ch06_07.py), [`ask.py`](solutions/exercises/ask.py) |
 | 7.4 | Medium | Handle the hard cases | any | [`ex7_4_hard_cases.py`](solutions/exercises/ch07/ex7_4_hard_cases.py) |
 | 7.5 | Medium | Run tools in parallel | any | [`ex7_5_parallel.py`](solutions/exercises/ch07/ex7_5_parallel.py) |
 | 7.6 | Complex | Multi-city trip with measurements | any | [`ex7_6_trip_benchmark.py`](solutions/exercises/ch07/ex7_6_trip_benchmark.py) |
@@ -217,8 +217,8 @@ Code: [`ch08_make_db.py`](course/code/ch08/ch08_make_db.py) (learning demo), [`c
 | 8.2 | Concept | Define the terms | none | [ANSWERS.md](solutions/ANSWERS.md) |
 | 8.3 | Simple | Top customers | any | [ANSWERS.md](solutions/ANSWERS.md), [`test_ch08_10.py`](solutions/tests/test_ch08_10.py) |
 | 8.4 | Simple | Watch it self-correct | any | [`ex8_4_self_correct.py`](solutions/exercises/ch08/ex8_4_self_correct.py) |
-| 8.5 | Medium | Retry budget and log | any | [`sol_ch08_sql_tools.py`](solutions/exercises/ch08/sol_ch08_sql_tools.py) |
-| 8.6 | Medium | Confirm the tables | any | [`sol_ch08_sql_tools.py`](solutions/exercises/ch08/sol_ch08_sql_tools.py) |
+| 8.5 | Medium | Retry budget and log | any | [`sol_ch08_sql_tools.py`](solutions/exercises/ch08/sol_ch08_sql_tools.py), [`run8_5_tables.py`](solutions/exercises/ch08/run8_5_tables.py) |
+| 8.6 | Medium | Confirm the tables | any | [`sol_ch08_sql_tools.py`](solutions/exercises/ch08/sol_ch08_sql_tools.py), [`run8_5_tables.py`](solutions/exercises/ch08/run8_5_tables.py) |
 | 8.7 | Complex | An evaluation harness | any | [`ex8_7_eval_harness.py`](solutions/exercises/ch08/ex8_7_eval_harness.py) |
 
 ### Interlude: Measuring an Agent
@@ -239,9 +239,9 @@ Code: [`ch09_organizer.py`](course/code/ch09/ch09_organizer.py) (production patt
 | --- | --- | --- | --- | --- |
 | 9.1 | Concept | Risk sorting | none | [ANSWERS.md](solutions/ANSWERS.md) |
 | 9.2 | Concept | Prompt injection by file name | none | [ANSWERS.md](solutions/ANSWERS.md) |
-| 9.3 | Simple | Dry run | any | [ANSWERS.md](solutions/ANSWERS.md), [`test_ch08_10.py`](solutions/tests/test_ch08_10.py) |
-| 9.4 | Simple | Approve and undo | any | [ANSWERS.md](solutions/ANSWERS.md), [`test_ch08_10.py`](solutions/tests/test_ch08_10.py) |
-| 9.5 | Medium | Partial approval | any | [`sol_ch09_organizer.py`](solutions/exercises/ch09/sol_ch09_organizer.py) |
+| 9.3 | Simple | Dry run | any | [ANSWERS.md](solutions/ANSWERS.md), [`test_ch08_10.py`](solutions/tests/test_ch08_10.py), [`run9_approval.py`](solutions/exercises/ch09/run9_approval.py) |
+| 9.4 | Simple | Approve and undo | any | [ANSWERS.md](solutions/ANSWERS.md), [`test_ch08_10.py`](solutions/tests/test_ch08_10.py), [`run9_approval.py`](solutions/exercises/ch09/run9_approval.py) |
+| 9.5 | Medium | Partial approval | any | [`sol_ch09_organizer.py`](solutions/exercises/ch09/sol_ch09_organizer.py), [`run9_approval.py`](solutions/exercises/ch09/run9_approval.py) |
 | 9.6 | Complex | Policy file and stress test | any | [`sol_ch09_organizer.py`](solutions/exercises/ch09/sol_ch09_organizer.py), [`test_ex9_6_policy.py`](solutions/tests/test_ex9_6_policy.py) |
 
 ### Chapter 10: Feedback Loops
@@ -255,7 +255,7 @@ Code: [`ch10_make_repo.py`](course/code/ch10/ch10_make_repo.py) (learning demo),
 | 10.3 | Simple | Fix the bugs | any | [ANSWERS.md](solutions/ANSWERS.md), [`test_ch08_10.py`](solutions/tests/test_ch08_10.py) |
 | 10.4 | Simple | Watch the protection | any | [`ex10_4_protection.py`](solutions/exercises/ch10/ex10_4_protection.py) |
 | 10.5 | Medium | Four bugs, two files | any | [`sol_ch10_make_repo2.py`](solutions/exercises/ch10/sol_ch10_make_repo2.py) |
-| 10.6 | Medium | Targeted edits | any | [`sol_ch10_fixer.py`](solutions/exercises/ch10/sol_ch10_fixer.py) |
+| 10.6 | Medium | Targeted edits | any | [`sol_ch10_fixer.py`](solutions/exercises/ch10/sol_ch10_fixer.py), [`run10_6_targeted.py`](solutions/exercises/ch10/run10_6_targeted.py) |
 | 10.7 | Complex | Benchmark the fixer | any | [`ex10_7_benchmark.py`](solutions/exercises/ch10/ex10_7_benchmark.py), [`sol_ch10_fixer.py`](solutions/exercises/ch10/sol_ch10_fixer.py) |
 
 ### Interlude: Asynchronous Python
@@ -278,8 +278,8 @@ Code: [`ch11_research_team.py`](course/code/ch11/ch11_research_team.py) (prototy
 | 11.1 | Concept | One agent or many? | none | [ANSWERS.md](solutions/ANSWERS.md) |
 | 11.2 | Concept | Design the subtasks | none | [ANSWERS.md](solutions/ANSWERS.md) |
 | 11.3 | Simple | Run the team | any | [ANSWERS.md](solutions/ANSWERS.md), [`test_ch11_12.py`](solutions/tests/test_ch11_12.py) |
-| 11.4 | Medium | Better delegation | any | [`sol_ch11_research_team.py`](solutions/exercises/ch11/sol_ch11_research_team.py) |
-| 11.5 | Medium | A critic agent | any | [`sol_ch11_research_team.py`](solutions/exercises/ch11/sol_ch11_research_team.py) |
+| 11.4 | Medium | Better delegation | any | [`sol_ch11_research_team.py`](solutions/exercises/ch11/sol_ch11_research_team.py), [`run11_team.py`](solutions/exercises/ch11/run11_team.py) |
+| 11.5 | Medium | A critic agent | any | [`sol_ch11_research_team.py`](solutions/exercises/ch11/sol_ch11_research_team.py), [`run11_team.py`](solutions/exercises/ch11/run11_team.py) |
 | 11.6 | Complex | Is it worth it? | any | [`ex11_6_compare.py`](solutions/exercises/ch11/ex11_6_compare.py) |
 | 11.7 | Medium | Pick the pattern | any | [`ex11_7_patterns.py`](solutions/exercises/ch11/ex11_7_patterns.py), [`test_multiagent.py`](solutions/tests/test_multiagent.py) |
 
@@ -305,10 +305,10 @@ Code: [`ch13_todo_server.py`](course/code/ch13/ch13_todo_server.py) (prototype),
 | --- | --- | --- | --- | --- |
 | 13.1 | Concept | Collisions | none | [ANSWERS.md](solutions/ANSWERS.md) |
 | 13.2 | Simple | A client without a model | none | [`ex13_2_client.py`](solutions/exercises/ch13/ex13_2_client.py) |
-| 13.3 | Simple | Two servers, one question | any | [ANSWERS.md](solutions/ANSWERS.md), [`test_ch13_15.py`](solutions/tests/test_ch13_15.py) |
-| 13.4 | Medium | Resources at start-up | any | [`sol_ch13_mcp_agent.py`](solutions/exercises/ch13/sol_ch13_mcp_agent.py) |
-| 13.5 | Medium | Add the weather server | any | [exercises/servers_with_weather.json](solutions/exercises/servers_with_weather.json) |
-| 13.6 | Complex | Resilience | any | [`sol_ch13_mcp_agent.py`](solutions/exercises/ch13/sol_ch13_mcp_agent.py) |
+| 13.3 | Simple | Two servers, one question | any | [ANSWERS.md](solutions/ANSWERS.md), [`test_ch13_15.py`](solutions/tests/test_ch13_15.py), [`typed.py`](solutions/exercises/typed.py) |
+| 13.4 | Medium | Resources at start-up | any | [`sol_ch13_mcp_agent.py`](solutions/exercises/ch13/sol_ch13_mcp_agent.py), [`run13_hub.py`](solutions/exercises/ch13/run13_hub.py) |
+| 13.5 | Medium | Add the weather server | any | [exercises/servers_with_weather.json](solutions/exercises/servers_with_weather.json), [`typed.py`](solutions/exercises/typed.py) |
+| 13.6 | Complex | Resilience | any | [`sol_ch13_mcp_agent.py`](solutions/exercises/ch13/sol_ch13_mcp_agent.py), [`run13_hub.py`](solutions/exercises/ch13/run13_hub.py) |
 | 13.7 | Medium | Let the server ask the user | any | [`ex13_7_trip_server.py`](solutions/exercises/ch13/ex13_7_trip_server.py), [`ex13_7_host.py`](solutions/exercises/ch13/ex13_7_host.py), [`test_ex13_7_elicit_sample.py`](solutions/tests/test_ex13_7_elicit_sample.py) |
 | 13.8 | Medium | A coordinator with an analyst | any | [`ex13_8_coordinator.py`](solutions/exercises/ch13/ex13_8_coordinator.py), [exercises/servers_with_analyst.json](solutions/exercises/servers_with_analyst.json), [`test_multiagent.py`](solutions/tests/test_multiagent.py) |
 
@@ -322,7 +322,7 @@ Code: [`servers_ecosystem.json`](course/code/servers_ecosystem.json), [`servers_
 | 14.2 | Concept | Server review | none | [ANSWERS.md](solutions/ANSWERS.md) |
 | 14.3 | Simple | Read-only GitHub | any | [`ex14_3_readonly.py`](solutions/exercises/ch14/ex14_3_readonly.py) |
 | 14.4 | Medium | Weekly engineering digest | any | [`ex14_4_digest.py`](solutions/exercises/ch14/ex14_4_digest.py) |
-| 14.5 | Medium | Mark untrusted content | any | [`sol_ch14_untrusted.py`](solutions/exercises/ch14/sol_ch14_untrusted.py) |
+| 14.5 | Medium | Mark untrusted content | any | [`sol_ch14_untrusted.py`](solutions/exercises/ch14/sol_ch14_untrusted.py), [`run14_untrusted.py`](solutions/exercises/ch14/run14_untrusted.py) |
 
 ### Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure
 
@@ -343,8 +343,8 @@ Code: [`ch16_context.py`](course/code/ch16/ch16_context.py) (prototype), [`ch16_
 | --- | --- | --- | --- | --- |
 | 16.1 | Concept | Where did the tokens go? | none | [ANSWERS.md](solutions/ANSWERS.md) |
 | 16.2 | Concept | Design a system prompt | none | [ANSWERS.md](solutions/ANSWERS.md) |
-| 16.3 | Simple | Watch compaction happen | any | [ANSWERS.md](solutions/ANSWERS.md) |
-| 16.4 | Simple | Assemble a context | any | [ANSWERS.md](solutions/ANSWERS.md) |
+| 16.3 | Simple | Watch compaction happen | any | [ANSWERS.md](solutions/ANSWERS.md), [`run16_3_compaction.py`](solutions/exercises/ch16/run16_3_compaction.py) |
+| 16.4 | Simple | Assemble a context | any | [ANSWERS.md](solutions/ANSWERS.md), [`run16_4_budgets.py`](solutions/exercises/ch16/run16_4_budgets.py) |
 | 16.5 | Medium | Measure caching savings | claude-rec | [`ex16_5_cache_savings.py`](solutions/exercises/ch16/ex16_5_cache_savings.py) |
 | 16.6 | Medium | Fresh or stale? | none | [`sol_ch16_assemble.py`](solutions/exercises/ch16/sol_ch16_assemble.py), [`test_ex16_6_fresh.py`](solutions/tests/test_ex16_6_fresh.py) |
 | 16.7 | Medium | Let a program do the counting | claude | [`ex16_7_programmatic_compare.py`](solutions/exercises/ch16/ex16_7_programmatic_compare.py) |
@@ -358,7 +358,7 @@ Code: [`ch17_memory.py`](course/code/ch17/ch17_memory.py) (prototype), [`ch17_me
 | --- | --- | --- | --- | --- |
 | 17.1 | Concept | Sort the memories | none | [ANSWERS.md](solutions/ANSWERS.md) |
 | 17.2 | Concept | Write a memory policy | none | [ANSWERS.md](solutions/ANSWERS.md) |
-| 17.3 | Simple | Remember across restarts | any | [ANSWERS.md](solutions/ANSWERS.md) |
+| 17.3 | Simple | Remember across restarts | any | [ANSWERS.md](solutions/ANSWERS.md), [`typed.py`](solutions/exercises/typed.py) |
 | 17.4 | Simple | Watch the policy work | none | [ANSWERS.md](solutions/ANSWERS.md) |
 | 17.5 | Medium | Consolidate episodes | any | [`ex17_5_consolidate.py`](solutions/exercises/ch17/ex17_5_consolidate.py), [`test_part6.py`](solutions/tests/test_part6.py) |
 | 17.6 | Medium | Poison the memory | none | [`ex17_6_poison.py`](solutions/exercises/ch17/ex17_6_poison.py), [`test_part6.py`](solutions/tests/test_part6.py) |
@@ -474,7 +474,7 @@ Code: [`ch11_web.py`](course/code/ch11/ch11_web.py) (learning demo), [`ch25_quar
 | --- | --- | --- | --- | --- |
 | 25.1 | Concept | Find the trifecta | none | [ANSWERS.md](solutions/ANSWERS.md) |
 | 25.2 | Concept | Map your agent to OWASP | none | [ANSWERS.md](solutions/ANSWERS.md) |
-| 25.3 | Simple | Trip the canary | any | [ANSWERS.md](solutions/ANSWERS.md) |
+| 25.3 | Simple | Trip the canary | any | [ANSWERS.md](solutions/ANSWERS.md), [`run25_3_guards.py`](solutions/exercises/ch25/run25_3_guards.py) |
 | 25.4 | Medium | Quarantine a second source | any | [`ex25_4_calendar.py`](solutions/exercises/ch25/ex25_4_calendar.py), [`test_part8.py`](solutions/tests/test_part8.py) |
 | 25.5 | Medium | Evade the guard, then fix it | none | [`ex25_5_evasion.py`](solutions/exercises/ch25/ex25_5_evasion.py), [`test_part8.py`](solutions/tests/test_part8.py) |
 | 25.6 | Complex | Red team your agent | any | [`ex25_6_redteam.py`](solutions/exercises/ch25/ex25_6_redteam.py) |
@@ -517,7 +517,7 @@ Code: [`ch28_otel.py`](course/code/ch28/ch28_otel.py) (production pattern), [`ch
 | --- | --- | --- | --- | --- |
 | 28.1 | Medium | A trace viewer | none | [`ex28_1_trace_report.py`](solutions/exercises/ch28/ex28_1_trace_report.py) |
 | 28.2 | Concept | What would you trace? | none | [ANSWERS.md](solutions/ANSWERS.md) |
-| 28.3 | Simple | Read the report | any | [ANSWERS.md](solutions/ANSWERS.md) |
+| 28.3 | Simple | Read the report | any | [ANSWERS.md](solutions/ANSWERS.md), [`run28_3_report.py`](solutions/exercises/ch28/run28_3_report.py) |
 | 28.4 | Medium | A new failure class | none | [`ex28_4_ignored_error.py`](solutions/exercises/ch28/ex28_4_ignored_error.py), [`test_part9.py`](solutions/tests/test_part9.py) |
 | 28.5 | Complex | An SLO dashboard with burn alerts | none | [`ex28_5_burn.py`](solutions/exercises/ch28/ex28_5_burn.py), [`test_part9.py`](solutions/tests/test_part9.py) |
 | 28.6 | Medium | A production dashboard | none | [`ex28_6_dashboard.py`](solutions/exercises/ch28/ex28_6_dashboard.py), [`test_ch28_ops.py`](solutions/tests/test_ch28_ops.py) |
@@ -548,7 +548,7 @@ Code: [`ch30_service.py`](course/code/ch30/ch30_service.py) (production pattern)
 | 30.1 | Concept | Pick the status code | none | [ANSWERS.md](solutions/ANSWERS.md) |
 | 30.2 | Simple | Call your agent API | any | [ANSWERS.md](solutions/ANSWERS.md) |
 | 30.3 | Simple | Hit the limits | any | [ANSWERS.md](solutions/ANSWERS.md) |
-| 30.4 | Medium | Stream the words | any | [`sol_ch30_service.py`](solutions/exercises/ch30/sol_ch30_service.py) |
+| 30.4 | Medium | Stream the words | any | [`sol_ch30_service.py`](solutions/exercises/ch30/sol_ch30_service.py), [`run30_4_words.py`](solutions/exercises/ch30/run30_4_words.py) |
 | 30.5 | Medium | Remote MCP with your agent | any | [`ex30_5_remote_hub.py`](solutions/exercises/ch30/ex30_5_remote_hub.py), [exercises/servers_remote.json](solutions/exercises/servers_remote.json) |
 | 30.6 | Complex | Production drill | any | [`ex30_6_drill.py`](solutions/exercises/ch30/ex30_6_drill.py) |
 | 30.7 | Complex | Ship it | any | [`ex30_7_deploy.sh`](solutions/exercises/ch30/ex30_7_deploy.sh), [`test_ch16_30.py`](solutions/tests/test_ch16_30.py) |
