@@ -225,7 +225,7 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | --- | --- | --- |
 | 14.1 Threat model | `ANSWERS.md` | A policy layer in code hides and blocks dangerous tools even if the model is convinced |
 | 14.2 Server review | `ANSWERS.md` | Six questions: publisher, permissions, readable source, pinned version, narrowing, secrets passed |
-| 14.3 Read-only GitHub | `ANSWERS.md`, `exercises/ex14_4_digest.py` | A read-only token and --read-only remove write tools entirely |
+| 14.3 Read-only GitHub | `exercises/ex14_3_readonly.py` | A read-only token and --read-only remove write tools entirely; asking to close an issue finds no tool for it |
 | 14.4 Weekly engineering digest | `exercises/ex14_4_digest.py` | Weekly engineering digest from Git + GitHub (read-only) |
 | 14.5 Mark untrusted content | `exercises/sol_ch14_untrusted.py` | Wrap untrusted tool output before the model sees it |
 

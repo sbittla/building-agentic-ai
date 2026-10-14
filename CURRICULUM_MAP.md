@@ -320,7 +320,7 @@ Code: [`servers_ecosystem.json`](course/code/servers_ecosystem.json), [`servers_
 | --- | --- | --- | --- | --- |
 | 14.1 | Concept | Threat model | none | [ANSWERS.md](solutions/ANSWERS.md) |
 | 14.2 | Concept | Server review | none | [ANSWERS.md](solutions/ANSWERS.md) |
-| 14.3 | Simple | Read-only GitHub | any | [ANSWERS.md](solutions/ANSWERS.md), [`ex14_4_digest.py`](solutions/exercises/ch14/ex14_4_digest.py) |
+| 14.3 | Simple | Read-only GitHub | any | [`ex14_3_readonly.py`](solutions/exercises/ch14/ex14_3_readonly.py) |
 | 14.4 | Medium | Weekly engineering digest | any | [`ex14_4_digest.py`](solutions/exercises/ch14/ex14_4_digest.py) |
 | 14.5 | Medium | Mark untrusted content | any | [`sol_ch14_untrusted.py`](solutions/exercises/ch14/sol_ch14_untrusted.py) |
 

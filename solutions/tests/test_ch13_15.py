@@ -266,3 +266,46 @@ def test_15_otel_spans(model, ws):
     assert chat["parent_id"] == root["span_id"] and chat["attributes"]["gen_ai.usage.input_tokens"] == 100
     import ch04_agent
     assert not isinstance(ch04_agent._client, o.TracedClient)             # unwrapped afterwards
+
+
+class _FakeGitHubHub:
+    """Stands in for the read-only GitHub, Git and Time servers."""
+    def __init__(self, config, writes=()):
+        names = ["github__list_issues", "github__list_commits", "time__get_current_time",
+                 "git__git_log", *writes]
+        self.tools = [{"name": n, "description": n, "input_schema": {"type": "object"}}
+                      for n in names]
+        self.calls = []
+    async def __aenter__(self):
+        return self
+    async def __aexit__(self, *exc):
+        return False
+    async def call(self, name, args):
+        self.calls.append(name)
+        return json.dumps([{"number": 3, "title": "Docs typo", "state": "open"}]), False
+
+def test_14_3_readonly_summary_and_no_close_tool(model, ws, monkeypatch, capsys):
+    import ch13_mcp_agent as m13, ex14_3_readonly as ex
+    monkeypatch.setattr(m13, "MCPHub", _FakeGitHubHub)
+    model.reset([[tool("github__list_issues", {"owner": "o", "repo": "r"})],
+                 [text("One open issue: #3, a docs typo.")],
+                 [text("I can't: there's no tool to close issues.")]])
+    asyncio.run(ex.main("o/r"))
+    out = capsys.readouterr().out
+    assert "write tools among them: none" in out and "#3" in out
+    assert "github__list_issues" in out.split("Audit log")[1]
+
+def test_14_3_refuses_when_a_write_tool_is_visible(model, ws, monkeypatch):
+    import ch13_mcp_agent as m13, ex14_3_readonly as ex
+    monkeypatch.setattr(m13, "MCPHub", lambda c: _FakeGitHubHub(c, ["github__update_issue"]))
+    with pytest.raises(AssertionError, match="write tools visible"):
+        asyncio.run(ex.main("o/r"))
+
+def test_14_4_digest_reports_read_only_audit(model, ws, monkeypatch, capsys):
+    import ch13_mcp_agent as m13, ex14_4_digest as ex
+    monkeypatch.setattr(m13, "MCPHub", _FakeGitHubHub)
+    model.reset([[tool("time__get_current_time", {}), tool("github__list_commits", {}),
+                  tool("github__list_issues", {})], [text("Docs: #3.")]])
+    asyncio.run(ex.main("o/r"))
+    out = capsys.readouterr().out
+    assert "Docs: #3." in out and "['allow']" in out

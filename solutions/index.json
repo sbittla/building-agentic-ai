@@ -300,8 +300,7 @@
   "tests/test_multiagent.py"
  ],
  "14.3": [
-  "ANSWERS.md",
-  "exercises/ex14_4_digest.py"
+  "exercises/ex14_3_readonly.py"
  ],
  "14.4": [
   "exercises/ex14_4_digest.py"

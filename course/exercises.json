@@ -1401,8 +1401,8 @@
   "task": "Connect GitHub's server in read-only mode with a token that has only read scopes. Ask for a summary of open issues in one of your repositories.",
   "hint": null,
   "done_when": "The summary is accurate, and \"close issue 3\" fails because the tool doesn't exist.",
-  "kind": "run",
-  "cmd": "python ch14_policy_agent.py servers_github.json",
+  "kind": "build",
+  "file": "exercises/ex14_3_readonly.py",
   "needs": "github"
  },
  {
@@ -1413,8 +1413,8 @@
   "task": "With the Git, GitHub and Time servers, answer \"Summarize last week's commits and open issues, grouped by theme.\"",
   "hint": null,
   "done_when": "The digest is accurate against the repository, and the audit log shows that only read tools were used.",
-  "kind": "run",
-  "cmd": "python ch14_policy_agent.py servers_github.json",
+  "kind": "build",
+  "file": "exercises/ex14_4_digest.py",
   "needs": "github"
  },
  {
