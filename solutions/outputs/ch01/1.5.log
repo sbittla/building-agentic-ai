@@ -1,47 +1,41 @@
 # Exercise: 1.5  Build the workflow
 # Command:  python /tmp/solutions-flat/exercises/ex1_5_workflow.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 03:48:08 UTC
+# Date:     2026-10-14 18:51:16 UTC
 # Exit code: 0
-# Seconds:  111.2
+# Seconds:  23.4
 #-------------------------------------------------------------------------------
 
 EMAIL: Order #A1234 arrived broken. I want my money back.
-  -> refund | {'order_id': '#A1234', 'complaint': 'Item arrived broken, requesting refund.'}
-  REPLY: Subject: Regarding Your Refund Request for Order #A1234
+  -> other | {'order_id': 'A1234', 'complaint': 'Product arrived broken.'}
+  REPLY: Subject: Regarding Order #A1234
 
 Dear Customer,
 
-Thank you for reaching out to us regarding your
+Thank you for reaching out to us regarding your recent order (Order ID:
 
 EMAIL: Where is my package? Order B-5521 was due last Friday.
-  -> shipping | {'order_id': 'B-5521', 'complaint': 'Where is my package?'}
-  REPLY: Subject: Update regarding Order B-5521
+  -> other | {'order_id': 'B-5521', 'complaint': 'Package not received'}
+  REPLY: Subject: Regarding Order B-5521
 
 Dear Customer,
 
-Thank you for reaching out about your order (**B-5521**).
-
-We si
+Thank you for reaching out about your order **B-5521**. We sincerely ap
 
 EMAIL: Can I change the delivery address for order 7788?
-  -> other | {'order_id': '7788', 'complaint': 'delivery_address_change_request'}
-  REPLY: Subject: Request Received: Address Change for Order #7788
-
-Dear Customer,
-
-Thank you for reaching out regarding your ord
+  -> other | {'order_id': '7788', 'complaint': 'change delivery address'}
+  REPLY: Thank you for your message regarding order #7788. We have received your request to update the delivery address and are p
 
 EMAIL: Your checkout page is really slow today.
-  -> other | {'order_id': None, 'complaint': 'Checkout page is slow'}
-  REPLY: Subject: Re: Feedback regarding checkout speed
+  -> other | {'order_id': None, 'complaint': 'checkout page is really slow today'}
+  REPLY: Subject: Re: Issue with Checkout Page
 
 Hello,
 
-Thank you for reaching out and letting us know that the checkout
+Thank you for reaching out and letting us know about the slow checkout pa
 
 EMAIL: Hi! Do you sponsor local football teams?
   -> other | {'order_id': None, 'complaint': ''}
-  REPLY: Thank you for your message. It appears there is no order ID or specific complaint details attached to your request. Coul
+  REPLY: Thank you for reaching out. Since there is currently no order ID or specific complaint details attached to your message,
 
 Note: the workflow always drafts a reply, even for the sponsorship email and the address change it has no way to perform. It can't look anything up.

@@ -13,6 +13,7 @@ Fixes found by running every exercise on the free local model (qwen3.5:9b) and t
 - **Solution 3.7** measures what the chapter claims: each question runs a few steps (a date or a status check can come first), and the calculator and unit converter stay loaded. On Claude both setups reach 10/10, tool search at half the input tokens.
 - **Solution 14.4** checks every cited issue number against what GitHub returned and rewrites from a short list when one is invented; 14.3 and 14.4 keep GitHub's results small enough for an 8K context.
 - **Solution 25.4** fails closed when the quarantined reader errors, and asks again when the planner reports tasks it never added. **Solution 24.6** counts a skill once when it also reads the skill's extra file.
+- **The `best-seller` eval case** (`eval_sql.jsonl`, used in Chapters 27 and 29) counted cancelled orders, so its answer was "Laptop" while an agent told to exclude cancelled orders correctly said "Pen set" and was marked wrong. The reference query now excludes cancelled orders.
 - Stricter run checks (`course/run_checks.json`) for 3.7, 14.4, 17.3 and 24.6, which had passed on output that didn't meet the exercise.
 - LOCAL_MODEL.md: what to do when a reply is cut off by a full context, when the agent reports actions it never took, and when an eval gate flips between runs.
 

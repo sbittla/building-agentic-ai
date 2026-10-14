@@ -2,9 +2,9 @@
  "chapter": "P",
  "title": "Interlude: The Python You'll Need",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-14 03:44",
+ "date": "2026-10-14 18:50",
  "provenance": {
-  "commit": "8a34de430235-modified",
+  "commit": "156e5080b3fe",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -29,7 +29,7 @@
    "seconds": 0.0,
    "log": "P/P.1.log",
    "model": "none",
-   "commit": "8a34de430235-modified"
+   "commit": "156e5080b3fe"
   },
   {
    "id": "P.2",
@@ -40,7 +40,7 @@
    "seconds": 0.0,
    "log": "P/P.2.log",
    "model": "none",
-   "commit": "8a34de430235-modified"
+   "commit": "156e5080b3fe"
   },
   {
    "id": "P.3",
@@ -51,7 +51,7 @@
    "seconds": 0.0,
    "log": "P/P.3.log",
    "model": "none",
-   "commit": "8a34de430235-modified"
+   "commit": "156e5080b3fe"
   },
   {
    "id": "P.4",
@@ -62,7 +62,7 @@
    "seconds": 0.0,
    "log": "P/P.4.log",
    "model": "none",
-   "commit": "8a34de430235-modified"
+   "commit": "156e5080b3fe"
   },
   {
    "id": "P.5",
@@ -73,7 +73,7 @@
    "seconds": 0.0,
    "log": "P/P.5.log",
    "model": "none",
-   "commit": "8a34de430235-modified"
+   "commit": "156e5080b3fe"
   }
  ]
 }

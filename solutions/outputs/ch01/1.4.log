@@ -1,38 +1,19 @@
 # Exercise: 1.4  Make it fail
 # Command:  python ch01_where_llms_fail.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 03:46:17 UTC
+# Date:     2026-10-14 18:50:53 UTC
 # Exit code: 0
-# Seconds:  45.0
+# Seconds:  6.4
 #-------------------------------------------------------------------------------
 Q: What is today's date? Answer with just the date.
-A: Tuesday, June 10, 2025
+A: 2024-05-22
 
 Q: What is 48213 * 9771? Answer with just the number.
-A: 471088623
+A: 471088123
 
 Q: What is the Wi-Fi password written in my file home_notes.txt?
-A: I cannot access your local files, such as `home_notes.txt`, because I do not have permission to read your device's storage.
+A: I cannot access your local files, including `home_notes.txt`, as I do not have permission to read from your device or interact with your personal data. For security and privacy reasons, AI models are designed to keep conversations local and avoid processing sensitive information like passwords directly.
 
-To find the Wi‑Fi password:
-
-- **Windows**:  
-  - Open Command Prompt and run:  
-    ```cmd
-    netsh wlan show profile name="Wi-Fi_Name" key=clear
-    ```  
-  - Look for “Key Content” under the Security section.
-
-- **macOS** (if you remember the Wi‑Fi password):  
-  - Open **Keychain Access**, search for the network name, double‑click it, check **“Show password”**, and enter your Mac login password.
-
-- **Android**:  
-  - Settings → Network & internet → Internet → tap your Wi‑Fi network → share icon → the QR code includes the password (remove the spaces).
-
-- **iPhone/iPad**:  
-  - Share the Wi‑Fi with another Apple device via iCloud or Bluetooth; the receiving device will prompt for the password.  
-  - Or use AirDrop to send a Wi‑Fi details card from one iPhone to another.
-
-If you tell me your OS and whether you still remember the network name, I can give you exact steps tailored to your setup.
+To find the password, please open the `home_notes.txt` file on your computer or phone using a text editor and look for the password written there.
 
 Correct product: 471089223

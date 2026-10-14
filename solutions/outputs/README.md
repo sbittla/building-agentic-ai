@@ -6,10 +6,10 @@ This file is rewritten after every run.
 
 | Chapter | Title | Passed | Failed | Skipped | Written answers | Model | Run on |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| [0](ch00/) | Chapter 0: Foundations | 4 | 0 | 3 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 03:44 |
-| [P](P/) | Interlude: The Python You'll Need | 5 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-14 03:44 |
-| [1](ch01/) | Chapter 1: What an Agent Is (and Isn't) | 4 | 0 | 5 | 5 | qwen3.5:9b (local, through Ollama) | 2026-10-14 03:48 |
-| [T](T/) | Interlude: Testing with pytest | 4 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-14 03:49 |
+| [0](ch00/) | Chapter 0: Foundations | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 18:50 |
+| [P](P/) | Interlude: The Python You'll Need | 5 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-14 18:50 |
+| [1](ch01/) | Chapter 1: What an Agent Is (and Isn't) | 4 | 0 | 5 | 5 | qwen3.5:9b (local, through Ollama) | 2026-10-14 18:51 |
+| [T](T/) | Interlude: Testing with pytest | 4 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-14 18:51 |
 | [2](ch02/) | Chapter 2: Tool Calling (Function Calling) | 4 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 04:06 |
 | [3](ch03/) | Chapter 3: Tool Selection, Routing and Tool Search | 5 | 0 | 2 | 2 | mixed: see each exercise | 2026-10-14 18:21 |
 | [4](ch04/) | Chapter 4: The Agent Loop | 4 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-14 04:21 |
