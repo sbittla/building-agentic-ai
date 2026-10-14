@@ -1325,9 +1325,43 @@ def _start_service(e, cwd, env):
             time.sleep(0.5)
     return proc, env
 
+def _recheck(words):
+    """run-chapter ... --recheck: apply the current run_checks.json to the logs already in
+    solutions/outputs, without running anything again (after fixing a check, not code)."""
+    checks, out_root = _run_checks(), _outputs_dir()
+    want = {w.upper() for w in words}
+    changed = 0
+    for summary in sorted(out_root.glob("*/summary.json")):
+        data = json.loads(summary.read_text())
+        for x in data["exercises"]:
+            key = x["id"].upper()
+            if not ("ALL" in want or key in want or key.split(".")[0] in want
+                    or _chapter_key(key.split(".")[0]) in want):
+                continue
+            if x["status"] not in ("passed", "failed") or not x.get("log"):
+                continue
+            text = (out_root / x["log"]).read_text(errors="replace")
+            head_, _, body = text.partition("#" + "-" * 79 + "\n")
+            code = re.search(r"^# Exit code: (-?\d+)", head_, re.M)
+            ok = code and code.group(1) == "0" and "Traceback (most recent call last)" not in body
+            problem = _output_problem(body, checks.get(x["id"], {})) if ok else None
+            status = "passed" if ok and not problem else "failed"
+            reason = None if status == "passed" else problem or x["reason"]
+            if (status, reason) != (x["status"], x["reason"]):
+                say(f"  {x['id']:<6} {x['status']} -> {status}" + (f" ({reason})" if reason else ""))
+                x.update(status=status, reason=reason)
+                changed += 1
+        summary.write_text(json.dumps(data, indent=1) + "\n")
+    _refresh_outputs_index(out_root)
+    say(f"Rechecked: {changed} result(s) changed.")
+    return 0
+
 def cmd_run_chapter(args):
-    """run-chapter <chapter|exercise id|all> [--model local|claude] [--free-only] [--yes]"""
+    """run-chapter <chapter|exercise id|all> [--model local|claude] [--free-only] [--yes]
+    [--recheck]"""
     import tempfile
+    if "--recheck" in args:
+        return _recheck([a for a in args if not a.startswith("-")])
     free_only, yes = "--free-only" in args, "--yes" in args or "-y" in args
     words = [a for i, a in enumerate(args) if not a.startswith("-")
              and not (i and args[i - 1] == "--model")]

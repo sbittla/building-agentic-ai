@@ -73,13 +73,13 @@
 
  "8.3": {"expect": ["19,?238"]},
  "8.4": {"cmd": "python {SOL}/exercises/ex8_4_self_correct.py", "expect": ["failed queries along the way: [1-9]"]},
- "8.5": {"cmd": "python {SOL}/exercises/run8_5_tables.py budget", "expect": ["self-corrected \\(a failed query, then a working one\\): True", "retry budget used up: True"]},
- "8.6": {"cmd": "python {SOL}/exercises/run8_5_tables.py confirm", "stdin": "customers\n\n\n\n\n",
+ "8.5": {"cmd": "python {SOL}/exercises/run8_5_tables.py budget", "expect": ["self-corrected \\(a failed query, then a working one\\): True", "the next query gets: ERROR: 3 failed queries already", "retry budget used up: True"]},
+ "8.6": {"cmd": "python {SOL}/exercises/run8_5_tables.py confirm", "stdin": "customers\ncustomers\ncustomers\ncustomers\ncustomers\ncustomers\n",
          "expect": ["The agent wants to use tables", "agent adapted to the user's tables: True"]},
  "8.7": {"expect": ["before \\d+% -> after \\d+%", "FAIL .*: (right values, extra columns|wrong number of rows|different values|no SQL|SQL error)|accuracy: 100%"]},
 
  "M.2": {"expect": ["B against A: better"]},
- "M.3": {"expect": ["pass rate|compare"]},
+ "M.3": {"expect": ["^before\\s+\\d+/\\d+\\s+=\\s+\\d+%\\s+95% interval", "^after\\s+\\d+/\\d+\\s+=\\s+\\d+%\\s+95% interval", "flaky before: .* \\| flaky after:", "^verdict: "]},
 
  "9.3": {"cmd": "python {SOL}/exercises/run9_approval.py decline", "setup": "rm -f audit_log.jsonl policy_organizer.json && course data messy --count 15 --fresh", "stdin": "n\nn\nn\n",
          "expect": ["APPROVE apply_plan", "RESULT: nothing moved \\(declined\\)"]},

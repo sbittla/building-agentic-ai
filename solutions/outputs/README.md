@@ -19,8 +19,8 @@ This file is rewritten after every run.
 | [7](ch07/) | Chapter 7: Real APIs | 4 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 04:48 |
 | [S](S/) | Interlude: SQL in One Sitting | 3 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-14 04:49 |
 | [8](ch08/) | Chapter 8: Self-Correction: A Text-to-SQL Agent | 2 | 3 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 04:59 |
-| [M](M/) | Interlude: Measuring an Agent | 1 | 0 | 2 | 1 | none (--free-only) | 2026-10-14 03:37 |
-| [9](ch09/) | Chapter 9: Human-in-the-Loop Approval | 0 | 0 | 6 | 2 | none (--free-only) | 2026-10-14 03:37 |
+| [M](M/) | Interlude: Measuring an Agent | 2 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-14 05:24 |
+| [9](ch09/) | Chapter 9: Human-in-the-Loop Approval | 4 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 05:27 |
 | [10](ch10/) | Chapter 10: Feedback Loops | 0 | 0 | 7 | 2 | none (--free-only) | 2026-10-14 03:37 |
 | [A](A/) | Interlude: Asynchronous Python | 4 | 0 | 0 | 0 | none (--free-only) | 2026-10-14 03:37 |
 | [11](ch11/) | Chapter 11: Multi-Agent Systems | 0 | 0 | 7 | 2 | none (--free-only) | 2026-10-14 03:37 |

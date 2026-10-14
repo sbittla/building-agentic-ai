@@ -1,8 +1,8 @@
 {
  "chapter": "M",
  "title": "Interlude: Measuring an Agent",
- "model": "none (--free-only)",
- "date": "2026-10-14 03:37",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-10-14 05:24",
  "provenance": {
   "commit": "8a34de430235-modified",
   "python": "3.12.3",
@@ -45,11 +45,12 @@
    "id": "M.3",
    "title": "Measure the SQL analyst",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null,
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "status": "passed",
+   "reason": null,
+   "seconds": 1499.7,
+   "log": "M/M.3.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "8a34de430235-modified"
   }
  ]
 }

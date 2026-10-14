@@ -1,0 +1,11 @@
+# Exercise: M.3  Measure the SQL analyst
+# Command:  python /tmp/solutions-flat/exercises/exM_3_sql_suite.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-10-14 05:24:56 UTC
+# Exit code: 0
+# Seconds:  1499.7
+#-------------------------------------------------------------------------------
+before          56/60   =  93%   95% interval  84% to  97%
+after           54/60   =  90%   95% interval  80% to  95%
+flaky before: ['pending'] | flaky after: ['december', 'electronics-revenue']
+verdict: can't tell yet: the intervals overlap, so run more trials or more cases

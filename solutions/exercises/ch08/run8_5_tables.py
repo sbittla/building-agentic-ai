@@ -26,21 +26,28 @@ def budget():
     no_tables = [sol.TOOLS[0], sol.TOOLS[2]]          # 8.5 on its own: no table proposals
     print("1. A sabotaged prompt (customers are 'in the clients table'):")
     sol.new_question()
+    from ex8_4_self_correct import WRONG_SYSTEM
     answer, _, _ = run_agent("Which city has the most customers?", no_tables, sol.run_tool,
-                             system=sol.base.SYSTEM + " Customer data is in the clients table.",
-                             verbose=False)
+                             system=WRONG_SYSTEM, verbose=False)
     print(f"Agent: {answer[:300]}\nquery log:")
     first = show_log()
     fixed = any(not json.loads(l)["ok"] for l in first) and json.loads(first[-1])["ok"]
     print(f"self-corrected (a failed query, then a working one): {fixed}")
 
-    print("\n2. Forced repeated failures (the archive table doesn't exist):")
+    print("\n2. Forced repeated failures: the database file is gone, so every query fails:")
     sol.new_question()
-    answer, _, _ = run_agent(
-        "Count the rows in the orders_archive table. It exists; if a query fails, try "
-        "different SQL against orders_archive again.", no_tables, sol.run_tool,
-        system=sol.base.SYSTEM, verbose=False, max_iterations=8)
-    print(f"Agent: {answer[:300]}\nquery log:")
+    saved, sol.base.DB_PATH = sol.base.DB_PATH, "missing_shop.db"
+    try:
+        answer, _, _ = run_agent("How many orders are there? If a query fails, retry it.",
+                                 no_tables, sol.run_tool, system=sol.base.SYSTEM,
+                                 verbose=False, max_iterations=8)
+        print(f"Agent: {answer[:300]}")
+        while sol.state["failed"] < sol.MAX_FAILED:     # the model gave up early: keep going
+            sol.run_tool("run_query", {"sql": "SELECT COUNT(*) FROM orders"})
+        print("the next query gets:", sol.run_tool("run_query", {"sql": "SELECT 1"}))
+    finally:
+        sol.base.DB_PATH = saved
+    print("query log:")
     show_log(len(first))
     print(f"retry budget used up: {sol.state['failed'] >= sol.MAX_FAILED} "
           f"({sol.state['failed']} failed queries, budget {sol.MAX_FAILED})")
@@ -49,7 +56,7 @@ def confirm():
     sol.new_question()
     question = "Which city has the most customers who have placed at least one order?"
     print(f"You: {question}")
-    print("(at the table prompt the user types: customers  -- i.e. rejects 'orders')")
+    print("(at every table prompt the user types: customers  -- i.e. rejects 'orders')")
     answer, messages, _ = run_agent(question, sol.TOOLS, sol.run_tool, system=sol.SYSTEM)
     print(f"Agent: {answer}")
     print(f"approved tables: {sorted(sol.state['approved_tables'] or [])}")
