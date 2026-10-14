@@ -206,9 +206,9 @@ Every reference solution, capstone and exercise command, run against a scripted 
 
 | Passed | Failed | Errors | Skipped (not applicable here) | Tests |
 | ---: | ---: | ---: | ---: | ---: |
-| 574 | 0 | 0 | 13 | 587 |
+| 588 | 0 | 0 | 1 | 589 |
 
-Commit `e485e4805bc3`; `requirements.lock` sha256 `c28c848a2447`; outside the course image (Linux); 2026-10-14. Skipped: 8 runs in the course image; 2 needs mcp-server-filesystem from the course image; 1 needs mcp-server-git from the course image; 1 needs mcp-server-fetch, mcp-server-memory from the course image; 1 needs mcp-server-fetch, mcp-server-filesystem, mcp-server-git, mcp-server-time from the course image. Details: [verification/README.md](verification/README.md), [verification/offline.json](verification/offline.json).
+Commit `5242431fa7cb`; `requirements.lock` sha256 `c28c848a2447`; course image (local Docker); 2026-10-14. Skipped: 1 needs claude from the course image. Details: [verification/README.md](verification/README.md), [verification/offline.json](verification/offline.json).
 
 ### B. Exercises run with a real model
 
