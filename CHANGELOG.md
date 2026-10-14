@@ -6,6 +6,16 @@ What changed in the book and this repository, newest first. The book's First edi
 
 The first public release: the book's First edition and the repository release that matches it. 32 chapters and 6 interludes, 249 exercises, seven capstones. `book-v1.0.0-rc2` is the current release candidate; [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) lists what it was verified with and the gates still open.
 
+### Since release candidate 2 (unreleased)
+Fixes found by running every exercise on the free local model (qwen3.5:9b) and the Claude-only ones on Claude. Code, tests and two exercise texts changed, so rc2's verification no longer applies; the next candidate needs a fresh full run.
+- **Exercise 8.4's instructions** now work: `SYSTEM` describes no tables, and `get_schema`'s description tells the model to read the schema first, so the old "rename the table in `SYSTEM`" never produced a failing query. The exercise now replaces `SYSTEM` and softens `get_schema`'s description.
+- **Exercise 17.3** tells you to ask about each fact by its words; a vague "what do you know about me?" can find nothing with keyword search, as section 17.3 explains.
+- **Solution 3.7** measures what the chapter claims: each question runs a few steps (a date or a status check can come first), and the calculator and unit converter stay loaded. On Claude both setups reach 10/10, tool search at half the input tokens.
+- **Solution 14.4** checks every cited issue number against what GitHub returned and rewrites from a short list when one is invented; 14.3 and 14.4 keep GitHub's results small enough for an 8K context.
+- **Solution 25.4** fails closed when the quarantined reader errors, and asks again when the planner reports tasks it never added. **Solution 24.6** counts a skill once when it also reads the skill's extra file.
+- Stricter run checks (`course/run_checks.json`) for 3.7, 14.4, 17.3 and 24.6, which had passed on output that didn't meet the exercise.
+- LOCAL_MODEL.md: what to do when a reply is cut off by a full context, when the agent reports actions it never took, and when an eval gate flips between runs.
+
 ### Release candidate 2 (`book-v1.0.0-rc2`)
 Manuscript and documentation only; no code, test or environment file changed since `book-v1.0.0-rc1`, so rc1's in-image test run (584 passed, 1 skipped, in the course image on GitHub Actions) still applies and is now the recorded verification.
 - **A curated index.** About 290 entries with sub-entries and cross-references (`course/index_terms.json`). Each sense is looked up only in the chapters that teach it, so "canary release" and "canary token" are separate entries, and the glossary pages are left out.
