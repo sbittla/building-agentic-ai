@@ -1,8 +1,24 @@
 {
  "chapter": "14",
  "title": "Chapter 14: Using Servers You Didn't Write",
- "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-09-28 00:15",
+ "model": "mixed: see each exercise",
+ "date": "2026-10-14 01:40",
+ "provenance": {
+  "commit": "7df2f27aa740-modified",
+  "python": "3.12.3",
+  "packages_sha256": "ddf39c32b1ca5b67",
+  "packages": {
+   "anthropic": "1.8.0",
+   "mcp": "2.2.0",
+   "claude-agent-sdk": "0.2.159",
+   "langchain": "1.4.2",
+   "httpx": "0.28.1",
+   "pytest": "9.1.1"
+  },
+  "provider": "claude",
+  "model_id": "claude-sonnet-5",
+  "model_label": "claude-sonnet-5 (Claude API)"
+ },
  "exercises": [
   {
    "id": "14.1",
@@ -11,7 +27,8 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch14/14.1.log"
+   "log": "ch14/14.1.log",
+   "model": "none"
   },
   {
    "id": "14.2",
@@ -20,25 +37,30 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch14/14.2.log"
+   "log": "ch14/14.2.log",
+   "model": "none"
   },
   {
    "id": "14.3",
    "title": "Read-only GitHub",
-   "kind": "run",
-   "status": "skipped",
-   "reason": "needs GITHUB_PERSONAL_ACCESS_TOKEN in .env",
-   "seconds": 0,
-   "log": null
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 29.8,
+   "log": "ch14/14.3.log",
+   "model": "claude-sonnet-5 (Claude API)",
+   "commit": "7df2f27aa740-modified"
   },
   {
    "id": "14.4",
    "title": "Weekly engineering digest",
-   "kind": "run",
-   "status": "skipped",
-   "reason": "needs GITHUB_PERSONAL_ACCESS_TOKEN in .env",
-   "seconds": 0,
-   "log": null
+   "kind": "build",
+   "status": "passed",
+   "reason": null,
+   "seconds": 58.9,
+   "log": "ch14/14.4.log",
+   "model": "claude-sonnet-5 (Claude API)",
+   "commit": "7df2f27aa740-modified"
   },
   {
    "id": "14.5",
@@ -47,7 +69,8 @@
    "status": "passed",
    "reason": null,
    "seconds": 12.1,
-   "log": "ch14/14.5.log"
+   "log": "ch14/14.5.log",
+   "model": "qwen3.5:9b (local, through Ollama)"
   }
  ]
 }

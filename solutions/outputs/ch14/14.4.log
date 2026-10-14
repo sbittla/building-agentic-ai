@@ -1,0 +1,75 @@
+# Exercise: 14.4  Weekly engineering digest
+# Command:  python /tmp/solutions-flat/exercises/ex14_4_digest.py
+# Model:    claude-sonnet-5 (Claude API)
+# Date:     2026-10-14 01:40:00 UTC
+# Exit code: 0
+# Seconds:  58.9
+#-------------------------------------------------------------------------------
+[step 1] time__get_current_time({"timezone": "Etc/UTC"}) -> '{\n  "timezone": "Etc/UTC",\n  "datetime": "2026-10-14T01:39:12+00:00",\n'
+[step 2] github__list_commits({"owner": "modelcontextprotocol", "repo": "servers", "since": "2026-10-07T00:00:) -> '[{"sha":"bbb701e7ac1e57f3edd1c2836b94c5457eaf7b9c","html_url":"https:/'
+[step 2] github__list_issues({"owner": "modelcontextprotocol", "repo": "servers", "state": "OPEN", "perPage":) -> '{"issues":[{"created_at":"2026-10-13T18:38:56Z","labels":["enhancement'
+# modelcontextprotocol/servers — Weekly Summary (as of 2026‑10‑14)
+
+## Commits (Oct 7 – Oct 14, 2026)
+
+Activity this week was dominated by **shipping the SDK 1.x "v1.0.0" release** and its associated hardening, plus a major **CI/dependency‑automation overhaul**. ~90 commits, almost entirely from `cliffhall` (with Claude Opus co‑authorship), grouped by theme:
+
+**1. v1.0.0 release engineering**
+- Merged `v2/release/1.0.0` → `main` (PR #5090) and the main‑source CI guard (#5119/#5122) ahead of it.
+- Release‑branch housekeeping: folding pending changesets into a single 1.0.0 CHANGELOG, Python CalVer stamping (2026.10.10), a full "release audit" pass, cherry‑picks of fixes from `main` onto the release branch, and a scripted per‑server release‑notes generator with a consolidated "Thanks" section (closes #5056).
+
+**2. Filesystem server — roots‑refresh race conditions (closes #5094, #5097, #5101)**
+A cluster of fixes/tests making the `roots/list_changed` handling correct under concurrency:
+- Apply only the newest refresh's answer; discard stale ones.
+- Revoke access when an update leaves no valid roots (and reword the error message).
+- Keep tool calls waiting on in‑flight refreshes rather than racing against stale allow‑lists; separate the "barrier" from the refresh promise itself so calls wake on the *newest* refresh, not a stuck older one.
+- Supporting test fixes for ordering/teardown races and SDK 1.x error‑wrapping differences.
+
+**3. CI / release pipeline hardening**
+- `publish-npm` now runs on an exactly‑pinned Node 24.21.0 (bundled npm 11.19.0) instead of installing npm at publish time next to `id-token: write` (closes #5104), with tests pinning the npm‑floor check and the "no extra install" shape.
+- Bootstrap of a "main‑source guard" workflow onto `main` ahead of the next milestone merge (#5119).
+
+**4. Dependency‑automation replacement for Dependabot (closes #4874)**
+Three new scheduled workflows (ported/extended from the MCP Inspector):
+- `dependency-refresh` (monthly): one issue covering `npm outdated`, `uv lock --upgrade` dry runs, and workflow SHA‑pin staleness.
+- `dependabot-alerts` (daily): one issue per vulnerable package/lockfile, verified against `main`, targeting the lowest patched version that clears every affected range.
+- `sdk-watch` (nightly): one issue per MCP SDK package group behind its registry, with a hardened 3‑job Claude analysis.
+- Plus a decision record accepting the SDK‑watch's residual credential‑channel risk (#5069), since all reviewed sources are trusted MCP‑org SDKs.
+
+**5. Point fixes**
+- `fetch`: added tool annotations (`readOnlyHint`, `destructiveHint: false`, `idempotentHint`, `openWorldHint`) — closes #3572.
+- `time`: reject timezone keys that aren't exact IANA matches (fixes macOS case‑insensitive filesystem behavior diverging from Linux) — closes #5060.
+- `memory`: test fix for Node 26's path‑suffixed `EISDIR` error message.
+
+**6. Security/dependency bumps** (bundled into the release): `pyjwt`, `cryptography`, `urllib3`, `soupsieve`, `gitpython`, `protego`, `anyio`, `vitest`, SDK `^1.31.0`, `source-map-js`, `nanoid`, `fast-uri`, `qs`, `hono`, `brace-expansion`, `ip-address`, `proxy-addr` — addressing a long list of GHSA/PYSEC advisories.
+
+---
+
+## Open Issues (200 total open; themes below drawn from the ~100 most recent)
+
+**Filesystem server — largest cluster, long‑running pain points**
+- Roots protocol issues: deprecated‑protocol doc recommendation (#4844), roots overwrite CLI dirs (#3602), roots broken on Windows (#3174), effective‑root clarity after init (#4912).
+- Reliability/crash bugs: large/malformed stdio JSON‑RPC causing crash or zombie state (#4207, #4206), hangs on macOS CloudStorage paths (#4162), `npx -y` launch hangs (#4026), silent write failures on Windows (#4138), tilde‑path crashes (#3412), Windows path‑with‑spaces/umlauts (#3508, #4487).
+- Schema/API quality: missing `inputSchema.type` breaks JSON Schema 2020‑12 validators (#4772), 18 properties missing descriptions (#3984), `move_file` returns array not string (#3093), tool-naming/kebab‑case mismatch (#4892), tool‑choice ambiguity between similar tools (#5071).
+- README/positioning: should state it's a reference implementation with pointers to alternatives (#5074, #4785 re: still ~214k installs/week despite deprecation).
+
+**Security & hardening (cross‑cutting)**
+- SSRF/path‑traversal: fetch server SSRF hardening (#3741), filesystem traversal → arbitrary read/write (#3752).
+- Credential/data exposure: `everything` server's `get-env` dumps full `process.env` (#3986, #4882, #5130 also flags SSRF via gzip‑resource-as-URL-fetch).
+- Tool annotation correctness: `git_create_branch` and `memory` mutation tools marked non‑destructive despite data‑loss potential (#5059, #5058); missing annotations on `everything`/`filesystem` (#3401, #3402).
+- Broader audits: unconstrained string parameters repo‑wide (#3537), schema/parameter‑bounds hardening proposal (#4958), new "source path + untrusted flag" proposal from a SafetyCard review (#5151, just opened).
+
+**Fetch server**
+- Missing Content‑Type forces non‑HTML into readability parsing and fails (#5134, newly opened).
+- No retry/backoff on 429/5xx (#4449), hardcoded 30s timeout (#4448), drops SSR/streaming content (#3878), silent failure when Node.js (needed for readability) is unavailable (#4199), raw exception leaking as JSON‑RPC error 0 (#4914).
+
+**Git server**
+- Non‑ASCII paths printed as octal escapes, breaking round‑trip `git_add` (#5129, new).
+- `validate_repo_path` opt‑in bypass, architectural complement to a past CVE (#4550).
+
+**Process / maintenance trackers (the team's own backlog management)**
+- Multiple "Triage the open issue/PR backlog" tracker issues (#4875, #4876, #4877), security‑advisory backlog triage (#4902), alert‑sweep improvements (#5066, #5067), GitHub App for project‑board
+
+[Stopped: the reply was cut off at max_tokens (raise max_tokens or ask for less)]
+
+Audit log: 4 tool calls, decisions ['allow']: ['github__list_commits', 'github__list_issues', 'time__get_current_time']
