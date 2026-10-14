@@ -1,10 +1,10 @@
 {
  "chapter": "16",
  "title": "Chapter 16: Context Engineering",
- "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-14 17:05",
+ "model": "mixed: see each exercise",
+ "date": "2026-10-14 18:08",
  "provenance": {
-  "commit": "4b435eb02d73-modified",
+  "commit": "624e451df84b",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -15,9 +15,9 @@
    "httpx": "0.28.1",
    "pytest": "9.1.1"
   },
-  "provider": "local",
-  "model_id": "qwen3.5:9b",
-  "model_label": "qwen3.5:9b (local, through Ollama)"
+  "provider": "claude",
+  "model_id": "claude-sonnet-5",
+  "model_label": "claude-sonnet-5 (Claude API)"
  },
  "exercises": [
   {
@@ -88,11 +88,12 @@
    "id": "16.7",
    "title": "Let a program do the counting",
    "kind": "run",
-   "status": "skipped",
-   "reason": "Claude only",
-   "seconds": 0,
-   "log": null,
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "status": "passed",
+   "reason": null,
+   "seconds": 110.4,
+   "log": "ch16/16.7.log",
+   "model": "claude-sonnet-5 (Claude API)",
+   "commit": "624e451df84b"
   },
   {
    "id": "16.8",

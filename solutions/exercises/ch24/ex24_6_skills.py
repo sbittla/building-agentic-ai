@@ -17,8 +17,11 @@ def install():
     return {p.name: sk.validate(p) for p in sorted(sk.SKILLS_DIR.iterdir()) if p.is_dir()}
 
 def skills_loaded(messages):
-    return [b.input["name"] for m in messages if m["role"] == "assistant" and not isinstance(m["content"], str)
-            for b in m["content"] if getattr(b, "type", "") == "tool_use" and b.name == "read_skill"]
+    """Each skill once: reading SKILL.md and then one of its extra files (level 3) is
+    still one skill."""
+    names = [b.input["name"] for m in messages if m["role"] == "assistant" and not isinstance(m["content"], str)
+             for b in m["content"] if getattr(b, "type", "") == "tool_use" and b.name == "read_skill"]
+    return list(dict.fromkeys(names))
 
 def run_tool(name, args):
     return sk.read_skill(**args) if name == "read_skill" else sql.run_tool(name, args)
