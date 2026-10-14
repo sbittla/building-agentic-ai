@@ -1,8 +1,24 @@
 {
  "chapter": "13",
  "title": "Chapter 13: Build Your Own MCP Client",
- "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-09-28 00:15",
+ "model": "none (--free-only)",
+ "date": "2026-10-14 03:37",
+ "provenance": {
+  "commit": "8a34de430235-modified",
+  "python": "3.12.3",
+  "packages_sha256": "ddf39c32b1ca5b67",
+  "packages": {
+   "anthropic": "1.8.0",
+   "mcp": "2.2.0",
+   "claude-agent-sdk": "0.2.159",
+   "langchain": "1.4.2",
+   "httpx": "0.28.1",
+   "pytest": "9.1.1"
+  },
+  "provider": "local",
+  "model_id": "qwen3.5:9b",
+  "model_label": "qwen3.5:9b (local, through Ollama)"
+ },
  "exercises": [
   {
    "id": "13.1",
@@ -11,7 +27,8 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch13/13.1.log"
+   "log": "ch13/13.1.log",
+   "model": "none"
   },
   {
    "id": "13.2",
@@ -19,62 +36,70 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 3.1,
-   "log": "ch13/13.2.log"
+   "seconds": 2.8,
+   "log": "ch13/13.2.log",
+   "model": "none",
+   "commit": "8a34de430235-modified"
   },
   {
    "id": "13.3",
    "title": "Two servers, one question",
    "kind": "run",
-   "status": "passed",
-   "reason": null,
-   "seconds": 7.8,
-   "log": "ch13/13.3.log"
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
+   "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "13.4",
    "title": "Resources at start-up",
    "kind": "run",
-   "status": "passed",
-   "reason": null,
-   "seconds": 6.0,
-   "log": "ch13/13.4.log"
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
+   "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "13.5",
    "title": "Add the weather server",
    "kind": "run",
-   "status": "passed",
-   "reason": null,
-   "seconds": 6.2,
-   "log": "ch13/13.5.log"
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
+   "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "13.6",
    "title": "Resilience",
    "kind": "run",
-   "status": "passed",
-   "reason": null,
-   "seconds": 6.1,
-   "log": "ch13/13.6.log"
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
+   "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "13.7",
    "title": "Let the server ask the user",
    "kind": "build",
-   "status": "passed",
-   "reason": null,
-   "seconds": 3.9,
-   "log": "ch13/13.7.log"
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
+   "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "13.8",
    "title": "A coordinator with an analyst",
    "kind": "build",
-   "status": "passed",
-   "reason": null,
-   "seconds": 23.4,
-   "log": "ch13/13.8.log"
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
+   "model": "qwen3.5:9b (local, through Ollama)"
   }
  ]
 }

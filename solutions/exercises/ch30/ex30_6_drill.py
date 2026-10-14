@@ -38,6 +38,7 @@ def user(n, until, results, lock, api=API):
                     time.sleep(min(float(r.headers.get("retry-after", 1)), max(0, until - time.monotonic())))
             except httpx.HTTPError as exc:
                 row = {"status": type(exc).__name__, "s": time.perf_counter() - t0}
+                time.sleep(1)                   # a refused connection fails at once: back off
             with lock:
                 results.append(row)
             i += 1
@@ -71,5 +72,24 @@ def main(users=20, seconds=120):
           "limit only if the model API's own limits allow it.")
     return s
 
+def compare(before_users=8, after_users=3, seconds=60):
+    """The drill twice: as it is, then with ONE change. The change here is fewer concurrent
+    users per instance (the queue in front of the model is what makes p95 grow)."""
+    rows = {f"{before_users} users": drill(before_users, seconds),
+            f"{after_users} users": drill(after_users, seconds)}
+    keys = list(next(iter(rows.values())))
+    print("| run | " + " | ".join(keys) + " |")
+    for name, s in rows.items():
+        print(f"| {name} | " + " | ".join(str(s[k]) for k in keys) + " |")
+    (b, a) = rows.values()
+    print(f"\nOne change: {before_users} -> {after_users} concurrent users. p95 "
+          f"{b['p95_s']}s -> {a['p95_s']}s: fewer requests wait in the model's queue, so each "
+          "one finishes sooner; the cost is lower throughput per instance.")
+    return rows
+
 if __name__ == "__main__":
-    main()
+    import sys
+    if sys.argv[1:2] == ["--compare"]:
+        compare(*map(int, sys.argv[2:5]))
+    else:
+        main()

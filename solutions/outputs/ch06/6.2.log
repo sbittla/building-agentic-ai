@@ -1,0 +1,49 @@
+# Exercise: 6.2  Ask your notes
+# Command:  python /tmp/solutions-flat/exercises/ask.py ch06_notes_tools 'What was the root cause of the Kafka lag incident?' 'When is the production Kafka upgrade planned?' 'What did I note about Postgres autovacuum?' 'What are the team OKRs for H1?' 'What is my passport number?'
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-10-14 04:24:43 UTC
+# Exit code: 0
+# Seconds:  59.1
+#-------------------------------------------------------------------------------
+
+Q: What was the root cause of the Kafka lag incident?
+[step 1] search_files({"pattern": "Kafka.*lag", "max_hits": 20}) -> 'work/2026-06-02-incident-kafka-lag.md:1: # Incident: Kafka consumer lag (2026-06'  (511 ms)
+[step 2] read_file({"path": "work/2026-06-02-incident-kafka-lag.md", "start_line": 1}) -> '1: # Incident: Kafka consumer lag (2026-06-02)\n2: Consumer lag on the orders top'  (23 ms)
+A: The root cause of the Kafka lag incident was a deployment that reduced the number of consumer instances from 12 to 4 (work/2026-06-02-incident-kafka-lag.md:3).
+   [citations: 1]
+
+Q: When is the production Kafka upgrade planned?
+[step 1] search_files({"pattern": "kafka upgrade"}) -> 'work/2026-07-15-kafka-upgrade-plan.md:1: # Kafka upgrade plan\nwork/2026-09-05-re'  (442 ms)
+[step 2] read_file({"path": "work/2026-07-15-kafka-upgrade-plan.md"}) -> '1: # Kafka upgrade plan\n2: Target version 4.1 with KRaft; ZooKeeper to be remove'  (15 ms)
+A: The planned Kafka upgrade for production is scheduled for **August 5**.
+
+According to the notes, the upgrade order is:
+- Staging: July 22 (2026)
+- Production: August 5 (2026) (file:3)
+   [citations: 0]
+
+Q: What did I note about Postgres autovacuum?
+[step 1] search_files({"pattern": "Postgres autovacuum", "max_hits": 20}) -> 'No matches.'  (438 ms)
+[step 2] search_files({"pattern": "autovacuum", "max_hits": 20}) -> 'work/2026-04-18-postgres-vacuum.md:2: Autovacuum was falling behind on the event'  (526 ms)
+A: You noted the following about Postgres autovacuum in your `work/2026-04-18-postgres-vacuum.md` note (lines 2-3):
+
+- Autovacuum was falling behind on the events table (which has 1.2B rows)
+- You set `autovacuum_vacuum_scale_factor = 0.02` for that table to address the issue
+   [citations: 0]
+
+Q: What are the team OKRs for H1?
+[step 1] search_files({"pattern": "OKR.*H1", "max_hits": 50}) -> 'work/2026-02-12-team-okrs.md:1: # Team OKRs (H1)'  (510 ms)
+[step 2] read_file({"path": "work/2026-02-12-team-okrs.md", "start_line": 1}) -> '1: # Team OKRs (H1)\n2: O1: Reduce p95 API latency by 25%.\n3: O2: Cut incident co'  (22 ms)
+A: The team OKRs for H1 are:
+
+*   **O1:** Reduce p95 API latency by 25%. (work/2026-02-12-team-okrs.md:2)
+*   **O2:** Cut incident count by 30% through better alerts. (work/2026-02-12-team-okrs.md:3)
+*   **O3:** Ship the self-service load-testing portal. (work/2026-02-12-team-okrs.md:4)
+   [citations: 3]
+
+Q: What is my passport number?
+[step 1] search_files({"pattern": "passport number", "max_hits": 10}) -> 'No matches.'  (536 ms)
+A: I couldn't find any mention of your passport number in your notes.
+   [citations: 0]
+
+answers with citations: 2 of 5

@@ -1,10 +1,10 @@
 {
  "chapter": "10",
  "title": "Chapter 10: Feedback Loops",
- "model": "mixed: see each exercise",
- "date": "2026-10-14 02:14",
+ "model": "none (--free-only)",
+ "date": "2026-10-14 03:37",
  "provenance": {
-  "commit": "7c6fa4c8ad2f",
+  "commit": "8a34de430235-modified",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -15,9 +15,9 @@
    "httpx": "0.28.1",
    "pytest": "9.1.1"
   },
-  "provider": "claude",
-  "model_id": "claude-sonnet-5",
-  "model_label": "claude-sonnet-5 (Claude API)"
+  "provider": "local",
+  "model_id": "qwen3.5:9b",
+  "model_label": "qwen3.5:9b (local, through Ollama)"
  },
  "exercises": [
   {
@@ -44,52 +44,51 @@
    "id": "10.3",
    "title": "Fix the bugs",
    "kind": "run",
-   "status": "passed",
-   "reason": null,
-   "seconds": 34.1,
-   "log": "ch10/10.3.log",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
    "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "10.4",
    "title": "Watch the protection",
    "kind": "run",
-   "status": "passed",
-   "reason": null,
-   "seconds": 33.8,
-   "log": "ch10/10.4.log",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
    "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "10.5",
    "title": "Four bugs, two files",
    "kind": "run",
-   "status": "passed",
-   "reason": null,
-   "seconds": 13.2,
-   "log": "ch10/10.5.log",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
    "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "10.6",
    "title": "Targeted edits",
    "kind": "run",
-   "status": "passed",
-   "reason": null,
-   "seconds": 38.3,
-   "log": "ch10/10.6.log",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
    "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "10.7",
    "title": "Benchmark the fixer",
    "kind": "build",
-   "status": "passed",
-   "reason": null,
-   "seconds": 380.9,
-   "log": "ch10/10.7.log",
-   "model": "claude-sonnet-5 (Claude API)",
-   "commit": "7c6fa4c8ad2f"
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
+   "model": "qwen3.5:9b (local, through Ollama)"
   }
  ]
 }

@@ -1,12 +1,12 @@
 {
  "chapter": "24",
  "title": "Chapter 24: Skills, Frameworks and Agent Runtimes",
- "model": "mixed: see each exercise",
- "date": "2026-10-13 13:29",
+ "model": "none (--free-only)",
+ "date": "2026-10-14 03:39",
  "provenance": {
-  "commit": "abaab3d230f8",
-  "python": "3.12.11",
-  "packages_sha256": "95d6b663897ac0b2",
+  "commit": "8a34de430235-modified",
+  "python": "3.12.3",
+  "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
    "anthropic": "1.8.0",
    "mcp": "2.2.0",
@@ -44,60 +44,60 @@
    "id": "24.3",
    "title": "See the approval gate work",
    "kind": "run",
-   "status": "passed",
-   "reason": null,
-   "seconds": 54.9,
-   "log": "ch24/24.3.log",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
    "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "24.4",
    "title": "Agent SDK with your MCP servers",
    "kind": "build",
-   "status": "passed",
-   "reason": null,
-   "seconds": 75.3,
-   "log": "ch24/24.4.log",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
    "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "24.5",
    "title": "Same agent, three frameworks",
    "kind": "build",
-   "status": "passed",
-   "reason": null,
-   "seconds": 168.0,
-   "log": "ch24/24.5.log",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
    "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "24.6",
    "title": "Write a skill",
    "kind": "run",
-   "status": "passed",
-   "reason": null,
-   "seconds": 13.0,
-   "log": "ch24/24.6.log",
-   "model": "claude-sonnet-5 (Claude API)"
+   "status": "skipped",
+   "reason": "needs a model (--free-only): Claude only",
+   "seconds": 0,
+   "log": null,
+   "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "24.7",
    "title": "A managed analyst",
    "kind": "run",
-   "status": "passed",
-   "reason": null,
-   "seconds": 28.9,
-   "log": "ch24/24.7.log",
-   "model": "claude-sonnet-5 (Claude API)"
+   "status": "skipped",
+   "reason": "needs a model (--free-only): Claude only",
+   "seconds": 0,
+   "log": null,
+   "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "24.8",
    "title": "Does the skill help?",
    "kind": "build",
-   "status": "passed",
-   "reason": null,
-   "seconds": 379.2,
-   "log": "ch24/24.8.log",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
    "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
@@ -119,7 +119,7 @@
    "seconds": 0.1,
    "log": "ch24/24.10.log",
    "model": "none",
-   "commit": "abaab3d230f8"
+   "commit": "8a34de430235-modified"
   }
  ]
 }

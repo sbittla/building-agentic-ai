@@ -13,7 +13,9 @@ NAMES = {t["name"] for t in memory.TOOLS}
 SYSTEM = (memory.SYSTEM + " You also manage the user's to-do list. At the start of every "
           "session, call recall with 'preferences' before your first answer. When the user "
           "states a preference (date format, reminders, priorities), remember it with a "
-          "short subject such as 'date format', so a newer preference replaces the old one.")
+          "short subject such as 'date format', so a newer preference replaces the old one. "
+          "Before answering any question about the user or the people they mention (for "
+          "example 'who is my manager?'), call recall with the key words of the question.")
 
 def run_tool(name, args):
     return memory.run_tool(name, args) if name in NAMES else todo.run_tool(name, args)
@@ -47,4 +49,7 @@ def main(budget_tokens=6_000, verbose=False):
     return transcript, totals
 
 if __name__ == "__main__":
-    main()
+    import sys
+    # The budget that makes run_managed_agent trim and compact depends on the model: a
+    # smaller model's replies are shorter, so pass a lower one to see a compaction.
+    main(budget_tokens=int(sys.argv[1]) if len(sys.argv) > 1 else 6_000)

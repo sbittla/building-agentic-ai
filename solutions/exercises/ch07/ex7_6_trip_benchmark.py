@@ -15,9 +15,16 @@ def run(cache_on: bool, runs: int = 5):
             base._cache.clear()
         base.CACHE_SECONDS = 600 if cache_on else 0
         before = dict(base.stats)
+        tool_time = [0.0]
+        def timed_tool(name, args):
+            t = time.perf_counter()
+            try:
+                return w.run_tool(name, args)
+            finally:
+                tool_time[0] += time.perf_counter() - t
         t0 = time.perf_counter()
-        run_agent(QUESTION, w.TOOLS, w.run_tool, system=w.SYSTEM, verbose=False)
-        rows.append({"seconds": time.perf_counter() - t0,
+        run_agent(QUESTION, w.TOOLS, timed_tool, system=w.SYSTEM, verbose=False)
+        rows.append({"seconds": time.perf_counter() - t0, "tool_seconds": tool_time[0],
                      "http_calls": base.stats["http_calls"] - before["http_calls"],
                      "cache_hits": base.stats["cache_hits"] - before["cache_hits"]})
     return rows
@@ -25,13 +32,19 @@ def run(cache_on: bool, runs: int = 5):
 def main(runs=5):
     base._cache.clear()
     table = {"cache on": run(True, runs), "cache off": run(False, runs)}
-    print("| mode | mean s | HTTP calls/run | cache hits/run |")
+    print("| mode | mean s | model s | tool (HTTP) s | HTTP calls/run | cache hits/run |")
+    means = {}
     for mode, rows in table.items():
-        print(f"| {mode} | {statistics.mean(r['seconds'] for r in rows):.2f} | "
+        total = statistics.mean(r["seconds"] for r in rows)
+        tools = statistics.mean(r["tool_seconds"] for r in rows)
+        means[mode] = tools
+        print(f"| {mode} | {total:.2f} | {total - tools:.2f} | {tools:.2f} | "
               f"{statistics.mean(r['http_calls'] for r in rows):.1f} | "
               f"{statistics.mean(r['cache_hits'] for r in rows):.1f} |")
-    print("Time goes to model calls plus one HTTP round-trip per geocode/forecast; with the "
-          "cache on, repeat runs skip the HTTP part entirely.")
+    print(f"Most of the time is model calls; the tools' HTTP round-trips are the rest. The cache "
+          f"cuts tool time from {means['cache off']:.2f}s to {means['cache on']:.2f}s per run "
+          "(repeat runs skip the HTTP part); differences in total time beyond that are the "
+          "model's run-to-run variation.")
     return table
 
 if __name__ == "__main__":

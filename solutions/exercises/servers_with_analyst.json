@@ -1,7 +1,7 @@
 {
   "servers": {
     "todo":    {"command": "python", "args": ["ch13_todo_server.py"]},
-    "analyst": {"command": "python", "args": ["ch13_agent_server.py"], "pass_env": ["ANTHROPIC_API_KEY", "MODEL"],
+    "analyst": {"command": "python", "args": ["ch13_agent_server.py"], "pass_env": ["ANTHROPIC_API_KEY", "ANTHROPIC_BASE_URL", "MODEL", "MODEL_TIMEOUT"],
                 "log": "analyst.log"}
   }
 }

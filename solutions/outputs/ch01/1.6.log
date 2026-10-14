@@ -1,18 +1,32 @@
 # Exercise: 1.6  Remembering a conversation
-# Command:  python /tmp/solutions-flat/exercises/ex1_6_chat.py
+# Command:  python /tmp/solutions-flat/exercises/ex1_6_chat.py && python /tmp/solutions-flat/exercises/ex1_6_chat.py --broken
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-09-27 19:40:48 UTC
+# Date:     2026-10-14 03:48:53 UTC
 # Exit code: 0
-# Seconds:  9.5
+# Seconds:  45.1
 #-------------------------------------------------------------------------------
 === WITH history ===
 You: Hi, my name is Srini.
-Model: Hello Srini! It's nice to meet you. How can I assist you today? Feel free to ask any questions or let me know if you need help with anything specific! 😊
+Model: Hello Srini! It's nice to meet you. How can I help you today?
 
 You: What's the capital of France?
 Model: The capital of France is **Paris**.
 
-It is also the country's most populous city and a major global center for art, fashion, gastronomy, and culture. 🇫🇷✨
+Located in the north-central part of the country along the Seine River, it serves as the nation's political, cultural, and economic center. Paris is also famous for iconic landmarks like the Eiffel Tower, the Louvre Museum, and Notre-Dame Cathedral.
 
 You: What's my name?
-Model: Your name is **Srini**! I remember you mentioned it at the beginning of our conversation. 👋😊
+Model: Your name is **Srini**, as you introduced yourself at the beginning of our conversation!
+
+=== WITHOUT history (broken) ===
+You: Hi, my name is Srini.
+Model: Hello Srini! Nice to meet you. How can I assist you today? 😊
+
+You: What's the capital of France?
+Model: The capital of France is **Paris**.
+
+Located in the north-central part of the country along the Seine River, Paris has served as the political and cultural heart of France since the Middle Ages. It is renowned for landmarks such as the Eiffel Tower, the Louvre Museum, and Notre-Dame Cathedral.
+
+You: What's my name?
+Model: I don't know your name yet! As an AI, I don't have access to your personal information unless you tell me.
+
+Feel free to introduce yourself, and I'll remember it for the rest of our conversation. 😊

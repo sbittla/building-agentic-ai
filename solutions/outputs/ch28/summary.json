@@ -1,12 +1,12 @@
 {
  "chapter": "28",
  "title": "Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents",
- "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-13 13:29",
+ "model": "none (--free-only)",
+ "date": "2026-10-14 03:39",
  "provenance": {
-  "commit": "abaab3d230f8",
-  "python": "3.12.11",
-  "packages_sha256": "95d6b663897ac0b2",
+  "commit": "8a34de430235-modified",
+  "python": "3.12.3",
+  "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
    "anthropic": "1.8.0",
    "mcp": "2.2.0",
@@ -24,11 +24,12 @@
    "id": "28.1",
    "title": "A trace viewer",
    "kind": "build",
-   "status": "passed",
-   "reason": null,
-   "seconds": 1.5,
+   "status": "failed",
+   "reason": "output lacks /runs: \\d+\\s+pass rate \\d+%/",
+   "seconds": 1.1,
    "log": "ch28/28.1.log",
-   "model": "none"
+   "model": "none",
+   "commit": "8a34de430235-modified"
   },
   {
    "id": "28.2",
@@ -44,21 +45,22 @@
    "id": "28.3",
    "title": "Read the report",
    "kind": "run",
-   "status": "passed",
-   "reason": null,
-   "seconds": 13.3,
-   "log": "ch28/28.3.log",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
    "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "28.4",
    "title": "A new failure class",
    "kind": "build",
-   "status": "passed",
-   "reason": null,
-   "seconds": 1.8,
+   "status": "failed",
+   "reason": "output lacks /test_28_4_ignored_error PASSED/",
+   "seconds": 10.0,
    "log": "ch28/28.4.log",
-   "model": "none"
+   "model": "none",
+   "commit": "8a34de430235-modified"
   },
   {
    "id": "28.5",
@@ -68,7 +70,8 @@
    "reason": null,
    "seconds": 1.8,
    "log": "ch28/28.5.log",
-   "model": "none"
+   "model": "none",
+   "commit": "8a34de430235-modified"
   },
   {
    "id": "28.6",
@@ -76,9 +79,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 1.8,
+   "seconds": 1.7,
    "log": "ch28/28.6.log",
-   "model": "none"
+   "model": "none",
+   "commit": "8a34de430235-modified"
   },
   {
    "id": "28.7",
@@ -86,9 +90,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 1.8,
+   "seconds": 1.7,
    "log": "ch28/28.7.log",
-   "model": "none"
+   "model": "none",
+   "commit": "8a34de430235-modified"
   },
   {
    "id": "28.8",
@@ -96,10 +101,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 0.3,
+   "seconds": 0.2,
    "log": "ch28/28.8.log",
    "model": "none",
-   "commit": "abaab3d230f8"
+   "commit": "8a34de430235-modified"
   }
  ]
 }

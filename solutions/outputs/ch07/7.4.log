@@ -1,0 +1,13 @@
+# Exercise: 7.4  Handle the hard cases
+# Command:  python /tmp/solutions-flat/exercises/ex7_4_hard_cases.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-10-14 04:39:46 UTC
+# Exit code: 0
+# Seconds:  22.9
+#-------------------------------------------------------------------------------
+(a) I can't find location data for "Xyzzyqq" to get you an accurate forecast. Could you please provide a different city name? Once you do, I'll be happy to look up the weather and suggest what to pack! 
+
+[step 1] geocode({"city": "Portland"}) -> '[{"name": "Portland", "admin1": "Oregon", "country": "United States", "latitude"'  (809 ms)
+(b) There are multiple Portland cities. Which one would you like the forecast for—Portland, Oregon or Portland, Maine? Or perhaps another Portland? 
+
+(c) tool returned after 8.1s with 3 tries: ERROR: RuntimeError: weather service unavailable after 3 tries: timed out

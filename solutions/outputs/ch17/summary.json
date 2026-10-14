@@ -1,12 +1,12 @@
 {
  "chapter": "17",
  "title": "Chapter 17: Agent Memory Engineering",
- "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-13 13:29",
+ "model": "none (--free-only)",
+ "date": "2026-10-14 03:38",
  "provenance": {
-  "commit": "abaab3d230f8",
-  "python": "3.12.11",
-  "packages_sha256": "95d6b663897ac0b2",
+  "commit": "8a34de430235-modified",
+  "python": "3.12.3",
+  "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
    "anthropic": "1.8.0",
    "mcp": "2.2.0",
@@ -44,10 +44,10 @@
    "id": "17.3",
    "title": "Remember across restarts",
    "kind": "run",
-   "status": "passed",
-   "reason": null,
-   "seconds": 4.7,
-   "log": "ch17/17.3.log",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
    "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
@@ -56,18 +56,19 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 0.1,
+   "seconds": 0.4,
    "log": "ch17/17.4.log",
-   "model": "none"
+   "model": "none",
+   "commit": "8a34de430235-modified"
   },
   {
    "id": "17.5",
    "title": "Consolidate episodes",
    "kind": "build",
-   "status": "passed",
-   "reason": null,
-   "seconds": 4.4,
-   "log": "ch17/17.5.log",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
    "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
@@ -76,9 +77,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 0.1,
+   "seconds": 0.2,
    "log": "ch17/17.6.log",
-   "model": "none"
+   "model": "none",
+   "commit": "8a34de430235-modified"
   },
   {
    "id": "17.7",
@@ -86,18 +88,19 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 0.1,
+   "seconds": 0.2,
    "log": "ch17/17.7.log",
-   "model": "none"
+   "model": "none",
+   "commit": "8a34de430235-modified"
   },
   {
    "id": "17.8",
    "title": "A memory-backed assistant",
    "kind": "build",
-   "status": "passed",
-   "reason": null,
-   "seconds": 140.6,
-   "log": "ch17/17.8.log",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
    "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
@@ -109,7 +112,7 @@
    "seconds": 0.1,
    "log": "ch17/17.9.log",
    "model": "none",
-   "commit": "abaab3d230f8"
+   "commit": "8a34de430235-modified"
   }
  ]
 }

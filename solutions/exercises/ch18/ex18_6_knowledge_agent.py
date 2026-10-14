@@ -70,6 +70,8 @@ def main(cases=CASES):
             g["ok"] = False                                  # an uncited answer fails
         rows.append({"q": q, **g, "citations": f"{v}/{t}", "answer": answer[:120]})
         print(f"{'PASS' if g['ok'] else 'FAIL'}  {q}  [{v}/{t} citations valid]")
+        if not g["ok"]:
+            print(f"      answer: {answer[:200]!r}")
     answers = [r for r in rows if r["kind"] == "answer"]
     refusals = [r for r in rows if r["kind"] == "refusal"]
     summary = {"answer_accuracy": f"{sum(r['ok'] for r in answers)}/{len(answers)}",

@@ -2,7 +2,23 @@
  "chapter": "5",
  "title": "Chapter 5: State and Short-Term Memory",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-09-27 19:53",
+ "date": "2026-10-14 04:23",
+ "provenance": {
+  "commit": "8a34de430235-modified",
+  "python": "3.12.3",
+  "packages_sha256": "ddf39c32b1ca5b67",
+  "packages": {
+   "anthropic": "1.8.0",
+   "mcp": "2.2.0",
+   "claude-agent-sdk": "0.2.159",
+   "langchain": "1.4.2",
+   "httpx": "0.28.1",
+   "pytest": "9.1.1"
+  },
+  "provider": "local",
+  "model_id": "qwen3.5:9b",
+  "model_label": "qwen3.5:9b (local, through Ollama)"
+ },
  "exercises": [
   {
    "id": "5.1",
@@ -11,7 +27,8 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch05/5.1.log"
+   "log": "ch05/5.1.log",
+   "model": "none"
   },
   {
    "id": "5.2",
@@ -20,7 +37,8 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch05/5.2.log"
+   "log": "ch05/5.2.log",
+   "model": "none"
   },
   {
    "id": "5.3",
@@ -28,8 +46,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 5.0,
-   "log": "ch05/5.3.log"
+   "seconds": 18.3,
+   "log": "ch05/5.3.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "8a34de430235-modified"
   },
   {
    "id": "5.4",
@@ -37,17 +57,21 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 8.3,
-   "log": "ch05/5.4.log"
+   "seconds": 10.8,
+   "log": "ch05/5.4.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "8a34de430235-modified"
   },
   {
    "id": "5.5",
    "title": "What's due this week?",
    "kind": "run",
-   "status": "passed",
-   "reason": null,
-   "seconds": 4.8,
-   "log": "ch05/5.5.log"
+   "status": "failed",
+   "reason": "output lacks /today\\(\\{\\}\\)/",
+   "seconds": 11.5,
+   "log": "ch05/5.5.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "8a34de430235-modified"
   },
   {
    "id": "5.6",
@@ -55,8 +79,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 4.8,
-   "log": "ch05/5.6.log"
+   "seconds": 11.7,
+   "log": "ch05/5.6.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "8a34de430235-modified"
   },
   {
    "id": "5.7",
@@ -64,8 +90,10 @@
    "kind": "test",
    "status": "passed",
    "reason": null,
-   "seconds": 8.4,
-   "log": "ch05/5.7.log"
+   "seconds": 8.9,
+   "log": "ch05/5.7.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "8a34de430235-modified"
   }
  ]
 }

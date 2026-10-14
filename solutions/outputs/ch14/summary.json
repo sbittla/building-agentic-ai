@@ -1,10 +1,10 @@
 {
  "chapter": "14",
  "title": "Chapter 14: Using Servers You Didn't Write",
- "model": "mixed: see each exercise",
- "date": "2026-10-14 02:45",
+ "model": "none (--free-only)",
+ "date": "2026-10-14 03:37",
  "provenance": {
-  "commit": "7c6fa4c8ad2f-modified",
+  "commit": "8a34de430235-modified",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -15,9 +15,9 @@
    "httpx": "0.28.1",
    "pytest": "9.1.1"
   },
-  "provider": "claude",
-  "model_id": "claude-sonnet-5",
-  "model_label": "claude-sonnet-5 (Claude API)"
+  "provider": "local",
+  "model_id": "qwen3.5:9b",
+  "model_label": "qwen3.5:9b (local, through Ollama)"
  },
  "exercises": [
   {
@@ -44,32 +44,30 @@
    "id": "14.3",
    "title": "Read-only GitHub",
    "kind": "build",
-   "status": "passed",
-   "reason": null,
-   "seconds": 21.9,
-   "log": "ch14/14.3.log",
-   "model": "claude-sonnet-5 (Claude API)",
-   "commit": "7c6fa4c8ad2f-modified"
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
+   "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "14.4",
    "title": "Weekly engineering digest",
    "kind": "build",
-   "status": "passed",
-   "reason": null,
-   "seconds": 29.6,
-   "log": "ch14/14.4.log",
-   "model": "claude-sonnet-5 (Claude API)",
-   "commit": "7c6fa4c8ad2f"
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
+   "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "14.5",
    "title": "Mark untrusted content",
    "kind": "run",
-   "status": "passed",
-   "reason": null,
-   "seconds": 12.1,
-   "log": "ch14/14.5.log",
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
    "model": "qwen3.5:9b (local, through Ollama)"
   }
  ]

@@ -53,6 +53,12 @@ def main():
     for mode in ("prefix", "auto"):
         if base:
             print(f"{mode}: {100 * (base - rows[mode]['cost']) / base:.0f}% cheaper than no caching")
+    if not any(t["cache_write"] for t in rows.values()):
+        # Claude bills a cache write before any cache read; none at all means no prompt cache
+        print("No cache writes in any mode: this model has no prompt caching (the free local "
+              "model reuses its own KV cache, which isn't billed), so the differences above are "
+              "run-to-run variation. On Claude, 'auto' wins: it caches the growing conversation, "
+              "not just the stable prefix.")
     return rows
 
 if __name__ == "__main__":

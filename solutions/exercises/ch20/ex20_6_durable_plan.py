@@ -37,9 +37,12 @@ def main(goal="Which city brings in the most revenue?", crash_after=1):
     if errors := check_plan(plan, sql.TOOLS):
         raise SystemExit(f"plan rejected: {errors}")
     job = d.claim("w1", plan_to_job(goal, plan))
+    print("plan:", [(s["id"], s["do"][:60], s["needs"]) for s in plan["steps"]])
     try:
         d.run_job(job, crash_after=crash_after)
+        print("first run (no crash reached):\n" + d.report(job))
     except d.Crash:
+        print(f"crashed after {crash_after} step(s); another worker resumes:")
         with d._db() as con:
             con.execute("UPDATE jobs SET lease_until=0 WHERE id=?", (job,))
         d.claim("w2", job)

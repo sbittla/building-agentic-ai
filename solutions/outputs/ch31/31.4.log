@@ -1,9 +1,9 @@
 # Exercise: 31.4  How many more runs?
 # Command:  python /tmp/solutions-flat/exercises/ex31_4_runs_needed.py
 # Model:    none (no model needed)
-# Date:     2026-10-08 23:14:43 PDT
+# Date:     2026-10-14 03:41:44 UTC
 # Exit code: 0
-# Seconds:  1.0
+# Seconds:  1.7
 #-------------------------------------------------------------------------------
 37/40 (92.5%): about 83 runs in total, 43 more
 45/50 (90.0%): about 184 runs in total, 134 more

@@ -1,9 +1,9 @@
 # Exercise: 5.7  Move to SQLite
 # Command:  python -m pytest -q -p no:cacheprovider --rootdir /tmp /tmp/solutions-flat/tests/test_ch04_05.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-09-27 19:53:06 UTC
+# Date:     2026-10-14 04:23:02 UTC
 # Exit code: 0
-# Seconds:  8.4
+# Seconds:  8.9
 #-------------------------------------------------------------------------------
 ...........                                                              [100%]
-11 passed in 2.74s
+11 passed in 3.28s

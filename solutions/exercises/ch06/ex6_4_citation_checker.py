@@ -31,9 +31,12 @@ def check_citations(answer: str, root: str = "notes") -> list[dict]:
 
 if __name__ == "__main__":
     import sys
-    text = sys.stdin.read() if not sys.stdin.isatty() else (
-        "Consumer lag spiked to 2.1M messages (work/2026-06-02-incident-kafka-lag.md:2). "
-        "The fix was adding partitions (work/2026-06-02-incident-kafka-lag.md:4). "
-        "Kafka 4.1 removes ZooKeeper (personal/recipes.md:2).")
+    sample = ("Consumer lag spiked to 2.1M messages (work/2026-06-02-incident-kafka-lag.md:2). "
+              "The fix was adding partitions (work/2026-06-02-incident-kafka-lag.md:4). "
+              "Kafka 4.1 removes ZooKeeper (personal/recipes.md:2).")   # the last one is wrong
+    piped = "" if sys.stdin.isatty() else sys.stdin.read()
+    text = piped if "(" in piped and ":" in piped else sample        # no citations piped in
+    if text is sample:
+        print("Checking the sample answer (pipe in your own to check it instead):")
     for row in check_citations(text):
         print(("OK   " if row["ok"] else "BAD  ") + row["citation"], "-", row["why"])

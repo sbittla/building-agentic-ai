@@ -1154,9 +1154,11 @@ def _skip_reason(e, local, free_only):
         return "needs GITHUB_PERSONAL_ACCESS_TOKEN in .env"
     return None
 
-def _run_logged(cmd, cwd, env, limit, setup=None):
+DEFAULT_STDIN = "n\nquit\nquit\n"   # declines every prompt, then leaves any chat loop
+
+def _run_logged(cmd, cwd, env, limit, setup=None, stdin=DEFAULT_STDIN):
     """Run a shell command; returns (combined stdout+stderr, exit code). Every process it
-    starts is killed after `limit` seconds."""
+    starts is killed after `limit` seconds. `stdin` feeds the command (not its setup)."""
     import signal
     out = ""
     for step, timeout in ([(setup, 900)] if setup else []) + [(cmd, limit)]:
@@ -1167,7 +1169,8 @@ def _run_logged(cmd, cwd, env, limit, setup=None):
                                 stderr=subprocess.STDOUT, start_new_session=True,
                                 errors="replace")
         try:
-            text, _ = proc.communicate("n\nquit\nquit\n", timeout=timeout)
+            text, _ = proc.communicate(DEFAULT_STDIN if step is setup else stdin,
+                                       timeout=timeout)
             code = proc.returncode
         except subprocess.TimeoutExpired:
             os.killpg(proc.pid, signal.SIGKILL)
@@ -1177,6 +1180,35 @@ def _run_logged(cmd, cwd, env, limit, setup=None):
         if code != 0 and step is setup:
             return out + f"\n(setup failed with exit code {code})\n", code
     return out, code
+
+RUN_CHECKS = COURSE / "run_checks.json"
+
+def _run_checks():
+    """run-chapter's per-exercise checks (course/run_checks.json): what to run instead of the
+    default command (cmd, setup, stdin, env, service, service_app; "{SOL}" is the flat
+    solutions folder), and what its output must show (expect: regexes that must all match;
+    expect_not: regexes that must not match)."""
+    if not RUN_CHECKS.exists():
+        return {}
+    checks = {k: v for k, v in json.loads(RUN_CHECKS.read_text()).items()
+              if not k.startswith("_")}
+    for c in checks.values():
+        for k in ("cmd", "setup"):
+            if isinstance(c.get(k), str):
+                c[k] = c[k].replace("{SOL}", str(SOLUTIONS))
+    return checks
+
+def _output_problem(out, check):
+    """Why this output doesn't meet the exercise's check, or None if it does."""
+    if not out.strip():
+        return "printed nothing"
+    for pat in check.get("expect", []):
+        if not re.search(pat, out, re.M | re.I):
+            return f"output lacks /{pat}/"
+    for pat in check.get("expect_not", []):
+        if re.search(pat, out, re.M | re.I):
+            return f"output shows /{pat}/"
+    return None
 
 def _write_log(path, e_id, title, cmd, model, code, secs, body):
     stamp = time.strftime("%Y-%m-%d %H:%M:%S %Z")
@@ -1266,7 +1298,8 @@ def _start_service(e, cwd, env):
         env = dict(env, AGENT_API_URL="http://127.0.0.1:8080")
         if not env.get("AGENT_API_KEYS"):
             env["AGENT_API_KEYS"] = secrets.token_urlsafe(24)
-        cmd, port = [sys.executable, "-m", "uvicorn", "ch30_service:app", "--host",
+        cmd, port = [sys.executable, "-m", "uvicorn", e.get("service_app", "ch30_service:app"),
+                     "--host",
                      "127.0.0.1", "--port", "8080"], 8080
     elif e.get("service") == "mcp":
         env = dict(env, MCP_HOST="127.0.0.1", MCP_PORT="8000")
@@ -1371,6 +1404,7 @@ def cmd_run_chapter(args):
     answers = answers.read_text() if answers.exists() else ""
     limit = 1800 if local else 600                  # a local model on a CPU is much slower
     totals = {"passed": 0, "failed": 0, "skipped": 0}
+    checks = _run_checks()
     with _scratch("run-chapter-") as tmp:
         tmp = Path(tmp)
         _fill_scratch(tmp)                                 # the book's code, not your edits
@@ -1405,9 +1439,12 @@ def cmd_run_chapter(args):
                     say(_c("2", f"-  {e['id']:<5} written answer"))
                     entries.append(entry)
                     continue
+                check = checks.get(e["id"], {})
                 why = _skip_reason(e, local, free_only)
                 cmd = None
-                if not why and e["kind"] == "capstone":
+                if not why and check.get("cmd"):         # run_checks.json knows a better run
+                    cmd = check["cmd"]
+                elif not why and e["kind"] == "capstone":
                     cmd = f"{sys.executable} {Path(__file__).resolve()} capstone {k[1:]}"
                 elif not why:
                     cmd, why = _chapter_command(e)
@@ -1419,10 +1456,12 @@ def cmd_run_chapter(args):
                 t = time.time()
                 service = None
                 try:
-                    service, run_env = _start_service(e, tmp, env)
+                    service, run_env = _start_service({**e, **check}, tmp,
+                                                      {**env, **check.get("env", {})})
                     out, code = _run_logged(cmd, tmp, run_env,
                                             limit if need != "none" else 600,
-                                            setup=e.get("setup"))
+                                            setup=check.get("setup", e.get("setup")),
+                                            stdin=check.get("stdin", DEFAULT_STDIN))
                 except Exception as exc:                 # never lose the whole run to one
                     out, code = f"{type(exc).__name__}: {exc}", -1
                 finally:
@@ -1431,9 +1470,11 @@ def cmd_run_chapter(args):
                         service.wait(timeout=10)
                 secs = time.time() - t
                 passed = code == 0 and "Traceback (most recent call last)" not in out
+                problem = _output_problem(out, check) if passed else None
+                passed = passed and not problem
                 shown = f"course capstone {k[1:]}" if e["kind"] == "capstone" else cmd
                 _write_log(log, e["id"], e["title"], shown, ex_model, code, secs, out)
-                if passed and "first, then run this again" in out:   # the learner's own file
+                if passed and out.strip().endswith("first, then run this again."):   # learner's own file
                     entry.update(reason="needs a file you create yourself: " + out.strip(),
                                  log=f"{folder.name}/{log.name}")
                     say(_c("2", f"-  {e['id']:<5} skipped: needs your own file (see its log)"))
@@ -1442,7 +1483,7 @@ def cmd_run_chapter(args):
                 entry["commit"] = run_provenance["commit"]
                 entry.update(status="passed" if passed else "failed", seconds=round(secs, 1),
                              log=f"{folder.name}/{log.name}",
-                             reason=None if passed else
+                             reason=None if passed else problem or
                              (f"exit code {code}" if code else "printed a Traceback"))
                 (ok if passed else fail)(f"{e['id']:<5} {e['title'][:44]:<44} {secs:5.0f} s")
                 entries.append(entry)

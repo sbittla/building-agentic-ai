@@ -1,8 +1,24 @@
 {
  "chapter": "19",
  "title": "Chapter 19: Long-Running Agents",
- "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-09-27 22:22",
+ "model": "none (--free-only)",
+ "date": "2026-10-14 03:38",
+ "provenance": {
+  "commit": "8a34de430235-modified",
+  "python": "3.12.3",
+  "packages_sha256": "ddf39c32b1ca5b67",
+  "packages": {
+   "anthropic": "1.8.0",
+   "mcp": "2.2.0",
+   "claude-agent-sdk": "0.2.159",
+   "langchain": "1.4.2",
+   "httpx": "0.28.1",
+   "pytest": "9.1.1"
+  },
+  "provider": "local",
+  "model_id": "qwen3.5:9b",
+  "model_label": "qwen3.5:9b (local, through Ollama)"
+ },
  "exercises": [
   {
    "id": "19.1",
@@ -11,7 +27,8 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch19/19.1.log"
+   "log": "ch19/19.1.log",
+   "model": "none"
   },
   {
    "id": "19.2",
@@ -20,43 +37,49 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch19/19.2.log"
+   "log": "ch19/19.2.log",
+   "model": "none"
   },
   {
    "id": "19.3",
    "title": "Crash and resume",
    "kind": "run",
-   "status": "passed",
-   "reason": null,
-   "seconds": 6.2,
-   "log": "ch19/19.3.log"
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
+   "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "19.4",
    "title": "Two workers",
    "kind": "build",
-   "status": "passed",
-   "reason": null,
-   "seconds": 0.7,
-   "log": "ch19/19.4.log"
+   "status": "failed",
+   "reason": "output lacks /test_19_4_two_workers PASSED/",
+   "seconds": 7.4,
+   "log": "ch19/19.4.log",
+   "model": "none",
+   "commit": "8a34de430235-modified"
   },
   {
    "id": "19.5",
    "title": "A cost budget per job",
    "kind": "build",
-   "status": "passed",
-   "reason": null,
-   "seconds": 6.4,
-   "log": "ch19/19.5.log"
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
+   "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "19.6",
    "title": "A report that finishes itself",
    "kind": "build",
-   "status": "passed",
-   "reason": null,
-   "seconds": 113.6,
-   "log": "ch19/19.6.log"
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
+   "model": "qwen3.5:9b (local, through Ollama)"
   }
  ]
 }

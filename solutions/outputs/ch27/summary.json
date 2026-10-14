@@ -1,8 +1,24 @@
 {
  "chapter": "27",
  "title": "Chapter 27: Agent Evaluation: Dimensions, Trajectories and Scorecards",
- "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-09-27 23:50",
+ "model": "none (--free-only)",
+ "date": "2026-10-14 03:39",
+ "provenance": {
+  "commit": "8a34de430235-modified",
+  "python": "3.12.3",
+  "packages_sha256": "ddf39c32b1ca5b67",
+  "packages": {
+   "anthropic": "1.8.0",
+   "mcp": "2.2.0",
+   "claude-agent-sdk": "0.2.159",
+   "langchain": "1.4.2",
+   "httpx": "0.28.1",
+   "pytest": "9.1.1"
+  },
+  "provider": "local",
+  "model_id": "qwen3.5:9b",
+  "model_label": "qwen3.5:9b (local, through Ollama)"
+ },
  "exercises": [
   {
    "id": "27.1",
@@ -11,7 +27,8 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch27/27.1.log"
+   "log": "ch27/27.1.log",
+   "model": "none"
   },
   {
    "id": "27.2",
@@ -20,43 +37,48 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch27/27.2.log"
+   "log": "ch27/27.2.log",
+   "model": "none"
   },
   {
    "id": "27.3",
    "title": "Run the SQL suite",
    "kind": "run",
-   "status": "passed",
-   "reason": null,
-   "seconds": 819.7,
-   "log": "ch27/27.3.log"
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
+   "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "27.4",
    "title": "Eval in CI",
    "kind": "build",
-   "status": "passed",
-   "reason": null,
-   "seconds": 792.7,
-   "log": "ch27/27.4.log"
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
+   "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "27.5",
    "title": "Calibrate a judge",
    "kind": "build",
-   "status": "passed",
-   "reason": null,
-   "seconds": 88.4,
-   "log": "ch27/27.5.log"
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
+   "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "27.6",
    "title": "Grade the path",
    "kind": "build",
-   "status": "passed",
-   "reason": null,
-   "seconds": 154.5,
-   "log": "ch27/27.6.log"
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
+   "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "27.7",
@@ -64,17 +86,20 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 1.8,
-   "log": "ch27/27.7.log"
+   "seconds": 1.7,
+   "log": "ch27/27.7.log",
+   "model": "none",
+   "commit": "8a34de430235-modified"
   },
   {
    "id": "27.8",
    "title": "An agent scorecard",
    "kind": "build",
-   "status": "failed",
-   "reason": "exit code 1",
-   "seconds": 182.7,
-   "log": "ch27/27.8.log"
+   "status": "skipped",
+   "reason": "needs a model (--free-only)",
+   "seconds": 0,
+   "log": null,
+   "model": "qwen3.5:9b (local, through Ollama)"
   }
  ]
 }

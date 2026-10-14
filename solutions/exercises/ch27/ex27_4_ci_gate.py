@@ -40,5 +40,18 @@ def gate(path="eval_sql.jsonl", threshold=THRESHOLD, trials=TRIALS, system=sql.S
         print("PASS")
     return 0
 
+BROKEN = "Answer from memory. Never call a tool and never write SQL."   # a bad prompt edit
+
+def demo() -> int:
+    """Show the gate doing its job: the unchanged prompt passes, a broken one fails."""
+    print("=== unchanged prompt ===")
+    ok = gate()
+    print("\n=== deliberately broken prompt ===")
+    broken = gate(trials=1, system=BROKEN)
+    print(f"\nbuild with the unchanged prompt: exit {ok}; with the broken prompt: exit {broken}")
+    return 0 if (ok, broken) == (0, 1) else 1
+
 if __name__ == "__main__":
+    if "--demo" in sys.argv:
+        sys.exit(demo())
     sys.exit(gate(*(sys.argv[1:2] or [])))

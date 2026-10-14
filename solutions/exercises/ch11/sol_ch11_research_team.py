@@ -34,7 +34,10 @@ def brief(sub: dict) -> str:
     return (f"Objective: {sub['objective']}\nOut of scope (a colleague covers it): "
             f"{sub['out_of_scope']}\nEffort: {sub['effort']}")
 
-async def research(question: str, parallel: bool = True, critic: bool = True) -> dict:
+async def research(question: str, parallel: bool = True, critic: bool = True,
+                   plant: str | None = None) -> dict:
+    """plant: a claim to slip into the draft before the critic reads it (exercise 11.5),
+    to check that the critic catches it and the revision removes it."""
     t0 = time.perf_counter()
     plan = await _call(tools=[PLAN_TOOL], tool_choice={"type": "tool", "name": "make_plan"},
                        messages=[{"role": "user", "content": question}])
@@ -48,6 +51,8 @@ async def research(question: str, parallel: bool = True, critic: bool = True) ->
     draft = text_of(await _call(messages=[{"role": "user", "content":
         f"Question: {question}\n\nFindings:\n{report}\n\nWrite a concise answer. Keep every "
         "source citation. Point out disagreements."}]))
+    if plant:
+        draft += "\n\n" + plant
     unsupported = []
     if critic:                                     # exercise 11.5
         review = await _call(tools=[CRITIC_TOOL], tool_choice={"type": "tool", "name": "review"},

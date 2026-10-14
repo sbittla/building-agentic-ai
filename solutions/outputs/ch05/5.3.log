@@ -1,9 +1,24 @@
 # Exercise: 5.3  Run the to-do agent
-# Command:  python ch05_todo_tools.py
+# Command:  python /tmp/solutions-flat/exercises/run5_todo.py restart
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-09-27 19:52:39 UTC
+# Date:     2026-10-14 04:22:19 UTC
 # Exit code: 0
-# Seconds:  5.0
+# Seconds:  18.3
 #-------------------------------------------------------------------------------
-You: Agent: It seems like your message was cut off or didn't contain a complete request. How can I assist you with your to-do list today?
-You:
+
+You: Add 'call the bank' due 2026-11-02 and 'book flights' due 2026-11-20.
+[step 1] add_task({"title": "call the bank", "due": "2026-11-02"}) -> 'Added #1: call the bank'  (8 ms)
+[step 1] add_task({"title": "book flights", "due": "2026-11-20"}) -> 'Added #2: book flights'  (17 ms)
+Agent: Done! I've added two tasks:
+#1 call the bank due 2026-11-02
+#2 book flights due 2026-11-20
+
+---- restart: a new session with an empty history ----
+
+You: What's on my to-do list?
+[step 1] list_tasks({}) -> '#1 [ ] call the bank (due 2026-11-02, normal)\n#2 [ ] book flights (due 2026-11-2'  (10 ms)
+Agent: Your to-do list currently has:
+1. Call the bank (due 2026-11-02, normal priority)
+2. Book flights (due 2026-11-20, normal priority)
+
+tasks.json after the restart: ['call the bank', 'book flights']

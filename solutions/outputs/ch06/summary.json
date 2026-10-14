@@ -2,7 +2,23 @@
  "chapter": "6",
  "title": "Chapter 6: Agentic Search: Exploring an Environment",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-09-27 19:57",
+ "date": "2026-10-14 04:37",
+ "provenance": {
+  "commit": "8a34de430235-modified",
+  "python": "3.12.3",
+  "packages_sha256": "ddf39c32b1ca5b67",
+  "packages": {
+   "anthropic": "1.8.0",
+   "mcp": "2.2.0",
+   "claude-agent-sdk": "0.2.159",
+   "langchain": "1.4.2",
+   "httpx": "0.28.1",
+   "pytest": "9.1.1"
+  },
+  "provider": "local",
+  "model_id": "qwen3.5:9b",
+  "model_label": "qwen3.5:9b (local, through Ollama)"
+ },
  "exercises": [
   {
    "id": "6.1",
@@ -11,16 +27,19 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch06/6.1.log"
+   "log": "ch06/6.1.log",
+   "model": "none"
   },
   {
    "id": "6.2",
    "title": "Ask your notes",
    "kind": "ask",
-   "status": "skipped",
-   "reason": "an ask exercise: nothing to run against a model",
-   "seconds": 0,
-   "log": null
+   "status": "failed",
+   "reason": "output lacks /answers with citations: [4-5] of 5/",
+   "seconds": 59.1,
+   "log": "ch06/6.2.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "8a34de430235-modified"
   },
   {
    "id": "6.3",
@@ -28,8 +47,10 @@
    "kind": "test",
    "status": "passed",
    "reason": null,
-   "seconds": 5.8,
-   "log": "ch06/6.3.log"
+   "seconds": 5.6,
+   "log": "ch06/6.3.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "8a34de430235-modified"
   },
   {
    "id": "6.4",
@@ -37,8 +58,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 0.0,
-   "log": "ch06/6.4.log"
+   "seconds": 0.1,
+   "log": "ch06/6.4.log",
+   "model": "none",
+   "commit": "8a34de430235-modified"
   },
   {
    "id": "6.5",
@@ -46,8 +69,10 @@
    "kind": "ask",
    "status": "passed",
    "reason": null,
-   "seconds": 12.3,
-   "log": "ch06/6.5.log"
+   "seconds": 19.4,
+   "log": "ch06/6.5.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "8a34de430235-modified"
   },
   {
    "id": "6.6",
@@ -55,8 +80,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 226.2,
-   "log": "ch06/6.6.log"
+   "seconds": 750.3,
+   "log": "ch06/6.6.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "8a34de430235-modified"
   }
  ]
 }

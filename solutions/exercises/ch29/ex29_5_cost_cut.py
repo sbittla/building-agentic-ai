@@ -30,6 +30,21 @@ def main(trials: int = 2):
     before = run(cases)
     after = run(cases, route=by_rules, cache=True)
     print("before:", before, "\nafter: ", after)
+    for label, r in (("before", before), ("after", after)):
+        lo, hi = r["ci95"]
+        cps = r["cost_per_success"]
+        print(f"{label:<7} pass rate {r['pass_rate']:.0%} (95% CI {lo:.0%}-{hi:.0%}), "
+              f"cost per success {'n/a' if cps is None else f'${cps:.4f}'}")
+    overlap = after["ci95"][1] >= before["ci95"][0] and before["ci95"][1] >= after["ci95"][0]
+    if not before["cost_per_success"] and not after["cost_per_success"]:
+        print("Recommendation: can't decide on cost here: this model is free (the local "
+              "model), so cost per success is $0 either way. Run on Claude to price the levers.")
+    elif after["cost_per_success"] < before["cost_per_success"] and (
+            after["pass_rate"] >= before["pass_rate"] or overlap):
+        print("Recommendation: ship it: cheaper per success, and the pass rate didn't drop "
+              "by more than the intervals can tell apart.")
+    else:
+        print("Recommendation: don't ship yet: the saving costs too much quality.")
     return before, after
 
 if __name__ == "__main__":

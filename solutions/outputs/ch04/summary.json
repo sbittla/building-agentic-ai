@@ -2,7 +2,23 @@
  "chapter": "4",
  "title": "Chapter 4: The Agent Loop",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-09-27 19:52",
+ "date": "2026-10-14 04:21",
+ "provenance": {
+  "commit": "8a34de430235-modified",
+  "python": "3.12.3",
+  "packages_sha256": "ddf39c32b1ca5b67",
+  "packages": {
+   "anthropic": "1.8.0",
+   "mcp": "2.2.0",
+   "claude-agent-sdk": "0.2.159",
+   "langchain": "1.4.2",
+   "httpx": "0.28.1",
+   "pytest": "9.1.1"
+  },
+  "provider": "local",
+  "model_id": "qwen3.5:9b",
+  "model_label": "qwen3.5:9b (local, through Ollama)"
+ },
  "exercises": [
   {
    "id": "4.1",
@@ -11,7 +27,8 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch04/4.1.log"
+   "log": "ch04/4.1.log",
+   "model": "none"
   },
   {
    "id": "4.2",
@@ -19,8 +36,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 15.0,
-   "log": "ch04/4.2.log"
+   "seconds": 17.0,
+   "log": "ch04/4.2.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "8a34de430235-modified"
   },
   {
    "id": "4.3",
@@ -28,8 +47,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 9.4,
-   "log": "ch04/4.3.log"
+   "seconds": 12.6,
+   "log": "ch04/4.3.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "8a34de430235-modified"
   },
   {
    "id": "4.4",
@@ -37,8 +58,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 10.9,
-   "log": "ch04/4.4.log"
+   "seconds": 8.2,
+   "log": "ch04/4.4.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "8a34de430235-modified"
   },
   {
    "id": "4.5",
@@ -46,8 +69,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 352.2,
-   "log": "ch04/4.5.log"
+   "seconds": 354.6,
+   "log": "ch04/4.5.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "8a34de430235-modified"
   }
  ]
 }
