@@ -123,13 +123,21 @@ This ledger records every claim in the book that can go stale: API, model, price
 | `25.md:181`, 25.9 OWASP table | ASI01–ASI10 names | https://www.giskard.ai/knowledge/owasp-top-10-for-agentic-application-2026 (secondary; the OWASP page has the PDF) | 2026 list | Verified. The book shortens some names ("Tool misuse" for "Tool Misuse and Exploitation", "Agentic supply chain" for "... Vulnerabilities"). This is acceptable. | author / closed |
 | `25.md:192`, 25.9 | NSA's "Model Context Protocol (MCP): Security Design Considerations for AI-Driven Automation", May 2026 | https://www.nsa.gov/Press-Room/Press-Releases-Statements/Press-Release-View/Article/4496698/ | CSI released May 20, 2026 | Verified | author / closed |
 
+## Model behavior (Chapters 3 and 4)
+
+| Location (file:line, section) | Claim | Source | Version tested | Result | Owner/status |
+| --- | --- | --- | --- | --- | --- |
+| `03.md`, 3.3 Controlling the choice | The newest models reject `tool_choice` of `any` or a named tool with a 400; Claude Sonnet 5 still accepts them; prefill returns a 400 | Claude API model reference (claude-api skill, models cached 2026-10-06) | Opus 5.5, Sonnet 5.5, Fable 5.1, Mythos 5.1, Sonnet 5 | Corrected for RC3: Claude Sonnet 5.5 added to the list of models that reject forced tools. Mythos 5.1 exists (Project Glasswing access only). | editor / closed |
+| `04.md`, 4.8 Thinking and effort | Thinking can be disabled on Sonnet 5 but not on the newest models; `budget_tokens` returns a 400; effort levels low to max; default `high` | Same | Same | Corrected for RC3: Claude Sonnet 5.5 added (it turns thinking off only with `between_tools`); the default effort is `high` on Sonnet 5 but `medium` on Opus 5.5, now stated. | editor / closed |
+| `16.md`, 16.7 and 16.8 | Minimum cacheable prefix; mid-conversation `system` messages keep the cached prefix on current models | Claude API reference (claude-api skill, cached 2026-10-06) | Sonnet 5, Opus 5.5, Sonnet 5.5 | Corrected for RC3: the minimum is 512 to 4,096 tokens (was 1,024 to 4,096); mid-conversation system messages work on the newest models but not on Claude Sonnet 5, now stated. | editor / closed |
+
 ## Summary
 
 | Result | Rows |
 | --- | ---: |
 | Verified | 70 |
-| Corrected | 2 |
+| Corrected | 5 |
 | Needs correction | 0 |
 | Softened | 8 |
 | Unresolved | 0 |
-| **Total** | **80** |
+| **Total** | **83** |

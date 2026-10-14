@@ -1,0 +1,4 @@
+%%{init: {"flowchart": {"rankSpacing": 16, "nodeSpacing": 14}}}%%
+flowchart LR
+  A["<b>Call 1 sends</b><br/>system, tools<br/>question"] --> B["<b>Call 2 sends</b><br/>system, tools<br/>question<br/>tool_use 1, result 1"]
+  B --> C["<b>Call 3 sends</b><br/>system, tools<br/>question<br/>tool_use 1, result 1<br/>tool_use 2, result 2"]

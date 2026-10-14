@@ -1,0 +1,7 @@
+%%{init: {"flowchart": {"rankSpacing": 20, "nodeSpacing": 16}}}%%
+flowchart LR
+  A["Model writes:<br/>WITH x AS (SELECT 1)<br/>DELETE FROM orders"] --> B{"Statement check:<br/>starts with<br/>SELECT or WITH?"}
+  B -->|"yes: passes"| C{"Read-only<br/>connection<br/>(mode=ro)"}
+  B -->|no| X["ERROR: only SELECT<br/>queries are allowed"]
+  C -->|"a write"| Y["ERROR: attempt to write<br/>a readonly database"]
+  C -->|"a read"| D["Rows, at most 50"]

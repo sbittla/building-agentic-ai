@@ -1,4 +1,5 @@
 """Capstone 2: natural-language data analyst with table confirmation."""
+import os
 import re
 import sys
 from pathlib import Path
@@ -22,7 +23,9 @@ class TableConfirmation:
         self.approved, self.ask = set(), ask
 
     def __call__(self, name, args):
-        tables = set(re.findall(r"\b(?:from|join)\s+(\w+)", args.get("sql", ""), re.I))
+        sql = args.get("sql", "")
+        ctes = set(re.findall(r"(?:with|,)\s*(\w+)\s+as\s*\(", sql, re.I))   # names the query defines
+        tables = set(re.findall(r"\b(?:from|join)\s+(\w+)", sql, re.I)) - ctes
         new = tables - self.approved
         if not new:
             return True
@@ -31,6 +34,13 @@ class TableConfirmation:
             self.approved |= tables
         return ok
 
+def unattended(prompt: str) -> str:
+    """For automated runs (CAPSTONE_AUTO_APPROVE=1 and no terminal): say yes, visibly, so
+    the approval prompt never reads the next question from stdin as its answer."""
+    print(prompt + "y  (auto-approved: CAPSTONE_AUTO_APPROVE)")
+    return "y"
+
 if __name__ == "__main__":
-    confirm = TableConfirmation()
+    auto = os.environ.get("CAPSTONE_AUTO_APPROVE") == "1" and not sys.stdin.isatty()
+    confirm = TableConfirmation(ask=unattended if auto else input)
     chat(CONFIG, SYSTEM, RULES, approver=confirm)

@@ -243,7 +243,7 @@
   "chapter": "Interlude: Testing with pytest",
   "task": "Run `test_i_pricing.py`. Then change `apply_discount` to `amount * (1 - percent)` (a real bug from Chapter 10) and run the tests again.",
   "hint": null,
-  "done_when": "You've seen the tests pass, then fail with a message showing `-1800 != 180`, then pass again after you undo the change.",
+  "done_when": "You've seen the tests pass, then fail with `assert -1800 == 180`, then pass again after you undo the change.",
   "kind": "run",
   "cmd": "python -m pytest -q test_i_pricing.py",
   "edit": [
@@ -437,8 +437,8 @@
   "level": "Medium",
   "title": "Tool search at scale",
   "chapter": "Chapter 3: Tool Selection, Routing and Tool Search",
-  "task": "Run `ch03_tool_search.py`, then write 10 questions that each need a different tool from `ALL_TOOLS`. For each, use `choose` to record which searches the model made, whether it picked the right tool, and the input tokens of the call. Then run the same questions with every tool loaded (no `defer_loading`) and compare.",
-  "hint": "`choose` returns the tool's name and arguments, the searches and the input tokens; pass it `ALL_TOOLS` itself for the \"every tool loaded\" setup.",
+  "task": "Run `ch03_tool_search.py`, then write 10 questions that each need a different tool from `ALL_TOOLS`. For each, record which searches the model made, whether it called the right tool within a few steps, and the input tokens of the first call. Then run the same questions with every tool loaded (no `defer_loading`) and compare.",
+  "hint": "Score a short loop, not one call: \"tomorrow\" needs today's date first, and a careful model checks an order before cancelling it. Keep the everyday tools (date, calculator, units) loaded, as section 3.6 advises; deferred, the model answers small sums from memory instead of searching. Pass `ALL_TOOLS` itself for the \"every tool loaded\" setup.",
   "done_when": "You have a table of accuracy and input tokens for both setups, and a sentence on when you'd switch tool search on.",
   "kind": "run",
   "cmd": "python ch03_tool_search.py"

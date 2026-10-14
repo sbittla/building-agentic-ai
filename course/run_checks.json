@@ -247,7 +247,7 @@
  "X.2": {"expect": ["\\(b\\) customers who never cancelled: \\d+"]},
 
  "C1": {"stdin": "How long do I have to return something?\nWhere is my order A2001?\nWhat have I ordered from you?\nquit\n", "expect": ["helpdesk__search_articles|30 days", "Headphones", "A2001"]},
- "C2": {"stdin": "Which product category earns the most revenue?\nMake a bar chart of revenue by product category.\nquit\n", "expect": ["warehouse__run_query", "electronics", "charts__make_chart"]},
+ "C2": {"stdin": "Which product category earns the most revenue?\nMake a bar chart of revenue by product category.\nquit\n", "expect": ["warehouse__run_query", "electronics", "charts__make_chart"], "env": {"CAPSTONE_AUTO_APPROVE": "1"}},
  "C3": {"expect": ["\"suspect_commit\": \"[0-9a-f]+\"", "fraud"]},
  "C4": {"expect": ["pr-1 \\{", "pr-2 \\{\\s+\"verdict\": \"approve\"", "pr-3 \\{\\s+\"verdict\": \"request_changes\""]},
  "C5": {"expect": ["saved to research_brief.md", "## Sources"]},

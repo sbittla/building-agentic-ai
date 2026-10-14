@@ -236,7 +236,8 @@
   "model": "none"
  },
  "9.3": {
-  "model": "any"
+  "model": "any",
+  "note": "On qwen3.5:9b the agent may ask in prose instead of calling apply_plan; reply \"go ahead\" so the approval prompt appears, then decline it."
  },
  "9.4": {
   "model": "any"
@@ -455,7 +456,7 @@
  },
  "24.4": {
   "model": "claude-rec",
-  "note": "The Agent SDK drives the Claude Code CLI; qwen3.5:9b runs it but often stalls or skips steps."
+  "note": "The Agent SDK drives the Claude Code CLI; qwen3.5:9b runs it but often stalls or skips steps. Make a denial final in its message, or a small model retries the same call."
  },
  "24.5": {
   "model": "claude-rec",
@@ -546,10 +547,12 @@
   "model": "none"
  },
  "20.4": {
-  "model": "any"
+  "model": "any",
+  "note": "On qwen3.5:9b requests queue one at a time, so the independent steps start together but take about as long as sequential ones; Claude shows the saving."
  },
  "20.5": {
-  "model": "any"
+  "model": "any",
+  "note": "On qwen3.5:9b the small and large models are the same model, so compare the routers' decisions, not which model ran (the solution shows how)."
  },
  "20.6": {
   "model": "any"

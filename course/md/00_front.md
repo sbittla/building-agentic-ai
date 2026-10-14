@@ -37,7 +37,7 @@ Table: What you build in each part
 | Case study | — | One release of the support agent, incident and rollback included | How the pieces fit |
 | Capstones | — | Seven end-to-end projects, the last a customer engagement | Prove it on your own build |
 
-Each part ends with a **checkpoint** listing what you should now be able to do. If two items feel shaky, redo the exercises it points to. For a finer check, `CHAPTER_OUTCOMES.md` in the course kit lists every chapter's outcomes, each tied to an exercise or a section.
+Each part ends with a **checkpoint** listing what you should now be able to do. If two or more feel shaky, redo the exercises they point to. For a finer check, `CHAPTER_OUTCOMES.md` in the course kit lists every chapter's outcomes, each tied to an exercise or a section.
 
 ## Reading paths
 
@@ -123,7 +123,7 @@ The `main` branch moves as the kit is updated; the tag never does. Then run:
 ./course.sh check --api    # confirms the model answers, with one tiny call
 ```
 
-On Windows, use `.\course.cmd` wherever this book shows `./course.sh`. With the free local model, run `./course.sh local up` before `check --api`; the first run downloads about 6.6 GB. Setup also creates a **workspace** folder with the chapter code and sample data. Edit there with any editor; the container sees changes immediately. If a command fails, see Appendix A.
+On Windows, use `.\course.cmd` wherever this book shows `./course.sh`. With the free local model, run `./course.sh local up` before `check --api` (add `--gpu` if you have an NVIDIA GPU; without it the model runs on the CPU); the first run downloads about 6.6 GB. Setup also creates a **workspace** folder with the chapter code and sample data. Edit there with any editor; the container sees changes immediately. If a command fails, see Appendix A.
 
 ## Your first agent, free
 
@@ -159,7 +159,7 @@ Table: Claude or the free local model
 | Speed | Seconds per answer | Seconds with a GPU; a minute or more on a CPU |
 | Quality | Rarely picks the wrong tool | Good for learning; more mistakes from Chapter 8 on |
 | Runs | Every exercise | All except the {{exercises:claude-only}} marked **Claude only** |
-| Turn on | `PROVIDER=claude` in `.env` (or no `PROVIDER` line) | `./course.sh local up`, then `PROVIDER=local` in `.env` |
+| Turn on | `PROVIDER=claude` in `.env` (or no `PROVIDER` line) | `./course.sh local up` (`--gpu` for an NVIDIA GPU), then `PROVIDER=local` in `.env` |
 
 **Why your results may differ from the book's.** Answers vary between runs, and more between models, so each *Done when* line checks behavior (the right tool, a refused action, a correct number) rather than exact text. To change the Claude model, set `MODEL=...` in `.env`; current names are at platform.claude.com/docs/en/models/overview.
 
@@ -169,7 +169,7 @@ On a tight budget, do the book on the local model and add a few dollars of Claud
 
 Every chapter opens with what you'll build, where it sits in the architecture (section 1.7), its **Prerequisites** and **Learning objectives**, and a production system using the same pattern (**In the real world**). Numbered **lessons** follow with runnable code; a listing marked *excerpt* shows the parts that teach. **Common mistakes**, **Key takeaways** and **Learn more** close the chapter. Each Learn more table lists the two or three best places to start; `RESOURCES.md` in the course kit has every link, including the deeper reading, ready to click. Then come the exercises, the part's checkpoint where there is one, and a short **Up next** that sets up the following chapter.
 
-Exercises come in three kinds, and the kit treats each differently. A **written-answer** exercise (level Concept) has nothing to run: you write your answer, then compare it with `./course.sh solution <id>`. An **executable** exercise gives you a starter file and, for many, an automatic check. A **model-dependent** exercise also calls a model, so its output varies from run to run; its *Done when* line checks behavior (the right tool, a refused action, a correct number), not exact wording.
+Exercises come in three kinds, and the kit treats each differently. A **written-answer** exercise (level Concept) has nothing to run: you write your answer, then compare it with `./course.sh solution <id>`. An **executable** exercise gives you a starter file and, for many, an automatic check. A **model-dependent** exercise also calls a model, so its output varies from run to run, which is why its *Done when* line checks behavior.
 
 **Exercises** come at four levels: **Concept** (no code), **Simple** (a small change to the chapter's code), **Medium** (a new feature with a design decision) and **Complex** (an open-ended build with measurements). Each has a measurable **Done when** line. Exercises are numbered in the order the chapter teaches their topics, not by difficulty, so use the level label to choose: Simple and Medium first, Complex when you want a project. Run one with `./course.sh ex <id>` (a build exercise's first run creates a starter file in `workspace/exercises`), check it with `./course.sh check <id>` where a checker exists, and print the reference solution with `./course.sh solution <id>`. `./course.sh list 4` lists Chapter 4's exercises. Each box also names the model it needs:
 
@@ -212,7 +212,7 @@ The read-only `solutions` folder holds a worked solution for every exercise and 
 An agent makes many model calls per question, and with Claude each one costs money. On Claude Sonnet 5, the whole book costs about **{{cost:learner}}**, counting reruns ({{cost:first}} for one clean pass); Appendix E breaks this down. The local model (Appendix H) costs nothing but time. To keep costs down:
 
 - Set a monthly spending limit in the Claude Console before you start.
-- Develop on a cheaper model (`MODEL=claude-haiku-4-5` in `.env`) and evaluate on a larger one.
+- Develop on a cheaper model (`MODEL=claude-haiku-4-5` in `.env`, with no `EFFORT` line: Haiku 4.5 rejects it) and evaluate on a larger one.
 - Always keep the `max_iterations` cap from Chapter 4.
 - Don't give an agent write access to anything you care about until Chapter 9's approval gates.
 

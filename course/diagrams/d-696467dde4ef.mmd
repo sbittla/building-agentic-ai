@@ -1,0 +1,16 @@
+%%{init: {"flowchart": {"rankSpacing": 26, "nodeSpacing": 18}}}%%
+flowchart LR
+  subgraph PC["Your computer"]
+    direction TB
+    K["./course.sh ex 4.2"]
+    W["workspace folder<br/>(your files)"]
+    E[".env<br/>(your key)"]
+  end
+  subgraph C["Container from the kit's image"]
+    direction TB
+    R["Python runs<br/>exercise 4.2"]
+    V["/workspace"]
+  end
+  K -->|starts, then removes| C
+  W <-->|"volume: the same files"| V
+  E -->|environment variables| R

@@ -43,12 +43,12 @@ This file is rewritten after every run.
 | [28](ch28/) | Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents | 7 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-14 08:16 |
 | [29](ch29/) | Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost | 7 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-14 15:38 |
 | [30](ch30/) | Chapter 30: Deploying Agents: From One Service to an Agent Platform | 10 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 15:36 |
-| [31](ch31/) | Chapter 31: From Prototype to Customer Production | 3 | 0 | 2 | 1 | none (--free-only) | 2026-10-14 03:41 |
+| [31](ch31/) | Chapter 31: From Prototype to Customer Production | 4 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-14 23:01 |
 | [X](X/) | Extra Practice (course kit) | 2 | 0 | 1 | 1 | none (--free-only) | 2026-10-14 03:41 |
-| [C1](C1/) | Capstone 1 | 0 | 0 | 1 | 0 | none (--free-only) | 2026-10-14 03:41 |
-| [C2](C2/) | Capstone 2 | 0 | 0 | 1 | 0 | none (--free-only) | 2026-10-14 03:41 |
-| [C3](C3/) | Capstone 3 | 0 | 0 | 1 | 0 | none (--free-only) | 2026-10-14 03:41 |
-| [C4](C4/) | Capstone 4 | 0 | 0 | 1 | 0 | none (--free-only) | 2026-10-14 03:41 |
-| [C5](C5/) | Capstone 5 | 0 | 0 | 1 | 0 | none (--free-only) | 2026-10-14 03:41 |
-| [C6](C6/) | Capstone 6 | 0 | 0 | 1 | 0 | none (--free-only) | 2026-10-14 03:41 |
+| [C1](C1/) | Capstone 1 | 1 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-14 22:49 |
+| [C2](C2/) | Capstone 2 | 1 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-14 23:03 |
+| [C3](C3/) | Capstone 3 | 1 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-14 22:53 |
+| [C4](C4/) | Capstone 4 | 1 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-14 23:05 |
+| [C5](C5/) | Capstone 5 | 1 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-14 23:00 |
+| [C6](C6/) | Capstone 6 | 1 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-14 23:01 |
 | [C7](C7/) | Capstone 7 | 1 | 0 | 0 | 0 | none (--free-only) | 2026-10-14 03:41 |
