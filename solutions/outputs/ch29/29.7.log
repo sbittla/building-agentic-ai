@@ -1,9 +1,9 @@
 # Exercise: 29.7  Benchmark before you choose
 # Command:  python /tmp/solutions-flat/exercises/ex29_7_crossover.py
 # Model:    none (no model needed)
-# Date:     2026-10-14 03:41:24 UTC
+# Date:     2026-10-14 08:24:19 UTC
 # Exit code: 0
-# Seconds:  19.2
+# Seconds:  16.8
 #-------------------------------------------------------------------------------
 small model's wrong-SQL rate | small: success, $/success | large: success, $/success
                          10% |     93%, $0.0017 |     98%, $0.0032

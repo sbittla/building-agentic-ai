@@ -15,6 +15,12 @@ SOLUTIONS = HERE.parent
 CODE = Path(os.environ.get("COURSE_CODE", "/opt/course/code"))
 DATA = Path(os.environ.get("COURSE_DATA", "/opt/course/data"))
 
+# The scripted stand-in replays exact requests, priced as the default models. Your model
+# choice and tuning (a local MODEL is free, so no budget ever trips; EFFORT adds an
+# output_config to every call) would change them, so the tests run without them.
+for _var in ("EFFORT", "MODEL", "SMALL_MODEL", "JUDGE_MODEL"):
+    os.environ.pop(_var, None)
+
 def copy_code_flat(src, dst):
     """The course code is organised into chapter folders (ch02/, interlude_sql/, ...),
     but the tests import every module by its bare name. Copy it flat into dst; real

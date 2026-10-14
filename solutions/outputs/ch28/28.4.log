@@ -1,9 +1,9 @@
 # Exercise: 28.4  A new failure class
-# Command:  python /tmp/solutions-flat/exercises/ex28_4_ignored_error.py && python -m pytest -q -p no:cacheprovider --rootdir /tmp /tmp/solutions-flat/tests/test_part9.py -k test_28_4 -v
+# Command:  python /tmp/solutions-flat/exercises/ex28_4_ignored_error.py && python -m pytest -p no:cacheprovider --rootdir /tmp /tmp/solutions-flat/tests/test_part9.py -k test_28_4 -v
 # Model:    none (no model needed)
-# Date:     2026-10-14 03:39:35 UTC
+# Date:     2026-10-14 08:16:34 UTC
 # Exit code: 0
-# Seconds:  10.0
+# Seconds:  7.6
 #-------------------------------------------------------------------------------
 error never retried      -> ignored_error
 error, then retried OK   -> ok
@@ -11,11 +11,11 @@ same error three times   -> tool_loop
 no errors                -> ok
 classes in order: ['ok', 'wrong_answer', 'refusal', 'cut_off', 'step_limit', 'ignored_error', 'tool_loop', 'tool_errors', 'too_slow']
 ============================= test session starts ==============================
-platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0 -- /opt/venv/bin/python
 rootdir: /tmp
 plugins: anyio-4.15.1, langsmith-0.14.0
-collected 11 items / 10 deselected / 1 selected
+collecting ... collected 11 items / 10 deselected / 1 selected
 
-../../../../tmp/solutions-flat/tests/test_part9.py .                     [100%]
+../../../../tmp/solutions-flat/tests/test_part9.py::test_28_4_ignored_error PASSED [100%]
 
-======================= 1 passed, 10 deselected in 0.06s =======================
+======================= 1 passed, 10 deselected in 0.08s =======================

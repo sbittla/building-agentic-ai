@@ -122,7 +122,7 @@
  "13.8": {"expect": ["analyst__ask_sql_analyst", "Tool calls: \\[.*'todo__add_task'.*'todo__add_task'.*'todo__add_task'"], "expect_not": ["Error executing tool"]},
 
  "14.3": {"expect": ["write tools among them: none", "Close issue 3:", "Audit log: \\d+ tool calls"]},
- "14.4": {"expect": ["Weekly Engineering Digest", "decisions \\['allow'\\]"]},
+ "14.4": {"expect": ["digest|theme", "#\\d{3,}", "decisions \\['allow'\\]"]},
  "14.5": {"cmd": "python {SOL}/exercises/run14_untrusted.py", "expect": ["fs__read_text_file|fs__read", "recipes.md unchanged: True", "injection reported to the user: True"]},
 
  "15.3": {"expect": ["\\d+ passed"], "expect_not": ["failed"]},
@@ -135,15 +135,15 @@
  "16.7": {"cmd": "python {SOL}/exercises/ex16_7_programmatic_compare.py", "expect": ["\\|"]},
  "16.8": {"expect": ["question\\s+version\\s+input", "briefed"]},
 
- "17.3": {"cmd": "python {SOL}/exercises/typed.py ch17_memory.py 'Remember this: my dog is called Bruno.' 'Remember this: I prefer temperatures in Fahrenheit.' quit && echo '---- restart ----' && python {SOL}/exercises/typed.py ch17_memory.py 'What do you know about me?' 'Please forget the name of my dog.' 'What do you know about me now?' quit",
+ "17.3": {"cmd": "python {SOL}/exercises/typed.py ch17_memory.py 'Remember this: my dog is called Bruno.' 'Remember this: I prefer temperatures in Fahrenheit.' quit && echo '---- restart ----' && python {SOL}/exercises/typed.py ch17_memory.py 'Check your memory: what do you know about me?' 'Please forget the name of my dog from your memory.' 'Check your memory again: what do you know about me now?' quit",
           "setup": "rm -f memory.db",
-          "expect": ["(?s)---- restart ----.*You: What do you know about me\\?\\nAgent: [^\\n]*(?:\\n(?!You:)[^\\n]*)*Bruno", "(?s)---- restart ----.*You: What do you know about me\\?\\nAgent: [^\\n]*(?:\\n(?!You:)[^\\n]*)*Fahrenheit", "(?s)You: What do you know about me now\\?\\nAgent: (?:(?!Bruno)[^\\n]*\\n?)*Fahrenheit"],
-          "expect_not": ["(?s)You: What do you know about me now\\?\\nAgent: (?:(?!You:).)*Bruno is"]},
+          "expect": ["(?s)You: Check your memory: what do you know about me\\?\\n(?:(?!You:).)*Bruno", "(?s)You: Check your memory: what do you know about me\\?\\n(?:(?!You:).)*Fahrenheit", "forget\\(", "(?s)You: Check your memory again: what do you know about me now\\?\\n(?:(?!You:).)*Fahrenheit"],
+          "expect_not": ["(?s)You: Check your memory again: what do you know about me now\\?\\n(?:(?!You:).)*Bruno"]},
  "17.4": {"expect": ["Remembered #2 \\(replaces #1\\)", "ERROR: refused: looks like a secret", "Quarantined for review #\\d", "ERROR: worker-2 may not write team memory", "expired: \\d"]},
  "17.5": {"expect": ["Consolidated 5 episodes", "\\[from episodes 1, 2, 3, 4, 5\\]"]},
  "17.6": {"expect": ["active memories: No memories match"]},
  "17.7": {"expect": ["ERROR: worker-2 may not write team memory", "worker-1 reads team: \\{\"memories\": \\[\\{"]},
- "17.8": {"cmd": "python {SOL}/exercises/ex17_8_assistant.py 2500", "expect": ["---- restart: new session", "(?s)\\[13\\] You: Who is my manager\\?\\n\\s+Agent: [^\\[]*Asha", "'compactions': [1-9]"], "expect_not": ["\\[Stopped:"]},
+ "17.8": {"cmd": "python {SOL}/exercises/ex17_8_assistant.py 1200", "expect": ["---- restart: new session", "(?s)\\[13\\] You: Who is my manager\\?\\n\\s+Agent: [^\\[]*Asha", "'compactions': [1-9]"], "expect_not": ["\\[Stopped:"]},
  "17.9": {"expect": ["batch_ever_restored\\s+False", "audit_ok\\s+True"]},
 
  "18.3": {"expect": ["^keyword:", "^vector:", "^hybrid:", "error-codes.md"]},

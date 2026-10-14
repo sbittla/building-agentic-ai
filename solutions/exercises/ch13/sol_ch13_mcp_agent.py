@@ -1,4 +1,5 @@
 """Chapter 13 reference solution: 13.5 (resources at start-up) and 13.7 (resilience)."""
+import asyncio
 import os
 import sys
 from contextlib import AsyncExitStack
@@ -11,30 +12,49 @@ from ch13_mcp_agent import SEP
 RESOURCE_BUDGET = 4000        # characters of resources added to the system prompt
 
 class ResilientHub(base.MCPHub):
-    """One AsyncExitStack PER SERVER, so one server can be restarted on its own."""
+    """Each server's connection lives in its OWN task, so one server can die and be
+    restarted on its own. (A connection opened in the caller's task would, when its
+    server dies, cancel the caller too, including the code trying to reconnect.)"""
 
     async def __aenter__(self):
-        self.stacks = {}
+        self.owners = {}                    # name -> (task, stop event)
         for name in self.config["servers"]:
             await self._connect(name)
         return self
 
     async def __aexit__(self, *exc):
-        for stack in self.stacks.values():
-            try:
-                await stack.aclose()
-            except Exception:
-                pass
+        for name in list(self.owners):
+            await self._disconnect(name)
 
-    async def _connect(self, name):
+    async def _own(self, name, ready: asyncio.Future, stop: asyncio.Event):
+        """The owner task: open the connection, hand the client over, hold it open."""
         spec = self.config["servers"][name]
-        stack = AsyncExitStack()
-        await stack.__aenter__()
         params = StdioServerParameters(command=spec["command"], args=spec.get("args", []),
                                        env=base.server_env(spec))
-        errlog = stack.enter_context(open(spec["log"], "a")) if spec.get("log") else sys.stderr
-        client = await stack.enter_async_context(Client(stdio_client(params, errlog=errlog)))
-        self.stacks[name], self.clients[name] = stack, client
+        try:
+            async with AsyncExitStack() as stack:
+                errlog = (stack.enter_context(open(spec["log"], "a")) if spec.get("log")
+                          else sys.stderr)
+                client = await stack.enter_async_context(
+                    Client(stdio_client(params, errlog=errlog)))
+                ready.set_result(client)
+                await stop.wait()
+        except BaseException as exc:        # the server died: only this task ends
+            if not ready.done():
+                ready.set_exception(RuntimeError(f"server '{name}' failed to start: {exc!r}"))
+
+    async def _disconnect(self, name):
+        task, stop = self.owners.pop(name, (None, None))
+        if task:
+            stop.set()
+            await asyncio.gather(task, return_exceptions=True)
+
+    async def _connect(self, name):
+        await self._disconnect(name)
+        ready, stop = asyncio.get_running_loop().create_future(), asyncio.Event()
+        self.owners[name] = (asyncio.create_task(self._own(name, ready, stop)), stop)
+        client = await ready
+        self.clients[name] = client
         self.tools = [t for t in self.tools if not t["name"].startswith(name + SEP)]
         for tool in (await client.list_tools()).tools:
             self.tools.append({"name": f"{name}{SEP}{tool.name}",
@@ -55,10 +75,6 @@ class ResilientHub(base.MCPHub):
                 if attempt == 2:
                     return f"ERROR: server '{server}' failed after a restart: {exc}", True
                 print(f"[hub] {server} failed ({type(exc).__name__}); restarting", file=sys.stderr)
-                try:
-                    await self.stacks[server].aclose()
-                except Exception:
-                    pass
                 await self._connect(server)
                 self.restarts += 1
 

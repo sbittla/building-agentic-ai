@@ -21,28 +21,28 @@ This file is rewritten after every run.
 | [8](ch08/) | Chapter 8: Self-Correction: A Text-to-SQL Agent | 2 | 3 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 04:59 |
 | [M](M/) | Interlude: Measuring an Agent | 2 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-14 05:24 |
 | [9](ch09/) | Chapter 9: Human-in-the-Loop Approval | 4 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 05:27 |
-| [10](ch10/) | Chapter 10: Feedback Loops | 0 | 0 | 7 | 2 | none (--free-only) | 2026-10-14 03:37 |
-| [A](A/) | Interlude: Asynchronous Python | 4 | 0 | 0 | 0 | none (--free-only) | 2026-10-14 03:37 |
-| [11](ch11/) | Chapter 11: Multi-Agent Systems | 0 | 0 | 7 | 2 | none (--free-only) | 2026-10-14 03:37 |
-| [12](ch12/) | Chapter 12: MCP Fundamentals and Your First Server | 1 | 0 | 6 | 2 | none (--free-only) | 2026-10-14 03:37 |
-| [13](ch13/) | Chapter 13: Build Your Own MCP Client | 1 | 0 | 7 | 1 | none (--free-only) | 2026-10-14 03:37 |
-| [14](ch14/) | Chapter 14: Using Servers You Didn't Write | 0 | 0 | 5 | 2 | none (--free-only) | 2026-10-14 03:37 |
-| [15](ch15/) | Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure | 2 | 0 | 2 | 2 | none (--free-only) | 2026-10-14 03:38 |
-| [16](ch16/) | Chapter 16: Context Engineering | 1 | 0 | 7 | 2 | none (--free-only) | 2026-10-14 03:38 |
-| [17](ch17/) | Chapter 17: Agent Memory Engineering | 4 | 0 | 5 | 2 | none (--free-only) | 2026-10-14 03:38 |
-| [18](ch18/) | Chapter 18: Agentic RAG and Knowledge Systems | 2 | 0 | 7 | 2 | none (--free-only) | 2026-10-14 03:38 |
-| [19](ch19/) | Chapter 19: Long-Running Agents | 0 | 1 | 5 | 2 | none (--free-only) | 2026-10-14 03:38 |
-| [20](ch20/) | Chapter 20: Planning and Model Routing | 1 | 0 | 5 | 2 | none (--free-only) | 2026-10-14 03:38 |
-| [21](ch21/) | Chapter 21: Multi-Agent Orchestration | 1 | 0 | 6 | 2 | none (--free-only) | 2026-10-14 03:39 |
-| [22](ch22/) | Chapter 22: Hybrid Architectures: Probabilistic Intelligence, Deterministic Control | 0 | 0 | 6 | 2 | none (--free-only) | 2026-10-14 03:39 |
-| [23](ch23/) | Chapter 23: Computer-Use Agents | 2 | 0 | 5 | 2 | none (--free-only) | 2026-10-14 03:39 |
-| [24](ch24/) | Chapter 24: Skills, Frameworks and Agent Runtimes | 1 | 0 | 9 | 3 | none (--free-only) | 2026-10-14 03:39 |
-| [25](ch25/) | Chapter 25: Agentic Security | 2 | 0 | 5 | 2 | none (--free-only) | 2026-10-14 03:39 |
-| [26](ch26/) | Chapter 26: Agent Identity and Authorization | 2 | 1 | 4 | 2 | none (--free-only) | 2026-10-14 03:39 |
-| [27](ch27/) | Chapter 27: Agent Evaluation: Dimensions, Trajectories and Scorecards | 1 | 0 | 7 | 2 | none (--free-only) | 2026-10-14 03:39 |
-| [28](ch28/) | Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents | 4 | 2 | 2 | 1 | none (--free-only) | 2026-10-14 03:39 |
-| [29](ch29/) | Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost | 3 | 0 | 5 | 1 | none (--free-only) | 2026-10-14 03:41 |
-| [30](ch30/) | Chapter 30: Deploying Agents: From One Service to an Agent Platform | 3 | 0 | 9 | 2 | none (--free-only) | 2026-10-14 03:41 |
+| [10](ch10/) | Chapter 10: Feedback Loops | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 06:01 |
+| [A](A/) | Interlude: Asynchronous Python | 4 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-14 06:01 |
+| [11](ch11/) | Chapter 11: Multi-Agent Systems | 3 | 2 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 06:15 |
+| [12](ch12/) | Chapter 12: MCP Fundamentals and Your First Server | 1 | 0 | 6 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 06:15 |
+| [13](ch13/) | Chapter 13: Build Your Own MCP Client | 5 | 2 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-14 06:20 |
+| [14](ch14/) | Chapter 14: Using Servers You Didn't Write | 1 | 2 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 06:23 |
+| [15](ch15/) | Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure | 2 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 06:24 |
+| [16](ch16/) | Chapter 16: Context Engineering | 4 | 1 | 3 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 06:42 |
+| [17](ch17/) | Chapter 17: Agent Memory Engineering | 5 | 2 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 07:03 |
+| [18](ch18/) | Chapter 18: Agentic RAG and Knowledge Systems | 6 | 1 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 07:21 |
+| [19](ch19/) | Chapter 19: Long-Running Agents | 4 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 07:25 |
+| [20](ch20/) | Chapter 20: Planning and Model Routing | 4 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 07:28 |
+| [21](ch21/) | Chapter 21: Multi-Agent Orchestration | 4 | 1 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 07:32 |
+| [22](ch22/) | Chapter 22: Hybrid Architectures: Probabilistic Intelligence, Deterministic Control | 4 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 07:34 |
+| [23](ch23/) | Chapter 23: Computer-Use Agents | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 07:36 |
+| [24](ch24/) | Chapter 24: Skills, Frameworks and Agent Runtimes | 5 | 0 | 5 | 3 | qwen3.5:9b (local, through Ollama) | 2026-10-14 07:43 |
+| [25](ch25/) | Chapter 25: Agentic Security | 4 | 1 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 07:49 |
+| [26](ch26/) | Chapter 26: Agent Identity and Authorization | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 07:50 |
+| [27](ch27/) | Chapter 27: Agent Evaluation: Dimensions, Trajectories and Scorecards | 5 | 1 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 08:15 |
+| [28](ch28/) | Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents | 7 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-14 08:16 |
+| [29](ch29/) | Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost | 6 | 1 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-14 08:24 |
+| [30](ch30/) | Chapter 30: Deploying Agents: From One Service to an Agent Platform | 6 | 4 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 08:29 |
 | [31](ch31/) | Chapter 31: From Prototype to Customer Production | 3 | 0 | 2 | 1 | none (--free-only) | 2026-10-14 03:41 |
 | [X](X/) | Extra Practice (course kit) | 2 | 0 | 1 | 1 | none (--free-only) | 2026-10-14 03:41 |
 | [C1](C1/) | Capstone 1 | 0 | 0 | 1 | 0 | none (--free-only) | 2026-10-14 03:41 |

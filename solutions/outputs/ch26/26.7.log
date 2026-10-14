@@ -1,9 +1,9 @@
 # Exercise: 26.7  A review queue for new versions
 # Command:  python /tmp/solutions-flat/exercises/ex26_7_review_queue.py
 # Model:    none (no model needed)
-# Date:     2026-10-14 03:39:22 UTC
+# Date:     2026-10-14 07:50:28 UTC
 # Exit code: 0
-# Seconds:  0.2
+# Seconds:  0.3
 #-------------------------------------------------------------------------------
 Queued for review: shipfast.example/pickup-agent 2.2.0 [c25d7f54], scopes ['orders:read', 'pickups:create'], will drop ['orders:read']
   before review   -> shipfast.example/pickup-agent 2.1.0

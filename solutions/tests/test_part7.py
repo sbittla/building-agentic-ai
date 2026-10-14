@@ -167,7 +167,7 @@ def _planner(plans, step_answer=lambda brief: "42"):
     """Structured-output calls get the next plan; agent steps answer from the brief."""
     plans = list(plans)
     def policy(kw):
-        if "output_config" in kw:
+        if "format" in (kw.get("output_config") or {}):   # not just effort
             return [text(json.dumps(plans.pop(0)))]
         return [text(step_answer(last_user_text(kw)))]
     return policy
@@ -332,7 +332,7 @@ def refunds():
 def _refund_model(extract, reply="Done: we refunded $49.00."):
     """Structured calls get `extract` (a dict or a function of the message)."""
     def policy(kw):
-        if "output_config" in kw:
+        if "format" in (kw.get("output_config") or {}):   # not just effort
             msg = last_user_text(kw)
             return [text(json.dumps(extract(msg) if callable(extract) else extract))]
         return [text(reply)]

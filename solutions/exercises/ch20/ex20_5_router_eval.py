@@ -17,9 +17,18 @@ LABELLED = [   # (task, "easy" or "hard"): your judgement is the gold standard h
 ]
 
 def evaluate(route, name):
+    import ch20_router
     rows, correct, hard_to_small = [], 0, 0
-    for task, label in LABELLED:
-        chose = "hard" if route(task) == LARGE else "easy"
+    # On the free local model SMALL and LARGE are the same model name, so the routers'
+    # answers can't be told apart. Give LARGE a placeholder while routing (the routers
+    # read it at call time; by_model still calls the real SMALL model).
+    saved, ch20_router.LARGE = ch20_router.LARGE, "<large>"
+    try:
+        decisions = [route(task) == "<large>" for task, _ in LABELLED]
+    finally:
+        ch20_router.LARGE = saved
+    for (task, label), hard in zip(LABELLED, decisions):
+        chose = "hard" if hard else "easy"
         correct += chose == label
         hard_to_small += label == "hard" and chose == "easy"
         rows.append((task[:50], label, chose))

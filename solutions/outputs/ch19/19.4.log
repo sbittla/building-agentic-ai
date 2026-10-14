@@ -1,32 +1,32 @@
 # Exercise: 19.4  Two workers
-# Command:  python /tmp/solutions-flat/exercises/ex19_4_workers.py && python -m pytest -q -p no:cacheprovider --rootdir /tmp /tmp/solutions-flat/tests/test_part7.py -k test_19_4 -v
+# Command:  python /tmp/solutions-flat/exercises/ex19_4_workers.py && python -m pytest -p no:cacheprovider --rootdir /tmp /tmp/solutions-flat/tests/test_part7.py -k test_19_4 -v
 # Model:    none (no model needed)
-# Date:     2026-10-14 03:38:34 UTC
+# Date:     2026-10-14 07:21:56 UTC
 # Exit code: 0
-# Seconds:  7.4
+# Seconds:  7.6
 #-------------------------------------------------------------------------------
-Job 4a940025: done
+Job ff59a64e: done
   1. create_account   done     tries=1 account c0@x.io created
   2. charge           done     tries=1 charged $10
-Job d82f022d: done
+Job 7a1c5360: done
   1. create_account   done     tries=1 account c1@x.io created
   2. charge           done     tries=1 charged $10
-Job 363ec417: done
+Job d2e390ac: done
   1. create_account   done     tries=1 account c2@x.io created
   2. charge           done     tries=1 charged $10
-Job 1f704abf: done
+Job 8a8dafee: done
   1. create_account   done     tries=1 account c3@x.io created
   2. charge           done     tries=1 charged $10
-Job 4aa2d96e: done
+Job 74f5849e: done
   1. create_account   done     tries=1 account c4@x.io created
   2. charge           done     tries=1 charged $10
-finished by: {'4a940025': 'w2', '363ec417': 'w2', '1f704abf': 'w2', '4aa2d96e': 'w2', 'd82f022d': 'w2'}
+finished by: {'ff59a64e': 'w2', 'd2e390ac': 'w2', '8a8dafee': 'w2', '74f5849e': 'w2', '7a1c5360': 'w2'}
 ============================= test session starts ==============================
-platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0 -- /opt/venv/bin/python
 rootdir: /tmp
 plugins: anyio-4.15.1, langsmith-0.14.0
-collected 36 items / 35 deselected / 1 selected
+collecting ... collected 36 items / 35 deselected / 1 selected
 
-../../../../tmp/solutions-flat/tests/test_part7.py .                     [100%]
+../../../../tmp/solutions-flat/tests/test_part7.py::test_19_4_two_workers PASSED [100%]
 
-======================= 1 passed, 35 deselected in 0.55s =======================
+======================= 1 passed, 35 deselected in 0.53s =======================

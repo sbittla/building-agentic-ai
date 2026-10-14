@@ -1,13 +1,13 @@
 # Exercise: 18.5  Paraphrased evaluation
 # Command:  python /tmp/solutions-flat/exercises/ex18_5_paraphrased.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-09-27 22:06:17 UTC
+# Date:     2026-10-14 07:03:59 UTC
 # Exit code: 0
-# Seconds:  1.4
+# Seconds:  2.1
 #-------------------------------------------------------------------------------
 
 Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]
-Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 781.06it/s]
+Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 988.87it/s]
 embedder = local
 
 original questions (12):

@@ -5,7 +5,9 @@ from pathlib import Path
 import ch18_rag as rag
 from ch04_agent import run_agent
 
-SYSTEM = rag.SYSTEM + (" If the knowledge base does not contain the answer, reply exactly: "
+SYSTEM = rag.SYSTEM + (" Always call search_knowledge before you answer, and answer only "
+                       "from what it returns, never from general knowledge. If the results "
+                       "don't contain the answer, reply exactly: "
                        "'Not in the knowledge base.' and nothing else.")
 REFUSAL = "not in the knowledge base"
 
@@ -80,8 +82,21 @@ def main(cases=CASES):
     print(summary)
     return rows, summary
 
+def searched(messages) -> bool:
+    return any(getattr(b, "type", "") == "tool_use" for m in messages
+               if m["role"] == "assistant" and not isinstance(m["content"], str)
+               for b in m["content"])
+
 def rag_answer(q):
-    return run_agent(q, rag.TOOLS, rag.run_tool, system=SYSTEM, verbose=False)
+    """The fix for the commonest failure: refusing without looking. A refusal only counts
+    after a search, so if the model answered without one, send it back to search."""
+    answer, messages, stats = run_agent(q, rag.TOOLS, rag.run_tool, system=SYSTEM,
+                                        verbose=False)
+    if not searched(messages):
+        answer, messages, stats = run_agent(
+            "Call search_knowledge first, then answer from what it returns, with citations.",
+            rag.TOOLS, rag.run_tool, system=SYSTEM, verbose=False, messages=messages)
+    return answer, messages, stats
 
 if __name__ == "__main__":
     main()

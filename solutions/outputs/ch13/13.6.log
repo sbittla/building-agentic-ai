@@ -1,12 +1,96 @@
 # Exercise: 13.6  Resilience
-# Command:  python ch13_mcp_agent.py servers.json
+# Command:  python /tmp/solutions-flat/exercises/run13_hub.py resilience
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-09-28 00:15:07 UTC
-# Exit code: 0
-# Seconds:  6.1
+# Date:     2026-10-14 06:18:48 UTC
+# Exit code: 1
+# Seconds:  17.1
 #-------------------------------------------------------------------------------
-Tools: ['todo__add_task', 'todo__list_tasks', 'todo__find_tasks', 'todo__complete_task', 'todo__today', 'shopdb__get_schema', 'shopdb__run_query']
+You: Add a to-do: call the bank, due 2026-11-02.
+[step 1] todo__add_task({"title": "call the bank", "due": "2026-11-02"}) -> 'Added #4: call the bank'
+Agent: I've added the to-do "call the bank" with a due date of 2026-11-02.
 
-You: Agent: Hello! How can I help you today?
+[demo] killed the todo server (pids [53]) mid-session
 
-You:
+You: What is on my to-do list now?
+[hub] todo failed (MCPError); restarting
+Traceback (most recent call last):
+  File "/tmp/solutions-flat/exercises/sol_ch13_mcp_agent.py", line 51, in call
+    result = await self.clients[server].call_tool(tool, args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/mcp/client/client.py", line 812, in call_tool
+    result = await self._drive_input_required(await retry(input_responses, request_state), retry)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/mcp/client/client.py", line 799, in retry
+    return await self.session.call_tool(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/mcp/client/session.py", line 1086, in call_tool
+    result = await self.send_request(
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/mcp/client/session.py", line 586, in send_request
+    raw = await self._dispatcher.send_raw_request(method, data.get("params"), opts)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/mcp/shared/jsonrpc_dispatcher.py", line 336, in send_raw_request
+    raise MCPError(code=CONNECTION_CLOSED, message="Connection closed")
+mcp.shared.exceptions.MCPError: Connection closed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/tmp/solutions-flat/exercises/run13_hub.py", line 67, in <module>
+    asyncio.run({"resources": resources, "resilience": resilience}[
+  File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/tmp/solutions-flat/exercises/run13_hub.py", line 61, in resilience
+    a2, _ = await sol.base.run_mcp_agent(hub, q2, messages=history)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/.course/runs/run-chapter-_8cyt6hv/ch13_mcp_agent.py", line 123, in run_mcp_agent
+    text, is_error = await hub.call(b.name, b.input)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/solutions-flat/exercises/sol_ch13_mcp_agent.py", line 62, in call
+    await self._connect(server)
+  File "/tmp/solutions-flat/exercises/sol_ch13_mcp_agent.py", line 36, in _connect
+    client = await stack.enter_async_context(Client(stdio_client(params, errlog=errlog)))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/contextlib.py", line 659, in enter_async_context
+    result = await _enter(cm)
+             ^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/mcp/client/client.py", line 454, in __aenter__
+    session = await self._build_session(exit_stack)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/mcp/client/client.py", line 427, in _build_session
+    dispatcher = await self._connect(exit_stack, self.mode, self.raise_exceptions)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/mcp/client/client.py", line 97, in connect
+    read_stream, write_stream = await exit_stack.enter_async_context(transport)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/contextlib.py", line 659, in enter_async_context
+    result = await _enter(cm)
+             ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/mcp/client/stdio.py", line 125, in stdio_client
+    process = await _create_platform_compatible_process(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/mcp/client/stdio.py", line 342, in _create_platform_compatible_process
+    return await anyio.open_process(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/anyio/_core/_subprocesses.py", line 184, in open_process
+    return await get_async_backend().open_process(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 2792, in open_process
+    await cls.checkpoint()
+  File "/opt/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 2564, in checkpoint
+    await sleep(0)
+  File "/usr/lib/python3.12/asyncio/tasks.py", line 656, in sleep
+    await __sleep0()
+  File "/usr/lib/python3.12/asyncio/tasks.py", line 650, in __sleep0
+    yield
+asyncio.exceptions.CancelledError: Cancelled via cancel scope 7e5cd7916a30 by <Task pending name='Task-1' coro=<resilience() running at /tmp/solutions-flat/exercises/run13_hub.py:61> cb=[_run_until_complete_cb() at /usr/lib/python3.12/asyncio/base_events.py:182]>

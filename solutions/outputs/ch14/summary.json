@@ -1,10 +1,10 @@
 {
  "chapter": "14",
  "title": "Chapter 14: Using Servers You Didn't Write",
- "model": "none (--free-only)",
- "date": "2026-10-14 03:37",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-10-14 06:23",
  "provenance": {
-  "commit": "8a34de430235-modified",
+  "commit": "2850f35235c4-modified",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -44,31 +44,34 @@
    "id": "14.3",
    "title": "Read-only GitHub",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null,
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "status": "failed",
+   "reason": "exit code 1",
+   "seconds": 44.0,
+   "log": "ch14/14.3.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "2850f35235c4-modified"
   },
   {
    "id": "14.4",
    "title": "Weekly engineering digest",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null,
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "status": "failed",
+   "reason": "output lacks /Weekly Engineering Digest/",
+   "seconds": 51.0,
+   "log": "ch14/14.4.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "2850f35235c4-modified"
   },
   {
    "id": "14.5",
    "title": "Mark untrusted content",
    "kind": "run",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null,
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "status": "passed",
+   "reason": null,
+   "seconds": 68.7,
+   "log": "ch14/14.5.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "2850f35235c4-modified"
   }
  ]
 }

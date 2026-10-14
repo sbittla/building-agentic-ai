@@ -1,9 +1,23 @@
 # Exercise: 20.5  Evaluate the routers
 # Command:  python /tmp/solutions-flat/exercises/ex20_5_router_eval.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-09-27 22:23:46 UTC
+# Date:     2026-10-14 07:28:01 UTC
 # Exit code: 0
-# Seconds:  64.8
+# Seconds:  106.7
 #-------------------------------------------------------------------------------
+task                                                 label  rules  model 
+How many customers are there?                        easy   hard   hard  
+List the product categories.                         easy   hard   hard  
+What is the most expensive product?                  easy   hard   hard  
+How many orders are pending?                         easy   hard   hard  
+Which city has the most customers?                   easy   hard   hard  
+What was the total revenue last month?               easy   hard   hard  
+Why did revenue drop in March compared with Februa   hard   hard   hard  
+Compare repeat customers with one-time customers b   hard   hard   hard  
+Which categories grow fastest, and what would you    hard   hard   hard  
+Find customers who ordered in every month and desc   hard   hard   hard  
+Is there a seasonal pattern in cancellations? Expl   hard   hard   hard  
+Suggest three KPIs for this shop and compute each    hard   hard   hard  
 rules        accuracy 50%, hard tasks sent to the small model: 0
 small model  accuracy 50%, hard tasks sent to the small model: 0
+change: add 'suggest', 'pattern', 'every', 'fastest', 'describe' to HARD_WORDS -> rules accuracy 50% -> 50%, hard tasks sent small 0 -> 0

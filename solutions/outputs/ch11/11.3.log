@@ -1,21 +1,21 @@
 # Exercise: 11.3  Run the team
 # Command:  python ch11_research_team.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-09-27 21:26:25 UTC
+# Date:     2026-10-14 06:04:58 UTC
 # Exit code: 0
-# Seconds:  103.6
+# Seconds:  165.6
 #-------------------------------------------------------------------------------
 PLAN: [
-  "Analyze the costs of agentic search versus RAG systems for internal documentation",
-  "Evaluate data freshness capabilities in agentic search compared to RAG",
-  "Assess accuracy of each approach specifically on exact error code lookup scenarios"
+  "Analyze the costs associated with agentic search vs RAG for internal documentation",
+  "Evaluate how effectively agentic search maintains freshness compared to RAG",
+  "Assess accuracy differences between agentic search and RAG specifically for retrieving exact error codes"
 ]
 
-[101.6s, {'input_tokens': 6386, 'output_tokens': 1564, 'calls': 10}]
-**Agentic Search vs. RAG for Internal Docs: Cost, Freshness, and Accuracy**
+[161.1s, {'input_tokens': 7705, 'output_tokens': 1818, 'calls': 13}]
+Based on the research findings, here is a comparison of **Agentic Search** versus **RAG** for internal documentation:
 
-*   **Cost:** Agentic search incurs higher costs due to significantly greater token consumption; agents perform multiple model calls per question and resend history, often consuming "many times more tokens" than standard RAG queries. In contrast, RAG systems have lower per-query computational costs but face ongoing maintenance expenses related to indexing and scheduled re-indexing jobs to prevent vector indexes from going stale.
-*   **Freshness:** Agentic search offers an advantage in data freshness because it reads files directly without maintaining a vector index, eliminating the risk of stale data and removing the need for re-indexing. RAG systems, however, rely on pre-built indexes that become outdated when source documents change, requiring manual or scheduled updates to remain current.
-*   **Accuracy (Exact Error Codes):** Agentic search (via regex/keyword methods) is highly accurate for exact error code lookup, treating each string match precisely without semantic interpretation. Conversely, RAG relies on embedding models that can be inaccurate in this specific scenario, as they may treat visually distinct but semantically similar codes (e.g., ERR-4471 vs. ERR-4417) as nearly identical, leading to false matches.
+*   **Cost:** Agentic search eliminates upfront indexing overhead and storage costs associated with maintaining vector stores but incurs higher per-query compute costs due to multiple model steps and token amplification in multi-agent setups. RAG involves significant maintenance costs for re-indexing workflows but generally has more predictable, lower per-query compute costs once the index is built.
+*   **Freshness:** Agentic search offers perfect freshness by dynamically accessing source files at runtime without needing scheduled updates. In contrast, RAG suffers from staleness; its vector indexes become outdated after document changes unless explicit re-indexing jobs are implemented and managed.
+*   **Accuracy on Exact Error Codes:** Agentic search (specifically utilizing regex-based exact matching) is superior for retrieving precise error codes like `ERR-4471` versus `ERR-4417`. Standard RAG embedding models often fail here, treating distinct error code strings as semantically similar, which leads to ambiguous or incorrect retrievals.
 
-**Disagreements:** No direct contradictions exist between the findings; they present a consistent trade-off where agentic search prioritizes **accuracy and freshness** at the expense of **higher cost**, while RAG offers **lower cost** but risks **staleness** and **semantic confusion** on exact identifiers.
+**Disagreements/Nuances:** The findings suggest a trade-off: while Agentic search is more accurate and fresh for exact terms (like error codes) due to its lack of reliance on embeddings, RAG can be cost-effective if combined with keyword/BM25 search in a hybrid approach to mitigate accuracy issues, though this hybrid method still depends on an index that can go stale unless managed externally.

@@ -1,10 +1,10 @@
 {
  "chapter": "21",
  "title": "Chapter 21: Multi-Agent Orchestration",
- "model": "none (--free-only)",
- "date": "2026-10-14 03:39",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-10-14 07:32",
  "provenance": {
-  "commit": "8a34de430235-modified",
+  "commit": "2850f35235c4-modified",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -44,41 +44,45 @@
    "id": "21.3",
    "title": "Watch the board",
    "kind": "run",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null,
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "status": "passed",
+   "reason": null,
+   "seconds": 96.8,
+   "log": "ch21/21.3.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "2850f35235c4-modified"
   },
   {
    "id": "21.4",
    "title": "A specialist that fails",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null,
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "status": "passed",
+   "reason": null,
+   "seconds": 9.7,
+   "log": "ch21/21.4.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "2850f35235c4-modified"
   },
   {
    "id": "21.5",
    "title": "A team of A2A agents",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null,
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "status": "passed",
+   "reason": null,
+   "seconds": 33.1,
+   "log": "ch21/21.5.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "2850f35235c4-modified"
   },
   {
    "id": "21.6",
    "title": "A mixed team",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null,
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "status": "failed",
+   "reason": "exit code 1",
+   "seconds": 0.0,
+   "log": "ch21/21.6.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "2850f35235c4-modified"
   },
   {
    "id": "21.7",
@@ -86,10 +90,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 33.5,
+   "seconds": 34.6,
    "log": "ch21/21.7.log",
    "model": "none",
-   "commit": "8a34de430235-modified"
+   "commit": "2850f35235c4-modified"
   }
  ]
 }

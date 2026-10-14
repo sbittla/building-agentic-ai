@@ -1,10 +1,10 @@
 {
  "chapter": "12",
  "title": "Chapter 12: MCP Fundamentals and Your First Server",
- "model": "none (--free-only)",
- "date": "2026-10-14 03:37",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-10-14 06:15",
  "provenance": {
-  "commit": "8a34de430235-modified",
+  "commit": "2850f35235c4-modified",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -86,10 +86,10 @@
    "kind": "test",
    "status": "passed",
    "reason": null,
-   "seconds": 10.6,
+   "seconds": 12.5,
    "log": "ch12/12.7.log",
    "model": "none",
-   "commit": "8a34de430235-modified"
+   "commit": "2850f35235c4-modified"
   }
  ]
 }

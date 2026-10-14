@@ -1,33 +1,132 @@
 # Exercise: 14.3  Read-only GitHub
 # Command:  python /tmp/solutions-flat/exercises/ex14_3_readonly.py
-# Model:    claude-sonnet-5 (Claude API)
-# Date:     2026-10-14 02:45:20 UTC
-# Exit code: 0
-# Seconds:  21.9
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-10-14 06:21:21 UTC
+# Exit code: 1
+# Seconds:  44.0
 #-------------------------------------------------------------------------------
 19 GitHub tools, write tools among them: none
-[step 1] github__list_issues({"owner": "modelcontextprotocol", "repo": "servers", "state": "OPEN", "perPage":) -> '{"issues":[{"created_at":"2026-10-13T18:38:56Z","labels":["enhancement'
+[step 1] github__list_issues({"owner": "modelcontextprotocol", "repo": "servers", "state": "OPEN", "fields": ) -> '{"issues":[{"created_at":"2026-10-14T04:35:39Z","number":5153,"state":'
 
 Summary:
-The repository **modelcontextprotocol/servers** currently has **200 open issues**.
+There are 201 open issues in the modelcontextprotocol/servers repository.
 
-**Main themes:**
-
-1. **Filesystem server reliability & security** – by far the most common topic: path traversal/validation bugs, Windows-specific path issues (spaces, umlauts, drive letters), symlink/roots handling, crashes on malformed JSON-RPC input, write failures, and timeouts (e.g. #3752 "path traversal → arbitrary file read/write", #3281 "Frequent timeout or outright failures since Claude Desktop 1.1.1520", #4138 "write_file silently returns success but never writes to disk on Windows").
-
-2. **Security hardening across servers** – SSRF risks in the fetch server, environment-variable leakage in the "everything" server's `get-env` tool, unconstrained/missing input-schema validation, and git-server path/branch handling bugs (e.g. #4882 "get-env returns full process environment", #3537 "Unconstrained string parameters across all official servers", #5130 "gzip-file-as-resource fetches private/metadata IPs").
-
-3. **Schema/tooling quality and protocol compliance** – missing property descriptions, missing tool annotations (idempotent/destructive hints), JSON-Schema validation issues, and lifecycle/handshake bypasses (e.g. #3669 "missing property descriptions across official MCP servers", #4195 "tools/list succeeds without initialize handshake").
-
-4. **Packaging/release/CI maintenance** – stale npm releases lagging behind repo tags, Docker build failures, deprecated packages, and repo-wide triage/tracking issues for backlog management (e.g. #3799 npm version lag, #4782 Docker build failures, #4875 "Tracker: Triage the open issue and PR backlog").
-
-5. **Feature requests/enhancements** – things like time-zone defaults, roots-based directory restriction, log rotation, tool annotations, and registry additions.
-
-Overall, the issue tracker reflects active maintenance strain on a few heavily-used reference servers (filesystem, fetch, everything, git), with security hardening and cross-platform (especially Windows) bugs as the dominant recurring concerns.
-
-Close issue 3:
-I'm not able to close issues — my tools only support reading data from GitHub (issues, commits, releases, etc.), not making changes like closing, commenting, or editing. You'll need to close issue #3 directly on GitHub (or via a tool/token that has write access).
-
-If it's helpful, I can look up the details of issue #3 so you have the context handy before closing it — just let me know.
-
-Audit log: 1 tool calls: ['github__list_issues']
+[Stopped: the reply was cut off at max_tokens (raise max_tokens or ask for less)]
+  + Exception Group Traceback (most recent call last):
+  |   File "/tmp/solutions-flat/exercises/ex14_3_readonly.py", line 46, in <module>
+  |     asyncio.run(main(sys.argv[1] if len(sys.argv) > 1 else
+  |   File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
+  |     return runner.run(main)
+  |            ^^^^^^^^^^^^^^^^
+  |   File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+  |     return self._loop.run_until_complete(task)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+  |     return future.result()
+  |            ^^^^^^^^^^^^^^^
+  |   File "/tmp/solutions-flat/exercises/ex14_3_readonly.py", line 24, in main
+  |     async with m13.MCPHub(config) as hub:
+  |   File "/workspace/.course/runs/run-chapter-r5dstz09/ch13_mcp_agent.py", line 74, in __aexit__
+  |     await self.stack.__aexit__(*exc)
+  |   File "/usr/lib/python3.12/contextlib.py", line 754, in __aexit__
+  |     raise exc_details[1]
+  |   File "/usr/lib/python3.12/contextlib.py", line 737, in __aexit__
+  |     cb_suppress = await cb(*exc_details)
+  |                   ^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/opt/venv/lib/python3.12/site-packages/mcp/client/client.py", line 475, in __aexit__
+  |     await self._exit_stack.__aexit__(exc_type, exc_val, exc_tb)
+  |   File "/usr/lib/python3.12/contextlib.py", line 754, in __aexit__
+  |     raise exc_details[1]
+  |   File "/usr/lib/python3.12/contextlib.py", line 737, in __aexit__
+  |     cb_suppress = await cb(*exc_details)
+  |                   ^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/lib/python3.12/contextlib.py", line 231, in __aexit__
+  |     await self.gen.athrow(value)
+  |   File "/opt/venv/lib/python3.12/site-packages/mcp/client/stdio.py", line 200, in stdio_client
+  |     async with anyio.create_task_group() as tg:
+  |   File "/opt/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 847, in __aexit__
+  |     raise BaseExceptionGroup(
+  | BaseExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Exception Group Traceback (most recent call last):
+    |   File "/opt/venv/lib/python3.12/site-packages/mcp/client/stdio.py", line 204, in stdio_client
+    |     yield read_stream, write_stream
+    |   File "/usr/lib/python3.12/contextlib.py", line 737, in __aexit__
+    |     cb_suppress = await cb(*exc_details)
+    |                   ^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/opt/venv/lib/python3.12/site-packages/mcp/client/session.py", line 514, in __aexit__
+    |     result = await self._task_group.__aexit__(exc_type, exc_val, exc_tb)
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/opt/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 847, in __aexit__
+    |     raise BaseExceptionGroup(
+    | BaseExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+    +-+---------------- 1 ----------------
+      | Exception Group Traceback (most recent call last):
+      |   File "/usr/lib/python3.12/contextlib.py", line 737, in __aexit__
+      |     cb_suppress = await cb(*exc_details)
+      |                   ^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/opt/venv/lib/python3.12/site-packages/mcp/client/client.py", line 475, in __aexit__
+      |     await self._exit_stack.__aexit__(exc_type, exc_val, exc_tb)
+      |   File "/usr/lib/python3.12/contextlib.py", line 754, in __aexit__
+      |     raise exc_details[1]
+      |   File "/usr/lib/python3.12/contextlib.py", line 737, in __aexit__
+      |     cb_suppress = await cb(*exc_details)
+      |                   ^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/lib/python3.12/contextlib.py", line 231, in __aexit__
+      |     await self.gen.athrow(value)
+      |   File "/opt/venv/lib/python3.12/site-packages/mcp/client/stdio.py", line 200, in stdio_client
+      |     async with anyio.create_task_group() as tg:
+      |   File "/opt/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 847, in __aexit__
+      |     raise BaseExceptionGroup(
+      | BaseExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+      +-+---------------- 1 ----------------
+        | Exception Group Traceback (most recent call last):
+        |   File "/opt/venv/lib/python3.12/site-packages/mcp/client/stdio.py", line 204, in stdio_client
+        |     yield read_stream, write_stream
+        |   File "/usr/lib/python3.12/contextlib.py", line 737, in __aexit__
+        |     cb_suppress = await cb(*exc_details)
+        |                   ^^^^^^^^^^^^^^^^^^^^^^
+        |   File "/opt/venv/lib/python3.12/site-packages/mcp/client/session.py", line 514, in __aexit__
+        |     result = await self._task_group.__aexit__(exc_type, exc_val, exc_tb)
+        |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        |   File "/opt/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 847, in __aexit__
+        |     raise BaseExceptionGroup(
+        | BaseExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+        +-+---------------- 1 ----------------
+          | Exception Group Traceback (most recent call last):
+          |   File "/usr/lib/python3.12/contextlib.py", line 737, in __aexit__
+          |     cb_suppress = await cb(*exc_details)
+          |                   ^^^^^^^^^^^^^^^^^^^^^^
+          |   File "/opt/venv/lib/python3.12/site-packages/mcp/client/client.py", line 475, in __aexit__
+          |     await self._exit_stack.__aexit__(exc_type, exc_val, exc_tb)
+          |   File "/usr/lib/python3.12/contextlib.py", line 754, in __aexit__
+          |     raise exc_details[1]
+          |   File "/usr/lib/python3.12/contextlib.py", line 737, in __aexit__
+          |     cb_suppress = await cb(*exc_details)
+          |                   ^^^^^^^^^^^^^^^^^^^^^^
+          |   File "/usr/lib/python3.12/contextlib.py", line 231, in __aexit__
+          |     await self.gen.athrow(value)
+          |   File "/opt/venv/lib/python3.12/site-packages/mcp/client/stdio.py", line 200, in stdio_client
+          |     async with anyio.create_task_group() as tg:
+          |   File "/opt/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 847, in __aexit__
+          |     raise BaseExceptionGroup(
+          | BaseExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+          +-+---------------- 1 ----------------
+            | Exception Group Traceback (most recent call last):
+            |   File "/opt/venv/lib/python3.12/site-packages/mcp/client/stdio.py", line 204, in stdio_client
+            |     yield read_stream, write_stream
+            |   File "/usr/lib/python3.12/contextlib.py", line 737, in __aexit__
+            |     cb_suppress = await cb(*exc_details)
+            |                   ^^^^^^^^^^^^^^^^^^^^^^
+            |   File "/opt/venv/lib/python3.12/site-packages/mcp/client/session.py", line 514, in __aexit__
+            |     result = await self._task_group.__aexit__(exc_type, exc_val, exc_tb)
+            |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            |   File "/opt/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 847, in __aexit__
+            |     raise BaseExceptionGroup(
+            | BaseExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+            +-+---------------- 1 ----------------
+              | Traceback (most recent call last):
+              |   File "/tmp/solutions-flat/exercises/ex14_3_readonly.py", line 37, in main
+              |     raise SystemExit("the summary didn't finish (see the [Stopped: ...] note)")
+              | SystemExit: the summary didn't finish (see the [Stopped: ...] note)
+              +------------------------------------

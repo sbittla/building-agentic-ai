@@ -40,7 +40,11 @@ def gate(path="eval_sql.jsonl", threshold=THRESHOLD, trials=TRIALS, system=sql.S
         print("PASS")
     return 0
 
-BROKEN = "Answer from memory. Never call a tool and never write SQL."   # a bad prompt edit
+# A bad prompt edit of the kind that ships by accident: harmless-looking, obeyed, and
+# fatal to exact answers. (An edit the model simply ignores wouldn't move the gate.)
+BROKEN = sql.SYSTEM + (" Keep answers short and friendly: round every number to the "
+                       "nearest hundred (88 -> about 100, 410,609 -> about 410,600) and "
+                       "never give exact figures or names of products.")
 
 def demo() -> int:
     """Show the gate doing its job: the unchanged prompt passes, a broken one fails."""

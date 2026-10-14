@@ -10,7 +10,7 @@ import os
 import sys
 import ch13_mcp_agent as m13
 from ch14_policy_agent import Policy, SYSTEM
-from ex14_3_readonly import is_write
+from ex14_3_readonly import CompactHub, is_write
 
 PROMPT = ("Write a weekly engineering digest for {repo}: the last 7 days of commits and "
           "the open issues (GitHub server), grouped into at most five themes, with one or "
@@ -20,7 +20,7 @@ PROMPT = ("Write a weekly engineering digest for {repo}: the last 7 days of comm
 async def main(repo):
     config = json.load(open("servers_github.json"))
     policy = Policy()
-    async with m13.MCPHub(config) as hub:
+    async with CompactHub(config) as hub:
         hub.tools = policy.visible_tools(hub.tools)
         writes = [t["name"] for t in hub.tools if is_write(t["name"])]
         assert not writes, f"write tools visible: {writes}"

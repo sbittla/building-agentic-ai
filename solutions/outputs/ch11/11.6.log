@@ -1,10 +1,32 @@
 # Exercise: 11.6  Is it worth it?
 # Command:  python /tmp/solutions-flat/exercises/ex11_6_compare.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-09-27 21:48:45 UTC
-# Exit code: 0
-# Seconds:  1088.7
+# Date:     2026-10-14 06:11:43 UTC
+# Exit code: 1
+# Seconds:  61.3
 #-------------------------------------------------------------------------------
-| approach | mean score (1-5) | mean seconds | mean tokens |
-| single | 4.00 | 12.8 | 878 |
-| team | 4.07 | 196.6 | 9,210 |
+Traceback (most recent call last):
+  File "/tmp/solutions-flat/exercises/ex11_6_compare.py", line 58, in <module>
+    main()
+  File "/tmp/solutions-flat/exercises/ex11_6_compare.py", line 46, in main
+    answer, secs, tokens = fn(q)
+                           ^^^^^
+  File "/tmp/solutions-flat/exercises/ex11_6_compare.py", line 31, in multi
+    r = asyncio.run(team.research(q))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/tmp/solutions-flat/exercises/sol_ch11_research_team.py", line 45, in research
+    jobs = [base.run_subagent(brief(s), max_iterations=EFFORT_STEPS[s["effort"]]) for s in subtasks]
+                              ^^^^^^^^
+  File "/tmp/solutions-flat/exercises/sol_ch11_research_team.py", line 35, in brief
+    f"{sub['out_of_scope']}\nEffort: {sub['effort']}")
+                                      ~~~^^^^^^^^^^
+KeyError: 'effort'

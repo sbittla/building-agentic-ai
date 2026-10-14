@@ -1,9 +1,9 @@
 # Exercise: 26.5  An audit circuit breaker
-# Command:  python /tmp/solutions-flat/exercises/ex26_5_breaker.py && python -m pytest -q -p no:cacheprovider --rootdir /tmp /tmp/solutions-flat/tests/test_part8.py -k test_26_5 -v
+# Command:  python /tmp/solutions-flat/exercises/ex26_5_breaker.py && python -m pytest -p no:cacheprovider --rootdir /tmp /tmp/solutions-flat/tests/test_part8.py -k test_26_5 -v
 # Model:    none (no model needed)
-# Date:     2026-10-14 03:39:22 UTC
+# Date:     2026-10-14 07:50:23 UTC
 # Exit code: 0
-# Seconds:  5.8
+# Seconds:  6.1
 #-------------------------------------------------------------------------------
 support-agent (for ana) asks for B-2001: ERROR: not authorized: the resource belongs to another user
 analyst-agent (for ben) reads B-2001:   B-2001: $25.00
@@ -11,11 +11,11 @@ breaker: [{'agent': 'support-agent', 'action': 'disabled', 'why': "tried another
 support-agent's next call:              ERROR: not authorized: agent disabled
 analyst-agent's next call (untouched):  B-2001: $25.00
 ============================= test session starts ==============================
-platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0 -- /opt/venv/bin/python
 rootdir: /tmp
 plugins: anyio-4.15.1, langsmith-0.14.0
-collected 12 items / 11 deselected / 1 selected
+collecting ... collected 12 items / 11 deselected / 1 selected
 
-../../../../tmp/solutions-flat/tests/test_part8.py .                     [100%]
+../../../../tmp/solutions-flat/tests/test_part8.py::test_26_5_breaker PASSED [100%]
 
 ======================= 1 passed, 11 deselected in 0.21s =======================

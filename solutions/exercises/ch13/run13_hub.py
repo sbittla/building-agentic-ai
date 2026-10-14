@@ -38,7 +38,8 @@ async def resources():
         question = "What was our total revenue? Give the number and the SQL you used."
         print(f"You: {question}")
         answer, messages = await sol.run_with_resources(hub, question)
-        sql = [b.input.get("sql", "") for m in messages if m["role"] == "assistant"
+        sql = [b.input.get("query") or b.input.get("sql", "")      # shopdb's argument: query
+               for m in messages if m["role"] == "assistant"
                and not isinstance(m["content"], str)
                for b in m["content"] if getattr(b, "type", "") == "tool_use"]
         print(f"Agent: {answer}")

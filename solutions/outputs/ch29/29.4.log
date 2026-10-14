@@ -1,14 +1,37 @@
 # Exercise: 29.4  Budgets that hold
-# Command:  python /tmp/solutions-flat/exercises/ex29_4_budgets.py
+# Command:  python /tmp/solutions-flat/exercises/ex29_4_budgets.py && python -m pytest -p no:cacheprovider --rootdir /tmp /tmp/solutions-flat/tests/test_part9.py -k test_29_4 -v
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-09-27 23:54:38 UTC
-# Exit code: 0
-# Seconds:  25.0
+# Date:     2026-10-14 08:19:45 UTC
+# Exit code: 1
+# Seconds:  20.0
 #-------------------------------------------------------------------------------
 There are **50** customers in the database.
+Berlin has the most orders with 87 orders.
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0 -- /opt/venv/bin/python
+rootdir: /tmp
+plugins: anyio-4.15.1, langsmith-0.14.0
+collecting ... collected 11 items / 10 deselected / 1 selected
 
-The final SQL used was:
-```sql
-SELECT COUNT(*) as customer_count FROM customers
-```
-The city with the most orders is **Berlin**, with a total of **114** orders.
+../../../../tmp/solutions-flat/tests/test_part9.py::test_29_4_budgets FAILED [100%]
+
+=================================== FAILURES ===================================
+______________________________ test_29_4_budgets _______________________________
+
+model = <fakemodel.FakeModel object at 0x753cfd35dd60>
+ws = PosixPath('/tmp/solutions-ws-mxxcxmde')
+
+    def test_29_4_budgets(model, ws):
+        import ex29_4_budgets as ex
+        ex.DAILY.spent.clear()
+        model.reset(default=lambda kw: [tool("run_query", {"sql": "SELECT 1"})])
+        answer, stats = ex.ask("ana", "Keep querying forever", per_request=0.0035)
+>       assert answer.startswith("Stopped early: request budget")
+E       AssertionError: assert False
+E        +  where False = <built-in method startswith of str object at 0x753cfcf3c500>('Stopped early: request budget')
+E        +    where <built-in method startswith of str object at 0x753cfcf3c500> = 'Stopped: reached max_iterations=20 without a final answer.'.startswith
+
+/tmp/solutions-flat/tests/test_part9.py:173: AssertionError
+=========================== short test summary info ============================
+FAILED ../../../../tmp/solutions-flat/tests/test_part9.py::test_29_4_budgets
+======================= 1 failed, 10 deselected in 0.18s =======================

@@ -18,10 +18,50 @@ def is_write(name: str) -> bool:
     """github__create_issue is a write; github__list_commits is not."""
     return name.partition(m13.SEP)[2].split("_")[0] in WRITE_VERBS
 
+def compact_result(text: str, max_items: int = 40, max_chars: int = 6000) -> str:
+    """GitHub returns every field of every issue or commit: tens of thousands of tokens,
+    more than a small model's whole context. Keep what a summary needs (Chapter 16)."""
+    try:
+        data = json.loads(text)
+    except ValueError:
+        return text[:max_chars]
+    items = data if isinstance(data, list) else next(
+        (v for v in data.values() if isinstance(v, list)), None) if isinstance(data, dict) else None
+    if items is None:
+        return text[:max_chars]
+    rows = []
+    for it in items[:max_items]:
+        if not isinstance(it, dict):
+            continue
+        commit = it.get("commit") or {}
+        row = {k: it[k] for k in ("number", "title", "state", "created_at") if k in it}
+        if it.get("labels"):
+            row["labels"] = [l.get("name", "") if isinstance(l, dict) else l for l in it["labels"]]
+        if it.get("sha"):
+            row["sha"] = it["sha"][:7]
+        if message := commit.get("message") or it.get("message"):
+            row["message"] = message.splitlines()[0][:120]
+        if date := (commit.get("author") or {}).get("date") or it.get("date"):
+            row["date"] = date
+        rows.append(row)
+    return json.dumps({"items": rows, "shown": len(rows), "in_this_page": len(items)})[:max_chars]
+
+def CompactHub(config):
+    """The Chapter 13 hub, with GitHub results compacted before the model sees them."""
+    hub = m13.MCPHub(config)
+    call = hub.call
+    async def compacted(name, args):
+        text, is_error = await call(name, args)
+        if name.startswith("github") and not is_error:
+            text = compact_result(text)
+        return text, is_error
+    hub.call = compacted
+    return hub
+
 async def main(repo):
     config = json.load(open("servers_github.json"))
     policy = Policy()
-    async with m13.MCPHub(config) as hub:
+    async with CompactHub(config) as hub:
         hub.tools = policy.visible_tools(hub.tools)
         github = [t["name"] for t in hub.tools if t["name"].startswith("github")]
         writes = [n for n in github if is_write(n)]

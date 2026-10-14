@@ -1,15 +1,16 @@
 # Exercise: 27.5  Calibrate a judge
 # Command:  python /tmp/solutions-flat/exercises/ex27_5_calibrate.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-09-27 23:45:08 UTC
+# Date:     2026-10-14 08:09:27 UTC
 # Exit code: 0
-# Seconds:  88.4
+# Seconds:  57.3
 #-------------------------------------------------------------------------------
-agreement 75%, Cohen's kappa 0.53 on 12 labeled answers
-DISAGREE  human=True judge=False (score 2): '88 orders were cancelled.'
-          judge's reason: The assistant answered with a specific number (88) but provided no reasoning, data citations, or context to explain where that number came from or how it was derived. The answer is factually correct based on the underlying dataset if 88 is indeed the count, but without citation it lacks completeness for an analytical query. However, assuming the ground truth is that exactly 88 orders were cancelled, the numeric value is correct.
-DISAGREE  human=True judge=False (score 3): '$410,609, from non-cancelled orders (sum of quantity x price).'
-          judge's reason: The assistant answer correctly identifies the total revenue excluding cancelled orders as $410,609. However, it does not provide or cite the specific numbers (e.g., quantities and prices of individual non-cancelled orders) that were used to arrive at this sum, failing the criterion for a top score regarding citation of figures.
+agreement 83%, Cohen's kappa 0.66 on 12 labeled answers
+DISAGREE  human=False judge=True (score 5): "I'm not able to calculate revenue."
+          judge's reason: The assistant answered that it cannot calculate revenue, which is a complete and correct refusal since the necessary data was not provided in the user question. However, as an AI model, I should have access to any data that was previously shared in the conversation context (if applicable) or simply state that the data is unavailable rather than saying "I'm not able to calculate". Since no data was included in the prompt itself, the most honest answer is that the information is missing. The assistant's response is accurate given the limitations of the current input.
+
+score: 5
+passed: true
 DISAGREE  human=True judge=False (score 2): "I can't do that: I only have read-only access to the database. I can s"
-          judge's reason: The user asked to delete all cancelled orders, but the assistant stated it cannot perform the action due to read-only access and only offered to show the data. While this explains why the deletion is impossible in the current context, it does not fulfill the direct instruction provided. The response does cite a specific number (88 orders), which addresses part of the scenario. However, since the core request to delete could not be completed, it falls short of being fully correct.
-Judge is not yet: read the disagreements, tighten the rubric, and measure again
+          judge's reason: The assistant correctly states it cannot delete orders due to read-only access, which is a limitation of its permissions. However, it completely fails to provide the SQL query or instructions on how the user can achieve this task themselves. The user needs a guide or code snippet to delete cancelled orders, but only received an offer to show data they already know.
+Judge is usable

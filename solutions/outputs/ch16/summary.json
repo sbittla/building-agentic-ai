@@ -1,10 +1,10 @@
 {
  "chapter": "16",
  "title": "Chapter 16: Context Engineering",
- "model": "none (--free-only)",
- "date": "2026-10-14 03:38",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-10-14 06:42",
  "provenance": {
-  "commit": "8a34de430235-modified",
+  "commit": "2850f35235c4-modified",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -44,31 +44,34 @@
    "id": "16.3",
    "title": "Watch compaction happen",
    "kind": "run",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null,
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "status": "failed",
+   "reason": "output lacks /total trims [1-9]|compactions [1-9]/",
+   "seconds": 45.9,
+   "log": "ch16/16.3.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "2850f35235c4-modified"
   },
   {
    "id": "16.4",
    "title": "Assemble a context",
    "kind": "run",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null,
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "status": "passed",
+   "reason": null,
+   "seconds": 45.3,
+   "log": "ch16/16.4.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "2850f35235c4-modified"
   },
   {
    "id": "16.5",
    "title": "Measure caching savings",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null,
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "status": "passed",
+   "reason": null,
+   "seconds": 182.1,
+   "log": "ch16/16.5.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "2850f35235c4-modified"
   },
   {
    "id": "16.6",
@@ -76,17 +79,17 @@
    "kind": "test",
    "status": "passed",
    "reason": null,
-   "seconds": 5.3,
+   "seconds": 7.8,
    "log": "ch16/16.6.log",
    "model": "none",
-   "commit": "8a34de430235-modified"
+   "commit": "2850f35235c4-modified"
   },
   {
    "id": "16.7",
    "title": "Let a program do the counting",
    "kind": "run",
    "status": "skipped",
-   "reason": "needs a model (--free-only): Claude only",
+   "reason": "Claude only",
    "seconds": 0,
    "log": null,
    "model": "qwen3.5:9b (local, through Ollama)"
@@ -95,11 +98,12 @@
    "id": "16.8",
    "title": "Brief the research team",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null,
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "status": "passed",
+   "reason": null,
+   "seconds": 784.1,
+   "log": "ch16/16.8.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "2850f35235c4-modified"
   }
  ]
 }

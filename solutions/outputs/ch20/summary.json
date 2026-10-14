@@ -1,10 +1,10 @@
 {
  "chapter": "20",
  "title": "Chapter 20: Planning and Model Routing",
- "model": "none (--free-only)",
- "date": "2026-10-14 03:38",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-10-14 07:28",
  "provenance": {
-  "commit": "8a34de430235-modified",
+  "commit": "2850f35235c4-modified",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -46,40 +46,43 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 1.6,
+   "seconds": 2.4,
    "log": "ch20/20.3.log",
    "model": "none",
-   "commit": "8a34de430235-modified"
+   "commit": "2850f35235c4-modified"
   },
   {
    "id": "20.4",
    "title": "Run independent steps in parallel",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null,
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "status": "passed",
+   "reason": null,
+   "seconds": 28.7,
+   "log": "ch20/20.4.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "2850f35235c4-modified"
   },
   {
    "id": "20.5",
    "title": "Evaluate the routers",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null,
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "status": "passed",
+   "reason": null,
+   "seconds": 106.7,
+   "log": "ch20/20.5.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "2850f35235c4-modified"
   },
   {
    "id": "20.6",
    "title": "A plan that survives a crash",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null,
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "status": "passed",
+   "reason": null,
+   "seconds": 54.4,
+   "log": "ch20/20.6.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "2850f35235c4-modified"
   }
  ]
 }

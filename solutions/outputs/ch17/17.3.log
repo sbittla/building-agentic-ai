@@ -1,9 +1,24 @@
 # Exercise: 17.3  Remember across restarts
-# Command:  python ch17_memory.py
+# Command:  python /tmp/solutions-flat/exercises/typed.py ch17_memory.py 'Remember this: my dog is called Bruno.' 'Remember this: I prefer temperatures in Fahrenheit.' quit && echo '---- restart ----' && python /tmp/solutions-flat/exercises/typed.py ch17_memory.py 'What do you know about me?' 'Please forget the name of my dog.' 'What do you know about me now?' quit
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-09-27 22:03:45 UTC
+# Date:     2026-10-14 06:43:20 UTC
 # Exit code: 0
-# Seconds:  4.7
+# Seconds:  43.1
 #-------------------------------------------------------------------------------
-You: Agent: It seems like your message might have been cut off. Could you clarify what you would like me to help with?
-You:
+$ rm -f memory.db
+$ python /tmp/solutions-flat/exercises/typed.py ch17_memory.py 'Remember this: my dog is called Bruno.' 'Remember this: I prefer temperatures in Fahrenheit.' quit && echo '---- restart ----' && python /tmp/solutions-flat/exercises/typed.py ch17_memory.py 'What do you know about me?' 'Please forget the name of my dog.' 'What do you know about me now?' quit
+You: Remember this: my dog is called Bruno.
+[step 1] remember({"fact": "The user's dog is called Bruno.", "tags": "dog"}) -> 'Remembered #1.'  (81 ms)
+Agent: Got it! I've remembered that your dog is named Bruno.
+You: Remember this: I prefer temperatures in Fahrenheit.
+[step 1] remember({"fact": "The user prefers temperatures in Fahrenheit.", "tags": "preferences"}) -> 'Remembered #2.'  (63 ms)
+Agent: Noted! I'll remember that you prefer temperatures to be expressed in Fahrenheit.
+You: quit
+---- restart ----
+You: What do you know about me?
+Agent: I don't have any stored information about you yet. As your personal assistant with long-term memory, I'm ready to save and recall important facts like preferences, decisions, names, or deadlines that you share with me. What would you like me to remember?
+You: Please forget the name of my dog.
+Agent: I don't have any stored information about your dog yet, so there is nothing specific to delete. If I had saved it earlier and you'd like me to remove that memory, please let me know, and I will help with that.
+You: What do you know about me now?
+Agent: I still don't have any stored information about you. Since nothing has been saved yet, there is nothing to forget or recall. Feel free to share some durable facts (like your name, preferences, important decisions, or project names) that I should remember for the future.
+You: quit

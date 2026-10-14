@@ -42,6 +42,10 @@ async def research(question: str, parallel: bool = True, critic: bool = True,
     plan = await _call(tools=[PLAN_TOOL], tool_choice={"type": "tool", "name": "make_plan"},
                        messages=[{"role": "user", "content": question}])
     subtasks = next(b.input["subtasks"] for b in plan.content if b.type == "tool_use")
+    for s in subtasks:            # a model can skip "required" fields: check, don't trust
+        s.setdefault("out_of_scope", "the other subtasks")
+        if s.get("effort") not in EFFORT_STEPS:
+            s["effort"] = "deep"
     jobs = [base.run_subagent(brief(s), max_iterations=EFFORT_STEPS[s["effort"]]) for s in subtasks]
     if parallel:
         findings = await asyncio.gather(*jobs)

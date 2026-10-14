@@ -1,10 +1,10 @@
 {
  "chapter": "23",
  "title": "Chapter 23: Computer-Use Agents",
- "model": "none (--free-only)",
- "date": "2026-10-14 03:39",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-10-14 07:36",
  "provenance": {
-  "commit": "8a34de430235-modified",
+  "commit": "2850f35235c4-modified",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -46,40 +46,43 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 1.8,
+   "seconds": 3.1,
    "log": "ch23/23.3.log",
    "model": "none",
-   "commit": "8a34de430235-modified"
+   "commit": "2850f35235c4-modified"
   },
   {
    "id": "23.4",
    "title": "The injected note",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null,
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "status": "passed",
+   "reason": null,
+   "seconds": 26.8,
+   "log": "ch23/23.4.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "2850f35235c4-modified"
   },
   {
    "id": "23.5",
    "title": "Verify, don't trust",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null,
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "status": "passed",
+   "reason": null,
+   "seconds": 50.8,
+   "log": "ch23/23.5.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "2850f35235c4-modified"
   },
   {
    "id": "23.6",
    "title": "A queue that survives a crash",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs a model (--free-only)",
-   "seconds": 0,
-   "log": null,
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "status": "passed",
+   "reason": null,
+   "seconds": 31.7,
+   "log": "ch23/23.6.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "2850f35235c4-modified"
   },
   {
    "id": "23.7",
@@ -87,10 +90,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 0.5,
+   "seconds": 0.6,
    "log": "ch23/23.7.log",
    "model": "none",
-   "commit": "8a34de430235-modified"
+   "commit": "2850f35235c4-modified"
   }
  ]
 }

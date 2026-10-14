@@ -4,7 +4,7 @@ compaction happens and the third answer still uses facts from the first two."""
 import ch06_notes_tools as notes
 import ch16_context as c
 
-BUDGET = 700        # tokens: the book's 3,000 assumes Claude's larger tool results
+BUDGET = 450        # tokens: this run peaks near 600; the book's 3,000 assumes Claude's larger results
 
 if __name__ == "__main__":
     history, totals = [], {"trims": 0, "compactions": 0}

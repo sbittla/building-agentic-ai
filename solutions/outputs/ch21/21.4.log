@@ -1,8 +1,17 @@
 # Exercise: 21.4  A specialist that fails
-# Command:  python /tmp/solutions-flat/exercises/ex21_4_failures.py
+# Command:  python /tmp/solutions-flat/exercises/ex21_4_failures.py && python -m pytest -p no:cacheprovider --rootdir /tmp /tmp/solutions-flat/tests/test_part7.py -k test_21_4 -v
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-09-27 22:27:30 UTC
+# Date:     2026-10-14 07:31:07 UTC
 # Exit code: 0
-# Seconds:  1.8
+# Seconds:  9.7
 #-------------------------------------------------------------------------------
 ERROR: analyst failed: analyst is over its token budget
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0 -- /opt/venv/bin/python
+rootdir: /tmp
+plugins: anyio-4.15.1, langsmith-0.14.0
+collecting ... collected 36 items / 35 deselected / 1 selected
+
+../../../../tmp/solutions-flat/tests/test_part7.py::test_21_4_failures_are_contained PASSED [100%]
+
+======================= 1 passed, 35 deselected in 0.35s =======================
