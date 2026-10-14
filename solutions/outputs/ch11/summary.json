@@ -2,9 +2,9 @@
  "chapter": "11",
  "title": "Chapter 11: Multi-Agent Systems",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-14 17:02",
+ "date": "2026-10-14 19:50",
  "provenance": {
-  "commit": "4b435eb02d73-modified",
+  "commit": "88a393db5a27",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -57,10 +57,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 176.6,
+   "seconds": 113.0,
    "log": "ch11/11.4.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "88a393db5a27"
   },
   {
    "id": "11.5",
@@ -68,10 +68,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 167.3,
+   "seconds": 96.1,
    "log": "ch11/11.5.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "88a393db5a27"
   },
   {
    "id": "11.6",

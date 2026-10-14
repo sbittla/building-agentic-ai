@@ -2,9 +2,9 @@
  "chapter": "20",
  "title": "Chapter 20: Planning and Model Routing",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-14 07:28",
+ "date": "2026-10-14 19:46",
  "provenance": {
-  "commit": "2850f35235c4-modified",
+  "commit": "88a393db5a27",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -68,10 +68,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 106.7,
+   "seconds": 65.9,
    "log": "ch20/20.5.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "88a393db5a27"
   },
   {
    "id": "20.6",

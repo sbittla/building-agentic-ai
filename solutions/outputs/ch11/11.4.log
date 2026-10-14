@@ -1,47 +1,56 @@
 # Exercise: 11.4  Better delegation
 # Command:  python /tmp/solutions-flat/exercises/run11_team.py delegation
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 06:07:54 UTC
+# Date:     2026-10-14 19:48:41 UTC
 # Exit code: 0
-# Seconds:  176.6
+# Seconds:  113.0
 #-------------------------------------------------------------------------------
 PLAN (structured):
 [
  {
+  "effort": "deep",
+  "objective": "Determine the relative operational costs (e.g., token usage, infrastructure) of agentic search versus traditional RAG pipelines for internal documentation.",
+  "out_of_scope": "Specific pricing models or vendor comparisons"
+ },
+ {
   "effort": "quick",
-  "objective": "Analyze and compare the cost differences between Agentic Search and RAG when using internal documents",
-  "out_of_scope": "Detailed infrastructure costs, licensing fees, or specific API pricing models"
+  "objective": "Evaluate data freshness mechanisms: latency from source update to user-facing answer and how each approach handles document mutations.",
+  "out_of_scope": "Latency of the underlying LLM inference itself"
  },
  {
   "effort": "deep",
-  "objective": "Evaluate how each method handles data freshness and recency issues for internal documentation",
-  "out_of_scope": "User perception of freshness, historical changes to docs"
- },
- {
-  "effort": "quick",
-  "objective": "Identify exact error codes commonly encountered in both Agentic Search and RAG when processing internal documents",
-  "out_of_scope": "Error handling strategies, mitigation techniques for these errors"
+  "objective": "Identify common failure patterns, hallucinations, and specific error messages associated with agentic workflows compared to RAG retrieval steps (e.g., no context found, tool loop errors).",
+  "out_of_scope": "Errors in the source document data itself"
  }
 ]
 
 model calls per subtask:
-  quick 3 calls  Analyze and compare the cost differences between Agentic Search and RA
-  deep  8 calls  Evaluate how each method handles data freshness and recency issues for
-  quick 1 calls  Identify exact error codes commonly encountered in both Agentic Search
-quick subtasks: at most 3 calls; deep: up to 8 (caps 3 and 8)
+  deep  3 calls  Determine the relative operational costs (e.g., token usage, infrastru
+  quick 3 calls  Evaluate data freshness mechanisms: latency from source update to user
+  deep  5 calls  Identify common failure patterns, hallucinations, and specific error m
+quick subtasks: at most 3 calls; deep: up to 5 (caps 3 and 8)
 
-**Cost Comparison**
-*   **Agentic Search**: Costs scale directly with the number of model steps, involving multiple calls per query (listing, searching, reading) to handle dynamic workflows (*agentic-search.md:2*, *cost-of-agents.md:2*). While it avoids upfront indexing/storage costs for embedding indexes (*agentic-search.md:1*), total spend can be significantly higher than single-turn sessions if iteration limits are not capped.
-*   **RAG**: Involves a one-time or periodic cost for building/updating indexes (embedding generation and database storage), followed by predictable per-query retrieval costs (*general knowledge*). Although specific volume metrics aren't detailed, RAG generally incurs lower operational model costs per query compared to multi-step agent chains, despite potential higher per-token costs if frequent retrievals occur against a large index.
+Based on the provided documentation, here is the comparison between Agentic Search and traditional RAG pipelines:
 
-**Freshness Comparison**
-*   **Agentic Search**: Natively supports data freshness by listing and reading files dynamically without requiring an upfront index update, allowing it to access the latest internal documentation immediately upon querying (*agentic-search.md*).
-*   **RAG**: Relies on a pre-built index (often embedding-based). While capable of handling updates via re-indexing cycles, there is a potential latency between document ingestion and retrieval accuracy compared to the dynamic nature of Agentic Search.
+### 1. Cost
+*   **Infrastructure**: RAG requires upfront and periodic re-indexing infrastructure (computational overhead for chunking/embeddings) when documents change, whereas Agentic Search operates without a pre-built vector index, eliminating ongoing indexing costs [`rag-overview.md:2`, `agentic-search.md:2`].
+*   **Token Usage & Model Calls**: Agentic Search incurs higher per-query token costs because it involves multiple sequential model calls that resend history, while RAG typically processes a single prompt with pre-retrieved context [`cost-of-agents.md:1`, `rag-overview.md:2`]. Multi-agent systems can multiply these costs significantly for broad research tasks [`multi-agent.md:2`].
+*   **Predictability**: RAG has a more fixed cost structure regarding retrieval, while Agentic Search shifts to variable model-call token costs, requiring budget controls like iteration caps to remain predictable [`cost-of-agents.md:1`, `agentic-search.md:2`].
 
-**Exact Error Codes**
-*   **Status**: Unable to identify exact error codes.
-*   **Reason**: No internal documents, files, or specific URLs containing error code definitions for either Agentic Search or RAG were available in the provided notes folder (*No files were listed in the notes folder*, *No search results were returned*). Consequently, no external webpages regarding these specific errors could be fetched.
+### 2. Freshness
+*   **Mechanism**: RAG suffers from "stale indexes" where vector indices become outdated upon document mutation (insert/delete/modify) unless triggered by scheduled cron jobs or event-based re-indexing [`freshness.md:2`]. Agentic Search avoids this entirely as it does not rely on a pre-built index, ensuring results are always current without refresh latency [`agentic-search.md:2`, `freshness.md:2`].
+*   **Impact of Staleness**: Incorrect responses in RAG systems are often a direct result of using these stale vector indexes; Agentic approaches avoid "wrong answers from staleness" at the expense of higher latency and cost [`freshness.md:2`].
 
-**Disagreements & Notes**
-*   There is no direct evidence file matching "RAG-specific cost details" in the source notes; RAG cost analysis relies on general architectural knowledge rather than specific provided documentation (*Source: general knowledge; no direct file match found*).
-*   The task contains a logical gap regarding freshness for RAG because the provided notes lack any comparative data on indexing refresh rates versus Agentic Search's dynamic reading capabilities.
+### 3. Exact Error Codes & Failure Patterns
+The documentation **does not provide specific runtime error code strings** (e.g., `ERR_INDEX_NOT_FOUND`). Instead, it describes failure patterns and logical errors associated with each approach:
+*   **RAG-Specific Failures**: Primarily "context not found" or incorrect answers caused by stale vector indexes due to document mutations [`freshness.md:2`].
+*   **Agentic-Specific Failures**:
+    *   **Tool-Choice Errors**: Agents selecting suboptimal tools (e.g., keyword vs. vector search) leading to poor results [`hybrid-retrieval.md:2`].
+    *   **Latency Accumulation**: Sequential model calls causing timeouts or failures under load compared to RAG's fewer, parallel calls [`latency.md:2`, `rag-overview.md:2`].
+    *   **Parallel Coordination Failures**: Multi-agent systems failing when splitting tightly coupled tasks due to independent sub-agent contexts [`multi-agent.md:2`].
+    *   **Budget Exhaustion**: Unexpected token budget exhaustion requiring explicit caps, unlike simpler RAG retrievals [`cost-of-agents.md:2`].
+    *   **Safety/Action Errors**: Agentic workflows require human approval loops for state changes; failures occur if logging/undo capabilities are missing [`human-in-the-loop.md:1`].
+
+### Disagreements & Nuances
+*   **Optimization Tradeoffs**: There is no direct contradiction, but a clear tradeoff exists: RAG favors lower token cost and lower latency but risks staleness unless managed via scheduled re-indexing jobs; Agentic Search favors guaranteed freshness but risks high variable costs and complex latency accumulation if not optimized (e.g., via parallel execution or smaller models) [`latency.md:1-2`, `agentic-search.md:2`].
+*   **Tool Complexity**: The documentation notes that while RAG simplifies retrieval to a single-threaded approach, Agentic workflows introduce complexity regarding "tool loops" and "orchestrator" coordination failures which do not exist in standard RAG pipelines [`hybrid-retrieval.md:2`, `multi-agent.md:2`].

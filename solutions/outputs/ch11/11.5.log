@@ -1,9 +1,9 @@
 # Exercise: 11.5  A critic agent
 # Command:  python /tmp/solutions-flat/exercises/run11_team.py critic
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 06:10:42 UTC
+# Date:     2026-10-14 19:50:17 UTC
 # Exit code: 0
-# Seconds:  167.3
+# Seconds:  96.1
 #-------------------------------------------------------------------------------
 planted claim: RAG is always free to run, because embedding models cost nothing to call.
 critic flagged: [
@@ -13,16 +13,24 @@ critic caught the planted claim: True
 revised answer still has it: False
 
 REVISED ANSWER:
-Here is the revised answer with the unsupported claim about RAG costs removed and replaced with a more accurate reflection of the findings regarding index maintenance overhead.
+Here is the revised answer with the unsupported claim regarding RAG costs removed and corrected to reflect the actual economic trade-offs between the two architectures.
+
+***
 
 **Cost**
-Agentic search is significantly more expensive due to high token consumption from multiple sequential model calls per question, full history resending, and potential multi-agent overhead. In contrast, RAG is more efficient at inference volume but incurs operational costs related to scheduled index maintenance and the computational resources required for re-indexing jobs when source content changes.
+*   **Agentic Search:** Higher compute overhead; costs scale directly with the number of LLM model steps required to list, search, and read files sequentially. (Source: agentic-search.md)
+*   **RAG:** Lower initial retrieval latency via optimized vector similarity; however, incurs ongoing storage and compute costs for indexing chunks, embedding documents, and maintaining a vector index. Additionally, API calls to embedding models are required for every query, contributing to the operational expense. (Source: rag-overview.md, latency.md)
 
 **Freshness**
-Agentic search excels at data freshness because it performs regex-based searches against live files, guaranteeing up-to-date results for dynamic content without needing a vector index. Conversely, RAG relies on vector indexes that become stale when documents change; maintaining freshness requires active management via scheduled re-indexing or update triggers to prevent inaccurate answers.
+*   **Agentic Search:** Provides inherently fresh results with zero staleness latency by performing real-time file operations at query time. (Source: agentic-search.md, freshness.md)
+*   **RAG:** Introduces staleness latency; the index becomes outdated when source documents change until scheduled re-indexing jobs or triggers refresh it. (Source: freshness.md, rag-overview.md)
 
 **Exact Error Codes**
-There are **no documented comparisons** regarding specific error codes (e.g., exact match retrieval vs. retrieval misses) or failure modes (e.g., infinite loops/hallucinations in agents vs. context truncation in RAG). The available documentation does not distinguish between these system-level errors or provide quantitative benchmarks for them.
+*   **Agentic Search:** Better suited for exact identifier matching (e.g., error codes) using regex over live files to avoid semantic ambiguity. (Source: agentic-search.md, error-codes.md)
+*   **RAG:** Prone to missing precise identifiers because embedding models often treat specific codes (like ERR-4471 vs ERR-4417) as semantically similar/nearly identical, leading to retrieval errors despite the code's presence in the vector space. (Source: error-codes.md, rag-overview.md)
 
-**Disagreements/Contradictions**
-The provided findings do not present direct disagreements; rather, they describe a trade-off landscape where each approach excels in specific dimensions (Agentic: freshness/exactness but high cost/latency; RAG: efficiency/scalability but staleness risk). The only notable gap is the lack of data for exact error code comparisons versus the abundance of qualitative analysis regarding operational differences.
+**Disagreement/Gap in Documentation**
+There is a notable discrepancy regarding **failure modes and specific troubleshooting**. While high-level cost and logic differences are well-documented, detailed documentation on specific *agentic search error codes* unique to iterative workflows, or specific failure modes distinct from general API/RAG errors, was not found. The available notes focus more on search methodology (regex vs. embeddings) rather than a comprehensive list of agentic-specific error handling or troubleshooting steps. (Source: agentic-search.md, error-codes.md, multi-agent.md)
+
+**Iteration Note:**
+Subagent stopped at its iteration limit while attempting to identify specific cost metrics in detail.

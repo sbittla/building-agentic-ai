@@ -1,23 +1,23 @@
 # Exercise: 20.5  Evaluate the routers
 # Command:  python /tmp/solutions-flat/exercises/ex20_5_router_eval.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 07:28:01 UTC
+# Date:     2026-10-14 19:46:47 UTC
 # Exit code: 0
-# Seconds:  106.7
+# Seconds:  65.9
 #-------------------------------------------------------------------------------
 task                                                 label  rules  model 
-How many customers are there?                        easy   hard   hard  
-List the product categories.                         easy   hard   hard  
-What is the most expensive product?                  easy   hard   hard  
-How many orders are pending?                         easy   hard   hard  
-Which city has the most customers?                   easy   hard   hard  
-What was the total revenue last month?               easy   hard   hard  
-Why did revenue drop in March compared with Februa   hard   hard   hard  
-Compare repeat customers with one-time customers b   hard   hard   hard  
-Which categories grow fastest, and what would you    hard   hard   hard  
-Find customers who ordered in every month and desc   hard   hard   hard  
+How many customers are there?                        easy   easy   easy  
+List the product categories.                         easy   easy   easy  
+What is the most expensive product?                  easy   easy   easy  
+How many orders are pending?                         easy   easy   easy  
+Which city has the most customers?                   easy   easy   easy  
+What was the total revenue last month?               easy   easy   easy  
+Why did revenue drop in March compared with Februa   hard   hard   easy  
+Compare repeat customers with one-time customers b   hard   hard   easy  
+Which categories grow fastest, and what would you    hard   easy   easy  
+Find customers who ordered in every month and desc   hard   easy   hard  
 Is there a seasonal pattern in cancellations? Expl   hard   hard   hard  
-Suggest three KPIs for this shop and compute each    hard   hard   hard  
-rules        accuracy 50%, hard tasks sent to the small model: 0
-small model  accuracy 50%, hard tasks sent to the small model: 0
-change: add 'suggest', 'pattern', 'every', 'fastest', 'describe' to HARD_WORDS -> rules accuracy 50% -> 50%, hard tasks sent small 0 -> 0
+Suggest three KPIs for this shop and compute each    hard   easy   hard  
+rules        accuracy 75%, hard tasks sent to the small model: 3
+small model  accuracy 75%, hard tasks sent to the small model: 3
+change: add 'suggest', 'pattern', 'every', 'fastest', 'describe' to HARD_WORDS -> rules accuracy 75% -> 100%, hard tasks sent small 3 -> 0
