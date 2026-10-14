@@ -2,9 +2,9 @@
  "chapter": "27",
  "title": "Chapter 27: Agent Evaluation: Dimensions, Trajectories and Scorecards",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-14 17:22",
+ "date": "2026-10-14 19:14",
  "provenance": {
-  "commit": "4b435eb02d73-modified",
+  "commit": "a229736f2d28",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -46,10 +46,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 483.0,
+   "seconds": 452.6,
    "log": "ch27/27.3.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "a229736f2d28"
   },
   {
    "id": "27.4",
@@ -57,10 +57,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 1010.0,
+   "seconds": 541.0,
    "log": "ch27/27.4.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "4b435eb02d73-modified"
+   "commit": "a229736f2d28"
   },
   {
    "id": "27.5",

@@ -39,7 +39,7 @@ This file is rewritten after every run.
 | [24](ch24/) | Chapter 24: Skills, Frameworks and Agent Runtimes | 7 | 0 | 3 | 3 | mixed: see each exercise | 2026-10-14 18:11 |
 | [25](ch25/) | Chapter 25: Agentic Security | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 17:48 |
 | [26](ch26/) | Chapter 26: Agent Identity and Authorization | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 07:50 |
-| [27](ch27/) | Chapter 27: Agent Evaluation: Dimensions, Trajectories and Scorecards | 6 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 17:22 |
+| [27](ch27/) | Chapter 27: Agent Evaluation: Dimensions, Trajectories and Scorecards | 6 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 19:14 |
 | [28](ch28/) | Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents | 7 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-14 08:16 |
 | [29](ch29/) | Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost | 7 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-14 15:38 |
 | [30](ch30/) | Chapter 30: Deploying Agents: From One Service to an Agent Platform | 10 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 15:36 |
