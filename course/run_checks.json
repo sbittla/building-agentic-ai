@@ -135,10 +135,10 @@
  "16.7": {"cmd": "python {SOL}/exercises/ex16_7_programmatic_compare.py", "expect": ["\\|"]},
  "16.8": {"expect": ["question\\s+version\\s+input", "briefed"]},
 
- "17.3": {"cmd": "python {SOL}/exercises/typed.py ch17_memory.py 'Remember this: my dog is called Bruno.' 'Remember this: I prefer temperatures in Fahrenheit.' quit && echo '---- restart ----' && python {SOL}/exercises/typed.py ch17_memory.py 'Check your memory: what do you know about me?' 'Please forget the name of my dog from your memory.' 'Check your memory again: what do you know about me now?' quit",
+ "17.3": {"cmd": "python {SOL}/exercises/typed.py ch17_memory.py 'Remember this: my dog is called Bruno.' 'Remember this: I prefer temperatures in Fahrenheit.' quit && echo '---- restart ----' && python {SOL}/exercises/typed.py ch17_memory.py 'Check your memory: what do you remember about my dog and my temperature preference?' 'Please forget the name of my dog from your memory.' 'Check your memory again: what do you remember about my dog and my temperature preference now?' quit",
           "setup": "rm -f memory.db",
-          "expect": ["(?s)You: Check your memory: what do you know about me\\?\\n(?:(?!You:).)*Bruno", "(?s)You: Check your memory: what do you know about me\\?\\n(?:(?!You:).)*Fahrenheit", "forget\\(", "(?s)You: Check your memory again: what do you know about me now\\?\\n(?:(?!You:).)*Fahrenheit"],
-          "expect_not": ["(?s)You: Check your memory again: what do you know about me now\\?\\n(?:(?!You:).)*Bruno"]},
+          "expect": ["(?s)You: Check your memory: what do you remember about my dog and my temperature preference\\?\\n(?:(?!^You: ).)*Bruno", "(?s)You: Check your memory: what do you remember about my dog and my temperature preference\\?\\n(?:(?!^You: ).)*Fahrenheit", "forget\\(", "(?s)You: Check your memory again: what do you remember about my dog and my temperature preference now\\?\\n(?:(?!^You: ).)*Fahrenheit"],
+          "expect_not": ["(?s)You: Check your memory again: what do you remember about my dog and my temperature preference now\\?\\n(?:(?!^You: ).)*Bruno"]},
  "17.4": {"expect": ["Remembered #2 \\(replaces #1\\)", "ERROR: refused: looks like a secret", "Quarantined for review #\\d", "ERROR: worker-2 may not write team memory", "expired: \\d"]},
  "17.5": {"expect": ["Consolidated 5 episodes", "\\[from episodes 1, 2, 3, 4, 5\\]"]},
  "17.6": {"expect": ["active memories: No memories match"]},

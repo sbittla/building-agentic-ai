@@ -2,9 +2,9 @@
  "chapter": "21",
  "title": "Chapter 21: Multi-Agent Orchestration",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-14 07:32",
+ "date": "2026-10-14 17:31",
  "provenance": {
-  "commit": "2850f35235c4-modified",
+  "commit": "4b435eb02d73-modified",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -77,12 +77,12 @@
    "id": "21.6",
    "title": "A mixed team",
    "kind": "build",
-   "status": "failed",
-   "reason": "exit code 1",
-   "seconds": 0.0,
+   "status": "passed",
+   "reason": null,
+   "seconds": 42.2,
    "log": "ch21/21.6.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "4b435eb02d73-modified"
   },
   {
    "id": "21.7",

@@ -52,15 +52,31 @@ TOOLS = [t for t in q.TOOLS if t["name"] != "add_task"] + [
                         "due": {"type": ["string", "null"]}}}},
 ]
 
+CALLED = set()                 # tool names the planner actually called
+
 def run_tool(name, args):
+    CALLED.add(name)
     local = {"list_invites": list_invites, "extract_invite": extract_invite,
              "add_task": add_task}
-    return local[name](**args) if name in local else q.run_tool(name, args)
+    # The quarantined reader can fail (a small model may never produce valid JSON).
+    # Fail closed: an unreadable email or invite becomes an error, never a task.
+    for attempt in (1, 2):
+        try:
+            return local[name](**args) if name in local else q.run_tool(name, args)
+        except Exception as exc:
+            error = f"ERROR: {type(exc).__name__}: {str(exc)[:200]}"
+    return error + " (couldn't read it safely: skip it and say so)"
 
 def main():
     from ch04_agent import run_agent
+    CALLED.clear()
     answer, messages, _ = run_agent("Go through today's inbox and my upcoming invites.",
                                     TOOLS, run_tool, system=q.SYSTEM, verbose=False)
+    if "add_task" not in CALLED:   # a small model can list "Tasks added" without adding any
+        answer, messages, _ = run_agent(
+            "You described tasks but never called add_task, so none were added. Call "
+            "add_task now for each request worth a task, naming its source id.",
+            TOOLS, run_tool, system=q.SYSTEM, verbose=False, messages=messages)
     print(answer, "\n", json.dumps(q.TASKS, indent=1))
     return answer, messages
 

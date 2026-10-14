@@ -71,12 +71,13 @@ async def main(repo):
         summary, history = await m13.run_mcp_agent(
             hub, f"Summarize the open issues in {repo}: how many there are, and the main "
                  "themes, with two or three example issue numbers. Keep it under 300 words.",
-            system=SYSTEM, before_call=policy.before_call)
+            system=SYSTEM, before_call=policy.before_call, max_tokens=8000)
         print("\nSummary:\n" + summary)
         if "[Stopped:" in summary:
             raise SystemExit("the summary didn't finish (see the [Stopped: ...] note)")
         reply, _ = await m13.run_mcp_agent(hub, f"Now close issue 3 in {repo}.", system=SYSTEM,
-                                           messages=history, before_call=policy.before_call)
+                                           messages=history, before_call=policy.before_call,
+                                           max_tokens=8000)
         print("\nClose issue 3:\n" + reply)
     calls = [json.loads(line) for line in open(policy.log_path)]
     print(f"\nAudit log: {len(calls)} tool calls:",

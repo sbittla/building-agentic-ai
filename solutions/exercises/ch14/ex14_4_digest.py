@@ -15,7 +15,12 @@ from ex14_3_readonly import CompactHub, is_write
 PROMPT = ("Write a weekly engineering digest for {repo}: the last 7 days of commits and "
           "the open issues (GitHub server), grouped into at most five themes, with one or "
           "two example numbers per theme. Keep it under 400 words. Use the time server for "
-          "today's date.")
+          "today's date. Your final reply is the digest itself, starting with the heading "
+          "'Weekly engineering digest'.")
+# A small model can answer the last tool result ("today is October 14") instead of the
+# task. If the reply isn't a digest, ask once more with the results already in hand.
+FOLLOW_UP = ("Now write the weekly engineering digest itself from those results, "
+             "starting with the heading 'Weekly engineering digest'. No more tool calls.")
 
 async def main(repo):
     config = json.load(open("servers_github.json"))
@@ -24,8 +29,11 @@ async def main(repo):
         hub.tools = policy.visible_tools(hub.tools)
         writes = [t["name"] for t in hub.tools if is_write(t["name"])]
         assert not writes, f"write tools visible: {writes}"
-        answer, _ = await m13.run_mcp_agent(hub, PROMPT.format(repo=repo), system=SYSTEM,
-                                            before_call=policy.before_call, max_tokens=8000)
+        answer, history = await m13.run_mcp_agent(hub, PROMPT.format(repo=repo), system=SYSTEM,
+                                                  before_call=policy.before_call, max_tokens=8000)
+        if "digest" not in answer.lower() and "[Stopped:" not in answer:
+            answer, _ = await m13.run_mcp_agent(hub, FOLLOW_UP, system=SYSTEM, messages=history,
+                                                before_call=policy.before_call, max_tokens=8000)
         print(answer)
         if "[Stopped:" in answer:                  # cut off or refused: not a digest
             raise SystemExit("the digest didn't finish (see the [Stopped: ...] note)")

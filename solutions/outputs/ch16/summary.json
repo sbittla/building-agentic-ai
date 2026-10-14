@@ -2,9 +2,9 @@
  "chapter": "16",
  "title": "Chapter 16: Context Engineering",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-14 06:42",
+ "date": "2026-10-14 17:05",
  "provenance": {
-  "commit": "2850f35235c4-modified",
+  "commit": "4b435eb02d73-modified",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -44,12 +44,12 @@
    "id": "16.3",
    "title": "Watch compaction happen",
    "kind": "run",
-   "status": "failed",
-   "reason": "output lacks /total trims [1-9]|compactions [1-9]/",
-   "seconds": 45.9,
+   "status": "passed",
+   "reason": null,
+   "seconds": 52.2,
    "log": "ch16/16.3.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "4b435eb02d73-modified"
   },
   {
    "id": "16.4",

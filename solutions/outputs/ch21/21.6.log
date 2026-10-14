@@ -1,44 +1,12 @@
 # Exercise: 21.6  A mixed team
 # Command:  python /tmp/solutions-flat/exercises/ex21_6_mixed_team.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 07:31:41 UTC
-# Exit code: 1
-# Seconds:  0.0
+# Date:     2026-10-14 17:31:57 UTC
+# Exit code: 0
+# Seconds:  42.2
 #-------------------------------------------------------------------------------
-Python path configuration:
-  PYTHONHOME = (not set)
-  PYTHONPATH = '/workspace/.course/runs/run-chapter-q4jyeiig:/tmp/solutions-flat/exercises:/tmp/solutions-flat/capstones'
-  program name = 'python'
-  isolated = 0
-  environment = 1
-  user site = 1
-  safe_path = 0
-  import site = 1
-  is in build tree = 0
-  stdlib dir = '/usr/lib/python3.12'
-  sys._base_executable = '/usr/bin/python3.12'
-  sys.base_prefix = '/usr'
-  sys.base_exec_prefix = '/usr'
-  sys.platlibdir = 'lib'
-  sys.executable = '/opt/venv/bin/python'
-  sys.prefix = '/usr'
-  sys.exec_prefix = '/usr'
-  sys.path = [
-    '/workspace/.course/runs/run-chapter-q4jyeiig',
-    '/tmp/solutions-flat/exercises',
-    '/tmp/solutions-flat/capstones',
-    '/usr/lib/python312.zip',
-    '/usr/lib/python3.12',
-    '/usr/lib/python3.12/lib-dynload',
-  ]
-Fatal Python error: init_fs_encoding: failed to get the Python codec of the filesystem encoding
-Python runtime state: core initialized
-Traceback (most recent call last):
-  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
-  File "<frozen importlib._bootstrap>", line 1322, in _find_and_load_unlocked
-  File "<frozen importlib._bootstrap>", line 1262, in _find_spec
-  File "<frozen importlib._bootstrap_external>", line 1528, in find_spec
-  File "<frozen importlib._bootstrap_external>", line 1502, in _get_spec
-  File "<frozen importlib._bootstrap_external>", line 1605, in find_spec
-  File "<frozen importlib._bootstrap_external>", line 1648, in _fill_cache
-OSError: [Errno 12] Cannot allocate memory: '/workspace/.course/runs/run-chapter-q4jyeiig'
+#1 lead       done     How many orders were cancelled?
+#2   analyst    done     Calculate the total number of cancelled orders from the shop
+#3   remote_analyst done     Calculate the total number of cancelled orders from the shop
+{'answer': '88', 'evidence': ["SELECT COUNT(*) AS total_cancelled_orders FROM orders WHERE status = 'cancelled' returned 88", 'The remote analyst confirmed that the total number of cancelled orders is **88**'], 'confidence': 'high'}
+tokens: {'lead': 1305, 'analyst': 1549, 'checker': 0, 'remote_analyst': 0}

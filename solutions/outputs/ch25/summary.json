@@ -2,9 +2,9 @@
  "chapter": "25",
  "title": "Chapter 25: Agentic Security",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-14 07:49",
+ "date": "2026-10-14 17:48",
  "provenance": {
-  "commit": "2850f35235c4-modified",
+  "commit": "4b435eb02d73-modified",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -55,12 +55,12 @@
    "id": "25.4",
    "title": "Quarantine a second source",
    "kind": "build",
-   "status": "failed",
-   "reason": "exit code 1",
-   "seconds": 60.1,
+   "status": "passed",
+   "reason": null,
+   "seconds": 51.8,
    "log": "ch25/25.4.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "4b435eb02d73-modified"
   },
   {
    "id": "25.5",

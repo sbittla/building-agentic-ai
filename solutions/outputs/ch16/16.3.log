@@ -1,31 +1,31 @@
 # Exercise: 16.3  Watch compaction happen
 # Command:  python /tmp/solutions-flat/exercises/run16_3_compaction.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 06:25:13 UTC
+# Date:     2026-10-14 17:05:11 UTC
 # Exit code: 0
-# Seconds:  45.9
+# Seconds:  52.2
 #-------------------------------------------------------------------------------
 
-context before the call: ~219 tokens (budget 700)
+context before the call: ~219 tokens (budget 450)
 [step 1] ~311 tokens in context
 Q: Which notes mention Kafka?
 A: The following notes mention Kafka:
 
-1. **learning/kafka-basics.md** - contains "# Kafka basics" (line 1)
-2. **work/2026-06-02-incident-kafka-lag.md** - contains "# Incident: Kafka consumer lag (2026-06-02)" (line 1)
-3. **work/2026-07-15-kafka-upgrade-plan.md** - contains "# Kafka upgrade plan" (line 1)
-4. **work/2026-09-05-retro.md** - mentions "Kafka upgrade completed with zero downtime" (line 2)
-{'steps': 2, 'input': 422, 'output': 176, 'cache_read': 666, 'cache_write': 0, 'trims': 0, 'compactions': 0, 'stop_reason': 'end_turn'}
+1. **learning/kafka-basics.md** (line 1) - Title "# Kafka basics"
+2. **work/2026-06-02-incident-kafka-lag.md** (line 1) - Title "# Incident: Kafka consumer lag (2026-06-02)"
+3. **work/2026-07-15-kafka-upgrade-plan.md** (line 1) - Title "# Kafka upgrade plan"
+4. **work/2026-09-05-retro.md** (line 2) - Contains "Went well: Kafka upgrade completed with zero downtime."
+{'steps': 2, 'input': 622, 'output': 179, 'cache_read': 466, 'cache_write': 0, 'trims': 0, 'compactions': 0, 'stop_reason': 'end_turn'}
 
-context before the call: ~425 tokens (budget 700)
-[step 1] ~533 tokens in context
+context before the call: ~426 tokens (budget 450)
+[step 1] ~534 tokens in context
 Q: What was the root cause of the lag incident?
-A: The root cause of the lag incident was that a deployment reduced the number of consumer instances from 12 to 4 (line 3). This caused consumer lag on the orders topic to spike.
-{'steps': 2, 'input': 334, 'output': 84, 'cache_read': 1396, 'cache_write': 0, 'trims': 0, 'compactions': 0, 'stop_reason': 'end_turn'}
+A: The root cause of the lag incident was a deployment that reduced consumer instances on the Kafka orders topic from 12 to 4 (work/2026-06-02-incident-kafka-lag.md:3).
+{'steps': 2, 'input': 951, 'output': 93, 'cache_read': 785, 'cache_write': 0, 'trims': 1, 'compactions': 0, 'stop_reason': 'end_turn'}
 
-context before the call: ~585 tokens (budget 700)
+context before the call: ~584 tokens (budget 450)
 Q: And what follow-up did we agree?
-A: We agreed on a follow-up: adding an alert when lag exceeds 100k for 5 minutes (line 5).
-{'steps': 1, 'input': 62, 'output': 28, 'cache_read': 940, 'cache_write': 0, 'trims': 0, 'compactions': 0, 'stop_reason': 'end_turn'}
+A: The agreed follow-up was to add an alert that triggers when lag exceeds 100k for 5 minutes (work/2026-06-02-incident-kafka-lag.md:5).
+{'steps': 1, 'input': 1057, 'output': 47, 'cache_read': 0, 'cache_write': 0, 'trims': 1, 'compactions': 1, 'stop_reason': 'end_turn'}
 
-total trims 0, compactions 0
+total trims 2, compactions 1

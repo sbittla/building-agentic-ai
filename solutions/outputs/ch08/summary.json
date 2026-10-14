@@ -2,9 +2,9 @@
  "chapter": "8",
  "title": "Chapter 8: Self-Correction: A Text-to-SQL Agent",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-14 15:56",
+ "date": "2026-10-14 16:49",
  "provenance": {
-  "commit": "03d1fad7c5f4-modified",
+  "commit": "4b435eb02d73-modified",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -55,12 +55,12 @@
    "id": "8.4",
    "title": "Watch it self-correct",
    "kind": "ask",
-   "status": "failed",
-   "reason": "output lacks /failed queries along the way: [1-9]/",
-   "seconds": 15.8,
+   "status": "passed",
+   "reason": null,
+   "seconds": 26.9,
    "log": "ch08/8.4.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "03d1fad7c5f4-modified"
+   "commit": "4b435eb02d73-modified"
   },
   {
    "id": "8.5",

@@ -1,34 +1,10 @@
 # Exercise: 11.6  Is it worth it?
 # Command:  python /tmp/solutions-flat/exercises/ex11_6_compare.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 16:10:36 UTC
-# Exit code: 1
-# Seconds:  737.1
+# Date:     2026-10-14 17:02:50 UTC
+# Exit code: 0
+# Seconds:  826.3
 #-------------------------------------------------------------------------------
-/tmp/solutions-flat/exercises/sol_ch11_research_team.py:-1: RuntimeWarning: coroutine 'run_subagent' was never awaited
-RuntimeWarning: Enable tracemalloc to get the object allocation traceback
-Traceback (most recent call last):
-  File "/tmp/solutions-flat/exercises/ex11_6_compare.py", line 58, in <module>
-    main()
-  File "/tmp/solutions-flat/exercises/ex11_6_compare.py", line 46, in main
-    answer, secs, tokens = fn(q)
-                           ^^^^^
-  File "/tmp/solutions-flat/exercises/ex11_6_compare.py", line 31, in multi
-    r = asyncio.run(team.research(q))
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
-    return runner.run(main)
-           ^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
-    return self._loop.run_until_complete(task)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
-    return future.result()
-           ^^^^^^^^^^^^^^^
-  File "/tmp/solutions-flat/exercises/sol_ch11_research_team.py", line 49, in research
-    jobs = [base.run_subagent(brief(s), max_iterations=EFFORT_STEPS[s["effort"]]) for s in subtasks]
-                              ^^^^^^^^
-  File "/tmp/solutions-flat/exercises/sol_ch11_research_team.py", line 34, in brief
-    return (f"Objective: {sub['objective']}\nOut of scope (a colleague covers it): "
-                          ~~~^^^^^^^^^^^^^
-KeyError: 'objective'
+| approach | mean score (1-5) | mean seconds | mean tokens |
+| single | 3.80 | 20.3 | 1,097 |
+| team | 4.87 | 126.9 | 9,974 |

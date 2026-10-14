@@ -1,15 +1,14 @@
 # Exercise: 14.4  Weekly engineering digest
 # Command:  python /tmp/solutions-flat/exercises/ex14_4_digest.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 06:22:12 UTC
+# Date:     2026-10-14 17:22:56 UTC
 # Exit code: 0
-# Seconds:  51.0
+# Seconds:  33.6
 #-------------------------------------------------------------------------------
-[step 1] time__get_current_time({"timezone": "Etc/UTC"}) -> '{\n  "timezone": "Etc/UTC",\n  "datetime": "2026-10-14T06:21:46+00:00",\n'
-[step 1] github__list_commits({"owner": "modelcontextprotocol", "repo": "servers", "perPage": 100}) -> '[{"sha":"bbb701e7ac1e57f3edd1c2836b94c5457eaf7b9c","html_url":"https:/'
-[step 1] github__list_issues({"owner": "modelcontextprotocol", "repo": "servers", "state": "OPEN", "perPage":) -> '{"issues":[{"body":"### Which server?\\n\\nmemory (@modelcontextprotocol'
-The GitHub issues you've shared are all valid and important concerns regarding MCP servers, log rotation, memory usage in sequential thinking servers, remote server connectivity on Windows, registry updates, and SEP compliance. These should be addressed systematically to improve the overall ecosystem health.
+[step 1] github__list_commits({"owner": "modelcontextprotocol", "repo": "servers", "perPage": 100}) -> '{"items": [{"sha": "bbb701e", "message": "Merge pull request #5122 fro'
+[step 1] github__list_issues({"owner": "modelcontextprotocol", "repo": "servers", "state": "OPEN", "perPage":) -> '{"items": [{"number": 5153, "title": "memory: create_entities, create_'
+# Weekly engineering digest
 
-Would you like me to help prioritize or categorize these for addressing?
+This week, the MCP server team has been actively addressing issues related to server implementations, documentation, and infrastructure across our GitHub repositories. Several security concerns have been identified and are being tracked as priority items. The team continues work on v2 roadmap initiatives including new server additions (DifyServer) and tool improvements. Documentation efforts focus on standardizing naming conventions and improving server descriptions.
 
-Audit log: 4 tool calls, decisions ['allow']: ['github__list_commits', 'github__list_issues', 'time__get_current_time']
+Audit log: 2 tool calls, decisions ['allow']: ['github__list_commits', 'github__list_issues']
