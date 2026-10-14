@@ -88,7 +88,8 @@ def model():
     capstone = (CAPSTONE_RUNS * run_cost("low") * LEARNER["low"], CAPSTONE_RUNS * run_cost("high") * LEARNER["high"])
     small = (learner[0] * run_cost("low", SMALL) / run_cost("low"), learner[1] * run_cost("high", SMALL) / run_cost("high"))
     return {"paid_exercises": len(paid), "runs": total_runs, "rows": rows, "first": first,
-            "learner": learner, "capstone": capstone, "small": small}
+            "learner": learner, "capstone": capstone, "small": small,
+            "runs_by_id": {e["id"]: runs(e) for e in paid}}
 
 
 def money(lo: float, hi: float) -> str:
@@ -186,7 +187,10 @@ def figures(m: dict) -> dict:
     """The figures the book's prose quotes as {{cost:NAME}} (build.js reads course/cost.json)."""
     return {"learner": rounded(*m["learner"]), "first": money(*m["first"]),
             "haiku": rounded(*m["small"]), "capstone": money(*m["capstone"]),
-            "run": f"${run_cost('low'):.2f}–{run_cost('high'):.2f}"}
+            "run": f"${run_cost('low'):.2f}–{run_cost('high'):.2f}",
+            # for ./course.sh run-chapter: an estimate for just the exercises you pick
+            "run_dollars": [round(run_cost("low"), 4), round(run_cost("high"), 4)],
+            "runs": m["runs_by_id"]}
 
 
 README_RE = re.compile(r"(<!-- cost -->).*?(<!-- /cost -->)", re.S)

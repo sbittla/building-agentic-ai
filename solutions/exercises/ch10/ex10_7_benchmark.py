@@ -63,6 +63,11 @@ def one_run(name: str, use_sandbox: bool) -> dict:
             "tests_unchanged": (repo / "test_mod.py").read_text() == test_before}
 
 def main(runs=3, use_sandbox=True, bugs=None):
+    if use_sandbox:                         # one cheap check before 30 model runs
+        from ch10_sandbox import run_tests_sandboxed
+        probe = run_tests_sandboxed(str(make_repo("off_by_one").resolve()))
+        if probe.startswith("ERROR"):
+            raise SystemExit(probe)
     rows = [one_run(b, use_sandbox) for b in (bugs or BUGS) for _ in range(runs)]
     print("| bug | success | mean steps | mean tokens | test-edit attempts |")
     for b in dict.fromkeys(r["bug"] for r in rows):

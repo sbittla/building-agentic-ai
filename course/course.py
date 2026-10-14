@@ -730,6 +730,18 @@ def _cost(name: str) -> str:
     except Exception:
         return "see COST_MODEL.md"
 
+def _estimate(ids: list[str]) -> str:
+    """Estimated cost on Claude of running just these exercises once (dev/cost_model.py)."""
+    try:
+        c = json.loads((COURSE / "cost.json").read_text())
+        lo, hi = c["run_dollars"]
+        runs = sum(c["runs"].get(i, 1) for i in ids if not i.startswith("C"))
+    except Exception:
+        return f"about {_cost('first')} for one pass of every chapter"
+    caps = sum(i.startswith("C") for i in ids)
+    note = f", plus {caps} capstone run(s)" if caps else ""
+    return f"about ${runs * lo:.2f}–{runs * hi:.2f} for {runs} agent run(s){note}"
+
 def cmd_quickstart(args):
     """Your first agent with a scripted stand-in model: no API key, no download."""
     os.chdir(WS)
@@ -990,12 +1002,9 @@ def cmd_live_exercises(args):
             out_file.write_text("\n".join(report + ["", *details]))
         except OSError as exc:
             warn(f"Couldn't write {host_path(out_file)}: {exc}")
-    with tempfile.TemporaryDirectory() as tmp:
+    with _scratch("live-check-") as tmp:
         tmp = Path(tmp)
-        shutil.copytree(WS, tmp, dirs_exist_ok=True,
-                        ignore=shutil.ignore_patterns(".sandbox", "__pycache__", "*.bak", "exercises",
-                                                      "live_*report.md", ".git"))
-        copy_pristine(tmp)
+        _fill_scratch(tmp)
         # COURSE_WORKSPACE: `course data ...` in an exercise's setup writes into the scratch copy
         env = dict(os.environ, PYTHONUNBUFFERED="1", COURSE_WORKSPACE=str(tmp),
                    PYTHONPATH=f"{tmp}:{SOLUTIONS / 'exercises'}:{SOLUTIONS / 'capstones'}")
@@ -1176,6 +1185,29 @@ def _write_log(path, e_id, title, cmd, model, code, secs, body):
         f"# Date:     {stamp}\n# Exit code: {code}\n# Seconds:  {secs:.1f}\n"
         + "#" + "-" * 79 + "\n" + body.rstrip() + "\n", errors="replace")
 
+
+def _scratch(prefix: str):
+    """A throwaway folder for run-chapter and live-check. It lives inside the workspace
+    (.course/runs/), where the chapter 10 sandbox can see it."""
+    root = WS / ".course" / "runs"
+    root.mkdir(parents=True, exist_ok=True)
+    return tempfile.TemporaryDirectory(prefix=prefix, dir=root)
+
+def _fill_scratch(tmp: Path) -> None:
+    """Copy the workspace into tmp, put back the book's code, and make it a Git
+    repository, as your workspace is: chapter 14's Git server needs one."""
+    shutil.copytree(WS, tmp, dirs_exist_ok=True,
+                    ignore=shutil.ignore_patterns(".sandbox", "__pycache__", "*.bak", "exercises",
+                                                  "live_*report.md", ".git", ".course", "outputs"))
+    marker = WS / ".course" / "initialized"            # the copy counts as set up, too
+    if marker.exists():
+        (tmp / ".course").mkdir(exist_ok=True)
+        shutil.copy2(marker, tmp / ".course" / "initialized")
+    copy_pristine(tmp)
+    git = ["git", "-c", "user.name=Course", "-c", "user.email=course@localhost"]
+    for cmd in (["init", "-q"], ["add", "-A"], ["commit", "-qm", "run copy"]):
+        subprocess.run(git + cmd, cwd=tmp, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
 def _provenance(model_label):
     """What produced a result: the code (commit), the environment (Python, packages) and the
     model. Written into every run-chapter summary so a result can be reproduced or explained."""
@@ -1325,7 +1357,7 @@ def cmd_run_chapter(args):
         say("--free-only: only exercises that need no model run; the others are skipped.")
     elif uses_model:
         say("Free, but slow on a CPU: allow several hours for everything." if local else
-            f"This uses your API key: about {_cost('first')} for one pass of every chapter (COST_MODEL.md).")
+            f"This uses your API key: {_estimate([e['id'] for e in uses_model])} (COST_MODEL.md).")
         say("Your own files are not used or changed.")
         try:
             if not yes and input("Continue? [y/N] ").strip().lower() != "y":
@@ -1338,13 +1370,9 @@ def cmd_run_chapter(args):
     answers = answers.read_text() if answers.exists() else ""
     limit = 1800 if local else 600                  # a local model on a CPU is much slower
     totals = {"passed": 0, "failed": 0, "skipped": 0}
-    with tempfile.TemporaryDirectory(prefix="run-chapter-") as tmp:
+    with _scratch("run-chapter-") as tmp:
         tmp = Path(tmp)
-        shutil.copytree(WS, tmp, dirs_exist_ok=True,
-                        ignore=shutil.ignore_patterns(".sandbox", "__pycache__", "*.bak",
-                                                      "exercises", "live_*report.md", ".git",
-                                                      "outputs"))
-        copy_pristine(tmp)                                 # the book's code, not your edits
+        _fill_scratch(tmp)                                 # the book's code, not your edits
         env = dict(os.environ, PYTHONUNBUFFERED="1", COURSE_WORKSPACE=str(tmp),
                    PYTHONDONTWRITEBYTECODE="1", COURSE_CODE=str(PRISTINE),
                    COURSE_DATA=str(COURSE / "data"),
