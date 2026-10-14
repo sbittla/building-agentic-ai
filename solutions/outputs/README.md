@@ -21,12 +21,12 @@ This file is rewritten after every run.
 | [8](ch08/) | Chapter 8: Self-Correction: A Text-to-SQL Agent | 2 | 0 | 5 | 2 | qwen3.5:9b (local, through Ollama) | 2026-09-27 21:21 |
 | [M](M/) | Interlude: Measuring an Agent | 1 | 0 | 2 | 1 | none (--free-only) | 2026-10-13 13:29 |
 | [9](ch09/) | Chapter 9: Human-in-the-Loop Approval | 4 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-09-27 21:22 |
-| [10](ch10/) | Chapter 10: Feedback Loops | 5 | 0 | 2 | 2 | mixed: see each exercise | 2026-10-14 00:29 |
+| [10](ch10/) | Chapter 10: Feedback Loops | 4 | 0 | 3 | 2 | qwen3.5:9b (local, through Ollama) | 2026-09-27 21:24 |
 | [A](A/) | Interlude: Asynchronous Python | 4 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-09-27 20:51 |
 | [11](ch11/) | Chapter 11: Multi-Agent Systems | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-09-27 21:50 |
 | [12](ch12/) | Chapter 12: MCP Fundamentals and Your First Server | 1 | 0 | 6 | 2 | qwen3.5:9b (local, through Ollama) | 2026-09-27 21:50 |
 | [13](ch13/) | Chapter 13: Build Your Own MCP Client | 7 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-09-28 00:15 |
-| [14](ch14/) | Chapter 14: Using Servers You Didn't Write | 3 | 0 | 2 | 2 | mixed: see each exercise | 2026-10-14 01:40 |
+| [14](ch14/) | Chapter 14: Using Servers You Didn't Write | 2 | 0 | 3 | 2 | mixed: see each exercise | 2026-10-14 01:40 |
 | [15](ch15/) | Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure | 2 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-09-28 00:17 |
 | [16](ch16/) | Chapter 16: Context Engineering | 6 | 0 | 2 | 2 | mixed: see each exercise | 2026-09-28 01:49 |
 | [17](ch17/) | Chapter 17: Agent Memory Engineering | 7 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-13 13:29 |

@@ -54,13 +54,11 @@
   {
    "id": "14.4",
    "title": "Weekly engineering digest",
-   "kind": "build",
-   "status": "passed",
-   "reason": null,
-   "seconds": 58.9,
-   "log": "ch14/14.4.log",
-   "model": "claude-sonnet-5 (Claude API)",
-   "commit": "7df2f27aa740-modified"
+   "kind": "run",
+   "status": "skipped",
+   "reason": "needs GITHUB_PERSONAL_ACCESS_TOKEN in .env",
+   "seconds": 0,
+   "log": null
   },
   {
    "id": "14.5",

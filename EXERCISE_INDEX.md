@@ -313,7 +313,7 @@ Logs: [`solutions/outputs/ch14/`](solutions/outputs/ch14/)
 | --- | --- | --- | --- | --- | --- | --- |
 | 14.1 | Threat model | Concept | Written answer | No model | — | written answer |
 | 14.2 | Server review | Concept | Written answer | No model | — | written answer |
-| 14.3 | Read-only GitHub | Simple | Build | Local or Claude | [`ex14_3_readonly.py`](solutions/exercises/ch14/ex14_3_readonly.py) | skipped: needs GITHUB_PERSONAL_ACCESS_TOKEN in .env |
+| 14.3 | Read-only GitHub | Simple | Build | Local or Claude | [`ex14_3_readonly.py`](solutions/exercises/ch14/ex14_3_readonly.py) | ✔ passed (claude-sonnet-5, 30 s) |
 | 14.4 | Weekly engineering digest | Medium | Build | Local or Claude | [`ex14_4_digest.py`](solutions/exercises/ch14/ex14_4_digest.py) | skipped: needs GITHUB_PERSONAL_ACCESS_TOKEN in .env |
 | 14.5 | Mark untrusted content | Medium | Run chapter code | Local or Claude | [`sol_ch14_untrusted.py`](solutions/exercises/ch14/sol_ch14_untrusted.py) | ✔ passed (qwen3.5:9b, 12 s) |
 

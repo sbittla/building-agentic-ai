@@ -212,7 +212,7 @@ Commit `02ba9f36d988`; `requirements.lock` sha256 `c28c848a2447`; course image s
 
 ### B. Exercises run with a real model
 
-Every exercise run with its reference solution by `run-chapter` (runs from 2026-09-27 to 2026-10-13; models: `claude-sonnet-5`, `qwen3.5:9b`). **176 of 177 executable checks pass automatically**; 1 intentionally demonstrates a failing quality gate, and **0** failed unexpectedly. A real model's answers vary from run to run, so these show that each exercise works end to end, not that it always will. Commits: `abaab3d230f8`, `b2de67c6c601`. Per-exercise results and logs: [EXERCISE_INDEX.md](EXERCISE_INDEX.md), `solutions/outputs/`.
+Every exercise run with its reference solution by `run-chapter` (runs from 2026-09-27 to 2026-10-14; models: `claude-sonnet-5`, `mixed: see each exercise`, `qwen3.5:9b`). **177 of 178 executable checks pass automatically**; 1 intentionally demonstrates a failing quality gate, and **0** failed unexpectedly. A real model's answers vary from run to run, so these show that each exercise works end to end, not that it always will. Commits: `7df2f27aa740-modified`, `abaab3d230f8`, `b2de67c6c601`. Per-exercise results and logs: [EXERCISE_INDEX.md](EXERCISE_INDEX.md), `solutions/outputs/`.
 
 How the totals count: the book has **249 exercises**; the table adds the 7 capstones, so it has 256 rows of work. Every count here, in EXERCISE_INDEX.md and in the book is computed from `course/exercises.json`. *Written answer* exercises have nothing to run; *needs a person* means a person at the keyboard, the Claude Desktop app, a GitHub token or a file the reader creates; *not run yet* means no run has been recorded for this version.
 
@@ -238,7 +238,7 @@ How the totals count: the book has **249 exercises**; the table adds the 7 capst
 | Chapter 11: Multi-Agent Systems | 7 | 5 | 0 | 0 | 2 | 0 | 0 | 100% |
 | Chapter 12: MCP Fundamentals and Your First Server | 7 | 1 | 0 | 0 | 2 | 4 | 0 | 100% |
 | Chapter 13: Build Your Own MCP Client | 8 | 7 | 0 | 0 | 1 | 0 | 0 | 100% |
-| Chapter 14: Using Servers You Didn't Write | 5 | 1 | 0 | 0 | 2 | 2 | 0 | 100% |
+| Chapter 14: Using Servers You Didn't Write | 5 | 2 | 0 | 0 | 2 | 1 | 0 | 100% |
 | Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure | 4 | 2 | 0 | 0 | 2 | 0 | 0 | 100% |
 | Chapter 16: Context Engineering | 8 | 6 | 0 | 0 | 2 | 0 | 0 | 100% |
 | Chapter 17: Agent Memory Engineering | 9 | 7 | 0 | 0 | 2 | 0 | 0 | 100% |
@@ -257,7 +257,7 @@ How the totals count: the book has **249 exercises**; the table adds the 7 capst
 | Chapter 30: Deploying Agents: From One Service to an Agent Platform | 12 | 10 | 0 | 0 | 2 | 0 | 0 | 100% |
 | Chapter 31: From Prototype to Customer Production | 5 | 3 | 0 | 0 | 1 | 0 | 1 | 100% |
 | Capstone projects C1–C7 | 7 | 7 | 0 | 0 | 0 | 0 | 0 | 100% |
-| **Total** | **256** | **176** | **0** | **1** | **63** | **14** | **2** | **100.0%** |
+| **Total** | **256** | **177** | **0** | **1** | **63** | **13** | **2** | **100.0%** |
 
 *Pass rate* counts passed against unexpected failures; a gate that fails by design is neither.
 

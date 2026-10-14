@@ -30,20 +30,20 @@
     "exercises_and_capstones": 256,
     "by_outcome": {
       "written answer": 63,
-      "needs a person or service": 14,
-      "passed": 176,
+      "needs a person or service": 13,
+      "passed": 177,
       "failed": 1
     },
     "runs_by_provider": {
       "local (qwen3.5:9b)": 140,
-      "Claude API": 4,
+      "Claude API": 5,
       "no model": 33
     },
     "not_run_yet": [
       "M.3",
       "31.5"
     ],
-    "dates": "2026-09-27 to 2026-10-13",
+    "dates": "2026-09-27 to 2026-10-14",
     "evidence": "solutions/outputs/*/summary.json (each records its own commit and lock hash)"
   },
   "known_limitations": [

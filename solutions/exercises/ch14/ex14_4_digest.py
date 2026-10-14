@@ -12,8 +12,10 @@ import ch13_mcp_agent as m13
 from ch14_policy_agent import Policy, SYSTEM
 from ex14_3_readonly import is_write
 
-PROMPT = ("Summarize the last 7 days of commits and the open issues in {repo} (GitHub "
-          "server), grouped by theme. Use the time server for today's date.")
+PROMPT = ("Write a weekly engineering digest for {repo}: the last 7 days of commits and "
+          "the open issues (GitHub server), grouped into at most five themes, with one or "
+          "two example numbers per theme. Keep it under 400 words. Use the time server for "
+          "today's date.")
 
 async def main(repo):
     config = json.load(open("servers_github.json"))
@@ -23,8 +25,10 @@ async def main(repo):
         writes = [t["name"] for t in hub.tools if is_write(t["name"])]
         assert not writes, f"write tools visible: {writes}"
         answer, _ = await m13.run_mcp_agent(hub, PROMPT.format(repo=repo), system=SYSTEM,
-                                            before_call=policy.before_call)
+                                            before_call=policy.before_call, max_tokens=8000)
         print(answer)
+        if "[Stopped:" in answer:                  # cut off or refused: not a digest
+            raise SystemExit("the digest didn't finish (see the [Stopped: ...] note)")
     calls = [json.loads(line) for line in open(policy.log_path)]
     print(f"\nAudit log: {len(calls)} tool calls, decisions "
           f"{sorted({c['decision'] for c in calls})}:", sorted({c["tool"] for c in calls}))

@@ -49,8 +49,8 @@ def one_run(name: str, use_sandbox: bool) -> dict:
     test_before = (repo / "test_mod.py").read_text()
     tools, run_tool = sol.make_tools(use_sandbox)
     attempts_on_tests = []
-    def watched(tool_name, args):
-        if str(args.get("path", "")).startswith("test_"):
+    def watched(tool_name, args):                   # reading a test is fine; editing isn't
+        if tool_name != "read_file" and str(args.get("path", "")).startswith("test_"):
             attempts_on_tests.append(args["path"])
         return run_tool(tool_name, args)
     t0 = time.perf_counter()
@@ -77,6 +77,9 @@ def main(runs=3, use_sandbox=True, bugs=None):
               f"{statistics.mean(r['tokens'] for r in rs):,.0f} | "
               f"{sum(r['test_edit_attempts'] for r in rs)} |")
     assert all(r["tests_unchanged"] for r in rows), "a test file was modified!"
+    if not any(r["passed"] for r in rows):      # one-line bugs: some run should succeed
+        raise SystemExit("No run fixed its bug. Check that the tests run at all: "
+                         "./course.sh python ch10_sandbox.py")
     return rows
 
 if __name__ == "__main__":
