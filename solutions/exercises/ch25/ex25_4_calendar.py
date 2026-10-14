@@ -1,5 +1,7 @@
 """Exercise 25.4 (solution): calendar invites as a second untrusted source. Only
-metadata reaches the planner; descriptions go through the quarantined reader."""
+metadata reaches the planner; descriptions go through the quarantined reader, an
+unreadable one fails closed, and tasks are counted in code, not taken from the
+model's report."""
 import json
 
 import ch25_quarantine as q

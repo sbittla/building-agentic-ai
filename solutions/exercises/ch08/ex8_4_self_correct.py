@@ -1,4 +1,6 @@
-"""Exercise 8.4 (Simple): sabotage the prompt and watch the agent self-correct."""
+"""Exercise 8.4 (Simple): a wrong table name in the prompt, and get_schema kept for when a
+query fails: the first query fails, the agent reads the error and the schema, and corrects
+itself."""
 import ch08_sql_tools as sql
 from ch04_agent import run_agent
 

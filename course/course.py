@@ -445,16 +445,18 @@ def cmd_inspector(args):
     if not args:
         fail("Usage: ./course.sh inspector <server.py> [--cli]")
         return 2
-    server = args[0]
+    # The Inspector starts the server with a minimal environment, without PYTHONPATH, so
+    # a server that imports course code (12.6 imports ch03_tools) would fail. Pass it on.
+    run_server = ["env", f"PYTHONPATH={env_for_runs()['PYTHONPATH']}", "python", args[0]]
     if "--cli" in args:
         rest = [a for a in args[1:] if a != "--cli"] or ["--method", "tools/list"]
-        return subprocess.call(["mcp-inspector", "--cli", "python", server, *rest],
+        return subprocess.call(["mcp-inspector", "--cli", *run_server, *rest],
                                cwd=WS, env=env_for_runs())
     env = env_for_runs() | {"HOST": "0.0.0.0", "DANGEROUSLY_BIND_ALL_INTERFACES": "true",
                             "MCP_AUTO_OPEN_ENABLED": "false"}
     head("Starting MCP Inspector. Open the http://localhost:6274 link below in your browser.")
     say("(The Inspector is published only to your own computer. Press Ctrl+C to stop.)\n")
-    return subprocess.call(["mcp-inspector", "--web", "python", server], cwd=WS, env=env)
+    return subprocess.call(["mcp-inspector", "--web", *run_server], cwd=WS, env=env)
 
 def cmd_serve(args):
     """Run an MCP server over Streamable HTTP on http://localhost:8000/mcp"""

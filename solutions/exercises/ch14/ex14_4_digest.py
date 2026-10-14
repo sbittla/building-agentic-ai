@@ -1,4 +1,5 @@
-"""Exercise 14.4 (Medium): weekly engineering digest from Git + GitHub (read-only).
+"""Exercise 14.4 (Medium): weekly engineering digest from Git + GitHub (read-only), with
+every cited issue number checked against what GitHub returned.
 
 Needs GITHUB_PERSONAL_ACCESS_TOKEN (read-only) in .env. Usage:
     ./course.sh python exercises/ex14_4_digest.py [owner/repo]
