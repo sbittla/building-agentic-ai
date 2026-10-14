@@ -30,13 +30,13 @@
     "exercises_and_capstones": 256,
     "by_outcome": {
       "written answer": 63,
-      "needs a person or service": 13,
-      "passed": 177,
+      "needs a person or service": 11,
+      "passed": 179,
       "failed": 1
     },
     "runs_by_provider": {
       "local (qwen3.5:9b)": 140,
-      "Claude API": 5,
+      "Claude API": 7,
       "no model": 33
     },
     "not_run_yet": [

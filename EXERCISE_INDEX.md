@@ -249,7 +249,7 @@ Logs: [`solutions/outputs/ch10/`](solutions/outputs/ch10/)
 | 10.4 | Watch the protection | Simple | Run chapter code | Local or Claude | [`ex10_4_protection.py`](solutions/exercises/ch10/ex10_4_protection.py) | ✔ passed (qwen3.5:9b, 34 s) |
 | 10.5 | Four bugs, two files | Medium | Run chapter code | Local or Claude | [`sol_ch10_make_repo2.py`](solutions/exercises/ch10/sol_ch10_make_repo2.py) | ✔ passed (qwen3.5:9b, 13 s) |
 | 10.6 | Targeted edits | Medium | Run chapter code | Local or Claude | [`sol_ch10_fixer.py`](solutions/exercises/ch10/sol_ch10_fixer.py) | ✔ passed (qwen3.5:9b, 38 s) |
-| 10.7 | Benchmark the fixer | Complex | Build | Local or Claude | [`ex10_7_benchmark.py`](solutions/exercises/ch10/ex10_7_benchmark.py)<br>[`sol_ch10_fixer.py`](solutions/exercises/ch10/sol_ch10_fixer.py) | skipped: needs the sandbox |
+| 10.7 | Benchmark the fixer | Complex | Build | Local or Claude | [`ex10_7_benchmark.py`](solutions/exercises/ch10/ex10_7_benchmark.py)<br>[`sol_ch10_fixer.py`](solutions/exercises/ch10/sol_ch10_fixer.py) | ✔ passed (claude-sonnet-5, 381 s) |
 
 ## Interlude: Asynchronous Python
 
@@ -313,8 +313,8 @@ Logs: [`solutions/outputs/ch14/`](solutions/outputs/ch14/)
 | --- | --- | --- | --- | --- | --- | --- |
 | 14.1 | Threat model | Concept | Written answer | No model | — | written answer |
 | 14.2 | Server review | Concept | Written answer | No model | — | written answer |
-| 14.3 | Read-only GitHub | Simple | Build | Local or Claude | [`ex14_3_readonly.py`](solutions/exercises/ch14/ex14_3_readonly.py) | ✔ passed (claude-sonnet-5, 30 s) |
-| 14.4 | Weekly engineering digest | Medium | Build | Local or Claude | [`ex14_4_digest.py`](solutions/exercises/ch14/ex14_4_digest.py) | skipped: needs GITHUB_PERSONAL_ACCESS_TOKEN in .env |
+| 14.3 | Read-only GitHub | Simple | Build | Local or Claude | [`ex14_3_readonly.py`](solutions/exercises/ch14/ex14_3_readonly.py) | ✔ passed (claude-sonnet-5, 22 s) |
+| 14.4 | Weekly engineering digest | Medium | Build | Local or Claude | [`ex14_4_digest.py`](solutions/exercises/ch14/ex14_4_digest.py) | ✔ passed (claude-sonnet-5, 30 s) |
 | 14.5 | Mark untrusted content | Medium | Run chapter code | Local or Claude | [`sol_ch14_untrusted.py`](solutions/exercises/ch14/sol_ch14_untrusted.py) | ✔ passed (qwen3.5:9b, 12 s) |
 
 ## Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure
