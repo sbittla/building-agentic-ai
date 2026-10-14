@@ -4,7 +4,17 @@ What changed in the book and this repository, newest first. The book's First edi
 
 ## book-v1.0.0: First edition (2026)
 
-The first public release: the book's First edition and the repository release that matches it. 32 chapters and 6 interludes, 249 exercises, seven capstones. `book-v1.0.0-rc1` is the release candidate; [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) lists what it was verified with and the gates still open.
+The first public release: the book's First edition and the repository release that matches it. 32 chapters and 6 interludes, 249 exercises, seven capstones. `book-v1.0.0-rc2` is the current release candidate; [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) lists what it was verified with and the gates still open.
+
+### Release candidate 2 (`book-v1.0.0-rc2`)
+Manuscript and documentation only; no code, test or environment file changed since `book-v1.0.0-rc1`, so rc1's in-image test run (584 passed, 1 skipped, in the course image on GitHub Actions) still applies and is now the recorded verification.
+- **A curated index.** About 290 entries with sub-entries and cross-references (`course/index_terms.json`). Each sense is looked up only in the chapters that teach it, so "canary release" and "canary token" are separate entries, and the glossary pages are left out.
+- **Who the book is for, stated precisely.** Complete beginners can finish Parts 0 to 4 with the book alone; later parts assume those exercises are done.
+- **Lighter benchmark sections.** The full "conditions" tables in Chapters 12, 15, 21, 24, 25, 27, 28 and 29 moved to `benchmarks/README.md`; each chapter keeps a short note of the conditions that matter for reading its numbers.
+- **The eight unresolved claims softened** to what a source or the pinned code confirms (CLAIMS_AUDIT.md).
+- Fixed stale cross-references in Appendix H (structured outputs, evals, load tests), exercise 10.3's instructions, exercise 12.7's wording, the measurement interlude reference in Chapter 27 and the case study's token figure (now consistent with Chapter 29's E4).
+- README: exercise counts by model (130 no model, 105 local or Claude), the Claude Desktop exception, `serve-a2a` is the Chapter 21 agent, `capstone <1-7>`. VERSION_MATRIX: the local model uses Ollama's `/v1/messages` endpoint.
+- `dev/check_links.py` prints one GitHub annotation per broken link in CI.
 
 ### Book
 - **One edition statement.** The copyright page says "First edition: 2026" and names the matching repository tag, `book-v1.0.0`. The internal snapshots that came before (below) are not described anywhere in the book as printings.

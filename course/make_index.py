@@ -1,113 +1,149 @@
-"""Build the book's index from a rendered PDF.
+"""Build the book's index from a rendered PDF and the curated term list.
 
   python3 make_index.py book.pdf        # writes md/92_index.md
 
-The terms are the glossary's (Appendix C) plus a short list of names readers look up. For each
-term it finds the printed pages where the term appears in the main matter (Part 0 to the end of
-the appendices), groups neighbouring pages into ranges and keeps the six ranges with the most
-mentions. Terms that appear on most pages ("agent", "tool") are left out: an index entry with
-two hundred pages helps nobody. The index sits after the appendices, so adding it never moves
-the pages it points to; build.js prints it, and a second build fills in the Contents.
+The terms, their search patterns, the chapters where each sense is taught, sub-entries and
+cross-references live in index_terms.json, curated by hand so that "canary release" and
+"canary token", or MCP tasks and to-do tasks, are separate entries. This script only finds
+pages. It reads the Contents to learn which printed pages belong to which chapter, matches
+each pattern on the pages of the chapters the entry names, groups neighbouring pages into
+ranges and keeps the ranges with the most mentions. The index sits after the appendices, so
+adding it never moves the pages it points to; build.js prints it, and the next build fills
+in the Contents.
 """
+import json
 import os
 import re
 import subprocess
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-EXTRA = ["MCP Inspector", "Claude Desktop", "Streamable HTTP", "stdio", "JSON Schema", "pytest",
-         "OpenTelemetry", "SQLite", "Docker", "Ollama", "qwen3.5:9b", "LangGraph", "LangChain",
-         "Claude Agent SDK", "Managed Agents", "Agent Skills", "tool_choice", "stop_reason",
-         "max_tokens", "tool_use_id", "prompt caching", "compaction", "embedding", "reranker",
-         "hybrid search", "BM25", "Wilson interval", "pass^k", "p95", "error budget", "burn rate",
-         "canary", "shadow", "kill switch", "step-up", "OAuth", "JWT", "SSRF", "canary token",
-         "idempotency key", "Little's law", "goodput", "knee", "coordinated omission",
-         "Lakeside Insurance", "Bayview Health", "Harbor & Pine", "support agent", "shop.db"]
-MAX_SHARE = 0.25          # skip terms found on more than a quarter of the pages
+MD = os.path.join(HERE, "md")
 MAX_RANGES = 6
+CODES = {"00z_ch00": "0", "00zz_python": "P", "01z_testing": "T", "05z_regex": "R", "07z_sql": "S",
+         "08z_measure": "M", "10z_async": "A", "89_case_study": "CS", "90_capstones": "CAP",
+         "90z_afterword": "AFT", "91_appendix": "APP"}
 
 
-def glossary_terms():
-    text = open(os.path.join(HERE, "md", "91_appendix.md"), encoding="utf-8").read()
-    block = text[text.index("## Appendix C"):]
-    block = block[:block.index("\n## ", 5)]
-    terms = []
-    for line in block.splitlines():
-        m = re.match(r"^\| ([^|]+?) \| [^|]+ \|$", line)
-        if m and m.group(1) not in ("Term", "---"):
-            terms.append(m.group(1).strip())
-    return terms
+def norm(s):
+    return re.sub(r"\s+", " ", s.replace("’", "'").replace("“", '"').replace("”", '"')).strip()
 
 
-def variants(term):
-    """'Agent card (A2A)' -> ['Agent card (A2A)', 'Agent card'];  plus a simple plural."""
-    base = re.sub(r"\s*\([^)]*\)", "", term).strip()
-    out = {term, base}
-    for t in list(out):
-        if re.fullmatch(r"[A-Za-z][A-Za-z -]*[a-z]", t) and not t.endswith("s"):
-            out.add(t + "s")
-    return sorted((v for v in out if len(v) >= 3), key=len, reverse=True)
+def chapter_titles():
+    """[(code, title)] for every chapter-like file, from its '# ' heading."""
+    out = []
+    for f in sorted(os.listdir(MD)):
+        stem = f[:-3]
+        if not f.endswith(".md") or not (stem in CODES or re.fullmatch(r"\d\d", stem)):
+            continue
+        title = re.search(r"^# (.+)$", open(os.path.join(MD, f), encoding="utf-8").read(), re.M).group(1)
+        out.append((CODES[stem] if stem in CODES else str(int(stem)), norm(title)))
+    return out
+
+
+def page_chapters(pages, main_start):
+    """Printed page number -> chapter code, from the Contents' start pages."""
+    toc = "\n".join(pages[:main_start])
+    toc_lines = [norm(l) for l in toc.splitlines()]
+    starts = []
+    for code, title in chapter_titles():
+        for l in toc_lines:
+            m = re.match(re.escape(title[:45]) + r".*?\.{3,}\s*(\d+)$", l)
+            if m:
+                starts.append((int(m.group(1)), code))
+                break
+    starts.sort()
+    end = next((int(m.group(1)) for l in toc_lines for m in [re.match(r"Index\.{3,}\s*(\d+)$", l)] if m), 10 ** 6)
+    owner = {}
+    for (p, code), nxt in zip(starts, starts[1:] + [(end, None)]):
+        for q in range(p, nxt[0]):
+            owner[q] = code
+    return owner
+
+
+def scope(spec):
+    if not spec:
+        return None
+    out = set()
+    for part in spec.split(","):
+        part = part.strip()
+        m = re.fullmatch(r"(\d+)-(\d+)", part)
+        out |= {str(i) for i in range(int(m.group(1)), int(m.group(2)) + 1)} if m else {part}
+    return out
+
+
+def find(entry, texts, owner):
+    pats = [re.compile(p) for p in entry.get("patterns", [])]
+    allowed = scope(entry.get("chapters"))
+    hits = {}
+    for pg, text in texts.items():
+        if allowed is not None and owner.get(pg) not in allowed:
+            continue
+        n = sum(len(p.findall(text)) for p in pats)
+        if n:
+            hits[pg] = n
+    if not hits:
+        return ""
+    ranges, start, prev, count = [], None, None, 0
+    for pg in sorted(hits):
+        if prev is not None and pg == prev + 1:
+            prev, count = pg, count + hits[pg]
+            continue
+        if start is not None:
+            ranges.append((start, prev, count))
+        start, prev, count = pg, pg, hits[pg]
+    ranges.append((start, prev, count))
+    keep = sorted(sorted(ranges, key=lambda r: -r[2])[:MAX_RANGES])
+    return ", ".join(f"{a}" if a == b else f"{a}–{b}" for a, b, _ in keep)
 
 
 def main():
     pdf = os.path.abspath(sys.argv[1])
-    text = subprocess.run(["pdftotext", "-layout", pdf, "-"], check=True, capture_output=True,
-                          text=True).stdout
-    pages = text.split("\f")
-    low = [re.sub(r"\s+", " ", p) for p in pages]
-    main_start = next(i for i, p in enumerate(pages) if re.search(r"^\s*PART 0\s*$", p, re.M)
+    raw = subprocess.run(["pdftotext", "-layout", pdf, "-"], check=True, capture_output=True,
+                         text=True).stdout.split("\f")
+    main_start = next(i for i, p in enumerate(raw) if re.search(r"^\s*PART 0\s*$", p, re.M)
                       and "Foundations" in p and "Contents" not in p)
-    end = next((i for i, p in enumerate(pages) if re.search(r"^\s*(Index|About the Author)\s*$", p, re.M)
-                and i > main_start + 50), len(pages))
-    # the glossary itself would appear under every term: leave its pages out
-    gl0 = next((i for i in range(main_start, end) if re.search(r"^\s*Appendix C: Glossary\s*$", pages[i], re.M)), None)
-    gl1 = next((i for i in range(gl0 or main_start, end) if re.search(r"^\s*Appendix D:", pages[i], re.M)), None)
-    skip = set(range(gl0, gl1)) if gl0 is not None and gl1 is not None else set()
-    body = [i for i in range(main_start, end) if i not in skip]
-    entries = {}
-    # one entry per concept: "Compaction" and "compaction", "Agent Skill" and "Agent Skills"
-    seen, terms = set(), []
-    for term in glossary_terms() + EXTRA:
-        key = re.sub(r"\s*\([^)]*\)", "", term).lower().rstrip("s")
-        if key not in seen:
-            seen.add(key); terms.append(term)
-    for term in sorted(terms, key=str.lower):
-        pats = [re.compile(r"(?<![\w-])" + re.escape(v) + r"(?![\w-])",
-                           0 if any(c.isupper() for c in v[1:]) or len(v) <= 4 else re.I)
-                for v in variants(term)]
-        hits = {}
-        for i in body:
-            n = sum(len(p.findall(low[i])) for p in pats)
-            if n:
-                hits[i - main_start + 1] = n
-        if not hits or len(hits) > MAX_SHARE * len(body):
+    owner = page_chapters(raw, main_start)
+    last = max(owner) if owner else len(raw)
+    texts = {i - main_start + 1: norm(raw[i]) for i in range(main_start, len(raw)) if i - main_start + 1 <= last}
+    # the glossary would match every term: leave its pages out
+    g0 = next((pg for pg, tx in texts.items() if owner.get(pg) == "APP" and "Appendix C: Glossary" in tx), None)
+    g1 = next((pg for pg, tx in texts.items() if g0 and pg >= g0 and "Appendix D:" in tx), None)
+    if g0 and g1:
+        for pg in range(g0, g1):
+            texts.pop(pg, None)
+    terms = json.load(open(os.path.join(HERE, "index_terms.json"), encoding="utf-8"))
+    rows = []
+    for e in terms:
+        if "see" in e:
+            rows.append((e["term"], f"*see* {e['see']}", []))
             continue
-        ranges, start, prev, count = [], None, None, 0
-        for pg in sorted(hits):
-            if prev is not None and pg == prev + 1:
-                prev, count = pg, count + hits[pg]
-                continue
-            if start is not None:
-                ranges.append((start, prev, count))
-            start, prev, count = pg, pg, hits[pg]
-        ranges.append((start, prev, count))
-        keep = sorted(sorted(ranges, key=lambda r: -r[2])[:MAX_RANGES])
-        entries[term] = ", ".join(f"{a}" if a == b else f"{a}–{b}" for a, b, _ in keep)
+        pages = find(e, texts, owner)
+        subs = []
+        for s in e.get("sub", []):
+            sp = find(s, texts, owner)
+            if sp:
+                subs.append((s["term"], sp))
+        see_also = e.get("see_also") or []
+        if pages or subs:
+            line = pages + (f"; *see also* {', '.join(see_also)}" if see_also else "")
+            rows.append((e["term"], line, subs))
+    rows.sort(key=lambda r: re.sub(r"[^a-z0-9]", "", r[0].lower()))
     lines = ["# Index", "",
-             "Page numbers for the terms defined in the glossary (Appendix C) and the names readers look up most. "
-             "Where a term appears on many pages, only the pages with the most mentions are listed.", ""]
+             "Where a term appears on many pages, the pages with the most mentions are listed. "
+             "Definitions of most terms are also in the glossary (Appendix C).", ""]
     letter = None
-    for term in sorted(entries, key=lambda t: re.sub(r"[^a-z0-9]", "", t.lower())):
+    for term, line, subs in rows:
         first = (re.sub(r"[^A-Za-z0-9]", "", term)[:1] or "#").upper()
         first = first if first.isalpha() else "Symbols and numbers"
         if first != letter:
-            lines += ["", f"**{first}**", ""]
+            lines += [f"**{first}**", ""]
             letter = first
-        shown = term[0].upper() + term[1:] if re.fullmatch(r"[a-z][a-z '\-]*", term) and term not in ("pytest", "stdio") else term
-        lines += [f"{shown}, {entries[term]}", ""]
-    out = os.path.join(HERE, "md", "92_index.md")
-    open(out, "w", encoding="utf-8").write("\n".join(lines) + "\n")
-    print(f"{len(entries)} index entries -> {out}")
+        lines += [f"{term}, {line}".replace(", ;", ";").rstrip(", "), ""]
+        for st, sp in subs:
+            lines += [f"\u2003\u2003{st}, {sp}", ""]
+    open(os.path.join(MD, "92_index.md"), "w", encoding="utf-8").write("\n".join(lines) + "\n")
+    print(f"{len(rows)} entries, {sum(len(r[2]) for r in rows)} sub-entries -> md/92_index.md")
 
 
 if __name__ == "__main__":

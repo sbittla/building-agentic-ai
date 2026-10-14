@@ -10,7 +10,7 @@ Which book, code, environment and models belong together, and what the book was 
 
 ISBNs of the First edition: paperback 979-8177506326, hardcover 979-8177514734.
 
-**Release status.** `book-v1.0.0-rc1` is the release candidate. It becomes `book-v1.0.0` on the same commit once the `open_gates` listed in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) are closed. Until then, treat the candidate as the code that matches the book.
+**Release status.** `book-v1.0.0-rc2` is the release candidate (the deterministic suite ran on `book-v1.0.0-rc1`; rc2 changes only the manuscript and the documentation). It becomes `book-v1.0.0` on the same commit once the `open_gates` listed in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) are closed. Until then, treat the candidate as the code that matches the book.
 
 **Development history.** This repository was developed through several internal manuscript and code snapshots before the book's first public edition. The historical tags `edition-1.0`, `edition-1.1` and `edition-1.2` are kept for traceability. They are development snapshots, not earlier commercial printings, and nothing in the book refers to them.
 
@@ -80,7 +80,7 @@ Every package, including indirect dependencies, is pinned to an exact version in
 | Image | What depends on it | If it changes or is unavailable |
 | --- | --- | --- |
 | `ghcr.io/github/github-mcp-server:latest` | Exercises 14.3 and 14.4 and Capstone 4. Nothing else uses it | Build without it: put `GITHUB_MCP_IMAGE=nogithub` in `.env` (or pass `--build-arg GITHUB_MCP_IMAGE=nogithub`). The `nogithub` stage in the `Dockerfile` builds an image without the GitHub server, and every other exercise runs unchanged |
-| `ollama/ollama:latest` (`compose.yaml`, `compose.gpu.yaml`) | The free local model (`PROVIDER=local`, Appendix H), through its OpenAI-compatible chat endpoint only | Use the Claude API (`PROVIDER=claude`), which needs no local image, or pin a version you have tested |
+| `ollama/ollama:latest` (`compose.yaml`, `compose.gpu.yaml`) | The free local model (`PROVIDER=local`, Appendix H), through its Anthropic-compatible `/v1/messages` endpoint (plus `/api/tags` and `/api/pull` to check and download the model) | Use the Claude API (`PROVIDER=claude`), which needs no local image, or pin a version you have tested |
 
 They aren't pinned because both publishers ship fixes often and the book uses only their stable surface. To pin either one by digest yourself:
 

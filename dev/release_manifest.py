@@ -26,7 +26,7 @@ KIT = Path(__file__).resolve().parent.parent
 OUT = KIT / "RELEASE_MANIFEST.json"
 RELEASE = "1.0.0"
 TAG = f"book-v{RELEASE}"
-CANDIDATE = f"{TAG}-rc1"
+CANDIDATE = f"{TAG}-rc2"
 # Files whose change after the verified commit would make the test results stale.
 CODE_PATHS = ["course/code", "course/checks", "course/starters", "course/course.py", "course/data",
               "solutions/exercises", "solutions/capstones", "solutions/tests", "requirements.lock",
@@ -144,6 +144,11 @@ def open_gates(live, prov):
     return gates
 
 
+def is_candidate(tag):
+    """book-v1.0.0-rc1, -rc2, ...: this release's candidates (the verified commit may carry an earlier one)."""
+    return bool(re.fullmatch(re.escape(TAG) + r"-rc\d+", tag))
+
+
 def is_future_patch(tag):
     """book-v1.0.1, book-v1.0.2, ...: named as examples of later patch releases, allowed."""
     m = re.fullmatch(r"book-v(\d+)\.(\d+)\.(\d+)", tag)
@@ -166,7 +171,7 @@ def check():
     for name, path in docs.items():
         text = path.read_text(encoding="utf-8")
         tags = {x for x in re.findall(r"book-v\d+\.\d+\.\d+(?:-rc\d+)?", text)
-                if x not in (TAG, CANDIDATE) and not is_future_patch(x)}
+                if x not in (TAG, CANDIDATE) and not is_candidate(x) and not is_future_patch(x)}
         if TAG not in text:
             problems.append(f"{name} doesn't name the release tag {TAG}")
         if tags:
@@ -174,7 +179,7 @@ def check():
         if re.search(r"\b(second|third|fourth) printing\b|this printing", text, re.I):
             problems.append(f"{name} still describes printings")
     exact = git("describe", "--tags", "--exact-match", "HEAD")
-    if exact and exact.startswith("book-v") and exact not in (TAG, CANDIDATE):
+    if exact and exact.startswith("book-v") and exact not in (TAG, CANDIDATE) and not is_candidate(exact):
         problems.append(f"HEAD is tagged {exact}, but the manifest describes {TAG}")
     verified = have.get("git_commit")
     if git("cat-file", "-e", f"{verified}^{{commit}}") is None:

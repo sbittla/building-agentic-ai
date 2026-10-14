@@ -66,7 +66,7 @@ The book's **First edition** is matched by the repository release **`book-v1.0.0
 
 | Book asset | Exercises | Capstones | Matching repository release | Status |
 | --- | ---: | ---: | --- | --- |
-| First edition (2026) | 249 | 7 | `book-v1.0.0` | Release candidate `book-v1.0.0-rc1` until the `open_gates` in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) are closed |
+| First edition (2026) | 249 | 7 | `book-v1.0.0` | Release candidate `book-v1.0.0-rc2` until the `open_gates` in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) are closed |
 | Development snapshots | — | — | Historical `edition-*` tags | Internal development history; not published book editions |
 
 This repository was developed through several internal manuscript and code snapshots before the book's first public edition. The historical development tags (`edition-1.0`, `edition-1.1`, `edition-1.2`) are kept for traceability. They do not indicate earlier commercial printings.
@@ -91,7 +91,7 @@ How exercises are counted: every numbered exercise in the book's 32 chapters and
    No Git? Download the ZIP from the repository page and unzip it anywhere, for example `D:\Learning\building-agentic-ai`.
 3. **Choose a model.**
    - **Claude:** create an API key in the Claude Console (Chapter 0 of the book walks you through it). <!-- cost -->Working through the whole book on Claude Sonnet 5 costs about $55–100 ($28–49 for one clean pass of every paid exercise; about half on Claude Haiku 4.5; nothing on the free local model). See [COST_MODEL.md](COST_MODEL.md) for the assumptions.<!-- /cost -->
-   - **The free local model `qwen3.5:9b`:** no key and no cost, but slower. It runs every exercise except the 4 marked *Claude only*. See [section 2](#2-the-free-local-model-optional).
+   - **The free local model `qwen3.5:9b`:** no key and no cost, but slower. It runs every exercise except the 4 marked *Claude only* and the one that needs Claude Desktop. See [section 2](#2-the-free-local-model-optional).
 4. **Run the setup.** It checks Docker, creates your `.env` file from `.env.example`, asks which model you want (and, for Claude, your key, without showing it), and generates the other secrets the course needs:
    ```bash
    ./course.sh setup
@@ -126,8 +126,8 @@ What each exercise needs (shown by `./course.sh list` and in [EXERCISE_INDEX.md]
 
 | Model needed | Exercises | Meaning |
 | --- | ---: | --- |
-| No model | 114 | Runs offline, no key |
-| Local or Claude | 103 | Works with either |
+| No model | 130 | Runs offline, no key |
+| Local or Claude | 105 | Works with either |
 | Claude recommended | 9 | Runs locally, but a small model often stalls or skips steps |
 | Claude only | 4 | Needs `PROVIDER=claude` and an API key (3.7, 16.7, 24.6, 24.7) |
 | Claude Desktop | 1 | Needs the Claude Desktop app |
@@ -206,9 +206,9 @@ Every reference solution, capstone and exercise command, run against a scripted 
 
 | Passed | Failed | Errors | Skipped (not applicable here) | Tests |
 | ---: | ---: | ---: | ---: | ---: |
-| 571 | 0 | 0 | 13 | 584 |
+| 584 | 0 | 0 | 1 | 585 |
 
-Commit `abaab3d230f8`; `requirements.lock` sha256 `c28c848a2447`; outside the course image (Linux); 2026-10-13. Skipped: 8 runs in the course image; 2 needs mcp-server-filesystem from the course image; 1 needs mcp-server-git from the course image; 1 needs mcp-server-fetch, mcp-server-memory from the course image; 1 needs mcp-server-fetch, mcp-server-filesystem, mcp-server-git, mcp-server-time from the course image. Details: [verification/README.md](verification/README.md), [verification/offline.json](verification/offline.json).
+Commit `02ba9f36d988`; `requirements.lock` sha256 `c28c848a2447`; course image sha256:e6fd524a3e64, GitHub Actions Linux; 2026-10-13. Skipped: 1 needs claude from the course image. Details: [verification/README.md](verification/README.md), [verification/offline.json](verification/offline.json).
 
 ### B. Exercises run with a real model
 
@@ -300,12 +300,12 @@ Solutions are grouped by chapter (`solutions/exercises/ch04/`, `interlude_python
 | `./course.sh desktop-config` | The Claude Desktop config that runs your server through Docker |
 | `./course.sh serve-api` | The Chapter 30 agent API at http://localhost:8080 (docs at /docs) |
 | `./course.sh serve-mcp` | The Chapter 30 token-protected MCP server at http://localhost:8000/mcp |
-| `./course.sh serve-a2a` | The Chapter 13 A2A analyst agent (card at http://localhost:9999/.well-known/agent-card.json) |
+| `./course.sh serve-a2a` | The Chapter 21 A2A analyst agent (card at http://localhost:9999/.well-known/agent-card.json) |
 | `./course.sh sandbox up` / `down` | Network-less test sandbox for exercise 10.7 |
 | `./course.sh local up` / `status` / `down` / `logs` | The free local model |
 | `./course.sh live-check [part] [--yes]` | Run every chapter's main file against the model; report in `workspace/live_report.md` |
 | `./course.sh run-chapter <chapter\|id\|all\|capstones> [--model local\|claude] [--free-only] [--yes]` | Run reference solutions and save their output (section 4) |
-| `./course.sh capstone <1-6> [args]` | Run a reference capstone |
+| `./course.sh capstone <1-7> [args]` | Run a reference capstone |
 | `./course.sh check-solutions` | Run every solution offline |
 
 To deploy the Chapter 30 agent API, build `ch30_service.Dockerfile` from your workspace folder and follow exercise 30.7.
@@ -314,7 +314,7 @@ To deploy the Chapter 30 agent API, build `ch30_service.Dockerfile` from your wo
 
 - **Network:** the course container has internet access (the model API, Open-Meteo, web fetches). The Chapter 10 sandbox has none.
 - **Ports** are published only to your own computer (127.0.0.1): 6274–6275 for the Inspector, 8000 for MCP servers over HTTP, 8080 for the agent API, 11434 for the local model.
-- **Containers talking to each other (chapters 13, 19 and 30):** `serve-a2a`, `serve-api` and `serve-mcp` run in containers named `agentic-ai-a2a`, `agentic-ai-api` and `agentic-ai-mcp`. Other course containers reach them by those names; your browser uses localhost.
+- **Containers talking to each other (chapters 21 and 30):** `serve-a2a`, `serve-api` and `serve-mcp` run in containers named `agentic-ai-a2a`, `agentic-ai-api` and `agentic-ai-mcp`. Other course containers reach them by those names; your browser uses localhost.
 - **Embeddings (Chapter 18):** the image includes a small local embedding model. If it's missing, Chapter 18 falls back to the built-in hashing embedder; set `EMBEDDER=hashing` in `.env` to choose it yourself.
 - **GitHub (Chapter 14, capstone 4):** add a read-only `GITHUB_PERSONAL_ACCESS_TOKEN` to `.env`.
 - **Switching models:** set `MODEL=...` in `.env`.

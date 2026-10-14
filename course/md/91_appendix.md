@@ -516,7 +516,7 @@ Table: What the local-model adapter does
 | Claude feature | Chapters | What the adapter does |
 | --- | --- | --- |
 | Forcing a tool (`tool_choice`) | 3, 11, capstones 3, 4 and 5 | Tells the model to call the tool, and asks again (up to twice) if it answers in text |
-| Structured outputs (`output_config` with a JSON schema) | 3, 11, 15 | Turns the schema into a tool, validates the answer and returns it as JSON text |
+| Structured outputs (`output_config` with a JSON schema) | 3, 4, 11, 18, 20, 25, 27 | Turns the schema into a tool, validates the answer and returns it as JSON text |
 | Prompt caching (`cache_control`) | 16 | Removes it: the code runs, but exercise 16.5 shows no savings |
 | Counting tokens | 16 | Returns an estimate (about four characters per token) |
 | Server-side features: tool search, code execution, Agent Skills, Managed Agents | 3, 16, 18, 24 | Returns a clear error saying the exercise needs Claude |
@@ -525,7 +525,7 @@ At about 300 lines, the adapter is worth reading after Chapter 11 as a real exam
 
 ### What to expect
 
-The local model is a capable learning partner, but it isn't Claude. It picks the wrong tool more often, gives up on self-correction sooner (Chapters 8 and 10) and scores lower on evaluations. That's a lesson in itself: the evals in Chapters 3, 8 and 15 measure exactly this gap.
+The local model is a capable learning partner, but it isn't Claude. It picks the wrong tool more often, gives up on self-correction sooner (Chapters 8 and 10) and scores lower on evaluations. That's a lesson in itself: the evals in Chapters 3, 8 and 27 measure exactly this gap.
 
 Table: Local-model speed by hardware
 | Setup | A short answer | A typical agent exercise (3–6 model calls) |
@@ -534,7 +534,7 @@ Table: Local-model speed by hardware
 | Apple Silicon Mac with Ollama as an app | 2–5 seconds | 20–60 seconds |
 | CPU only | 10–30 seconds | 1–5 minutes |
 
-The first call after `local up` is slower while the model loads. On a CPU, set `LOCAL_THINKING=off`, run evaluations with one trial instead of three, and shrink the load tests (15.7 and 19.7) to, say, 3 users for 1 minute; queueing still shows clearly.
+The first call after `local up` is slower while the model loads. On a CPU, set `LOCAL_THINKING=off`, run evaluations with one trial instead of three, and shrink the load tests (exercises 29.2 and 29.6) to, say, 3 users for 1 minute; queueing still shows clearly.
 
 ### When something goes wrong
 
