@@ -6,6 +6,13 @@ What changed in the book and this repository, newest first. The book's First edi
 
 The first public release: the book's First edition and the repository release that matches it. 32 chapters and 6 interludes, 249 exercises, seven capstones. `book-v1.0.0-rc2` is the current release candidate; [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) lists what it was verified with and the gates still open.
 
+### Release candidate 3 manuscript (unreleased)
+Same 510 pages as rc2 (LibreOffice 24.2, the same build). Built from the current repository, so it also carries every correction below.
+- **Five new figures** where the text describes a mechanism without showing it: tool search (3.1), cache hints (15.1), the five team topologies (21.1), the customer engagement (31.1) and the case study's release 1.3 incident.
+- **"On the local model" tips** in Chapters 14, 17, 25 and 27: a full 8K context, keyword recall missing vague questions, a planner reporting tasks it never added, and an eval gate inside a small model's noise.
+- **Page budget:** reference detail and repetition trimmed to keep the page count (Chapter 28's benchmark conditions now point to `benchmarks/README.md`, which already lists them; Appendix M and a few "Up next" paragraphs tightened; the exercise-section intro fits on one line). No exercise text changed.
+- `CLAIMS_AUDIT.md`: the two rows still marked open are closed; the corrected wording is in the manuscript.
+
 ### Since release candidate 2 (unreleased)
 Fixes found by running every exercise on the free local model (qwen3.5:9b) and the Claude-only ones on Claude. Code, tests and two exercise texts changed, so rc2's verification no longer applies; the next candidate needs a fresh full run.
 - **Exercise 8.4's instructions** now work: `SYSTEM` describes no tables, and `get_schema`'s description tells the model to read the schema first, so the old "rename the table in `SYSTEM`" never produced a failing query. The exercise now replaces `SYSTEM` and softens `get_schema`'s description.

@@ -218,7 +218,7 @@ An agent makes many model calls per question, and with Claude each one costs mon
 
 ## Getting help
 
-When something doesn't work, look in this order: the exercise's *Done when* line and its reference solution (`./course.sh solution <id>`), Appendix B (troubleshooting), then `ERRATA.md` in the course kit for known mistakes in this edition. If you've found a new problem, open an issue on the repository using its book-issue template: it asks for the page, the repository tag and commit (`git describe --tags`), your operating system, the model, the exact command and what you expected. Never paste API keys, private prompts or customer data into an issue.
+When something doesn't work, look in this order: the exercise's *Done when* line and its reference solution (`./course.sh solution <id>`), Appendix B (troubleshooting), then `ERRATA.md` in the course kit for known mistakes in this edition. If you've found a new problem, open an issue on the repository with its book-issue template, which lists what to include. Never paste API keys, private prompts or customer data into an issue.
 
 ## Learn more
 
@@ -228,4 +228,4 @@ When something doesn't work, look in this order: the exercise's *Done when* line
 | **Claude Developer Platform docs**<br>[platform.claude.com/docs/en/home](https://platform.claude.com/docs/en/home) | The official reference for everything the book calls through the API |
 | **Anthropic courses on GitHub**<br>[github.com/anthropics/courses](https://github.com/anthropics/courses) | Free notebooks: API fundamentals, prompt engineering, tool use |
 
-With the kit installed and a model answering, you're ready. If the terminal, JSON or web APIs feel shaky, Chapter 0 is next. If not, turn to Chapter 1, which starts with the question every agent project should ask first: do you need an agent at all?
+With the kit installed and a model answering, you're ready: Chapter 0 if the terminal, JSON or web APIs feel shaky, otherwise Chapter 1, which asks whether you need an agent at all.

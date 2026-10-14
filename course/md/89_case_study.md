@@ -89,6 +89,20 @@ Nobody had to scramble. The old version was still running and traffic was split 
 - the gate now treats a missed handoff as a hard limit, like an unsafe action
 - the handoff rule moved from the prompt into code: when a message asks for a person, the agent gets no other tools for that turn
 
+```mermaid
+%%{init: {"flowchart": {"rankSpacing": 14, "nodeSpacing": 14, "padding": 6}}}%%
+flowchart LR
+  A["Release 1.3:<br/>warmer<br/>prompt"] --> B{"Gate"}
+  B -->|pass| C["Canary:<br/>10% of sale<br/>traffic"]
+  C --> D["Handoff<br/>SLO<br/>burns"]
+  D --> E["Alert:<br/>automatic<br/>rollback"]
+  E --> F["Post-<br/>mortem"]
+  F -.->|stronger gate| B
+```
+
+Figure: Release 1.3: what each layer caught
+Alt: Left to right: release 1.3 with a warmer prompt passes the gate on the evaluation suite, goes to a canary on 10% of sale-day traffic, where the missed-handoff SLO burns its error budget; the burn-rate alert rolls it back automatically; the postmortem adds cases, a hard limit and a rule in code (listed above), and a dashed arrow returns to strengthen the gate.
+
 The gate caught what the suite knew about, the canary caught what it didn't, and the rollback cost a configuration change instead of a deploy.
 
 ## The trade-offs, in one place
