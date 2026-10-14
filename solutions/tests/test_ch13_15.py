@@ -305,7 +305,19 @@ def test_14_4_digest_reports_read_only_audit(model, ws, monkeypatch, capsys):
     import ch13_mcp_agent as m13, ex14_4_digest as ex
     monkeypatch.setattr(m13, "MCPHub", _FakeGitHubHub)
     model.reset([[tool("time__get_current_time", {}), tool("github__list_commits", {}),
-                  tool("github__list_issues", {})], [text("Docs: #3.")]])
+                  tool("github__list_issues", {})], [text("Weekly engineering digest\nDocs: #3.")]])
     asyncio.run(ex.main("o/r"))
     out = capsys.readouterr().out
     assert "Docs: #3." in out and "['allow']" in out
+    assert "every cited number is in the results" in out
+
+def test_14_4_rewrites_a_digest_with_invented_numbers(model, ws, monkeypatch, capsys):
+    import ch13_mcp_agent as m13, ex14_4_digest as ex
+    monkeypatch.setattr(m13, "MCPHub", _FakeGitHubHub)
+    model.reset([[tool("github__list_issues", {})],
+                 [text("Weekly engineering digest\nSecurity: #5678.")],     # made up
+                 [text("Weekly engineering digest\nDocs: #3.")]])
+    asyncio.run(ex.main("o/r"))
+    out = capsys.readouterr().out
+    assert "#5678" not in out and "Docs: #3." in out
+    assert "aren't in the results: #5678" in model.calls[-1]["messages"][0]["content"]

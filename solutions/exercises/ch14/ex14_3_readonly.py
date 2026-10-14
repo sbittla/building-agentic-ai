@@ -46,14 +46,15 @@ def compact_result(text: str, max_items: int = 40, max_chars: int = 6000) -> str
         rows.append(row)
     return json.dumps({"items": rows, "shown": len(rows), "in_this_page": len(items)})[:max_chars]
 
-def CompactHub(config):
-    """The Chapter 13 hub, with GitHub results compacted before the model sees them."""
+def CompactHub(config, max_items: int = 20, max_chars: int = 3000):
+    """The Chapter 13 hub, with GitHub results compacted before the model sees them.
+    The defaults leave room in a small local model's 8K context for the answer too."""
     hub = m13.MCPHub(config)
     call = hub.call
     async def compacted(name, args):
         text, is_error = await call(name, args)
         if name.startswith("github") and not is_error:
-            text = compact_result(text)
+            text = compact_result(text, max_items, max_chars)
         return text, is_error
     hub.call = compacted
     return hub

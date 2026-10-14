@@ -34,7 +34,7 @@
  "3.4": {"cmd": "python {SOL}/exercises/ex3_4_routing_eval.py", "expect": ["accuracy per run: \\['\\d+%', '\\d+%', '\\d+%'\\]", "flipping questions:"]},
  "3.5": {"expect": ["forced tool:", "parse\\(\\):", "Both avoid json.loads"], "expect_not": ["'None'", "'(name|email|company)': ''"]},
  "3.6": {"cmd": "python {SOL}/exercises/ex3_6_ten_tools.py", "expect": ["\\| ten tools \\| 10 \\| \\d+% \\|", "\\| merged \\+ clearer descriptions \\| \\d+ \\| \\d+% \\|"]},
- "3.7": {"cmd": "python {SOL}/exercises/ex3_7_tool_search.py", "expect": ["Switch tool search on"]},
+ "3.7": {"cmd": "python {SOL}/exercises/ex3_7_tool_search.py", "expect": ["^tool search\\s+\\{'accuracy': '(8|9|10)/10'", "^all loaded\\s+\\{'accuracy': '\\d+/10'", "Switch tool search on"]},
 
  "4.2": {"expect": ["ANSWER:", "'tool_calls': [2-9]"]},
  "4.3": {"expect": ["Stopped: reached max_iterations=1", "With an always-failing tool:"]},
@@ -122,7 +122,7 @@
  "13.8": {"expect": ["analyst__ask_sql_analyst", "Tool calls: \\[.*'todo__add_task'.*'todo__add_task'.*'todo__add_task'"], "expect_not": ["Error executing tool"]},
 
  "14.3": {"expect": ["write tools among them: none", "Close issue 3:", "Audit log: \\d+ tool calls"]},
- "14.4": {"expect": ["digest|theme", "#\\d{3,}", "decisions \\['allow'\\]"]},
+ "14.4": {"expect": ["Digest check: every cited number is in the results", "decisions \\['allow'\\]"]},
  "14.5": {"cmd": "python {SOL}/exercises/run14_untrusted.py", "expect": ["fs__read_text_file|fs__read", "recipes.md unchanged: True", "injection reported to the user: True"]},
 
  "15.3": {"expect": ["\\d+ passed"], "expect_not": ["failed"]},
