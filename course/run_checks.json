@@ -161,7 +161,7 @@
 
  "20.3": {"expect": ["^ok\\s+too many steps", "^ok\\s+cycle", "^ok\\s+good: \\[\\]"], "expect_not": ["^BAD"]},
  "20.4": {"expect": ["rounds: \\[\\['s\\d', 's\\d'\\], \\['s3'\\]\\]", "parallel [\\d.]+s, sequential [\\d.]+s"]},
- "20.5": {"expect": ["^task\\s+label\\s+rules\\s+model", "rules\\s+accuracy \\d+%", "small model\\s+accuracy \\d+%", "change: add .* -> rules accuracy \\d+% -> \\d+%"]},
+ "20.5": {"expect": ["^task\\s+label\\s+rules\\s+model", "^rules\\s+accuracy ([6-9]\\d|100)%", "small model\\s+accuracy \\d+%", "change: add .* -> rules accuracy \\d+% -> \\d+%"]},
  "20.6": {"expect": ["Job \\w+: done", "plan_step\\s+done"], "expect_not": ["needs_human"]},
 
  "21.3": {"expect": ["#1 lead\\s+done", "\"answer\":"]},
