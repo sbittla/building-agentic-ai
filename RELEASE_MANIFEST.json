@@ -11,18 +11,18 @@
   },
   "exercises": 249,
   "capstones": 7,
-  "git_commit": "02ba9f36d9886274789e573da5c84956b31bf559",
-  "python_version": "3.12.3",
+  "git_commit": "e485e4805bc371e7cfb76af6fe849a12d84cfe46",
+  "python_version": "3.12.11",
   "dependency_lock_sha256": "c28c848a2447e2358d5d5ee80dbb69d99ac4c946c2c442d792bd9e1f3f28b119",
   "mcp_specification": "2026-07-28",
-  "verification_date": "2026-10-13",
+  "verification_date": "2026-10-14",
   "offline_test_status": {
-    "passed": 584,
+    "passed": 574,
     "failed": 0,
     "errors": 0,
-    "skipped": 1,
-    "tests": 585,
-    "environment": "course image sha256:e6fd524a3e64, GitHub Actions Linux",
+    "skipped": 13,
+    "tests": 587,
+    "environment": "outside the course image (Linux)",
     "model": "scripted stand-in (solutions/tests/fakemodel.py); no API key, no model provider called",
     "evidence": "verification/offline.json"
   },
@@ -47,12 +47,14 @@
     "evidence": "solutions/outputs/*/summary.json (each records its own commit and lock hash)"
   },
   "known_limitations": [
+    "The deterministic suite was run outside the course image; 13 tests that need the image's MCP servers were skipped. CI reruns the suite inside the image when a book-v* tag is pushed.",
     "2 model-dependent exercises have no recorded live-model run yet: M.3, 31.5. Record them with ./course.sh run-chapter <ids> --model claude.",
     "Live-model runs were recorded on earlier commits than the verified one; each summary.json names its own commit.",
     "Two runtime images are not pinned: ghcr.io/github/github-mcp-server:latest (exercises 14.3, 14.4, Capstone 4) and ollama/ollama:latest (the free local model). See VERSION_MATRIX.md for the fallback and how to pin them.",
     "Production readiness is not claimed: the course kit is not production-hardened (Appendix M of the book, SECURITY_MODEL.md)."
   ],
   "open_gates": [
+    "Run the deterministic suite inside the course image (CI does this on a book-v* tag) and record it with python dev/verify.py report.",
     "Record live-model runs for M.3, 31.5 (./course.sh run-chapter <ids> --model claude), or approve them as exceptions here.",
     "Clean setup from a fresh checkout on Windows, macOS and Linux (./course.sh setup, build, selftest, quickstart).",
     "Independent technical review and a beginner-reader pilot (PILOT.md), with findings recorded.",
