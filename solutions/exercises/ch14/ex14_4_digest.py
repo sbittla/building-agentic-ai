@@ -50,7 +50,8 @@ def problems(answer: str, seen: list[str]) -> list[str]:
     if "[Stopped:" in answer:
         return ["the reply was cut off"]
     body = answer.lower().partition("weekly engineering digest")[2]
-    cited = set(re.findall(r"#(\d+)", body))
+    body = re.sub(r"(?m)^[\s*#-]*#\d\b", "", body)     # "#3 Security": a list number
+    cited = set(re.findall(r"#(\d+)\b", body))         # not a commit sha like #3f6aaf4
     if not cited:
         return ["no themes with issue numbers"]
     known = set(re.findall(r"\b\d+\b", " ".join(seen)))

@@ -1,11 +1,11 @@
 # Exercise: 3.7  Tool search at scale
 # Command:  python /tmp/solutions-flat/exercises/ex3_7_tool_search.py
 # Model:    claude-sonnet-5 (Claude API)
-# Date:     2026-10-14 18:07:05 UTC
+# Date:     2026-10-14 18:21:16 UTC
 # Exit code: 0
-# Seconds:  38.2
+# Seconds:  99.9
 #-------------------------------------------------------------------------------
-tool search  {'accuracy': '5/10', 'searches': 8, 'avg_input_tokens': 1743}
-all loaded   {'accuracy': '8/10', 'searches': 0, 'avg_input_tokens': 4463}
+tool search  {'accuracy': '10/10', 'searches': 9, 'avg_input_tokens': 2227}
+all loaded   {'accuracy': '10/10', 'searches': 0, 'avg_input_tokens': 4464}
 
 Switch tool search on when the tool definitions are a large share of input tokens and accuracy holds up; below ~10 tools, loading everything is simpler.

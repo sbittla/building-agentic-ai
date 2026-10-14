@@ -11,7 +11,7 @@ This file is rewritten after every run.
 | [1](ch01/) | Chapter 1: What an Agent Is (and Isn't) | 4 | 0 | 5 | 5 | qwen3.5:9b (local, through Ollama) | 2026-10-14 03:48 |
 | [T](T/) | Interlude: Testing with pytest | 4 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-14 03:49 |
 | [2](ch02/) | Chapter 2: Tool Calling (Function Calling) | 4 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 04:06 |
-| [3](ch03/) | Chapter 3: Tool Selection, Routing and Tool Search | 5 | 0 | 2 | 2 | mixed: see each exercise | 2026-10-14 18:07 |
+| [3](ch03/) | Chapter 3: Tool Selection, Routing and Tool Search | 5 | 0 | 2 | 2 | mixed: see each exercise | 2026-10-14 18:21 |
 | [4](ch04/) | Chapter 4: The Agent Loop | 4 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-14 04:21 |
 | [5](ch05/) | Chapter 5: State and Short-Term Memory | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 15:53 |
 | [R](R/) | Interlude: Regular Expressions | 3 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-14 04:23 |
@@ -26,7 +26,7 @@ This file is rewritten after every run.
 | [11](ch11/) | Chapter 11: Multi-Agent Systems | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 17:02 |
 | [12](ch12/) | Chapter 12: MCP Fundamentals and Your First Server | 1 | 0 | 6 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 06:15 |
 | [13](ch13/) | Chapter 13: Build Your Own MCP Client | 7 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-14 16:12 |
-| [14](ch14/) | Chapter 14: Using Servers You Didn't Write | 3 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 17:22 |
+| [14](ch14/) | Chapter 14: Using Servers You Didn't Write | 3 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 18:47 |
 | [15](ch15/) | Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure | 2 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 06:24 |
 | [16](ch16/) | Chapter 16: Context Engineering | 6 | 0 | 2 | 2 | mixed: see each exercise | 2026-10-14 18:08 |
 | [17](ch17/) | Chapter 17: Agent Memory Engineering | 7 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 17:46 |

@@ -1,14 +1,25 @@
 # Exercise: 14.4  Weekly engineering digest
 # Command:  python /tmp/solutions-flat/exercises/ex14_4_digest.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 17:22:56 UTC
+# Date:     2026-10-14 18:47:42 UTC
 # Exit code: 0
-# Seconds:  33.6
+# Seconds:  44.2
 #-------------------------------------------------------------------------------
-[step 1] github__list_commits({"owner": "modelcontextprotocol", "repo": "servers", "perPage": 100}) -> '{"items": [{"sha": "bbb701e", "message": "Merge pull request #5122 fro'
-[step 1] github__list_issues({"owner": "modelcontextprotocol", "repo": "servers", "state": "OPEN", "perPage":) -> '{"items": [{"number": 5153, "title": "memory: create_entities, create_'
-# Weekly engineering digest
+[step 1] time__get_current_time({"timezone": "Etc/UTC"}) -> '{\n  "timezone": "Etc/UTC",\n  "datetime": "2026-10-14T18:47:05+00:00",\n'
+[step 2] github__list_commits({"owner": "modelcontextprotocol", "repo": "servers", "since": "2026-10-08", "per) -> '{"items": [{"sha": "bbb701e", "message": "Merge pull request #5122 fro'
+[step 3] github__list_issues({"owner": "modelcontextprotocol", "repo": "servers", "state": "OPEN", "perPage":) -> '{"items": [{"number": 5153, "title": "memory: create_entities, create_'
+Weekly engineering digest
 
-This week, the MCP server team has been actively addressing issues related to server implementations, documentation, and infrastructure across our GitHub repositories. Several security concerns have been identified and are being tracked as priority items. The team continues work on v2 roadmap initiatives including new server additions (DifyServer) and tool improvements. Documentation efforts focus on standardizing naming conventions and improving server descriptions.
+Release and CI Stability: The repository advanced significantly towards version 1.0.0, merging PR #5122 to bootstrap the main source and addressing critical release tasks with PRs #5090, #5113, #5106, and #5103 to ensure a smooth transition of the SDK and changelog entries.
 
-Audit log: 2 tool calls, decisions ['allow']: ['github__list_commits', 'github__list_issues']
+Filesystem Protocol Fixes: Critical synchronization issues within the filesystem server were resolved by fixing race conditions where tool calls raced with root refreshes (#5101 referenced in #5090) and ensuring initial roots load generations are properly claimed before deferral (#4d2d9e5). Additionally, barriers for roots/list were installed before sending to prevent desynchronization (#3836cf8).
+
+Fetch Tool Annotation: The fetch tool capabilities were clarified through code annotations (#01c274f), enhancing the transparency of data retrieval mechanisms available within the model context protocol servers.
+
+Roots Refresh Ordering: To maintain strict ordering guarantees, the system now holds tool calls while any roots refresh is pending (#6e93db0), ensuring that stale data does not get served during active tree updates. A specific fix also addressed wake calls waiting on replaced roots refreshes to prevent hangs (#c6f2dda).
+
+Release Pipeline Modernization: The continuous integration pipeline was updated to utilize Node 24's bundled npm instead of installing a separate instance, streamlining the build process for releasing version 1.0.0 (commit #0a174e9), while also pinning tarball paths and job configurations for consistency (#dd4826a, #77e9a3c).
+
+Digest check: every cited number is in the results
+
+Audit log: 3 tool calls, decisions ['allow']: ['github__list_commits', 'github__list_issues', 'time__get_current_time']

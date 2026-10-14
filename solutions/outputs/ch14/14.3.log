@@ -1,33 +1,39 @@
 # Exercise: 14.3  Read-only GitHub
 # Command:  python /tmp/solutions-flat/exercises/ex14_3_readonly.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 17:03:56 UTC
+# Date:     2026-10-14 18:40:33 UTC
 # Exit code: 0
-# Seconds:  66.3
+# Seconds:  27.2
 #-------------------------------------------------------------------------------
 19 GitHub tools, write tools among them: none
 [step 1] github__list_issues({"owner": "modelcontextprotocol", "repo": "servers", "state": "OPEN", "perPage":) -> '{"items": [{"number": 5153, "title": "memory: create_entities, create_'
 
 Summary:
-I can see this is a list of GitHub issues from a repository (likely the "everything" or "server-everything" project based on the issue titles). The issues cover a wide range of topics including security concerns, bugs, enhancements, and triage tasks.
+The modelcontextprotocol/servers repo has **15 open issues**. Main themes include:
 
-Could you tell me what specific help you need with these issues? For example:
-- Are you looking for a specific type of issue (security-related, bug fixes, etc.)?
-- Do you want me to search for more information about a particular issue?
-- Do you need help with triaging or prioritizing these issues?
-- Are you looking for related pull requests or code changes?
-[step 1] github__issue_read({"method": "get", "owner": "modelcontextprotocol", "repo": "servers", "issue_num) -> '{"items": [], "shown": 0, "in_this_page": 0}'
-[step 2] github__list_issues({"owner": "modelcontextprotocol", "perPage": 10, "repo": "servers"}) -> '{"items": [{"number": 5153, "title": "memory: create_entities, create_'
+**Security concerns:** Issues like #5130 highlight serious risks where servers (everything, fetch) could expose private/metadata IPs or dump all environment variables into the model context by default.
+
+**Tool reliability and correctness:** Multiple bugs affect core tools – git_status/got_diff display octal escapes for non-ASCII paths (#5129), preventing subsequent operations like git_add; memory tools drop unchanged data despite being marked non-destructive (#5058); and git_create_branch silently resets packed branches (#5059).
+
+**Missing features/enhancements:** Requests to declare certain operations idempotent (#5153), add source path/untrusted flags (#5151), and improve filesystem server documentation (#5074).
+
+**Integration needs:** Adding more frameworks to ADDITIONAL.md (#5072) and streamable HTTP entry points for Python servers (#5025).
+
+**Chore items:** Various administrative tasks like creating a GitHub App (#5061) and tracking advisories without patches (#5066).
+
+Notable examples include #5130 (security vulnerability), #5129 (git path encoding bug), and #5074 (documentation improvement request).
 
 Close issue 3:
-I can see the issues in the modelcontextprotocol/servers repository. The lowest numbered open issue I can see is #5119, and there's a mix of open and closed issues. Issue #3 doesn't appear in this list - it might not exist yet (issues are auto-numbered by GitHub based on creation date) or it could be very old.
+I cannot close GitHub issues directly - the available tools only allow reading, listing, searching, and getting details about issues, but not creating or closing them. 
 
-However, I notice that GitHub doesn't provide a direct API method to close an issue from my available tools. The issue_read function only has "get", "get_comments", "get_sub_issues", "get_parent", and "get_labels" methods - none of which allow closing an issue.
+To close an issue in the modelcontextprotocol/servers repository, you would need to:
+1. Use the GitHub web interface
+2. Or use the GitHub API with appropriate authentication (e.g., `PUT /repos/{owner}/{repo}/issues/{issue_number}`)
 
-To close issue 3 in modelcontextprotocol/servers, you would need to:
-1. Either create a pull request that closes the issue automatically
-2. Or use GitHub's UI/API directly with a PUT request to `/repos/modelcontextprotocol/servers/issues/3` with `{"state": "closed"}`
+The "close issue 3" request is ambiguous - are you referring to:
+- Issue #5067 (the third one in the list, about SDK watch refresh)? 
+- Or literally issue number 3?
 
-Would you like me to help with something else related to these issues, or would you prefer to close this issue through the GitHub web interface?
+Could you clarify which specific issue you want closed and how you'd like to proceed?
 
-Audit log: 3 tool calls: ['github__issue_read', 'github__list_issues']
+Audit log: 1 tool calls: ['github__list_issues']

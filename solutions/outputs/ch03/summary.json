@@ -2,9 +2,9 @@
  "chapter": "3",
  "title": "Chapter 3: Tool Selection, Routing and Tool Search",
  "model": "mixed: see each exercise",
- "date": "2026-10-14 18:07",
+ "date": "2026-10-14 18:21",
  "provenance": {
-  "commit": "624e451df84b",
+  "commit": "f2494e90739d-modified",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -90,10 +90,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 38.2,
+   "seconds": 99.9,
    "log": "ch03/3.7.log",
    "model": "claude-sonnet-5 (Claude API)",
-   "commit": "624e451df84b"
+   "commit": "f2494e90739d-modified"
   }
  ]
 }
