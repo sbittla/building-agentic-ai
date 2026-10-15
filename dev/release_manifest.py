@@ -38,6 +38,7 @@ def git(*args):
     return r.stdout.strip() if r.returncode == 0 else None
 
 
+INSTALL = KIT / "verification/install.json"     # clean-checkout setup per operating system
 EXCEPTIONS = KIT / "verification/exceptions.json"   # {"3.7": {"reason": ..., "approved_by": ..., "date": ...}}
 
 
@@ -184,8 +185,12 @@ def open_gates(live, prov):
         gates.append("Code changed after the recorded run of " + ", ".join(pending) + ": rerun each "
                      "(./course.sh run-chapter <ids>), or approve it in verification/exceptions.json "
                      "with a reason and your name.")
-    gates += ["Clean setup from a fresh checkout on Windows, macOS and Linux "
-              "(./course.sh setup, build, selftest, quickstart).",
+    install = json.loads(INSTALL.read_text(encoding="utf-8")) if INSTALL.exists() else {}
+    missing = [o for o in ("Windows", "macOS", "Linux") if not isinstance(install.get(o), dict)]
+    if missing:
+        gates.append("Clean setup from a fresh checkout on " + " and ".join(missing) +
+                     " (setup, build, selftest, quickstart), recorded in verification/install.json.")
+    gates += [
               "Independent technical review and a beginner-reader pilot (PILOT.md), with findings recorded.",
               "Final proof of the print files, and KDP preview of paperback and hardcover "
               "(trim, gutter, spine, cover, ISBN and metadata).",

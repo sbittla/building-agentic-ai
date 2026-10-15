@@ -67,7 +67,7 @@
   ],
   "open_gates": [
     "Code changed after the recorded run of 3.7, 24.6: rerun each (./course.sh run-chapter <ids>), or approve it in verification/exceptions.json with a reason and your name.",
-    "Clean setup from a fresh checkout on Windows, macOS and Linux (./course.sh setup, build, selftest, quickstart).",
+    "Clean setup from a fresh checkout on macOS and Linux (setup, build, selftest, quickstart), recorded in verification/install.json.",
     "Independent technical review and a beginner-reader pilot (PILOT.md), with findings recorded.",
     "Final proof of the print files, and KDP preview of paperback and hardcover (trim, gutter, spine, cover, ISBN and metadata).",
     "Confirm the ISBN registrations match the title, subtitle, author and imprint.",

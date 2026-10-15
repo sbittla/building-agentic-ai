@@ -1,0 +1,17 @@
+{
+ "_how": "One entry per operating system: a clean checkout (fresh clone, no .env, no workspace) taken through setup, build, selftest and quickstart exactly as README and How to Use This Book say. release_manifest.py keeps a gate open for each system missing here.",
+ "Windows": {
+  "commit": "18b05a1",
+  "date": "2026-10-15",
+  "environment": "Windows 11 Home 10.0.26200, Docker Desktop (engine 29.8.1, WSL 2), launched with .\\course.cmd (Windows PowerShell 5.1.26100)",
+  "steps": {
+   "setup (answering 2: the local model)": "pass",
+   "build": "pass",
+   "selftest": "pass, 23/23",
+   "quickstart": "pass"
+  },
+  "notes": "check --api and local up --gpu weren't repeated in the clean clone because the main checkout's local model already held port 11434; both run in the main checkout on the same machine (RTX 4060, every local-model rerun on 2026-10-15). Found and fixed: quickstart printed ./course.sh commands on Windows; it now prints .\\course.cmd.",
+  "log": "verification/install/windows-18b05a1.log",
+  "checked_by": "Claude Code session, on the author's machine"
+ }
+}

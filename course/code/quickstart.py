@@ -7,6 +7,7 @@ Chapter 3. Only the model is replaced: a scripted stand-in plays the part a real
 plays, asking for one tool, reading the result and asking for the next. So you see
 exactly what an agent run looks like, step by step, before you set up a model.
 """
+import os
 import re
 from datetime import date
 from types import SimpleNamespace as NS
@@ -53,12 +54,14 @@ if __name__ == "__main__":
     print(f"\nThat was {stats['steps']} model calls and {stats['tool_calls']} tool calls: the model "
           "asked, your code ran the tool, the result went back, and the loop repeated until the "
           "model answered. Chapter 4 builds this loop.")
-    print("""
+    # course.ps1 passes a Windows path (C:\...): show the command a Windows reader types
+    run = ".\\course.cmd" if re.match(r"[A-Za-z]:", os.environ.get("COURSE_HOST_DIR", "")) else "./course.sh"
+    print(f"""
 This run used a scripted stand-in model, so it was free and needed no key. To see a real
 model make these choices itself, pick one (section "Choose your model" in the book):
 
-  Free, on your computer:  ./course.sh local up     (downloads about 6.6 GB, once)
+  Free, on your computer:  {run} local up     (downloads about 6.6 GB, once)
                            then set PROVIDER=local in .env
-  Claude:                  ./course.sh setup        (paste your API key)
+  Claude:                  {run} setup        (paste your API key)
 
-Then run:  ./course.sh python ch04_agent.py""")
+Then run:  {run} python ch04_agent.py""")
