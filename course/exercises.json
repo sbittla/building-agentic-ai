@@ -1787,7 +1787,7 @@
   "chapter": "Chapter 19: Long-Running Agents",
   "task": "For each action, say whether it's idempotent, and if not, how you'd make it safe to repeat: (a) `set_status(order, \"shipped\")`; (b) `add_note(ticket, text)`; (c) `send_sms(phone, text)`; (d) `transfer(from, to, amount)`; (e) `create_user(email)`; (f) `increment_counter(name)`.",
   "hint": null,
-  "done_when": "Every non-idempotent action has a key or a design change that makes a repeat harmless.",
+  "done_when": "Every non-idempotent action gets a key or a redesign that makes repeats safe.",
   "kind": "concept"
  },
  {
@@ -2007,7 +2007,7 @@
   "chapter": "Chapter 22: Hybrid Architectures: Probabilistic Intelligence, Deterministic Control",
   "task": "Run `ch22_guarded.py` twice: approve the refund that asks for approval the first time and decline it the second. For each of the five requests, name the states it went through and the line of code that decided each transition.",
   "hint": null,
-  "done_when": "You can explain every line of the log, including why the $5,000 request didn't refund $5,000.",
+  "done_when": "You can explain every log line, including why $5,000 wasn't refunded.",
   "kind": "run",
   "cmd": "python ch22_guarded.py",
   "edit": [

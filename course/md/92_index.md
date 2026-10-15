@@ -4,921 +4,921 @@ Where a term appears on many pages, the pages with the most mentions are listed.
 
 **A**
 
-A2A (Agent2Agent), 223–225, 228, 230–232, 236–237, 460–461, 465–466; *see also* MCP (Model Context Protocol), Agent card
+A2A (Agent2Agent), 227–229, 232, 234–236, 240–241, 463–464, 468–469; *see also* MCP (Model Context Protocol), Agent card
 
-  MCP or A2A, 231, 236, 461
+  MCP or A2A, 235, 240, 464
 
-Acceptance criteria, 196, 329, 374, 407, 413, 434–435
+Acceptance criteria, 200, 334, 378, 410, 416–417, 437–438
 
-Access token, 144, 149, 298, 310, 382, 391; *see also* Token (unit of text), Scopes
+Access token, 147, 153, 303, 315, 386, 395; *see also* Token (unit of text), Scopes
 
-  JWT, 298, 382
+  JWT, 303, 386
 
-  token exchange, 302, 308, 382
+  token exchange, 307, 313, 386
 
-  audience, 298–301, 303, 307–310, 386, 389
+  audience, 303–306, 308, 312–315, 390, 393
 
-Adaptive thinking, 58, 465; *see also* Thinking
+Adaptive thinking, 60, 468; *see also* Thinking
 
-Agent, 18–19, 21–23, 25, 27, 29, 31; *see also* Agent loop, Workflow
+Agent, 19, 21, 23–25, 27, 29, 31; *see also* Agent loop, Workflow
 
-  four parts of, 18, 22–24
+  four parts of, 19, 23–25
 
-  kinds of, 27, 463
+  kinds of, 28, 466
 
-  when not to use, 20, 27, 29, 461
+  when not to use, 21, 28, 30, 464
 
 Agent2Agent, *see* A2A (Agent2Agent)
 
-Agent architecture reference model, 24–25, 377, 399–400, 461; *see also* Reference architecture
+Agent architecture reference model, 25–26, 381, 403–404, 464; *see also* Reference architecture
 
-Agent card, 228, 230–231, 296, 302–303, 308, 444
+Agent card, 232, 234–235, 301, 307–308, 313, 447
 
-Agent economics, 369, 464; *see also* Business case
+Agent economics, 373, 467; *see also* Business case
 
-Agent engineering lifecycle, 28–29, 393, 463; *see also* Agent version
+Agent engineering lifecycle, 29–30, 381, 397, 466; *see also* Agent version
 
-Agent frameworks, 259, 261, 263, 265, 267–269, 271–275; *see also* LangChain, LangGraph, Claude Agent SDK
+Agent frameworks, 263, 265, 267, 269, 271–273, 275–279; *see also* LangChain, LangGraph, Claude Agent SDK
 
-  choosing a runtime, 259, 261, 263, 265, 267–269, 273–275
+  choosing a runtime, 263, 265, 269, 271–273, 277, 279
 
-Agentic retrieval, 189, 191, 193–195, 197, 199, 466–467
+Agentic retrieval, 193, 195, 197–199, 201, 203, 470
 
-Agentic search, 73, 75–77, 189, 467–468; *see also* RAG (retrieval-augmented generation), Agentic retrieval
+Agentic search, 74–79, 193, 470, 472; *see also* RAG (retrieval-augmented generation), Agentic retrieval
 
-Agentic security, 277–278, 290, 293, 420, 424; *see also* Prompt injection, Lethal trifecta
+Agentic security, 282–283, 295, 298, 423, 427; *see also* Prompt injection, Lethal trifecta
 
-  attack surface, 277–278
+  attack surface, 282–283
 
-  threat modeling, 277–278, 290, 293, 420, 424
+  threat modeling, 282–283, 295, 298, 423, 427
 
-  red teaming, 277, 286, 289–290, 294
+  red teaming, 282, 292, 294, 296, 299
 
-  industry lists, 277, 287, 293–294
+  industry lists, 282, 292, 299
 
-Agent identity, 26, 133, 155, 296–297, 299, 301; *see also* OAuth, Scopes, Explicit delegation
+Agent identity, 27, 136, 159, 301–303, 305, 307; *see also* OAuth, Scopes, Explicit delegation
 
-  checking at the tool, 296–297, 299
+  checking at the tool, 301–302, 304
 
-  audit and revocation, 296, 298–299, 301, 303–311, 391, 394
+  audit and revocation, 301, 303–304, 306, 308–315, 395, 398
 
-  across organizations, 296, 305–306
+  across organizations, 301, 310–311
 
-Agent improvement loop, 377, 393–395, 416
+Agent improvement loop, 381, 397–399, 419
 
-Agent inventory, 291–292, 393–394, 470
+Agent inventory, 297, 397–398, 473
 
-Agent loop, 25–27, 53, 59–62, 136, 259–260, 265–268; *see also* Harness, Stop conditions
+Agent loop, 26–28, 54–55, 61–63, 139, 263–264, 269–272; *see also* Harness, Stop conditions
 
-  max turns, 259, 261–262, 272
+  max turns, 263, 265–266, 276
 
-  multi-turn chat, 54, 58
+  multi-turn chat, 55, 59
 
-Agent performance model, 356, 373, 462; *see also* Latency, Throughput, Cost
+Agent performance model, 361, 378, 465; *see also* Latency, Throughput, Cost
 
-Agent platform, 377, 379, 381, 383, 385, 391–393
+Agent platform, 381, 383, 385, 387, 389, 395–397
 
-Agent risk model, 289–293, 295, 464; *see also* Risk tier
+Agent risk model, 294, 296–298, 300, 467; *see also* Risk tier
 
 Agent SDK, *see* Claude Agent SDK
 
-Agent Skills, 259, 264–265, 273–274, 459–460; *see also* Skill registry, Provenance
+Agent Skills, 263, 268–269, 277, 462; *see also* Skill registry, Provenance
 
-  SKILL.md, 264–265, 273
+  SKILL.md, 268–269, 277
 
-  as software, 268
+  as software, 272
 
-Agent version, 423
+Agent version, 426
 
-Ambiguity (ask, don't guess), 67–68, 79, 81–83; *see also* Clarifying questions
+Ambiguity (ask, don't guess), 68–69, 81, 83–86; *see also* Clarifying questions
 
-API key, 2, 6–10, 79, 296–297, 442–446, 454–455
+API key, 2, 6–9, 11, 301–302, 445–449, 457–458
 
-Approval gate, 99–102, 104–105, 259, 261–263, 271–273, 288–291; *see also* Human-in-the-loop, Step-up, Risk tier
+Approval gate, 102–105, 107–108, 263, 265–267, 273–276, 294–296; *see also* Human-in-the-loop, Step-up, Risk tier
 
-  in code, 101–102
+  in code, 104–105
 
-  auto-approval policies, 99, 102–104
+  auto-approval policies, 102, 105–107
 
-Architecture decision record (ADR), 465–468, 470–471
+Architecture decision record (ADR), 469–471, 473–474
 
-  workflow or agent, 466
+  workflow or agent, 469
 
-  one agent or a team, 466
+  one agent or a team, 469
 
-  direct tool calls or MCP, 466
+  direct tool calls or MCP, 469
 
-  hosted or local model, 467
+  hosted or local model, 470
 
-  synchronous or durable, 467
+  synchronous or durable, 470
 
-Argument validation, 49, 51; *see also* JSON Schema, Pydantic
+Argument validation, 50, 52; *see also* JSON Schema, Pydantic
 
-Async Python, 114–120, 123, 125, 138–140, 202, 364–365
+Async Python, 117–123, 126, 128, 141–143, 206, 368–369
 
-  asyncio.gather, 114–117, 119–120, 123, 125, 365
+  asyncio.gather, 117–120, 122–123, 126, 128, 369
 
-  semaphores, 117, 364
+  semaphores, 120, 368
 
-Audit log, 101–103, 143, 149–150, 296–297, 391, 470–471; *see also* Observability
+Audit log, 104–106, 146, 301–302, 395, 467, 474–475; *see also* Observability
 
-Authorization for companies, 297, 299, 302, 308, 382, 390–391
+Authorization for companies, 302, 304, 307, 313, 386, 394–395
 
 **B**
 
-Bayview Health, 416, 434–435
+Bayview Health, 419, 437–438
 
-Benchmark (reproducible), 356, 363, 365–368, 370, 374, 376
+Benchmark (reproducible), 360, 367, 369–371, 373–375, 379–380
 
-Blackboard (shared board), 224, 275
+Blackboard (shared board), 228–229, 279
 
-BM25, 189, 192–193, 197
+BM25, 193, 196–197, 201
 
-Break-even value, 233, 236, 356, 370, 372–375
+Break-even value, 237, 240, 360, 374, 376–379
 
-Briefs, not histories, 125, 213–214, 216–218, 220–227, 232, 235–237
+Briefs, not histories, 127, 217–218, 220–222, 224–225, 229–231, 239–241
 
-Budget (task), 59, 82–84, 111–112, 211, 360–361, 374–376; *see also* Cost, Kill switch
+Budget (task), 85–87, 114–115, 215, 360, 364–365, 378–380; *see also* Cost, Kill switch
 
-  for a whole task, 59
+  for a whole task, 60
 
-  for external calls, 82
+  for external calls, 85
 
-  in code, 360, 374
+  in code, 364, 378
 
-Burn rate, 346, 398–399, 423
+Burn rate, 351, 402–403, 426
 
-Business case, 356, 369–371, 373–375; *see also* Human baseline, Payback period
+Business case, 360, 373–375, 377–379; *see also* Human baseline, Payback period
 
 **C**
 
-Cache hint (MCP), 132, 151, 153–157, 390
+Cache hint (MCP), 135, 155, 157–161, 394
 
-Caching (API results), 79–80, 82–84; *see also* Prompt caching, Cache hint (MCP)
+Caching (API results), 81–82, 84–87; *see also* Prompt caching, Cache hint (MCP)
 
-Canary release, 272, 394, 396–399, 401, 423–424, 471; *see also* Shadow mode, Rollback, Canary token
+Canary release, 276, 398, 400–403, 405, 426–427, 474–475; *see also* Shadow mode, Rollback, Canary token
 
-Canary token, 277, 285, 287, 293, 338, 386; *see also* Exfiltration
+Canary token, 282, 290, 292, 298, 343, 390; *see also* Exfiltration
 
-Capacity planning, 356, 359, 364–366, 373–375, 393, 422
+Capacity planning, 360, 363, 368–370, 378–379, 397, 425
 
-Capstone projects, 425–437, 443–445, 453–454, 458, 468–469
+Capstone projects, 428–439, 446–448, 456–457, 461, 471–473
 
-  customer support agent, 426
+  customer support agent, 429
 
-  data analyst, 428, 433, 436
+  data analyst, 431, 436, 439
 
-  incident triage assistant, 429, 436
+  incident triage assistant, 432, 439
 
-  code review and fix agent, 430, 436
+  code review and fix agent, 433, 439
 
-  deep research assistant, 432, 437
+  deep research assistant, 435, 440
 
-  back-office workflow agent, 433, 437
+  back-office workflow agent, 436, 440
 
-  customer deployment, 434, 437
+  customer deployment, 437, 440
 
-Cascade, 213, 219–221
+Cascade, 217, 223–225
 
-Case study, 420–421, 423
+Case study, 423, 425, 427
 
-Checkpoint, 201–204, 207, 209–210, 218, 467, 470–471; *see also* Durable execution
+Checkpoint, 205–208, 211, 213–214, 222, 470, 474–475; *see also* Durable execution
 
-  a job is data, 203, 210
+  a job is data, 207, 214
 
-Chunking, 189, 191–193, 196–198
+Chunking, 193, 195–197, 200–202
 
-Citations, 75–77, 118–120, 189, 191–192, 196–199, 420–423
+Citations, 74, 76–78, 193, 195–196, 200–203, 423–425
 
-  checking, 77
+  checking, 78
 
 Clarifying questions, *see* Ambiguity (ask, don't guess)
 
-Claude Agent SDK, 259–262, 264–265, 267–268, 273–274, 429, 460; *see also* Claude Code, Tool runner
+Claude Agent SDK, 263–266, 268–269, 271–272, 277–278, 432, 463; *see also* Claude Code, Tool runner
 
-Claude Code, 259, 264, 273–274, 455, 460
+Claude Code, 263, 268, 277–278, 458, 463
 
-Claude Desktop, 3, 127–128, 131, 135–136, 444–446, 460; *see also* MCP host
+Claude Desktop, 3, 130–131, 134, 136–139, 447–449, 463; *see also* MCP host
 
-Cloud Run, 385
+Cloud Run, 389
 
-Compaction, 159–160, 164–168, 170–172, 188, 260, 263; *see also* Context engineering
+Compaction, 163–164, 168–172, 175–176, 191, 264, 267; *see also* Context engineering
 
-Compensation, 201, 203, 207–208, 210, 467, 472
+Compensation, 205, 207, 211–212, 214, 470, 475
 
-Computer-use agent, 247–249, 251–253, 255–257, 463, 465, 469; *see also* Harness, Playwright
+Computer-use agent, 251–253, 255–257, 259–261, 466, 468, 472; *see also* Harness, Playwright
 
-  screenshots, 247–248, 250–253, 255–257
+  screenshots, 251–252, 254–257, 259–261
 
-  acting and checking, 247, 250–251, 253–257
+  acting and checking, 251, 254–255, 257–261
 
-Concurrency, 116–117, 356, 361–364, 369, 373–376, 379–380
+Concurrency, 119–120, 360, 365–368, 373, 378–380, 383–384
 
-Confidence interval (95%), 95–98, 313, 316, 324, 326, 330–331; *see also* Wilson interval
+Confidence interval (95%), 98–101, 318, 321, 329, 331, 335–336; *see also* Wilson interval
 
-Content block, 19; *see also* tool_use block, tool_result block
+Content block, 20; *see also* tool_use block, tool_result block
 
-Context engineering, 159, 161, 163, 165, 169, 171; *see also* System prompt, Compaction, Prompt caching
+Context engineering, 163, 165, 167, 169, 173, 175; *see also* System prompt, Compaction, Prompt caching
 
-  vs prompt engineering, 159
+  vs prompt engineering, 163
 
-  measuring context, 160–161
+  measuring context, 164–165
 
-  trimming tool results, 159–160, 163–167, 170–172
+  trimming tool results, 163–164, 167–171, 175–176
 
-  context editing, 167
+  context editing, 171
 
-Context window, 19, 26, 64, 68, 73, 75; *see also* Context engineering
+Context window, 20, 27, 65, 69, 74, 76; *see also* Context engineering
 
-  protecting, 75
+  protecting, 76
 
-Continuous integration (CI), 313, 325–326, 331, 384, 386, 393
+Continuous integration (CI), 318, 330–331, 336, 388, 390, 397
 
-Continuous profiler, 346–347, 349–350, 352, 354; *see also* Pyroscope
+Continuous profiler, 337, 351–352, 354–357; *see also* Pyroscope
 
-Contract (between agents), 122–124, 223–224, 226–227, 231–232, 235–237, 466–467
+Contract (between agents), 125–127, 227–231, 235–236, 239–241, 469, 471
 
-Coordinated omission, 365, 436
+Coordinated omission, 369, 439
 
-Coordination overhead, 232
+Coordination overhead, 236
 
-Cosine similarity, 191
+Cosine similarity, 195
 
-Cost, 232–233, 344–345, 356–357, 369–372, 374–375, 462; *see also* Cost per successful task, Prompt caching, Business case
+Cost, 237, 349–350, 360–361, 373–376, 378–379, 465; *see also* Cost per successful task, Prompt caching, Business case
 
-  of exercises, 452
+  of exercises, 455
 
-Cost per successful task, 220–221, 323–327, 360–361, 369–372, 374, 376; *see also* Cost, Goodput
+Cost per successful task, 224–225, 328–332, 364–365, 373–376, 378, 380; *see also* Cost, Goodput
 
-Course kit, 2–3, 7–10, 130–134, 329–331, 442–446, 454–459; *see also* Docker, Exercises
+Course kit, 2–3, 7–10, 15–17, 133–137, 445–449, 457–464; *see also* Docker, Exercises
 
-  `./course.sh ex`, 8–10, 61–62, 133–134, 171–172, 443, 446
+  `./course.sh ex`, 9–10, 62, 136–137, 175, 446, 449
 
-  `./course.sh check`, 3, 7–10, 15–16, 51–52, 443, 458
+  `./course.sh check`, 7–8, 10, 16–17, 52–53, 446, 461
 
-  `./course.sh check-solutions`, 244, 289, 293, 309, 425, 444
+  `./course.sh check-solutions`, 248, 294, 298, 314, 428, 447
 
-  `./course.sh solution`, 444, 454, 469
+  `./course.sh solution`, 447, 457, 473
 
-  `./course.sh local`, 8, 443–444, 458–459
+  `./course.sh local`, 8, 446–447, 461–462
 
-  `./course.sh capstone`, 425, 428–432, 434–435, 444
+  `./course.sh capstone`, 428, 431–435, 437–438, 447
 
-Customer discovery, 407–409, 411, 414, 417–418, 434, 437; *see also* Problem brief
+Customer discovery, 410–412, 414, 418, 420–421, 437, 440; *see also* Problem brief
 
 **D**
 
-Deployment, 377–379, 383–387, 393–395, 403–406, 422–424, 469–471; *see also* Launch checklist, Canary release, Shadow mode
+Deployment, 381–383, 387–389, 397–399, 407–409, 425–427, 470–474; *see also* Launch checklist, Canary release, Shadow mode
 
-  the agent API, 377–378, 383–384, 401–403
+  the agent API, 381–382, 387–388, 405–407
 
-  to the cloud, 383, 385
+  to the cloud, 387, 389
 
-Descriptor (capability), 303–308
+Descriptor (capability), 308–313
 
-Designing for the customer's environment, 411, 413, 417
+Designing for the customer's environment, 414, 416, 420
 
-Deterministic control plane, 102, 239, 290, 292–293, 464; *see also* Deterministic shell, Approval gate
+Deterministic control plane, 105, 243, 295, 297–298, 467; *see also* Deterministic shell, Approval gate
 
-Deterministic shell, 239, 244; *see also* Workflow
+Deterministic shell, 243, 248; *see also* Workflow
 
-Dimensions of agency, 18, 21–22, 31–32, 461
+Dimensions of agency, 19, 22–23, 32–33, 464
 
-Discovery (capability), 133, 139, 152–153, 155, 302, 304–305; *see also* Trust store, Descriptor (capability), Progressive discovery
+Discovery (capability), 136, 142, 156–157, 159, 307, 309–310; *see also* Trust store, Descriptor (capability), Progressive discovery
 
-  is not trust, 302
+  is not trust, 307
 
-Docker, 2–3, 7–9, 129, 131, 442–443, 457–459; *see also* Course kit
+Docker, 2–3, 7–10, 132, 134, 445–446, 460–462; *see also* Course kit
 
-Durable execution, 116, 201–202, 204, 208–209, 463, 467; *see also* Checkpoint, Lease, Temporal
+Durable execution, 119, 205–206, 208, 212–213, 465–466, 470; *see also* Checkpoint, Lease, Temporal
 
 **E**
 
-Effort (request setting), 54, 58–59, 219; *see also* Thinking, Model routing
+Effort (request setting), 55, 60, 223; *see also* Thinking, Model routing
 
-Egress allowlist, 277, 282–283, 285, 287–288, 293, 386
+Egress allowlist, 282, 287–288, 290–293, 298, 390
 
-Elicitation, 132, 136, 142, 153, 157, 446
+Elicitation, 135, 139, 145, 157, 161, 449
 
-Embedding, 75, 179, 189, 191–193, 197, 470–471; *see also* Vector search, Cosine similarity
+Embedding, 76, 182, 193, 195–197, 201, 473–474; *see also* Vector search, Cosine similarity
 
-Environment variables, 6–10, 382–385, 443, 445–446, 455–456, 458
+Environment variables, 6–9, 386–389, 446, 448–449, 458–459, 461
 
-Episodic, semantic and procedural memory, 174, 176–178, 181, 187–188
+Episodic, semantic and procedural memory, 177, 179–181, 184, 190–191
 
-Error budget, 332, 345–346, 353, 394, 398, 423; *see also* Burn rate
+Error budget, 337, 350–351, 358, 398, 402, 426; *see also* Burn rate
 
-Escalation (handoff to a human), 203–207, 320–325, 369–373, 421–424, 426–428, 433–437; *see also* Approval gate
+Escalation (handoff to a human), 207–211, 325–330, 374–377, 424–427, 429–431, 436–440; *see also* Approval gate
 
 Eval, *see* Evaluation (eval)
 
-Evaluation (eval), 313–317, 323–331, 391–394, 396, 452–457, 466–471; *see also* Pass rate, Scorecard (agent), Regression gate, LLM judge (model-graded check)
+Evaluation (eval), 318–319, 331–336, 395–398, 400, 455–460, 464–467; *see also* Pass rate, Scorecard (agent), Regression gate, LLM judge (model-graded check)
 
-  cases and trials, 95–98, 313, 316, 320–326, 329–331
+  cases and trials, 98–101, 318, 321, 325–332, 334–336
 
-  outcome, process and cost, 317–319, 330
+  outcome, process and cost, 322–324, 335
 
-  ten dimensions of quality, 313, 320, 330
+  ten dimensions of quality, 318, 325, 335
 
-  continuous evaluation, 327–328
+  continuous evaluation, 332–333
 
-Evaluation (eval) suite, 313–314, 326, 329, 331, 393–394, 421
+Evaluation (eval) suite, 318–319, 331, 334, 336, 397–398, 424
 
-Exercises, 29–32, 76–77, 186–188, 197–199, 271–275, 401–404; *see also* Course kit, Solutions folder
+Exercises, 30–33, 77–79, 189–191, 201–203, 275–279, 405–408; *see also* Course kit, Solutions folder
 
-Exfiltration, 277, 281, 286, 294, 413; *see also* SSRF (server-side request forgery), Egress allowlist
+Exfiltration, 282, 286, 291, 299, 416; *see also* SSRF (server-side request forgery), Egress allowlist
 
-Explicit delegation, 296, 300, 307–308, 310, 461
+Explicit delegation, 301, 305, 312–313, 315, 464
 
-Exponential backoff, 79–83, 201, 203, 205, 210
+Exponential backoff, 81–83, 85, 205, 207, 209, 214
 
-Extension (MCP), 127, 132, 151–154, 156, 387–388, 401–403; *see also* MCP Apps, Tasks (MCP)
+Extension (MCP), 130, 135, 155–158, 160, 392, 405–407; *see also* MCP Apps, Tasks (MCP)
 
 **F**
 
-Failure taxonomy, 332, 340–341, 343, 346, 353–354, 462
+Failure taxonomy, 337, 345–346, 348, 351, 357–359, 465
 
-  guard_blocked, 337–338, 340, 342
+  guard_blocked, 342–343, 345, 347
 
-FastAPI, 402, 443, 452
+FastAPI, 406, 446, 455
 
-Feedback loops, 107, 109, 111–113; *see also* Self-correction
+Feedback loops, 110–111, 113, 115; *see also* Self-correction
 
-Field-to-product loop, 407, 416
+Field-to-product loop, 410, 419
 
-Fixer agent, 108–113
+Fixer agent, 111–116
 
-Flaky case, 95–98, 313, 316, 324, 330
+Flaky case, 98–101, 318, 321, 329, 335
 
-Forward-deployed engineer (FDE), 404, 407, 417, 419, 434, 436; *see also* Problem brief, Pilot gate
+Forward-deployed engineer (FDE), 408, 410, 420–422, 437, 439; *see also* Problem brief, Pilot gate
 
-Freshness, 160, 163
+Freshness, 164, 167
 
 **G**
 
-Gateway (MCP), 149–150, 152–153, 156, 377, 388–391, 401–404; *see also* Progressive discovery
+Gateway (MCP), 153–154, 156–157, 160, 381, 392–395, 405–408; *see also* Progressive discovery
 
-Goodput, 359, 361, 363–364, 374, 383, 422
+Goodput, 363, 365, 367–368, 378, 387, 425
 
 **H**
 
-Hallucination, 93, 341–343, 352, 462
+Hallucination, 96, 346–348, 357, 465
 
-Handoff (between agents), 118, 121–123, 223–224, 227, 235; *see also* Orchestration patterns
+Handoff (between agents), 121, 124–126, 227–228, 231, 239; *see also* Orchestration patterns
 
-Handoff (to the customer), 407, 415–416; *see also* Forward-deployed engineer (FDE)
+Handoff (to the customer), 410, 418, 420; *see also* Forward-deployed engineer (FDE)
 
-Harbor & Pine, 370, 420, 422
+Harbor & Pine, 374, 423, 425
 
-Harness, 26, 208–209, 247–256, 300–302, 308–310, 316; *see also* Agent loop, Computer-use agent
+Harness, 27, 212–213, 251–260, 305–307, 313–315, 321; *see also* Agent loop, Computer-use agent
 
-History (conversation), 58, 64, 68, 160
+History (conversation), 59, 65, 69, 164
 
 Host (MCP), *see* MCP host
 
-HTTP, 6–7, 79–80, 82–84, 131, 133–135, 402–403
+HTTP, 6–7, 81–82, 86–87, 134, 136–138, 406–407
 
-Human baseline, 356, 369, 375, 464
+Human baseline, 360, 373, 379, 467
 
-Human-in-the-loop, 99, 101, 103, 105; *see also* Approval gate
+Human-in-the-loop, 102–103, 105, 107; *see also* Approval gate
 
-Hybrid architectures, 238–239, 241, 243, 245
+Hybrid architectures, 242–243, 245, 247, 249
 
-Hybrid search, 192–193, 197–199, 391; *see also* Reciprocal rank fusion, Reranking
+Hybrid search, 196–197, 201–203, 395; *see also* Reciprocal rank fusion, Reranking
 
 **I**
 
-Idempotency key, 69, 81, 83, 201, 203, 210; *see also* Idempotent, Retries
+Idempotency key, 70, 84–86, 205, 207, 210, 214; *see also* Idempotent, Retries
 
-Idempotent, 64–66, 68–69, 81–83, 206–207, 209–211, 253–255; *see also* Idempotency key
+Idempotent, 65–67, 69–70, 84–86, 210–211, 213–215, 257–259; *see also* Idempotency key
 
 **J**
 
-JSON, 2, 5–7, 9–10, 37, 42–43
+JSON, 2, 5–7, 9–11, 38, 43–44
 
-JSON-RPC, 128–131, 134
+JSON-RPC, 131–134, 137
 
-JSON Schema, 2, 5–6, 9, 37, 43, 130; *see also* Structured outputs
+JSON Schema, 2, 5–6, 9, 38, 44, 133; *see also* Structured outputs
 
 **K**
 
-Keyword search, 192–193, 198; *see also* BM25
+Keyword search, 196–197, 202; *see also* BM25
 
-Kill switch, 289–290, 301, 308–309, 393–394, 415, 463–464
+Kill switch, 294–297, 306, 313–314, 397–398, 418, 467
 
-Knee (of a load curve), 361, 363–364, 373–374, 376, 383, 422–424; *see also* Load testing
+Knee (of a load curve), 360, 365, 367–368, 378, 380, 425–427; *see also* Load testing
 
 **L**
 
-Lakeside Insurance, 407–408, 410–411, 415–416, 419
+Lakeside Insurance, 410–411, 413–414, 418–419, 422
 
-LangChain, 259–260, 262, 267, 273–274, 313, 332
+LangChain, 263–264, 266, 271, 278, 318, 337
 
-LangGraph, 259–260, 262, 267, 465
+LangGraph, 263–264, 266, 271, 468
 
-Latency, 343–346, 348–353, 355–357, 359–365, 373–376, 462; *see also* p50 / p95, Time to first token
+Latency, 337–339, 348–351, 353–361, 363–369, 377–380, 465–467; *see also* p50 / p95, Time to first token
 
-  levers, 356–357, 360, 374–376
+  levers, 360–361, 364, 378–380
 
-Latency breakdown, 338, 340, 374, 376
+Latency breakdown, 343, 345, 378, 380
 
-Launch checklist, 82, 314, 385, 393, 404, 407
+Launch checklist, 84, 319, 390, 397, 408, 410
 
-Leak scan, 277, 285, 288, 293–294, 386
+Leak scan, 282, 291, 293, 298–299, 390
 
-Lease, 201, 203–204, 206–207, 209–211, 218, 394; *see also* Task queue
+Lease, 205, 207–208, 210–211, 213–215, 222, 398; *see also* Task queue
 
-Least privilege, 296, 300, 309, 311, 381
+Least privilege, 301, 305, 314–315, 385
 
-Lethal trifecta, 263, 277–278, 281, 287, 293, 310; *see also* Exfiltration
+Lethal trifecta, 267, 282–283, 286, 293, 298, 315; *see also* Exfiltration
 
-Little's law, 356, 361, 363, 366, 374, 422; *see also* Concurrency
+Little's law, 360, 365–367, 370, 379, 425, 427; *see also* Concurrency
 
-LLM judge (model-graded check), 97, 195–196, 313, 316–317, 328–331, 344–345; *see also* Evaluation (eval)
+LLM judge (model-graded check), 100, 199–200, 318, 321–322, 333–336, 349–350; *see also* Evaluation (eval)
 
-  calibrating, 313, 317, 320, 322, 328, 330–331
+  calibrating, 318, 322, 325, 327, 333, 335–336
 
-  rubric, 317, 331, 425, 432, 435
+  rubric, 322, 336, 428, 435, 438
 
-LLM (large language model), 18, 20, 22, 26, 30, 451
+LLM (large language model), 19, 21, 23, 27, 31, 454
 
-Load testing, 356, 364–365, 374–375, 422, 425–426, 430; *see also* Open-loop load test, Coordinated omission, Knee (of a load curve)
+Load testing, 360, 368–369, 379, 425, 428–429, 433; *see also* Open-loop load test, Coordinated omission, Knee (of a load curve)
 
-  at an arrival rate, 361–362, 364, 366, 422
+  at an arrival rate, 365–366, 368, 370, 425
 
-  performance experiments, 361
+  performance experiments, 365
 
-Local model, 3, 8, 263–265, 442–444, 452–453, 457–460; *see also* Ollama, qwen3.5:9b
+Local model, 3, 8, 267–269, 445–447, 455–456, 460–464; *see also* Ollama, qwen3.5:9b
 
-Long-running agents, 201–203, 205, 207, 209, 211, 386–387; *see also* Durable execution, Checkpoint
+Long-running agents, 205–207, 209, 211, 213, 215, 390–391; *see also* Durable execution, Checkpoint
 
-  harness across sessions, 201, 208–209
+  harness across sessions, 205, 212–213
 
-Long-running tools, 152, 377, 387, 402; *see also* Tasks (MCP)
+Long-running tools, 156, 381, 391, 406; *see also* Tasks (MCP)
 
 **M**
 
-Managed Agents, 59, 259, 265–267, 273–274, 385, 459–460
+Managed Agents, 60, 263, 269–271, 277–278, 389, 462–463
 
-max_tokens, 19–20, 30, 54, 57, 59–60, 445–446
+max_tokens, 20–21, 31, 55, 58, 60–61, 448–449
 
-MCP Apps, 132, 154
+MCP Apps, 135, 158
 
-MCP client, 127, 135–137, 139, 141, 382, 388; *see also* MCP host
+MCP client, 130, 138–139, 141, 143–145, 386, 392; *see also* MCP host
 
-  building your own, 136–137, 139, 141
+  building your own, 139, 141, 143, 145
 
-MCP host, 128–134, 136–142, 155, 157, 444, 453
+MCP host, 131–137, 139–145, 159, 161, 447, 456
 
-MCP Inspector, 127, 130, 133–135, 443–445
+MCP Inspector, 130, 133, 136–138, 446–448
 
-MCP (Model Context Protocol), 124–141, 143–145, 149–157, 231–232, 451–457, 465–467; *see also* A2A (Agent2Agent), MCP server, MCP client
+MCP (Model Context Protocol), 127–146, 153–161, 235–236, 446–449, 454–460, 468–470; *see also* A2A (Agent2Agent), MCP server, MCP client
 
-  hosts, 127–134, 136–142, 155, 157
+  hosts, 130–137, 139–145, 159, 161
 
-  clients, 127, 131, 135–137, 139, 141, 382
+  clients, 130, 134, 138–139, 141, 143–145, 386
 
-  servers, 127–129, 133–136, 143–144, 381–382, 425–428, 430–432
+  servers, 130–132, 136–139, 146, 385–386, 428–431, 433–435
 
-  tools, 128–130, 136–137, 140–141, 152–153, 155–156, 387–388
+  tools, 131–133, 139–140, 143–144, 156–157, 159–160, 391–392
 
-  resources, 127, 129–130, 132, 134, 139–140, 152–153
+  resources, 130, 132–133, 135, 137, 142–143, 156–157
 
-  prompts, 127, 129–130, 132, 134, 139–140, 152
+  prompts, 130, 132–133, 135, 137, 142–143, 156
 
-  transports, 127, 129–131, 133–135, 154–155, 387, 403–404
+  transports, 130, 132–134, 136–138, 159, 391, 407–408
 
-  connection lifecycle, 139, 152, 154
+  connection lifecycle, 142, 156, 159
 
-  elicitation, 132, 136, 142, 153, 157
+  elicitation, 135, 139, 145, 157, 161
 
-  sampling, 132, 155–156
+  sampling, 135, 159–160
 
-  roots, 155–156
+  roots, 159–160
 
-  tasks, 152, 154, 387–388, 402–403
+  tasks, 156, 158, 392, 406–407
 
-  extensions, 127, 132, 151–154, 156, 387–388, 401–403
+  extensions, 130, 135, 155–158, 160, 392, 405–407
 
-  gateway, 149–150, 152–153, 156, 377, 388–391, 401–404
+  gateway, 153–154, 156–157, 160, 381, 392–395, 405–408
 
-  registry, 143, 150, 152, 390
+  registry, 146, 154, 156, 394
 
-  authorization, 132, 152, 377–378, 380–382, 384–385, 390–391
+  authorization, 135, 156, 381–382, 384–386, 389, 395
 
-  specification versions, 127, 131–132, 151–152, 154, 156, 463
+  specification versions, 130, 134–135, 155–156, 158, 160, 466
 
-  agents as MCP servers, 136, 140
+  agents as MCP servers, 139, 143
 
-  trusting a server, 144
+  trusting a server, 148
 
-MCP Registry, 143, 150, 390, 452; *see also* Supply chain
+MCP Registry, 146, 154, 394, 455; *see also* Supply chain
 
-MCP server, 127–129, 133–136, 143–144, 381–382, 425–428, 430–432; *see also* MCP Inspector, Remote MCP server
+MCP server, 130–132, 136–139, 385–386, 428–431, 433–435, 447–449; *see also* MCP Inspector, Remote MCP server
 
-  reference servers, 143–144, 150
+  reference servers, 146, 148, 154
 
-  policy layer, 143–146, 149–150
+  policy layer, 146–150, 153–154
 
-Memory, 64–65, 67, 174–191, 457–459, 461–464, 467–470; *see also* Context engineering, RAG (retrieval-augmented generation)
+Memory, 65–69, 177–195, 454, 460–462, 464–467, 471–475; *see also* Context engineering, RAG (retrieval-augmented generation)
 
-  working (short-term), 64–65, 67, 69, 176, 181, 451
+  working (short-term), 65–67, 69, 179, 184, 454, 471
 
-  long-term, 64, 67, 174, 176
+  long-term, 65, 68, 177, 179
 
-  episodic, 174, 176–178, 187–188
+  episodic, 177, 179–181, 190–191
 
-  semantic, 174, 176, 180, 187–188
+  semantic, 177, 179, 183, 190–191
 
-  procedural, 174, 176–177, 181, 187
+  procedural, 177, 179–181, 184, 190
 
-  memory policy, 177, 187
+  memory policy, 180, 190
 
-  recall by relevance, 174–179, 181–182, 184–188
+  recall by relevance, 177–182, 184–185, 187, 189–192
 
-  forgetting and staleness, 174, 176–177, 179–180, 182, 184–187
+  forgetting and staleness, 177, 179–180, 183, 185, 188–191
 
-  scopes and sharing, 175, 180
+  scopes and sharing, 178, 183
 
-  poisoning, 174, 180–181, 185–188, 277, 280, 287–288
+  poisoning, 177, 184, 189–191, 282, 285, 292–293
 
-Messages API, 19–20, 38–39, 54, 165, 169, 263
+Messages API, 20–21, 39–40, 55, 169, 173, 267
 
 Model Context Protocol, *see* MCP (Model Context Protocol)
 
-Model output is untrusted, 148, 150, 277–281, 283–284, 286, 292–293
+Model output is untrusted, 152, 154, 282–286, 288–289, 291, 298
 
-Model outputs are proposals, 238, 240–241, 287, 455
+Model outputs are proposals, 242, 244–245, 292, 458
 
-Model routing, 213, 215, 217–222, 360, 469; *see also* Cascade, Effort (request setting)
+Model routing, 217, 219, 221–226, 364, 472; *see also* Cascade, Effort (request setting)
 
-Multi-agent systems, 118–119, 121–125, 223, 227, 231–233, 235–237; *see also* Orchestration patterns, Subagent
+Multi-agent systems, 121, 125, 127–128, 227, 231, 239–241; *see also* Orchestration patterns, Subagent
 
-  research team, 118–120, 123–125
+  research team, 121–123, 126–128
 
-  cost of, 121, 232
+  cost of, 124, 236
 
-  failure containment, 227, 231, 233–234
+  failure containment, 231, 235, 237–238
 
-  resolving disagreement, 223, 227–228, 236–237
+  resolving disagreement, 227, 231–232, 240–241
 
-Multi round-trip request, 132
+Multi round-trip request, 135
 
-Multi-tenancy, 182–186, 386, 392–393, 402, 467, 470–471
+Multi-tenancy, 185–189, 391, 396–397, 406, 470–471, 473–474
 
 **N**
 
-Notes outside the context, 166, 171, 201, 203, 208–211
+Notes outside the context, 170, 175, 205, 207, 212–215
 
 **O**
 
-OAuth, 132, 231, 296, 302, 309, 382; *see also* Access token, Scopes
+OAuth, 135, 235, 301, 307, 314, 386; *see also* Access token, Scopes
 
-Observability, 26–27, 332–335, 337, 339, 341, 351–353; *see also* OpenTelemetry, Trace, SLO (service-level objective)
+Observability, 27–28, 337, 339, 341, 343, 357; *see also* OpenTelemetry, Trace, SLO (service-level objective)
 
-  structured logs, 332, 335
+  structured logs, 337, 340
 
-  what never goes into telemetry, 333, 335–336, 346, 352–353
+  what never goes into telemetry, 338, 340–341, 351, 357–358
 
-  dashboards, 332, 335, 342–343, 345, 352–354, 386
+  dashboards, 337, 340, 347–348, 350, 357–359, 390
 
-  alerting, 332, 337–338, 345–346, 352–354, 385–386, 423
+  alerting, 337, 342–343, 350–351, 357–359, 389–390, 426
 
-Ollama, 41, 263, 443, 458–459, 464–465; *see also* Local model
+Ollama, 42, 267, 446, 461–462, 468; *see also* Local model
 
-Open-loop load test, 356, 361–362, 365, 374, 386, 422; *see also* Coordinated omission
+Open-loop load test, 360, 365–366, 369, 379, 390, 425; *see also* Coordinated omission
 
-Open-Meteo, 10, 79, 83, 444, 452
+Open-Meteo, 10, 81, 86, 447, 455
 
-OpenTelemetry, 332, 334–335, 337–338, 352–353, 392–393, 452; *see also* Trace, Span
+OpenTelemetry, 135, 337–340, 342–343, 357–358, 396–397, 455; *see also* Trace, Span
 
-  GenAI semantic conventions, 334–337, 342, 353
+  GenAI semantic conventions, 339–342, 347, 358
 
-Orchestration patterns, 118–119, 121–123, 223–225, 227, 231, 233–237; *see also* Multi-agent systems
+Orchestration patterns, 121–122, 124–126, 128, 227–231, 235, 237–241; *see also* Multi-agent systems
 
-  orchestrator-worker, 118–119, 121–123, 125, 223–225, 227, 231
+  orchestrator-worker, 121–122, 124–126, 128, 227–231, 235, 240
 
-  pipeline (sequential), 122, 224, 235–237
+  pipeline (sequential), 125, 228, 239–241
 
-  parallel fan-out, 118–120, 122–123, 234
+  parallel fan-out, 121–123, 125–126, 238
 
-  debate and voting, 118, 122–123, 224
+  debate and voting, 121, 125–126, 228
 
-Orchestrator–worker, 118–119, 121–123, 125, 223–225, 227, 231; *see also* Subagent
+Orchestrator–worker, 121–122, 124–126, 128, 227–231, 235, 240; *see also* Subagent
 
-Other model providers, 259, 262–263, 464–465
+Other model providers, 263, 266–267, 468
 
-Output guard, 238, 242
+Output guard, 242, 246
 
-OWASP Agentic Top 10, 181, 187, 277, 287, 293–294, 311
+OWASP Agentic Top 10, 184, 190, 282, 292, 299, 315
 
 **P**
 
-p50 / p95, 232–235, 323–326, 343–346, 351–353, 363–365, 368–369; *see also* Latency
+p50 / p95, 236–239, 328–331, 348–351, 356–359, 367–370, 372–373; *see also* Latency
 
-pass^k, 97, 313, 316, 320–321, 323–326, 330–331; *see also* Flaky case
+pass^k, 100, 318, 321, 325–326, 328–331, 335–336; *see also* Flaky case
 
-Pass rate, 95, 97, 313, 316, 323–324, 329–330; *see also* Wilson interval, pass^k
+Pass rate, 98, 100, 318, 321, 328–329, 334–335; *see also* Wilson interval, pass^k
 
-Path traversal, 74
+Path traversal, 75
 
-Payback period, 356, 369–374, 464
+Payback period, 360, 373–378, 467
 
 Percentiles, *see* p50 / p95
 
-Pilot, 407–409, 413–419, 434–435, 437; *see also* Pilot gate
+Pilot, 410–411, 413, 416–418, 420–422, 437–438, 440; *see also* Pilot gate
 
-Pilot gate, 407, 414, 435
+Pilot gate, 410, 417–418, 438
 
-Plan (as data), 213, 215, 462
+Plan (as data), 217, 219, 465
 
-Planning, 99–105, 213–222, 238, 243; *see also* Plan (as data), Replanning
+Planning, 102–108, 217–226, 242, 247; *see also* Plan (as data), Replanning
 
-  step by step or plan first, 213–214, 221
+  step by step or plan first, 217–218, 225
 
-  checking a plan, 216
+  checking a plan, 220
 
-Playwright, 143, 247, 252, 256, 433, 436
+Playwright, 146, 251, 256, 260, 436, 439
 
-Priya, 18–19, 24, 26, 30, 42, 418
+Priya, 19–20, 25, 27, 31, 43, 421
 
-Problem brief, 408–410, 413–415, 418, 432, 434–435
+Problem brief, 411–413, 416–418, 421, 435, 437–438
 
-Programmatic tool calling, 169, 171–172, 460
+Programmatic tool calling, 173, 175–176, 463
 
-Progressive discovery, 133, 152, 155, 390; *see also* Tool search
+Progressive discovery, 136, 156, 159, 394; *see also* Tool search
 
-Prompt caching, 166–168, 170–172, 234–235, 358–361, 452–453, 459–460; *see also* Cost
+Prompt caching, 170–172, 175–176, 238–239, 362–365, 455–456, 462–463; *see also* Cost
 
-  cache_control, 166–167
+  cache_control, 170–171
 
-Prompt injection, 104, 145, 149–150, 247, 277, 280–281; *see also* Lethal trifecta, Quarantine (dual-LLM pattern)
+Prompt injection, 107, 148–149, 153–154, 251, 282, 285–286; *see also* Lethal trifecta, Quarantine (dual-LLM pattern)
 
-  through tool output, 143, 145
+  through tool output, 146, 148
 
-  through the screen, 251
+  through the screen, 255
 
-Prompt injection through tool output, 143, 145
+Prompt injection through tool output, 146, 148
 
-Prompt (MCP), 127, 129–130, 132, 134, 139–140, 152
+Prompt (MCP), 130, 132–133, 135, 137, 142–143, 156
 
-Provenance, 160, 163, 170–171, 174, 181–183, 187; *see also* Freshness
+Provenance, 164, 167, 174–175, 177, 184–185, 187; *see also* Freshness
 
-Pydantic, 48, 51, 132
+Pydantic, 49, 52, 135
 
-Pyroscope, 352
+Pyroscope, 357
 
-pytest, 32–36, 77, 105, 108–110, 135, 443–444
+pytest, 33–37, 79, 108, 111–113, 138, 446–447
 
-  assert, 33–35
+  assert, 34–37
 
-  fixtures, 34–35
+  fixtures, 35–36
 
-  parametrize, 33–36
+  parametrize, 34–37
 
-Python, 2–6, 8–16, 114–117
+Python, 2–6, 9–13, 15–17, 117–119
 
-  dataclasses, 11–16
+  dataclasses, 12–17
 
-  decorators, 11, 13–16, 127
+  decorators, 12, 14–17, 130
 
-  dictionary of functions, 11, 14–15, 46
+  dictionary of functions, 12, 15–16, 47
 
-  type hints, 12, 127, 130, 133
+  type hints, 13, 130, 133, 136
 
 **Q**
 
-Quality scorecard, 325–326, 462
+Quality scorecard, 330–331, 465
 
-Quarantine (dual-LLM pattern), 174, 177–178, 181–186, 283–284, 287–288, 293–294; *see also* Prompt injection
+Quarantine (dual-LLM pattern), 177, 180–181, 184–191, 288–289, 292–293, 298–299; *see also* Prompt injection
 
-qwen3.5:9b, 8, 31–32, 273–274, 383, 402–404, 456–460; *see also* Local model
+qwen3.5:9b, 8, 32–33, 278–279, 406–408, 459–461, 463; *see also* Local model
 
 **R**
 
-RAG (retrieval-augmented generation), 21, 73, 75–77, 119, 189–193, 466–467; *see also* Agentic search, Embedding, Hybrid search
+RAG (retrieval-augmented generation), 22, 74, 76–78, 122, 193–197, 470; *see also* Agentic search, Embedding, Hybrid search
 
-  pipeline, 190, 193
+  pipeline, 194, 197
 
-  retrieval as a tool, 189, 192
+  retrieval as a tool, 193, 196
 
-  evidence sufficiency, 189, 195
+  evidence sufficiency, 193, 199
 
-  agentic search or RAG, 75–76
+  agentic search or RAG, 76–77
 
-Rate limit, 79–83, 204–205, 356–357, 364–366, 374–377, 401–404; *see also* Token bucket
+Rate limit, 81–86, 208–209, 360–361, 366–368, 378–384, 405–408; *see also* Token bucket
 
-Recall@k / MRR, 189, 193, 196–198
+Recall@k / MRR, 193, 197, 200–202
 
-Reciprocal rank fusion, 192
+Reciprocal rank fusion, 196
 
-Reference architecture, 393, 399; *see also* Agent architecture reference model
+Reference architecture, 397, 403; *see also* Agent architecture reference model
 
-Reference cards, 461–464
+Reference cards, 464–467
 
-Regression gate, 271, 313, 326, 345, 394, 397; *see also* Continuous integration (CI)
+Regression gate, 275, 318, 331, 350, 398, 401; *see also* Continuous integration (CI)
 
-Regular expressions, 70–71; *see also* re module
+Regular expressions, 71–73; *see also* re module
 
-  re.search / re.findall, 70–71, 282–283, 286
+  re.search / re.findall, 71–72, 287–288, 291
 
 re module, *see* Regular expressions
 
-Remote MCP server, 377, 381–382, 386, 403
+Remote MCP server, 381, 385–386, 390, 407
 
-Replanning, 213–218, 220–221
+Replanning, 217–222, 224–225
 
-Reranking, 193, 197
+Reranking, 197, 201
 
-Resource (MCP), 127, 129–130, 132, 134, 139–140, 152–153
+Resource (MCP), 130, 132–133, 135, 137, 142–143, 156–157
 
-Retries, 79–84, 201, 203–205, 209–211, 357–359, 362; *see also* Exponential backoff, Idempotency key
+Retries, 81–86, 205, 207–209, 213–215, 361–363, 366; *see also* Exponential backoff, Idempotency key
 
-  errors you mustn't retry, 80, 204
+  errors you mustn't retry, 82, 208
 
 Retrieval-augmented generation, *see* RAG (retrieval-augmented generation)
 
-Review by diff, 107, 109, 111–113
+Review by diff, 110, 112, 114–116
 
-Risk rating (actions), 99, 102–103
+Risk rating (actions), 102, 105–106
 
-Risk tier, 290, 393, 463–464
+Risk tier, 295, 397, 466–467
 
-Rollback, 269, 271–273, 398–399, 423–424, 463–464, 471–472
+Rollback, 273–277, 391, 402–403, 426–427, 466–467, 474–475
 
-Routing, 45–49, 51–52, 122–123, 162–163, 213, 217–222; *see also* Model routing, tool_choice
+Routing, 46–53, 125–126, 166–167, 217, 221–226, 471–472; *see also* Model routing, tool_choice
 
-  routing accuracy, 45, 48–49, 52
+  routing accuracy, 46, 49–50, 53
 
-Rules as data, 238, 241–242, 244
+Rules as data, 242, 245–246, 248
 
 **S**
 
-Safe rendering, 277, 286, 288, 293–294, 386
+Safe rendering, 282, 291, 293, 298–299, 390
 
-Safety in layers (defense in depth), 91
+Safety in layers (defense in depth), 94
 
-Sandbox, 73–77, 107, 109–113, 265–268, 443–444, 446; *see also* Path traversal
+Sandbox, 74–78, 110, 112–116, 269–272, 446–447, 449; *see also* Path traversal
 
-Scopes, 296, 298–303, 307–311, 381–382, 386, 389; *see also* Least privilege
+Scopes, 301, 303–308, 312–316, 385–386, 390, 393; *see also* Least privilege
 
-Scorecard (agent), 313, 321–327, 329–332, 344, 393, 462–463; *see also* Quality scorecard, Regression gate
+Scorecard (agent), 318–319, 321, 325–337, 349, 397, 465–466; *see also* Quality scorecard, Regression gate
 
-Self-correction, 89, 91–93
+Self-correction, 92–97
 
-Server tool, 50
+Server tool, 51
 
-Shadow mode, 272, 394, 396–399, 404, 463; *see also* Canary release
+Shadow mode, 276, 398, 400–403, 408, 466; *see also* Canary release
 
-shop.db, 85–90, 429
+shop.db, 88–93, 432
 
-SLO (service-level objective), 325–326, 332–333, 343–347, 351–356, 398, 462–463; *see also* Error budget, Burn rate
+SLO (service-level objective), 330–331, 337, 347–351, 357–360, 368, 402; *see also* Error budget, Burn rate
 
-  SLOs for agents, 332–333, 335, 337, 339, 341, 343–345
+  SLOs for agents, 337, 339, 341, 343, 345, 349
 
-  SLI, 344
+  SLI, 349
 
-Smallest valuable slice, 410–411, 416, 451
+Smallest valuable slice, 413–414, 419, 454
 
-Solutions folder, 443, 454, 457, 468
+Solutions folder, 446, 457, 460, 471
 
-Span, 332–343, 346–354, 357–358, 369, 423, 446
+Span, 337–348, 351–359, 361–362, 373–374, 426, 449
 
-SQL, 85–94, 238, 246; *see also* SQLite, Text-to-SQL agent
+SQL, 88–97, 242, 249; *see also* SQLite, Text-to-SQL agent
 
-  SELECT, 85–88, 90–92
+  SELECT, 88–91, 93–95
 
-  JOIN, 86–88
+  JOIN, 89–91
 
-  GROUP BY, 86–88, 91
+  GROUP BY, 89–91, 95
 
-  read-only queries, 89, 91–93
+  read-only queries, 92, 94–96
 
-SQLite, 67–69, 86–91, 143, 176–177, 209, 211; *see also* SQL, shop.db
+SQLite, 68–70, 89–94, 146, 179–180, 213, 215; *see also* SQL, shop.db
 
-SSE (Server-Sent Events), 131, 155–156, 380, 402, 451; *see also* Streaming
+SSE (Server-Sent Events), 134, 159–160, 384, 406, 454; *see also* Streaming
 
-SSRF (server-side request forgery), 281–282, 451
+SSRF (server-side request forgery), 286–287, 454
 
-Stateless protocol, 151, 156, 451
+Stateless protocol, 155, 160, 454
 
-State machine, 21, 27, 231, 238–240, 243–245, 461
+State machine, 22, 28, 235, 242–244, 247–249, 464–465
 
-stdio, 127, 129–131, 133–135, 260, 274, 403–404
+stdio, 130, 132–134, 136–138, 264, 278, 407–408
 
-Step-up, 290–291, 296, 300–302, 309, 311, 386; *see also* Approval gate
+Step-up, 296, 301, 305–307, 314–315, 390, 424; *see also* Approval gate
 
-Stop conditions, 57, 61, 107, 111
+Stop conditions, 58, 62, 110, 114
 
-Stop reason (stop_reason), 18–19, 30, 38–40, 54–57, 59–61, 445–446
+Stop reason (stop_reason), 19–20, 31, 39–41, 55–58, 62, 448–449
 
-  end_turn, 19, 30, 54, 56–57, 451
+  end_turn, 20, 31, 55, 57–58, 454
 
-  tool_use, 38–40, 54, 57
+  tool_use, 39–41, 55, 58
 
-Streamable HTTP, 127, 131, 133–135, 155, 451
+Streamable HTTP, 130, 134, 136–138, 159, 454
 
-Streaming, 129–130, 133, 360, 377, 380, 402–403; *see also* SSE (Server-Sent Events)
+Streaming, 132–133, 136, 364, 381, 384–385, 406–407; *see also* SSE (Server-Sent Events)
 
-Structured outputs, 47–48, 51–52, 121–122, 244, 445, 465; *see also* JSON Schema
+Structured outputs, 48–49, 52–53, 124–125, 248, 448, 468; *see also* JSON Schema
 
-Subagent, 118–120, 122–125, 168, 259–260, 296, 432
+Subagent, 121–123, 125–128, 172, 263–264, 301, 435
 
-Supply chain, 287, 390
+Supply chain, 292, 394
 
-Support agent (running example), 26–28, 42, 232, 289–291, 369–371, 419–421; *see also* Priya, Harbor & Pine
+Support agent (running example), 27–29, 43, 236, 294–297, 373–375, 422–423; *see also* Priya, Harbor & Pine
 
-System prompt, 58–61, 149–150, 159–160, 166–169, 171–172, 292–293; *see also* Context engineering, Prompt caching
+System prompt, 61–62, 153–154, 163–164, 170–173, 175–176, 297–298; *see also* Context engineering, Prompt caching
 
-  as design, 159, 168
+  as design, 163, 172
 
 **T**
 
-Task queue, 206, 357, 363–367, 369, 373–374
+Task queue, 210, 361, 367–371, 374, 377–378
 
-Tasks (MCP), 152, 154, 387–388, 402–403, 451; *see also* Long-running tools
+Tasks (MCP), 156, 158, 392, 406–407, 454; *see also* Long-running tools
 
-Temporal, 116, 209
+Temporal, 119, 213
 
-Text-to-SQL agent, 89, 91–93; *see also* SQL, Self-correction
+Text-to-SQL agent, 92–93, 95–97; *see also* SQL, Self-correction
 
-Thinking, 19–20, 30, 58–60, 445, 451, 457
+Thinking, 20–21, 31, 60–61, 448, 454, 460
 
-Thinking block, 19–20, 30, 58–60, 445, 451, 457; *see also* Thinking
+Thinking block, 20–21, 31, 60–61, 448, 454, 460; *see also* Thinking
 
-Throughput, 356–359, 361–363, 365, 367–369, 371, 373–375; *see also* Goodput
+Throughput, 360–363, 365–367, 369, 371–373, 375, 377–379; *see also* Goodput
 
-Timeouts, 79–84, 115–117, 202–205, 362, 364–365, 383–386
+Timeouts, 81–86, 118–120, 206–209, 366, 368–371, 387–390
 
-Time to first token, 357, 359–360, 362
+Time to first token, 361, 364, 366
 
-To-do tools, 64–65, 68, 381, 389–390
+To-do tools, 65–66, 69, 386, 393–394
 
-Token bucket, 380, 451
+Token bucket, 384, 454
 
-Token (unit of text), 19, 31, 61–62, 351, 358–360, 452–453; *see also* Access token, Cost
+Token (unit of text), 20, 32, 59, 62–63, 362–364, 455–456; *see also* Access token, Cost
 
-Tool, 37, 41, 43, 47, 49–50, 459–460; *see also* Tool calling (function calling), MCP (Model Context Protocol)
+Tool, 38, 42, 44, 48, 50–51, 462–463; *see also* Tool calling (function calling), MCP (Model Context Protocol)
 
-  definitions, 43, 50, 159, 167, 170, 451
+  definitions, 44, 51, 163, 171, 174, 454
 
-  descriptions, 41, 47, 49, 160
+  descriptions, 42, 48, 50, 164
 
-  input_schema, 37–39, 46–47, 49
+  input_schema, 38–40, 47–48, 50
 
-  errors as data, 42, 55
+  errors as data, 43, 56
 
-Tool calling (function calling), 39–45, 55–62, 169, 171–172, 464–466, 468–469; *see also* Agent loop, Tool use, tool_choice
+Tool calling (function calling), 38–39, 41–46, 56–60, 62–63, 173, 468–469; *see also* Agent loop, Tool use, tool_choice
 
-  round-trip, 37, 39–41, 44
+  round-trip, 38, 40–42, 45
 
-  parallel tool calls, 53, 56
+  parallel tool calls, 54, 57
 
-  tool_use_id, 38–40, 42, 55, 62, 170
+  tool_use_id, 39–41, 43, 56, 63, 174
 
-tool_choice, 47–48, 50–51, 119–120, 320–323, 445, 464; *see also* Routing
+tool_choice, 48–49, 52–53, 122–123, 325–328, 448, 468; *see also* Routing
 
-tool_result block, 37–40, 42–43, 55–56, 60, 163–164, 170–171
+tool_result block, 38–41, 43–44, 56–57, 62, 167–168, 174–175
 
-Tool runner, 259–260, 265, 267, 273–274, 286; *see also* Claude Agent SDK
+Tool runner, 263–264, 269, 271, 278, 291; *see also* Claude Agent SDK
 
-Tool search, 45, 47, 49–52, 390, 459–460, 465; *see also* Progressive discovery
+Tool search, 46–47, 49–53, 394, 454, 462–463, 468; *see also* Progressive discovery
 
-Tool selection, 45, 47–49, 51–52; *see also* Routing, Tool search
+Tool selection, 46–51, 53; *see also* Routing, Tool search
 
-Tool use, 22, 43, 47, 461; *see also* Tool calling (function calling)
+Tool use, 23, 44, 48, 464; *see also* Tool calling (function calling)
 
-tool_use block, 38–40, 43, 54–57, 60, 445
+tool_use block, 39–41, 44, 55–58, 62, 448
 
-Trace, 60–62, 331–332, 334–336, 340–345, 352–354, 391–394; *see also* Span, Trajectory
+Trace, 61–63, 126–128, 336–341, 345–350, 357–362, 395–398; *see also* Span, Trajectory
 
-  tracing your agent, 53, 56–58, 60–62
+  tracing your agent, 54, 57–59, 61–63
 
-  trace id, 335–336, 346, 352–353, 396
+  trace id, 340–341, 351, 357–358, 400
 
-Trajectory, 313, 317–327, 329, 331, 341, 425–427; *see also* Trace
+Trajectory, 318–319, 323, 325–331, 333–336, 346, 428–430; *see also* Trace
 
-  checking, 313, 318, 322, 325, 329
+  checking, 318, 323, 327, 330, 334
 
-  visualizing, 339
+  visualizing, 344
 
-Transports (MCP), 127, 129–131, 133, 154–155, 451; *see also* stdio, Streamable HTTP, SSE (Server-Sent Events)
+Transports (MCP), 130, 132–134, 136, 159, 454; *see also* stdio, Streamable HTTP, SSE (Server-Sent Events)
 
-Troubleshooting, 445–446
+Troubleshooting, 448–449
 
-Trust store, 305–306, 308, 451
+Trust store, 310–311, 313, 454
 
 **V**
 
-Vector search, 174, 181, 189, 191–192, 198, 470–471
+Vector search, 177, 184, 193, 195–196, 202, 473–475
 
 **W**
 
-Weather tools, 79, 83
+Weather tools, 81, 85
 
-Wilson interval, 95–96, 98, 316, 324, 327, 414
+Wilson interval, 98–99, 101, 321, 329, 332, 417
 
-Workflow, 20–21, 24, 30–32, 231–232, 238–239, 243–245; *see also* Agent, Deterministic shell
+Workflow, 21–22, 25, 31–33, 235–236, 242–243, 247–249; *see also* Agent, Deterministic shell
 
-Working memory, 64–65, 67, 69, 176, 181, 451
+Working memory, 65–67, 69, 179, 184, 454, 471
 

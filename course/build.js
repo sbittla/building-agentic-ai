@@ -352,9 +352,9 @@ function convert(md, file) {
       }
       if (level === 2 && text === "Exercises") out.push(new Paragraph({ spacing: { after: 80 }, keepNext: true, children: [
         // one line: the model labels on each box are explained in How to Use This Book
-        new TextRun({ text: "Run an exercise, with its full brief, using ", italics: true, size: 17, color: "404040" }),
+        new TextRun({ text: "Run an exercise with its full brief: ", italics: true, size: 17, color: "404040" }),
         new TextRun({ text: "./course.sh ex <id>", font: MONO, size: 15 }),
-        new TextRun({ text: "; see its solution with ", italics: true, size: 17, color: "404040" }),
+        new TextRun({ text: "; its solution: ", italics: true, size: 17, color: "404040" }),
         new TextRun({ text: "./course.sh solution <id>", font: MONO, size: 15 }),
         new TextRun({ text: ".", italics: true, size: 17, color: "404040" })] }));
       if (api) out.push(new Paragraph({ spacing: { before: 0, after: 120 }, keepNext: true, children: [

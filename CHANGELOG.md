@@ -13,6 +13,7 @@ At most the same 510 pages as rc2 and rc3 (LibreOffice 24.2), with six more figu
 - **Verified against the Claude API reference** (models cached 2026-10-06): Claude Sonnet 5.5 added to the models that reject forced tools and disabled thinking (3.3, 4.8); effort defaults; the minimum cacheable prefix is 512 to 4,096 tokens; mid-conversation `system` messages don't apply to Claude Sonnet 5 (16.8). `CLAIMS_AUDIT.md` gains three rows.
 - **Instructions that didn't work as written** on the local model now carry a model note: 9.3, 20.4, 20.5 and 24.4. Exercise 3.7's text matches its solution; T.1 quotes pytest's real message.
 - **Capstones:** every one now has a recorded run. Capstone 2's `describe_table` reports columns it dropped and its approval ignores names a query defines; Capstone 4's verdict is decided in code from failing tests, blocking findings and any deleted test.
+- **From the full local-model run:** Chapter 11's `research` recovers a plan sent as one string (it once started a subagent per character) and caps it at 4; its synthesis prompt asks for each claim's source; section 11.3 says so. Model notes on 6.2, 8.5, 18.6 and 30.2, and a sentence in Capstone 3, describe what a small model does there.
 - **Exercise boxes:** the per-box "Full brief" line moved into each chapter's exercise intro (94 lines).
 - Copy-edit: the author's path replaced by a reader's in two examples, checkpoint wording made consistent, a doubled comma, a duplicated reference, a Haiku 4.5 caveat (no `EFFORT`), `--gpu` in the setup steps, and two GPU rows in Appendix H.
 

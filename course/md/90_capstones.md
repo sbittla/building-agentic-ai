@@ -172,7 +172,7 @@ Table: Capstone 3 reference solution
 | `obs_server.py` | Read-only logs, metrics and runbooks |
 | `agent.py` | Investigates with read-only tools, then fills a forced `triage_report`: impact, timeline, suspected cause, suspect commit, evidence, next steps |
 
-Run it with `./course.sh capstone 3`. Compare whether your agent checks a baseline from before the alert, whether every claim in the report has evidence, and the rule that the agent never runs remediation itself.
+Run it with `./course.sh capstone 3`. Compare whether your agent checks a baseline from before the alert, whether every claim in the report has evidence, and the rule that the agent never runs remediation itself. A small model often skips the deploys; the reference sends it back once when it never called `git_log`.
 
 **Extension challenges:**
 
