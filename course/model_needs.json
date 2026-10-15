@@ -140,7 +140,8 @@
   "model": "any"
  },
  "5.6": {
-  "model": "any"
+  "model": "any",
+  "note": "On qwen3.5:9b the agent sometimes completes the first match without asking. Rerun it, or make the code refuse complete_task until the user has said which task."
  },
  "5.7": {
   "model": "any"
@@ -294,7 +295,8 @@
   "note": "The research team forces a planning tool; the kit's local adapter handles this for qwen3.5:9b."
  },
  "11.4": {
-  "model": "any"
+  "model": "any",
+  "note": "On qwen3.5:9b a plan can come back with one subtask, all quick, so there is nothing to compare. Ask again, or have the code request a new plan when it has fewer than two."
  },
  "11.5": {
   "model": "any"

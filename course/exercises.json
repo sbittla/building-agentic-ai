@@ -1785,7 +1785,7 @@
   "level": "Concept",
   "title": "Idempotent or not?",
   "chapter": "Chapter 19: Long-Running Agents",
-  "task": "For each action, say whether it's idempotent, and if not, how you'd make it safe to repeat: (a) `set_status(order, \"shipped\")`; (b) `add_note(ticket, text)`; (c) `send_sms(phone, text)`; (d) `transfer(from, to, amount)`; (e) `create_user(email)`; (f) `increment_counter(name)`.",
+  "task": "Is each action idempotent? If not, how would you make it safe to repeat? (a) `set_status(order, \"shipped\")`; (b) `add_note(ticket, text)`; (c) `send_sms(phone, text)`; (d) `transfer(from, to, amount)`; (e) `create_user(email)`; (f) `increment_counter(name)`.",
   "hint": null,
   "done_when": "Every non-idempotent action gets a key or a redesign that makes repeats safe.",
   "kind": "concept"
@@ -1795,9 +1795,9 @@
   "level": "Simple",
   "title": "Crash and resume",
   "chapter": "Chapter 19: Long-Running Agents",
-  "task": "Run `ch19_durable.py --crash 2`, look at `jobs.db` with `sqlite3 jobs.db \"select idx, status, attempts from steps\"`, then run it again without `--crash`. Then run it with `--crash 3`, delete `jobs.db`, and run it again.",
+  "task": "Run `ch19_durable.py --crash 2`, read the `steps` table in `jobs.db` with `sqlite3`, then run it again without `--crash`. Then run it with `--crash 3`, delete `jobs.db`, and run it again.",
   "hint": null,
-  "done_when": "You can show the first resume sent exactly one email, and explain what went wrong in the second experiment and which record would have prevented it.",
+  "done_when": "The first resume sent exactly one email, and you can say what broke the second experiment and which record would have prevented it.",
   "kind": "run",
   "cmd": "python ch19_durable.py --crash 2; python ch19_durable.py",
   "edit": [
@@ -2118,7 +2118,7 @@
   "chapter": "Chapter 23: Computer-Use Agents",
   "task": "Run four requests through `run_steps` from `ch23_reliability` on an `OfflineBrowser`: the three address changes from exercise 23.5 and a $20 credit for Chen Wei, placed third. Keep a status per request so a second run skips finished ones. Inject three faults: a control missing for one read during request 1, a credit click that times out without landing, and a session that expires before request 4. Then sign in again, as the person would, and rerun the queue.",
   "hint": "The page's `missing`, `click_fault` and `app.SESSIONS.clear()` are the fault switches. A lost session should stop the queue; a credit nobody can verify should be parked for a person while the rest continue.",
-  "done_when": "The first run ends done, done, needs a person, session lost; after the resume request 4 is done and the credit still waits for a person; the application's audit shows three address writes and no credit; and the log has a stale retry, an unverified credit that wasn't retried and a hand-off, each with snapshot ids.",
+  "done_when": "The first run ends done, done, needs a person, session lost; after the resume request 4 is done and the credit still waits for a person; the application's audit shows three address writes and no credit; and the log has a stale retry, an unverified credit that wasn't retried and a handoff, each with snapshot ids.",
   "kind": "build",
   "file": "exercises/ex23_7_reliable_queue.py",
   "nokey": true

@@ -171,7 +171,7 @@ Every chapter opens with what you'll build, where it sits in the architecture (s
 
 Exercises come in three kinds, and the kit treats each differently. A **written-answer** exercise (level Concept) has nothing to run: you write your answer, then compare it with `./course.sh solution <id>`. An **executable** exercise gives you a starter file and, for many, an automatic check. A **model-dependent** exercise also calls a model, so its output varies from run to run, which is why its *Done when* line checks behavior.
 
-**Exercises** come at four levels: **Concept** (no code), **Simple** (a small change to the chapter's code), **Medium** (a new feature with a design decision) and **Complex** (an open-ended build with measurements). Each has a measurable **Done when** line. Exercises are numbered in the order the chapter teaches their topics, not by difficulty, so use the level label to choose: Simple and Medium first, Complex when you want a project. Run one with `./course.sh ex <id>` (a build exercise's first run creates a starter file in `workspace/exercises`), check it with `./course.sh check <id>` where a checker exists, and print the reference solution with `./course.sh solution <id>`. `./course.sh list 4` lists Chapter 4's exercises. Each box also names the model it needs:
+Each exercise also has one of four levels: **Concept** (no code), **Simple** (a small change to the chapter's code), **Medium** (a new feature with a design decision) and **Complex** (an open-ended build with measurements). Each has a measurable **Done when** line. Exercises are numbered in the order the chapter teaches their topics, not by difficulty, so use the level label to choose: Simple and Medium first, Complex when you want a project. Run one with `./course.sh ex <id>` (a build exercise's first run creates a starter file in `workspace/exercises`), check it with `./course.sh check <id>` where a checker exists, and print the reference solution with `./course.sh solution <id>`. `./course.sh list 4` lists Chapter 4's exercises. Each box also names the model it needs:
 
 Table: Exercises by the model they need
 | Label | Meaning | Exercises |
@@ -183,7 +183,7 @@ Table: Exercises by the model they need
 
 ## What this book covers, and what it doesn't
 
-Everything besides agents, the book teaches only as far as agents need it.
+The book teaches every topic outside agents only as far as agents need it.
 
 Table: Topics the book teaches only as far as agents need them
 | Topic | What this book gives you | Where to learn the rest |
