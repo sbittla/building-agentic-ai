@@ -76,6 +76,17 @@ def test_11_5_critic_triggers_revision(model):
     r = asyncio.run(t.research("q"))
     assert r["unsupported"] == ["RAG is free"] and r["answer"] == "revised answer"
 
+def test_11_5_claims_sent_as_text_are_parsed(model):
+    import sol_ch11_research_team as t
+    team = _team_script([])
+    def respond(kw):
+        if (kw.get("tool_choice") or {}).get("name") == "review":    # a small model's string
+            return [tool("review", {"unsupported_claims": '["RAG is free"],\n["X is Y"]'})]
+        return team(kw)
+    model.reset(default=respond)
+    r = asyncio.run(t.research("q"))
+    assert r["unsupported"] == ["RAG is free", "X is Y"] and r["answer"] == "revised answer"
+
 def test_11_6_compare(model, monkeypatch):
     import ex11_6_compare as ex
     def respond(kw):

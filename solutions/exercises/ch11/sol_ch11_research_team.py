@@ -80,12 +80,21 @@ async def research(question: str, parallel: bool = True, critic: bool = True,
         review = await _call(tools=[CRITIC_TOOL], tool_choice={"type": "tool", "name": "review"},
                              messages=[{"role": "user", "content":
                                         f"Findings:\n{report}\n\nAnswer:\n{draft}"}])
-        unsupported = next(b.input["unsupported_claims"] for b in review.content
+        unsupported = next(b.input.get("unsupported_claims", []) for b in review.content
                            if b.type == "tool_use")
+        if isinstance(unsupported, str):           # the list sent as text: parse, don't iterate
+            try:
+                unsupported = json.loads(unsupported)
+            except ValueError:
+                unsupported = re.findall(r'"([^"]+)"', unsupported) or [unsupported]
+        if not isinstance(unsupported, list):
+            unsupported = [unsupported]
+        unsupported = [c for x in unsupported for c in (x if isinstance(x, list) else [x])]
         if unsupported:
             draft = text_of(await _call(messages=[{"role": "user", "content":
                 f"Revise this answer. Remove or fix these unsupported claims: "
-                f"{json.dumps(unsupported)}\n\nFindings:\n{report}\n\nAnswer:\n{draft}"}]))
+                f"{json.dumps(unsupported)}\n\nReturn only the revised answer; don't quote or "
+                f"mention the claims you removed.\n\nFindings:\n{report}\n\nAnswer:\n{draft}"}]))
     return {"answer": draft, "subtasks": subtasks, "unsupported": unsupported,
             "seconds": time.perf_counter() - t0, "usage": dict(usage)}
 
