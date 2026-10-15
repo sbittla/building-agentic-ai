@@ -2,9 +2,9 @@
  "chapter": "11",
  "title": "Chapter 11: Multi-Agent Systems",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-15 18:15",
+ "date": "2026-10-15 18:23",
  "provenance": {
-  "commit": "77cda2676746",
+  "commit": "c3169f59ef30",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -55,12 +55,12 @@
    "id": "11.4",
    "title": "Better delegation",
    "kind": "run",
-   "status": "failed",
-   "reason": "output lacks /quick subtasks: at most \\d+ calls; deep: up to \\d+/",
-   "seconds": 99.4,
+   "status": "passed",
+   "reason": null,
+   "seconds": 131.9,
    "log": "ch11/11.4.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "77cda2676746"
+   "commit": "c3169f59ef30"
   },
   {
    "id": "11.5",
