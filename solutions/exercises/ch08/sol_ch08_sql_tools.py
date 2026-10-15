@@ -22,6 +22,12 @@ def propose_tables(tables: list[str], reason: str) -> str:
                      "Press Enter to approve, or type the tables to use instead: ").strip()
     chosen = [t.strip() for t in reply.split(",") if t.strip()] if reply else tables
     state["approved_tables"] = set(chosen)
+    rejected = sorted(set(tables) - set(chosen))
+    if rejected:      # say what to do next, or a model proposes the same tables again
+        return (f"The user allowed only {chosen} and rejected {rejected}. Write the query "
+                "with the allowed tables only. If the question can't be answered fully "
+                "without the rejected ones, answer what you can and say what's missing. "
+                "Don't propose the rejected tables again.")
     return f"User approved tables: {chosen}"
 
 def run_query(sql: str) -> str:
@@ -32,7 +38,9 @@ def run_query(sql: str) -> str:
         used = set(re.findall(r"\b(?:from|join)\s+(\w+)", sql, re.I))
         extra = used - state["approved_tables"]
         if extra:
-            return f"ERROR: tables {sorted(extra)} were not approved. Call propose_tables again."
+            return (f"ERROR: tables {sorted(extra)} were not approved; the user allowed only "
+                    f"{sorted(state['approved_tables'])}. Rewrite the query with those, and tell "
+                    "the user what that changes about the answer.")
     result = base.run_query(sql)
     ok = not result.startswith("ERROR")
     state["failed"] += 0 if ok else 1

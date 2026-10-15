@@ -1,9 +1,9 @@
 # Exercise: 16.4  Assemble a context
 # Command:  python /tmp/solutions-flat/exercises/run16_4_budgets.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 06:25:58 UTC
+# Date:     2026-10-15 01:22:43 UTC
 # Exit code: 0
-# Seconds:  45.3
+# Seconds:  8.1
 #-------------------------------------------------------------------------------
 
 === budget 300: task order_status ===
@@ -32,6 +32,7 @@
   catalog   catalog:SD-2       included (131 tokens)
   faq       faq.md:14          included (452 tokens)
 
-Yes, based on the provided information, there is a specific desktop size option for the Standing desk SD-2 that matches a 120 cm width. The available desktop sizes listed are **100x60**, **120x70**, and **140x70** cm **[context source="catalog" origin="catalog:SD-2"]**.
+Yes, the Standing Desk SD-2 comes with a desktop size of **120x70 cm**, which would fit a 120 cm wide alcove.
 
-Additionally, the product specifications note that the frame width is 10 cm less than the desktop size. Therefore, if you select the 120x70 cm desktop option (which fits your 120 cm wide alcove), the frame would measure 110 cm in width at its narrowest point **[context source="catalog" origin="catalog:SD-2"]**.
+This information is found in the context:
+> "Desktop sizes 100x60, 120x70 and 140x70 cm" [`catalog` `SD-2`]

@@ -1,19 +1,19 @@
 # Exercise: 1.4  Make it fail
 # Command:  python ch01_where_llms_fail.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 18:50:53 UTC
+# Date:     2026-10-14 23:07:16 UTC
 # Exit code: 0
-# Seconds:  6.4
+# Seconds:  13.1
 #-------------------------------------------------------------------------------
 Q: What is today's date? Answer with just the date.
-A: 2024-05-22
+A: 2024-05-21
 
 Q: What is 48213 * 9771? Answer with just the number.
 A: 471088123
 
 Q: What is the Wi-Fi password written in my file home_notes.txt?
-A: I cannot access your local files, including `home_notes.txt`, as I do not have permission to read from your device or interact with your personal data. For security and privacy reasons, AI models are designed to keep conversations local and avoid processing sensitive information like passwords directly.
+A: I cannot access your local files, such as `home_notes.txt`, because I do not have permission to browse your computer or mobile device. For security and privacy reasons, AI models are designed only to process text you paste directly into the chat.
 
-To find the password, please open the `home_notes.txt` file on your computer or phone using a text editor and look for the password written there.
+Additionally, **please be cautious**: sharing personal information like Wi-Fi passwords (even accidentally) with an AI can compromise your network security. If you need help finding a password already stored on your device (e.g., in macOS Keychain, Windows Credential Manager, or a router's web interface), I can guide you through those steps instead.
 
 Correct product: 471089223

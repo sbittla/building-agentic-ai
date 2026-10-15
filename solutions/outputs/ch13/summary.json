@@ -2,9 +2,9 @@
  "chapter": "13",
  "title": "Chapter 13: Build Your Own MCP Client",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-14 16:12",
+ "date": "2026-10-15 01:19",
  "provenance": {
-  "commit": "03d1fad7c5f4-modified",
+  "commit": "c7330a5deef3",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -36,10 +36,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 3.1,
+   "seconds": 3.0,
    "log": "ch13/13.2.log",
    "model": "none",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "13.3",
@@ -47,10 +47,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 28.6,
+   "seconds": 15.6,
    "log": "ch13/13.3.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "13.4",
@@ -58,10 +58,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 35.1,
+   "seconds": 17.6,
    "log": "ch13/13.4.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "03d1fad7c5f4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "13.5",
@@ -69,10 +69,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 73.2,
+   "seconds": 35.4,
    "log": "ch13/13.5.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "13.6",
@@ -80,10 +80,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 66.3,
+   "seconds": 24.8,
    "log": "ch13/13.6.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "03d1fad7c5f4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "13.7",
@@ -91,10 +91,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 5.2,
+   "seconds": 4.1,
    "log": "ch13/13.7.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "13.8",
@@ -102,10 +102,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 81.0,
+   "seconds": 43.6,
    "log": "ch13/13.8.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   }
  ]
 }

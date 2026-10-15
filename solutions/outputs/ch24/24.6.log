@@ -1,11 +1,11 @@
 # Exercise: 24.6  Write a skill
 # Command:  python /tmp/solutions-flat/exercises/ex24_6_skills.py
-# Model:    claude-sonnet-5 (Claude API)
-# Date:     2026-10-14 18:11:08 UTC
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-10-14 23:24:32 UTC
 # Exit code: 0
-# Seconds:  21.1
+# Seconds:  175.6
 #-------------------------------------------------------------------------------
 Validation: {'customer-lookup': [], 'sql-report': []}
 OK  What has Customer 7 bought, and how much have they spent?  -> loaded ['customer-lookup'], expected ['customer-lookup']
-OK  Give me a revenue report by category.  -> loaded ['sql-report'], expected ['sql-report']
+BAD Give me a revenue report by category.  -> loaded [], expected ['sql-report']
 OK  How many products do we sell?  -> loaded [], expected []

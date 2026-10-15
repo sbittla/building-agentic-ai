@@ -1,27 +1,24 @@
 # Exercise: 8.5  Retry budget and log
 # Command:  python /tmp/solutions-flat/exercises/run8_5_tables.py budget
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 15:55:11 UTC
+# Date:     2026-10-15 00:00:14 UTC
 # Exit code: 0
-# Seconds:  32.9
+# Seconds:  33.0
 #-------------------------------------------------------------------------------
 1. A sabotaged prompt (customers are 'in the clients table'):
-Agent: **Berlin** is the city with the most customers, having **14** customers.
-
-Final SQL:
-```sql
-SELECT city, COUNT(*) as customer_count FROM customers GROUP BY city ORDER BY customer_count DESC LIMIT 1
-```
+Agent: **Berlin** is the city with the most customers (14 customers).
 query log:
-  ERROR 'SELECT town, COUNT(*) as customer_count FROM clients GROUP BY town ORDER BY customer_count'  -> ERROR: no such table: clients. Check table/column names with
-  ok    'SELECT city, COUNT(*) as customer_count FROM customers GROUP BY city ORDER BY customer_cou'
-self-corrected (a failed query, then a working one): True
+  ok    'SELECT city, COUNT(*) AS customer_count FROM customers GROUP BY city ORDER BY customer_cou'
+self-corrected (a failed query, then a working one): False
 
 2. Forced repeated failures: the database file is gone, so every query fails:
-Agent: The error message "unable to open database file" is preventing both `get_schema` and the query from executing. I cannot check the schema or run queries to determine how many orders exist due to this connection issue. The tool appears to be having persistent problems accessing the database file.
+Agent: I'm unable to retrieve the schema or run queries due to a persistent "unable to open database file" error. This appears to be an infrastructure issue with the database connection rather than something that can be resolved through SQL queries.
+
+Since I cannot access the database to determine:
+- What 
 the next query gets: ERROR: 3 failed queries already. Stop querying and tell the user what went wrong.
 query log:
-  ERROR 'SELECT COUNT(*) as total_orders FROM orders'  -> ERROR: unable to open database file. Check table/column name
+  ERROR 'SELECT COUNT(*) FROM orders;'  -> ERROR: unable to open database file. Check table/column name
   ERROR 'SELECT COUNT(*) FROM orders'  -> ERROR: unable to open database file. Check table/column name
   ERROR 'SELECT COUNT(*) FROM orders'  -> ERROR: unable to open database file. Check table/column name
 retry budget used up: True (3 failed queries, budget 3)

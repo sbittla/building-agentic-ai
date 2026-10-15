@@ -2,9 +2,9 @@
  "chapter": "A",
  "title": "Interlude: Asynchronous Python",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-14 06:01",
+ "date": "2026-10-15 00:50",
  "provenance": {
-  "commit": "2850f35235c4-modified",
+  "commit": "c7330a5deef3",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -26,10 +26,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 11.1,
+   "seconds": 11.2,
    "log": "A/A.1.log",
    "model": "none",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "A.2",
@@ -40,7 +40,7 @@
    "seconds": 3.1,
    "log": "A/A.2.log",
    "model": "none",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "A.3",
@@ -51,7 +51,7 @@
    "seconds": 4.1,
    "log": "A/A.3.log",
    "model": "none",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "A.4",
@@ -62,7 +62,7 @@
    "seconds": 2.1,
    "log": "A/A.4.log",
    "model": "none",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   }
  ]
 }

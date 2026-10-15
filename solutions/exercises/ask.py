@@ -20,7 +20,8 @@ if __name__ == "__main__":
     for q in questions:
         print(f"\nQ: {q}")
         answer, _, _ = run_agent(q, m.TOOLS, m.run_tool, system=system)
-        cites = re.findall(r"[\w./-]+\.\w+:\d+", answer)
+        # path:line, or the same facts as "line 3 of path": both point at one checkable line
+        cites = re.findall(r"[\w./-]+\.\w+:\d+|lines? \d+ (?:of|in) [\w./-]+\.\w+", answer)
         cited += bool(cites)
         print(f"A: {answer}\n   [citations: {len(cites)}]")
     print(f"\nanswers with citations: {cited} of {len(questions)}")

@@ -6,28 +6,28 @@ This file is rewritten after every run.
 
 | Chapter | Title | Passed | Failed | Skipped | Written answers | Model | Run on |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| [0](ch00/) | Chapter 0: Foundations | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 18:50 |
-| [P](P/) | Interlude: The Python You'll Need | 5 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-14 18:50 |
-| [1](ch01/) | Chapter 1: What an Agent Is (and Isn't) | 4 | 0 | 5 | 5 | qwen3.5:9b (local, through Ollama) | 2026-10-14 18:51 |
-| [T](T/) | Interlude: Testing with pytest | 4 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-14 18:51 |
-| [2](ch02/) | Chapter 2: Tool Calling (Function Calling) | 4 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 04:06 |
-| [3](ch03/) | Chapter 3: Tool Selection, Routing and Tool Search | 5 | 0 | 2 | 2 | mixed: see each exercise | 2026-10-14 18:21 |
-| [4](ch04/) | Chapter 4: The Agent Loop | 4 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-14 04:21 |
-| [5](ch05/) | Chapter 5: State and Short-Term Memory | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 15:53 |
-| [R](R/) | Interlude: Regular Expressions | 3 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-14 04:23 |
-| [6](ch06/) | Chapter 6: Agentic Search: Exploring an Environment | 5 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-14 15:54 |
-| [7](ch07/) | Chapter 7: Real APIs | 4 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 04:48 |
-| [S](S/) | Interlude: SQL in One Sitting | 3 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-14 04:49 |
-| [8](ch08/) | Chapter 8: Self-Correction: A Text-to-SQL Agent | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 16:49 |
-| [M](M/) | Interlude: Measuring an Agent | 2 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-14 05:24 |
-| [9](ch09/) | Chapter 9: Human-in-the-Loop Approval | 4 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 05:27 |
-| [10](ch10/) | Chapter 10: Feedback Loops | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 06:01 |
-| [A](A/) | Interlude: Asynchronous Python | 4 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-14 06:01 |
-| [11](ch11/) | Chapter 11: Multi-Agent Systems | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 19:50 |
-| [12](ch12/) | Chapter 12: MCP Fundamentals and Your First Server | 1 | 0 | 6 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 06:15 |
-| [13](ch13/) | Chapter 13: Build Your Own MCP Client | 7 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-14 16:12 |
-| [14](ch14/) | Chapter 14: Using Servers You Didn't Write | 3 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 18:47 |
-| [15](ch15/) | Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure | 2 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 06:24 |
+| [0](ch00/) | Chapter 0: Foundations | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 23:06 |
+| [P](P/) | Interlude: The Python You'll Need | 5 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-14 23:06 |
+| [1](ch01/) | Chapter 1: What an Agent Is (and Isn't) | 4 | 0 | 5 | 5 | qwen3.5:9b (local, through Ollama) | 2026-10-14 23:08 |
+| [T](T/) | Interlude: Testing with pytest | 4 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-14 23:08 |
+| [2](ch02/) | Chapter 2: Tool Calling (Function Calling) | 4 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 23:12 |
+| [3](ch03/) | Chapter 3: Tool Selection, Routing and Tool Search | 4 | 0 | 3 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 23:26 |
+| [4](ch04/) | Chapter 4: The Agent Loop | 4 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-14 23:32 |
+| [5](ch05/) | Chapter 5: State and Short-Term Memory | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 23:34 |
+| [R](R/) | Interlude: Regular Expressions | 3 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-14 23:34 |
+| [6](ch06/) | Chapter 6: Agentic Search: Exploring an Environment | 4 | 1 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-14 23:49 |
+| [7](ch07/) | Chapter 7: Real APIs | 4 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 23:58 |
+| [S](S/) | Interlude: SQL in One Sitting | 3 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-14 23:58 |
+| [8](ch08/) | Chapter 8: Self-Correction: A Text-to-SQL Agent | 3 | 2 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 00:07 |
+| [M](M/) | Interlude: Measuring an Agent | 2 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-15 00:29 |
+| [9](ch09/) | Chapter 9: Human-in-the-Loop Approval | 4 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 00:31 |
+| [10](ch10/) | Chapter 10: Feedback Loops | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 00:49 |
+| [A](A/) | Interlude: Asynchronous Python | 4 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-15 00:50 |
+| [11](ch11/) | Chapter 11: Multi-Agent Systems | 4 | 1 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 01:16 |
+| [12](ch12/) | Chapter 12: MCP Fundamentals and Your First Server | 1 | 0 | 6 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 01:16 |
+| [13](ch13/) | Chapter 13: Build Your Own MCP Client | 7 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-15 01:19 |
+| [14](ch14/) | Chapter 14: Using Servers You Didn't Write | 3 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 01:21 |
+| [15](ch15/) | Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure | 2 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 01:21 |
 | [16](ch16/) | Chapter 16: Context Engineering | 6 | 0 | 2 | 2 | mixed: see each exercise | 2026-10-14 18:08 |
 | [17](ch17/) | Chapter 17: Agent Memory Engineering | 7 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 17:46 |
 | [18](ch18/) | Chapter 18: Agentic RAG and Knowledge Systems | 7 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 17:31 |
@@ -36,7 +36,7 @@ This file is rewritten after every run.
 | [21](ch21/) | Chapter 21: Multi-Agent Orchestration | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 17:31 |
 | [22](ch22/) | Chapter 22: Hybrid Architectures: Probabilistic Intelligence, Deterministic Control | 4 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 07:34 |
 | [23](ch23/) | Chapter 23: Computer-Use Agents | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 07:36 |
-| [24](ch24/) | Chapter 24: Skills, Frameworks and Agent Runtimes | 7 | 0 | 3 | 3 | mixed: see each exercise | 2026-10-14 18:11 |
+| [24](ch24/) | Chapter 24: Skills, Frameworks and Agent Runtimes | 6 | 1 | 3 | 3 | mixed: see each exercise | 2026-10-14 23:24 |
 | [25](ch25/) | Chapter 25: Agentic Security | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 17:48 |
 | [26](ch26/) | Chapter 26: Agent Identity and Authorization | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 07:50 |
 | [27](ch27/) | Chapter 27: Agent Evaluation: Dimensions, Trajectories and Scorecards | 6 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 19:14 |

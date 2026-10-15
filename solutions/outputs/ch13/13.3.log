@@ -1,16 +1,15 @@
 # Exercise: 13.3  Two servers, one question
 # Command:  python /tmp/solutions-flat/exercises/typed.py 'ch13_mcp_agent.py servers.json' 'How many orders are pending? Then add a to-do called follow up on pending orders, with that number in the title.' quit
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 06:16:39 UTC
+# Date:     2026-10-15 01:17:18 UTC
 # Exit code: 0
-# Seconds:  28.6
+# Seconds:  15.6
 #-------------------------------------------------------------------------------
 Tools: ['todo__add_task', 'todo__list_tasks', 'todo__find_tasks', 'todo__complete_task', 'todo__today', 'shopdb__get_schema', 'shopdb__run_query']
 
 You: How many orders are pending? Then add a to-do called follow up on pending orders, with that number in the title.
-[step 1] shopdb__get_schema({}) -> 'CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, city TEXT, '
-[step 2] shopdb__run_query({"query": "SELECT COUNT(*) as pending_count FROM orders WHERE status = 'pending') -> 'pending_count\n85'
-[step 3] todo__add_task({"title": "follow up on pending orders (85)"}) -> 'Added #2: follow up on pending orders (85)'
-Agent: There are 85 pending orders. I've added a to-do called "follow up on pending orders (85)" as requested.
+[step 1] shopdb__run_query({"query": "SELECT COUNT(*) FROM orders WHERE status = 'pending'"}) -> 'COUNT(*)\n85'
+[step 2] todo__add_task({"title": "follow up on pending orders - 85"}) -> 'Added #4: follow up on pending orders - 85'
+Agent: There are currently **85 pending orders**. I have created the to-do task titled "follow up on pending orders - 85".
 
 You: quit

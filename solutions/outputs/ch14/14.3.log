@@ -1,39 +1,29 @@
 # Exercise: 14.3  Read-only GitHub
 # Command:  python /tmp/solutions-flat/exercises/ex14_3_readonly.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 18:40:33 UTC
+# Date:     2026-10-15 01:20:10 UTC
 # Exit code: 0
-# Seconds:  27.2
+# Seconds:  46.0
 #-------------------------------------------------------------------------------
 19 GitHub tools, write tools among them: none
 [step 1] github__list_issues({"owner": "modelcontextprotocol", "repo": "servers", "state": "OPEN", "perPage":) -> '{"items": [{"number": 5153, "title": "memory: create_entities, create_'
 
 Summary:
-The modelcontextprotocol/servers repo has **15 open issues**. Main themes include:
+There are currently **16 open issues** in modelcontextprotocol/servers (as of the data returned). The main themes include:
 
-**Security concerns:** Issues like #5130 highlight serious risks where servers (everything, fetch) could expose private/metadata IPs or dump all environment variables into the model context by default.
+**Enhancement & Documentation** – Many issues request improvements to documentation and new features, such as clarifying server behavior or adding headers (e.g., issue #5074 on filesystem README).
 
-**Tool reliability and correctness:** Multiple bugs affect core tools – git_status/got_diff display octal escapes for non-ASCII paths (#5129), preventing subsequent operations like git_add; memory tools drop unchanged data despite being marked non-destructive (#5058); and git_create_branch silently resets packed branches (#5059).
+**Tool Behavior & Semantics** – Several issues focus on incorrect tool definitions or side-effects, like memory tools marked non-destructive that still drop data (issue #5058) or git branch creation silently deleting branches (issue #5059).
 
-**Missing features/enhancements:** Requests to declare certain operations idempotent (#5153), add source path/untrusted flags (#5151), and improve filesystem server documentation (#5074).
+**Security & Safety** – One major issue (#5130) flags serious concerns: `gzip-file-as-resource` fetches arbitrary URLs (including private IPs), and `get-env` exposes all environment variables.
 
-**Integration needs:** Adding more frameworks to ADDITIONAL.md (#5072) and streamable HTTP entry points for Python servers (#5025).
+**SDK/Sync Behavior** – Issues address SDK watch behavior needing refresh logic when installations change (issue #5067).
 
-**Chore items:** Various administrative tasks like creating a GitHub App (#5061) and tracking advisories without patches (#5066).
-
-Notable examples include #5130 (security vulnerability), #5129 (git path encoding bug), and #5074 (documentation improvement request).
+Other recurring themes include v2 planning questions, sweep/chore tasks for automation, and specific bugs in server implementations like missing headers or octal path handling errors.
 
 Close issue 3:
-I cannot close GitHub issues directly - the available tools only allow reading, listing, searching, and getting details about issues, but not creating or closing them. 
+I'm sorry, but I cannot close issues directly using the available tools. The `github__issue_read` function is for reading issue information (like getting details, comments, labels, parent issues, or sub-issues), but there's no function to create, edit, or close issues. 
 
-To close an issue in the modelcontextprotocol/servers repository, you would need to:
-1. Use the GitHub web interface
-2. Or use the GitHub API with appropriate authentication (e.g., `PUT /repos/{owner}/{repo}/issues/{issue_number}`)
-
-The "close issue 3" request is ambiguous - are you referring to:
-- Issue #5067 (the third one in the list, about SDK watch refresh)? 
-- Or literally issue number 3?
-
-Could you clarify which specific issue you want closed and how you'd like to proceed?
+To close an issue on GitHub, you would need to do so through a personal access token with the appropriate permissions or via the GitHub web interface, which isn't something I can perform with these tools.
 
 Audit log: 1 tool calls: ['github__list_issues']

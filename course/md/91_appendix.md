@@ -544,6 +544,8 @@ Table: Local-model problems and fixes
 | "Can't reach the local model" | Start it: `./course.sh local up`. Check with `./course.sh local status`. |
 | The model stops, or Docker says it ran out of memory | Close other programs, set `LOCAL_CONTEXT=16384`, or give Docker more memory (Windows: see `.wslconfig` above). |
 | Very slow | Use `--gpu` if you have an NVIDIA GPU; set `LOCAL_THINKING=off`; see the speed tips above. |
+| 8 GB GPU: the model loads partly on the CPU, or fails with "cudaMalloc failed: out of memory" | Set `LOCAL_CONTEXT=8192`: the weights and a 32K context don't both fit. With the smaller context, keep big tool results short (Chapter 16). |
+| Windows + GPU: loading fails with "out of memory" though nothing else uses the GPU | `./course.sh local down`, then `local up --gpu`; if it persists, run `wsl --shutdown` and restart Docker Desktop. |
 | "The local model didn't call … correctly after 3 tries" | Run it again (answers vary), make the prompt or tool description clearer (Chapter 3), or use Claude for that run. |
 
 `LOCAL_MODEL.md` covers interrupted downloads, unused GPUs and port clashes.
@@ -558,7 +560,7 @@ Table: What each exercise needs, and what it costs
 | **No model** | {{exercises:none}} | Yes, with no model at all | Never |
 | **qwen3.5:9b or Claude** | {{exercises:any}} | Yes, on `qwen3.5:9b` | Only if you choose Claude |
 | **Claude recommended** | {{exercises:claude-rec}} | Yes, on `qwen3.5:9b`, with weaker results | Optional, for much better results |
-| **Claude only** | {{exercises:claude-only}} | No (12.5 aside, below) | Required for 3.7, 16.7, 24.6 and 24.7 |
+| **Claude only** | {{exercises:claude-only}} | No (12.5 aside, below) | Required for 3.7, 16.7 and 24.7 |
 
 A few exercises need something besides a model:
 
@@ -576,7 +578,7 @@ Table: Exercises that need, or work much better with, Claude
 | 24.3 See the approval gate work | Claude recommended | The Agent SDK drives the Claude Code CLI; qwen3.5:9b often stalls. |
 | 24.4 Agent SDK with your MCP servers | Claude recommended | As 24.3. |
 | 24.5 Same agent, three frameworks | Claude recommended | Includes an Agent SDK version; the other two run well on qwen3.5:9b. |
-| 24.6 Write a skill | Claude only | Agent Skills run in Anthropic's code-execution container. |
+| 24.6 Write a skill | Claude recommended | Runs through your own loop; the small model often skips a skill it should load. |
 | 24.7 A managed analyst | Claude only | Managed Agents are hosted by Anthropic. |
 | 21.6 A mixed team | Claude recommended | Several agents, including one over A2A, must follow a multi-step brief. |
 | 23.4 The injected note | Claude recommended | Many small web-page steps: where the local model struggles most. |

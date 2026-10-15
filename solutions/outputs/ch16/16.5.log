@@ -1,15 +1,15 @@
 # Exercise: 16.5  Measure caching savings
 # Command:  python /tmp/solutions-flat/exercises/ex16_5_cache_savings.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 06:29:01 UTC
+# Date:     2026-10-15 01:24:02 UTC
 # Exit code: 0
-# Seconds:  182.1
+# Seconds:  79.7
 #-------------------------------------------------------------------------------
 Stable prefix (system + tools): about 164 tokens -- below 1024, so 'prefix' caching will cache nothing
 mode     calls    input  output  c.write   c.read    cost $
-off         11     1151     546        0     7067    0.0092
-prefix      11      742     521        0     7354    0.0082
-auto        11      718     497        0     7221    0.0079
-prefix: 11% cheaper than no caching
-auto: 14% cheaper than no caching
+off         11      983     310        0     6578    0.0064
+prefix      11      637     331        0     6955    0.0060
+auto        11      692     393        0     7296    0.0068
+prefix: 6% cheaper than no caching
+auto: -6% cheaper than no caching
 No cache writes in any mode: this model has no prompt caching (the free local model reuses its own KV cache, which isn't billed), so the differences above are run-to-run variation. On Claude, 'auto' wins: it caches the growing conversation, not just the stable prefix.

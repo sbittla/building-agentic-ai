@@ -2,9 +2,9 @@
  "chapter": "10",
  "title": "Chapter 10: Feedback Loops",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-14 06:01",
+ "date": "2026-10-15 00:49",
  "provenance": {
-  "commit": "ebb478d1a899-modified",
+  "commit": "c7330a5deef3",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -46,10 +46,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 68.6,
+   "seconds": 44.3,
    "log": "ch10/10.3.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "ebb478d1a899-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "10.4",
@@ -57,10 +57,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 81.2,
+   "seconds": 35.5,
    "log": "ch10/10.4.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "ebb478d1a899-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "10.5",
@@ -68,10 +68,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 60.9,
+   "seconds": 67.8,
    "log": "ch10/10.5.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "ebb478d1a899-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "10.6",
@@ -79,10 +79,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 135.4,
+   "seconds": 84.2,
    "log": "ch10/10.6.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "ebb478d1a899-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "10.7",
@@ -90,10 +90,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 1624.0,
+   "seconds": 853.8,
    "log": "ch10/10.7.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "ebb478d1a899-modified"
+   "commit": "c7330a5deef3"
   }
  ]
 }

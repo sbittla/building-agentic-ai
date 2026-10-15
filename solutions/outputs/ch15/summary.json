@@ -2,9 +2,9 @@
  "chapter": "15",
  "title": "Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-14 06:24",
+ "date": "2026-10-15 01:21",
  "provenance": {
-  "commit": "2850f35235c4-modified",
+  "commit": "c7330a5deef3",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -46,10 +46,10 @@
    "kind": "test",
    "status": "passed",
    "reason": null,
-   "seconds": 23.2,
+   "seconds": 22.2,
    "log": "ch15/15.3.log",
    "model": "none",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "15.4",
@@ -57,10 +57,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 1.6,
+   "seconds": 1.5,
    "log": "ch15/15.4.log",
    "model": "none",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   }
  ]
 }

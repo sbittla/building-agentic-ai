@@ -1,32 +1,30 @@
 # Exercise: 1.6  Remembering a conversation
 # Command:  python /tmp/solutions-flat/exercises/ex1_6_chat.py && python /tmp/solutions-flat/exercises/ex1_6_chat.py --broken
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 18:51:31 UTC
+# Date:     2026-10-14 23:08:17 UTC
 # Exit code: 0
-# Seconds:  14.4
+# Seconds:  21.2
 #-------------------------------------------------------------------------------
 === WITH history ===
 You: Hi, my name is Srini.
-Model: Hello Srini! It's nice to meet you. How can I assist you today? 😊
+Model: Hi Srini! Nice to meet you. How can I assist you today?
 
 You: What's the capital of France?
-Model: The capital of France is **Paris**. 🇫🇷
-
-It is located in the northern-central part of the country and serves as its political, economic, and cultural center.
+Model: The capital of France is **Paris**. It is located in the north-central part of the country and serves as its political, economic, and cultural center.
 
 You: What's my name?
-Model: Your name is **Srini**! I remembered it from your first message. 😊
+Model: Your name is **Srini**! You mentioned it earlier when we started talking. 😊
 
 === WITHOUT history (broken) ===
 You: Hi, my name is Srini.
-Model: Hello Srini! It's nice to meet you. How can I help you today? 😊
+Model: Hi Srini! Nice to meet you. How can I assist you today? 😊
 
 You: What's the capital of France?
 Model: The capital of France is **Paris**.
 
-Located in the north-central part of the country along the Seine River, Paris serves as France's largest city and its primary centers for finance, culture, science, art, fashion, gastronomy, and sport.
+Located at the heart of northern France, Paris is also one of the most populous cities in the European Union and a major global center for fashion, art, gastronomy, finance, and culture. It has served as the country's capital since the Middle Ages, although its exact borders have expanded significantly over time through various municipal reforms.
 
 You: What's my name?
-Model: I don't know your name yet! I don't have access to your personal identity information.
+Model: I don't know your name! As an AI, I don't have access to your personal information unless you share it with me in our conversation.
 
-If you'd like to tell me, please feel free to share it. Otherwise, you can just use whatever name you prefer! 😊
+You can tell me your name if you'd like, or we can just chat as strangers do!

@@ -463,8 +463,8 @@
   "note": "Includes an Agent SDK version; the other two run well on qwen3.5:9b."
  },
  "24.6": {
-  "model": "claude",
-  "note": "Agent Skills run in Anthropic's code-execution container."
+  "model": "claude-rec",
+  "note": "Skills run here through your own Chapter 4 loop, so it works on qwen3.5:9b, but the small model often answers without loading the skill it should; Claude follows the catalog reliably."
  },
  "24.7": {
   "model": "claude",

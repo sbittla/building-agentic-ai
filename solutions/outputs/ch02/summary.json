@@ -2,9 +2,9 @@
  "chapter": "2",
  "title": "Chapter 2: Tool Calling (Function Calling)",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-14 04:06",
+ "date": "2026-10-14 23:12",
  "provenance": {
-  "commit": "8a34de430235-modified",
+  "commit": "c7330a5deef3",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -46,10 +46,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 16.3,
+   "seconds": 14.1,
    "log": "ch02/2.3.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "8a34de430235-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "2.4",
@@ -57,10 +57,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 131.9,
+   "seconds": 139.2,
    "log": "ch02/2.4.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "8a34de430235-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "2.5",
@@ -68,10 +68,10 @@
    "kind": "test",
    "status": "passed",
    "reason": null,
-   "seconds": 6.3,
+   "seconds": 11.5,
    "log": "ch02/2.5.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "8a34de430235-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "2.6",
@@ -79,10 +79,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 31.2,
+   "seconds": 59.2,
    "log": "ch02/2.6.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "8a34de430235-modified"
+   "commit": "c7330a5deef3"
   }
  ]
 }

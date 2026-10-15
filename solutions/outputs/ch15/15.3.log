@@ -1,9 +1,9 @@
 # Exercise: 15.3  MCP by hand
 # Command:  python -m pytest -q -p no:cacheprovider --rootdir /tmp /tmp/solutions-flat/tests/test_part5_mcp2026.py
 # Model:    none (no model needed)
-# Date:     2026-10-14 06:24:06 UTC
+# Date:     2026-10-15 01:21:50 UTC
 # Exit code: 0
-# Seconds:  23.2
+# Seconds:  22.2
 #-------------------------------------------------------------------------------
 ..........                                                               [100%]
-10 passed in 15.76s
+10 passed in 16.21s

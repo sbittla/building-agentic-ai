@@ -1,9 +1,9 @@
 # Exercise: 2.5  Graceful errors
 # Command:  python -m pytest -q -p no:cacheprovider --rootdir /tmp /tmp/solutions-flat/tests/test_ch01_03.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 04:05:29 UTC
+# Date:     2026-10-14 23:11:24 UTC
 # Exit code: 0
-# Seconds:  6.3
+# Seconds:  11.5
 #-------------------------------------------------------------------------------
 ................                                                         [100%]
-16 passed in 0.59s
+16 passed in 1.03s

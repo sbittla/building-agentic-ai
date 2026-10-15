@@ -2,9 +2,9 @@
  "chapter": "6",
  "title": "Chapter 6: Agentic Search: Exploring an Environment",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-14 15:54",
+ "date": "2026-10-14 23:49",
  "provenance": {
-  "commit": "03d1fad7c5f4-modified",
+  "commit": "c7330a5deef3",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -34,12 +34,12 @@
    "id": "6.2",
    "title": "Ask your notes",
    "kind": "ask",
-   "status": "passed",
-   "reason": null,
-   "seconds": 65.9,
+   "status": "failed",
+   "reason": "output lacks /answers with citations: [4-5] of 5/",
+   "seconds": 67.5,
    "log": "ch06/6.2.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "03d1fad7c5f4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "6.3",
@@ -47,10 +47,10 @@
    "kind": "test",
    "status": "passed",
    "reason": null,
-   "seconds": 5.6,
+   "seconds": 5.7,
    "log": "ch06/6.3.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "8a34de430235-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "6.4",
@@ -61,7 +61,7 @@
    "seconds": 0.1,
    "log": "ch06/6.4.log",
    "model": "none",
-   "commit": "8a34de430235-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "6.5",
@@ -69,10 +69,10 @@
    "kind": "ask",
    "status": "passed",
    "reason": null,
-   "seconds": 19.4,
+   "seconds": 16.4,
    "log": "ch06/6.5.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "8a34de430235-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "6.6",
@@ -80,10 +80,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 750.3,
+   "seconds": 821.0,
    "log": "ch06/6.6.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "8a34de430235-modified"
+   "commit": "c7330a5deef3"
   }
  ]
 }

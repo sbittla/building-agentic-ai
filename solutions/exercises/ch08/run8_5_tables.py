@@ -27,7 +27,12 @@ def budget():
     print("1. A sabotaged prompt (customers are 'in the clients table'):")
     sol.new_question()
     from ex8_4_self_correct import WRONG_SYSTEM
-    answer, _, _ = run_agent("Which city has the most customers?", no_tables, sol.run_tool,
+    # as in 8.4: get_schema is the fallback after a failed query, not the first step,
+    # or a careful model reads the schema and never trusts the wrong table name
+    sabotaged = [dict(t, description="Return CREATE TABLE statements for every table. Use it "
+                      "only when a query fails.") if t["name"] == "get_schema" else t
+                 for t in no_tables]
+    answer, _, _ = run_agent("Which city has the most customers?", sabotaged, sol.run_tool,
                              system=WRONG_SYSTEM, verbose=False)
     print(f"Agent: {answer[:300]}\nquery log:")
     first = show_log()

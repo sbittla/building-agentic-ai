@@ -1,12 +1,12 @@
 # Exercise: 0.6  A careful API call
 # Command:  python /tmp/solutions-flat/exercises/ex0_6_city_temperature.py
 # Model:    none (no model needed)
-# Date:     2026-10-14 18:50:40 UTC
+# Date:     2026-10-14 23:06:53 UTC
 # Exit code: 0
-# Seconds:  7.0
+# Seconds:  6.9
 #-------------------------------------------------------------------------------
-Pune, India: max 33.0 C today
-Oslo, Norway: max 13.5 C today
-Austin, United States: max 33.9 C today
+Pune, India: max 33.1 C today
+Oslo, Norway: max 14.1 C today
+Austin, United States: max 34.5 C today
 ERROR: no city called 'Xyzzyqq' was found
 ERROR: HTTP 404 from https://geocoding-api.open-meteo.com/v1/nope

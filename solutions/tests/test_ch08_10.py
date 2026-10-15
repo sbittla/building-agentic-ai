@@ -45,7 +45,9 @@ def test_8_6_confirm_tables(ws, monkeypatch):
     import sol_ch08_sql_tools as s
     s.new_question()
     monkeypatch.setattr(s, "ask_user", lambda prompt: "customers")      # user narrows it
-    assert "approved tables: ['customers']" in s.propose_tables(["customers", "orders"], "count")
+    told = s.propose_tables(["customers", "orders"], "count")
+    assert "allowed only ['customers']" in told and "rejected ['orders']" in told
+    assert "Don't propose the rejected tables again" in told    # or a model loops on them
     assert "not approved" in s.run_query("SELECT * FROM orders JOIN customers ON 1")
     assert s.run_query("SELECT COUNT(*) FROM customers").endswith("50")
     assert s.propose_tables(["clients"], "x").startswith("ERROR: unknown tables")

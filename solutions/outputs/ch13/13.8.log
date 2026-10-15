@@ -1,22 +1,20 @@
 # Exercise: 13.8  A coordinator with an analyst
 # Command:  python /tmp/solutions-flat/exercises/ex13_8_coordinator.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 06:20:14 UTC
+# Date:     2026-10-15 01:19:24 UTC
 # Exit code: 0
-# Seconds:  81.0
+# Seconds:  43.6
 #-------------------------------------------------------------------------------
 Coordinator tools: ['todo__add_task', 'todo__list_tasks', 'todo__find_tasks', 'todo__complete_task', 'todo__today', 'analyst__ask_sql_analyst']
-[step 1] analyst__ask_sql_analyst({"question": "Who are the top 3 customers by total revenue generated? Please pro) -> 'Here are the top 3 customers by total revenue generated:\n\n| Customer N'
-[step 2] todo__add_task({"title": "Send thank-you note to Customer 13 ($19,238.00 revenue)", "priority":) -> 'Added #5: Send thank-you note to Customer 13 ($19,238.00 revenue)'
-[step 2] todo__add_task({"title": "Send thank-you note to Customer 21 ($16,619.00 revenue)", "priority":) -> 'Added #6: Send thank-you note to Customer 21 ($16,619.00 revenue)'
-[step 2] todo__add_task({"title": "Send thank-you note to Customer 23 ($15,334.00 revenue)", "priority":) -> 'Added #7: Send thank-you note to Customer 23 ($15,334.00 revenue)'
+[step 1] analyst__ask_sql_analyst({"question": "Who are the top 3 customers by total revenue?"}) -> 'The top 3 customers by total revenue (excluding cancelled orders) are:'
+[step 2] todo__add_task({"title": "Send thank-you note to Customer 13 ($19,238 revenue)"}) -> 'Added #7: Send thank-you note to Customer 13 ($19,238 revenue)'
+[step 2] todo__add_task({"title": "Send thank-you note to Customer 21 ($16,619 revenue)"}) -> 'Added #8: Send thank-you note to Customer 21 ($16,619 revenue)'
+[step 2] todo__add_task({"title": "Send thank-you note to Customer 23 ($15,334 revenue)"}) -> 'Added #9: Send thank-you note to Customer 23 ($15,334 revenue)'
 
 Tool calls: ['analyst__ask_sql_analyst', 'todo__add_task', 'todo__add_task', 'todo__add_task']
-Perfect! I've identified your three best customers and created to-do items for sending thank-you notes to each of them:
-
-**Top 3 Customers by Revenue:**
+Done! I've identified your three best customers by revenue:
 1. **Customer 13** - $19,238.00
 2. **Customer 21** - $16,619.00  
 3. **Customer 23** - $15,334.00
 
-I've added three high-priority to-do tasks (IDs #5, #6, and #7) to send thank-you notes to each customer. You can now work through these tasks to reach out and appreciate these valuable customers for their business!
+I've also added three to-do tasks (#7, #8, and #9) to send thank-you notes to each of these top customers.

@@ -128,8 +128,8 @@ What each exercise needs (shown by `./course.sh list` and in [EXERCISE_INDEX.md]
 | --- | ---: | --- |
 | No model | 130 | Runs offline, no key |
 | Local or Claude | 105 | Works with either |
-| Claude recommended | 9 | Runs locally, but a small model often stalls or skips steps |
-| Claude only | 4 | Needs `PROVIDER=claude` and an API key (3.7, 16.7, 24.6, 24.7) |
+| Claude recommended | 10 | Runs locally, but a small model often stalls or skips steps |
+| Claude only | 3 | Needs `PROVIDER=claude` and an API key (3.7, 16.7, 24.7) |
 | Claude Desktop | 1 | Needs the Claude Desktop app |
 
 ## 3. How to practise

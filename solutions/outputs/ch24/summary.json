@@ -2,9 +2,9 @@
  "chapter": "24",
  "title": "Chapter 24: Skills, Frameworks and Agent Runtimes",
  "model": "mixed: see each exercise",
- "date": "2026-10-14 18:11",
+ "date": "2026-10-14 23:24",
  "provenance": {
-  "commit": "624e451df84b-modified",
+  "commit": "c7330a5deef3-modified",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -15,9 +15,9 @@
    "httpx": "0.28.1",
    "pytest": "9.1.1"
   },
-  "provider": "claude",
-  "model_id": "claude-sonnet-5",
-  "model_label": "claude-sonnet-5 (Claude API)"
+  "provider": "local",
+  "model_id": "qwen3.5:9b",
+  "model_label": "qwen3.5:9b (local, through Ollama)"
  },
  "exercises": [
   {
@@ -77,12 +77,12 @@
    "id": "24.6",
    "title": "Write a skill",
    "kind": "run",
-   "status": "passed",
-   "reason": null,
-   "seconds": 21.1,
+   "status": "failed",
+   "reason": "output shows /^BAD /",
+   "seconds": 175.6,
    "log": "ch24/24.6.log",
-   "model": "claude-sonnet-5 (Claude API)",
-   "commit": "624e451df84b-modified"
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3-modified"
   },
   {
    "id": "24.7",
