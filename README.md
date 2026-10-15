@@ -71,7 +71,7 @@ The book's **First edition** is matched by the repository release **`book-v1.0.0
 
 This repository was developed through several internal manuscript and code snapshots before the book's first public edition. The historical development tags (`edition-1.0`, `edition-1.1`, `edition-1.2`) are kept for traceability. They do not indicate earlier commercial printings.
 
-[VERSION_MATRIX.md](VERSION_MATRIX.md) lists the release's Python, models, MCP specification and library versions, which two runtime images aren't pinned, and what "verified" means. [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) records the tag, commit, lock-file hash and test status in one machine-readable file.
+[VERSION_MATRIX.md](VERSION_MATRIX.md) lists the release's Python, models, MCP specification and library versions, the two runtime images from other publishers and how they're pinned, and what "verified" means. [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) records the tag, commit, lock-file hash and test status in one machine-readable file.
 
 **ISBNs (First edition):** paperback 979-8177506326 · hardcover 979-8177514734.
 

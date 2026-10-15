@@ -95,9 +95,9 @@ def build():
                            ". Record them with ./course.sh run-chapter <ids> --model claude.")
     limitations.append("Live-model runs were recorded on earlier commits than the verified one; "
                        "each summary.json names its own commit.")
-    limitations.append("Two runtime images are not pinned: ghcr.io/github/github-mcp-server:latest "
-                       "(exercises 14.3, 14.4, Capstone 4) and ollama/ollama:latest (the free local "
-                       "model). See VERSION_MATRIX.md for the fallback and how to pin them.")
+    limitations.append("Two runtime images come from other publishers and are pinned by digest: the "
+                       "GitHub MCP server v1.12.2 (exercises 14.3, 14.4, Capstone 4) and Ollama 0.34.4 "
+                       "(the free local model). If a registry stops serving them, see VERSION_MATRIX.md.")
     limitations.append("Production readiness is not claimed: the course kit is not production-hardened "
                        "(Appendix M of the book, SECURITY_MODEL.md).")
     return {

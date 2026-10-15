@@ -5,8 +5,8 @@
 
 # GitHub's official MCP server ships as a multi-arch image; we copy its binary out.
 # If your network blocks ghcr.io, build with:  --build-arg GITHUB_MCP_IMAGE=nogithub
-# Pin a release tag (or a digest) you have tested, e.g. ghcr.io/github/github-mcp-server:v1.2.3
-ARG GITHUB_MCP_IMAGE=ghcr.io/github/github-mcp-server:latest
+# Pinned to the release the book was tested with (tag for reading, digest for reproducibility)
+ARG GITHUB_MCP_IMAGE=ghcr.io/github/github-mcp-server:v1.12.2@sha256:508a0857ec762b1ab1cece29193345b501fab1dd9d1228a7b617062954cecac6
 
 FROM ubuntu:24.04 AS nogithub
 RUN mkdir -p /server \

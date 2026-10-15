@@ -7,7 +7,7 @@ services:
     build:
       context: .
       args:                      # set GITHUB_MCP_IMAGE=nogithub in .env if ghcr.io is blocked
-        GITHUB_MCP_IMAGE: ${GITHUB_MCP_IMAGE:-ghcr.io/github/github-mcp-server:latest}
+        GITHUB_MCP_IMAGE: ${GITHUB_MCP_IMAGE:-ghcr.io/github/github-mcp-server:v1.12.2@sha256:508a0857ec762b1ab1cece29193345b501fab1dd9d1228a7b617062954cecac6}
     image: building-agentic-ai:latest
     env_file:
       - path: .env
@@ -55,7 +55,7 @@ services:
   # Ollama serves the open model (qwen3.5:9b by default). Models are kept in a volume, so
   # they download only once. Without a GPU it runs on the CPU.
   local-model:
-    image: ollama/ollama:latest
+    image: ollama/ollama:0.34.4@sha256:8262851b2846b87c649eddf3e76beb270c52f4d1bc94559f47efde16b0841551   # the version the book was tested with
     volumes:
       - ollama-models:/root/.ollama
     environment:

@@ -20,7 +20,7 @@ How to tell which you have:
 - **The environment:** the Docker image is built from this tag's `Dockerfile` and `requirements.lock`. Every run summary records the commit and the lock file's hash (`provenance`).
 - **The results:** `verification/offline.json` names the commit it was run on, and `RELEASE_MANIFEST.json` names the tag, commit, lock hash and test status together.
 
-The book makes one promise: `git checkout book-v1.0.0` gives you the code, data and solutions it was written against, with the versions below. Two runtime images are not pinned (see "MCP servers and tools"), so that promise covers everything except those two images. Tags never move. Fixes go on `main` and into patch releases such as `book-v1.0.1`, with notes in [CHANGELOG.md](CHANGELOG.md). Mistakes in the printed text are listed in [ERRATA.md](ERRATA.md).
+The book makes one promise: `git checkout book-v1.0.0` gives you the code, data and solutions it was written against, with the versions below. The two runtime images that come from other publishers (the GitHub MCP server and Ollama) are pinned by digest too, so the promise covers them as long as their registries keep serving those digests. Tags never move. Fixes go on `main` and into patch releases such as `book-v1.0.1`, with notes in [CHANGELOG.md](CHANGELOG.md). Mistakes in the printed text are listed in [ERRATA.md](ERRATA.md).
 
 ### What "verified" means
 
@@ -71,27 +71,27 @@ Every package, including indirect dependencies, is pinned to an exact version in
 | MCP Inspector | 2.8.0 | `Dockerfile` |
 | `server-filesystem`, `server-memory` | 2026.8.31 | `Dockerfile` |
 | `mcp-server-git`, `mcp-server-fetch`, `mcp-server-time` | 2026.8.18 | `Dockerfile` |
-| GitHub MCP server | `latest` at build time (**not pinned**) | `Dockerfile` (`GITHUB_MCP_IMAGE`) |
-| Ollama (local model server) | `latest` at pull time (**not pinned**) | `compose.yaml` |
+| GitHub MCP server | v1.12.2 (`sha256:508a0857…`) | `Dockerfile` and `compose.yaml` (`GITHUB_MCP_IMAGE`) |
+| Ollama (local model server) | 0.34.4 (`sha256:8262851b…`) | `compose.yaml` |
 
 > [!WARNING]
-> **Reproducibility warning: two images are not pinned.** Both the GitHub MCP server and Ollama resolve `latest` when you build or pull, so two builds of the same tag can get different versions of these two images. Everything else in the image is pinned.
+> **Two images come from other publishers.** The GitHub MCP server and Ollama are pinned to the versions the release was tested with, by tag and digest (checked 15 October 2026: the digests match the images used for the recorded runs). A publisher can still delete an old image, and newer versions won't reach you until you change the pin.
 
 | Image | What depends on it | If it changes or is unavailable |
 | --- | --- | --- |
-| `ghcr.io/github/github-mcp-server:latest` | Exercises 14.3 and 14.4 and Capstone 4. Nothing else uses it | Build without it: put `GITHUB_MCP_IMAGE=nogithub` in `.env` (or pass `--build-arg GITHUB_MCP_IMAGE=nogithub`). The `nogithub` stage in the `Dockerfile` builds an image without the GitHub server, and every other exercise runs unchanged |
-| `ollama/ollama:latest` (`compose.yaml`, `compose.gpu.yaml`) | The free local model (`PROVIDER=local`, Appendix H), through its Anthropic-compatible `/v1/messages` endpoint (plus `/api/tags` and `/api/pull` to check and download the model) | Use the Claude API (`PROVIDER=claude`), which needs no local image, or pin a version you have tested |
+| `ghcr.io/github/github-mcp-server:v1.12.2` | Exercises 14.3 and 14.4 and Capstone 4. Nothing else uses it | Build without it: put `GITHUB_MCP_IMAGE=nogithub` in `.env` (or pass `--build-arg GITHUB_MCP_IMAGE=nogithub`). The `nogithub` stage in the `Dockerfile` builds an image without the GitHub server, and every other exercise runs unchanged |
+| `ollama/ollama:0.34.4` (`compose.yaml`; `compose.gpu.yaml` adds the GPU to the same service) | The free local model (`PROVIDER=local`, Appendix H), through its Anthropic-compatible `/v1/messages` endpoint (plus `/api/tags` and `/api/pull` to check and download the model) | Use the Claude API (`PROVIDER=claude`), which needs no local image, or pin another version you have tested |
 
-They aren't pinned because both publishers ship fixes often and the book uses only their stable surface. To pin either one by digest yourself:
+Both publishers ship fixes often and the book uses only their stable surface, so a newer version usually works. To move to one, find its digest and test it:
 
 ```bash
 docker pull ghcr.io/github/github-mcp-server:latest
 docker inspect --format '{{index .RepoDigests 0}}' ghcr.io/github/github-mcp-server:latest
-# put the result in .env:  GITHUB_MCP_IMAGE=ghcr.io/github/github-mcp-server@sha256:...
+# put the result in .env (it overrides the pin):  GITHUB_MCP_IMAGE=ghcr.io/github/github-mcp-server@sha256:...
 
 docker pull ollama/ollama:latest
 docker inspect --format '{{index .RepoDigests 0}}' ollama/ollama:latest
-# replace "ollama/ollama:latest" in compose.yaml (and compose.gpu.yaml) with ollama/ollama@sha256:...
+# replace the ollama/ollama image in compose.yaml with ollama/ollama@sha256:...
 ```
 
 Then rebuild and run the checks under "Upgrading the pinned versions". The release's verification (`verification/offline.json`) runs without either image: the GitHub exercises need a personal token and aren't part of it, and the deterministic suite never calls the local model.
