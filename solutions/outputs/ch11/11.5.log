@@ -1,9 +1,9 @@
 # Exercise: 11.5  A critic agent
 # Command:  python /tmp/solutions-flat/exercises/run11_team.py critic
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-15 00:57:15 UTC
+# Date:     2026-10-15 17:54:48 UTC
 # Exit code: 0
-# Seconds:  182.6
+# Seconds:  103.7
 #-------------------------------------------------------------------------------
 planted claim: RAG is always free to run, because embedding models cost nothing to call.
 critic flagged: [
@@ -13,22 +13,15 @@ critic caught the planted claim: True
 revised answer still has it: False
 
 REVISED ANSWER:
-Here is the revised answer. The unsupported claim regarding RAG being "free" has been removed and corrected to reflect the actual costs of embedding models and index maintenance.
+Here is the revised answer with the unsupported claim removed and the structure tightened to reflect only the findings supported by the provided notes:
 
-### Cost Comparison
-*   **RAG** offers better cost-efficiency for standard retrieval by avoiding intermediate LLM calls during the search phase. Instead, it relies on pre-computed embeddings and vector similarity lookups, which reduces latency and API usage per query compared to agentic planning loops. However, it incurs an **upfront computational cost** to compute and store embeddings for documents; these costs are not zero if using paid models or hosting infrastructure.
-*   **Agentic Search** incurs higher overhead per query due to multiple sequential LLM invocations for planning, tool selection, and execution, plus potential retries when tools fail. While it avoids the *maintenance* cost of re-indexing large datasets, it trades initial embedding costs for increased runtime token consumption and tool invocation fees.
+**Cost Comparison**
+There is no quantitative data available in the internal notes to compare specific costs (e.g., cost per query, tool invocation fees, or per-million-token usage) between agentic search and traditional RAG. While standard AI model pricing for GPT-4 Turbo exists in `notes/ai-model-pricing.txt`, it does not differentiate between the two architectures regarding overhead or dynamic tool usage.
 
-### Freshness Comparison
-*   **Agentic Search** maintains inherent freshness; since it often operates by listing and searching raw files or databases without a rigid pre-built vector index, its results reflect the current state of documents immediately as long as the underlying tools remain accessible.
-*   **RAG** suffers from index staleness. Because documents are chunked and embedded at indexing time, any updates to source docs require a full re-indexing job (computationally expensive) or scheduled refreshes to avoid returning answers based on old vectors. Teams must budget for this maintenance cycle.
+**Freshness Comparison**
+The notes indicate a clear distinction: **Agentic search** requires no pre-built index and dynamically lists/searches files as needed, allowing it to access real-time data sources. In contrast, traditional RAG relies on a static, pre-ingested knowledge base (`agentic-search.md:1`, `multi-agent.md:2`).
 
-### Exact Error Codes Comparison
-*   **Agentic Search** excels at retrieving exact error codes (e.g., "ERR-4471") by using regex or keyword filters that preserve exact string boundaries, avoiding the semantic collapse where similar-looking codes might be treated as near-identical by vector models.
-*   **RAG** risks failing to match exact identifiers precisely if relying solely on semantic similarity, though hybrid approaches (combining vector search with keyword filtering) can mitigate this issue.
+**Exact Error Codes Comparison**
+A specific error condition identified for agentic search systems is **"Subagent stopped at its iteration limit."** No standardized indexing or lookup errors typical of RAG systems were found in the provided notes.
 
-### Point of Disagreement / Nuance
-The findings present a tension between **initial embedding costs vs. dynamic runtime costs** and **maintenance overhead**:
-*   One perspective argues RAG is cheaper per query due to deterministic, fast retrieval without repeated LLM calls.
-*   Another perspective suggests Agentic Search reduces long-term operational costs for highly dynamic environments by eliminating the need for frequent re-indexing jobs, though at the expense of higher token usage per transaction.
-*   Consequently, the optimal choice depends on whether the priority is low-latency, high-volume lookup (RAG) or handling dynamic states and exact string matching without maintenance overhead (Agentic). A hybrid approach combining Agentic regex search for codes/freshness with RAG for semantic relevance is implied as a balanced resolution.
+*Sources: `notes/ai-model-pricing.txt`, `agentic-search.md:1`, `freshness.md:1`, `multi-agent.md:2`, `notes/research-strategies.md`.*

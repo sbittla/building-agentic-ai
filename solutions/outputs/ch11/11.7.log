@@ -1,11 +1,11 @@
 # Exercise: 11.7  Pick the pattern
 # Command:  python /tmp/solutions-flat/exercises/ex11_7_patterns.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-15 01:16:47 UTC
+# Date:     2026-10-15 18:15:33 UTC
 # Exit code: 0
-# Seconds:  194.9
+# Seconds:  195.1
 #-------------------------------------------------------------------------------
 a router                 {'route': 'sales_data', 'model_calls': "1 + the specialist's loop"}
 b evaluator-optimizer    {'reviews': 3, 'model_calls': 6}
 c voting                 {'labels': ['positive', 'neutral', 'negative', 'neutral', 'positive'], 'model_calls': 15}
-d handoff                {'facts': 2, 'summary': 'The count of unique shipped orders is 312. The total revenue from shipped orders is $410,609.00. The analysis focuses on non-cancelled orders to determine shipped counts and revenue.', 'model_calls': 'analyst loop + 2'}
+d handoff                {'facts': 2, 'summary': "The analysis covers 227 shipped orders generating a total revenue of $306,515.00. These figures were derived by counting distinct orders and summing the quantities multiplied by their prices for all items with a 'shipped' status. The underlying data joins the orders table with order_items and products to calculate these final metrics.", 'model_calls': 'analyst loop + 2'}

@@ -2,9 +2,9 @@
  "chapter": "8",
  "title": "Chapter 8: Self-Correction: A Text-to-SQL Agent",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-15 05:24",
+ "date": "2026-10-15 17:49",
  "provenance": {
-  "commit": "908d672046fc-modified",
+  "commit": "77cda2676746",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -68,10 +68,10 @@
    "kind": "ask",
    "status": "passed",
    "reason": null,
-   "seconds": 48.0,
+   "seconds": 46.2,
    "log": "ch08/8.5.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "908d672046fc-modified"
+   "commit": "77cda2676746"
   },
   {
    "id": "8.6",
@@ -79,10 +79,10 @@
    "kind": "ask",
    "status": "passed",
    "reason": null,
-   "seconds": 49.3,
+   "seconds": 38.3,
    "log": "ch08/8.6.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "908d672046fc-modified"
+   "commit": "77cda2676746"
   },
   {
    "id": "8.7",
