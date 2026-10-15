@@ -1,42 +1,38 @@
 # Exercise: C3  Capstone 3 (c3_incident)
 # Command:  course capstone 3
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 22:53:35 UTC
+# Date:     2026-10-15 04:28:29 UTC
 # Exit code: 0
-# Seconds:  162.5
+# Seconds:  145.5
 #-------------------------------------------------------------------------------
 Generating capstone 3 sample data...
 bad deploy commit: 3c0a161
 Running solutions/capstones/c3_incident/agent.py
-[step 1] obs__compare_to_baseline({"service": "checkout-service", "metric": "p95_ms", "baseline_start": "2026-09-2) -> '{"service": "checkout-service", "metric": "p95_ms", "baseline_mean": 4'
-[step 1] obs__compare_to_baseline({"service": "checkout-service", "metric": "error_rate", "baseline_start": "2026-) -> '{"service": "checkout-service", "metric": "error_rate", "baseline_mean'
-[step 1] obs__search_logs({"service": "checkout-service", "start": "2026-09-22T14:10:00", "end": "2026-09-) -> '8 matching lines\n2026-09-22T14:11:40 ERROR fraud-check timeout after 8'
-[step 1] git__git_log({"repo_path": "incident/repo", "max_count": 20}) -> "Commit history:\nCommit: '3c0a161ef2f68975d838c122afd01fc0db80236b'\nAut"
-[step 1] obs__search_runbooks({"query": "checkout-service latency error rate p95"}) -> 'checkout-latency.md\nsearch-errors.md'
-[step 2] obs__read_runbook({"name": "checkout-latency.md"}) -> '# Checkout latency high\n1. Check recent deploys of checkout-service.\n2'
-[step 2] obs__read_runbook({"name": "search-errors.md"}) -> '# Search errors\n1. Check the index cluster health.\n'
+[step 1] obs__search_logs({"service": "checkout-service", "start": "2026-09-22T14:07", "end": "2026-09-22T) -> '11 matching lines\n2026-09-22T14:09:40 ERROR fraud-check timeout after '
+[step 2] obs__compare_to_baseline({"service": "checkout-service", "metric": "p95_ms", "baseline_start": "2026-09-2) -> '{"service": "checkout-service", "metric": "p95_ms", "baseline_mean": 3'
+[step 2] obs__compare_to_baseline({"service": "checkout-service", "metric": "error_rate", "baseline_start": "2026-) -> '{"service": "checkout-service", "metric": "error_rate", "baseline_mean'
+[step 2] obs__search_runbooks({"query": "fraud-check timeout checkout-service"}) -> 'checkout-latency.md\nsearch-errors.md'
+[step 3] obs__read_runbook({"name": "checkout-latency.md"}) -> '# Checkout latency high\n1. Check recent deploys of checkout-service.\n2'
+[step 3] obs__read_runbook({"name": "search-errors.md"}) -> '# Search errors\n1. Check the index cluster health.\n'
 {
-  "impact": "Checkout service experiencing elevated latency (p95 819ms vs baseline 429ms) and error rate (5.23% vs baseline 1.36%) since 2026-09-22 14:12. Affected users unable to complete checkout due to fraud check timeouts blocking requests.",
+  "impact": "checkout-service p95 latency at 867ms (2.79x baseline) and error rate at 4.89% (17.89x baseline) during incident window",
   "timeline": [
-    "2026-09-22 14:05: deployed commit 3c0a161ef that made fraud check synchronous",
-    "2026-09-22 14:06: error rate exceeded 2x baseline (first metric alert)",
-    "2026-09-22 14:12: p95 latency exceeded 2x baseline and error rate exceeded 3% threshold",
-    "2026-09-22 14:11:40: first fraud-check timeout error logged (FraudClient.check_sync)",
-    "2026-09-22 14:14:00 onwards: periodic fraud check timeouts occurring"
+    "2026-09-22T14:09:40 - First fraud-check timeout logged",
+    "2026-09-22T14:12 - Alert triggered (latency above 700ms, error rate above 3%)",
+    "2026-09-22T14:16:40 - Last observed fraud-check timeout at time of investigation"
   ],
-  "suspected_cause": "Synchronous fraud check introduced in commit 3c0a161ef at 14:05 is timing out after 800ms to external FraudClient service, blocking checkout requests and causing cascading latency and errors.",
-  "suspect_commit": "3c0a161ef2f68975d838c122afd01fc0db80236b",
+  "suspected_cause": "Downstream fraud-check service timeouts (FraudClient.check_sync failing after 800ms), causing cascading failures in checkout-service",
+  "suspect_commit": "unknown",
   "evidence": [
-    "Git commit 3c0a161ef at 14:05 introduced synchronous fraud check",
-    "All error logs show 'fraud-check timeout after 800ms' from FraudClient.check_sync",
-    "p95_ms metric rose from 429ms baseline to 819ms in incident window (1.91x)",
-    "error_rate metric rose from 0.0136 baseline to 0.0523 in incident window (3.85x)",
-    "First fraud check timeout at 14:11:40, ~6 minutes after deployment"
+    "Logs show consistent FraudClient.check_sync timeout errors every 20 seconds from 14:09 to 14:16",
+    "Metrics comparison: p95 latency increased from 311ms to 867ms (ratio 2.79x)",
+    "Metrics comparison: error rate increased from 0.27% to 4.89% (ratio 17.89x)"
   ],
   "next_steps": [
-    "Execute deployctl rollback checkout-service to restore previous asynchronous fraud check behavior",
-    "Monitor metrics for improvement within 2-3 minutes post rollback",
-    "If stable, create incident ticket and update runbooks about synchronous vs async fraud check tradeoffs",
-    "Post-mortem review of commit process and dependency management"
+    "Check fraud service health and logs for timeout issues",
+    "Verify if fraud-client dependency has connectivity or performance degradation",
+    "Review recent deployments to fraud services or checkout-service",
+    "Consider implementing retry logic or circuit breaker for fraud-check calls",
+    "If deployment correlation found, execute deployctl rollback checkout-service"
   ]
 }

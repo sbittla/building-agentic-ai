@@ -28,6 +28,18 @@ def test_11_3_team_runs(model):
                 if (kw.get("tool_choice") or {}).get("name") == "make_plan" else [text("ok")])
     assert asyncio.run(r.research("q")) == "ok"
 
+def test_11_3_plan_sent_as_text(model, monkeypatch):
+    """A small model once sent the list as one string; the lead then ran a subagent
+    per character and 16.8 timed out. The lead must recover the sub-questions."""
+    import ch11_research_team as r
+    seen = []
+    async def fake_sub(task, max_iterations=6):
+        seen.append(task); return "- f"
+    monkeypatch.setattr(r, "run_subagent", fake_sub)
+    model.reset(default=lambda kw: [tool("make_plan", {"subtasks": '["a b", "c d", "e"],'})]
+                if (kw.get("tool_choice") or {}).get("name") == "make_plan" else [text("ok")])
+    assert asyncio.run(r.research("q")) == "ok" and seen == ["a b", "c d", "e"]
+
 def test_11_4_effort_sets_steps(model, monkeypatch):
     import sol_ch11_research_team as t, ch11_research_team as base
     seen = []

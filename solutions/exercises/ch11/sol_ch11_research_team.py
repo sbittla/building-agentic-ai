@@ -2,6 +2,7 @@
 delegation with effort levels) and 11.6 (a critic pass with one revision)."""
 import asyncio
 import json
+import re
 import time
 import ch11_research_team as base
 from ch11_research_team import _call, usage
@@ -42,6 +43,9 @@ async def research(question: str, parallel: bool = True, critic: bool = True,
     plan = await _call(tools=[PLAN_TOOL], tool_choice={"type": "tool", "name": "make_plan"},
                        messages=[{"role": "user", "content": question}])
     subtasks = next(b.input["subtasks"] for b in plan.content if b.type == "tool_use")
+    if isinstance(subtasks, str):    # the whole list sent as text: don't split by character
+        subtasks = re.findall(r'"([^"]+)"', subtasks) or [subtasks]
+    subtasks = subtasks[:4]
     for i, s in enumerate(subtasks):  # a model can skip or rename "required" fields: check
         if isinstance(s, str):
             s = subtasks[i] = {"objective": s}
