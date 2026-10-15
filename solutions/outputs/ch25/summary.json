@@ -2,9 +2,9 @@
  "chapter": "25",
  "title": "Chapter 25: Agentic Security",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-14 17:48",
+ "date": "2026-10-15 03:22",
  "provenance": {
-  "commit": "4b435eb02d73-modified",
+  "commit": "c7330a5deef3",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -46,10 +46,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 12.2,
+   "seconds": 16.0,
    "log": "ch25/25.3.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "25.4",
@@ -57,10 +57,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 51.8,
+   "seconds": 69.2,
    "log": "ch25/25.4.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "4b435eb02d73-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "25.5",
@@ -71,7 +71,7 @@
    "seconds": 0.4,
    "log": "ch25/25.5.log",
    "model": "none",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "25.6",
@@ -79,10 +79,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 278.9,
+   "seconds": 381.9,
    "log": "ch25/25.6.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "25.7",
@@ -93,7 +93,7 @@
    "seconds": 0.0,
    "log": "ch25/25.7.log",
    "model": "none",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   }
  ]
 }

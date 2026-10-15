@@ -1,13 +1,13 @@
 # Exercise: 29.1  See queueing
 # Command:  python ch29_loadtest.py 4 && python ch29_loadtest.py 8 && python ch29_loadtest.py 12
 # Model:    none (no model needed)
-# Date:     2026-10-14 08:18:15 UTC
+# Date:     2026-10-15 04:06:57 UTC
 # Exit code: 0
-# Seconds:  77.5
+# Seconds:  77.8
 #-------------------------------------------------------------------------------
-offered 4.0/s  requests=82 errors=0 throughput=3.75/s
-latency p50=2.15s p95=3.63s max=4.23s
-offered 8.0/s  requests=174 errors=0 throughput=7.24/s
-latency p50=2.27s p95=3.92s max=5.04s
-offered 12.0/s  requests=245 errors=0 throughput=7.88/s
-latency p50=6.57s p95=10.43s max=11.72s
+offered 4.0/s  requests=82 errors=0 throughput=3.7/s
+latency p50=2.28s p95=3.53s max=4.18s
+offered 8.0/s  requests=174 errors=0 throughput=7.35/s
+latency p50=2.50s p95=4.51s max=5.45s
+offered 12.0/s  requests=245 errors=0 throughput=7.79/s
+latency p50=6.80s p95=10.82s max=11.70s

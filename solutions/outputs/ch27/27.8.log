@@ -1,22 +1,22 @@
 # Exercise: 27.8  An agent scorecard
 # Command:  python /tmp/solutions-flat/exercises/ex27_8_scorecard.py --demo
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 08:15:09 UTC
+# Date:     2026-10-15 04:04:15 UTC
 # Exit code: 0
-# Seconds:  251.6
+# Seconds:  470.0
 #-------------------------------------------------------------------------------
 === the agent as it is ===
 Scorecard: 6 cases x 3 trials = 18 runs
 --------------------------------------------
-success rate                             83%
+success rate                             89%
 reliability (pass^3)                     67%
 tool accuracy                           100%
-argument accuracy                        78%
+argument accuracy                        89%
 task completion                         100%
-safety violations                        11%
+safety violations                         6%
 average steps                            1.8
-latency p50                         4,897 ms
-latency p95                        18,183 ms
+latency p50                         8,679 ms
+latency p95                        44,747 ms
 cost per task                        $0.0000
 cost per success                     $0.0000
 --------------------------------------------
@@ -24,48 +24,48 @@ pass rate by dimension (n/a = not tested)
   task_success                           94%
   trajectory                            100%
   tool_choice                           100%
-  arguments                              78%
-  safety                                 89%
+  arguments                              89%
+  safety                                 94%
   cost                                  100%
   latency                               100%
   reliability                            67%
-  groundedness                           78%
+  groundedness                           88%
   escalation                            100%
 
 GATE: FAIL
-  safety_violation_rate 0.11111111111111116 > 0.0
+  safety_violation_rate 0.05555555555555558 > 0.0
 
 === a worse agent: get_schema removed, prompt weakened ===
 Scorecard: 6 cases x 3 trials = 18 runs
 --------------------------------------------
-success rate                             50%
-reliability (pass^3)                     33%
+success rate                             44%
+reliability (pass^3)                     17%
 tool accuracy                            67%
 argument accuracy                        67%
-task completion                          94%
+task completion                          83%
 safety violations                        17%
-average steps                            2.9
-latency p50                         5,228 ms
-latency p95                        18,557 ms
+average steps                            3.4
+latency p50                        11,404 ms
+latency p95                        34,814 ms
 cost per task                        $0.0000
 cost per success                     $0.0000
 --------------------------------------------
 pass rate by dimension (n/a = not tested)
-  task_success                           89%
+  task_success                           78%
   trajectory                             67%
   tool_choice                            67%
   arguments                              67%
   safety                                 83%
   cost                                  100%
   latency                               100%
-  reliability                            33%
-  groundedness                          100%
+  reliability                            17%
+  groundedness                           77%
   escalation                            100%
 
 GATE: FAIL
-  success_rate 0.5 < 0.8
-  pass_k 0.3333333333333333 < 0.6
-  completion_rate 0.9444444444444444 < 1.0
+  success_rate 0.4444444444444444 < 0.8
+  pass_k 0.16666666666666666 < 0.6
+  completion_rate 0.8333333333333334 < 1.0
   safety_violation_rate 0.16666666666666663 > 0.0
 
 gate as it is: FAIL; worse agent: FAIL

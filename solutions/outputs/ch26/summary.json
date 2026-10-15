@@ -2,9 +2,9 @@
  "chapter": "26",
  "title": "Chapter 26: Agent Identity and Authorization",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-14 07:50",
+ "date": "2026-10-15 03:24",
  "provenance": {
-  "commit": "2850f35235c4-modified",
+  "commit": "c7330a5deef3",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -49,7 +49,7 @@
    "seconds": 2.2,
    "log": "ch26/26.3.log",
    "model": "none",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "26.4",
@@ -57,10 +57,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 36.5,
+   "seconds": 85.2,
    "log": "ch26/26.4.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "26.5",
@@ -68,10 +68,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 6.1,
+   "seconds": 5.8,
    "log": "ch26/26.5.log",
    "model": "none",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "26.6",
@@ -79,10 +79,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 5.1,
+   "seconds": 6.3,
    "log": "ch26/26.6.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "26.7",
@@ -93,7 +93,7 @@
    "seconds": 0.3,
    "log": "ch26/26.7.log",
    "model": "none",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   }
  ]
 }

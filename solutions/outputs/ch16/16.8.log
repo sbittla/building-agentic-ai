@@ -1,64 +1,27 @@
 # Exercise: 16.8  Brief the research team
 # Command:  python /tmp/solutions-flat/exercises/ex16_8_briefed_team.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 06:42:12 UTC
-# Exit code: 0
-# Seconds:  784.1
+# Date:     2026-10-15 01:54:09 UTC
+# Exit code: -1
+# Seconds:  1799.9
 #-------------------------------------------------------------------------------
 
 Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]
-Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 712.44it/s]
+Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 779.68it/s]
 PLAN: [
-  "Identify the definition and typical use cases of agentic search in the context of internal documentation retrieval.",
-  "Identify the definition and typical use cases of RAG (Retrieval-Augmented Generation) for internal documentation.",
-  "Compare the cost implications between agentic search and RAG, including token usage, computational overhead, and potential latency costs.",
-  "Analyze how freshness of content is handled in both agentic search and RAG systems.",
-  "Investigate common error codes or failure modes specific to each approach when dealing with exact queries in internal docs."
+  "Analyze cost comparison between agentic search and RAG for internal document retrieval",
+  "Evaluate data freshness capabilities of agentic search versus RAG",
+  "Identify specific error codes associated with agentic search vs RAG failures"
 ]
 
-[237.4s, {'input_tokens': 5616, 'output_tokens': 2432, 'calls': 15}]
+[131.7s, {'input_tokens': 4403, 'output_tokens': 1908, 'calls': 12}]
 PLAN: [
-  "Explain the cost structure of agentic search compared to RAG (token usage, API calls, latency)",
-  "Analyze data freshness mechanisms in agentic search versus standard RAG pipelines",
-  "Identify and compare specific error codes returned by agentic search tools vs RAG systems for internal documents"
+  "Analyze cost implications of agentic search versus RAG for internal documentation retrieval.",
+  "Evaluate freshness advantages of agentic search compared to standard RAG implementations.",
+  "Identify specific error codes and failure modes unique to each approach in an internal docs context."
 ]
 
-[67.7s, {'input_tokens': 1785, 'output_tokens': 874, 'calls': 5}]
-PLAN: [
-  "Identify the main technical components contributing to latency in agent loops (e.g., API calls, reasoning steps, model inference time).",
-  "Analyze common bottlenecks in asynchronous workflows involving multiple agents.",
-  "Review optimization techniques for reducing model inference latency (e.g., quantization, smaller models).",
-  "Evaluate strategies for minimizing API overhead and network round-trips."
-]
+[55.9s, {'input_tokens': 1713, 'output_tokens': 872, 'calls': 5}]
+PLAN: "[\"Identify and categorize the main sources of latency in agent loops (e.g., API calls, model inference time, reasoning steps, external tool usage).\", \"Analyze factors influencing each source of latency (e.g., context window size, temperature settings, tool complexity, network overhead).\", \"Compile strategies to reduce latency for each identified source (e.g., parallelization, caching, model optimization, prompt compression, tool simplification).\", \"Synthesize best practices for designing low-latency agent loops and summarize the trade-offs involved.\"],"
 
-[200.0s, {'input_tokens': 2270, 'output_tokens': 2159, 'calls': 12}]
-PLAN: [
-  "Identify and categorize the main sources of latency in AI agent loops (e.g., model inference time, tool execution delays, orchestration overhead, networking),",
-  "Research specific techniques for reducing latency at each source (e.g., model quantization, parallelization strategies, async processing, optimized tool implementations),",
-  "Analyze trade-offs between reducing latency and maintaining accuracy or safety in agent systems,"
-]
-
-[72.7s, {'input_tokens': 1797, 'output_tokens': 976, 'calls': 5}]
-PLAN: [
-  "Define the differences between hybrid retrieval and keyword search",
-  "Identify scenarios where keyword search is sufficient or preferred",
-  "Identify scenarios where hybrid retrieval offers significant advantages over keyword search",
-  "Explain the performance trade-offs (latency, cost, accuracy) between the two approaches"
-]
-
-[129.8s, {'input_tokens': 1781, 'output_tokens': 1390, 'calls': 9}]
-PLAN: [
-  "Define and explain keyword search",
-  "Define and explain hybrid retrieval",
-  "Identify scenarios where hybrid retrieval outperforms keyword search",
-  "Identify limitations or contexts where keyword search is sufficient"
-]
-
-[69.2s, {'input_tokens': 2116, 'output_tokens': 862, 'calls': 6}]
-question                                  version      input  output  calls  cites
-Compare agentic search and RAG for our i  original      5616    2432     15     14
-Compare agentic search and RAG for our i  briefed       1785     874      5      4
-What are the main causes of latency in a  original      2270    2159     12     21
-What are the main causes of latency in a  briefed       1797     976      5      4
-When should we use hybrid retrieval inst  original      1781    1390      9      4
-When should we use hybrid retrieval inst  briefed       2116     862      6      5
+TIMEOUT after 1800 s

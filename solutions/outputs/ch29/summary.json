@@ -2,9 +2,9 @@
  "chapter": "29",
  "title": "Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-14 15:38",
+ "date": "2026-10-15 04:17",
  "provenance": {
-  "commit": "03d1fad7c5f4-modified",
+  "commit": "c7330a5deef3",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -26,10 +26,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 77.5,
+   "seconds": 77.8,
    "log": "ch29/29.1.log",
    "model": "none",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "29.2",
@@ -37,10 +37,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 70.0,
+   "seconds": 115.9,
    "log": "ch29/29.2.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "29.3",
@@ -58,10 +58,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 42.1,
+   "seconds": 21.0,
    "log": "ch29/29.4.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "03d1fad7c5f4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "29.5",
@@ -69,10 +69,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 170.2,
+   "seconds": 358.0,
    "log": "ch29/29.5.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "29.6",
@@ -80,10 +80,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 86.2,
+   "seconds": 139.0,
    "log": "ch29/29.6.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "29.7",
@@ -91,10 +91,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 16.8,
+   "seconds": 16.3,
    "log": "ch29/29.7.log",
    "model": "none",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "29.8",
@@ -102,10 +102,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 1.9,
+   "seconds": 1.8,
    "log": "ch29/29.8.log",
    "model": "none",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   }
  ]
 }

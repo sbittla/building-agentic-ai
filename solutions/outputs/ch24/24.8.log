@@ -1,10 +1,10 @@
 # Exercise: 24.8  Does the skill help?
 # Command:  python /tmp/solutions-flat/exercises/ex24_8_skill_eval.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 07:43:00 UTC
+# Date:     2026-10-15 03:14:48 UTC
 # Exit code: 0
-# Seconds:  188.9
+# Seconds:  391.1
 #-------------------------------------------------------------------------------
-with skill   pass rate 40%, 1809 tokens per request
-without      pass rate 0%, 1213 tokens per request
-The skill costs +596 tokens per request for +40% pass rate: it earns its tokens.
+with skill   pass rate 20%, 1717 tokens per request
+without      pass rate 0%, 1625 tokens per request
+The skill costs +92 tokens per request for +20% pass rate: it earns its tokens.

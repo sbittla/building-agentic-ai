@@ -1,9 +1,9 @@
 # Exercise: 17.9  Revert one bad batch
 # Command:  python /tmp/solutions-flat/exercises/ex17_9_revert_batch.py
 # Model:    none (no model needed)
-# Date:     2026-10-14 07:03:24 UTC
+# Date:     2026-10-15 02:34:41 UTC
 # Exit code: 0
-# Seconds:  0.2
+# Seconds:  0.1
 #-------------------------------------------------------------------------------
 reverted                   [2, 3, 4]
 rollback_would_also_lose   [2, 3, 4, 5]

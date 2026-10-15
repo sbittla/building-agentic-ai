@@ -1,9 +1,9 @@
 # Exercise: 29.8  Is the cheaper model cheaper for the business?
 # Command:  python /tmp/solutions-flat/exercises/ex29_8_model_swap.py
 # Model:    none (no model needed)
-# Date:     2026-10-14 08:24:20 UTC
+# Date:     2026-10-15 04:17:49 UTC
 # Exit code: 0
-# Seconds:  1.9
+# Seconds:  1.8
 #-------------------------------------------------------------------------------
 Configuration              tokens $/mo  net $/mo  payback
 Sonnet 5, 3% failures              167    39,059     3.8m

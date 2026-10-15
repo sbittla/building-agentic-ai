@@ -2,9 +2,9 @@
  "chapter": "31",
  "title": "Chapter 31: From Prototype to Customer Production",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-14 23:01",
+ "date": "2026-10-15 04:23",
  "provenance": {
-  "commit": "0fd9dfe40b45-modified",
+  "commit": "c7330a5deef3",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -36,10 +36,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 4.4,
+   "seconds": 1.8,
    "log": "ch31/31.2.log",
    "model": "none",
-   "commit": "8a34de430235-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "31.3",
@@ -47,10 +47,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 1.7,
+   "seconds": 1.8,
    "log": "ch31/31.3.log",
    "model": "none",
-   "commit": "8a34de430235-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "31.4",
@@ -58,10 +58,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 1.7,
+   "seconds": 1.9,
    "log": "ch31/31.4.log",
    "model": "none",
-   "commit": "8a34de430235-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "31.5",
@@ -69,10 +69,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 30.5,
+   "seconds": 25.2,
    "log": "ch31/31.5.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "0fd9dfe40b45-modified"
+   "commit": "c7330a5deef3"
   }
  ]
 }

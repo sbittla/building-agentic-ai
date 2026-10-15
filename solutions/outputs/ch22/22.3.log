@@ -1,9 +1,9 @@
 # Exercise: 22.3  Follow the five paths
 # Command:  python ch22_guarded.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 07:33:23 UTC
+# Date:     2026-10-15 03:00:01 UTC
 # Exit code: 0
-# Seconds:  43.4
+# Seconds:  40.4
 #-------------------------------------------------------------------------------
 
 ana@example.com: Order A-1001 arrived broken. Can I get my money back?
@@ -12,7 +12,7 @@ ana@example.com: Order A-1001 arrived broken. Can I get my money back?
      understood -> approved: $49.00 within policy
      approved -> refunded: $49.00 refunded
      refunded -> replied: reply sent
-  reply: Hi there! Good news on order A-1001—the refund of $49.00 has been processed.
+  reply: We're sorry to hear your order arrived broken! Your refund of $49.00 has been processed successfully.
   Approve $420.00 for A-1002? [y/N] 
 ana@example.com: A-1002 came a week late, please refund it.
   -> replied
@@ -20,14 +20,14 @@ ana@example.com: A-1002 came a week late, please refund it.
      understood -> awaiting_approval: $420.00 is over the automatic limit
      awaiting_approval -> rejected: declined by a person
      rejected -> replied: reply sent
-  reply: Hi there! We have reviewed your request for order A-1002. The claim has been rejected as it was declined by a person. There is no refund amount to process at this time.
+  reply: Hi there! Thanks for your message. Order A-1002 has been rejected with an amount of 420.0 because it was declined by a person.
 
 ben@example.com: I changed my mind about A-1003.
   -> replied
      received -> understood: order A-1003, reason changed_mind
      understood -> rejected: delivered 116 days ago; the window is 30
      rejected -> replied: reply sent
-  reply: Thanks for letting us know. We reviewed your request for order A-1003 and must reject it because the item was delivered 116 days ago, which is past the 30-day window. No amount is available to issue for this order.
+  reply: Regarding order A-1003, your request has been rejected. The amount associated with this order is $22.50. This decision was made because the order was delivered 116 days ago, which is outside the 30-day window for changes.
 
 ben@example.com: Refund A-1001 please, it's damaged.
   -> escalated

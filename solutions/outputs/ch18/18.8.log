@@ -1,12 +1,12 @@
 # Exercise: 18.8  Know when to stop
 # Command:  python /tmp/solutions-flat/exercises/ex18_8_know_when_to_stop.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 07:12:04 UTC
+# Date:     2026-10-15 02:42:27 UTC
 # Exit code: 0
-# Seconds:  318.7
+# Seconds:  317.8
 #-------------------------------------------------------------------------------
 
 Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]
-Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 1522.71it/s]
+Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 657.73it/s]
 max_rounds=1: {'correct': 4, 'abstained': 2, 'wrong': 2}
-max_rounds=2: {'correct': 4, 'abstained': 2, 'wrong': 2}
+max_rounds=2: {'correct': 4, 'abstained': 1, 'wrong': 3}

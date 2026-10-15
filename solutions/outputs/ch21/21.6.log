@@ -1,12 +1,12 @@
 # Exercise: 21.6  A mixed team
 # Command:  python /tmp/solutions-flat/exercises/ex21_6_mixed_team.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 17:31:57 UTC
+# Date:     2026-10-15 02:58:51 UTC
 # Exit code: 0
-# Seconds:  42.2
+# Seconds:  58.8
 #-------------------------------------------------------------------------------
 #1 lead       done     How many orders were cancelled?
-#2   analyst    done     Calculate the total number of cancelled orders from the shop
-#3   remote_analyst done     Calculate the total number of cancelled orders from the shop
-{'answer': '88', 'evidence': ["SELECT COUNT(*) AS total_cancelled_orders FROM orders WHERE status = 'cancelled' returned 88", 'The remote analyst confirmed that the total number of cancelled orders is **88**'], 'confidence': 'high'}
-tokens: {'lead': 1305, 'analyst': 1549, 'checker': 0, 'remote_analyst': 0}
+#2   analyst    done     What is the total count of cancelled orders?
+#3   remote_analyst done     What is the total count of cancelled orders?
+{'answer': '88', 'evidence': ["SELECT COUNT(*) AS cancelled_order_count FROM orders WHERE status = 'cancelled'", "The total count of cancelled orders is **88**.\n\n**SQL used:**\n```sql\nSELECT COUNT(*) as total_cancelled_orders \nFROM orders \nWHERE status = 'cancelled';\n```"], 'confidence': 'high'}
+tokens: {'lead': 1669, 'analyst': 1037, 'checker': 0, 'remote_analyst': 0}

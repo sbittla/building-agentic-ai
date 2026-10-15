@@ -1,33 +1,33 @@
 # Exercise: 28.3  Read the report
 # Command:  python /tmp/solutions-flat/exercises/run28_3_report.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 08:16:27 UTC
+# Date:     2026-10-15 04:05:25 UTC
 # Exit code: 0
-# Seconds:  49.7
+# Seconds:  68.7
 #-------------------------------------------------------------------------------
 Q: How many days until July 4 next year?
-A: There are 263 days until July 4, 2027. That date falls on a Sunday.
+A: There are **262 days** until July 4, 2027.
 Q: What is 17.5% of 84,213?
-A: 17.5% of 84,213 is 14,737.275.
+A: 17.5% of 84,213 is **14,737.275**.
 Q: How many km is 26.2 miles?
-A: 26.2 miles is equal to approximately 42.2 km. This is the standard distance of a marathon.
+A: 26.2 miles is equal to 42.1648 kilometers.
 Q: What day of the week is 2027-01-01?
-A: January 1, 2027 will be a Friday.
+A: January 1, 2027 falls on a Friday.
 Q: Convert 70 kg to pounds.
-A: 70 kg is equal to 154.3236 pounds.
+A: 70 kilograms is approximately equal to 154.32 pounds.
 
 === report: five healthy runs ===
 {
  "runs": 5,
  "success_rate": 1.0,
- "p50_ms": 3074.7,
- "p95_ms": 9002.6,
+ "p50_ms": 5121.6,
+ "p95_ms": 13145.2,
  "cost_per_success": 0.0,
  "failures": {},
  "tools": {
   "calculate": {
    "calls": 1,
-   "p95_ms": 0.6,
+   "p95_ms": 0.1,
    "error_rate": 0.0
   },
   "convert_units": {
@@ -37,12 +37,12 @@ A: 70 kg is equal to 154.3236 pounds.
   },
   "days_between": {
    "calls": 2,
-   "p95_ms": 11.3,
+   "p95_ms": 0.1,
    "error_rate": 0.0
   },
   "get_current_date": {
    "calls": 1,
-   "p95_ms": 0.1,
+   "p95_ms": 1.0,
    "error_rate": 0.0
   }
  },
@@ -50,42 +50,37 @@ A: 70 kg is equal to 154.3236 pounds.
 }
 No alerts.
 Q: How many km is 26.2 miles?
-A: It appears that the tool for converting units is unavailable right now.
-
-However, I can tell you the approximate conversion: **1 mile is approximately 1.60934 kilometers**.
-
-To calculate: $26.2 \times 1.60934 \approx 42.17$ km.
+A: I apologize, but there seems to be an error with the conversion tool. I cannot complete the request right now. However, I can provide you with the answer directly: 26.2 miles is approximately **42.17 kilometers**.
 Q: Convert 70 kg to pounds.
-A: I'm sorry, I cannot convert the weight right now as there seems to be a technical error. However, I know that to convert kilograms to pounds, you generally multiply the value in kilograms by 2.20462. So, $70 \times 2.20462 = 154.3234$. Therefore, 70 kg is approximately **154.32 pounds**.
+A: It appears the tool for converting units encountered an error. However, I know that 1 kilogram is approximately equal to 2.20462 pounds.
+
+So, $70 \times 2.20462 = 154.3234$ pounds.
+
+Therefore, 70 kg is approximately 154.32 lbs.
 Q: How many grams in 2.5 lb?
-A: There are approximately **1,133.98 grams** in 2.5 pounds.
+A: 2.5 pounds is approximately 1134 grams.
 Q: Convert 5 km to miles.
-A: I cannot complete this request right now because my internal lookup for conversion rates failed. However, I can tell you that **5 kilometers is approximately 3.107 miles**. (1 km ≈ 0.621371 mi)
+A: It seems there is an issue with the conversion tool currently. However, I know that 1 kilometer is approximately 0.621371 miles. Therefore, 5 kilometers is about 3.106855 miles.
 
 === report: convert_units broken on purpose ===
 {
  "runs": 4,
- "success_rate": 0.25,
- "p50_ms": 5671.3,
- "p95_ms": 5903.1,
- "cost_per_success": 0.0,
+ "success_rate": 0.0,
+ "p50_ms": 7375.4,
+ "p95_ms": 8781.8,
+ "cost_per_success": null,
  "failures": {
-  "tool_errors": 3
+  "tool_errors": 4
  },
  "tools": {
-  "calculate": {
-   "calls": 1,
-   "p95_ms": 0.1,
-   "error_rate": 0.0
-  },
   "convert_units": {
    "calls": 4,
-   "p95_ms": 0.6,
+   "p95_ms": 0.5,
    "error_rate": 1.0
   }
  },
- "mean_steps": 2.25
+ "mean_steps": 2
 }
 ALERTS:
-  success rate 25% below 90%
+  success rate 0% below 90%
   tool convert_units fails 100% of calls

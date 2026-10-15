@@ -1,33 +1,33 @@
 # Exercise: 19.3  Crash and resume
 # Command:  python ch19_durable.py --crash 2; python ch19_durable.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 07:21:49 UTC
+# Date:     2026-10-15 02:49:51 UTC
 # Exit code: 0
-# Seconds:  14.9
+# Seconds:  7.5
 #-------------------------------------------------------------------------------
 simulated crash after 2 steps. Run the same command again (without --crash) to resume.
-Job eb52dcc9: running
+Job bd717394: running
   1. create_account   done     tries=1 account ana@example.com created
-  2. agent            done     tries=1 Welcome to the Pro plan, where you now have access
+  2. agent            done     tries=1 Welcome to our Pro plan, where you now have access
   3. send_email       pending  tries=0 
   4. charge           pending  tries=0 
 Result: done
-Job eb52dcc9: done
+Job bd717394: done
   1. create_account   done     tries=1 account ana@example.com created
-  2. agent            done     tries=1 Welcome to the Pro plan, where you now have access
+  2. agent            done     tries=1 Welcome to our Pro plan, where you now have access
   3. send_email       done     tries=1 email sent to ana@example.com
   4. charge           done     tries=2 charged $49
 Services: {
  "accounts": {
-  "eb52dcc9:1": "ana@example.com"
+  "bd717394:1": "ana@example.com"
  },
  "emails": {
-  "eb52dcc9:3": {
+  "bd717394:3": {
    "to": "ana@example.com",
-   "body": "Welcome to the Pro plan, where you now have access to our advanced features and dedicated support resources. We are thrilled to be part of your journey and look forward to helping you achieve even greater success with our premium tools."
+   "body": "Welcome to our Pro plan, where you now have access to premium features designed to elevate your experience. We're thrilled to support your growth and look forward to seeing the amazing things you'll achieve with these powerful tools."
   }
  },
  "charges": {
-  "eb52dcc9:4": 49
+  "bd717394:4": 49
  }
 }

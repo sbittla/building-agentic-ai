@@ -1,35 +1,37 @@
 # Exercise: 25.4  Quarantine a second source
 # Command:  python /tmp/solutions-flat/exercises/ex25_4_calendar.py && python -m pytest -p no:cacheprovider --rootdir /tmp /tmp/solutions-flat/tests/test_part8.py -k test_25_4 -v
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 17:48:24 UTC
+# Date:     2026-10-15 03:16:13 UTC
 # Exit code: 0
-# Seconds:  51.8
+# Seconds:  69.2
 #-------------------------------------------------------------------------------
-I have successfully processed the inbox and upcoming invites. Here is a summary of what was done:
+Now, let's check the external invite c2 and skip it since it's not internal.
 
-### Added Tasks:
-1.  **Send Q3 revenue summary** - Created from email `m1` (internal).
-2.  **Have lunch with ben on Thursday** - Created from email `m3` (internal).
-3.  **Prepare Q3 revenue slide for meeting** - Created from invite `c1` (internal).
+I have processed all internal emails and invites. Here is a summary of what was added:
 
-### Skipped:
-*   **Email m2**: This email was from an external sender (`promo@deals.example.net`) and contained no request, so it was correctly skipped.
-*   **Invite c2**: Although this invite had a "request" to share a calendar, the task creation failed because the organizer is external (`events@partner.example.org`), which triggers a restriction preventing outside entities from creating tasks for internal workflows.
+**Tasks Added:**
+1. **Q3 revenue summary** (from email m1)
+2. **Lunch on Thursday** (from email m3)
+3. **Prepare Q3 revenue slide** (from invite c1)
 
-**Summary:** 3 tasks were successfully added. 1 task was skipped (external sender, no request) and 1 task was prevented by system restrictions (external organizer). 
+**Skipped:**
+- Email m2 was external and skipped.
+- Invite c2 was external and skipped.
+
+All internal requests have been added as tasks. 
  [
  {
-  "title": "Send Q3 revenue summary",
+  "title": "Q3 revenue summary",
   "due": null,
   "source": "m1"
  },
  {
-  "title": "Have lunch with ben on Thursday",
+  "title": "Lunch on Thursday",
   "due": null,
   "source": "m3"
  },
  {
-  "title": "Prepare Q3 revenue slide for meeting",
+  "title": "Prepare Q3 revenue slide",
   "due": null,
   "source": "c1"
  }
@@ -42,4 +44,4 @@ collecting ... collected 12 items / 11 deselected / 1 selected
 
 ../../../../tmp/solutions-flat/tests/test_part8.py::test_25_4_calendar_quarantine PASSED [100%]
 
-======================= 1 passed, 11 deselected in 0.21s =======================
+======================= 1 passed, 11 deselected in 0.23s =======================

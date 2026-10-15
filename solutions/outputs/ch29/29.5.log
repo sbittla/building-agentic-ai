@@ -1,12 +1,12 @@
 # Exercise: 29.5  Halve the cost
 # Command:  python /tmp/solutions-flat/exercises/ex29_5_cost_cut.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 08:22:36 UTC
+# Date:     2026-10-15 04:15:12 UTC
 # Exit code: 0
-# Seconds:  170.2
+# Seconds:  358.0
 #-------------------------------------------------------------------------------
-before: {'pass_rate': 1.0, 'ci95': (0.7574992425007574, 1.0), 'cost_per_success': 0.0, 'runs': 12} 
+before: {'pass_rate': 0.8333333333333334, 'ci95': (0.5519636426153274, 0.9530358523851776), 'cost_per_success': 0.0, 'runs': 12} 
 after:  {'pass_rate': 0.8333333333333334, 'ci95': (0.5519636426153274, 0.9530358523851776), 'cost_per_success': 0.0, 'runs': 12}
-before  pass rate 100% (95% CI 76%-100%), cost per success $0.0000
+before  pass rate 83% (95% CI 55%-95%), cost per success $0.0000
 after   pass rate 83% (95% CI 55%-95%), cost per success $0.0000
 Recommendation: can't decide on cost here: this model is free (the local model), so cost per success is $0 either way. Run on Claude to price the levers.

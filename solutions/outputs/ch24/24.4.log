@@ -1,34 +1,29 @@
 # Exercise: 24.4  Agent SDK with your MCP servers
 # Command:  python /tmp/solutions-flat/exercises/ex24_4_sdk_mcp.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 07:38:12 UTC
+# Date:     2026-10-15 03:05:50 UTC
 # Exit code: 0
-# Seconds:  31.5
+# Seconds:  47.1
 #-------------------------------------------------------------------------------
 /opt/venv/lib/python3.12/site-packages/claude_agent_sdk/types.py:1939: CanUseToolShadowedWarning: can_use_tool will not be invoked for: mcp__shop__get_schema, mcp__todo__list_tasks. An allowed_tools entry that allows a whole tool auto-approves it before the callback is consulted. To gate every tool call, use a PreToolUse hook; or narrow the entry so calls fall through to can_use_tool. Allow rules from settings files can also shadow the callback but are not visible here.
   _warn_if_can_use_tool_shadowed(options)
 [claude-code:unrecognized_model] {"model":"qwen3.5:9b","query_source":"sdk"}
   -> mcp__shop__get_schema({})
-  -> mcp__shop__run_query({'sql': "SELECT \n    p.category,\n    SUM(oi.quantity * p.price) as total_revenue\nFROM order_items oi\nJOIN products p ON oi.product_id = p.id\nJOIN orders o ON oi.order_id = o.id\nWHERE o.status != 'cancelled'\nGROUP BY p.category\nORDER BY total_revenue DESC\nLIMIT 1"})
-  -> mcp__todo__add_task({'title': 'review electronics pricing', 'due': '2026-10-15', 'priority': 'normal'})
-Allow mcp__todo__add_task({'title': 'review electronics pricing', 'due': '2026-10-15', 'priority': 'normal'})? [y/N] Done! Here's what I found and created:
+  -> mcp__shop__run_query({'sql': "SELECT p.category, SUM(oi.quantity * p.price) as total_revenue\nFROM orders o\nJOIN order_items oi ON o.id = oi.order_id\nJOIN products p ON oi.product_id = p.id\nWHERE o.status != 'cancelled'\nGROUP BY p.category\nORDER BY total_revenue DESC\nLIMIT 1"})
+  -> mcp__todo__add_task({'title': 'review electronics pricing', 'due': '2026-10-15'})
+Allow mcp__todo__add_task({'title': 'review electronics pricing', 'due': '2026-10-15'})? [y/N] The best-selling product category is **electronics** with total revenue of $312,150.
 
-**Best-Selling Product Category:** electronics
-- Total Revenue: $312,150.00
+I've added the to-do task `review electronics pricing` due 2026-10-15 (task #16).
 
-**Final SQL Used:**
+**Final SQL used:**
 ```sql
-SELECT 
-    p.category,
-    SUM(oi.quantity * p.price) as total_revenue
-FROM order_items oi
+SELECT p.category, SUM(oi.quantity * p.price) as total_revenue
+FROM orders o
+JOIN order_items oi ON o.id = oi.order_id
 JOIN products p ON oi.product_id = p.id
-JOIN orders o ON oi.order_id = o.id
 WHERE o.status != 'cancelled'
 GROUP BY p.category
 ORDER BY total_revenue DESC
 LIMIT 1
 ```
-
-**To-Do Task Created:** `review electronics pricing` due 2026-10-15 ✓
 Decisions: [('mcp__shop__run_query', 'allow'), ('mcp__todo__add_task', 'allow')]

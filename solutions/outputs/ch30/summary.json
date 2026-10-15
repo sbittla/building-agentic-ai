@@ -2,9 +2,9 @@
  "chapter": "30",
  "title": "Chapter 30: Deploying Agents: From One Service to an Agent Platform",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-14 15:36",
+ "date": "2026-10-15 04:23",
  "provenance": {
-  "commit": "03d1fad7c5f4-modified",
+  "commit": "c7330a5deef3",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -34,12 +34,12 @@
    "id": "30.2",
    "title": "Call your agent API",
    "kind": "run",
-   "status": "passed",
-   "reason": null,
-   "seconds": 77.7,
+   "status": "failed",
+   "reason": "output lacks /'answer': '[^']*\\b400\\b/",
+   "seconds": 35.9,
    "log": "ch30/30.2.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "03d1fad7c5f4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "30.3",
@@ -47,10 +47,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 8.9,
+   "seconds": 12.1,
    "log": "ch30/30.3.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "30.4",
@@ -58,10 +58,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 18.8,
+   "seconds": 20.4,
    "log": "ch30/30.4.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "30.5",
@@ -69,10 +69,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 39.6,
+   "seconds": 46.1,
    "log": "ch30/30.5.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "03d1fad7c5f4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "30.6",
@@ -80,10 +80,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 137.5,
+   "seconds": 153.2,
    "log": "ch30/30.6.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "30.7",
@@ -91,10 +91,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 15.6,
+   "seconds": 6.6,
    "log": "ch30/30.7.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "03d1fad7c5f4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "30.8",
@@ -115,7 +115,7 @@
    "seconds": 3.1,
    "log": "ch30/30.9.log",
    "model": "none",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "30.10",
@@ -123,10 +123,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 6.2,
+   "seconds": 6.4,
    "log": "ch30/30.10.log",
    "model": "none",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "30.11",
@@ -134,10 +134,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 61.5,
+   "seconds": 34.1,
    "log": "ch30/30.11.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "03d1fad7c5f4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "30.12",
@@ -145,10 +145,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 1.9,
+   "seconds": 2.1,
    "log": "ch30/30.12.log",
    "model": "none",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   }
  ]
 }

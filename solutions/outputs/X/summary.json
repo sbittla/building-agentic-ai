@@ -1,10 +1,10 @@
 {
  "chapter": "X",
  "title": "Extra Practice (course kit)",
- "model": "none (--free-only)",
- "date": "2026-10-14 03:41",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-10-15 04:23",
  "provenance": {
-  "commit": "8a34de430235-modified",
+  "commit": "c7330a5deef3",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -29,7 +29,7 @@
    "seconds": 0.0,
    "log": "X/X.1.log",
    "model": "none",
-   "commit": "8a34de430235-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "X.2",
@@ -37,10 +37,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 0.0,
+   "seconds": 0.1,
    "log": "X/X.2.log",
    "model": "none",
-   "commit": "8a34de430235-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "X.3",

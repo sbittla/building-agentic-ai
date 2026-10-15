@@ -1,20 +1,20 @@
 # Exercise: 21.3  Watch the board
 # Command:  python ch21_orchestrator.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 07:30:58 UTC
+# Date:     2026-10-15 02:57:15 UTC
 # Exit code: 0
-# Seconds:  96.8
+# Seconds:  114.4
 #-------------------------------------------------------------------------------
 #1 lead       done     Which city should get our next promotion? Base it on revenue
-#2   analyst    done     Identify which city has the highest total revenue based on s
-#3   checker    done     Verify that Berlin has indeed the highest total revenue of a 
+#2   analyst    done     Identify the city with the highest total revenue from our sa
+#3   checker    done     Verify the total revenue for Berlin is exactly $119,985.00 a 
 
 {
- "answer": "Berlin should get our next promotion as it has the highest total revenue.",
+ "answer": "Berlin should get our next promotion with a total revenue of $169,767.00.",
  "evidence": [
-  "Analyst report showing Berlin with highest total revenue of 119985.0",
-  "Checker report confirming Berlin has highest total revenue of 119985.0"
+  "Checker's verification: Berlin's total revenue is actually $169,767.00, not $119,985.00 as initially claimed.",
+  "Confirmation that Berlin is the highest-revenue city compared to all others."
  ],
  "confidence": "high"
 }
-tokens: {'lead': 1518, 'analyst': 1390, 'checker': 1839}
+tokens: {'lead': 1627, 'analyst': 1684, 'checker': 2053}

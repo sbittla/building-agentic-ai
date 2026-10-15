@@ -2,9 +2,9 @@
  "chapter": "17",
  "title": "Chapter 17: Agent Memory Engineering",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-14 17:46",
+ "date": "2026-10-15 02:34",
  "provenance": {
-  "commit": "4b435eb02d73-modified",
+  "commit": "c7330a5deef3",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -46,10 +46,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 17.7,
+   "seconds": 1781.4,
    "log": "ch17/17.3.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "4b435eb02d73-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "17.4",
@@ -60,7 +60,7 @@
    "seconds": 0.5,
    "log": "ch17/17.4.log",
    "model": "none",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "17.5",
@@ -68,10 +68,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 27.5,
+   "seconds": 7.7,
    "log": "ch17/17.5.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "17.6",
@@ -79,10 +79,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 0.6,
+   "seconds": 0.5,
    "log": "ch17/17.6.log",
    "model": "none",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "17.7",
@@ -90,10 +90,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 0.4,
+   "seconds": 0.3,
    "log": "ch17/17.7.log",
    "model": "none",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "17.8",
@@ -101,10 +101,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 125.3,
+   "seconds": 640.7,
    "log": "ch17/17.8.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "4b435eb02d73-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "17.9",
@@ -112,10 +112,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 0.2,
+   "seconds": 0.1,
    "log": "ch17/17.9.log",
    "model": "none",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   }
  ]
 }

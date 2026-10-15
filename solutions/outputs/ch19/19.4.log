@@ -1,26 +1,26 @@
 # Exercise: 19.4  Two workers
 # Command:  python /tmp/solutions-flat/exercises/ex19_4_workers.py && python -m pytest -p no:cacheprovider --rootdir /tmp /tmp/solutions-flat/tests/test_part7.py -k test_19_4 -v
 # Model:    none (no model needed)
-# Date:     2026-10-14 07:21:56 UTC
+# Date:     2026-10-15 02:49:59 UTC
 # Exit code: 0
-# Seconds:  7.6
+# Seconds:  8.1
 #-------------------------------------------------------------------------------
-Job ff59a64e: done
+Job d8931f88: done
   1. create_account   done     tries=1 account c0@x.io created
   2. charge           done     tries=1 charged $10
-Job 7a1c5360: done
+Job 8bd726e0: done
   1. create_account   done     tries=1 account c1@x.io created
   2. charge           done     tries=1 charged $10
-Job d2e390ac: done
+Job 022171f5: done
   1. create_account   done     tries=1 account c2@x.io created
   2. charge           done     tries=1 charged $10
-Job 8a8dafee: done
+Job 01ba9fe6: done
   1. create_account   done     tries=1 account c3@x.io created
   2. charge           done     tries=1 charged $10
-Job 74f5849e: done
+Job acadd09f: done
   1. create_account   done     tries=1 account c4@x.io created
   2. charge           done     tries=1 charged $10
-finished by: {'ff59a64e': 'w2', 'd2e390ac': 'w2', '8a8dafee': 'w2', '74f5849e': 'w2', '7a1c5360': 'w2'}
+finished by: {'8bd726e0': 'w2', '022171f5': 'w2', 'd8931f88': 'w2', '01ba9fe6': 'w2', 'acadd09f': 'w2'}
 ============================= test session starts ==============================
 platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0 -- /opt/venv/bin/python
 rootdir: /tmp
@@ -29,4 +29,4 @@ collecting ... collected 36 items / 35 deselected / 1 selected
 
 ../../../../tmp/solutions-flat/tests/test_part7.py::test_19_4_two_workers PASSED [100%]
 
-======================= 1 passed, 35 deselected in 0.53s =======================
+======================= 1 passed, 35 deselected in 0.58s =======================

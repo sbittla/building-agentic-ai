@@ -1,40 +1,41 @@
 # Exercise: C2  Capstone 2 (c2_analyst)
 # Command:  course capstone 2
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 23:03:52 UTC
+# Date:     2026-10-15 04:26:03 UTC
 # Exit code: 0
-# Seconds:  79.8
+# Seconds:  77.0
 #-------------------------------------------------------------------------------
 Running solutions/capstones/c2_analyst/agent.py
 Tools: ['warehouse__list_tables', 'warehouse__describe_table', 'warehouse__run_query', 'charts__make_chart']
 
 You: [step 1] warehouse__list_tables({}) -> 'customers (50 rows)\nproducts (8 rows)\norders (400 rows)\norder_items (7'
-[step 2] warehouse__describe_table({"columns": ["product_id", "category"], "table": "products"}) -> 'columns: category TEXT\nnot in this table: product_id; its columns are:'
-[step 3] warehouse__describe_table({"columns": ["order_id", "product_id", "quantity"], "table": "order_items"}) -> 'columns: order_id INTEGER, product_id INTEGER, quantity INTEGER\nsample'
-[step 4] warehouse__describe_table({"columns": ["order_id", "status"], "table": "orders"}) -> 'columns: status TEXT\nnot in this table: order_id; its columns are: id,'
+[step 2] warehouse__describe_table({"table": "products"}) -> 'columns: id INTEGER, name TEXT, category TEXT, price REAL\nsample: [(1,'
+[step 3] warehouse__describe_table({"columns": ["id", "order_id"], "table": "orders"}) -> 'columns: id INTEGER\nnot in this table: order_id; its columns are: id, '
+[step 4] warehouse__describe_table({"columns": ["order_item_id", "product_id", "quantity"], "table": "order_items"}) -> 'columns: product_id INTEGER, quantity INTEGER\nnot in this table: order'
 
 The query uses tables ['order_items', 'orders', 'products']. OK? [Y/n] y  (auto-approved: CAPSTONE_AUTO_APPROVE)
-[step 5] warehouse__run_query({"sql": "SELECT \n    p.category, \n    SUM(oi.quantity * p.price) AS total_reve) -> 'category | total_revenue\nelectronics | 312150.0\nfurniture | 94845.0\nst'
-Agent: The **electronics** category earns the most revenue with a total of **$312,150**.
+[step 5] warehouse__run_query({"sql": "WITH product_category_revenue AS (\n    SELECT \n        p.category,\n ) -> 'category | revenue\nelectronics | 312150.0'
+Agent: The product category that earns the most revenue is **electronics** with a total revenue of **312,150.0**.
 
-Final SQL:
 ```sql
-SELECT 
-    p.category, 
-    SUM(oi.quantity * p.price) AS total_revenue
-FROM orders o
-JOIN order_items oi ON o.id = oi.order_id
-JOIN products p ON oi.product_id = p.id
-WHERE o.status != 'cancelled'
-GROUP BY p.category
-ORDER BY total_revenue DESC;
+WITH product_category_revenue AS (
+    SELECT 
+        p.category,
+        SUM(oi.quantity * p.price) as revenue
+    FROM order_items oi
+    JOIN products p ON oi.product_id = p.id
+    JOIN orders o ON oi.order_id = o.id
+    WHERE o.status != 'cancelled'
+    GROUP BY p.category
+)
+SELECT * FROM product_category_revenue ORDER BY revenue DESC LIMIT 1;
 ```
-  [6 steps, 5 tool calls, 1255 tokens]
+  [6 steps, 5 tool calls, 1577 tokens]
 
-You: [step 1] charts__make_chart({"sql": "SELECT p.category, SUM(oi.quantity * p.price) AS total_revenue FROM ord) -> 'charts/Revenue_by_Product_Category.png'
+You: [step 1] charts__make_chart({"sql": "WITH product_category_revenue AS (\n    SELECT \n        p.category,\n ) -> 'charts/Revenue_by_Product_Category.png'
 Agent: Here is the bar chart showing revenue by product category:
 
 ![Revenue by Product Category](charts/Revenue_by_Product_Category.png)
-  [2 steps, 1 tool calls, 402 tokens]
+  [2 steps, 1 tool calls, 487 tokens]
 
 You:

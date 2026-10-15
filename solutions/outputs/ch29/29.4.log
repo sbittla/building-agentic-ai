@@ -1,23 +1,17 @@
 # Exercise: 29.4  Budgets that hold
 # Command:  python /tmp/solutions-flat/exercises/ex29_4_budgets.py && python -m pytest -p no:cacheprovider --rootdir /tmp /tmp/solutions-flat/tests/test_part9.py -k test_29_4 -v
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 15:38:42 UTC
+# Date:     2026-10-15 04:09:14 UTC
 # Exit code: 0
-# Seconds:  42.1
+# Seconds:  21.0
 #-------------------------------------------------------------------------------
-There are 50 customers in the database.
-**Final SQL:**
-```sql
-SELECT c.city, COUNT(*) as order_count 
-FROM orders o
-JOIN customers c ON o.customer_id = c.id
-WHERE o.status != 'cancelled'
-GROUP BY c.city
-ORDER BY order_count DESC
-LIMIT 1
-```
+There are 50 customers.
 
-**Answer:** Berlin has the most orders (87 non-cancelled orders).
+The final SQL I used was:
+```sql
+SELECT COUNT(*) FROM customers
+```
+The city with the most orders is **Berlin** with 114 orders.
 ============================= test session starts ==============================
 platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0 -- /opt/venv/bin/python
 rootdir: /tmp
@@ -26,4 +20,4 @@ collecting ... collected 11 items / 10 deselected / 1 selected
 
 ../../../../tmp/solutions-flat/tests/test_part9.py::test_29_4_budgets PASSED [100%]
 
-======================= 1 passed, 10 deselected in 0.17s =======================
+======================= 1 passed, 10 deselected in 0.07s =======================

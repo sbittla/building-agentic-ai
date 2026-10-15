@@ -1,18 +1,18 @@
 # Exercise: 19.5  A cost budget per job
 # Command:  python /tmp/solutions-flat/exercises/ex19_5_budget.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 07:22:13 UTC
+# Date:     2026-10-15 02:50:16 UTC
 # Exit code: 0
-# Seconds:  16.2
+# Seconds:  16.9
 #-------------------------------------------------------------------------------
-Job b7fc9bcb: needs_human (step 2: agent: job budget of $0.0000 used up (spent $0.0001))
-  1. agent            done     tries=1 "Baking happiness into every slice."
+Job 89b27012: needs_human (step 2: agent: job budget of $0.0000 used up (spent $0.0002))
+  1. agent            done     tries=1 "Bake Your Happiness, One Loaf at a Time."
   2. agent            failed   tries=1 agent: job budget of $0.0000 used up (spent $0.000
   3. agent            pending  tries=0  
-  spent $0.00014
-Job c3d98d80: done
-  1. agent            done     tries=1 **"Baked with love, served with happiness."**
-  2. agent            done     tries=1 **"Where every bite tells a story of sweetness."**
+  spent $0.00019
+Job 27ace873: done
+  1. agent            done     tries=1 "Where every crumb tells a story of sweetness."
+  2. agent            done     tries=1 "Baking happiness into every bite."
   3. agent            done     tries=1 Here are a few options for **Tagline 2**, dependin 
-  spent $0.00147
-{"b7fc9bcb": "needs_human", "c3d98d80": "done"}
+  spent $0.00184
+{"89b27012": "needs_human", "27ace873": "done"}

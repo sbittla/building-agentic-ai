@@ -1,22 +1,18 @@
 # Exercise: 31.5  Draft it, then check it
 # Command:  python /tmp/solutions-flat/exercises/ex31_5_draft_brief.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 23:01:48 UTC
+# Date:     2026-10-15 04:23:41 UTC
 # Exit code: 0
-# Seconds:  30.5
+# Seconds:  25.2
 #-------------------------------------------------------------------------------
 Draft problems:
   - no baseline: measure today's number first, or no gain shows
   - no target: agree the number that counts as success
   - no customer owner: a named person must sign off
-  - no non-goals: write down what's out of scope, or scope grows
 Ask next:
-  - What does 'faster' mean to Anna Weber - is there a specific target time reduction or throughput goal?
-  - Is there a baseline metric for current claims processing time per file (Tomas's 'half an hour' is anecdotal, not measured data)?
-  - Are there any constraints related to accuracy or false positives that must be met?
-  - What are the key success criteria for going beyond a pilot?
-  - What is the expected scale - how many claim files processed daily/weekly/monthly?
-  - Are there specific types of claims or industries where this needs to be implemented first?
-  - What are the current tools and systems the adjusters use?
+  - What is the current average time taken to process a claim file?
+  - Is there a desired target time for processing a claim file?
+  - What specific types of claims are processed and what makes a 'big' file?
+  - What are the approval thresholds for data leaving the EU?
 
 After the follow-up: ready to build

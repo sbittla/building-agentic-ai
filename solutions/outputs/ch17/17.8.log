@@ -1,96 +1,129 @@
 # Exercise: 17.8  A memory-backed assistant
 # Command:  python /tmp/solutions-flat/exercises/ex17_8_assistant.py 1200
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 17:30:34 UTC
+# Date:     2026-10-15 02:34:41 UTC
 # Exit code: 0
-# Seconds:  125.3
+# Seconds:  640.7
 #-------------------------------------------------------------------------------
 [ 1] You: Hi! I prefer dates written like 3 Oct 2026.
-     Agent: Got it! I'll use the '3 Oct 2026' date format for all tasks and communications with you. Is there anything specific you'd like to add or change on your task list?
+     Agent: Got it! I'll remember that you prefer dates in the format "3 Oct 2026". Is there anything else you'd like to set or ask about?
 [ 2] You: Add 'book dentist' due 2026-10-03.
-     Agent: Done! I've added 'book dentist' with a due date of 3 Oct 2026. Let me know if you need anything else!
+     Agent: I've added the task "book dentist" with a due date of 2026-10-03. Note that this is in ISO format (YYYY-MM-DD), but I'll remember your preference for dates like "3 Oct 2026" going forward!
 [ 3] You: Add 'renew passport' due 2026-11-01.
-     Agent: I've added 'renew passport' with a due date of 1 Nov 2026. Is there anything else you'd like to add or adjust on your task list?
+     Agent: I've added the task "renew passport" with a due date of 2026-11-01. Is there anything else you'd like to add or adjust?
 [ 4] You: I like my most urgent task listed first.
-     Agent: Got it! I'll make sure your most urgent tasks appear first whenever you look at your task list. How can I help you further?
+     Agent: Got it! I'll remember that you'd like your most urgent tasks to appear at the top of any list. Does that cover everything, or is there anything else you need help with?
 [ 5] You: What's on my list?
-     Agent: Your task list currently has:
-1. **book dentist** - due 3 Oct 2026 (normal priority)
-2. **renew passport** - due 1 Nov 2026 (normal priority)
+     Agent: Here's what's on your to-do list:
 
-Is there anything you'd like to modify, complete, or add?
+*   **Book dentist** - Due 3 Oct 2026
+*   **Renew passport** - Due 1 Nov 2026
+*   **Call the bank** - Due 2 Nov 2026
+
+Plus several other tasks, most of which are due on unspecified dates. Would you like to prioritize any specific items or complete a task?
 [ 6] You: Mark the dentist task done.
-     Agent: Done! The 'book dentist' task has been marked as completed. Your updated task list now shows just:
-- **renew passport** - due 1 Nov 2026 (normal priority)
-
-Would you like to add another task or make any other changes?
+     Agent: Great! I've marked the "book dentist" task as done. Is there anything else you'd like to handle with your to-do list?
 [ 7] You: Add 'call Priya' due 2026-10-05.
-     Agent: Done! I've added the task **'call Priya'** due on 5 Oct 2026 (normal priority).
-
-Your current open tasks are now:
-1. **renew passport** - due 1 Nov 2026
-2. **call Priya** - due 5 Oct 2026
-
-Is there anything else you'd like to do with your task list?
+     Agent: I've added "Call Priya" as a new task due on 2026-10-05. It's currently marked with normal priority. Is there anything else you'd like me to do?
 [ 8] You: What's still open?
-     Agent: Here are the tasks currently in your list, sorted by urgency:
+     Agent: Here are the currently open tasks, ordered by **Urgency First**:
 
-1. **renew passport** - due 1 Nov 2026 (normal priority)
-2. **call Priya** - due 5 Oct 2026 (normal priority)
+1. **#3: Read chapter 13** – ⚠️ **High Priority** (no due date listed). Needs immediate attention.
+2. **#5: Pack an umbrella for Seattle** – Due tomorrow with a 20% rain chance.
+3. **#6: Call the bank** – Due 2 Nov 2026.
+4. **#11: Renew passport** – Due 1 Nov 2026.
+5. **#12: Call Priya** – Due 2026-10-05.
+6. **#1: Buy milk** – No specific due date (placeholder/normal urgency).
+7. **#4: Follow up on pending orders (#85)** – Normal urgency.
+8. **#7, #8, #9: Send thank-you notes** – To customers #13, #21, and #23 respectively (no specific due dates).
+
+Let me know how you'd like to proceed!
 [ 9] You: Remember that my manager is Asha.
-     Agent: Got it! I've noted that your manager is **Asha**. This will be saved in my memory for future conversations.
-
-Is there anything else you'd like to do today?
+     Agent: I've noted that your manager is Asha. Is there anything specific you'd like to discuss with her, or would you prefer to handle one of your open tasks first?
 [10] You: Thanks, that's all for now.
-     Agent: Alright! If you need anything later, just let me know. Have a great day! 😊
+     Agent: You're welcome! Whenever you're ready to proceed with your tasks—whether it's addressing Task #3 (Reading chapter 13) or checking on Task #2—just let me know.
 ---- restart: new session, empty history ----
 [11] You: Hello again. What do you know about my preferences?
-     Agent: Based on my memories, I know that:
+     Agent: Based on my recall, I know you have the following preferences:
 
-1. You prefer tasks to be sorted by urgency, with the most urgent listed first.
-2. You like dates written in a more natural format (like "3 Oct 2026") rather than the YYYY-MM-DD format.
+1. **Date Format**: You prefer dates written in the "3 Oct 2026" format rather than YYYY-MM-DD.
+2. **Task Listing**: When listing tasks, you want to see the most urgent ones listed first.
 [12] You: What's on my list?
-     Agent: You currently have two tasks on your list:
+     Agent: Here's what's on your to-do list:
 
-1. Renew passport (due 2026-11-01, normal priority)
-2. Call Priya (due 2026-10-05, normal priority)
+**Open Tasks:**
+- Buy milk (no due date, normal priority)
+- Read chapter 13 (high priority)
+- Follow up on pending orders - 85 (normal priority)
+- Pack an umbrella for Seattle tomorrow (20% rain chance, normal priority)
+- Call the bank (due 2026-11-02, normal priority)
+- Send thank-you note to Customer 13 ($19,238 revenue, normal priority)
+- Send thank-you note to Customer 21 ($16,619 revenue, normal priority)
+- Send thank-you note to Customer 23 ($15,334 revenue, normal priority)
+- Renew passport (due 2026-11-01, normal priority)
+- Call Priya (due 2026-10-05, normal priority)
+
+I've sorted these to show the most urgent ones first, as per your preference. Would you like to complete any of these tasks or modify the list in any way?
 [13] You: Who is my manager?
-     Agent: Based on my memory, your manager is Asha.
+     Agent: Your manager is Asha.
 [14] You: Add 'quarterly review with Asha' due 2026-12-15.
-     Agent: I've added "quarterly review with Asha" to your task list, due on 2026-12-15. It has been assigned normal priority.
+     Agent: Task added as **Item #13**: quarterly review with Asha, due December 15, 2026. Let me know if you'd like to prioritize it differently or make any changes before we move on!
 [15] You: Which task is due next?
-     Agent: Looking at your tasks and their due dates:
+     Agent: Looking at the task list sorted by due date (and priority for same dates):
 
-1. Call Priya - due 2026-10-05
-2. Renew passport - due 2026-11-01
-3. Quarterly review with Asha - due 2026-12-15
+The most urgent tasks are:
 
-The task due next is **Call Priya** on October 5th, 2026.
+1. **Task #12 - Call Priya** (Due: Oct 5, 2026) - This is currently the most overdue/urgent task since it's already past due if we're in early October 2026.
+
+Then coming after that would be the other tasks with due dates in November and December.
+
+So **Task #12 (Call Priya)** is due next/most urgently right now.
 [16] You: Please forget my date format preference.
-     Agent: I've forgotten your date format preference. From now on, I'll display dates in the standard ISO format (YYYY-MM-DD) unless you specify otherwise.
+     Agent: Done - I've forgotten your date format preference (memory ID #3). Is there anything else you'd like me to help with regarding your tasks or priorities?
 [17] You: What's due in November?
-     Agent: The only task due in November is:
+     Agent: Based on the list of tasks due before November 30, 2026:
 
-*   **#2 Renew Passport** – Due: **2026-11-01**
+*   **Task #6:** Call the bank (Due Nov 2, 2026)
+*   **Task #11:** Renew passport (Due Nov 1, 2026)
+*   **Task #12:** Call Priya (Due Oct 5, 2026) — *Note: This is already overdue.*
 [18] You: Add 'buy gift' with no date.
-     Agent: I've added the task 'buy gift' to your list. It doesn't have a due date yet. Would you like to set a specific date for it?
+     Agent: Task #14 "buy gift" has been added to your task list with no due date. Let me know if you'd like to add a priority or due date to it!
 [19] You: List everything once more.
-     Agent: Here is your complete task list:
+     Agent: Here's your complete task list:
 
-1.  **#3 Call Priya** – Due: **2026-10-05**
-2.  **#2 Renew Passport** – Due: **2026-11-01**
-3.  **#4 Quarterly review with Asha** – Due: **2026-12-15**
-4.  **#5 Buy Gift** – Due: **(No date set)**
+**Overdue:**
+- #12 Call Priya (Due Oct 5, 2026) - currently overdue as we're in early October 2026
 
-Would you like to set a due date for "Buy Gift" or work on any of the current tasks?
+**Upcoming Deadlines:**
+- #11 Renew passport (Due Nov 1, 2026) - normal priority
+- #6 Call bank (Due Nov 2, 2026) - normal priority
+
+**Other Pending Tasks (no date):**
+- #1 Buy milk
+- #3 Read chapter 13 (high priority)
+- #4 Follow up on pending orders - 85
+- #5 Pack an umbrella for Seattle tomorrow (20% rain chance)
+- #7 Send thank-you note to Customer 13 ($19,238 revenue)
+- #8 Send thank-you note to Customer 21 ($16,619 revenue)
+- #9 Send thank-you note to Customer 23 ($15,334 revenue)
+- #13 Quarterly review with Asha (Due Dec 15, 2026)
+- #14 Buy gift
+
+Would you like to tackle the overdue task first or add any new tasks?
 [20] You: Summarize what you remember about me.
-     Agent: Based on my memory, here is what I recall about you:
+     Agent: Based on what I recall about you:
 
 **Preferences:**
-*   You prefer your tasks to be **sorted by urgency**, with the most urgent items listed first.
+- You prefer dates written in the format "3 Oct 2026" (natural language, not just YYYY-MM-DD)
+- You want to see your most urgent tasks listed first in any task list
 
-Regarding your current task list and priorities from our recent discussion, while those are part of our active conversation context rather than long-term stored memories, I can see that you have a clear preference for organizing your work by deadline importance.
+**Manager:** Your manager is Asha.
 
-Is there anything else about your preferences or past conversations you'd like me to remember?
+**Current Work Context:**
+- You're managing several deadlines through late 2026
+- You have a mix of personal/administrative tasks (passport renewal, bank call) alongside business-related work (thank-you notes, order follow-ups, quarterly reviews)
+- There are some time-sensitive items like packing an umbrella for Seattle and reading assignments
 
-{'compactions': 6, 'trims': 6}
+Is there anything else about you I should know or remember?
+
+{'compactions': 19, 'trims': 19}

@@ -1,9 +1,9 @@
 # Exercise: 20.5  Evaluate the routers
 # Command:  python /tmp/solutions-flat/exercises/ex20_5_router_eval.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-14 19:46:47 UTC
+# Date:     2026-10-15 02:54:37 UTC
 # Exit code: 0
-# Seconds:  65.9
+# Seconds:  69.9
 #-------------------------------------------------------------------------------
 task                                                 label  rules  model 
 How many customers are there?                        easy   easy   easy  
@@ -17,7 +17,7 @@ Compare repeat customers with one-time customers b   hard   hard   easy
 Which categories grow fastest, and what would you    hard   easy   easy  
 Find customers who ordered in every month and desc   hard   easy   hard  
 Is there a seasonal pattern in cancellations? Expl   hard   hard   hard  
-Suggest three KPIs for this shop and compute each    hard   easy   hard  
+Suggest three KPIs for this shop and compute each    hard   easy   easy  
 rules        accuracy 75%, hard tasks sent to the small model: 3
-small model  accuracy 75%, hard tasks sent to the small model: 3
+small model  accuracy 67%, hard tasks sent to the small model: 4
 change: add 'suggest', 'pattern', 'every', 'fastest', 'describe' to HARD_WORDS -> rules accuracy 75% -> 100%, hard tasks sent small 3 -> 0

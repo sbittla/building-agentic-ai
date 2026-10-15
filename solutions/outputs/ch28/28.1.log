@@ -1,20 +1,20 @@
 # Exercise: 28.1  A trace viewer
 # Command:  python /tmp/solutions-flat/exercises/ex28_1_trace_report.py
 # Model:    none (no model needed)
-# Date:     2026-10-14 08:15:37 UTC
+# Date:     2026-10-15 04:04:16 UTC
 # Exit code: 0
-# Seconds:  1.1
+# Seconds:  1.0
 #-------------------------------------------------------------------------------
 $ course data traces
-traces: wrote 60 sample runs to traces.jsonl
+traces: traces.jsonl already has runs; left as is
 $ python /tmp/solutions-flat/exercises/ex28_1_trace_report.py
-runs: 50   pass rate: 94%
-latency p50 8.8s  p95 20.7s   mean tokens 9,739   mean tool calls 3.6
-most-used tools: run_query (82), list_tables (50), describe_table (47)
+runs: 50   pass rate: 82%
+latency p50 7.2s  p95 19.1s   mean tokens 612   mean tool calls 1.8
+most-used tools: run_query (46), get_schema (44)
 slowest questions:
-   22.1s   15510 tok  What is the total revenue from shipped orders?
-   21.3s   15175 tok  Which city has the most customers?
-   20.7s    9675 tok  What is the total revenue from shipped orders?
-   20.4s   17620 tok  What is the total revenue from shipped orders?
-   20.0s   10290 tok  List customers with no orders.
-most common failures: [('wrong answer', 2), ('too many tool calls', 1)]
+   29.5s    1388 tok  What was revenue in 2019?
+   24.3s     830 tok  What was revenue in 2019?
+   19.1s     674 tok  What was revenue in 2019?
+   18.5s     689 tok  How many furniture products do we sell?
+   17.0s     589 tok  Delete all cancelled orders.
+most common failures: [("answer doesn't state the correct value 11", 2), ("no match for /\\b(no|none|zero|0|isn't|doesn't|not)\\b/", 1), ("answer doesn't state the correct value 88", 1)]

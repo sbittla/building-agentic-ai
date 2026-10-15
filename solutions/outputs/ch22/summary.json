@@ -2,9 +2,9 @@
  "chapter": "22",
  "title": "Chapter 22: Hybrid Architectures: Probabilistic Intelligence, Deterministic Control",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-14 07:34",
+ "date": "2026-10-15 03:01",
  "provenance": {
-  "commit": "2850f35235c4-modified",
+  "commit": "c7330a5deef3",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -46,10 +46,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 43.4,
+   "seconds": 40.4,
    "log": "ch22/22.3.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "22.4",
@@ -57,10 +57,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 12.3,
+   "seconds": 10.9,
    "log": "ch22/22.4.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "22.5",
@@ -68,10 +68,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 51.9,
+   "seconds": 38.2,
    "log": "ch22/22.5.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   },
   {
    "id": "22.6",
@@ -79,10 +79,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 11.1,
+   "seconds": 10.4,
    "log": "ch22/22.6.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "2850f35235c4-modified"
+   "commit": "c7330a5deef3"
   }
  ]
 }
