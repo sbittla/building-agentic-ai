@@ -424,7 +424,7 @@ Table: This edition and the code it was tested with
 | --- | --- | ---: | --- | --- | --- | --- |
 | First edition | `book-v1.0.0` | {{exercises:all}} | 3.12 | `claude-sonnet-5`, `claude-haiku-4-5`, `qwen3.5:9b` | 2026-07-28 | October 2026 |
 
-`git describe --tags` prints your tag, and `./course.sh check` prints the image's Python and library versions. The *Verified* column has a narrow meaning, explained at the end of this appendix. Four kit files track later changes:
+The default models are the ones the recorded runs used. If one is deprecated (Anthropic gives at least 60 days' notice), `VERSION_MATRIX.md` names its replacement and what to rerun; for Claude Haiku 4.5 that is Claude Haiku 5.5, which this edition wasn't tested with. `git describe --tags` prints your tag, and `./course.sh check` prints the image's Python and library versions. The *Verified* column has a narrow meaning, explained at the end of this appendix. Four kit files track later changes:
 
 Table: How the course kit tracks change
 | File | What it tells you |
@@ -516,7 +516,7 @@ Table: What the local-model adapter does
 | Claude feature | Chapters | What the adapter does |
 | --- | --- | --- |
 | Forcing a tool (`tool_choice`) | 3, 11, capstones 3, 4 and 5 | Tells the model to call the tool, and asks again (up to twice) if it answers in text |
-| Structured outputs (`output_config` with a JSON schema) | 3, 4, 11, 18, 20, 25, 27 | Turns the schema into a tool, validates the answer and returns it as JSON text |
+| Structured outputs (`output_config` with a JSON schema) | 3, 11, 18, 20, 22, 25, 27 | Turns the schema into a tool, validates the answer and returns it as JSON text |
 | Prompt caching (`cache_control`) | 16 | Removes it: the code runs, but exercise 16.5 shows no savings |
 | Counting tokens | 16 | Returns an estimate (about four characters per token) |
 | Server-side features: tool search, code execution, Agent Skills, Managed Agents | 3, 16, 18, 24 | Returns a clear error saying the exercise needs Claude |
@@ -868,7 +868,7 @@ Table: An architecture decision record
 
 ## Appendix L: From the Book to the Code
 
-This map shows, for every chapter and interlude, the concept, its exercises, the folder its listings come from and the capstones that build on it. Solutions use the same folder names under `solutions/exercises/`. `CURRICULUM_MAP.md` in the kit adds each exercise's level, model and solution file. Both are generated from the manuscript, so they can't drift apart.
+This map shows, for every chapter and interlude, the concept, its exercises, the folder its listings come from and the capstones that build on it. Solutions use the same folder names under `solutions/exercises/`. `CURRICULUM_MAP.md` in the kit adds each exercise's level, model and solution file. Both come from one file, which `dev/curriculum_map.py` builds from the manuscript and the repository; CI fails if either is out of date.
 
 Table: Every chapter, its exercises, code and capstones
 @@curriculum-map

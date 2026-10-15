@@ -2,7 +2,7 @@
 
 This ledger records every claim in the book that can go stale: API, model, price, protocol, SDK, framework, benchmark, publication-date and adoption figures. Each row gives the manuscript location, the exact claim, the source it was checked against, the version tested, the result and who owns the next step. It answers the release review's request for a volatile-claims audit and covers Chapters 12–15, 20–24 and 27–30 first, plus the front matter, Appendices E and H, and the Chapter 16 and 25 claims the review named.
 
-**Date checked:** 2026-10-13, against commit `c531ff0` (`book-v1.0.0-rc1` line). The model lifecycle rows were re-checked on 2026-10-14; the rest of the ledger hasn't been re-run against the RC4 manuscript yet. Line numbers come from the working tree at the time of writing. Other edits were in progress in `course/md/` (Chapters 2–14), so re-run the search if a line has moved.
+**Date checked:** 2026-10-13, against commit `c531ff0` (`book-v1.0.0-rc1` line). **RC4 re-check (2026-10-15):** every line added to Chapters 12–15, 20–24 and 27–30 and Appendices E, G, H and M since `c531ff0` was read for new volatile claims. Each one is covered by an existing row except two, added below (one corrected the book). The model lifecycle rows were re-checked against the deprecations page on 2026-10-14. Line numbers in older rows still refer to `c531ff0`. Line numbers come from the working tree at the time of writing. Other edits were in progress in `course/md/` (Chapters 2–14), so re-run the search if a line has moved.
 
 **Results**
 - **Verified:** a source seen on 2026-10-13 confirms the claim, and that source is cited. Repository facts were checked against `requirements.lock`, the `Dockerfile`, `course/code/`, `VERSION_MATRIX.md` and the solution logs, and `dev/check_references.py` and `dev/cost_model.py --check` both pass. Nothing was marked Verified from memory.
@@ -32,6 +32,8 @@ This ledger records every claim in the book that can go stale: API, model, price
 | `91_appendix.md:465`, Appendix H, Why qwen3.5:9b | `qwen3.5:9b` is a 6.6 GB download; Apache 2.0 licensed; thinks before answering | https://ollama.com/library/qwen3.5/tags; https://huggingface.co/Qwen/Qwen3.5-9B | Ollama library, 2026-10-13 | Verified. `qwen3.5:9b` (q4_K_M) is 6.6 GB. The tag resolves to 6.6–7.6 GB depending on platform: the MLX variant on a Mac is larger. License: apache-2.0. Tags: tools, thinking, vision. | author / closed |
 | `91_appendix.md:513`, Appendix H, What the kit does for you | Ollama speaks the Messages API for messages, tools, streaming and thinking; it lacks forced `tool_choice` and structured outputs, so the adapter fills them | https://docs.ollama.com/api/anthropic-compatibility | Ollama docs, 2026-10-13 | Verified. `tool_choice` is unsupported; structured output is not documented; prompt caching and batches are unsupported. | author / closed |
 | `91_appendix.md:497`, Appendix H, On a Mac | Use a 32k context with `qwen3.5:9b` (the model supports more) | https://ollama.com/library/qwen3.5/tags | Ollama library | Verified. The model's window is 256K. The 32k setting is the kit's choice (LOCAL_MODEL.md). | author / closed |
+| `91_appendix.md`, Appendix H, What the kit does for you | Structured outputs (`output_config` with a JSON schema) are used in Chapters 3, 11, 18, 20, 22, 25 and 27 | Claude API reference (models cached 2026-10-06): `output_config.format` is the current form; repo: `grep json_schema course/code`, `course/local_adapter.py` | anthropic 1.8.0 | Corrected in RC4 (the row listed Chapter 4, which sets only `effort`, and missed Chapter 22). | author / closed |
+| `91_appendix.md`, Appendix G, This edition and the code it was tested with | The default models are the recorded runs' models; Claude Haiku 5.5 replaces Claude Haiku 4.5 if it is deprecated, untested with this edition | https://platform.claude.com/docs/en/about-claude/model-deprecations; repo: VERSION_MATRIX.md | Checked 2026-10-14 | Verified. Both models Active; at least 60 days' notice before retirement. | author / closed |
 
 ## Part 5: MCP (Chapters 12–15)
 
@@ -135,9 +137,9 @@ This ledger records every claim in the book that can go stale: API, model, price
 
 | Result | Rows |
 | --- | ---: |
-| Verified | 70 |
-| Corrected | 5 |
+| Verified | 71 |
+| Corrected | 6 |
 | Needs correction | 0 |
 | Softened | 8 |
 | Unresolved | 0 |
-| **Total** | **83** |
+| **Total** | **85** |
