@@ -460,7 +460,7 @@ Code: [`ch24_tool_runner.py`](course/code/ch24/ch24_tool_runner.py) (learning de
 | 24.3 | Simple | See the approval gate work | claude-rec | [ANSWERS.md](solutions/ANSWERS.md) |
 | 24.4 | Medium | Agent SDK with your MCP servers | claude-rec | [`ex24_4_sdk_mcp.py`](solutions/exercises/ch24/ex24_4_sdk_mcp.py) |
 | 24.5 | Complex | Same agent, three frameworks | claude-rec | [`ex24_5_three_ways.py`](solutions/exercises/ch24/ex24_5_three_ways.py) |
-| 24.6 | Medium | Write a skill | claude | [`ex24_6_skills.py`](solutions/exercises/ch24/ex24_6_skills.py), [exercises/skills/customer-lookup/SKILL.md](solutions/exercises/skills/customer-lookup/SKILL.md) |
+| 24.6 | Medium | Write a skill | claude-rec | [`ex24_6_skills.py`](solutions/exercises/ch24/ex24_6_skills.py), [exercises/skills/customer-lookup/SKILL.md](solutions/exercises/skills/customer-lookup/SKILL.md) |
 | 24.7 | Complex | A managed analyst | claude | [`ex24_7_managed.py`](solutions/exercises/ch24/ex24_7_managed.py) |
 | 24.8 | Medium | Does the skill help? | any | [`ex24_8_skill_eval.py`](solutions/exercises/ch24/ex24_8_skill_eval.py), [`test_part7.py`](solutions/tests/test_part7.py) |
 | 24.9 | Concept | Choose a runtime | none | [ANSWERS.md](solutions/ANSWERS.md) |

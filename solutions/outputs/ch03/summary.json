@@ -88,11 +88,12 @@
    "id": "3.7",
    "title": "Tool search at scale",
    "kind": "run",
-   "status": "skipped",
-   "reason": "Claude only",
-   "seconds": 0,
-   "log": null,
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "status": "passed",
+   "reason": null,
+   "seconds": 38.2,
+   "log": "ch03/3.7.log",
+   "model": "claude-sonnet-5 (Claude API)",
+   "commit": "624e451df84b"
   }
  ]
 }

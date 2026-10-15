@@ -47,7 +47,7 @@ def live_runs():
         for x in data["exercises"]:
             runs[x["id"]] = dict(x, model=x.get("model") or data.get("model", ""), date=x.get("date") or data.get("date", ""))
     ids = [e["id"] for e in ex] + [f"C{n}" for n in range(1, 8)]
-    outcome, provider, not_run, dates = Counter(), Counter(), [], []
+    outcome, provider, not_run, dates, commits = Counter(), Counter(), [], [], set()
     for i in ids:
         x = runs.get(i)
         if not x:
@@ -60,6 +60,8 @@ def live_runs():
             provider["no model" if label.startswith("none") else
                      "local (qwen3.5:9b)" if "local" in label or "qwen" in label else "Claude API"] += 1
             dates.append(x["date"][:10])
+            if x.get("commit"):
+                commits.add(x["commit"])
         elif reason.startswith("concept"):
             outcome["written answer"] += 1
         elif reason.startswith("needs a model"):
@@ -69,6 +71,7 @@ def live_runs():
     return {"exercises_and_capstones": len(ids), "by_outcome": dict(outcome),
             "runs_by_provider": dict(provider), "not_run_yet": not_run,
             "dates": f"{min(dates)} to {max(dates)}" if dates else None,
+            "commits": sorted(commits),
             "evidence": "solutions/outputs/*/summary.json (each records its own commit and lock hash)"}
 
 
@@ -134,13 +137,19 @@ def open_gates(live, prov):
     if live["not_run_yet"]:
         gates.append("Record live-model runs for " + ", ".join(live["not_run_yet"]) +
                      " (./course.sh run-chapter <ids> --model claude), or approve them as exceptions here.")
+    if len(live.get("commits", [])) > 1:
+        gates.append(f"Live-model runs come from {len(live['commits'])} commits; rerun them on the release "
+                     "commit, or record for each exercise why its evidence still applies.")
     gates += ["Clean setup from a fresh checkout on Windows, macOS and Linux "
               "(./course.sh setup, build, selftest, quickstart).",
               "Independent technical review and a beginner-reader pilot (PILOT.md), with findings recorded.",
               "Final proof of the print files, and KDP preview of paperback and hardcover "
               "(trim, gutter, spine, cover, ISBN and metadata).",
               "Confirm the ISBN registrations match the title, subtitle, author and imprint.",
-              "Run dev/check_links.py with network access."]
+              "Run dev/check_links.py with network access on the release commit, and open by hand any "
+              "link a site blocks for automated checks (403) or rejects for its user agent.",
+              f"Publish the {TAG} tag on the verified commit (or a docs-only commit after it), then check that "
+              "a clean checkout of the tag follows How to Use This Book's setup exactly."]
     return gates
 
 

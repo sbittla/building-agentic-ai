@@ -106,6 +106,15 @@ Then rebuild and run the checks under "Upgrading the pinned versions". The relea
 
 Prices live in one place, `PRICES` in `course/code/ch20/ch20_router.py`, which Chapters 20 and 29 and Appendix E use.
 
+**Model lifecycle (checked 14 October 2026)** against Anthropic's deprecations page ([platform.claude.com/docs/en/about-claude/model-deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations)). Both Claude models are the ones the recorded tests used, and both are still active:
+
+| Model | Status | Tentative retirement | Newer model in the same tier |
+| --- | --- | --- | --- |
+| Claude Sonnet 5 (`claude-sonnet-5`) | Active (legacy: a newer Sonnet exists) | Not sooner than 30 June 2027 | `claude-sonnet-5-5`, same price |
+| Claude Haiku 4.5 (`claude-haiku-4-5`) | Active | Not sooner than 15 October 2026 | `claude-haiku-5-5`, $0.10 / $0.50 |
+
+Anthropic gives at least 60 days' notice before it retires a model. If `claude-haiku-4-5` is deprecated, set `MODEL` (or the small model in `PRICES`) to `claude-haiku-5-5`. That replacement **has not been tested** with this release. It thinks by default and its effort default is `medium`, so rerun Chapters 20 and 29 and `python dev/cost_model.py --check` after switching. Any change to the default model goes into `CHANGELOG.md` and a patch release.
+
 **Evidence for the First edition.** On 8 October 2026 the model ids and prices above were checked against Anthropic's pricing page ([platform.claude.com/docs/en/about-claude/pricing](https://platform.claude.com/docs/en/about-claude/pricing)): Claude Sonnet 5 at $2 / $10 and Claude Haiku 4.5 at $1 / $5 per million tokens, matching `PRICES`. `dev/check_references.py` fails CI if this file, the `Dockerfile` and `PRICES` disagree, and `dev/cost_model.py --check` fails if Appendix E's cost figures are stale. Model ids and prices change more often than anything else in this file; check the Claude docs' models overview before changing `MODEL`.
 
 ## Protocols

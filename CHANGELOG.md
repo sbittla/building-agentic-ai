@@ -2,6 +2,8 @@
 
 What changed in the book and this repository, newest first. The book's First edition is matched by the release `book-v1.0.0`; see "Book editions and code versions" in [README.md](README.md). Corrections to the published text are listed in [ERRATA.md](ERRATA.md). Later fixes to the code go into patch releases such as `book-v1.0.1`.
 
+Only a section named after a tag (`book-v…`) is a public release. Sections marked *(unreleased)* are internal manuscript snapshots between release candidates, kept as development history.
+
 ## book-v1.0.0: First edition (2026)
 
 The first public release: the book's First edition and the repository release that matches it. 32 chapters and 6 interludes, 249 exercises, seven capstones. `book-v1.0.0-rc2` is the current release candidate; [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) lists what it was verified with and the gates still open.
@@ -15,6 +17,8 @@ At most the same 510 pages as rc2 and rc3 (LibreOffice 24.2), with six more figu
 - **Capstones:** every one now has a recorded run. Capstone 2's `describe_table` reports columns it dropped and its approval ignores names a query defines; Capstone 4's verdict is decided in code from failing tests, blocking findings and any deleted test.
 - **From the full local-model run:** Chapter 11's `research` recovers a plan sent as one string (it once started a subagent per character) and caps it at 4; its synthesis prompt asks for each claim's source; section 11.3 says so. Model notes on 6.2, 8.5, 18.6 and 30.2, and a sentence in Capstone 3, describe what a small model does there.
 - **Exercise boxes:** the per-box "Full brief" line moved into each chapter's exercise intro (94 lines).
+- **Release review (RC4):** the Preface no longer says pinning keeps the examples working as the field moves. It now says pinned dependencies reproduce this release, some runtime images can change on their own, and readers should check out the release tag. VERSION_MATRIX.md records the model lifecycle check of 14 October 2026 (Claude Sonnet 5 and Claude Haiku 4.5 still active) and an untested replacement path to Claude Haiku 5.5. PILOT.md gains a record section that says the pilot and the independent review haven't happened yet. The model rows in CLAIMS_AUDIT.md were re-checked. `release_manifest.py` lists the commits behind the live-model runs and adds gates for rerunning them on the release commit and for publishing the tag.
+- **Run records:** the full local-model run had replaced the Claude results for 3.7, 16.7, 24.6 and 24.7 with "skipped"; their recorded Claude runs are restored.
 - Copy-edit: the author's path replaced by a reader's in two examples, checkpoint wording made consistent, a doubled comma, a duplicated reference, a Haiku 4.5 caveat (no `EFFORT`), `--gpu` in the setup steps, and two GPU rows in Appendix H.
 
 ### Release candidate 3 manuscript (unreleased)

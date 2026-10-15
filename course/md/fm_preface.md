@@ -82,7 +82,7 @@ Every exercise has a reference solution in the course kit. "How to Use This Book
 
 All code, sample data, starter files, checkers and solutions are in the course kit, the book's companion repository at **github.com/sbittla/building-agentic-ai**. Setup takes about 15 minutes. The examples use Anthropic's Claude models through the Claude API, which needs an API key and a little credit. If you'd rather not pay, the kit can run a free open-source model, `qwen3.5:9b`, in Docker on your own computer; Appendix H shows how, and every exercise is labeled with the model it needs. Appendix E estimates the cost: about {{cost:learner}} in API usage for all the chapters on Claude Sonnet 5, about half on Claude Haiku 4.5, and nothing on the local model.
 
-The kit pins every library version so the examples keep working as the field moves.
+The kit pins its library dependencies for this edition and records the versions used for verification. Pinning lets you reproduce a release; it can't promise that future providers and services will still behave the same. Some external runtime images can change on their own; `VERSION_MATRIX.md` says which, and what to do about it. For examples that match this book, check out its release rather than the moving `main` branch.
 
 This edition is matched by a release of the repository tagged `book-v1.0.0`: `git checkout book-v1.0.0` gives you the code, data and solutions this book was written against, and the tag never moves. `VERSION_MATRIX.md` lists the version of every library, model and protocol it was tested with, and exactly what that testing covered; `CHANGELOG.md` lists what changes on `main` after release, and `ERRATA.md` any mistakes found in this edition.
 
