@@ -81,6 +81,9 @@ def main():
             continue
         cursor = found + 1 if h["level"] == 0 else found   # a part opener is a page of its own
         result[h["id"]] = str(found - main_start + 1) if found >= main_start else roman(found + 1)
+    # front-matter pages, not counting the blank verso build.js adds when this count is odd
+    # (page 1 must fall on a right-hand page; LibreOffice decides left/right by page number)
+    result["_front_matter_pages"] = main_start - (0 if pages[main_start - 1] else 1)
     json.dump(result, open(os.path.join(HERE, "toc_pages.json"), "w"), indent=1)
     print(f"{len(result)} page numbers written; {len(missing)} headings not found")
     for m in missing[:20]:

@@ -805,6 +805,10 @@ const tocIndex = sections.length;
 sections.push(null);                                   // Contents, filled in after the body is converted
 for (const f of FRONT) addSection(convert(md(f), f), running(h1(f)));
 
+// page 1 must be a right-hand page. LibreOffice and Word decide left/right by page number, so an
+// odd-length front matter would put page 1 (and every odd page) on a physical left-hand page.
+if ((TOC_PAGES._front_matter_pages || 0) % 2 === 1)
+  addSection([new Paragraph({ children: [] })], empty());   // blank verso
 // main matter (arabic numerals from Part 0)
 let firstMain = true;
 NUMFMT = NumberFormat.DECIMAL;
@@ -881,6 +885,11 @@ Packer.toBuffer(doc).then(async buf => {
     const xml = await zip.file(name).async("string");
     zip.file(name, xml.replace(/<wp:docPr id="\d+"/g, () => `<wp:docPr id="${++n}"`));
   }
+  // docx has no option for mirrored margins: without this, left-hand pages put the narrow
+  // margin on the spine side. Schema order puts mirrorMargins before evenAndOddHeaders.
+  const settings = await zip.file("word/settings.xml").async("string");
+  if (!settings.includes("<w:evenAndOddHeaders/>")) throw new Error("settings.xml: evenAndOddHeaders missing");
+  zip.file("word/settings.xml", settings.replace("<w:evenAndOddHeaders/>", "<w:mirrorMargins/><w:evenAndOddHeaders/>"));
   buf = await zip.generateAsync({ type: "nodebuffer", compression: "DEFLATE" });
   fs.writeFileSync(outPath, buf); console.log("wrote", outPath, buf.length, "bytes;", n, "pictures");
 });
