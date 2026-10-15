@@ -4,7 +4,8 @@
   "book_edition": "First edition",
   "book_release": "1.0.0",
   "repository_tag": "book-v1.0.0",
-  "release_candidate_tag": "book-v1.0.0-rc2",
+  "release_candidate_tag": "book-v1.0.0-rc4",
+  "release_status": "candidate: book-v1.0.0 is not published until every open_gates entry is closed",
   "isbn": {
     "paperback": "979-8177506326",
     "hardcover": "979-8177514734"

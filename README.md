@@ -9,7 +9,7 @@ You need Docker (16 GB of RAM, about 15 GB of disk) and, for the paid path, a Cl
 ```bash
 git clone https://github.com/sbittla/building-agentic-ai.git
 cd building-agentic-ai
-git checkout book-v1.0.0          # the release that matches the First edition of the book
+git checkout book-v1.0.0          # the book's release (until it's published: book-v1.0.0-rc4)
 ./course.sh setup                 # checks Docker, creates .env, asks Claude or local model
 ./course.sh build                 # builds the image (5-10 minutes, once)
 ./course.sh quickstart            # your first agent, no key needed
@@ -64,9 +64,11 @@ On Windows, replace `./course.sh` with `.\course.cmd` in every command below.
 
 The book's **First edition** is matched by the repository release **`book-v1.0.0`**. Check it out before you start, not `main`: `git checkout book-v1.0.0`, then `git describe --tags` should print `book-v1.0.0`. `main` keeps moving, and fixes and compatibility updates land there, listed in [CHANGELOG.md](CHANGELOG.md), never silently. A tag never moves, so the code at the book's tag always matches the book. Mistakes in the printed text are in [ERRATA.md](ERRATA.md).
 
+**`book-v1.0.0` is not published yet.** It is tagged only when every `open_gates` entry in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) is closed. Until then, check out the current release candidate, `book-v1.0.0-rc4`, which matches the RC4 manuscript. The final tag goes on the same code; if a gate finds a problem, [CHANGELOG.md](CHANGELOG.md) says what changed.
+
 | Book asset | Exercises | Capstones | Matching repository release | Status |
 | --- | ---: | ---: | --- | --- |
-| First edition (2026) | 249 | 7 | `book-v1.0.0` | Release candidate `book-v1.0.0-rc2` until the `open_gates` in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) are closed |
+| First edition (2026) | 249 | 7 | `book-v1.0.0` | Not published. Current candidate: `book-v1.0.0-rc4` (RC4 manuscript); it becomes `book-v1.0.0` when the `open_gates` in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) are closed |
 | Development snapshots | — | — | Historical `edition-*` tags | Internal development history; not published book editions |
 
 This repository was developed through several internal manuscript and code snapshots before the book's first public edition. The historical development tags (`edition-1.0`, `edition-1.1`, `edition-1.2`) are kept for traceability. They do not indicate earlier commercial printings.
@@ -86,7 +88,7 @@ How exercises are counted: every numbered exercise in the book's 32 chapters and
    ```bash
    git clone https://github.com/sbittla/building-agentic-ai.git
    cd building-agentic-ai
-   git checkout book-v1.0.0
+   git checkout book-v1.0.0      # until it's published: book-v1.0.0-rc4
    ```
    No Git? Download the ZIP from the repository page and unzip it anywhere, for example `D:\Learning\building-agentic-ai`.
 3. **Choose a model.**

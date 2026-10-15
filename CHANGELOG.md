@@ -6,7 +6,7 @@ Only a section named after a tag (`book-v…`) is a public release. Sections mar
 
 ## book-v1.0.0: First edition (2026)
 
-The first public release: the book's First edition and the repository release that matches it. 32 chapters and 6 interludes, 249 exercises, seven capstones. `book-v1.0.0-rc2` is the current release candidate; [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) lists what it was verified with and the gates still open.
+The first public release: the book's First edition and the repository release that matches it. 32 chapters and 6 interludes, 249 exercises, seven capstones. `book-v1.0.0` is not published yet; `book-v1.0.0-rc4`, matching the RC4 manuscript, is the current release candidate; [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) lists what it was verified with and the gates still open.
 
 ### Release candidate 4 manuscript (unreleased)
 At most the same 510 pages as rc2 and rc3 (LibreOffice 24.2), with six more figures.

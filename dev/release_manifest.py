@@ -26,7 +26,7 @@ KIT = Path(__file__).resolve().parent.parent
 OUT = KIT / "RELEASE_MANIFEST.json"
 RELEASE = "1.0.0"
 TAG = f"book-v{RELEASE}"
-CANDIDATE = f"{TAG}-rc2"
+CANDIDATE = f"{TAG}-rc4"   # named after the manuscript it matches (the RC4 PDF)
 # Files whose change after the verified commit would make the test results stale.
 CODE_PATHS = ["course/code", "course/checks", "course/starters", "course/course.py", "course/data",
               "solutions/exercises", "solutions/capstones", "solutions/tests", "requirements.lock",
@@ -100,6 +100,7 @@ def build():
                        "(the free local model). If a registry stops serving them, see VERSION_MATRIX.md.")
     limitations.append("Production readiness is not claimed: the course kit is not production-hardened "
                        "(Appendix M of the book, SECURITY_MODEL.md).")
+    gates = open_gates(live, prov)
     return {
         "book_title": "Building Agentic AI Systems: From First Agent to MCP, Multi-Agent Orchestration, and Production",
         "author": "Srinivasa Rao Bittla",
@@ -107,6 +108,8 @@ def build():
         "book_release": RELEASE,
         "repository_tag": TAG,
         "release_candidate_tag": CANDIDATE,
+        "release_status": (f"candidate: {TAG} is not published until every open_gates entry is closed"
+                           if gates else f"released as {TAG}"),
         "isbn": {"paperback": "979-8177506326", "hardcover": "979-8177514734"},
         "exercises": len(ex),
         "capstones": capstones,
@@ -121,7 +124,7 @@ def build():
                                 "evidence": "verification/offline.json"},
         "model_test_status": live,
         "known_limitations": limitations,
-        "open_gates": open_gates(live, prov),
+        "open_gates": gates,
         "commit_note": ("git_commit is the commit the tests ran on. The release tag may sit on a later "
                         "commit that adds only verification artifacts and docs; release_manifest.py --check "
                         "fails if any code, solution, test or environment file changed in between."),
