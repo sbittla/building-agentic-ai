@@ -1,31 +1,30 @@
 # Exercise: 11.3  Run the team
 # Command:  python ch11_research_team.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-15 00:52:11 UTC
+# Date:     2026-10-15 05:26:55 UTC
 # Exit code: 0
-# Seconds:  129.8
+# Seconds:  114.2
 #-------------------------------------------------------------------------------
 PLAN: [
-  "Analyze the costs associated with agentic search versus RAG for internal documentation",
-  "Evaluate the freshness of information retrieval between agentic search and RAG systems",
-  "Compare the accuracy of exact error code retrieval in agentic search versus RAG"
+  "Analyze the cost implications of agentic search versus RAG for retrieving information from internal documentation.",
+  "Evaluate how each approach handles data freshness and recency when querying internal docs.",
+  "Assess accuracy differences between agentic search and RAG specifically for exact error code lookups."
 ]
 
-[126.6s, {'input_tokens': 6797, 'output_tokens': 1812, 'calls': 12}]
-Here is a concise comparison of Agentic Search and RAG based on your research findings:
+[111.8s, {'input_tokens': 5581, 'output_tokens': 1629, 'calls': 10}]
+Based on the research findings provided, here is the comparison between Agentic Search and RAG regarding cost, freshness, and accuracy for exact error codes:
 
-**Cost Analysis**
-*   **Agentic Search:** Costs scale directly with model usage, as agents perform multiple steps (listing, searching, reading) and resend history, leading to significantly higher token and compute costs per query. It eliminates recurring indexing overhead but requires proactive budget caps.
-*   **RAG:** Incurs high upfront/compute costs for splitting documents and embedding them. While query-time retrieval is cheaper per step, the system faces ongoing costs for re-indexing jobs triggered by document updates and storage for massive collections.
+**Cost**
+*   **Agentic Search** incurs significantly higher token consumption because agents perform multiple model calls per question and resend history with each interaction, leading to costs far exceeding single-chat or simple retrieval queries (cost-of-agents.md:2). However, it may reduce costs associated with re-indexing since it avoids stale indexes and scheduled jobs (agentic-search.md:1).
+*   **RAG** generally has lower per-query token overhead but introduces compute costs for periodic re-indexing when source documents change to prevent staleness (rag-overview.md:2). Combining RAG with keyword search adds architectural complexity but improves recall (hybrid-retrieval.md:1).
 
-**Freshness Comparison**
-*   **Agentic Search:** Provides superior freshness because it queries current file contents directly; no index means zero staleness issues between document updates.
-*   **RAG:** Prone to stale indexes when source documents change. Freshness is only maintained by scheduling periodic re-indexing jobs or manual triggers, introducing latency between an update and retrieval accuracy.
+**Freshness**
+*   **Agentic Search** offers a distinct freshness advantage by eliminating stale indexes entirely; results are always up-to-date without needing scheduled re-indexing jobs, which also reduces compute costs associated with maintenance (agentic-search.md:1).
+*   **RAG** suffers from staleness because vector indexes become outdated when source documents change. Teams must rely on scheduled or triggered re-indexing jobs to maintain freshness; failure to do so results in wrong answers (freshness.md:1, rag-overview.md:2).
 
 **Accuracy on Exact Error Codes**
-*   **Agentic Search:** Offers higher accuracy for exact identifiers (e.g., `ERR-4471`). It relies on regex-based keyword searches that distinguish clearly between similar codes (e.g., preventing confusion with `ERR-4417`). However, this precision comes at the expense of higher cost due to multi-step execution.
-*   **RAG:** Struggles with exact identifier retrieval because embedding models treat similar codes as nearly identical, often retrieving irrelevant chunks or missing exact matches entirely. Its chunk-based approach is imprecise for specific identifiers, creating a reliability tradeoff that affects downstream application costs.
+*   **Agentic Search** provides superior accuracy for exact error codes by utilizing regex search, which reliably distinguishes between similar-looking codes (e.g., `ERR-4471` vs. `ERR-4417`) that embedding models might confuse due to semantic similarity (error-codes.md:2).
+*   **RAG** relies on vector embeddings which suffer from ambiguity, often treating distinct exact error codes as nearly identical (error-codes.md:2). While accuracy can be improved for RAG by combining it with keyword/BM25 search (hybrid-retrieval.md:1-2), standalone RAG remains less accurate for exact lookups due to index staleness and embedding collisions compared to the regex-based approach of agentic search.
 
-**Disagreements and Nuances**
-There are no direct contradictions in the findings; rather, they present a clear **accuracy-vs-cost vs. freshness tradeoff**:
-*   The only potential "disagreement" lies in the definition of efficiency: RAG is efficient per query but suffers from long-term staleness maintenance costs and poor precision on IDs. Agentic Search is inefficient per query (high token/compute cost) but guarantees fresh, precise results without infrastructure overhead. Both sources agree that RAG's precision loss on exact codes is its primary weakness, while Agentic Search's high step count is its primary weakness.
+**Disagreements/Notes on Findings**
+There are no direct contradictions between the findings; rather, they highlight a **trade-off**. Agentic search trades lower per-query token costs (relative to complex multi-step agents) for better freshness and exact-match accuracy via regex, whereas RAG trades potential staleness for simpler scaling but requires hybrid strategies (adding keyword search) to match agentic accuracy on exact terms. The cost profile shifts from "high per-query tokens" (Agentic) to "maintenance re-indexing costs + fallback mechanisms" (RAG).

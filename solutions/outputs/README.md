@@ -23,14 +23,14 @@ This file is rewritten after every run.
 | [9](ch09/) | Chapter 9: Human-in-the-Loop Approval | 4 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 00:31 |
 | [10](ch10/) | Chapter 10: Feedback Loops | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 00:49 |
 | [A](A/) | Interlude: Asynchronous Python | 4 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-15 00:50 |
-| [11](ch11/) | Chapter 11: Multi-Agent Systems | 4 | 1 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 01:16 |
+| [11](ch11/) | Chapter 11: Multi-Agent Systems | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 05:26 |
 | [12](ch12/) | Chapter 12: MCP Fundamentals and Your First Server | 1 | 0 | 6 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 01:16 |
 | [13](ch13/) | Chapter 13: Build Your Own MCP Client | 7 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-15 01:19 |
 | [14](ch14/) | Chapter 14: Using Servers You Didn't Write | 3 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 01:21 |
 | [15](ch15/) | Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure | 2 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 01:21 |
 | [16](ch16/) | Chapter 16: Context Engineering | 5 | 0 | 3 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 04:47 |
 | [17](ch17/) | Chapter 17: Agent Memory Engineering | 7 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 02:34 |
-| [18](ch18/) | Chapter 18: Agentic RAG and Knowledge Systems | 6 | 1 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 02:49 |
+| [18](ch18/) | Chapter 18: Agentic RAG and Knowledge Systems | 7 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 05:28 |
 | [19](ch19/) | Chapter 19: Long-Running Agents | 4 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 02:52 |
 | [20](ch20/) | Chapter 20: Planning and Model Routing | 4 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 02:55 |
 | [21](ch21/) | Chapter 21: Multi-Agent Orchestration | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 02:59 |
@@ -42,7 +42,7 @@ This file is rewritten after every run.
 | [27](ch27/) | Chapter 27: Agent Evaluation: Dimensions, Trajectories and Scorecards | 6 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 04:04 |
 | [28](ch28/) | Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents | 7 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-15 04:05 |
 | [29](ch29/) | Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost | 7 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-15 04:17 |
-| [30](ch30/) | Chapter 30: Deploying Agents: From One Service to an Agent Platform | 9 | 1 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 04:23 |
+| [30](ch30/) | Chapter 30: Deploying Agents: From One Service to an Agent Platform | 10 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 05:29 |
 | [31](ch31/) | Chapter 31: From Prototype to Customer Production | 4 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-15 04:23 |
 | [X](X/) | Extra Practice (course kit) | 2 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-15 04:23 |
 | [C1](C1/) | Capstone 1 | 1 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-15 04:24 |

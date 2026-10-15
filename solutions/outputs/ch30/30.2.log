@@ -1,11 +1,12 @@
 # Exercise: 30.2  Call your agent API
 # Command:  python ch30_client.py && python ch30_client.py stream
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-15 04:18:25 UTC
+# Date:     2026-10-15 05:29:17 UTC
 # Exit code: 0
-# Seconds:  35.9
+# Seconds:  37.4
 #-------------------------------------------------------------------------------
-{'session_id': 'cfb8ce3916bd4915927dbe8453fe6261', 'answer': '```sql\nSELECT COUNT(*) FROM orders;\n```\n\nThere are 153 orders. This is the count of all orders in the orders table, regardless of their status or associated line items.', 'steps': 2, 'tool_calls': 1, 'input_tokens': 414, 'output_tokens': 56}
-{'session_id': 'cfb8ce3916bd4915927dbe8453fe6261', 'answer': "There are 88 cancelled orders. This is the count of orders where the status field equals 'cancelled'.", 'steps': 2, 'tool_calls': 1, 'input_tokens': 122, 'output_tokens': 60}
+{'session_id': 'a69a38ebfe2d4170b323c8c3dca24adf', 'answer': 'There are 400 orders.', 'steps': 3, 'tool_calls': 2, 'input_tokens': 605, 'output_tokens': 54}
+{'session_id': 'a69a38ebfe2d4170b323c8c3dca24adf', 'answer': 'There are 88 cancelled orders.', 'steps': 2, 'tool_calls': 1, 'input_tokens': 89, 'output_tokens': 46}
 [tool] {'name': 'get_schema', 'input': {}, 'result_preview': 'CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, city TEXT, joined DATE)\nCREATE TABLE products  (id INTEGER PRIMARY KEY, name TEXT, category TEXT, price REAL)\nCREATE TABLE orders    (id INTE'}
-[answer] {'session_id': 'ec6dbb1c3cbe4dfda84047987f6412b0', 'answer': "SHOW revenue per category:\n\n\n```sql\nSELECT p.category, SUM(CASE WHEN o.status != 'cancelled' THEN oi.quantity * p.price END) AS revenue\nFROM order_items oi\nJOIN products p ON oi.product_id = p.id\nJOIN orders o ON oi.order_id = o.id\nGROUP BY p.category\nORDER BY revenue DESC;\n```\n\nThe top category is **Clothing** with the highest revenue.", 'steps': 2, 'tool_calls': 1, 'input_tokens': 416, 'output_tokens': 102, 'stop_reason': 'end_turn', 'model': 'qwen3.5:9b'}
+[tool] {'name': 'run_query', 'input': {'sql': "SELECT p.category, SUM(oi.quantity * p.price) AS revenue\nFROM order_items oi\nJOIN products p ON oi.product_id = p.id\nJOIN orders o ON oi.order_id = o.id\nWHERE o.status != 'cancelled'\nGROUP BY p.category\nORDER BY revenue DESC\nLIMIT 1;"}, 'result_preview': 'category | revenue\nelectronics | 312150.0'}
+[answer] {'session_id': '8ed088d33b0f45a9a3701cffab12bc09', 'answer': 'electronics earns $312,150 in revenue. The category with the highest non-cancelled order revenue is electronics.', 'steps': 3, 'tool_calls': 2, 'input_tokens': 675, 'output_tokens': 131, 'stop_reason': 'end_turn', 'model': 'qwen3.5:9b'}
