@@ -12,7 +12,7 @@ Only relevant if you worked from an internal snapshot of the repository before t
 
 ### edition-1.2 → book-v1.0.0
 
-Nothing to change in your code. The First edition's text was rewritten from the edition-1.2 snapshot; every chapter, section number, exercise id, file and command is the same. The one code change is cosmetic: `ch30_improvement_loop.py` labels its demo releases `sql-analyst` instead of `support-agent`.
+Nothing to change in your code. The First edition's text was rewritten from the edition-1.2 snapshot; every chapter, section number, exercise id, file and command is the same. Seven chapter files changed slightly (`ch04_agent.py`, `ch10_sandbox.py`, `ch11_research_team.py`, `ch27_scorecard.py`, `ch30_improvement_loop.py`, `ch30_service.py` and `eval_sql.jsonl`), and several reference solutions were fixed; [CHANGELOG.md](CHANGELOG.md) says why. No file, function signature or exercise id was renamed or removed.
 
 ### edition-1.1 → edition-1.2 (internal snapshots)
 
