@@ -15,8 +15,8 @@ This file is rewritten after every run.
 | [4](ch04/) | Chapter 4: The Agent Loop | 4 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-14 23:32 |
 | [5](ch05/) | Chapter 5: State and Short-Term Memory | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 23:34 |
 | [R](R/) | Interlude: Regular Expressions | 3 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-14 23:34 |
-| [6](ch06/) | Chapter 6: Agentic Search: Exploring an Environment | 4 | 1 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-14 23:49 |
-| [7](ch07/) | Chapter 7: Real APIs | 4 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-14 23:58 |
+| [6](ch06/) | Chapter 6: Agentic Search: Exploring an Environment | 5 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-15 05:47 |
+| [7](ch07/) | Chapter 7: Real APIs | 4 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 05:44 |
 | [S](S/) | Interlude: SQL in One Sitting | 3 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-14 23:58 |
 | [8](ch08/) | Chapter 8: Self-Correction: A Text-to-SQL Agent | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 05:24 |
 | [M](M/) | Interlude: Measuring an Agent | 2 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-15 00:29 |

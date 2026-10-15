@@ -2,9 +2,9 @@
  "chapter": "6",
  "title": "Chapter 6: Agentic Search: Exploring an Environment",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-14 23:49",
+ "date": "2026-10-15 05:47",
  "provenance": {
-  "commit": "c7330a5deef3",
+  "commit": "523e58d47b0c-modified",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -34,12 +34,12 @@
    "id": "6.2",
    "title": "Ask your notes",
    "kind": "ask",
-   "status": "failed",
-   "reason": "output lacks /answers with citations: [4-5] of 5/",
-   "seconds": 67.5,
+   "status": "passed",
+   "reason": null,
+   "seconds": 60.7,
    "log": "ch06/6.2.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "c7330a5deef3"
+   "commit": "523e58d47b0c-modified"
   },
   {
    "id": "6.3",
