@@ -2,9 +2,9 @@
  "chapter": "C3",
  "title": "Capstone 3",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-15 04:28",
+ "date": "2026-10-15 05:32",
  "provenance": {
-  "commit": "c7330a5deef3",
+  "commit": "059cdccbdb57-modified",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -24,12 +24,12 @@
    "id": "C3",
    "title": "Capstone 3 (c3_incident)",
    "kind": "capstone",
-   "status": "failed",
-   "reason": "output lacks /\"suspect_commit\": \"[0-9a-f]+\"/",
-   "seconds": 145.5,
+   "status": "passed",
+   "reason": null,
+   "seconds": 173.8,
    "log": "C3/C3.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "c7330a5deef3"
+   "commit": "059cdccbdb57-modified"
   }
  ]
 }
