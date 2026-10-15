@@ -35,12 +35,13 @@ def solution_paths() -> dict:
     """Flat solution names in solutions/index.json -> where the file really is."""
     root = KIT / "solutions"
     return {p.name: p.relative_to(KIT).as_posix() for p in root.rglob("*") if p.is_file()
-            and "__pycache__" not in p.parts and "outputs" not in p.parts}
+            and "__pycache__" not in p.parts and "outputs" not in p.parts and "_index" not in p.parts}
 
 
 def code_paths() -> dict:
+    # _index/ holds local symlinks to the chapter files (generate_symlinks.ps1, git-ignored)
     return {p.name: p.relative_to(KIT).as_posix() for p in CODE.rglob("*") if p.is_file()
-            and "__pycache__" not in p.parts}
+            and "__pycache__" not in p.parts and "_index" not in p.parts}
 
 
 def capstone_chapters() -> dict:

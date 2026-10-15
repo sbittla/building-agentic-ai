@@ -172,7 +172,7 @@ Table: Capstone 3 reference solution
 | `obs_server.py` | Read-only logs, metrics and runbooks |
 | `agent.py` | Investigates with read-only tools, then fills a forced `triage_report`: impact, timeline, suspected cause, suspect commit, evidence, next steps |
 
-Run it with `./course.sh capstone 3`. Compare whether your agent checks a baseline from before the alert, whether every claim in the report has evidence, and the rule that the agent never runs remediation itself.
+Run it with `./course.sh capstone 3`. Compare whether your agent checks a baseline from before the alert, whether every claim in the report has evidence, and the rule that the agent never runs remediation itself. A small model often skips the deploys; the reference sends it back once when it never called `git_log`.
 
 **Extension challenges:**
 
@@ -361,7 +361,7 @@ Table: Capstone 7 reference solution
 | --- | --- |
 | `brief.md` | The request as received and Bayview's constraint sheet |
 | `data.py` | Writes `handovers.jsonl`: 30 synthetic handover notes with reference summaries, 13 of them messy |
-| `engagement.py` | The engagement as data: brief, environment, slices, design, criteria and pilot results by week. Runs every Chapter 31 check and writes `ENGAGEMENT.md`; `--week 1` and `--week 3` show the stop and hold decisions on the way to promote |
+| `engagement.py` | The engagement as data: brief, environment, slices, design, criteria and pilot results by week. Runs every Chapter 31 check and writes `ENGAGEMENT.md`; its weeks are pilot weeks: `--week 1` stops, `--week 3` holds, and the full record promotes at week 6 |
 
 The reference leaves out the handover agent, which you build with the context and retrieval techniques of Chapters 16 to 18, and shows the engagement around it. Run it with `./course.sh capstone 7`, or `./course.sh capstone 7 --week 3`. Compare your brief's metric and baseline, your first slice, and when your criteria were written.
 

@@ -77,21 +77,23 @@
    "id": "24.6",
    "title": "Write a skill",
    "kind": "run",
-   "status": "skipped",
-   "reason": "Claude only",
-   "seconds": 0,
-   "log": null,
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "status": "passed",
+   "reason": null,
+   "seconds": 21.1,
+   "log": "ch24/24.6.log",
+   "model": "claude-sonnet-5 (Claude API)",
+   "commit": "624e451df84b-modified"
   },
   {
    "id": "24.7",
    "title": "A managed analyst",
    "kind": "run",
-   "status": "skipped",
-   "reason": "Claude only",
-   "seconds": 0,
-   "log": null,
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "status": "passed",
+   "reason": null,
+   "seconds": 40.7,
+   "log": "ch24/24.7.log",
+   "model": "claude-sonnet-5 (Claude API)",
+   "commit": "624e451df84b"
   },
   {
    "id": "24.8",

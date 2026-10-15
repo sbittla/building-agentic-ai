@@ -52,9 +52,9 @@
  "R.3": {"expect": ["notes.v2/read-me.txt", "work/plan.md', 12"], "expect_not": ["page 12"]},
 
  "6.2": {"setup": "printf '# My bike\\nBought a Trek FX 3 in March 2026.\\nNext service is due on 2026-11-15 at Cycle Hub.\\n' > notes/personal/my-bike.md",
-         "env": {"ASK_SYSTEM_EXTRA": "Write every citation as the note's full path and ONE line number in parentheses right after the fact, exactly like (work/2026-06-02-incident-kafka-lag.md:3). Never write (file:3) or 'lines 2-3'."},
+         "env": {"ASK_SYSTEM_EXTRA": "Write every citation as the note's full path and ONE line number in parentheses right after the fact, exactly like (work/2026-06-02-incident-kafka-lag.md:3). Never write (file:3) or 'lines 2-3'. If a search finds no matches, search again with one simple keyword (like bike or passport) before you answer."},
          "cmd": "python {SOL}/exercises/ask.py ch06_notes_tools 'What was the root cause of the Kafka lag incident?' 'When is the production Kafka upgrade planned?' 'When is my bike due for its next service?' 'What are the team OKRs for H1?' 'What is my passport number?'",
-         "expect": ["answers with citations: [4-5] of 5", "(?s)Q: What is my passport number\\?\\nA: [^\\n]*(not|no |n't|couldn|could not|unable)"]},
+         "expect": ["answers with citations: [4-5] of 5", "(?s)Q: What is my passport number\\?\\n(?:(?!A: )[^\\n]*\\n)*A:[^\\n]*(not|no |n't|couldn|could not|unable)"]},
  "6.3": {"expect": ["\\d+ passed"], "expect_not": ["failed"]},
  "6.4": {"stdin": "", "expect": ["OK\\s+work/2026-06-02-incident-kafka-lag.md:2", "BAD\\s+personal/recipes.md:2"]},
  "6.5": {"cmd": "python -c \"import sol_ch06_notes_tools as m; from ch04_agent import run_agent; print(run_agent('What did I write about Kafka in July 2026?', m.TOOLS, m.run_tool, system=getattr(m, 'SYSTEM', 'You answer from my notes. Cite file:line.'))[0])\"",

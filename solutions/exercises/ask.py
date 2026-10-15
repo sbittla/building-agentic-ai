@@ -19,9 +19,19 @@ if __name__ == "__main__":
     questions, cited = sys.argv[2:], 0
     for q in questions:
         print(f"\nQ: {q}")
-        answer, _, _ = run_agent(q, m.TOOLS, m.run_tool, system=system)
+        answer, messages, _ = run_agent(q, m.TOOLS, m.run_tool, system=system)
         # path:line, or the same facts as "line 3 of path": both point at one checkable line
-        cites = re.findall(r"[\w./-]+\.\w+:\d+|lines? \d+ (?:of|in) [\w./-]+\.\w+", answer)
+        pattern = r"[\w./-]+\.\w+:\d+|lines? \d+ (?:of|in) [\w./-]+\.\w+"
+        cites = re.findall(pattern, answer)
+        looked = any(getattr(b, "type", "") == "tool_use" for msg in messages
+                     if msg["role"] == "assistant" and not isinstance(msg["content"], str)
+                     for b in msg["content"])
+        if not cites and looked:      # it searched the notes but gave no source: ask once
+            print("   [no citation, though it searched the notes: asking once for the source]")
+            answer, _, _ = run_agent("Add the source of each fact as (path:line), from the "
+                                     "lines you read.", m.TOOLS, m.run_tool, system=system,
+                                     messages=messages)
+            cites = re.findall(pattern, answer)
         cited += bool(cites)
         print(f"A: {answer}\n   [citations: {len(cites)}]")
     print(f"\nanswers with citations: {cited} of {len(questions)}")

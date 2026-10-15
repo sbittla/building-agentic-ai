@@ -71,7 +71,7 @@ The book's **First edition** is matched by the repository release **`book-v1.0.0
 
 This repository was developed through several internal manuscript and code snapshots before the book's first public edition. The historical development tags (`edition-1.0`, `edition-1.1`, `edition-1.2`) are kept for traceability. They do not indicate earlier commercial printings.
 
-[VERSION_MATRIX.md](VERSION_MATRIX.md) lists the release's Python, models, MCP specification and library versions, which two runtime images aren't pinned, and what "verified" means. [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) records the tag, commit, lock-file hash and test status in one machine-readable file.
+[VERSION_MATRIX.md](VERSION_MATRIX.md) lists the release's Python, models, MCP specification and library versions, the two runtime images from other publishers and how they're pinned, and what "verified" means. [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) records the tag, commit, lock-file hash and test status in one machine-readable file.
 
 **ISBNs (First edition):** paperback 979-8177506326 · hardcover 979-8177514734.
 
@@ -206,13 +206,13 @@ Every reference solution, capstone and exercise command, run against a scripted 
 
 | Passed | Failed | Errors | Skipped (not applicable here) | Tests |
 | ---: | ---: | ---: | ---: | ---: |
-| 588 | 0 | 0 | 1 | 589 |
+| 592 | 0 | 0 | 1 | 593 |
 
-Commit `5242431fa7cb`; `requirements.lock` sha256 `c28c848a2447`; course image (local Docker); 2026-10-14. Skipped: 1 needs claude from the course image. Details: [verification/README.md](verification/README.md), [verification/offline.json](verification/offline.json).
+Commit `cf2a8a4c876e`; `requirements.lock` sha256 `c28c848a2447`; course image sha256:f286c40c353a (local Docker); 2026-10-15. Skipped: 1 needs claude from the course image. Details: [verification/README.md](verification/README.md), [verification/offline.json](verification/offline.json).
 
 ### B. Exercises run with a real model
 
-Every exercise run with its reference solution by `run-chapter` (runs from 2026-10-14 to 2026-10-14; models: `claude-sonnet-5`, `qwen3.5:9b`). **182 of 182 executable checks pass automatically**, and **0** failed unexpectedly. A real model's answers vary from run to run, so these show that each exercise works end to end, not that it always will. Commits: `03d1fad7c5f4-modified`, `156e5080b3fe`, `2850f35235c4-modified`, `4b435eb02d73-modified`, `624e451df84b`, `624e451df84b-modified`, `84214209e908-modified`, `88a393db5a27`, `8a34de430235-modified`, `a229736f2d28`, `ebb478d1a899-modified`, `f2494e90739d-modified`. Per-exercise results and logs: [EXERCISE_INDEX.md](EXERCISE_INDEX.md), `solutions/outputs/`.
+Every exercise run with its reference solution by `run-chapter` (runs from 2026-10-14 to 2026-10-15; models: `claude-sonnet-5`, `qwen3.5:9b`). **189 of 189 executable checks pass automatically**, and **0** failed unexpectedly. A real model's answers vary from run to run, so these show that each exercise works end to end, not that it always will. Commits: `059cdccbdb57-modified`, `523e58d47b0c-modified`, `624e451df84b`, `624e451df84b-modified`, `812cbfeb27af-modified`, `908d672046fc-modified`, `c7330a5deef3`. Per-exercise results and logs: [EXERCISE_INDEX.md](EXERCISE_INDEX.md), `solutions/outputs/`.
 
 How the totals count: the book has **249 exercises**; the table adds the 7 capstones, so it has 256 rows of work. Every count here, in EXERCISE_INDEX.md and in the book is computed from `course/exercises.json`. *Written answer* exercises have nothing to run; *needs a person* means a person at the keyboard, the Claude Desktop app, a GitHub token or a file the reader creates; *not run yet* means no run has been recorded for this version.
 
@@ -255,9 +255,9 @@ How the totals count: the book has **249 exercises**; the table adds the 7 capst
 | Chapter 28: AgentOps: Observability, Telemetry and SLOs for Agents | 8 | 7 | 0 | 0 | 1 | 0 | 0 | 100% |
 | Chapter 29: Agent Performance Engineering: Latency, Throughput and Cost | 8 | 7 | 0 | 0 | 1 | 0 | 0 | 100% |
 | Chapter 30: Deploying Agents: From One Service to an Agent Platform | 12 | 10 | 0 | 0 | 2 | 0 | 0 | 100% |
-| Chapter 31: From Prototype to Customer Production | 5 | 3 | 0 | 0 | 1 | 0 | 1 | 100% |
-| Capstone projects C1–C7 | 7 | 1 | 0 | 0 | 0 | 0 | 6 | 100% |
-| **Total** | **256** | **182** | **0** | **0** | **63** | **4** | **7** | **100.0%** |
+| Chapter 31: From Prototype to Customer Production | 5 | 4 | 0 | 0 | 1 | 0 | 0 | 100% |
+| Capstone projects C1–C7 | 7 | 7 | 0 | 0 | 0 | 0 | 0 | 100% |
+| **Total** | **256** | **189** | **0** | **0** | **63** | **4** | **0** | **100.0%** |
 
 *Pass rate* counts passed against unexpected failures; a gate that fails by design is neither.
 <!-- results:end -->

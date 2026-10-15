@@ -43,3 +43,21 @@ Log **anything** that made you stop: an error, a word you didn't know, an instru
 - Any step where **two or more** learners lost 15 minutes or more gets a fix in the book: clearer wording, a new hint, a troubleshooting row or a screenshot.
 - Every "output didn't match the book" note gets checked against `live_report.md` and fixed in the chapter or in `ANSWERS.md`.
 - Screenshots: take them on the pilot learners' machines (Windows and macOS) for **Docker Desktop install**, the **Claude Console API keys page** and the **first successful `./course.sh check --api`**. Add them to Chapter 0.
+
+## 6. Pilot and review record
+
+**Status (14 October 2026): not yet run.** No learner pilot and no independent technical review have happened. This guide is the plan; it is not evidence. `RELEASE_MANIFEST.json` keeps the gate open until the tables below are filled in.
+
+| Learner | OS | Programming background | Dates | Got as far as |
+| --- | --- | --- | --- | --- |
+| | | | | |
+
+| # | Where (chapter, step) | What happened | Learners affected | Fix (commit) or reason not fixed |
+| --- | --- | --- | --- | --- |
+| | | | | |
+
+**Independent technical review.** A Python/AI engineer who didn't write the book checks the technical claims, the code paths and the security caveats (Appendix M, `SECURITY_MODEL.md`).
+
+| Reviewer | Date | Scope | Finding | Disposition (commit or reason) |
+| --- | --- | --- | --- | --- |
+| | | | | |
