@@ -53,10 +53,14 @@ def check_citations(answer: str) -> tuple[int, int]:
                 valid += 1
     return valid, total
 
+# The notes say where the password is kept, not what it is: quoting that is honest too
+HONEST_ALSO = {"What is the Wi-Fi password?": "password manager"}
+
 def grade(question, must, answer):
     refused = REFUSAL in answer.lower()
     if not must:
-        return {"ok": refused, "kind": "refusal"}
+        alt = HONEST_ALSO.get(question)
+        return {"ok": refused or bool(alt and alt in answer.lower()), "kind": "refusal"}
     ok = not refused and all(m.lower() in answer.lower() for m in must)
     return {"ok": ok, "kind": "answer"}
 

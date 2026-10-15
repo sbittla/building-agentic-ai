@@ -32,11 +32,19 @@ def budget():
     sabotaged = [dict(t, description="Return CREATE TABLE statements for every table. Use it "
                       "only when a query fails.") if t["name"] == "get_schema" else t
                  for t in no_tables]
-    answer, _, _ = run_agent("Which city has the most customers?", sabotaged, sol.run_tool,
-                             system=WRONG_SYSTEM, verbose=False)
+    for attempt in range(1, 4):     # a model may ignore the wrong name and query customers
+        if os.path.exists(sol.LOG):  # directly; then nothing failed, so there is nothing to
+            os.remove(sol.LOG)       # correct. Ask again (at most 3 times).
+        answer, _, _ = run_agent("Which city has the most customers?", sabotaged, sol.run_tool,
+                                 system=WRONG_SYSTEM, verbose=False)
+        lines = open(sol.LOG).read().splitlines() if os.path.exists(sol.LOG) else []
+        if any(not json.loads(l)["ok"] for l in lines):
+            break
+        print(f"  attempt {attempt}: the model never used the wrong table name; asking again")
     print(f"Agent: {answer[:300]}\nquery log:")
     first = show_log()
-    fixed = any(not json.loads(l)["ok"] for l in first) and json.loads(first[-1])["ok"]
+    fixed = (any(not json.loads(l)["ok"] for l in first)
+             and bool(first) and json.loads(first[-1])["ok"])
     print(f"self-corrected (a failed query, then a working one): {fixed}")
 
     print("\n2. Forced repeated failures: the database file is gone, so every query fails:")

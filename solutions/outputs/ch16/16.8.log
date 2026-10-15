@@ -1,27 +1,61 @@
 # Exercise: 16.8  Brief the research team
 # Command:  python /tmp/solutions-flat/exercises/ex16_8_briefed_team.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-15 01:54:09 UTC
-# Exit code: -1
-# Seconds:  1799.9
+# Date:     2026-10-15 04:47:04 UTC
+# Exit code: 0
+# Seconds:  603.8
 #-------------------------------------------------------------------------------
 
 Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]
-Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 779.68it/s]
+Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 674.00it/s]
 PLAN: [
-  "Analyze cost comparison between agentic search and RAG for internal document retrieval",
-  "Evaluate data freshness capabilities of agentic search versus RAG",
-  "Identify specific error codes associated with agentic search vs RAG failures"
+  "Analyze cost structures of agentic search vs RAG for internal documents (compute, latency, API usage)",
+  "Evaluate data freshness capabilities in agentic search versus RAG systems",
+  "Identify common error codes and failure modes specific to agentic search implementation"
 ]
 
-[131.7s, {'input_tokens': 4403, 'output_tokens': 1908, 'calls': 12}]
+[161.8s, {'input_tokens': 8108, 'output_tokens': 2310, 'calls': 12}]
 PLAN: [
-  "Analyze cost implications of agentic search versus RAG for internal documentation retrieval.",
-  "Evaluate freshness advantages of agentic search compared to standard RAG implementations.",
-  "Identify specific error codes and failure modes unique to each approach in an internal docs context."
+  "Explain the cost structure of Agentic Search versus RAG systems",
+  "Analyze the data freshness capabilities of Agentic Search compared to RAG",
+  "Investigate typical error scenarios and specific error codes unique to each approach"
 ]
 
-[55.9s, {'input_tokens': 1713, 'output_tokens': 872, 'calls': 5}]
-PLAN: "[\"Identify and categorize the main sources of latency in agent loops (e.g., API calls, model inference time, reasoning steps, external tool usage).\", \"Analyze factors influencing each source of latency (e.g., context window size, temperature settings, tool complexity, network overhead).\", \"Compile strategies to reduce latency for each identified source (e.g., parallelization, caching, model optimization, prompt compression, tool simplification).\", \"Synthesize best practices for designing low-latency agent loops and summarize the trade-offs involved.\"],"
+[72.3s, {'input_tokens': 1782, 'output_tokens': 1083, 'calls': 5}]
+PLAN: [
+  "Identify and explain the main sources of latency in agent loops (e.g., network delays, model inference time, context window processing),",
+  "Describe techniques and architectural patterns for reducing each type of identified latency.",
+  "Summarize trade-offs involved between performance optimization and cost/reliability."
+]
 
-TIMEOUT after 1800 s
+[118.5s, {'input_tokens': 1893, 'output_tokens': 1661, 'calls': 10}]
+PLAN: [
+  "Identify the primary sources of latency in agent loops (e.g., network overhead, tool execution delays, context window management, serialization costs).",
+  "Explain specific strategies for reducing latency in each area (e.g., batching requests, optimizing prompts, using caching, parallelizing independent tasks).",
+  "Provide concrete examples or patterns (e.g., streaming outputs, lazy evaluation, stateful memory reduction) that minimize loop time."
+]
+
+[79.4s, {'input_tokens': 1851, 'output_tokens': 1191, 'calls': 5}]
+PLAN: [
+  "Define and explain 'hybrid retrieval' and 'keyword search'.",
+  "Identify the specific scenarios and data types where hybrid retrieval outperforms pure keyword search.",
+  "Analyze the trade-offs involved, including complexity, latency, and cost.",
+  "Summarize best practices for choosing between the two approaches."
+]
+
+[92.4s, {'input_tokens': 4945, 'output_tokens': 1312, 'calls': 14}]
+PLAN: [
+  "Define hybrid retrieval and its components (e.g., vector search + keyword search)",
+  "Explain keyword search limitations and when it fails",
+  "Identify scenarios where semantic similarity is needed but keywords are ambiguous",
+  "Provide concrete examples of use cases for hybrid retrieval over keyword search"
+]
+
+[73.8s, {'input_tokens': 2297, 'output_tokens': 1123, 'calls': 6}]
+question                                  version      input  output  calls  cites
+Compare agentic search and RAG for our i  original      8108    2310     12      3
+Compare agentic search and RAG for our i  briefed       1782    1083      5      6
+What are the main causes of latency in a  original      1893    1661     10      7
+What are the main causes of latency in a  briefed       1851    1191      5     12
+When should we use hybrid retrieval inst  original      4945    1312     14      6
+When should we use hybrid retrieval inst  briefed       2297    1123      6      7

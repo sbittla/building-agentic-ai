@@ -83,7 +83,8 @@ async def research(question: str) -> str:
                          for t, f in zip(subtasks, findings))
     final = await _call(messages=[{"role": "user", "content":
         f"Question: {question}\n\nFindings from your research team:\n{report}\n\n"
-        "Write a concise answer. Keep every source citation. Point out any "
+        "Write a concise answer. After each claim, keep its source in parentheses "
+        "exactly as the findings give it (file:line or URL). Point out any "
         "disagreements between findings."}])
     print(f"\n[{time.perf_counter() - t0:.1f}s, {usage}]")
     return "".join(b.text for b in final.content if b.type == "text")

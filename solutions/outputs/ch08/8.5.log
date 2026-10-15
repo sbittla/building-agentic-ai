@@ -1,24 +1,32 @@
 # Exercise: 8.5  Retry budget and log
 # Command:  python /tmp/solutions-flat/exercises/run8_5_tables.py budget
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-15 00:00:14 UTC
+# Date:     2026-10-15 05:23:30 UTC
 # Exit code: 0
-# Seconds:  33.0
+# Seconds:  48.0
 #-------------------------------------------------------------------------------
 1. A sabotaged prompt (customers are 'in the clients table'):
-Agent: **Berlin** is the city with the most customers (14 customers).
+Agent: The city with the most customers is **Berlin**, which has 14 customers.
+
+```sql
+SELECT city, COUNT(*) AS customer_count 
+FROM customers 
+GROUP BY city 
+ORDER BY customer_count DESC 
+LIMIT 1;
+```
 query log:
+  ERROR 'SELECT town, COUNT(*) AS customer_count FROM clients GROUP BY town ORDER BY customer_count'  -> ERROR: no such table: clients. Check table/column names with
   ok    'SELECT city, COUNT(*) AS customer_count FROM customers GROUP BY city ORDER BY customer_cou'
-self-corrected (a failed query, then a working one): False
+self-corrected (a failed query, then a working one): True
 
 2. Forced repeated failures: the database file is gone, so every query fails:
-Agent: I'm unable to retrieve the schema or run queries due to a persistent "unable to open database file" error. This appears to be an infrastructure issue with the database connection rather than something that can be resolved through SQL queries.
+Agent: The database is not accessible at this moment due to a connection/file error. I'm unable to run any queries or count the orders until the database can be properly connected.
 
-Since I cannot access the database to determine:
-- What 
+Would you like me to try again, or is there something else I can help with?
 the next query gets: ERROR: 3 failed queries already. Stop querying and tell the user what went wrong.
 query log:
-  ERROR 'SELECT COUNT(*) FROM orders;'  -> ERROR: unable to open database file. Check table/column name
+  ERROR "SELECT name FROM sqlite_master WHERE type='table';"  -> ERROR: unable to open database file. Check table/column name
   ERROR 'SELECT COUNT(*) FROM orders'  -> ERROR: unable to open database file. Check table/column name
   ERROR 'SELECT COUNT(*) FROM orders'  -> ERROR: unable to open database file. Check table/column name
 retry budget used up: True (3 failed queries, budget 3)
