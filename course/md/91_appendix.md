@@ -544,6 +544,8 @@ Table: Local-model problems and fixes
 | "Can't reach the local model" | Start it: `./course.sh local up`. Check with `./course.sh local status`. |
 | The model stops, or Docker says it ran out of memory | Close other programs, set `LOCAL_CONTEXT=16384`, or give Docker more memory (Windows: see `.wslconfig` above). |
 | Very slow | Use `--gpu` if you have an NVIDIA GPU; set `LOCAL_THINKING=off`; see the speed tips above. |
+| 8 GB GPU: the model loads partly on the CPU, or fails with "cudaMalloc failed: out of memory" | Set `LOCAL_CONTEXT=8192`: the weights and a 32K context don't both fit. With the smaller context, keep big tool results short (Chapter 16). |
+| Windows + GPU: loading fails with "out of memory" though nothing else uses the GPU | `./course.sh local down`, then `local up --gpu`; if it persists, run `wsl --shutdown` and restart Docker Desktop. |
 | "The local model didn't call … correctly after 3 tries" | Run it again (answers vary), make the prompt or tool description clearer (Chapter 3), or use Claude for that run. |
 
 `LOCAL_MODEL.md` covers interrupted downloads, unused GPUs and port clashes.
@@ -558,7 +560,7 @@ Table: What each exercise needs, and what it costs
 | **No model** | {{exercises:none}} | Yes, with no model at all | Never |
 | **qwen3.5:9b or Claude** | {{exercises:any}} | Yes, on `qwen3.5:9b` | Only if you choose Claude |
 | **Claude recommended** | {{exercises:claude-rec}} | Yes, on `qwen3.5:9b`, with weaker results | Optional, for much better results |
-| **Claude only** | {{exercises:claude-only}} | No (12.5 aside, below) | Required for 3.7, 16.7, 24.6 and 24.7 |
+| **Claude only** | {{exercises:claude-only}} | No (12.5 aside, below) | Required for 3.7, 16.7 and 24.7 |
 
 A few exercises need something besides a model:
 
@@ -576,7 +578,7 @@ Table: Exercises that need, or work much better with, Claude
 | 24.3 See the approval gate work | Claude recommended | The Agent SDK drives the Claude Code CLI; qwen3.5:9b often stalls. |
 | 24.4 Agent SDK with your MCP servers | Claude recommended | As 24.3. |
 | 24.5 Same agent, three frameworks | Claude recommended | Includes an Agent SDK version; the other two run well on qwen3.5:9b. |
-| 24.6 Write a skill | Claude only | Agent Skills run in Anthropic's code-execution container. |
+| 24.6 Write a skill | Claude recommended | Runs through your own loop; the small model often skips a skill it should load. |
 | 24.7 A managed analyst | Claude only | Managed Agents are hosted by Anthropic. |
 | 21.6 A mixed team | Claude recommended | Several agents, including one over A2A, must follow a multi-step brief. |
 | 23.4 The injected note | Claude recommended | Many small web-page steps: where the local model struggles most. |
@@ -890,16 +892,16 @@ Table: What a production deployment adds to the kit
 | Incident ownership | Name the owning team, an on-call rotation, a runbook per alert and an escalation path on both sides of any customer boundary | Every page reaches a named person within an agreed time; the kill switch has been tested; every incident ends in a postmortem and a new evaluation case | Sections 26.7, 28.11, 28.12, 30.12 and 31.6; the case study |
 | Rollback criteria | Write down which signals trigger a rollback, who may decide, and the path back. Keep the previous release deployable by configuration | The rollback path rehearsed on a canary; the on-call engineer may roll back without asking anyone | Sections 27.7, 28.10 and 30.13; the case study |
 
-**Multi-tenant isolation.** The kit's `SecureMemoryStore` checks tenant and owner in application code, which is the right order of operations and the wrong place to stop. Add isolation that holds even when application code is wrong: row-level security or a database per tenant, and per-tenant encryption keys. ADR-7 says when a tenant needs its own deployment.
+**Multi-tenant isolation.** The kit's `SecureMemoryStore` checks tenant and owner in application code: right, but not enough. Add isolation that holds when application code is wrong: row-level security or a database per tenant, and per-tenant encryption keys. ADR-7 says when a tenant needs its own deployment.
 
 **Secret rotation.** The kit signs tokens with one shared HS256 key that falls back to a built-in development key, and its API keys have no scopes or expiry. Section 26.7 shows the mechanism: tokens name their key, a scheduled rotation keeps the old key for the longest token lifetime, and an emergency rotation keeps it for none. The OWASP Secrets Management Cheat Sheet covers storage and access.
 
 **Data retention and deletion.** Section 17.10's store shows the shape: time to live on every record, `forget_user`, and an audit log that holds hashes and metadata, never content. In production, deletion must also reach search indexes, embeddings and caches, and per-tenant keys let you make backups unreadable by destroying a key.
 
-**Dependency and container scanning.** `requirements.lock` pins exact versions, and section 30.6's image installs exact versions and runs as an unprivileged user. The kit doesn't record hashes, pin the base image by digest, generate an SBOM, scan or sign images; those belong in your build pipeline. Treat MCP servers and skills the same way (sections 14.3 and 24.10): pinned, reviewed, re-reviewed on change. NIST's Secure Software Development Framework (SP 800-218) sets the practices, SLSA describes build provenance, and the CIS Docker Benchmark covers image and runtime settings.
+**Dependency and container scanning.** `requirements.lock` and section 30.6's image pin exact versions, and the image runs as an unprivileged user. The kit doesn't record hashes, pin the base image by digest, generate an SBOM, scan or sign images; those belong in your build pipeline. Treat MCP servers and skills the same way (sections 14.3 and 24.10): pinned, reviewed, re-reviewed on change. For the practices, see NIST SP 800-218, SLSA (build provenance) and the CIS Docker Benchmark.
 
-**Backups and recovery.** The *recovery point objective* (RPO) is how much recent data you can afford to lose; the *recovery time objective* (RTO) is how long the service may be down. Sessions live in a SQLite file inside one container in the kit (section 30.6), so a production deployment moves them to a shared database with its own backups. Job checkpoints (section 19.3) are what let a crashed job resume, so lose them and work repeats. A vector index can be rebuilt from its source documents (section 18.1); back it up only if rebuilding takes longer than your RTO. Audit logs go to append-only storage the agent can't write; check the hash chain after a restore. Evaluation suites are your release gate, so keep them in version control. One rule is easy to break: a restore must not bring back data a user asked you to delete. Section 17.10's rollback refuses to, and your backup process must too. The Google SRE book's chapter on data integrity is a good companion.
+**Backups and recovery.** The *recovery point objective* (RPO) is how much recent data you can afford to lose; the *recovery time objective* (RTO) is how long the service may be down. The kit keeps sessions in a SQLite file inside one container (section 30.6); production moves them to a shared, backed-up database. Lose job checkpoints (section 19.3) and crashed work repeats. A vector index can be rebuilt from its source documents (section 18.1); back it up only if rebuilding takes longer than your RTO. Audit logs go to append-only storage the agent can't write; check the hash chain after a restore. Keep evaluation suites, your release gate, in version control. One rule is easy to break: a restore must not bring back data a user asked you to delete. Section 17.10's rollback refuses to, and your backup process must too.
 
 **Incident ownership.** Alerts page on symptoms users feel (section 28.11), and section 28.12's steps are the start of a runbook. Decide in advance who may flip the kill switch (section 26.7) and who calls whom at 3 a.m.; section 31.6 shows how often that's the missing piece. The Google SRE book's chapters on being on-call, managing incidents and postmortem culture describe the practice.
 
-**Rollback criteria.** Typical triggers: the canary burns its error budget (section 28.10), the regression gate fails on the same suite (section 27.7), an unsafe action or a guard alert, or cost per successful task over budget. The on-call engineer decides to roll back, on any one of these, without waiting for a meeting; the release owner decides when the fixed version tries again. Version the whole agent as one release (section 30.13), so the path back is a configuration change, as in the case study, rather than a rebuild. A rollback doesn't undo what the agent already did: memories written by a bad release need section 17.10's point-in-time rollback, and side effects need the compensation steps of section 19.7.
+**Rollback criteria.** Roll back when the canary burns its error budget (section 28.10), the regression gate fails (section 27.7), a guard fires or an action is unsafe, or cost per successful task goes over budget. The on-call engineer rolls back on any one of these without a meeting; the release owner decides when the fix tries again. Version the whole agent as one release (section 30.13), so rolling back is a configuration change, as in the case study. A rollback doesn't undo what the agent did: bad memories need section 17.10's point-in-time rollback, and side effects need section 19.7's compensation steps.

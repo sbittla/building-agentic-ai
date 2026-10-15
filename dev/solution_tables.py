@@ -122,7 +122,7 @@ KEY = {  # one line: what the solution shows. Used where a file's docstring isn'
  "24.1": "Every hand-built part has a framework equivalent",
  "24.2": "Choose by need: minimal loop, full runtime, portability or teaching",
  "24.3": "A DELETE is denied by can_use_tool and the database is unchanged",
- "3.7": "Deferred tools found by search, against loading every tool: accuracy, searches and tokens",
+ "3.7": "Deferred tools found by search, against loading every tool, scored over a few steps with the everyday tools kept loaded: accuracy, searches and tokens",
  "25.2": "Each OWASP agentic risk, how it could happen here, the defense in place and the gap to close first",
  "16.7": "Many calls feeding one summary favor a program; step-by-step reasoning favors the plain loop",
  "24.6": "A second skill with a reference file, validated, and a trace showing only the needed skill loads",
@@ -176,6 +176,11 @@ KEY = {  # one line: what the solution shows. Used where a file's docstring isn'
 }
 
 def doc_line(path: Path) -> str:
+    if not path.exists():           # solutions now sit in chapter folders (exercises/ch04/...)
+        found = [p for p in path.parent.rglob(path.name) if "_index" not in p.parts]
+        if not found:
+            return ""
+        path = found[0]
     try:
         d = ast.get_docstring(ast.parse(path.read_text())) or ""
     except SyntaxError:

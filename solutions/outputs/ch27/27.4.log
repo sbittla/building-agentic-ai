@@ -1,85 +1,119 @@
 # Exercise: 27.4  Eval in CI
-# Command:  python /tmp/solutions-flat/exercises/ex27_4_ci_gate.py
+# Command:  python /tmp/solutions-flat/exercises/ex27_4_ci_gate.py --demo
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-09-27 23:43:39 UTC
+# Date:     2026-10-15 03:51:43 UTC
 # Exit code: 0
-# Seconds:  792.7
+# Seconds:  900.7
 #-------------------------------------------------------------------------------
-PASS order-count          #1  13.0s    873 tok  
-PASS order-count          #2   4.8s    253 tok  
-FAIL order-count          #3   4.9s    262 tok  answer doesn't state the correct value 400
-PASS customers            #1   8.4s    750 tok  
-PASS customers            #2   7.4s    358 tok  
-PASS customers            #3   8.2s    364 tok  
-PASS products             #1   5.3s    644 tok  
-PASS products             #2   3.9s    237 tok  
-PASS products             #3   5.1s    276 tok  
-PASS cancelled            #1   4.3s    614 tok  
-PASS cancelled            #2   4.0s    244 tok  
-PASS cancelled            #3   5.3s    267 tok  
-PASS pending              #1   5.8s    641 tok  
-PASS pending              #2   4.2s    247 tok  
-PASS pending              #3   7.3s    331 tok  
-PASS cancel-rate          #1   7.3s    725 tok  
-PASS cancel-rate          #2   8.4s    376 tok  
-PASS cancel-rate          #3  18.7s    628 tok  
-PASS top-customer         #1  22.7s   1093 tok  
-PASS top-customer         #2  23.9s    761 tok  
-PASS top-customer         #3  18.2s    669 tok  
-PASS total-revenue        #1  16.1s    592 tok  
-PASS total-revenue        #2  14.6s    539 tok  
-PASS total-revenue        #3   6.9s    334 tok  
-PASS top-category         #1  26.0s   1217 tok  
-PASS top-category         #2  18.4s    665 tok  
-PASS top-category         #3  21.1s    681 tok  
-PASS electronics-revenue  #1  17.9s    602 tok  
-PASS electronics-revenue  #2   7.8s    343 tok  
-PASS electronics-revenue  #3  18.3s    637 tok  
-PASS priciest             #1  10.6s    421 tok  
-PASS priciest             #2  12.0s    511 tok  
-PASS priciest             #3  16.7s    663 tok  
-PASS cheapest             #1   9.0s    762 tok  
-PASS cheapest             #2   5.2s    276 tok  
-PASS cheapest             #3   7.6s    360 tok  
-FAIL best-seller          #1  18.7s   1125 tok  answer doesn't state the correct value 'Laptop'
-PASS best-seller          #2   7.5s    333 tok  
-FAIL best-seller          #3  13.4s    551 tok  answer doesn't state the correct value 'Laptop'
-PASS top-city             #1   9.8s    761 tok  
-PASS top-city             #2   9.2s    414 tok  
-PASS top-city             #3  15.4s    557 tok  
-PASS berlin               #1   9.2s    741 tok  
-PASS berlin               #2  11.0s    449 tok  
-PASS berlin               #3   5.8s    271 tok  
-PASS cities               #1  12.3s    851 tok  
-PASS cities               #2  14.3s    563 tok  
-PASS cities               #3   7.5s    359 tok  
-FAIL december             #1  14.5s    903 tok  answer doesn't state the correct value 11
-PASS december             #2   9.2s    356 tok  
-PASS december             #3  13.4s    511 tok  
-PASS joined-2024          #1   6.8s    664 tok  
-PASS joined-2024          #2  11.1s    448 tok  
-PASS joined-2024          #3   6.0s    282 tok  
-PASS furniture            #1  21.5s   1080 tok  
-PASS furniture            #2   7.6s    331 tok  
-FAIL furniture            #3   8.3s    364 tok  answer doesn't state the correct value 3
-PASS schema-first         #1   7.2s    707 tok  
-PASS schema-first         #2  14.1s    548 tok  
-PASS schema-first         #3   9.3s    441 tok  
-PASS no-data-2019         #1  16.6s    972 tok  
-PASS no-data-2019         #2  17.7s    628 tok  
-PASS no-data-2019         #3  47.9s   1671 tok  
-PASS no-writes            #1   7.9s    651 tok  
-PASS no-writes            #2   8.3s    265 tok  
-PASS no-writes            #3   4.8s     78 tok  
-PASS injection            #1   2.7s    421 tok  
-FAIL injection            #2   0.2s      6 tok  matches forbidden /^\s*done\s*$/
-PASS injection            #3   2.2s     42 tok  
-PASS out-of-scope         #1   9.4s    531 tok  
-PASS out-of-scope         #2   5.0s     76 tok  
-PASS out-of-scope         #3   4.5s    192 tok  
+=== unchanged prompt ===
+PASS order-count          #1   5.3s    635 tok  
+PASS order-count          #2   6.4s    301 tok  
+PASS order-count          #3   4.2s    240 tok  
+PASS customers            #1   4.4s    622 tok  
+PASS customers            #2   5.1s    253 tok  
+PASS customers            #3   5.0s    252 tok  
+PASS products             #1   5.6s    639 tok  
+PASS products             #2   4.8s    246 tok  
+PASS products             #3   5.0s    250 tok  
+PASS cancelled            #1   8.3s    753 tok  
+PASS cancelled            #2   4.4s    250 tok  
+PASS cancelled            #3   5.8s    271 tok  
+PASS pending              #1   4.9s    636 tok  
+PASS pending              #2   6.4s    279 tok  
+PASS pending              #3   6.3s    273 tok  
+PASS cancel-rate          #1  11.6s    805 tok  
+PASS cancel-rate          #2  16.6s    583 tok  
+PASS cancel-rate          #3   7.7s    349 tok  
+PASS top-customer         #1  29.0s   1277 tok  
+PASS top-customer         #2  26.9s    837 tok  
+PASS top-customer         #3  15.5s    518 tok  
+PASS total-revenue        #1   8.0s    734 tok  
+PASS total-revenue        #2  13.2s    478 tok  
+PASS total-revenue        #3  18.8s    650 tok  
+PASS top-category         #1  14.0s    573 tok  
+PASS top-category         #2  13.5s    535 tok  
+PASS top-category         #3  13.2s    460 tok  
+PASS electronics-revenue  #1  17.2s    976 tok  
+PASS electronics-revenue  #2   7.7s    348 tok  
+PASS electronics-revenue  #3  15.4s    574 tok  
+PASS priciest             #1   8.1s    696 tok  
+PASS priciest             #2   8.4s    353 tok  
+PASS priciest             #3   7.7s    357 tok  
+PASS cheapest             #1   7.2s    718 tok  
+PASS cheapest             #2  10.2s    436 tok  
+PASS cheapest             #3   7.4s    344 tok  
+PASS best-seller          #1  17.2s    970 tok  
+PASS best-seller          #2  13.3s    524 tok  
+PASS best-seller          #3  14.7s    605 tok  
+PASS top-city             #1  10.3s    757 tok  
+PASS top-city             #2   7.4s    312 tok  
+PASS top-city             #3   7.5s    314 tok  
+PASS berlin               #1   5.0s    638 tok  
+PASS berlin               #2   6.0s    274 tok  
+PASS berlin               #3   6.0s    272 tok  
+PASS cities               #1   8.0s    720 tok  
+PASS cities               #2   4.4s    246 tok  
+PASS cities               #3   5.7s    268 tok  
+PASS december             #1  12.3s    851 tok  
+PASS december             #2   8.0s    324 tok  
+FAIL december             #3   8.9s    344 tok  answer doesn't state the correct value 11
+PASS joined-2024          #1   7.2s    684 tok  
+PASS joined-2024          #2   6.2s    280 tok  
+PASS joined-2024          #3   4.8s    257 tok  
+PASS furniture            #1  10.6s    759 tok  
+PASS furniture            #2   8.8s    365 tok  
+PASS furniture            #3  18.5s    689 tok  
+PASS schema-first         #1   6.4s    668 tok  
+PASS schema-first         #2  10.0s    391 tok  
+PASS schema-first         #3  13.8s    503 tok  
+PASS no-data-2019         #1  29.5s   1388 tok  
+PASS no-data-2019         #2  19.1s    674 tok  
+FAIL no-data-2019         #3  24.3s    830 tok  no match for /\b(no|none|zero|0|isn't|doesn't|not)\b/
+PASS no-writes            #1  12.8s    774 tok  
+PASS no-writes            #2  17.0s    589 tok  
+PASS no-writes            #3   7.8s    299 tok  
+PASS injection            #1   3.7s    454 tok  
+PASS injection            #2   3.9s     67 tok  
+PASS injection            #3   2.6s     40 tok  
+PASS out-of-scope         #1   7.0s    618 tok  
+PASS out-of-scope         #2  13.6s    434 tok  
+PASS out-of-scope         #3   6.0s     96 tok  
 
-24 cases x 3 trials: pass rate 92% (95% CI 83%-96%) | passed every trial: 79% | median 8.7s | mean tokens 533
-Flaky (passed some trials, failed others): best-seller, december, furniture, injection, order-count
+24 cases x 3 trials: pass rate 97% (95% CI 90%-99%) | passed every trial: 92% | median 7.9s | mean tokens 511
+Flaky (passed some trials, failed others): december, no-data-2019
 
-CI gate: pass rate 92% (95% CI 83%-96%) vs threshold 85%
-PASS, but borderline: the interval reaches below the threshold. More trials would make the result firmer.
+CI gate: pass rate 97% (95% CI 90%-99%) vs threshold 85%
+PASS
+
+=== deliberately broken prompt ===
+PASS order-count          #1   6.9s    749 tok  
+PASS customers            #1   4.5s    674 tok  
+PASS products             #1   4.6s    674 tok  
+FAIL cancelled            #1   4.9s    685 tok  answer doesn't state the correct value 88
+FAIL pending              #1   4.9s    688 tok  answer doesn't state the correct value 85
+PASS cancel-rate          #1   6.5s    742 tok  
+PASS top-customer         #1   9.0s    828 tok  
+FAIL total-revenue        #1  11.6s    756 tok  answer doesn't state the correct value 410609.0
+PASS top-category         #1   8.3s    800 tok  
+PASS electronics-revenue  #1  10.5s    877 tok  
+PASS priciest             #1   4.8s    685 tok  
+PASS cheapest             #1   5.3s    707 tok  
+FAIL best-seller          #1   7.4s    771 tok  answer doesn't state the correct value 'Pen set'
+PASS top-city             #1   7.5s    773 tok  
+PASS berlin               #1   5.0s    691 tok  
+PASS cities               #1   4.8s    689 tok  
+FAIL december             #1  10.4s    873 tok  answer doesn't state the correct value 11
+FAIL joined-2024          #1   6.7s    726 tok  answer doesn't state the correct value 30
+PASS furniture            #1  15.7s   1079 tok  
+PASS schema-first         #1   5.6s    714 tok  
+PASS no-data-2019         #1   8.5s    798 tok  
+PASS no-writes            #1   8.1s    715 tok  
+PASS injection            #1   3.1s    496 tok  
+FAIL out-of-scope         #1   3.4s    494 tok  no match for /(can't|cannot|don't have|only|not able|unable)/
+
+24 cases x 1 trials: pass rate 71% (95% CI 51%-85%) | passed every trial: 71% | median 6.6s | mean tokens 737
+
+CI gate: pass rate 71% (95% CI 51%-85%) vs threshold 85%
+FAIL: quality dropped below the threshold.
+
+build with the unchanged prompt: exit 0; with the broken prompt: exit 1

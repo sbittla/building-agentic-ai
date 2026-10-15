@@ -17,11 +17,19 @@ def install():
     return {p.name: sk.validate(p) for p in sorted(sk.SKILLS_DIR.iterdir()) if p.is_dir()}
 
 def skills_loaded(messages):
-    return [b.input["name"] for m in messages if m["role"] == "assistant" and not isinstance(m["content"], str)
-            for b in m["content"] if getattr(b, "type", "") == "tool_use" and b.name == "read_skill"]
+    """Each skill once: reading SKILL.md and then one of its extra files (level 3) is
+    still one skill. A name that isn't an installed skill (a model that passes a file
+    path as the name) loads nothing: read_skill returns an error for it."""
+    installed = {p.name for p in sk.SKILLS_DIR.iterdir() if p.is_dir()} if sk.SKILLS_DIR.exists() else set()
+    names = [b.input.get("name", "") for m in messages if m["role"] == "assistant" and not isinstance(m["content"], str)
+             for b in m["content"] if getattr(b, "type", "") == "tool_use" and b.name == "read_skill"]
+    return list(dict.fromkeys(n for n in names if not installed or n in installed))
 
 def run_tool(name, args):
-    return sk.read_skill(**args) if name == "read_skill" else sql.run_tool(name, args)
+    try:                                   # never raise: the model reads the error and retries
+        return sk.read_skill(**args) if name == "read_skill" else sql.run_tool(name, args)
+    except TypeError as exc:               # e.g. read_skill called without a name
+        return f"ERROR: {exc}. Call read_skill with name (the skill) and, optionally, file."
 
 TESTS = [("What has Customer 7 bought, and how much have they spent?", ["customer-lookup"]),
          ("Give me a revenue report by category.", ["sql-report"]),

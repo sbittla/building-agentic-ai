@@ -101,17 +101,21 @@
  ],
  "5.3": [
   "ANSWERS.md",
-  "tests/test_ch04_05.py"
+  "tests/test_ch04_05.py",
+  "exercises/run5_todo.py"
  ],
  "5.4": [
-  "exercises/sol_ch05_todo_tools.py"
+  "exercises/sol_ch05_todo_tools.py",
+  "exercises/run5_todo.py"
  ],
  "5.5": [
-  "exercises/sol_ch05_todo_tools.py"
+  "exercises/sol_ch05_todo_tools.py",
+  "exercises/run5_todo.py"
  ],
  "5.6": [
   "ANSWERS.md",
-  "tests/test_ch04_05.py"
+  "tests/test_ch04_05.py",
+  "exercises/run5_todo.py"
  ],
  "5.7": [
   "exercises/sol_ch05_todo_sqlite.py",
@@ -128,7 +132,8 @@
  ],
  "6.2": [
   "ANSWERS.md",
-  "tests/test_ch06_07.py"
+  "tests/test_ch06_07.py",
+  "exercises/ask.py"
  ],
  "6.3": [
   "tests/test_ex6_3_sandbox.py"
@@ -144,7 +149,8 @@
  ],
  "7.3": [
   "ANSWERS.md",
-  "tests/test_ch06_07.py"
+  "tests/test_ch06_07.py",
+  "exercises/ask.py"
  ],
  "7.4": [
   "exercises/ex7_4_hard_cases.py"
@@ -174,10 +180,12 @@
   "exercises/ex8_4_self_correct.py"
  ],
  "8.5": [
-  "exercises/sol_ch08_sql_tools.py"
+  "exercises/sol_ch08_sql_tools.py",
+  "exercises/run8_5_tables.py"
  ],
  "8.6": [
-  "exercises/sol_ch08_sql_tools.py"
+  "exercises/sol_ch08_sql_tools.py",
+  "exercises/run8_5_tables.py"
  ],
  "8.7": [
   "exercises/ex8_7_eval_harness.py"
@@ -194,14 +202,17 @@
  ],
  "9.3": [
   "ANSWERS.md",
-  "tests/test_ch08_10.py"
+  "tests/test_ch08_10.py",
+  "exercises/run9_approval.py"
  ],
  "9.4": [
   "ANSWERS.md",
-  "tests/test_ch08_10.py"
+  "tests/test_ch08_10.py",
+  "exercises/run9_approval.py"
  ],
  "9.5": [
-  "exercises/sol_ch09_organizer.py"
+  "exercises/sol_ch09_organizer.py",
+  "exercises/run9_approval.py"
  ],
  "9.6": [
   "exercises/sol_ch09_organizer.py",
@@ -218,7 +229,8 @@
   "exercises/sol_ch10_make_repo2.py"
  ],
  "10.6": [
-  "exercises/sol_ch10_fixer.py"
+  "exercises/sol_ch10_fixer.py",
+  "exercises/run10_6_targeted.py"
  ],
  "10.7": [
   "exercises/ex10_7_benchmark.py",
@@ -244,10 +256,12 @@
   "tests/test_ch11_12.py"
  ],
  "11.4": [
-  "exercises/sol_ch11_research_team.py"
+  "exercises/sol_ch11_research_team.py",
+  "exercises/run11_team.py"
  ],
  "11.5": [
-  "exercises/sol_ch11_research_team.py"
+  "exercises/sol_ch11_research_team.py",
+  "exercises/run11_team.py"
  ],
  "11.6": [
   "exercises/ex11_6_compare.py"
@@ -278,16 +292,20 @@
  ],
  "13.3": [
   "ANSWERS.md",
-  "tests/test_ch13_15.py"
+  "tests/test_ch13_15.py",
+  "exercises/typed.py"
  ],
  "13.4": [
-  "exercises/sol_ch13_mcp_agent.py"
+  "exercises/sol_ch13_mcp_agent.py",
+  "exercises/run13_hub.py"
  ],
  "13.5": [
-  "exercises/servers_with_weather.json"
+  "exercises/servers_with_weather.json",
+  "exercises/typed.py"
  ],
  "13.6": [
-  "exercises/sol_ch13_mcp_agent.py"
+  "exercises/sol_ch13_mcp_agent.py",
+  "exercises/run13_hub.py"
  ],
  "13.7": [
   "exercises/ex13_7_trip_server.py",
@@ -300,20 +318,22 @@
   "tests/test_multiagent.py"
  ],
  "14.3": [
-  "ANSWERS.md",
-  "exercises/ex14_4_digest.py"
+  "exercises/ex14_3_readonly.py"
  ],
  "14.4": [
   "exercises/ex14_4_digest.py"
  ],
  "14.5": [
-  "exercises/sol_ch14_untrusted.py"
+  "exercises/sol_ch14_untrusted.py",
+  "exercises/run14_untrusted.py"
  ],
  "16.3": [
-  "ANSWERS.md"
+  "ANSWERS.md",
+  "exercises/run16_3_compaction.py"
  ],
  "16.4": [
-  "ANSWERS.md"
+  "ANSWERS.md",
+  "exercises/run16_4_budgets.py"
  ],
  "16.5": [
   "exercises/ex16_5_cache_savings.py"
@@ -336,7 +356,8 @@
   "ANSWERS.md"
  ],
  "17.3": [
-  "ANSWERS.md"
+  "ANSWERS.md",
+  "exercises/typed.py"
  ],
  "17.4": [
   "ANSWERS.md"
@@ -420,7 +441,8 @@
   "ANSWERS.md"
  ],
  "30.4": [
-  "exercises/sol_ch30_service.py"
+  "exercises/sol_ch30_service.py",
+  "exercises/run30_4_words.py"
  ],
  "30.5": [
   "exercises/ex30_5_remote_hub.py",
@@ -521,7 +543,8 @@
   "ANSWERS.md"
  ],
  "25.3": [
-  "ANSWERS.md"
+  "ANSWERS.md",
+  "exercises/run25_3_guards.py"
  ],
  "25.4": [
   "exercises/ex25_4_calendar.py",
@@ -557,7 +580,8 @@
   "tests/test_part9.py"
  ],
  "28.3": [
-  "ANSWERS.md"
+  "ANSWERS.md",
+  "exercises/run28_3_report.py"
  ],
  "28.4": [
   "exercises/ex28_4_ignored_error.py",

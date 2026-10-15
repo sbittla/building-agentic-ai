@@ -134,7 +134,7 @@ You're ready if you can, without looking back:
 - [ ] Explain what `@tool` above a function does.
 - [ ] Spot a mutable default argument.
 
-If two feel shaky, redo P.2 and P.3, the patterns you'll use most.
+If two or more feel shaky, redo P.2 and P.3, the patterns you'll use most.
 
 ## Up next
 

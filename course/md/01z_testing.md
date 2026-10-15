@@ -91,7 +91,7 @@ Exercises T.2 to T.4 start from a test file with the first test already written.
 
 :::ex Simple | T.1 | Run and break
 Run `test_i_pricing.py`. Then change `apply_discount` to `amount * (1 - percent)` (a real bug from Chapter 10) and run the tests again.
-**Done when:** You've seen the tests pass, then fail with a message showing `-1800 != 180`, then pass again after you undo the change.
+**Done when:** You've seen the tests pass, then fail with `assert -1800 == 180`, then pass again after you undo the change.
 :::
 
 :::ex Simple | T.2 | Parametrize

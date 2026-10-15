@@ -147,7 +147,9 @@ def session_lock(session_id):
         lock.release()
 
 # ---------------------------------------------------------------- the agent
-SYSTEM = sql.SYSTEM + " Keep answers short: the numbers first, then one sentence."
+SYSTEM = sql.SYSTEM + (" Every number you give must come from a run_query result in this "
+                       "conversation: run the query, don't just write it. Keep answers "
+                       "short: the numbers first, then one sentence.")
 
 def run(message, history, on_tool=None, cancelled=None):
     def run_tool(name, args):

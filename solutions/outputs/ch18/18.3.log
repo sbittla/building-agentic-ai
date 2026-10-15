@@ -1,14 +1,14 @@
 # Exercise: 18.3  Build and search
 # Command:  python ch18_rag.py search temperature units && python ch18_rag.py search ERR-4471
 # Model:    none (no model needed)
-# Date:     2026-09-27 22:06:14 UTC
+# Date:     2026-10-15 02:34:45 UTC
 # Exit code: 0
-# Seconds:  3.3
+# Seconds:  3.9
 #-------------------------------------------------------------------------------
 
 Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]
-Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 720.62it/s]
-32 chunks, embedder = local
+Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 1061.63it/s]
+34 chunks, embedder = local
 
 keyword:
   (notes/learning/agents-course-notes.md:1)  '# Agents course notes\nAn agent = model + tools + loop + stop condition'
@@ -26,13 +26,13 @@ hybrid:
   (notes/personal/reading-list.md:1)  '# Reading list\n- Designing Data-Intensive Applications (re-read chapte'
 
 Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]
-Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 1562.36it/s]
-32 chunks, embedder = local
+Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 774.34it/s]
+34 chunks, embedder = local
 
 keyword:
   (library/error-codes.md:1)  '# Searching for error codes\nEmbedding models often treat codes like ER'
   (notes/work/2026-06-20-rag-vs-search.md:1)  '# RAG or search for the runbooks?\nRunbooks change weekly, so re-indexi'
-  (notes/learning/kafka-basics.md:1)  '# Kafka basics\nA topic is split into partitions; consumers in a group '
+  (notes/learning/agents-course-notes.md:1)  '# Agents course notes\nAn agent = model + tools + loop + stop condition'
 
 vector:
   (library/error-codes.md:1)  '# Searching for error codes\nEmbedding models often treat codes like ER'

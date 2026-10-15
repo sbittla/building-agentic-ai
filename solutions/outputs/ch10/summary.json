@@ -2,7 +2,23 @@
  "chapter": "10",
  "title": "Chapter 10: Feedback Loops",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-09-27 21:24",
+ "date": "2026-10-15 00:49",
+ "provenance": {
+  "commit": "c7330a5deef3",
+  "python": "3.12.3",
+  "packages_sha256": "ddf39c32b1ca5b67",
+  "packages": {
+   "anthropic": "1.8.0",
+   "mcp": "2.2.0",
+   "claude-agent-sdk": "0.2.159",
+   "langchain": "1.4.2",
+   "httpx": "0.28.1",
+   "pytest": "9.1.1"
+  },
+  "provider": "local",
+  "model_id": "qwen3.5:9b",
+  "model_label": "qwen3.5:9b (local, through Ollama)"
+ },
  "exercises": [
   {
    "id": "10.1",
@@ -11,7 +27,8 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch10/10.1.log"
+   "log": "ch10/10.1.log",
+   "model": "none"
   },
   {
    "id": "10.2",
@@ -20,7 +37,8 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch10/10.2.log"
+   "log": "ch10/10.2.log",
+   "model": "none"
   },
   {
    "id": "10.3",
@@ -28,8 +46,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 34.1,
-   "log": "ch10/10.3.log"
+   "seconds": 44.3,
+   "log": "ch10/10.3.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "10.4",
@@ -37,8 +57,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 33.8,
-   "log": "ch10/10.4.log"
+   "seconds": 35.5,
+   "log": "ch10/10.4.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "10.5",
@@ -46,8 +68,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 13.2,
-   "log": "ch10/10.5.log"
+   "seconds": 67.8,
+   "log": "ch10/10.5.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "10.6",
@@ -55,17 +79,21 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 38.3,
-   "log": "ch10/10.6.log"
+   "seconds": 84.2,
+   "log": "ch10/10.6.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "10.7",
    "title": "Benchmark the fixer",
    "kind": "build",
-   "status": "skipped",
-   "reason": "needs the sandbox: ./course.sh sandbox up",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 853.8,
+   "log": "ch10/10.7.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   }
  ]
 }

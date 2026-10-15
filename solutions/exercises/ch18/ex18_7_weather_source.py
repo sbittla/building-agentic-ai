@@ -15,12 +15,23 @@ _search = ka.search
 def search(source: str, query: str) -> list[dict]:
     if source != "weather":
         return _search(source, query)
-    city = query.split(" in ")[-1].strip(" ?.") if " in " in query else query.strip(" ?.")
-    found = weather.geocode(city)
-    if found.startswith("ERROR"):
+    # The planner writes free-form queries ("Berlin weather forecast tomorrow"), so try the
+    # likely city words in turn: after " in ", then capitalized words, then the rest.
+    words = [w.strip(" ?.,") for w in query.split()]
+    candidates = ([query.split(" in ")[-1].strip(" ?.")] if " in " in query else []) + \
+        [w for w in words if w[:1].isupper()] + [w for w in words if w[:1].islower()]
+    STOPWORDS = {"weather", "forecast", "rain", "tomorrow", "today", "next", "days", "three",
+                 "will", "the", "for", "week", "temperature", "what", "is", "it"}
+    p = None
+    for city in candidates:
+        if not city or city.lower() in STOPWORDS:
+            continue
+        found = weather.geocode(city)
+        if not found.startswith("ERROR"):
+            p = json.loads(found)[0]
+            break
+    if p is None:
         return []
-    places = json.loads(found)
-    p = places[0]
     forecast = weather.get_forecast(p["latitude"], p["longitude"], days=3)
     return [{"source": "weather", "origin": f"open-meteo:{p['name']}", "text": forecast}]
 

@@ -2,7 +2,23 @@
  "chapter": "T",
  "title": "Interlude: Testing with pytest",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-09-27 19:41",
+ "date": "2026-10-14 23:08",
+ "provenance": {
+  "commit": "c7330a5deef3",
+  "python": "3.12.3",
+  "packages_sha256": "ddf39c32b1ca5b67",
+  "packages": {
+   "anthropic": "1.8.0",
+   "mcp": "2.2.0",
+   "claude-agent-sdk": "0.2.159",
+   "langchain": "1.4.2",
+   "httpx": "0.28.1",
+   "pytest": "9.1.1"
+  },
+  "provider": "local",
+  "model_id": "qwen3.5:9b",
+  "model_label": "qwen3.5:9b (local, through Ollama)"
+ },
  "exercises": [
   {
    "id": "T.1",
@@ -10,8 +26,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 1.7,
-   "log": "T/T.1.log"
+   "seconds": 2.5,
+   "log": "T/T.1.log",
+   "model": "none",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "T.2",
@@ -19,8 +37,10 @@
    "kind": "test",
    "status": "passed",
    "reason": null,
-   "seconds": 6.7,
-   "log": "T/T.2.log"
+   "seconds": 6.4,
+   "log": "T/T.2.log",
+   "model": "none",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "T.3",
@@ -29,7 +49,9 @@
    "status": "passed",
    "reason": null,
    "seconds": 5.5,
-   "log": "T/T.3.log"
+   "log": "T/T.3.log",
+   "model": "none",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "T.4",
@@ -38,7 +60,9 @@
    "status": "passed",
    "reason": null,
    "seconds": 6.2,
-   "log": "T/T.4.log"
+   "log": "T/T.4.log",
+   "model": "none",
+   "commit": "c7330a5deef3"
   }
  ]
 }

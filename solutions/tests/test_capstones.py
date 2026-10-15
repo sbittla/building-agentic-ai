@@ -120,6 +120,21 @@ def test_c2_table_confirmation():
     assert confirm("warehouse__run_query", {"sql": "SELECT * FROM orders o JOIN customers c ON 1"}) is True
     assert confirm("warehouse__run_query", {"sql": "SELECT * FROM customers"}) is True   # already approved
 
+def test_c2_confirmation_ignores_names_the_query_defines():
+    a = _load("c2_analyst/agent.py")
+    asked = []
+    confirm = a.TableConfirmation(ask=lambda prompt: asked.append(prompt) or "")
+    confirm("warehouse__run_query", {"sql": "WITH totals AS (SELECT * FROM orders) "
+                                            "SELECT * FROM totals JOIN products p ON 1"})
+    assert "orders" in asked[0] and "products" in asked[0] and "totals" not in asked[0]
+
+def test_c2_describe_table_says_which_columns_it_dropped(ws):
+    a = _load("c2_analyst/agent.py")
+    _, r = call_all(a.CONFIG, [("warehouse__describe_table",
+                                {"table": "products", "columns": ["name", "category_id"]})])
+    assert r[0][0].startswith("columns: name TEXT")
+    assert "not in this table: category_id" in r[0][0] and "category" in r[0][0]
+
 # ---------------- capstone 3: incident triage
 @pytest.mark.needs("mcp-server-git")
 def test_c3_triage(ws, model):
@@ -175,6 +190,14 @@ def test_c4_review(ws, model):
                                  "comment": "test_last_items was deleted"}]})]])
     review = asyncio.run(a.review("pr-3", approver=lambda n, a_: False))
     assert review["verdict"] == "request_changes" and review["findings"][0]["severity"] == "tests"
+
+def test_c4_verdict_is_decided_in_code():
+    a = _load("c4_review/agent.py")
+    clean = {"verdict": "request_changes", "tests_passed": True,
+             "findings": [{"file": "cart.py", "line": 8, "severity": "tests", "comment": "no test for count()"}]}
+    assert a.decide_verdict(clean, "+def count(items):")["verdict"] == "approve"
+    assert a.decide_verdict(dict(clean, verdict="approve"), "-def test_last_items():")["verdict"] == "request_changes"
+    assert a.decide_verdict(dict(clean, tests_passed=False), "")["verdict"] == "request_changes"
 
 # ---------------- capstone 5: deep research
 @pytest.mark.needs("mcp-server-fetch", "mcp-server-memory")

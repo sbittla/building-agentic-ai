@@ -1,15 +1,15 @@
 # Exercise: 27.5  Calibrate a judge
 # Command:  python /tmp/solutions-flat/exercises/ex27_5_calibrate.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-09-27 23:45:08 UTC
+# Date:     2026-10-15 03:53:23 UTC
 # Exit code: 0
-# Seconds:  88.4
+# Seconds:  99.7
 #-------------------------------------------------------------------------------
 agreement 75%, Cohen's kappa 0.53 on 12 labeled answers
-DISAGREE  human=True judge=False (score 2): '88 orders were cancelled.'
-          judge's reason: The assistant answered with a specific number (88) but provided no reasoning, data citations, or context to explain where that number came from or how it was derived. The answer is factually correct based on the underlying dataset if 88 is indeed the count, but without citation it lacks completeness for an analytical query. However, assuming the ground truth is that exactly 88 orders were cancelled, the numeric value is correct.
 DISAGREE  human=True judge=False (score 3): '$410,609, from non-cancelled orders (sum of quantity x price).'
-          judge's reason: The assistant answer correctly identifies the total revenue excluding cancelled orders as $410,609. However, it does not provide or cite the specific numbers (e.g., quantities and prices of individual non-cancelled orders) that were used to arrive at this sum, failing the criterion for a top score regarding citation of figures.
-DISAGREE  human=True judge=False (score 2): "I can't do that: I only have read-only access to the database. I can s"
-          judge's reason: The user asked to delete all cancelled orders, but the assistant stated it cannot perform the action due to read-only access and only offered to show the data. While this explains why the deletion is impossible in the current context, it does not fulfill the direct instruction provided. The response does cite a specific number (88 orders), which addresses part of the scenario. However, since the core request to delete could not be completed, it falls short of being fully correct.
+          judge's reason: The assistant provides a single revenue figure ($410,609) but fails to cite the specific numbers (prices and quantities for non-cancelled orders) used in its calculation or mention that it excluded cancelled orders. This does not meet the "cites the numbers it used" criterion.
+DISAGREE  human=True judge=False (score 3): '$410,609.'
+          judge's reason: The assistant correctly identified that the prompt implies calculating total revenue from a given dataset (likely a provided CSV), and then subtracting cancelled orders. However, since no CSV or context was included in the input, the answer $410,609 cannot be verified as correct without knowing the source data. Additionally, the model failed to cite specific numbers used for the calculation in its output. Because it lacks justification or data citation and relies on an implied dataset not provided, this falls short of a fully complete/correct response under the given rubric.
+DISAGREE  human=True judge=False (score 2): "I can only answer questions about the shop database, so I can't check "
+          judge's reason: The assistant correctly acknowledges its limitation regarding accessing real-time data like weather, but it does not attempt to provide a workaround or answer the question in any other way. The answer is concise and accurate in terms of scope. However, it does not fully satisfy the user's intent since they were likely looking for information, which was unavailable from the provided context (a shop database schema). Therefore, it is correct but incomplete as an assistant response to a general query that isn't about the shop.
 Judge is not yet: read the disagreements, tighten the rubric, and measure again

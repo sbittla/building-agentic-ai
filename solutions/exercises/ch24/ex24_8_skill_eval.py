@@ -47,6 +47,12 @@ def main():
     for name, row in table.items():
         print(f"{name:<12} pass rate {row['pass_rate']:.0%}, "
               f"{row['avg_tokens']:.0f} tokens per request")
+    w, wo = table["with skill"], table["without"]
+    extra = w["avg_tokens"] - wo["avg_tokens"]
+    gain = w["pass_rate"] - wo["pass_rate"]
+    print(f"The skill costs {extra:+.0f} tokens per request for {gain:+.0%} pass rate: "
+          + ("it earns its tokens." if gain > 0 else
+             "it doesn't earn its tokens on this model: fix the skill or drop it."))
     return table
 
 if __name__ == "__main__":

@@ -6,6 +6,36 @@ What changed in the book and this repository, newest first. The book's First edi
 
 The first public release: the book's First edition and the repository release that matches it. 32 chapters and 6 interludes, 249 exercises, seven capstones. `book-v1.0.0-rc2` is the current release candidate; [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) lists what it was verified with and the gates still open.
 
+### Release candidate 4 manuscript (unreleased)
+At most the same 510 pages as rc2 and rc3 (LibreOffice 24.2), with six more figures.
+- **Figures in every chapter that lacked one:** what one `course.sh` command does (0), history resent on every call (4), how `_safe` resolves then checks a path (6), `_get_json`'s retry path (7), a disguised write stopping at the read-only connection (8), and who owns the stack from a custom loop to a managed service (24).
+- **Reading notes** at the start of Chapters 28, 29 and 30 name the core sections and the advanced ones, so the three longest chapters no longer read as one block.
+- **Verified against the Claude API reference** (models cached 2026-10-06): Claude Sonnet 5.5 added to the models that reject forced tools and disabled thinking (3.3, 4.8); effort defaults; the minimum cacheable prefix is 512 to 4,096 tokens; mid-conversation `system` messages don't apply to Claude Sonnet 5 (16.8). `CLAIMS_AUDIT.md` gains three rows.
+- **Instructions that didn't work as written** on the local model now carry a model note: 9.3, 20.4, 20.5 and 24.4. Exercise 3.7's text matches its solution; T.1 quotes pytest's real message.
+- **Capstones:** every one now has a recorded run. Capstone 2's `describe_table` reports columns it dropped and its approval ignores names a query defines; Capstone 4's verdict is decided in code from failing tests, blocking findings and any deleted test.
+- **Exercise boxes:** the per-box "Full brief" line moved into each chapter's exercise intro (94 lines).
+- Copy-edit: the author's path replaced by a reader's in two examples, checkpoint wording made consistent, a doubled comma, a duplicated reference, a Haiku 4.5 caveat (no `EFFORT`), `--gpu` in the setup steps, and two GPU rows in Appendix H.
+
+### Release candidate 3 manuscript (unreleased)
+Same 510 pages as rc2 (LibreOffice 24.2, the same build). Built from the current repository, so it also carries every correction below.
+- **Five new figures** where the text describes a mechanism without showing it: tool search (3.1), cache hints (15.1), the five team topologies (21.1), the customer engagement (31.1) and the case study's release 1.3 incident.
+- **"On the local model" tips** in Chapters 14, 17, 25 and 27: a full 8K context, keyword recall missing vague questions, a planner reporting tasks it never added, and an eval gate inside a small model's noise.
+- **Page budget:** reference detail and repetition trimmed to keep the page count (Chapter 28's benchmark conditions now point to `benchmarks/README.md`, which already lists them; Appendix M and a few "Up next" paragraphs tightened; the exercise-section intro fits on one line). No exercise text changed.
+- `CLAIMS_AUDIT.md`: the two rows still marked open are closed; the corrected wording is in the manuscript.
+
+### Since release candidate 2 (unreleased)
+Fixes found by running every exercise on the free local model (qwen3.5:9b) and the Claude-only ones on Claude. Code, tests and two exercise texts changed, so rc2's verification no longer applies; the next candidate needs a fresh full run.
+- **Exercise 8.4's instructions** now work: `SYSTEM` describes no tables, and `get_schema`'s description tells the model to read the schema first, so the old "rename the table in `SYSTEM`" never produced a failing query. The exercise now replaces `SYSTEM` and softens `get_schema`'s description.
+- **Exercise 17.3** tells you to ask about each fact by its words; a vague "what do you know about me?" can find nothing with keyword search, as section 17.3 explains.
+- **Solution 3.7** measures what the chapter claims: each question runs a few steps (a date or a status check can come first), and the calculator and unit converter stay loaded. On Claude both setups reach 10/10, tool search at half the input tokens.
+- **Solution 14.4** checks every cited issue number against what GitHub returned and rewrites from a short list when one is invented; 14.3 and 14.4 keep GitHub's results small enough for an 8K context.
+- **Solution 25.4** fails closed when the quarantined reader errors, and asks again when the planner reports tasks it never added. **Solution 24.6** counts a skill once when it also reads the skill's extra file.
+- **The `best-seller` eval case** (`eval_sql.jsonl`, used in Chapters 27 and 29) counted cancelled orders, so its answer was "Laptop" while an agent told to exclude cancelled orders correctly said "Pen set" and was marked wrong. The reference query now excludes cancelled orders.
+- **`./course.sh inspector` now runs servers that import course code.** The MCP Inspector starts a server without `PYTHONPATH`, so exercise 12.6's calculator server (which imports `ch03_tools`) failed with `ModuleNotFoundError`; the weather server worked only because it imports nothing from the course. The command now passes the course's path to the server.
+- **Solutions documentation:** `ANSWERS.md` describes what you should see for 12.3–12.6 step by step (including a terminal check with `inspector --cli`) and the new 17.3 questions; `SOLUTIONS.md` describes the changed 3.7, 8.4, 14.4 and 25.4 solutions; `EXERCISE_INDEX.md` and the README's results table are regenerated from the current outputs.
+- Stricter run checks (`course/run_checks.json`) for 3.7, 14.4, 17.3 and 24.6, which had passed on output that didn't meet the exercise.
+- LOCAL_MODEL.md: what to do when a reply is cut off by a full context, when the agent reports actions it never took, and when an eval gate flips between runs.
+
 ### Release candidate 2 (`book-v1.0.0-rc2`)
 Manuscript and documentation only; no code, test or environment file changed since `book-v1.0.0-rc1`, so rc1's in-image test run (584 passed, 1 skipped, in the course image on GitHub Actions) still applies and is now the recorded verification.
 - **A curated index.** About 290 entries with sub-entries and cross-references (`course/index_terms.json`). Each sense is looked up only in the chapters that teach it, so "canary release" and "canary token" are separate entries, and the glossary pages are left out.

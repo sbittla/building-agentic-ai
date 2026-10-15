@@ -1,12 +1,24 @@
 # Exercise: 13.6  Resilience
-# Command:  python ch13_mcp_agent.py servers.json
+# Command:  python /tmp/solutions-flat/exercises/run13_hub.py resilience
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-09-28 00:15:07 UTC
+# Date:     2026-10-15 01:18:36 UTC
 # Exit code: 0
-# Seconds:  6.1
+# Seconds:  24.8
 #-------------------------------------------------------------------------------
-Tools: ['todo__add_task', 'todo__list_tasks', 'todo__find_tasks', 'todo__complete_task', 'todo__today', 'shopdb__get_schema', 'shopdb__run_query']
+You: Add a to-do: call the bank, due 2026-11-02.
+[step 1] todo__add_task({"title": "call the bank", "due": "2026-11-02"}) -> 'Added #6: call the bank'
+Agent: Your to-do "call the bank" has been added with a due date of 2026-11-02.
 
-You: Agent: Hello! How can I help you today?
+[demo] killed the todo server (pids [286]) mid-session
 
-You:
+You: What is on my to-do list now?
+[hub] todo failed (MCPError); restarting
+[step 1] todo__list_tasks({}) -> '#1 [ ] Buy milk (due -, normal)\n#3 [ ] Read chapter 13 (due -, high)\n#'
+Agent: Your to-do list now contains the following items:
+- #1: Buy milk (no due date, normal priority)
+- #3: Read chapter 13 (no due date, high priority)
+- #4: Follow up on pending orders - 85 (no due date, normal priority)
+- #5: Pack an umbrella for Seattle tomorrow (20% rain chance) (no due date, normal priority)
+- #6: Call the bank (due 2026-11-02, normal priority)
+
+server restarts: 1; the next question still worked: True

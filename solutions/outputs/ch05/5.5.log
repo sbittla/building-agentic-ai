@@ -1,9 +1,27 @@
 # Exercise: 5.5  What's due this week?
-# Command:  python ch05_todo_tools.py
+# Command:  python /tmp/solutions-flat/exercises/run5_todo.py due
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-09-27 19:52:52 UTC
+# Date:     2026-10-14 23:33:40 UTC
 # Exit code: 0
-# Seconds:  4.8
+# Seconds:  22.6
 #-------------------------------------------------------------------------------
-You: Agent: It seems like you might have started typing but haven't finished your message. Feel free to ask me anything about managing your tasks, or if you'd like help with something specific!
-You:
+test data: [('pay old invoice', '2026-10-04'), ('renew insurance', '2026-10-13'), ('team lunch', '2026-10-16'), ('dentist', '2026-10-19'), ('holiday booking', '2026-11-23')]
+expected this week (due on or before Sunday 2026-10-18): ['pay old invoice', 'renew insurance', 'team lunch']
+expected overdue: pay old invoice, renew insurance
+
+You: What's due this week?
+[step 1] today({}) -> '2026-10-14'  (0 ms)
+[step 2] list_tasks({"due_before": "2026-10-18"}) -> '#1 [ ] pay old invoice (due 2026-10-04, normal)\n#2 [ ] renew insurance (due 2026'  (8 ms)
+Agent: Here are the tasks that are due this week:
+
+1. **#1 pay old invoice** - due October 4, 2026 (normal priority) - **OVERDUE**
+2. **#2 renew insurance** - due October 13, 2026 (normal priority) - **OVERDUE**
+3. **#3 team lunch** - due October 16, 2026 (normal priority)
+
+Note that two tasks are already overdue. Is there anything you'd like to do with these tasks?
+
+You: What's overdue?
+[step 1] overdue_tasks({}) -> '#1 pay old invoice (was due 2026-10-04)\n#2 renew insurance (was due 2026-10-13)'  (8 ms)
+Agent: You have two overdue tasks:
+- #1: Pay old invoice (was due 2026-10-04)
+- #2: Renew insurance (was due 2026-10-13)

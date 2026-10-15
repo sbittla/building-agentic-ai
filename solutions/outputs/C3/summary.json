@@ -2,7 +2,23 @@
  "chapter": "C3",
  "title": "Capstone 3",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-09-28 00:53",
+ "date": "2026-10-15 05:32",
+ "provenance": {
+  "commit": "059cdccbdb57-modified",
+  "python": "3.12.3",
+  "packages_sha256": "ddf39c32b1ca5b67",
+  "packages": {
+   "anthropic": "1.8.0",
+   "mcp": "2.2.0",
+   "claude-agent-sdk": "0.2.159",
+   "langchain": "1.4.2",
+   "httpx": "0.28.1",
+   "pytest": "9.1.1"
+  },
+  "provider": "local",
+  "model_id": "qwen3.5:9b",
+  "model_label": "qwen3.5:9b (local, through Ollama)"
+ },
  "exercises": [
   {
    "id": "C3",
@@ -10,8 +26,10 @@
    "kind": "capstone",
    "status": "passed",
    "reason": null,
-   "seconds": 157.8,
-   "log": "C3/C3.log"
+   "seconds": 173.8,
+   "log": "C3/C3.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "059cdccbdb57-modified"
   }
  ]
 }

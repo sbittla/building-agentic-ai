@@ -2,6 +2,7 @@
 delegation with effort levels) and 11.6 (a critic pass with one revision)."""
 import asyncio
 import json
+import re
 import time
 import ch11_research_team as base
 from ch11_research_team import _call, usage
@@ -34,11 +35,26 @@ def brief(sub: dict) -> str:
     return (f"Objective: {sub['objective']}\nOut of scope (a colleague covers it): "
             f"{sub['out_of_scope']}\nEffort: {sub['effort']}")
 
-async def research(question: str, parallel: bool = True, critic: bool = True) -> dict:
+async def research(question: str, parallel: bool = True, critic: bool = True,
+                   plant: str | None = None) -> dict:
+    """plant: a claim to slip into the draft before the critic reads it (exercise 11.5),
+    to check that the critic catches it and the revision removes it."""
     t0 = time.perf_counter()
     plan = await _call(tools=[PLAN_TOOL], tool_choice={"type": "tool", "name": "make_plan"},
                        messages=[{"role": "user", "content": question}])
     subtasks = next(b.input["subtasks"] for b in plan.content if b.type == "tool_use")
+    if isinstance(subtasks, str):    # the whole list sent as text: don't split by character
+        subtasks = re.findall(r'"([^"]+)"', subtasks) or [subtasks]
+    subtasks = subtasks[:4]
+    for i, s in enumerate(subtasks):  # a model can skip or rename "required" fields: check
+        if isinstance(s, str):
+            s = subtasks[i] = {"objective": s}
+        if not s.get("objective"):
+            s["objective"] = next((s[k] for k in ("task", "description", "question", "title")
+                                   if isinstance(s.get(k), str)), question)
+        s.setdefault("out_of_scope", "the other subtasks")
+        if s.get("effort") not in EFFORT_STEPS:
+            s["effort"] = "deep"
     jobs = [base.run_subagent(brief(s), max_iterations=EFFORT_STEPS[s["effort"]]) for s in subtasks]
     if parallel:
         findings = await asyncio.gather(*jobs)
@@ -48,6 +64,8 @@ async def research(question: str, parallel: bool = True, critic: bool = True) ->
     draft = text_of(await _call(messages=[{"role": "user", "content":
         f"Question: {question}\n\nFindings:\n{report}\n\nWrite a concise answer. Keep every "
         "source citation. Point out disagreements."}]))
+    if plant:
+        draft += "\n\n" + plant
     unsupported = []
     if critic:                                     # exercise 11.5
         review = await _call(tools=[CRITIC_TOOL], tool_choice={"type": "tool", "name": "review"},

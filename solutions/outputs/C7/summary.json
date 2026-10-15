@@ -1,12 +1,12 @@
 {
  "chapter": "C7",
  "title": "Capstone 7",
- "model": "none (--free-only)",
- "date": "2026-10-08 23:14",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-10-15 04:35",
  "provenance": {
-  "commit": "b2de67c6c601",
-  "python": "3.12.11",
-  "packages_sha256": "95d6b663897ac0b2",
+  "commit": "c7330a5deef3",
+  "python": "3.12.3",
+  "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
    "anthropic": "1.8.0",
    "mcp": "2.2.0",
@@ -26,10 +26,10 @@
    "kind": "capstone",
    "status": "passed",
    "reason": null,
-   "seconds": 1.2,
+   "seconds": 17.8,
    "log": "C7/C7.log",
    "model": "none",
-   "commit": "b2de67c6c601"
+   "commit": "c7330a5deef3"
   }
  ]
 }

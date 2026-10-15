@@ -11,18 +11,18 @@
   },
   "exercises": 249,
   "capstones": 7,
-  "git_commit": "02ba9f36d9886274789e573da5c84956b31bf559",
+  "git_commit": "5242431fa7cb6541b6678d0a13cf6a3e72150e7b",
   "python_version": "3.12.3",
   "dependency_lock_sha256": "c28c848a2447e2358d5d5ee80dbb69d99ac4c946c2c442d792bd9e1f3f28b119",
   "mcp_specification": "2026-07-28",
-  "verification_date": "2026-10-13",
+  "verification_date": "2026-10-14",
   "offline_test_status": {
-    "passed": 584,
+    "passed": 588,
     "failed": 0,
     "errors": 0,
     "skipped": 1,
-    "tests": 585,
-    "environment": "course image sha256:e6fd524a3e64, GitHub Actions Linux",
+    "tests": 589,
+    "environment": "course image (local Docker)",
     "model": "scripted stand-in (solutions/tests/fakemodel.py); no API key, no model provider called",
     "evidence": "verification/offline.json"
   },
@@ -30,30 +30,34 @@
     "exercises_and_capstones": 256,
     "by_outcome": {
       "written answer": 63,
-      "needs a person or service": 14,
-      "passed": 176,
-      "failed": 1
+      "passed": 182,
+      "needs a person or service": 4
     },
     "runs_by_provider": {
-      "local (qwen3.5:9b)": 140,
-      "Claude API": 4,
-      "no model": 33
+      "no model": 65,
+      "local (qwen3.5:9b)": 113,
+      "Claude API": 4
     },
     "not_run_yet": [
-      "M.3",
-      "31.5"
+      "31.5",
+      "C1",
+      "C2",
+      "C3",
+      "C4",
+      "C5",
+      "C6"
     ],
-    "dates": "2026-09-27 to 2026-10-13",
+    "dates": "2026-10-14 to 2026-10-14",
     "evidence": "solutions/outputs/*/summary.json (each records its own commit and lock hash)"
   },
   "known_limitations": [
-    "2 model-dependent exercises have no recorded live-model run yet: M.3, 31.5. Record them with ./course.sh run-chapter <ids> --model claude.",
+    "7 model-dependent exercises have no recorded live-model run yet: 31.5, C1, C2, C3, C4, C5, C6. Record them with ./course.sh run-chapter <ids> --model claude.",
     "Live-model runs were recorded on earlier commits than the verified one; each summary.json names its own commit.",
     "Two runtime images are not pinned: ghcr.io/github/github-mcp-server:latest (exercises 14.3, 14.4, Capstone 4) and ollama/ollama:latest (the free local model). See VERSION_MATRIX.md for the fallback and how to pin them.",
     "Production readiness is not claimed: the course kit is not production-hardened (Appendix M of the book, SECURITY_MODEL.md)."
   ],
   "open_gates": [
-    "Record live-model runs for M.3, 31.5 (./course.sh run-chapter <ids> --model claude), or approve them as exceptions here.",
+    "Record live-model runs for 31.5, C1, C2, C3, C4, C5, C6 (./course.sh run-chapter <ids> --model claude), or approve them as exceptions here.",
     "Clean setup from a fresh checkout on Windows, macOS and Linux (./course.sh setup, build, selftest, quickstart).",
     "Independent technical review and a beginner-reader pilot (PILOT.md), with findings recorded.",
     "Final proof of the print files, and KDP preview of paperback and hardcover (trim, gutter, spine, cover, ISBN and metadata).",

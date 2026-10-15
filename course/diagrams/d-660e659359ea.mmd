@@ -1,0 +1,10 @@
+%%{init: {"flowchart": {"rankSpacing": 20, "nodeSpacing": 16}}}%%
+flowchart LR
+  A["_get_json(url)"] --> B{"In the<br/>cache?"}
+  B -->|yes| R["Return it"]
+  B -->|no| C["HTTP call<br/>with a timeout"]
+  C -->|200| S["Cache it,<br/>return it"]
+  C -->|"timeout, 429, 5xx"| W["Wait: Retry-After,<br/>or backoff + jitter"]
+  W -->|"tries left"| C
+  W -->|"3 tries used"| X["ERROR: unavailable<br/>after 3 tries"]
+  C -->|"other 4xx"| Y["ERROR now:<br/>retrying won't help"]

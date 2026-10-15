@@ -1,0 +1,6 @@
+%%{init: {"flowchart": {"rankSpacing": 24, "nodeSpacing": 24}}}%%
+flowchart LR
+  A["Request: every tool,<br/>most marked defer_loading"] --> B["Model sees the search<br/>tool and loaded tools"]
+  B --> C["Searches<br/>(Anthropic's servers)"]
+  C --> D["Matching tools load<br/>for this request"]
+  D --> E["tool_use: your<br/>code runs it"]

@@ -1,0 +1,15 @@
+# Exercise: 7.4  Handle the hard cases
+# Command:  python /tmp/solutions-flat/exercises/ex7_4_hard_cases.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-10-14 23:50:39 UTC
+# Exit code: 0
+# Seconds:  23.0
+#-------------------------------------------------------------------------------
+[step 1] geocode({"city": "Xyzzyqq"}) -> "ERROR: no place called 'Xyzzyqq'. Check spelling or add a country."  (855 ms)
+(a) I couldn't find a city named "Xyzzyqq". It seems to be either fictional, misspelled, or an acronym for a specific place not in my standard database. Could you please check the spelling or provide more context about where you plan to go? Once I have the correct city name (and country if possible), I can get you the weather forecast and a packing list. 
+
+(b) To give you an accurate packing list, I need to know which Portland you're heading to: **Portland, Oregon** (USA) or **Portland, Maine** (USA)? These cities have different climates.
+
+Once you confirm the location, I'll get the forecast and recommend what to bring! 
+
+(c) tool returned after 7.8s with 3 tries: ERROR: RuntimeError: weather service unavailable after 3 tries: timed out

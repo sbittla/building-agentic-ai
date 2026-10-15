@@ -1,0 +1,18 @@
+# Exercise: 31.5  Draft it, then check it
+# Command:  python /tmp/solutions-flat/exercises/ex31_5_draft_brief.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-10-15 04:23:41 UTC
+# Exit code: 0
+# Seconds:  25.2
+#-------------------------------------------------------------------------------
+Draft problems:
+  - no baseline: measure today's number first, or no gain shows
+  - no target: agree the number that counts as success
+  - no customer owner: a named person must sign off
+Ask next:
+  - What is the current average time taken to process a claim file?
+  - Is there a desired target time for processing a claim file?
+  - What specific types of claims are processed and what makes a 'big' file?
+  - What are the approval thresholds for data leaving the EU?
+
+After the follow-up: ready to build

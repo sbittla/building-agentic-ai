@@ -2,7 +2,23 @@
  "chapter": "7",
  "title": "Chapter 7: Real APIs",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-09-28 00:14",
+ "date": "2026-10-14 23:58",
+ "provenance": {
+  "commit": "c7330a5deef3",
+  "python": "3.12.3",
+  "packages_sha256": "ddf39c32b1ca5b67",
+  "packages": {
+   "anthropic": "1.8.0",
+   "mcp": "2.2.0",
+   "claude-agent-sdk": "0.2.159",
+   "langchain": "1.4.2",
+   "httpx": "0.28.1",
+   "pytest": "9.1.1"
+  },
+  "provider": "local",
+  "model_id": "qwen3.5:9b",
+  "model_label": "qwen3.5:9b (local, through Ollama)"
+ },
  "exercises": [
   {
    "id": "7.1",
@@ -11,7 +27,8 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch07/7.1.log"
+   "log": "ch07/7.1.log",
+   "model": "none"
   },
   {
    "id": "7.2",
@@ -20,25 +37,30 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch07/7.2.log"
+   "log": "ch07/7.2.log",
+   "model": "none"
   },
   {
    "id": "7.3",
    "title": "Pack for a trip",
    "kind": "ask",
-   "status": "skipped",
-   "reason": "an ask exercise: nothing to run against a model",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 64.6,
+   "log": "ch07/7.3.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "7.4",
    "title": "Handle the hard cases",
    "kind": "ask",
-   "status": "skipped",
-   "reason": "an ask exercise: nothing to run against a model",
-   "seconds": 0,
-   "log": null
+   "status": "passed",
+   "reason": null,
+   "seconds": 23.0,
+   "log": "ch07/7.4.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "7.5",
@@ -46,8 +68,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 110.3,
-   "log": "ch07/7.5.log"
+   "seconds": 89.8,
+   "log": "ch07/7.5.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "7.6",
@@ -55,8 +79,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 433.3,
-   "log": "ch07/7.6.log"
+   "seconds": 403.7,
+   "log": "ch07/7.6.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   }
  ]
 }

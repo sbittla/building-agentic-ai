@@ -1,19 +1,58 @@
 # Exercise: 10.5  Four bugs, two files
 # Command:  python ch10_fixer.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-09-27 21:24:03 UTC
+# Date:     2026-10-15 00:34:02 UTC
 # Exit code: 0
-# Seconds:  13.2
+# Seconds:  67.8
 #-------------------------------------------------------------------------------
-[step 1] list_files({}) -> 'pricing.py\ntest_pricing.py'  (0 ms)
-[step 2] read_file({"path": "pricing.py"}) -> '1: def subtotal(items):\n2:     """items: list of (price, quantity)."""\n3:     re'  (0 ms)
-[step 2] read_file({"path": "test_pricing.py"}) -> '1: from pricing import subtotal, apply_discount, total\n2: \n3: def test_subtotal_'  (0 ms)
-[step 3] run_tests({}) -> '...                                                                      [100%]\n'  (1568 ms)
-All tests pass. No changes were needed—the code is already correct.
+$ course data repo --fresh && python /tmp/solutions-flat/exercises/sol_ch10_make_repo2.py
+buggy_repo created: run `pytest buggy_repo` to see 3 failures
+added shipping.py: run `pytest buggy_repo` to see 5 failures
+$ python ch10_fixer.py
+[step 1] run_tests({}) -> 'FFF.FF.                                                                  [100%]\n'  (2362 ms)
+[step 2] list_files({}) -> 'pricing.py\nshipping.py\ntest_pricing.py\ntest_shipping.py'  (10 ms)
+[step 3] read_file({"path": "pricing.py"}) -> '1: def subtotal(items):\n2:     """items: list of (price, quantity)."""\n3:     re'  (17 ms)
+[step 3] read_file({"path": "shipping.py"}) -> '1: def shipping_cost(weight_kg, express=False):\n2:     """Base 5.00 + 1.50 per k'  (14 ms)
+[step 4] write_file({"path": "pricing.py", "content": "def subtotal(items):\n    \"\"\"items: list of (price, quantity).\"\"\"\n    return sum(price * qty for price, qty in items)          # Fixed: now uses quantity\n\ndef apply_discount(amount, percent):\n    \"\"\"Reduce amount by percent (0-100).\"\"\"\n    return amount - amount * (percent / 100)  # Fixed: percent divided by 100\n\ndef total(items, percent=0, tax_rate=0.08):\n    return round(apply_discount(subtotal(items), percent) * (1 + tax_rate), 2)\n"}) -> 'Wrote 437 characters to pricing.py.'  (28 ms)
+[step 5] write_file({"path": "shipping.py", "content": "def shipping_cost(weight_kg, express=False):\n    \"\"\"Base 5.00 + 1.50 per kg; express doubles the total. Free over 20 kg? No: capped at 40.\"\"\"\n    cost = 5.0 + 1.5 * weight_kg\n    if express:\n        cost = cost * 2                   # Fixed: now doubles the cost\n    return min(cost, 40.0)                # Fixed: cap is 40\n\ndef delivery_days(express=False):\n    return 1 if express else 5\n"}) -> 'Wrote 390 characters to shipping.py.'  (32 ms)
+[step 6] run_tests({}) -> '.......                                                                  [100%]\n'  (1970 ms)
+All tests now pass. Here's what I fixed:
 
-Summary:
-- Ran the test suite and all 3 tests passed.
-- Read the pricing.py and test_pricing.py files to confirm the implementation.
-- No bugs or modifications were necessary. 
- {'steps': 4, 'tool_calls': 4, 'input_tokens': 423, 'output_tokens': 140, 'stop_reason': 'end_turn', 'model': 'qwen3.5:9b'} 
-failing tests per run: [0]
+**pricing.py:**
+1. Line 3: Changed `sum(price for price, qty in items)` to `sum(price * qty for price, qty in items)` - the subtotal was ignoring quantity and only summing prices.
+2. Line 7: Changed `amount - amount * percent` to `amount - amount * (percent / 100)` - the discount calculation wasn't converting the percentage to a decimal.
+
+**shipping.py:**
+1. Line 5: Changed `cost = cost + 2` to `cost = cost * 2` - express shipping should double the total cost, not add 2.
+2. Line 6: Changed `min(cost, 30.0)` to `min(cost, 40.0)` - the cap should be 40 as specified in the docstring. 
+ {'steps': 7, 'tool_calls': 7, 'input_tokens': 2148, 'output_tokens': 834, 'stop_reason': 'end_turn', 'model': 'qwen3.5:9b'} 
+failing tests per run: [5, 0]
+--- a/pricing.py
++++ b/pricing.py
+@@ -1,10 +1,10 @@
+ def subtotal(items):
+     """items: list of (price, quantity)."""
+-    return sum(price for price, qty in items)          # BUG: ignores quantity
++    return sum(price * qty for price, qty in items)          # Fixed: now uses quantity
+ 
+ def apply_discount(amount, percent):
+     """Reduce amount by percent (0-100)."""
+-    return amount - amount * percent  # BUG: percent not divided by 100
++    return amount - amount * (percent / 100)  # Fixed: percent divided by 100
+ 
+ def total(items, percent=0, tax_rate=0.08):
+     return round(apply_discount(subtotal(items), percent) * (1 + tax_rate), 2)
+
+--- a/shipping.py
++++ b/shipping.py
+@@ -2,8 +2,8 @@
+     """Base 5.00 + 1.50 per kg; express doubles the total. Free over 20 kg? No: capped at 40."""
+     cost = 5.0 + 1.5 * weight_kg
+     if express:
+-        cost = cost + 2                   # BUG: should double
+-    return min(cost, 30.0)                # BUG: cap is 40
++        cost = cost * 2                   # Fixed: now doubles the cost
++    return min(cost, 40.0)                # Fixed: cap is 40
+ 
+ def delivery_days(express=False):
+     return 1 if express else 5

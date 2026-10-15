@@ -10,7 +10,7 @@
 {"id": "electronics-revenue", "question": "How much revenue did electronics bring in, excluding cancelled orders?", "answer_sql": "SELECT ROUND(SUM(oi.quantity * p.price)) FROM order_items oi JOIN products p ON p.id = oi.product_id JOIN orders o ON o.id = oi.order_id WHERE o.status != 'cancelled' AND p.category = 'electronics'"}
 {"id": "priciest", "question": "What is our most expensive product?", "answer_sql": "SELECT name FROM products ORDER BY price DESC LIMIT 1"}
 {"id": "cheapest", "question": "What is our cheapest product, and what does it cost?", "answer_sql": "SELECT name FROM products ORDER BY price ASC LIMIT 1"}
-{"id": "best-seller", "question": "Which product has sold the most units?", "answer_sql": "SELECT p.name FROM order_items oi JOIN products p ON p.id = oi.product_id GROUP BY p.id ORDER BY SUM(oi.quantity) DESC LIMIT 1"}
+{"id": "best-seller", "question": "Which product has sold the most units?", "answer_sql": "SELECT p.name FROM order_items oi JOIN orders o ON o.id = oi.order_id JOIN products p ON p.id = oi.product_id WHERE o.status != 'cancelled' GROUP BY p.id ORDER BY SUM(oi.quantity) DESC LIMIT 1"}
 {"id": "top-city", "question": "Which city has the most customers?", "answer_sql": "SELECT city FROM customers GROUP BY city ORDER BY COUNT(*) DESC LIMIT 1"}
 {"id": "berlin", "question": "How many of our customers are in Berlin?", "answer_sql": "SELECT COUNT(*) FROM customers WHERE city = 'Berlin'"}
 {"id": "cities", "question": "In how many different cities do our customers live?", "answer_sql": "SELECT COUNT(DISTINCT city) FROM customers"}

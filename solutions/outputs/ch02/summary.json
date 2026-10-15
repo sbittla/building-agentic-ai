@@ -2,7 +2,23 @@
  "chapter": "2",
  "title": "Chapter 2: Tool Calling (Function Calling)",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-09-27 19:44",
+ "date": "2026-10-14 23:12",
+ "provenance": {
+  "commit": "c7330a5deef3",
+  "python": "3.12.3",
+  "packages_sha256": "ddf39c32b1ca5b67",
+  "packages": {
+   "anthropic": "1.8.0",
+   "mcp": "2.2.0",
+   "claude-agent-sdk": "0.2.159",
+   "langchain": "1.4.2",
+   "httpx": "0.28.1",
+   "pytest": "9.1.1"
+  },
+  "provider": "local",
+  "model_id": "qwen3.5:9b",
+  "model_label": "qwen3.5:9b (local, through Ollama)"
+ },
  "exercises": [
   {
    "id": "2.1",
@@ -11,7 +27,8 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch02/2.1.log"
+   "log": "ch02/2.1.log",
+   "model": "none"
   },
   {
    "id": "2.2",
@@ -20,7 +37,8 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch02/2.2.log"
+   "log": "ch02/2.2.log",
+   "model": "none"
   },
   {
    "id": "2.3",
@@ -28,8 +46,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 9.5,
-   "log": "ch02/2.3.log"
+   "seconds": 14.1,
+   "log": "ch02/2.3.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "2.4",
@@ -37,8 +57,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 152.3,
-   "log": "ch02/2.4.log"
+   "seconds": 139.2,
+   "log": "ch02/2.4.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "2.5",
@@ -46,8 +68,10 @@
    "kind": "test",
    "status": "passed",
    "reason": null,
-   "seconds": 6.3,
-   "log": "ch02/2.5.log"
+   "seconds": 11.5,
+   "log": "ch02/2.5.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "2.6",
@@ -55,8 +79,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 25.1,
-   "log": "ch02/2.6.log"
+   "seconds": 59.2,
+   "log": "ch02/2.6.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   }
  ]
 }

@@ -49,8 +49,9 @@ class RemoteMCPHub(MCPHub):
                                "input_schema": tool.input_schema})
 
 async def main(path="servers_remote.json", questions=("Add 'prepare demo' due 2026-10-10, "
-                                                       "then list the team's tasks.",)):
-    config = json.load(open(path))
+                                                       "then list the team's tasks.",),
+               config=None):
+    config = config or json.load(open(path))
     try:
         async with RemoteMCPHub(config) as hub:
             print("Tools:", [t["name"] for t in hub.tools])
@@ -62,5 +63,25 @@ async def main(path="servers_remote.json", questions=("Add 'prepare demo' due 20
         return 1
     return 0
 
+async def demo(path="servers_remote.json"):
+    """All three checks: read+write token, a wrong token, and the read-only token."""
+    config = json.load(open(path))
+    print("=== read+write token (MCP_TOKEN) ===")
+    await main(config=config)
+    print("\n=== a wrong token ===")
+    wrong = json.loads(json.dumps(config))
+    wrong["servers"]["team"]["token"] = "not-the-right-token"
+    await main(config=wrong, questions=("List the team's tasks.",))
+    print("\n=== read-only token (MCP_READONLY_TOKEN) ===")
+    readonly = json.loads(json.dumps(config))
+    readonly["servers"]["team"]["token_env"] = "MCP_READONLY_TOKEN"
+    await main(config=readonly, questions=(
+        "List the team's tasks.",
+        "Add the task 'should be refused' due 2026-10-11 with team__add_task, and tell me "
+        "exactly what the tool returned."))
+    return 0
+
 if __name__ == "__main__":
+    if "--demo" in sys.argv:
+        sys.exit(asyncio.run(demo(*[a for a in sys.argv[1:] if a != "--demo"][:1])))
     sys.exit(asyncio.run(main(*sys.argv[1:2])))

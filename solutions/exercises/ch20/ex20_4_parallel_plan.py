@@ -45,7 +45,14 @@ PLAN = {"steps": [
      "needs": ["s1", "s2"], "done_when": "a ratio"}]}
 
 if __name__ == "__main__":
+    import os
     import ch08_sql_tools as sql
+    run_step(PLAN["steps"][0], {}, sql.TOOLS, sql.run_tool)    # warm-up: load the model once
     (_, rounds), t_par = timed(run_plan_parallel, PLAN, sql.TOOLS, sql.run_tool)
     _, t_seq = timed(run_plan_sequential, PLAN, sql.TOOLS, sql.run_tool)
     print(f"rounds: {rounds}\nparallel {t_par:.1f}s, sequential {t_seq:.1f}s")
+    if os.environ.get("PROVIDER") == "local":
+        print("The local model answers one request at a time (OLLAMA_NUM_PARALLEL=1), so "
+              "s1 and s2 still queue at the model: the rounds show they were started "
+              "together, but only a model that serves requests concurrently (Claude) turns "
+              "that into less wall time.")

@@ -351,11 +351,12 @@ function convert(md, file) {
         out.push(new Paragraph({ heading: h, children: [new TextRun(text)] }));
       }
       if (level === 2 && text === "Exercises") out.push(new Paragraph({ spacing: { after: 80 }, keepNext: true, children: [
-        new TextRun({ text: "Run any exercise with ", italics: true, size: 17, color: "404040" }),
+        // one line: the model labels on each box are explained in How to Use This Book
+        new TextRun({ text: "Run an exercise, with its full brief, using ", italics: true, size: 17, color: "404040" }),
         new TextRun({ text: "./course.sh ex <id>", font: MONO, size: 15 }),
-        new TextRun({ text: " and print its reference solution with ", italics: true, size: 17, color: "404040" }),
+        new TextRun({ text: "; see its solution with ", italics: true, size: 17, color: "404040" }),
         new TextRun({ text: "./course.sh solution <id>", font: MONO, size: 15 }),
-        new TextRun({ text: ". Each box names the model it needs (How to Use This Book explains the labels).", italics: true, size: 17, color: "404040" })] }));
+        new TextRun({ text: ".", italics: true, size: 17, color: "404040" })] }));
       if (api) out.push(new Paragraph({ spacing: { before: 0, after: 120 }, keepNext: true, children: [
         new TextRun({ text: "API-dependent. ", bold: true, size: 17, color: "595959" }),
         new TextRun({ text: "The concept is durable; the names, parameters and prices here change often. "
@@ -484,7 +485,7 @@ function convert(md, file) {
       if (!need) throw new Error(`exercise ${id} is missing from model_needs.json`);
       solutionFile(id);                                   // still checks every exercise has a solution
       if (need.note) buf.push(`**Model:** ${need.note}`);
-      if (kit >= 0) buf.push(`**Full brief:** \`./course.sh ex ${id}\``);
+      // the full brief (the kit text) is printed by ./course.sh ex, which the "## Exercises" intro names
       // how to run an exercise and see its solution is said once, under "## Exercises"
       out.push(...boxParas(buf, LEVEL_FILL[lvl], color, [
         new TextRun({ text: `Exercise ${id}`, bold: true, color }),

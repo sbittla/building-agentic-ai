@@ -2,7 +2,23 @@
  "chapter": "13",
  "title": "Chapter 13: Build Your Own MCP Client",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-09-28 00:15",
+ "date": "2026-10-15 01:19",
+ "provenance": {
+  "commit": "c7330a5deef3",
+  "python": "3.12.3",
+  "packages_sha256": "ddf39c32b1ca5b67",
+  "packages": {
+   "anthropic": "1.8.0",
+   "mcp": "2.2.0",
+   "claude-agent-sdk": "0.2.159",
+   "langchain": "1.4.2",
+   "httpx": "0.28.1",
+   "pytest": "9.1.1"
+  },
+  "provider": "local",
+  "model_id": "qwen3.5:9b",
+  "model_label": "qwen3.5:9b (local, through Ollama)"
+ },
  "exercises": [
   {
    "id": "13.1",
@@ -11,7 +27,8 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch13/13.1.log"
+   "log": "ch13/13.1.log",
+   "model": "none"
   },
   {
    "id": "13.2",
@@ -19,8 +36,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 3.1,
-   "log": "ch13/13.2.log"
+   "seconds": 3.0,
+   "log": "ch13/13.2.log",
+   "model": "none",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "13.3",
@@ -28,8 +47,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 7.8,
-   "log": "ch13/13.3.log"
+   "seconds": 15.6,
+   "log": "ch13/13.3.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "13.4",
@@ -37,8 +58,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 6.0,
-   "log": "ch13/13.4.log"
+   "seconds": 17.6,
+   "log": "ch13/13.4.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "13.5",
@@ -46,8 +69,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 6.2,
-   "log": "ch13/13.5.log"
+   "seconds": 35.4,
+   "log": "ch13/13.5.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "13.6",
@@ -55,8 +80,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 6.1,
-   "log": "ch13/13.6.log"
+   "seconds": 24.8,
+   "log": "ch13/13.6.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "13.7",
@@ -64,8 +91,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 3.9,
-   "log": "ch13/13.7.log"
+   "seconds": 4.1,
+   "log": "ch13/13.7.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "13.8",
@@ -73,8 +102,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 23.4,
-   "log": "ch13/13.8.log"
+   "seconds": 43.6,
+   "log": "ch13/13.8.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   }
  ]
 }

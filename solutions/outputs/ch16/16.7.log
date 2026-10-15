@@ -1,42 +1,39 @@
 # Exercise: 16.7  Let a program do the counting
-# Command:  python ch16_programmatic.py
+# Command:  python /tmp/solutions-flat/exercises/ex16_7_programmatic_compare.py
 # Model:    claude-sonnet-5 (Claude API)
-# Date:     2026-09-28 01:49:52 UTC
+# Date:     2026-10-14 18:08:55 UTC
 # Exit code: 0
-# Seconds:  43.7
+# Seconds:  110.4
 #-------------------------------------------------------------------------------
-  [program called run_query] SELECT name FROM sqlite_master WHERE type='table'
-  [program called run_query] PRAGMA table_info(customers)
-  [program called run_query] PRAGMA table_info(products)
-  [program called run_query] PRAGMA table_info(orders)
-  [program called run_query] PRAGMA table_info(order_items)
-  [program called run_query] SELECT DISTINCT category FROM products
-  [program called run_query] SELECT status, COUNT(*) FROM orders GROUP BY status
-  [program called run_query] 
-    SELECT
-        'electronics' AS category,
-        ROUND(SUM(oi.qu
-  [program called run_query] 
-    SELECT
-        'furniture' AS category,
-        ROUND(SUM(oi.quan
-  [program called run_query] 
-    SELECT
-        'stationery' AS category,
-        ROUND(SUM(oi.qua
-I ran a separate query for each of the three product categories, computing each category's revenue as a share of total revenue (calculated across all orders/order items):
 
-| Category | Category Revenue | Total Revenue | % Share |
-|---|---|---|---|
-| Electronics | $422,660.00 | $548,790.00 | **77.02%** |
-| Furniture | $121,920.00 | $548,790.00 | **22.22%** |
-| Stationery | $4,210.00 | $548,790.00 | **0.77%** |
+For each product category, what share of total revenue does it earn? Query each category separately.
+  plain loop    {'model_calls': 5, 'input_tokens': 6044, 'tool_calls': 5}
+    ## Revenue Share by Category
 
-**Insights:**
-- **Electronics dominates**, generating over three-quarters (77%) of total revenue, despite likely having fewer units sold — driven by higher price points.
-- **Furniture** contributes a solid secondary share (~22%).
-- **Stationery** is a minor contributor at under 1% of revenue, suggesting it's either low-priced, low-volume, or both.
+| Category | Revenue Share (%) |
+|---|---|
+| Electronics | 76.02% |
+| Furniture | 23.10% |
+| Stationery | 0.88% |
 
-*Note: This includes revenue from all orders regardless of status (shipped, pending, cancelled). If you'd like the calculation restricted to only "shipped" (completed) orders, I can rerun it with that filter.*
+(Tota
+  programmatic  {'model_calls': 11, 'tool_calls': 10, 'result_chars_kept_out': 1653}
+    Here's the revenue breakdown by category, computed with a separate query per category (`SUM(quantity × price)` joined from `order_items` and `products
 
-10 queries; 1,962 characters of results stayed in the sandbox instead of the model's context.
+Find our best customer by revenue, then tell me which category they spend most on, then whether that category is growing month over month.
+  plain loop    {'model_calls': 5, 'input_tokens': 6214, 'tool_calls': 4}
+    ## Summary
+
+**Final SQL used:**
+
+```sql
+-- 1. Best customer by revenue
+SELECT c.id, c.name, SUM(oi.quantity * p.price) AS revenue
+FROM customers c
+JOI
+  programmatic  {'model_calls': 12, 'tool_calls': 11, 'result_chars_kept_out': 3010}
+    ## Summary
+
+**1. Best customer by revenue:** **Customer 13** — $19,238 in total revenue (shipped/pending orders), well ahead of the #2 customer (Custo
+
+Rule: use programmatic calling when many calls feed one summary; use the plain loop when each step depends on the model reading the last result.

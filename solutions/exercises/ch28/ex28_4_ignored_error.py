@@ -19,3 +19,15 @@ def classify(run: dict, passed_eval: bool | None = None, slow_ms: float = 30_000
     return base
 
 FAILURES = ops.FAILURES[:5] + ["ignored_error"] + ops.FAILURES[5:]
+
+if __name__ == "__main__":
+    runs = {   # (tool, ms, error?) per call
+        "error never retried": [("fetch", 10, True), ("read", 10, False), ("read", 10, False)],
+        "error, then retried OK": [("fetch", 10, True), ("fetch", 10, False)],
+        "same error three times": [("fetch", 10, True)] * 3,
+        "no errors": [("read", 10, False), ("fetch", 10, False)],
+    }
+    for name, tools in runs.items():
+        run = {"stop_reason": "end_turn", "tool_calls": len(tools), "ms": 1000, "tools": tools}
+        print(f"{name:<24} -> {classify(run)}")
+    print("classes in order:", FAILURES)

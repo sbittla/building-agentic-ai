@@ -1,12 +1,12 @@
 {
  "chapter": "24",
  "title": "Chapter 24: Skills, Frameworks and Agent Runtimes",
- "model": "mixed: see each exercise",
- "date": "2026-10-13 13:29",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-10-15 03:14",
  "provenance": {
-  "commit": "abaab3d230f8",
-  "python": "3.12.11",
-  "packages_sha256": "95d6b663897ac0b2",
+  "commit": "c7330a5deef3",
+  "python": "3.12.3",
+  "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
    "anthropic": "1.8.0",
    "mcp": "2.2.0",
@@ -46,9 +46,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 54.9,
+   "seconds": 36.1,
    "log": "ch24/24.3.log",
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "24.4",
@@ -56,9 +57,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 75.3,
+   "seconds": 47.1,
    "log": "ch24/24.4.log",
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "24.5",
@@ -66,29 +68,30 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 168.0,
+   "seconds": 146.2,
    "log": "ch24/24.5.log",
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "24.6",
    "title": "Write a skill",
    "kind": "run",
-   "status": "passed",
-   "reason": null,
-   "seconds": 13.0,
-   "log": "ch24/24.6.log",
-   "model": "claude-sonnet-5 (Claude API)"
+   "status": "skipped",
+   "reason": "Claude only",
+   "seconds": 0,
+   "log": null,
+   "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "24.7",
    "title": "A managed analyst",
    "kind": "run",
-   "status": "passed",
-   "reason": null,
-   "seconds": 28.9,
-   "log": "ch24/24.7.log",
-   "model": "claude-sonnet-5 (Claude API)"
+   "status": "skipped",
+   "reason": "Claude only",
+   "seconds": 0,
+   "log": null,
+   "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "24.8",
@@ -96,9 +99,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 379.2,
+   "seconds": 391.1,
    "log": "ch24/24.8.log",
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "24.9",
@@ -116,10 +120,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 0.1,
+   "seconds": 0.2,
    "log": "ch24/24.10.log",
    "model": "none",
-   "commit": "abaab3d230f8"
+   "commit": "c7330a5deef3"
   }
  ]
 }

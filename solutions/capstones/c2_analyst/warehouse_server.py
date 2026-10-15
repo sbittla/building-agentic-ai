@@ -32,11 +32,16 @@ def describe_table(table: str, columns: list[str] | None = None) -> str:
         cols = [(r[1], r[2]) for r in con.execute(f"PRAGMA table_info({table})")]
         if not cols:
             raise ToolError(f"No table {table}. Use list_tables.")
+        missing, every = [], [c[0] for c in cols]
         if columns:
-            cols = [c for c in cols if c[0] in columns]
+            missing = [c for c in columns if c not in every]
+            cols = [c for c in cols if c[0] in columns] or cols   # none matched: show them all
         names = ", ".join(c[0] for c in cols)
         sample = con.execute(f"SELECT {names} FROM {table} LIMIT 3").fetchall()
-    return "columns: " + ", ".join(f"{n} {t}" for n, t in cols) + "\nsample: " + repr(sample)
+    # never hide what was dropped: told nothing, the model guesses a column instead
+    note = (f"\nnot in this table: {', '.join(missing)}; its columns are: {', '.join(every)}"
+            if missing else "")
+    return "columns: " + ", ".join(f"{n} {t}" for n, t in cols) + note + "\nsample: " + repr(sample)
 
 @mcp.tool()
 def run_query(sql: str) -> str:

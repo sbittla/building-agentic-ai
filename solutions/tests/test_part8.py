@@ -9,7 +9,7 @@ def _reader_and_planner(planner_moves, records):
     """Structured calls are the quarantined reader; everything else is the planner."""
     moves = list(planner_moves)
     def policy(kw):
-        if "output_config" in kw:
+        if "format" in (kw.get("output_config") or {}):   # not just effort
             body = kw["messages"][0]["content"]
             return [text(json.dumps(records(body)))]
         return moves.pop(0)

@@ -1,0 +1,7 @@
+%%{init: {"flowchart": {"rankSpacing": 22, "nodeSpacing": 18}}}%%
+flowchart LR
+  A["Client needs<br/>tools/list"] --> B{"Cached copy<br/>within ttlMs?"}
+  B -->|yes| C["Use it:<br/>no request"]
+  B -->|"no, or refresh"| D["Server answers with<br/>ttlMs and cacheScope"]
+  D --> E["Client caches it<br/>(private: this user only)"]
+  F["listChanged<br/>notification"] -.->|drop the copy| B

@@ -17,9 +17,18 @@ LABELLED = [   # (task, "easy" or "hard"): your judgement is the gold standard h
 ]
 
 def evaluate(route, name):
+    import ch20_router
     rows, correct, hard_to_small = [], 0, 0
-    for task, label in LABELLED:
-        chose = "hard" if route(task) == LARGE else "easy"
+    # On the free local model SMALL and LARGE are the same model name, so the routers'
+    # answers can't be told apart. Give LARGE a placeholder while routing (the routers
+    # read it at call time; by_model still calls the real SMALL model).
+    saved, ch20_router.LARGE = ch20_router.LARGE, "<large>"
+    try:
+        decisions = [route(task) == "<large>" for task, _ in LABELLED]
+    finally:
+        ch20_router.LARGE = saved
+    for (task, label), hard in zip(LABELLED, decisions):
+        chose = "hard" if hard else "easy"
         correct += chose == label
         hard_to_small += label == "hard" and chose == "easy"
         rows.append((task[:50], label, chose))
@@ -27,12 +36,23 @@ def evaluate(route, name):
             "hard_sent_small": hard_to_small, "rows": rows}
 
 def main():
+    import ch20_router
     out = [evaluate(by_rules, "rules"), evaluate(by_model, "small model")]
+    print(f"{'task':<52} {'label':<6} {'rules':<6} {'model':<6}")
+    for (task, label, by_r), (_, _, by_m) in zip(out[0]["rows"], out[1]["rows"]):
+        print(f"{task:<52} {label:<6} {by_r:<6} {by_m:<6}")
     for r in out:
         print(f"{r['router']:<12} accuracy {r['accuracy']:.0%}, hard tasks sent to "
               f"the small model: {r['hard_sent_small']}")
-    # Improving the rules: "which", "find" and "suggest" questions were often hard.
-    return out
+    # Improving the rules: the hard tasks above ask for reasons, patterns or proposals.
+    saved = ch20_router.HARD_WORDS
+    ch20_router.HARD_WORDS = saved + ("suggest", "pattern", "every", "fastest", "describe")
+    better = evaluate(ch20_router.by_rules, "rules + 5 words")
+    ch20_router.HARD_WORDS = saved
+    print(f"change: add 'suggest', 'pattern', 'every', 'fastest', 'describe' to HARD_WORDS -> "
+          f"rules accuracy {out[0]['accuracy']:.0%} -> {better['accuracy']:.0%}, hard tasks "
+          f"sent small {out[0]['hard_sent_small']} -> {better['hard_sent_small']}")
+    return out + [better]
 
 if __name__ == "__main__":
     main()

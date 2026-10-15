@@ -11,6 +11,7 @@ import os
 import re
 import shutil
 import subprocess
+import tempfile
 import sys
 import textwrap
 import time
@@ -444,16 +445,18 @@ def cmd_inspector(args):
     if not args:
         fail("Usage: ./course.sh inspector <server.py> [--cli]")
         return 2
-    server = args[0]
+    # The Inspector starts the server with a minimal environment, without PYTHONPATH, so
+    # a server that imports course code (12.6 imports ch03_tools) would fail. Pass it on.
+    run_server = ["env", f"PYTHONPATH={env_for_runs()['PYTHONPATH']}", "python", args[0]]
     if "--cli" in args:
         rest = [a for a in args[1:] if a != "--cli"] or ["--method", "tools/list"]
-        return subprocess.call(["mcp-inspector", "--cli", "python", server, *rest],
+        return subprocess.call(["mcp-inspector", "--cli", *run_server, *rest],
                                cwd=WS, env=env_for_runs())
     env = env_for_runs() | {"HOST": "0.0.0.0", "DANGEROUSLY_BIND_ALL_INTERFACES": "true",
                             "MCP_AUTO_OPEN_ENABLED": "false"}
     head("Starting MCP Inspector. Open the http://localhost:6274 link below in your browser.")
     say("(The Inspector is published only to your own computer. Press Ctrl+C to stop.)\n")
-    return subprocess.call(["mcp-inspector", "--web", "python", server], cwd=WS, env=env)
+    return subprocess.call(["mcp-inspector", "--web", *run_server], cwd=WS, env=env)
 
 def cmd_serve(args):
     """Run an MCP server over Streamable HTTP on http://localhost:8000/mcp"""
@@ -475,7 +478,7 @@ def cmd_serve_api(args):
     say("Other course containers reach it as http://agentic-ai-api:8080. Ctrl+C to stop.")
     env = env_for_runs()
     return subprocess.call(["python", "-m", "uvicorn", "ch30_service:app", "--host", "0.0.0.0",
-                            "--port", "8080", *args], cwd=WS, env=env)
+                            "--port", "8080", "--no-server-header", *args], cwd=WS, env=env)
 
 def cmd_serve_mcp(args):
     """Chapter 30: the token-protected remote MCP server on http://localhost:8000/mcp"""
@@ -729,6 +732,18 @@ def _cost(name: str) -> str:
         return json.loads((COURSE / "cost.json").read_text())[name]
     except Exception:
         return "see COST_MODEL.md"
+
+def _estimate(ids: list[str]) -> str:
+    """Estimated cost on Claude of running just these exercises once (dev/cost_model.py)."""
+    try:
+        c = json.loads((COURSE / "cost.json").read_text())
+        lo, hi = c["run_dollars"]
+        runs = sum(c["runs"].get(i, 1) for i in ids if not i.startswith("C"))
+    except Exception:
+        return f"about {_cost('first')} for one pass of every chapter"
+    caps = sum(i.startswith("C") for i in ids)
+    note = f", plus {caps} capstone run(s)" if caps else ""
+    return f"about ${runs * lo:.2f}–{runs * hi:.2f} for {runs} agent run(s){note}"
 
 def cmd_quickstart(args):
     """Your first agent with a scripted stand-in model: no API key, no download."""
@@ -990,12 +1005,9 @@ def cmd_live_exercises(args):
             out_file.write_text("\n".join(report + ["", *details]))
         except OSError as exc:
             warn(f"Couldn't write {host_path(out_file)}: {exc}")
-    with tempfile.TemporaryDirectory() as tmp:
+    with _scratch("live-check-") as tmp:
         tmp = Path(tmp)
-        shutil.copytree(WS, tmp, dirs_exist_ok=True,
-                        ignore=shutil.ignore_patterns(".sandbox", "__pycache__", "*.bak", "exercises",
-                                                      "live_*report.md", ".git"))
-        copy_pristine(tmp)
+        _fill_scratch(tmp)
         # COURSE_WORKSPACE: `course data ...` in an exercise's setup writes into the scratch copy
         env = dict(os.environ, PYTHONUNBUFFERED="1", COURSE_WORKSPACE=str(tmp),
                    PYTHONPATH=f"{tmp}:{SOLUTIONS / 'exercises'}:{SOLUTIONS / 'capstones'}")
@@ -1144,9 +1156,11 @@ def _skip_reason(e, local, free_only):
         return "needs GITHUB_PERSONAL_ACCESS_TOKEN in .env"
     return None
 
-def _run_logged(cmd, cwd, env, limit, setup=None):
+DEFAULT_STDIN = "n\nquit\nquit\n"   # declines every prompt, then leaves any chat loop
+
+def _run_logged(cmd, cwd, env, limit, setup=None, stdin=DEFAULT_STDIN):
     """Run a shell command; returns (combined stdout+stderr, exit code). Every process it
-    starts is killed after `limit` seconds."""
+    starts is killed after `limit` seconds. `stdin` feeds the command (not its setup)."""
     import signal
     out = ""
     for step, timeout in ([(setup, 900)] if setup else []) + [(cmd, limit)]:
@@ -1157,7 +1171,8 @@ def _run_logged(cmd, cwd, env, limit, setup=None):
                                 stderr=subprocess.STDOUT, start_new_session=True,
                                 errors="replace")
         try:
-            text, _ = proc.communicate("n\nquit\nquit\n", timeout=timeout)
+            text, _ = proc.communicate(DEFAULT_STDIN if step is setup else stdin,
+                                       timeout=timeout)
             code = proc.returncode
         except subprocess.TimeoutExpired:
             os.killpg(proc.pid, signal.SIGKILL)
@@ -1168,6 +1183,35 @@ def _run_logged(cmd, cwd, env, limit, setup=None):
             return out + f"\n(setup failed with exit code {code})\n", code
     return out, code
 
+RUN_CHECKS = COURSE / "run_checks.json"
+
+def _run_checks():
+    """run-chapter's per-exercise checks (course/run_checks.json): what to run instead of the
+    default command (cmd, setup, stdin, env, service, service_app; "{SOL}" is the flat
+    solutions folder), and what its output must show (expect: regexes that must all match;
+    expect_not: regexes that must not match)."""
+    if not RUN_CHECKS.exists():
+        return {}
+    checks = {k: v for k, v in json.loads(RUN_CHECKS.read_text()).items()
+              if not k.startswith("_")}
+    for c in checks.values():
+        for k in ("cmd", "setup"):
+            if isinstance(c.get(k), str):
+                c[k] = c[k].replace("{SOL}", str(SOLUTIONS))
+    return checks
+
+def _output_problem(out, check):
+    """Why this output doesn't meet the exercise's check, or None if it does."""
+    if not out.strip():
+        return "printed nothing"
+    for pat in check.get("expect", []):
+        if not re.search(pat, out, re.M | re.I):
+            return f"output lacks /{pat}/"
+    for pat in check.get("expect_not", []):
+        if re.search(pat, out, re.M | re.I):
+            return f"output shows /{pat}/"
+    return None
+
 def _write_log(path, e_id, title, cmd, model, code, secs, body):
     stamp = time.strftime("%Y-%m-%d %H:%M:%S %Z")
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -1175,6 +1219,29 @@ def _write_log(path, e_id, title, cmd, model, code, secs, body):
         f"# Exercise: {e_id}  {title}\n# Command:  {cmd}\n# Model:    {model}\n"
         f"# Date:     {stamp}\n# Exit code: {code}\n# Seconds:  {secs:.1f}\n"
         + "#" + "-" * 79 + "\n" + body.rstrip() + "\n", errors="replace")
+
+
+def _scratch(prefix: str):
+    """A throwaway folder for run-chapter and live-check. It lives inside the workspace
+    (.course/runs/), where the chapter 10 sandbox can see it."""
+    root = WS / ".course" / "runs"
+    root.mkdir(parents=True, exist_ok=True)
+    return tempfile.TemporaryDirectory(prefix=prefix, dir=root)
+
+def _fill_scratch(tmp: Path) -> None:
+    """Copy the workspace into tmp, put back the book's code, and make it a Git
+    repository, as your workspace is: chapter 14's Git server needs one."""
+    shutil.copytree(WS, tmp, dirs_exist_ok=True,
+                    ignore=shutil.ignore_patterns(".sandbox", "__pycache__", "*.bak", "exercises",
+                                                  "live_*report.md", ".git", ".course", "outputs"))
+    marker = WS / ".course" / "initialized"            # the copy counts as set up, too
+    if marker.exists():
+        (tmp / ".course").mkdir(exist_ok=True)
+        shutil.copy2(marker, tmp / ".course" / "initialized")
+    copy_pristine(tmp)
+    git = ["git", "-c", "user.name=Course", "-c", "user.email=course@localhost"]
+    for cmd in (["init", "-q"], ["add", "-A"], ["commit", "-qm", "run copy"]):
+        subprocess.run(git + cmd, cwd=tmp, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 def _provenance(model_label):
     """What produced a result: the code (commit), the environment (Python, packages) and the
@@ -1233,8 +1300,9 @@ def _start_service(e, cwd, env):
         env = dict(env, AGENT_API_URL="http://127.0.0.1:8080")
         if not env.get("AGENT_API_KEYS"):
             env["AGENT_API_KEYS"] = secrets.token_urlsafe(24)
-        cmd, port = [sys.executable, "-m", "uvicorn", "ch30_service:app", "--host",
-                     "127.0.0.1", "--port", "8080"], 8080
+        cmd, port = [sys.executable, "-m", "uvicorn", e.get("service_app", "ch30_service:app"),
+                     "--host", "127.0.0.1", "--port", "8080",
+                     "--no-server-header"], 8080      # the smoke test checks for no banner
     elif e.get("service") == "mcp":
         env = dict(env, MCP_HOST="127.0.0.1", MCP_PORT="8000")
         for var in ("MCP_TOKEN", "MCP_READONLY_TOKEN"):
@@ -1259,9 +1327,43 @@ def _start_service(e, cwd, env):
             time.sleep(0.5)
     return proc, env
 
+def _recheck(words):
+    """run-chapter ... --recheck: apply the current run_checks.json to the logs already in
+    solutions/outputs, without running anything again (after fixing a check, not code)."""
+    checks, out_root = _run_checks(), _outputs_dir()
+    want = {w.upper() for w in words}
+    changed = 0
+    for summary in sorted(out_root.glob("*/summary.json")):
+        data = json.loads(summary.read_text())
+        for x in data["exercises"]:
+            key = x["id"].upper()
+            if not ("ALL" in want or key in want or key.split(".")[0] in want
+                    or _chapter_key(key.split(".")[0]) in want):
+                continue
+            if x["status"] not in ("passed", "failed") or not x.get("log"):
+                continue
+            text = (out_root / x["log"]).read_text(errors="replace")
+            head_, _, body = text.partition("#" + "-" * 79 + "\n")
+            code = re.search(r"^# Exit code: (-?\d+)", head_, re.M)
+            ok = code and code.group(1) == "0" and "Traceback (most recent call last)" not in body
+            problem = _output_problem(body, checks.get(x["id"], {})) if ok else None
+            status = "passed" if ok and not problem else "failed"
+            reason = None if status == "passed" else problem or x["reason"]
+            if (status, reason) != (x["status"], x["reason"]):
+                say(f"  {x['id']:<6} {x['status']} -> {status}" + (f" ({reason})" if reason else ""))
+                x.update(status=status, reason=reason)
+                changed += 1
+        summary.write_text(json.dumps(data, indent=1) + "\n")
+    _refresh_outputs_index(out_root)
+    say(f"Rechecked: {changed} result(s) changed.")
+    return 0
+
 def cmd_run_chapter(args):
-    """run-chapter <chapter|exercise id|all> [--model local|claude] [--free-only] [--yes]"""
+    """run-chapter <chapter|exercise id|all> [--model local|claude] [--free-only] [--yes]
+    [--recheck]"""
     import tempfile
+    if "--recheck" in args:
+        return _recheck([a for a in args if not a.startswith("-")])
     free_only, yes = "--free-only" in args, "--yes" in args or "-y" in args
     words = [a for i, a in enumerate(args) if not a.startswith("-")
              and not (i and args[i - 1] == "--model")]
@@ -1325,7 +1427,7 @@ def cmd_run_chapter(args):
         say("--free-only: only exercises that need no model run; the others are skipped.")
     elif uses_model:
         say("Free, but slow on a CPU: allow several hours for everything." if local else
-            f"This uses your API key: about {_cost('first')} for one pass of every chapter (COST_MODEL.md).")
+            f"This uses your API key: {_estimate([e['id'] for e in uses_model])} (COST_MODEL.md).")
         say("Your own files are not used or changed.")
         try:
             if not yes and input("Continue? [y/N] ").strip().lower() != "y":
@@ -1338,13 +1440,10 @@ def cmd_run_chapter(args):
     answers = answers.read_text() if answers.exists() else ""
     limit = 1800 if local else 600                  # a local model on a CPU is much slower
     totals = {"passed": 0, "failed": 0, "skipped": 0}
-    with tempfile.TemporaryDirectory(prefix="run-chapter-") as tmp:
+    checks = _run_checks()
+    with _scratch("run-chapter-") as tmp:
         tmp = Path(tmp)
-        shutil.copytree(WS, tmp, dirs_exist_ok=True,
-                        ignore=shutil.ignore_patterns(".sandbox", "__pycache__", "*.bak",
-                                                      "exercises", "live_*report.md", ".git",
-                                                      "outputs"))
-        copy_pristine(tmp)                                 # the book's code, not your edits
+        _fill_scratch(tmp)                                 # the book's code, not your edits
         env = dict(os.environ, PYTHONUNBUFFERED="1", COURSE_WORKSPACE=str(tmp),
                    PYTHONDONTWRITEBYTECODE="1", COURSE_CODE=str(PRISTINE),
                    COURSE_DATA=str(COURSE / "data"),
@@ -1376,9 +1475,12 @@ def cmd_run_chapter(args):
                     say(_c("2", f"-  {e['id']:<5} written answer"))
                     entries.append(entry)
                     continue
+                check = checks.get(e["id"], {})
                 why = _skip_reason(e, local, free_only)
                 cmd = None
-                if not why and e["kind"] == "capstone":
+                if not why and check.get("cmd"):         # run_checks.json knows a better run
+                    cmd = check["cmd"]
+                elif not why and e["kind"] == "capstone":
                     cmd = f"{sys.executable} {Path(__file__).resolve()} capstone {k[1:]}"
                 elif not why:
                     cmd, why = _chapter_command(e)
@@ -1390,10 +1492,12 @@ def cmd_run_chapter(args):
                 t = time.time()
                 service = None
                 try:
-                    service, run_env = _start_service(e, tmp, env)
+                    service, run_env = _start_service({**e, **check}, tmp,
+                                                      {**env, **check.get("env", {})})
                     out, code = _run_logged(cmd, tmp, run_env,
                                             limit if need != "none" else 600,
-                                            setup=e.get("setup"))
+                                            setup=check.get("setup", e.get("setup")),
+                                            stdin=check.get("stdin", DEFAULT_STDIN))
                 except Exception as exc:                 # never lose the whole run to one
                     out, code = f"{type(exc).__name__}: {exc}", -1
                 finally:
@@ -1402,9 +1506,11 @@ def cmd_run_chapter(args):
                         service.wait(timeout=10)
                 secs = time.time() - t
                 passed = code == 0 and "Traceback (most recent call last)" not in out
+                problem = _output_problem(out, check) if passed else None
+                passed = passed and not problem
                 shown = f"course capstone {k[1:]}" if e["kind"] == "capstone" else cmd
                 _write_log(log, e["id"], e["title"], shown, ex_model, code, secs, out)
-                if passed and "first, then run this again" in out:   # the learner's own file
+                if passed and out.strip().endswith("first, then run this again."):   # learner's own file
                     entry.update(reason="needs a file you create yourself: " + out.strip(),
                                  log=f"{folder.name}/{log.name}")
                     say(_c("2", f"-  {e['id']:<5} skipped: needs your own file (see its log)"))
@@ -1413,7 +1519,7 @@ def cmd_run_chapter(args):
                 entry["commit"] = run_provenance["commit"]
                 entry.update(status="passed" if passed else "failed", seconds=round(secs, 1),
                              log=f"{folder.name}/{log.name}",
-                             reason=None if passed else
+                             reason=None if passed else problem or
                              (f"exit code {code}" if code else "printed a Traceback"))
                 (ok if passed else fail)(f"{e['id']:<5} {e['title'][:44]:<44} {secs:5.0f} s")
                 entries.append(entry)

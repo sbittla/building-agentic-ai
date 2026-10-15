@@ -1,9 +1,29 @@
 # Exercise: 17.3  Remember across restarts
-# Command:  python ch17_memory.py
+# Command:  python /tmp/solutions-flat/exercises/typed.py ch17_memory.py 'Remember this: my dog is called Bruno.' 'Remember this: I prefer temperatures in Fahrenheit.' quit && echo '---- restart ----' && python /tmp/solutions-flat/exercises/typed.py ch17_memory.py 'Check your memory: what do you remember about my dog and my temperature preference?' 'Please forget the name of my dog from your memory.' 'Check your memory again: what do you remember about my dog and my temperature preference now?' quit
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-09-27 22:03:45 UTC
+# Date:     2026-10-15 02:23:51 UTC
 # Exit code: 0
-# Seconds:  4.7
+# Seconds:  1781.4
 #-------------------------------------------------------------------------------
-You: Agent: It seems like your message might have been cut off. Could you clarify what you would like me to help with?
-You:
+$ rm -f memory.db
+$ python /tmp/solutions-flat/exercises/typed.py ch17_memory.py 'Remember this: my dog is called Bruno.' 'Remember this: I prefer temperatures in Fahrenheit.' quit && echo '---- restart ----' && python /tmp/solutions-flat/exercises/typed.py ch17_memory.py 'Check your memory: what do you remember about my dog and my temperature preference?' 'Please forget the name of my dog from your memory.' 'Check your memory again: what do you remember about my dog and my temperature preference now?' quit
+You: Remember this: my dog is called Bruno.
+[step 1] remember({"fact": "My dog is called Bruno."}) -> 'Remembered #1.'  (98 ms)
+Agent: Got it, your dog is named Bruno! Is there anything else you'd like me to remember or talk about?
+You: Remember this: I prefer temperatures in Fahrenheit.
+[step 1] remember({"fact": "I prefer temperatures in Fahrenheit."}) -> 'Remembered #2.'  (71 ms)
+Agent: Understood! I'll remember that you prefer temperatures to be displayed in Fahrenheit. If you want me to recall any other details, feel free to ask!
+You: quit
+---- restart ----
+You: Check your memory: what do you remember about my dog and my temperature preference?
+[step 1] recall({"query": "dog and temperature preference"}) -> '[{"id": 2, "fact": "I prefer temperatures in Fahrenheit.", "tags": "", "date": "'  (23 ms)
+Agent: I remember the following:
+*   My dog is called **Bruno**.
+*   I prefer temperatures in **Fahrenheit**.
+You: Please forget the name of my dog from your memory.
+[step 1] forget({"memory_id": 1}) -> 'Forgot #1.'  (73 ms)
+Agent: Okay, I've forgotten the name of your dog. What else can I help you with?
+You: Check your memory again: what do you remember about my dog and my temperature preference now?
+[step 1] recall({"query": "dog and temperature preference"}) -> '[{"id": 2, "fact": "I prefer temperatures in Fahrenheit.", "tags": "", "date": "'  (23 ms)
+Agent: I still remember that you prefer temperatures in **Fahrenheit**, but I no longer have the name of your dog.
+You: quit

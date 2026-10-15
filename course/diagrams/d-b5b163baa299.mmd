@@ -1,0 +1,25 @@
+%%{init: {"flowchart": {"rankSpacing": 18, "nodeSpacing": 14}}}%%
+flowchart LR
+  subgraph S["Supervisor"]
+    direction TB
+    s1[Lead] --> s2[Specialist]
+    s1 --> s3[Specialist]
+  end
+  subgraph H["Hierarchy"]
+    direction TB
+    h1[Lead] --> h2[Specialist] --> h3[Sub-specialist]
+  end
+  subgraph P["Pipeline"]
+    direction TB
+    p1[Draft] --> p2[Review] --> p3[Format]
+  end
+  subgraph B["Shared board"]
+    direction TB
+    b1[Agent] <--> b0[(Board)]
+    b2[Agent] <--> b0
+  end
+  subgraph N["Network"]
+    direction TB
+    n1[Your agent] -->|A2A| n2[Partner's agent]
+  end
+  S ~~~ H ~~~ P ~~~ B ~~~ N

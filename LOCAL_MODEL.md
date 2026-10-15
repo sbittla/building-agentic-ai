@@ -124,6 +124,9 @@ Then run `wsl --shutdown` in PowerShell and restart Docker Desktop. For an NVIDI
 | Very slow | Use `--gpu`, set `LOCAL_THINKING=off`, run evals with one trial, and use fewer users in load tests (29.2, 30.7) |
 | "The local model didn't call … correctly after 3 tries" | Run it again, make the tool description clearer (Chapter 3), or use Claude for that run |
 | "… needs Claude, not the local model" | The exercise is **Claude only**: set `PROVIDER=claude` for it |
+| `[Stopped: the reply was cut off at max_tokens …]` after a big tool result (GitHub in 14.3, 14.4) | The 8K context is full: the tool results left no room for the answer. Return fewer items and fields (Chapter 16), as the 14.3 solution's `compact_result` does |
+| The agent says it did something it never did ("Tasks added: …" with no `add_task` call), or cites issue numbers that aren't in the results | Small models do this more often. Check in code: count the tool calls, compare citations with the tool results, and ask once more when they don't match (the 14.4 and 25.4 solutions show how). Never trust the model's own report of its actions |
+| An eval gate passes on one run and fails on the next (27.4) | A 9B model scores close to the 85% threshold, so its confidence interval reaches below it. Use more trials, or set the threshold a little below your own model's measured pass rate, as the exercise says |
 | Port 11434 already in use | Ollama already runs as an app: quit it, or use it with `OLLAMA_URL` and `local up --native` |
 | `--gpu` fails | Update the NVIDIA driver (Windows) or install the NVIDIA Container Toolkit (Linux). `./course.sh local logs` shows whether Ollama found the GPU |
 | 8 GB GPU: the model loads partly on the CPU, or fails with "cudaMalloc failed: out of memory" | Set `LOCAL_CONTEXT=8192` in `.env`. The weights and a 32K context don't both fit in 8 GB; `compose.gpu.yaml` already keeps 2 GB free and halves the context cache |

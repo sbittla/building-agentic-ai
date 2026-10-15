@@ -68,7 +68,7 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 3.4 A 20-question eval | `exercises/ex3_4_routing_eval.py` | A 20-question routing eval, run 3 times |
 | 3.5 Structured output, two ways | `exercises/ex3_5_forced_tool.py` | Structured output two ways, with no JSON parsing either way |
 | 3.6 Scale to ten tools | `exercises/ex3_6_ten_tools.py` | Ten tools with near-duplicates, then fix by merging |
-| 3.7 Tool search at scale | `exercises/ex3_7_tool_search.py`, `tests/test_2026_features.py` | A 40-tool catalogue found by search, against loading every tool: accuracy, searches and tokens |
+| 3.7 Tool search at scale | `exercises/ex3_7_tool_search.py`, `tests/test_2026_features.py` | A 40-tool catalogue found by search, against loading every tool, scored over a few steps with the everyday tools kept loaded: accuracy, searches and tokens |
 
 ## Chapter 4: The Agent Loop
 
@@ -137,7 +137,7 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 8.1 Why not just the prompt? | `ANSWERS.md` | A read-only connection is enforced by the database; a prompt is only a request |
 | 8.2 Define the terms | `ANSWERS.md` | Write definitions (revenue, active customer) the agent must follow |
 | 8.3 Top customers | `ANSWERS.md` | Check the agent's numbers with your own SQL: Customer 13, 19,238 |
-| 8.4 Watch it self-correct | `exercises/ex8_4_self_correct.py` | Sabotage the prompt and watch the agent self-correct |
+| 8.4 Watch it self-correct | `exercises/ex8_4_self_correct.py` | A wrong table name in the prompt, and `get_schema` kept for when a query fails: the first query fails, and the agent reads the error and corrects itself |
 | 8.5 Retry budget and log | `exercises/sol_ch08_sql_tools.py` | A retry budget and a query log for the SQL tool |
 | 8.6 Confirm the tables | `exercises/sol_ch08_sql_tools.py` | Confirm the tables with the user before running an expensive query |
 | 8.7 An evaluation harness | `exercises/ex8_7_eval_harness.py` | Compare the agent's answers with verified gold SQL |
@@ -225,8 +225,8 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | --- | --- | --- |
 | 14.1 Threat model | `ANSWERS.md` | A policy layer in code hides and blocks dangerous tools even if the model is convinced |
 | 14.2 Server review | `ANSWERS.md` | Six questions: publisher, permissions, readable source, pinned version, narrowing, secrets passed |
-| 14.3 Read-only GitHub | `ANSWERS.md`, `exercises/ex14_4_digest.py` | A read-only token and --read-only remove write tools entirely |
-| 14.4 Weekly engineering digest | `exercises/ex14_4_digest.py` | Weekly engineering digest from Git + GitHub (read-only) |
+| 14.3 Read-only GitHub | `exercises/ex14_3_readonly.py` | A read-only token and --read-only remove write tools entirely; asking to close an issue finds no tool for it |
+| 14.4 Weekly engineering digest | `exercises/ex14_4_digest.py` | Weekly engineering digest from Git + GitHub (read-only), with every cited issue number checked against what GitHub returned |
 | 14.5 Mark untrusted content | `exercises/sol_ch14_untrusted.py` | Wrap untrusted tool output before the model sees it |
 
 ## Chapter 15: MCP in 2026: From Tool Calling to Agent Infrastructure
@@ -358,7 +358,7 @@ Try each exercise before you look. `./course.sh solution <id>` prints a solution
 | 25.1 Find the trifecta | `ANSWERS.md` | Each agent's three legs identified; one removed in code or configuration |
 | 25.2 Map your agent to OWASP | `ANSWERS.md` | Each OWASP agentic risk, how it could happen here, the defense in place and the gap to close first |
 | 25.3 Trip the canary | `ANSWERS.md` | The canary and egress guards block the fetch; sanitizing removes the image channel |
-| 25.4 Quarantine a second source | `exercises/ex25_4_calendar.py`, `tests/test_part8.py` | Calendar invites as a second untrusted source. Only metadata reaches the planner; descriptions go through the quarantined reader |
+| 25.4 Quarantine a second source | `exercises/ex25_4_calendar.py`, `tests/test_part8.py` | Calendar invites as a second untrusted source. Only metadata reaches the planner; descriptions go through the quarantined reader. An unreadable source fails closed, and tasks are counted in code, not taken from the model's report |
 | 25.5 Evade the guard, then fix it | `exercises/ex25_5_evasion.py`, `tests/test_part8.py` | Five ways to sneak the canary past the leak scan, and a scan that normalizes before it searches |
 | 25.6 Red team your agent | `exercises/ex25_6_redteam.py` | Red-team the agent with 6 planted attacks x 3 defenses |
 | 25.7 A launch gate from the risk model | `exercises/ex25_7_launch.py`, `tests/test_ch25_risk.py` | Scores the section 25.1 coding agent (54, tier 3), refuses launch and names the missing controls, and shows which single factor cut keeps it useful while dropping it to tier 2 |

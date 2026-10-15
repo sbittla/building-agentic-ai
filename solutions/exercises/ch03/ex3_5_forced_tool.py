@@ -18,6 +18,14 @@ SIGNATURES = [
     "Cheers,\nSam Ortiz\nFabrikam Robotics",                     # no email address
 ]
 
+MISSING = {"", "none", "null", "n/a", "unknown"}
+
+def clean(contact: dict) -> dict:
+    """A missing field must be None. Models sometimes write it as "", "None" or "null":
+    a string the schema allows, but not the value you want, so check it in code."""
+    return {k: None if isinstance(v, str) and v.strip().lower() in MISSING else v
+            for k, v in contact.items()}
+
 def extract(signature: str) -> dict:
     r = client.messages.create(
         model=MODEL, max_tokens=2000, tools=[RECORD_CONTACT],
@@ -36,7 +44,7 @@ def extract_parsed(signature: str, client_=None):
 
 if __name__ == "__main__":
     for sig in SIGNATURES:
-        print("forced tool:", extract(sig))
-        print("parse():    ", extract_parsed(sig).model_dump())
+        print("forced tool:", clean(extract(sig)))
+        print("parse():    ", clean(extract_parsed(sig).model_dump()))
     print("\nBoth avoid json.loads. parse() also validates the result into a typed object and "
           "works with extended thinking, where forcing a tool isn't allowed.")

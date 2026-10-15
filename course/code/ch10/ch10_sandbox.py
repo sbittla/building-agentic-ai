@@ -16,10 +16,14 @@ QUEUE = Path("/workspace/.sandbox")
 
 def run_in_sandbox(cmd: list[str], cwd: str = ".", timeout: int = 60) -> str:
     """Run cmd (e.g. ["python", "-m", "pytest", "-q"]) inside the sandbox."""
+    folder = Path(cwd).resolve()
+    if QUEUE.parent not in folder.parents:      # the sandbox sees only /workspace
+        return (f"ERROR: the sandbox can't see {folder}: it mounts only "
+                f"{QUEUE.parent}. Run from a folder inside your workspace.")
     job = uuid.uuid4().hex[:12]
     (QUEUE / "requests").mkdir(parents=True, exist_ok=True)
     (QUEUE / "results").mkdir(parents=True, exist_ok=True)
-    request = {"id": job, "cmd": cmd, "cwd": str(Path(cwd).resolve()),
+    request = {"id": job, "cmd": cmd, "cwd": str(folder),
                "timeout": timeout}
     tmp = QUEUE / "requests" / f"{job}.tmp"
     tmp.write_text(json.dumps(request))

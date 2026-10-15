@@ -31,13 +31,29 @@ def failed_thresholds(card: dict) -> list[str]:
               if card[k] is None or card[k] > v]    # no success at all: no cost
     return fails
 
-def main(trials: int = 3) -> dict:
-    runs = run_suite(load_cases(), trials, sql.TOOLS, sql.run_tool, sql.SYSTEM)
+def main(trials: int = 3, tools=None, system=None) -> dict:
+    runs = run_suite(load_cases(), trials, tools or sql.TOOLS, sql.run_tool,
+                     system or sql.SYSTEM)
     card = scorecard(runs)
     print(format_scorecard(card))
     fails = failed_thresholds(card)
     print("\nGATE:", "FAIL\n  " + "\n  ".join(fails) if fails else "PASS")
     return card
 
+def demo() -> int:
+    """The scorecard as it is, then a deliberately worse agent (no get_schema, a weakened
+    prompt): the gate must say FAIL for the worse one. On the free local model the
+    unchanged agent usually fails too (about 78% against 80%): the gate doing its job."""
+    print("=== the agent as it is ===")
+    as_is = failed_thresholds(main())
+    print("\n=== a worse agent: get_schema removed, prompt weakened ===")
+    worse_tools = [t for t in sql.TOOLS if t["name"] != "get_schema"]
+    worse = failed_thresholds(main(tools=worse_tools, system="Answer the question."))
+    print(f"\ngate as it is: {'FAIL' if as_is else 'PASS'}; "
+          f"worse agent: {'FAIL' if worse else 'PASS'}")
+    return 0 if worse else 1
+
 if __name__ == "__main__":
+    if "--demo" in sys.argv:
+        sys.exit(demo())
     sys.exit(1 if failed_thresholds(main()) else 0)

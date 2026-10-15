@@ -1,9 +1,10 @@
 # Exercise: 20.4  Run independent steps in parallel
 # Command:  python /tmp/solutions-flat/exercises/ex20_4_parallel_plan.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-09-27 22:22:41 UTC
+# Date:     2026-10-15 02:53:27 UTC
 # Exit code: 0
-# Seconds:  25.4
+# Seconds:  30.1
 #-------------------------------------------------------------------------------
 rounds: [['s1', 's2'], ['s3']]
-parallel 15.6s, sequential 8.2s
+parallel 12.3s, sequential 12.0s
+The local model answers one request at a time (OLLAMA_NUM_PARALLEL=1), so s1 and s2 still queue at the model: the rounds show they were started together, but only a model that serves requests concurrently (Claude) turns that into less wall time.

@@ -1,0 +1,8 @@
+%%{init: {"flowchart": {"rankSpacing": 14, "nodeSpacing": 14, "padding": 6}}}%%
+flowchart LR
+  A["Release 1.3:<br/>warmer<br/>prompt"] --> B{"Gate"}
+  B -->|pass| C["Canary:<br/>10% of sale<br/>traffic"]
+  C --> D["Handoff<br/>SLO<br/>burns"]
+  D --> E["Alert:<br/>automatic<br/>rollback"]
+  E --> F["Post-<br/>mortem"]
+  F -.->|stronger gate| B

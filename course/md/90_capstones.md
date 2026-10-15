@@ -217,7 +217,7 @@ Table: Capstone 4 reference solution
 | --- | --- |
 | `data.py` | A small repository with three "pull requests" as branches: `pr-1` adds a bug, `pr-2` is clean, `pr-3` deletes a test |
 | `repo_server.py` | Lists PRs, reads diffs and files, runs tests in an isolated worktree, and proposes a fix on a new branch (approval required). Swap in GitHub's MCP server for real PRs |
-| `agent.py` | Reviews each PR and submits a forced structured review: verdict, whether tests passed, and findings with file, line and severity |
+| `agent.py` | Reviews each PR and submits a forced structured review: whether tests passed, and findings with file, line and severity. Code then decides the verdict from failing tests, blocking findings and any test the diff deletes |
 
 Run it with `./course.sh capstone 4` (or `./course.sh capstone 4 pr-3` for one PR). Check whether your reviewer catches the deleted test in `pr-3`, approves the clean `pr-2`, and never edits tests when it proposes a fix.
 

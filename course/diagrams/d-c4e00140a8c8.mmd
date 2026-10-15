@@ -1,0 +1,6 @@
+%%{init: {"flowchart": {"rankSpacing": 22, "nodeSpacing": 16}}}%%
+flowchart LR
+  A["path from the model:<br/>work/plan.md<br/>../../.ssh/id_rsa<br/>/etc/passwd"] --> B["Resolve against ROOT:<br/>a full path, links followed"]
+  B --> C{"Inside ROOT?"}
+  C -->|yes| D["Read or search it"]
+  C -->|no| E["ERROR: outside<br/>the notes folder"]

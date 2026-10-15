@@ -1,0 +1,24 @@
+# Exercise: 14.4  Weekly engineering digest
+# Command:  python /tmp/solutions-flat/exercises/ex14_4_digest.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-10-15 01:20:59 UTC
+# Exit code: 0
+# Seconds:  49.2
+#-------------------------------------------------------------------------------
+[step 1] time__get_current_time({"timezone": "Etc/UTC"}) -> '{\n  "timezone": "Etc/UTC",\n  "datetime": "2026-10-15T01:20:27+00:00",\n'
+[step 1] github__list_commits({"owner": "modelcontextprotocol", "repo": "servers", "perPage": 100}) -> '{"items": [{"sha": "bbb701e", "message": "Merge pull request #5122 fro'
+[step 1] github__list_issues({"owner": "modelcontextprotocol", "repo": "servers", "state": "OPEN", "perPage":) -> '{"items": [{"number": 5153, "title": "memory: create_entities, create_'
+Weekly engineering digest
+
+Release Management and CI Stabilization
+This week focused on finalizing version 1.0.0, evidenced by merge pull request #5090 for the SDK release and #5113 handling general release fixes. Supporting infrastructure updates included merging #5122 to bootstrap main source changes and bringing the main-source guard ahead of milestone merges via commit f39bc6b. Release pipelines were refined by publishing with Node 24's bundled npm (#0a174e9) and pinning tarball paths for consistent packaging (#dd4826a).
+
+Filesystem Server Robustness
+Critical stability improvements were made to the filesystem implementation, specifically resolving race conditions where wake calls waited on replaced roots refreshes (commit c6f2dda). The team addressed timing issues by claiming initial roots load generation before deferring it (commit 4d2d9e5) and ensuring each roots refresh barrier is installed before its list response (commit 3836cf8). Further enhancements included holding tool calls while any roots refresh remains pending (commit 3f6aaf4), with these fixes folded into the official changelog via commit 9f3197e.
+
+Test Infrastructure and Version Control
+Testing reliability was enhanced by pinning the publish job's npm floor check to ensure consistent environments without unintended installations (#77e9a3c). A specific pull request, #5106, merged a cherry-pick for the 1.0.0 release, while another fix annotated the fetch tool to improve its behavior and observability (commit 01c274f). These efforts ensure that future releases maintain integrity across different Node versions and deployment scenarios.
+
+Digest check: every cited number is in the results
+
+Audit log: 4 tool calls, decisions ['allow']: ['github__list_commits', 'github__list_issues', 'time__get_current_time']

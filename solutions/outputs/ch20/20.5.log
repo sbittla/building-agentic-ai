@@ -1,9 +1,23 @@
 # Exercise: 20.5  Evaluate the routers
 # Command:  python /tmp/solutions-flat/exercises/ex20_5_router_eval.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-09-27 22:23:46 UTC
+# Date:     2026-10-15 02:54:37 UTC
 # Exit code: 0
-# Seconds:  64.8
+# Seconds:  69.9
 #-------------------------------------------------------------------------------
-rules        accuracy 50%, hard tasks sent to the small model: 0
-small model  accuracy 50%, hard tasks sent to the small model: 0
+task                                                 label  rules  model 
+How many customers are there?                        easy   easy   easy  
+List the product categories.                         easy   easy   easy  
+What is the most expensive product?                  easy   easy   easy  
+How many orders are pending?                         easy   easy   easy  
+Which city has the most customers?                   easy   easy   easy  
+What was the total revenue last month?               easy   easy   easy  
+Why did revenue drop in March compared with Februa   hard   hard   easy  
+Compare repeat customers with one-time customers b   hard   hard   easy  
+Which categories grow fastest, and what would you    hard   easy   easy  
+Find customers who ordered in every month and desc   hard   easy   hard  
+Is there a seasonal pattern in cancellations? Expl   hard   hard   hard  
+Suggest three KPIs for this shop and compute each    hard   easy   easy  
+rules        accuracy 75%, hard tasks sent to the small model: 3
+small model  accuracy 67%, hard tasks sent to the small model: 4
+change: add 'suggest', 'pattern', 'every', 'fastest', 'describe' to HARD_WORDS -> rules accuracy 75% -> 100%, hard tasks sent small 3 -> 0

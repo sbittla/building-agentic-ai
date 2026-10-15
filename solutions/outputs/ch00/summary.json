@@ -2,7 +2,23 @@
  "chapter": "0",
  "title": "Chapter 0: Foundations",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-09-28 00:48",
+ "date": "2026-10-14 23:06",
+ "provenance": {
+  "commit": "c7330a5deef3",
+  "python": "3.12.3",
+  "packages_sha256": "ddf39c32b1ca5b67",
+  "packages": {
+   "anthropic": "1.8.0",
+   "mcp": "2.2.0",
+   "claude-agent-sdk": "0.2.159",
+   "langchain": "1.4.2",
+   "httpx": "0.28.1",
+   "pytest": "9.1.1"
+  },
+  "provider": "local",
+  "model_id": "qwen3.5:9b",
+  "model_label": "qwen3.5:9b (local, through Ollama)"
+ },
  "exercises": [
   {
    "id": "0.1",
@@ -11,7 +27,8 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch00/0.1.log"
+   "log": "ch00/0.1.log",
+   "model": "none"
   },
   {
    "id": "0.2",
@@ -20,16 +37,19 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch00/0.2.log"
+   "log": "ch00/0.2.log",
+   "model": "none"
   },
   {
    "id": "0.3",
    "title": "Your shared workspace",
    "kind": "run",
-   "status": "skipped",
-   "reason": "needs a file you create yourself: Create workspace/hello.py on your computer first, then run this again.",
-   "seconds": 0,
-   "log": "ch00/0.3.log"
+   "status": "passed",
+   "reason": null,
+   "seconds": 0.1,
+   "log": "ch00/0.3.log",
+   "model": "none",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "0.4",
@@ -38,7 +58,9 @@
    "status": "passed",
    "reason": null,
    "seconds": 0.0,
-   "log": "ch00/0.4.log"
+   "log": "ch00/0.4.log",
+   "model": "none",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "0.5",
@@ -47,7 +69,9 @@
    "status": "passed",
    "reason": null,
    "seconds": 0.0,
-   "log": "ch00/0.5.log"
+   "log": "ch00/0.5.log",
+   "model": "none",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "0.6",
@@ -55,8 +79,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 7.0,
-   "log": "ch00/0.6.log"
+   "seconds": 6.9,
+   "log": "ch00/0.6.log",
+   "model": "none",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "0.7",
@@ -64,8 +90,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 0.0,
-   "log": "ch00/0.7.log"
+   "seconds": 0.1,
+   "log": "ch00/0.7.log",
+   "model": "none",
+   "commit": "c7330a5deef3"
   }
  ]
 }

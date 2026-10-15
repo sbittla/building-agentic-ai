@@ -1,14 +1,23 @@
 # Exercise: 29.4  Budgets that hold
-# Command:  python /tmp/solutions-flat/exercises/ex29_4_budgets.py
+# Command:  python /tmp/solutions-flat/exercises/ex29_4_budgets.py && python -m pytest -p no:cacheprovider --rootdir /tmp /tmp/solutions-flat/tests/test_part9.py -k test_29_4 -v
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-09-27 23:54:38 UTC
+# Date:     2026-10-15 04:09:14 UTC
 # Exit code: 0
-# Seconds:  25.0
+# Seconds:  21.0
 #-------------------------------------------------------------------------------
-There are **50** customers in the database.
+There are 50 customers.
 
-The final SQL used was:
+The final SQL I used was:
 ```sql
-SELECT COUNT(*) as customer_count FROM customers
+SELECT COUNT(*) FROM customers
 ```
-The city with the most orders is **Berlin**, with a total of **114** orders.
+The city with the most orders is **Berlin** with 114 orders.
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0 -- /opt/venv/bin/python
+rootdir: /tmp
+plugins: anyio-4.15.1, langsmith-0.14.0
+collecting ... collected 11 items / 10 deselected / 1 selected
+
+../../../../tmp/solutions-flat/tests/test_part9.py::test_29_4_budgets PASSED [100%]
+
+======================= 1 passed, 10 deselected in 0.07s =======================

@@ -1,33 +1,33 @@
 # Exercise: 19.3  Crash and resume
 # Command:  python ch19_durable.py --crash 2; python ch19_durable.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-09-27 22:20:12 UTC
+# Date:     2026-10-15 02:49:51 UTC
 # Exit code: 0
-# Seconds:  6.2
+# Seconds:  7.5
 #-------------------------------------------------------------------------------
 simulated crash after 2 steps. Run the same command again (without --crash) to resume.
-Job 2f1c99ea: running
+Job bd717394: running
   1. create_account   done     tries=1 account ana@example.com created
-  2. agent            done     tries=1 Welcome aboard! Your upgrade to the Pro plan unloc
+  2. agent            done     tries=1 Welcome to our Pro plan, where you now have access
   3. send_email       pending  tries=0 
   4. charge           pending  tries=0 
 Result: done
-Job 2f1c99ea: done
+Job bd717394: done
   1. create_account   done     tries=1 account ana@example.com created
-  2. agent            done     tries=1 Welcome aboard! Your upgrade to the Pro plan unloc
+  2. agent            done     tries=1 Welcome to our Pro plan, where you now have access
   3. send_email       done     tries=1 email sent to ana@example.com
   4. charge           done     tries=2 charged $49
 Services: {
  "accounts": {
-  "2f1c99ea:1": "ana@example.com"
+  "bd717394:1": "ana@example.com"
  },
  "emails": {
-  "2f1c99ea:3": {
+  "bd717394:3": {
    "to": "ana@example.com",
-   "body": "Welcome aboard! Your upgrade to the Pro plan unlocks premium features designed to accelerate your workflow and provide an unparalleled user experience. We are thrilled to have you in our community and look forward to supporting your continued success."
+   "body": "Welcome to our Pro plan, where you now have access to premium features designed to elevate your experience. We're thrilled to support your growth and look forward to seeing the amazing things you'll achieve with these powerful tools."
   }
  },
  "charges": {
-  "2f1c99ea:4": 49
+  "bd717394:4": 49
  }
 }

@@ -72,6 +72,9 @@ async def research(question: str) -> str:
                        tool_choice={"type": "tool", "name": "make_plan"},  # structured
                        messages=[{"role": "user", "content": question}])  # output
     subtasks = next(b.input["subtasks"] for b in plan.content if b.type == "tool_use")
+    if isinstance(subtasks, str):    # a small model may send the list as text: one
+        subtasks = re.findall(r'"([^"]+)"', subtasks) or [subtasks]  # subagent per char!
+    subtasks = subtasks[:4]
     print("PLAN:", json.dumps(subtasks, indent=2))
 
     findings = await asyncio.gather(*(run_subagent(t) for t in subtasks))
@@ -80,7 +83,8 @@ async def research(question: str) -> str:
                          for t, f in zip(subtasks, findings))
     final = await _call(messages=[{"role": "user", "content":
         f"Question: {question}\n\nFindings from your research team:\n{report}\n\n"
-        "Write a concise answer. Keep every source citation. Point out any "
+        "Write a concise answer. After each claim, keep its source in parentheses "
+        "exactly as the findings give it (file:line or URL). Point out any "
         "disagreements between findings."}])
     print(f"\n[{time.perf_counter() - t0:.1f}s, {usage}]")
     return "".join(b.text for b in final.content if b.type == "text")

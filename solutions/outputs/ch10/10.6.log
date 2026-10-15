@@ -1,39 +1,64 @@
 # Exercise: 10.6  Targeted edits
-# Command:  python ch10_fixer.py
+# Command:  python /tmp/solutions-flat/exercises/run10_6_targeted.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-09-27 21:24:41 UTC
+# Date:     2026-10-15 00:35:26 UTC
 # Exit code: 0
-# Seconds:  38.3
+# Seconds:  84.2
 #-------------------------------------------------------------------------------
 $ course data repo --fresh
 buggy_repo created: run `pytest buggy_repo` to see 3 failures
-$ python ch10_fixer.py
-[step 1] run_tests({}) -> 'FFF                                                                      [100%]\n'  (1605 ms)
-[step 2] list_files({}) -> 'pricing.py\ntest_pricing.py'  (0 ms)
-[step 3] read_file({"path": "pricing.py"}) -> '1: def subtotal(items):\n2:     """items: list of (price, quantity)."""\n3:     re'  (0 ms)
-[step 4] write_file({"path": "pricing.py", "content": "def subtotal(items):\n    \"\"\"items: list of (price, quantity).\"\"\"\n    return sum(price * qty for price, qty in items)          # FIX: multiply by quantity\n\ndef apply_discount(amount, percent):\n    \"\"\"Reduce amount by percent (0-100).\"\"\"\n    return amount - amount * (percent / 100.0)  # FIX: divide percent by 100\n\ndef total(items, percent=0, tax_rate=0.08):\n    return round(apply_discount(subtotal(items), percent) * (1 + tax_rate), 2)\n"}) -> 'Wrote 437 characters to pricing.py.'  (0 ms)
-[step 5] run_tests({}) -> '...                                                                      [100%]\n'  (1651 ms)
-All tests pass now. Here's a summary of the changes I made:
+$ python /tmp/solutions-flat/exercises/run10_6_targeted.py
+[step 1] list_files({}) -> 'pricing.py\ntest_pricing.py'  (9 ms)
+[step 2] run_tests({}) -> 'FFF                                                                      [100%]\n'  (2060 ms)
+[step 3] read_file({"path": "pricing.py"}) -> '1: def subtotal(items):\n2:     """items: list of (price, quantity)."""\n3:     re'  (12 ms)
+[step 4] write_file({"path": "pricing.py", "content": "def subtotal(items):\n    \"\"\"items: list of (price, quantity).\"\"\"\n    return sum(price * qty for price, qty in items)\n\ndef apply_discount(amount, percent):\n    \"\"\"Reduce amount by percent (0-100).\"\"\"\n    return amount - amount * percent / 100\n\ndef total(items, percent=0, tax_rate=0.08):\n    return round(apply_discount(subtotal(items), percent) * (1 + tax_rate), 2)\n"}) -> 'Wrote 366 characters to pricing.py.'  (21 ms)
+[step 5] run_tests({}) -> '...                                                                      [100%]\n'  (1870 ms)
 
-**Fixed bugs in `pricing.py`:**
-
-1. **`subtotal` function (line 3)**: Changed from `sum(price for price, qty in items)` to `sum(price * qty for price, qty in items)` - Now properly multiplies each item's price by its quantity.
-
-2. **`apply_discount` function (line 7)**: Changed from `amount - amount * percent` to `amount - amount * (percent / 100.0)` - Now correctly interprets the percent parameter as a percentage (0-100) rather than a decimal ratio. 
- {'steps': 6, 'tool_calls': 5, 'input_tokens': 986, 'output_tokens': 491, 'stop_reason': 'end_turn', 'model': 'qwen3.5:9b'} 
-failing tests per run: [3, 0]
+[write_file] tools used: ['list_files', 'run_tests', 'read_file', 'write_file', 'run_tests']
+[write_file] failing tests per run: [3, 0]
 --- a/pricing.py
 +++ b/pricing.py
 @@ -1,10 +1,10 @@
  def subtotal(items):
      """items: list of (price, quantity)."""
 -    return sum(price for price, qty in items)          # BUG: ignores quantity
-+    return sum(price * qty for price, qty in items)          # FIX: multiply by quantity
++    return sum(price * qty for price, qty in items)
  
  def apply_discount(amount, percent):
      """Reduce amount by percent (0-100)."""
 -    return amount - amount * percent  # BUG: percent not divided by 100
-+    return amount - amount * (percent / 100.0)  # FIX: divide percent by 100
++    return amount - amount * percent / 100
  
  def total(items, percent=0, tax_rate=0.08):
      return round(apply_discount(subtotal(items), percent) * (1 + tax_rate), 2)
+
+[step 1] list_files({}) -> 'pricing.py\ntest_pricing.py'  (8 ms)
+[step 2] read_file({"path": "test_pricing.py"}) -> '1: from pricing import subtotal, apply_discount, total\n2: \n3: def test_subtotal_'  (16 ms)
+[step 2] read_file({"path": "pricing.py"}) -> '1: def subtotal(items):\n2:     """items: list of (price, quantity)."""\n3:     re'  (16 ms)
+[step 3] run_tests({}) -> 'FFF                                                                      [100%]\n'  (1922 ms)
+[step 4] replace_in_file({"path": "pricing.py", "old": "    return sum(price for price, qty in items)          # BUG: ignores quantity", "new": "    return sum(price * qty for price, qty in items)  # multiply by quantity"}) -> 'Replaced 1 snippet in pricing.py.'  (31 ms)
+[step 5] replace_in_file({"path": "pricing.py", "old": "    return amount - amount * percent  # BUG: percent not divided by 100", "new": "    return amount - amount * (percent / 100)  # convert percent to fraction"}) -> 'Replaced 1 snippet in pricing.py.'  (27 ms)
+[step 6] run_tests({}) -> '...                                                                      [100%]\n'  (1903 ms)
+
+[replace_in_file] tools used: ['list_files', 'read_file', 'read_file', 'run_tests', 'replace_in_file', 'replace_in_file', 'run_tests']
+[replace_in_file] failing tests per run: [3, 0]
+--- a/pricing.py
++++ b/pricing.py
+@@ -1,10 +1,10 @@
+ def subtotal(items):
+     """items: list of (price, quantity)."""
+-    return sum(price for price, qty in items)          # BUG: ignores quantity
++    return sum(price * qty for price, qty in items)  # multiply by quantity
+ 
+ def apply_discount(amount, percent):
+     """Reduce amount by percent (0-100)."""
+-    return amount - amount * percent  # BUG: percent not divided by 100
++    return amount - amount * (percent / 100)  # convert percent to fraction
+ 
+ def total(items, percent=0, tax_rate=0.08):
+     return round(apply_discount(subtotal(items), percent) * (1 + tax_rate), 2)
+
+| edit tool | tokens | tests pass |
+| write_file | 1,340 | True |
+| replace_in_file | 2,347 | True |
+replace_in_file used: True; token difference: +1,007 (+75%)

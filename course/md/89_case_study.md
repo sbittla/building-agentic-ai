@@ -64,7 +64,7 @@ The first full run found four problems, and each changed the design. *(Worked ex
 
 1. **Invented policy.** Four of the ten policy questions got a confident answer from the model's general knowledge: "30 days to return", where Harbor & Pine allows 14. Now answers must cite retrieved passages, and code checks the citations (section 18.11). On the rerun, the agent answered nine correctly and handed off the tenth, which the handbook doesn't cover, exactly as it should.
 2. **A cost eight times the budget.** The first version put the whole 8,000-token policy handbook in the system prompt so the model would "always know the rules". In the simulator's E3, that raised the large model's cost per success from $0.0032 to $0.0525 a question: about $0.16 a conversation at three questions each, against a budget of $0.02. Retrieving only the relevant passages and caching the stable prompt prefix (section 16.7) brought it back to about $0.01.
-3. **Identity as a tool argument.** In an early version, `get_order` took the customer's email as an argument. The impersonation case passed it a different email, and the agent read out Ben's address. Identity moved to the login, as section 26.4 requires, and the orders tool now checks that the order belongs to the token's user (section 26.4).
+3. **Identity as a tool argument.** In an early version, `get_order` took the customer's email as an argument. The impersonation case passed it a different email, and the agent read out Ben's address. Identity moved to the login, as section 26.4 requires, and the orders tool now checks that the order belongs to the token's user.
 4. **Retries hiding in the tail.** With 10% of order lookups failing transiently (as the order system does during deploys), retries kept success steady, but p95 rose by about 2 seconds (E4). The team kept the retries and asked for an idempotent status endpoint so the workflow could retry faster.
 
 ## Load test and capacity
@@ -88,6 +88,20 @@ Nobody had to scramble. The old version was still running and traffic was split 
 - eight cases of upset customers asking for a person joined the suite
 - the gate now treats a missed handoff as a hard limit, like an unsafe action
 - the handoff rule moved from the prompt into code: when a message asks for a person, the agent gets no other tools for that turn
+
+```mermaid
+%%{init: {"flowchart": {"rankSpacing": 14, "nodeSpacing": 14, "padding": 6}}}%%
+flowchart LR
+  A["Release 1.3:<br/>warmer<br/>prompt"] --> B{"Gate"}
+  B -->|pass| C["Canary:<br/>10% of sale<br/>traffic"]
+  C --> D["Handoff<br/>SLO<br/>burns"]
+  D --> E["Alert:<br/>automatic<br/>rollback"]
+  E --> F["Post-<br/>mortem"]
+  F -.->|stronger gate| B
+```
+
+Figure: Release 1.3: what each layer caught
+Alt: Left to right: release 1.3 with a warmer prompt passes the gate on the evaluation suite, goes to a canary on 10% of sale-day traffic, where the missed-handoff SLO burns its error budget; the burn-rate alert rolls it back automatically; the postmortem adds cases, a hard limit and a rule in code (listed above), and a dashed arrow returns to strengthen the gate.
 
 The gate caught what the suite knew about, the canary caught what it didn't, and the rollback cost a configuration change instead of a deploy.
 

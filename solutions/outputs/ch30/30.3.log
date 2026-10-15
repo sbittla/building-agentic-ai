@@ -1,12 +1,12 @@
 # Exercise: 30.3  Hit the limits
 # Command:  python ch30_client.py limits
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-09-28 00:39:45 UTC
+# Date:     2026-10-15 04:18:38 UTC
 # Exit code: 0
-# Seconds:  8.8
+# Seconds:  12.1
 #-------------------------------------------------------------------------------
 request 1: 200  Retry-After=None
 request 2: 200  Retry-After=None
-request 3: 200  Retry-After=None
-request 4: 200  Retry-After=None
+request 3: 429  Retry-After=29
+request 4: 429  Retry-After=29
 wrong key: 401

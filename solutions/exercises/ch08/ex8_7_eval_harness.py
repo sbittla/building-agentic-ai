@@ -44,6 +44,14 @@ def normalize(result):
     """Compare values only: ignore column names and row order; round floats."""
     return sorted(tuple(round(v, 2) if isinstance(v, float) else v for v in r) for r in result)
 
+def failure_type(got, want) -> str:
+    """Name the failure, so the fix can target it."""
+    if len(got) == len(want) and all(set(w) <= set(g) for g, w in zip(got, want)):
+        return "right values, extra columns"
+    if len(got) != len(want):
+        return f"wrong number of rows ({len(got)} vs {len(want)})"
+    return "different values"
+
 def final_sql(answer: str):
     blocks = re.findall(r"```(?:sql)?\s*(.+?)```", answer, re.S | re.I)
     return blocks[-1].strip() if blocks else None
@@ -57,8 +65,9 @@ def evaluate(system=sql.SYSTEM + " End your answer with the final SQL in a ```sq
             results.append((question, False, "no SQL in answer"))
             continue
         try:
-            ok = normalize(rows(q)) == normalize(rows(gold))
-            results.append((question, ok, "" if ok else "different result"))
+            got, want = normalize(rows(q)), normalize(rows(gold))
+            ok = got == want
+            results.append((question, ok, "" if ok else failure_type(got, want)))
         except sqlite3.Error as e:
             results.append((question, False, f"SQL error: {e}"))
     score = sum(r[1] for r in results) / len(results)
@@ -70,7 +79,11 @@ def evaluate(system=sql.SYSTEM + " End your answer with the final SQL in a ```sq
 
 if __name__ == "__main__":
     before, _ = evaluate()
-    after, _ = evaluate(sql.SYSTEM + " A 'customer who placed an order' means a row in orders. "
+    # The fix targets the failure types found above: extra columns, and names guessed
+    # instead of read from the data.
+    after, _ = evaluate(sql.SYSTEM + " SELECT only the columns the question asks for: for "
+                        "'which customer/product/city/category', select just its name. "
+                        "A 'customer who placed an order' means a row in orders. "
                         "Use the exact product and status names from the data. End your answer "
                         "with the final SQL in a ```sql block.")
     print(f"before {before:.0%} -> after {after:.0%}")

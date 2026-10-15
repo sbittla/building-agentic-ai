@@ -1,8 +1,24 @@
 {
  "chapter": "16",
  "title": "Chapter 16: Context Engineering",
- "model": "mixed: see each exercise",
- "date": "2026-09-28 01:49",
+ "model": "qwen3.5:9b (local, through Ollama)",
+ "date": "2026-10-15 04:47",
+ "provenance": {
+  "commit": "812cbfeb27af-modified",
+  "python": "3.12.3",
+  "packages_sha256": "ddf39c32b1ca5b67",
+  "packages": {
+   "anthropic": "1.8.0",
+   "mcp": "2.2.0",
+   "claude-agent-sdk": "0.2.159",
+   "langchain": "1.4.2",
+   "httpx": "0.28.1",
+   "pytest": "9.1.1"
+  },
+  "provider": "local",
+  "model_id": "qwen3.5:9b",
+  "model_label": "qwen3.5:9b (local, through Ollama)"
+ },
  "exercises": [
   {
    "id": "16.1",
@@ -30,9 +46,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 23.7,
+   "seconds": 42.3,
    "log": "ch16/16.3.log",
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "16.4",
@@ -40,9 +57,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 7.7,
+   "seconds": 8.1,
    "log": "ch16/16.4.log",
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "16.5",
@@ -50,9 +68,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 97.8,
+   "seconds": 79.7,
    "log": "ch16/16.5.log",
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "16.6",
@@ -60,19 +79,20 @@
    "kind": "test",
    "status": "passed",
    "reason": null,
-   "seconds": 5.6,
+   "seconds": 6.6,
    "log": "ch16/16.6.log",
-   "model": "none"
+   "model": "none",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "16.7",
    "title": "Let a program do the counting",
    "kind": "run",
-   "status": "passed",
-   "reason": null,
-   "seconds": 43.7,
-   "log": "ch16/16.7.log",
-   "model": "claude-sonnet-5 (Claude API)"
+   "status": "skipped",
+   "reason": "Claude only",
+   "seconds": 0,
+   "log": null,
+   "model": "qwen3.5:9b (local, through Ollama)"
   },
   {
    "id": "16.8",
@@ -80,9 +100,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 534.0,
+   "seconds": 603.8,
    "log": "ch16/16.8.log",
-   "model": "qwen3.5:9b (local, through Ollama)"
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "812cbfeb27af-modified"
   }
  ]
 }

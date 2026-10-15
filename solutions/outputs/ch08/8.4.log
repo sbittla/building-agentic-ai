@@ -1,0 +1,23 @@
+# Exercise: 8.4  Watch it self-correct
+# Command:  python /tmp/solutions-flat/exercises/ex8_4_self_correct.py
+# Model:    qwen3.5:9b (local, through Ollama)
+# Date:     2026-10-14 23:59:40 UTC
+# Exit code: 0
+# Seconds:  18.3
+#-------------------------------------------------------------------------------
+[step 1] run_query({"sql": "SELECT town, COUNT(*) as customer_count FROM clients GROUP BY town ORDER BY customer_count DESC LIMIT 1;"}) -> 'ERROR: no such table: clients. Check table/column names with get_schema and retr'  (14 ms)
+[step 2] get_schema({}) -> 'CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, city TEXT, joined DAT'  (15 ms)
+[step 3] run_query({"sql": "SELECT city, COUNT(*) as customer_count FROM customers GROUP BY city ORDER BY customer_count DESC LIMIT 1;"}) -> 'city | customer_count\nBerlin | 14'  (14 ms)
+
+**Berlin** has the most customers with **14** customers.
+
+Final SQL used:
+```sql
+SELECT city, COUNT(*) as customer_count 
+FROM customers 
+GROUP BY city 
+ORDER BY customer_count DESC 
+LIMIT 1;
+```
+
+failed queries along the way: 1

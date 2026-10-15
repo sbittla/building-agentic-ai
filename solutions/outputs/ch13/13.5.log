@@ -1,12 +1,28 @@
 # Exercise: 13.5  Add the weather server
-# Command:  python ch13_mcp_agent.py servers.json
+# Command:  python /tmp/solutions-flat/exercises/typed.py 'ch13_mcp_agent.py servers_with_weather.json' 'Check the weather forecast for Seattle tomorrow, then add a to-do: pack an umbrella if rain is likely, otherwise skip the umbrella.' quit
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-09-28 00:15:01 UTC
+# Date:     2026-10-15 01:18:11 UTC
 # Exit code: 0
-# Seconds:  6.2
+# Seconds:  35.4
 #-------------------------------------------------------------------------------
-Tools: ['todo__add_task', 'todo__list_tasks', 'todo__find_tasks', 'todo__complete_task', 'todo__today', 'shopdb__get_schema', 'shopdb__run_query']
+$ cp /tmp/solutions-flat/exercises/servers_with_weather.json .
+$ python /tmp/solutions-flat/exercises/typed.py 'ch13_mcp_agent.py servers_with_weather.json' 'Check the weather forecast for Seattle tomorrow, then add a to-do: pack an umbrella if rain is likely, otherwise skip the umbrella.' quit
+Tools: ['todo__add_task', 'todo__list_tasks', 'todo__find_tasks', 'todo__complete_task', 'todo__today', 'shopdb__get_schema', 'shopdb__run_query', 'weather__geocode', 'weather__get_forecast']
 
-You: Agent: Hello! How can I help you today?
+You: Check the weather forecast for Seattle tomorrow, then add a to-do: pack an umbrella if rain is likely, otherwise skip the umbrella.
+INFO:weather-server:geocode Seattle
+INFO:httpx:HTTP Request: GET https://geocoding-api.open-meteo.com/v1/search?name=Seattle&count=5&format=json "HTTP/1.1 200 OK"
+[step 1] weather__geocode({"city": "Seattle"}) -> '[{"name": "Seattle", "admin1": "Washington", "country": "United States'
+INFO:weather-server:forecast 47.60621,-122.33207 days=1
+INFO:httpx:HTTP Request: GET https://api.open-meteo.com/v1/forecast?latitude=47.60621&longitude=-122.33207&timezone=auto&forecast_days=1&daily=temperature_2m_max%2Ctemperature_2m_min%2Cprecipitation_probability_max "HTTP/1.1 200 OK"
+[step 2] weather__get_forecast({"latitude": 47.60621, "longitude": -122.33207, "days": 1}) -> '2026-10-14: 10.4..17.3 C, rain chance 20%'
+[step 3] todo__add_task({"title": "Pack an umbrella for Seattle tomorrow (20% rain chance)", "priority":) -> 'Added #5: Pack an umbrella for Seattle tomorrow (20% rain chance)'
+Agent: I've checked the weather forecast for Seattle, Washington. The forecast for tomorrow shows:
+- Temperature range: 10.4°C to 17.3°C
+- Rain chance: 20%
 
-You:
+Since there's a 20% chance of rain (which is fairly significant), I've added a to-do reminder: "Pack an umbrella for Seattle tomorrow (20% rain chance)." 
+
+You might want to pack your umbrella just in case, even though the rain isn't certain.
+
+You: quit

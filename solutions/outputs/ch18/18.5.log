@@ -1,13 +1,13 @@
 # Exercise: 18.5  Paraphrased evaluation
 # Command:  python /tmp/solutions-flat/exercises/ex18_5_paraphrased.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-09-27 22:06:17 UTC
+# Date:     2026-10-15 02:34:49 UTC
 # Exit code: 0
-# Seconds:  1.4
+# Seconds:  1.8
 #-------------------------------------------------------------------------------
 
 Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]
-Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 781.06it/s]
+Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 822.64it/s]
 embedder = local
 
 original questions (12):
@@ -16,9 +16,9 @@ original questions (12):
   hybrid   recall@3 = 1.0   MRR = 1.0
 
 paraphrased questions (8):
-  keyword  recall@3 = 0.5   MRR = 0.57
-  vector   recall@3 = 0.88  MRR = 0.91
-  hybrid   recall@3 = 0.75  MRR = 0.75
+  keyword  recall@3 = 0.5   MRR = 0.56
+  vector   recall@3 = 0.88  MRR = 0.9
+  hybrid   recall@3 = 1.0   MRR = 0.77
 
 With the hashing embedder, 'vector' is still word-based, so expect little gain;
 with EMBEDDER=local, vector and hybrid should beat keyword on the paraphrases.

@@ -2,7 +2,23 @@
  "chapter": "9",
  "title": "Chapter 9: Human-in-the-Loop Approval",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-09-27 21:22",
+ "date": "2026-10-15 00:31",
+ "provenance": {
+  "commit": "c7330a5deef3",
+  "python": "3.12.3",
+  "packages_sha256": "ddf39c32b1ca5b67",
+  "packages": {
+   "anthropic": "1.8.0",
+   "mcp": "2.2.0",
+   "claude-agent-sdk": "0.2.159",
+   "langchain": "1.4.2",
+   "httpx": "0.28.1",
+   "pytest": "9.1.1"
+  },
+  "provider": "local",
+  "model_id": "qwen3.5:9b",
+  "model_label": "qwen3.5:9b (local, through Ollama)"
+ },
  "exercises": [
   {
    "id": "9.1",
@@ -11,7 +27,8 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch09/9.1.log"
+   "log": "ch09/9.1.log",
+   "model": "none"
   },
   {
    "id": "9.2",
@@ -20,7 +37,8 @@
    "status": "skipped",
    "reason": "concept exercise: written answer copied from ANSWERS.md",
    "seconds": 0,
-   "log": "ch09/9.2.log"
+   "log": "ch09/9.2.log",
+   "model": "none"
   },
   {
    "id": "9.3",
@@ -28,8 +46,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 16.8,
-   "log": "ch09/9.3.log"
+   "seconds": 44.0,
+   "log": "ch09/9.3.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "9.4",
@@ -37,8 +57,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 20.0,
-   "log": "ch09/9.4.log"
+   "seconds": 48.0,
+   "log": "ch09/9.4.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "9.5",
@@ -46,8 +68,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 35.3,
-   "log": "ch09/9.5.log"
+   "seconds": 30.5,
+   "log": "ch09/9.5.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   },
   {
    "id": "9.6",
@@ -55,8 +79,10 @@
    "kind": "test",
    "status": "passed",
    "reason": null,
-   "seconds": 8.0,
-   "log": "ch09/9.6.log"
+   "seconds": 10.1,
+   "log": "ch09/9.6.log",
+   "model": "qwen3.5:9b (local, through Ollama)",
+   "commit": "c7330a5deef3"
   }
  ]
 }

@@ -54,7 +54,7 @@ def run_agent(question, tools, run_tool, system="You are a helpful assistant.",
     should_stop -- optional function(stats) -> reason or None, checked every step
     thinking  -- e.g. {"type": "adaptive"} to let the model reason before it acts
     effort    -- "low" | "medium" | "high" | ...: how hard the model works
-                 (and what it costs)
+                 (and what it costs); default: EFFORT in .env, else the API's
     model     -- which model to call (default MODEL); Chapter 20 routes steps
                  between models
     Returns (answer_text, messages, stats). stats["stop_reason"] says how it ended.
@@ -63,6 +63,7 @@ def run_agent(question, tools, run_tool, system="You are a helpful assistant.",
     stats = {"steps": 0, "tool_calls": 0, "input_tokens": 0, "output_tokens": 0,
              "stop_reason": None}
 
+    effort = effort or os.environ.get("EFFORT") or None    # e.g. EFFORT=medium in .env
     extra = {}
     if thinking:
         extra["thinking"] = thinking

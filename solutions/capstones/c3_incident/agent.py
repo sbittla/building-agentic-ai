@@ -31,6 +31,14 @@ async def triage(alert: str):
         hub.tools = policy.visible_tools(hub.tools)
         findings, messages = await m13.run_mcp_agent(hub, alert, system=SYSTEM, max_iterations=15,
                                                      before_call=policy.before_call)
+        if not any(getattr(b, "name", "") == "git__git_log" for m in messages
+                   if m["role"] == "assistant" and not isinstance(m["content"], str)
+                   for b in m["content"]):    # the runbook's step 1, often skipped
+            findings, messages = await m13.run_mcp_agent(
+                hub, "You haven't checked recent commits yet. Call git_log with repo_path "
+                "'incident/repo' and say which commit, if any, matches the incident start.",
+                system=SYSTEM, messages=messages, max_iterations=5,
+                before_call=policy.before_call)
     r = await AsyncAnthropic().messages.create(
         model=m13.MODEL, max_tokens=4096, tools=[REPORT],
         tool_choice={"type": "tool", "name": "triage_report"},

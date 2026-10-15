@@ -1,13 +1,14 @@
 # Exercise: 3.4  A 20-question eval
-# Command:  python ch03_routing_eval.py
+# Command:  python /tmp/solutions-flat/exercises/ex3_4_routing_eval.py
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-09-27 19:44:54 UTC
+# Date:     2026-10-14 23:18:46 UTC
 # Exit code: 0
-# Seconds:  25.2
+# Seconds:  353.2
 #-------------------------------------------------------------------------------
-FAIL  expected=get_current_date  got=None              What day is it today?
-PASS  expected=convert_units     got=convert_units     How many km is 26.2 miles?
-PASS  expected=calculate         got=calculate         What is 1234 * 5678?
-PASS  expected=days_between      got=days_between      How many days from 2026-01-01 to 2026-07-04?
-PASS  expected=None              got=None              What is a prime number?
-Routing accuracy: 4/5 = 80%
+accuracy per run: ['85%', '75%', '90%']  mean=83%
+flipping questions: ['How many days until 2026-12-25?', 'Double 26.2 miles and give it in km.', "What's 3 + 4?"]
+  FAIL expected=get_current_date got=[None, None, None]  What day is it today?
+  FAIL expected=get_current_date got=['get_current_date', 'days_between', 'get_current_date']  How many days until 2026-12-25?
+  FAIL expected=calculate got=['convert_units', 'convert_units', 'calculate']  Double 26.2 miles and give it in km.
+  FAIL expected=get_current_date got=['days_between', 'days_between', 'days_between']  How old is someone born 1990-05-01 today, in days?
+  FAIL expected=calculate got=['calculate', None, 'calculate']  What's 3 + 4?
