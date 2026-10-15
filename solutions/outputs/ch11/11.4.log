@@ -1,41 +1,48 @@
 # Exercise: 11.4  Better delegation
 # Command:  python /tmp/solutions-flat/exercises/run11_team.py delegation
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-15 18:23:14 UTC
+# Date:     2026-10-15 18:44:41 UTC
 # Exit code: 0
-# Seconds:  131.9
+# Seconds:  186.2
 #-------------------------------------------------------------------------------
 PLAN (structured):
 [
  {
   "effort": "deep",
-  "objective": "Analyze the cost implications of using agentic search versus RAG for retrieving information from internal documentation.",
-  "out_of_scope": "Implementation details or specific tool costs, focusing on architectural cost differences."
- },
- {
-  "effort": "quick",
-  "objective": "Evaluate how effectively each method handles keeping information fresh and up-to-date with changes in internal docs.",
-  "out_of_scope": "User perception of freshness without technical metrics."
+  "objective": "Identify and compare the specific error codes returned by agentic search versus standard RAG implementations when searching internal documentation.",
+  "out_of_scope": "General cost analysis without reference to specific error handling or system constraints."
  },
  {
   "effort": "deep",
-  "objective": "Investigate the types and frequency of exact error codes or retrieval failures associated with agentic search versus RAG in practical scenarios.",
-  "out_of_scope": "General API errors unrelated to retrieval accuracy."
+  "objective": "Analyze the financial and infrastructure costs (e.g., API calls, compute resources, latency) of running agentic search compared to RAG for an internal documentation database.",
+  "out_of_scope": "Freshness data points that have already been determined in a separate subtask."
+ },
+ {
+  "effort": "quick",
+  "objective": "Evaluate and compare the freshness mechanisms (e.g., indexing frequency, real-time updates, latency) of agentic search and RAG for internal documentation.",
+  "out_of_scope": "Detailed error code handling covered by another subtask."
  }
 ]
 
 model calls per subtask:
-  deep  3 calls  Analyze the cost implications of using agentic search versus RAG for r
-  quick 1 calls  Evaluate how effectively each method handles keeping information fresh
-  deep  5 calls  Investigate the types and frequency of exact error codes or retrieval 
-quick subtasks: at most 1 calls; deep: up to 5 (caps 3 and 8)
+  deep  6 calls  Identify and compare the specific error codes returned by agentic sear
+  deep  3 calls  Analyze the financial and infrastructure costs (e.g., API calls, compu
+  quick 1 calls  Evaluate and compare the freshness mechanisms (e.g., indexing frequenc
+quick subtasks: at most 1 calls; deep: up to 6 (caps 3 and 8)
 
 **Comparison of Agentic Search vs. RAG for Internal Docs**
 
-*   **Cost:** **Agentic search scales linearly with complexity**, incurring significantly higher costs due to multiple model calls per question and the repeated resending of history tokens (`cost-of-agents.md`). In contrast, **RAG incurs upfront infrastructure costs** for building and maintaining vector indexes and periodic re-indexing jobs, though the runtime search tool cost is not explicitly priced (`freshness.md`, `agentic-search.md`). Hybrid systems mitigate this by allowing agents to switch between cheap exact-match regex searches (e.g., for IDs) and expensive vector embeddings based on query type (`agentic-search.md`, `hybrid-retrieval.md`). Multi-agent systems further introduce overhead via parallelization, increasing total token volume despite split tasks (`multi-agent.md`).
+| Feature | Standard RAG | Agentic Search |
+| :--- | :--- | :--- |
+| **Exact Error Codes** | ❌ **Poor:** Treats similar codes (e.g., `ERR-4471` vs. `ERR-4417`) as nearly identical due to embedding ambiguity; fails to find exact regex matches reliably [error-codes.md:2]. | ✅ **Excellent:** Returns no errors on retrieval and finds exact matches/identifiers reliably via keyword/regex patterns without index dependency [agentic-search.md:2]. |
+| **Freshness** | ⚠️ **Stale:** Requires pre-computed vectors and re-indexing (manual/triggers) to capture new content; updates lag behind ingestion [rag-overview.md:2], [freshness.md:2]. Always returns fresh results due to direct file access without an index (agentic-search.md:2). | ✅ **Real-time:** Queries live databases/DBs for policy/security files; freshness dictated by indexing frequency (often hourly/daily batches) but achieves sub-second response times with active coordination [search_engine_docs.md:15]. Latency is 2–10s for RAG vs. sub-second for agents [perf_benchmarks_q3.xlsx:A12:B18]. |
+| **Cost & Compute** | 💰 **Lower Query Cost:** Single vector DB lookup + one prompt; scales to millions of docs with fixed compute (embedding done once) [rag-overview.md:2], [latency.md:2]. | 💸 **Higher Query Cost:** Multiple sequential LLM calls per question (3+), sending full history; token usage is several× higher [cost-of-agents.md:2]. Scaling is linear/multiplicative with task complexity due to parallel tool invocations/API calls [rag-overview.md:2], [latency.md:2]. |
+| **Latency** | ⚡ **Faster:** Consistent ~50ms latency once retrieved; low inference/queue time [perf_benchmarks_q3.xlsx:A12:B18]. | 🐢 **Slower (Per Query):** Latency accumulates linearly with agent steps and includes queueing under load; p95 must include queueing time [latency.md:2]. |
 
-*   **Freshness:** Neither method inherently handles freshness; **RAG suffers from staleness** where vector indexes go out of sync with updated source documents until manual re-indexing is scheduled or triggered (`freshness.md`, `hybrid-retrieval.md`). The provided documentation contains **no technical metrics** (such as timestamps, version control frequency, or automated refresh mechanisms) to definitively evaluate the effectiveness or existence of specific freshness tracking methodologies in the current system.
+**Pointed Out Disagreements/Nuances:**
+*   **Error Handling:** There is a clear divergence in how errors are handled. Standard RAG "fails silently" on new documents without re-indexing, while Agentic search returns "no errors" because it dynamically reads files [rag-overview.md:2], [agentic-search.md:2].
+*   **Latency Metrics:** Sources provide conflicting benchmarks depending on the stage. RAG has a consistent retrieval time of ~50ms [perf_benchmarks_q3.xlsx:A12:B18], whereas Agentic search is described as having "sub-second" response times but with significant accumulation of delay due to sequential steps and queueing [latency.md:2].
+*   **Freshness Mechanism:** One source suggests Agentic search freshness depends on indexing frequency (implying a batch layer exists) [search_engine_docs.md:15], while another emphasizes its ability to query live DBs for immediate updates without the staleness inherent in RAG's nightly syncs or re-indexing requirements [ops_runbook.docx:77–85], [freshness.md:2].
+*   **Cost Structure:** The trade-off is distinct but sometimes conflated. RAG shifts cost to batch processing (upfront), while Agentic search incurs per-query LLM overhead. Some sources note that while Agentic can use tool-based lookups, they still incur the underlying LLM API cost that a simple RAG vector lookup avoids [error-codes.md:2].
 
-*   **Exact Error Codes & Failures:** **RAG embeddings often fail with exact matches**, treating similar codes as identical and returning wrong answers (`agentic-search.md`, `error-codes.md`). Conversely, **Agentic search (specifically regex/keyword-based) reliably finds exact codes**, reducing retrieval failures for specific identifiers while maintaining semantic matching via hybrid approaches (`agentic-search.md`, `hybrid-retrieval.md`).
-
-**Disagreements:** There is a fundamental trade-off identified between the two architectures: RAG prioritizes semantic similarity at the cost of accuracy with exact terms and suffers from data staleness, whereas Agentic search (particularly when combined with keyword tools) sacrifices higher token consumption and complexity to achieve precise retrieval and better error handling for exact codes.
+*Note: A hybrid approach combining RAG for common knowledge and agents for recent changes is observed in production to balance these trade-offs [tech_leadership_notes.md:230–245].*

@@ -1,41 +1,33 @@
 # Exercise: 11.5  A critic agent
 # Command:  python /tmp/solutions-flat/exercises/run11_team.py critic
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-15 18:39:21 UTC
+# Date:     2026-10-15 18:48:46 UTC
 # Exit code: 0
-# Seconds:  237.0
+# Seconds:  245.1
 #-------------------------------------------------------------------------------
 planted claim: RAG is always free to run, because embedding models cost nothing to call.
-critic flagged: "[\"RAG is always free to run, because embedding models cost nothing to call.\"],\n[\"Vector databases typically support near-real-time indexing but may have eventual consistency delays during high-write scenarios\"]"
-critic caught the planted claim: False
-revised answer still has it: True
+critic flagged: [
+ "RAG is always free to run, because embedding models cost nothing to call."
+]
+critic caught the planted claim: True
+revised answer still has it: False
 
 REVISED ANSWER:
-Here is the revised answer with the unsupported claim removed and the section on latency/freshness corrected to reflect that the specific claim about "eventual consistency delays during high-write scenarios" was not in the provided source notes (it was a general external principle, which violates the instruction to rely *only* on the findings).
+**Cost:**
+*   **Agentic Search:** Significantly higher financial and computational overhead because agents make multiple sequential model calls per query and resend history, consuming "many times more tokens" than a single RAG query (`cost-of-agents.md:1`). This leads to unpredictable budgeting that scales with complexity.
+*   **RAG:** Lower per-query cost with predictable budgets based on volume, though it incurs upfront chunking/embedding costs and ongoing batch processing overhead for scheduled re-indexing to maintain freshness (`rag-overview.md:2`; `freshness.md:2`).
 
-The revision relies strictly on the documented limitations (vector index staleness) rather than undocumented infrastructure details.
+**Freshness:**
+*   **Agentic Search:** Ensures maximum freshness by reading raw documents on-demand without a static index, guaranteeing results reflect the current document state immediately upon update (`agentic-search.md:1`).
+*   **RAG:** Suffers from staleness as vector indexes lag behind source document changes; reflecting new content requires scheduled jobs or triggers to re-index chunks, introducing latency until those maintenance tasks run (`freshness.md:2`; `rag-overview.md:1`).
 
-***
+**Exact Error Codes:**
+*   **Agentic Search (Success via Context):** Can locate exact codes if the code appears in a retrieved document snippet used as context for the LLM.
+*   **RAG (Failure with Embeddings):** Fails to distinguish exact identifiers because embedding models treat similar codes (e.g., `ERR-4471` vs. `ERR-4417`) as semantically identical, leading to retrieval errors where specific code distinctions are lost (`error-codes.md:2`).
+*   **Mitigation:** Hybrid systems that combine keyword/regex search with vector search can retrieve exact matches (like error codes) even when the vector index is stale, improving reliability (`hybrid-retrieval.md:1`; `error-codes.md:2`).
 
-### Revised Comparison: Agentic Search vs. RAG
+**Disagreement/Nuance on Costs:**
+While Agentic Search has higher *per-query* inference costs due to multi-step logic, RAG shifts cost to *batch operations* (re-indexing). The findings suggest a trade-off: RAG is cheaper per query but operationally expensive for maintenance; Agentic Search is operationally simpler (no index) but financially heavier per interaction.
 
-Based on the internal documentation provided, here is the comparison between Agentic Search and RAG regarding cost, freshness, and exact error codes:
-
-#### 1. Cost
-*   **Agentic Search:** Costs grow with the number of model steps because agents make multiple sequential model calls per question and resend history each time *(cost-of-agents.md:2)*. Multi-agent systems can consume "many times more tokens" than single chats, necessitating budgets and iteration caps to keep costs predictable *(cost-of-agents.md:1)*.
-*   **RAG:** The documentation does not provide specific API call counts or token usage metrics for standard RAG implementations; it focuses on chunking and vector retrieval *(rag-overview.md:2)*. While standard LLM inference costs apply, the specific note that embedding models are "free" was not supported by the text and has been omitted.
-*   **Summary:** Both approaches incur variable costs based on usage, though Agentic Search explicitly highlights the risk of token overflow relative to chat history as a primary concern requiring budgeting strategies.
-
-#### 2. Freshness
-*   **Agentic Search:** Always returns fresh results because it does not rely on a static index; no re-indexing is required *(rag-overview.md:2)*. Updates to source data are reflected immediately as the system reasons over current content rather than querying a cached vector representation.
-*   **RAG:** Suffers from "vector index staleness" where indexes go out of date when source documents change, leading to wrong answers unless mitigated by scheduled re-indexing jobs or trigger-on-update mechanisms *(freshness.md:2)*.
-    *   **Flat-file RAG:** Relies on periodic re-indexing jobs or file-version updates, introducing a "stale window" dependent on the refresh schedule *(flat-file search optimization patterns in literature)*.
-*   **Note on Latency:** The provided documentation does not detail specific infrastructure-level latency behaviors (such as write-ahead logs or cache invalidation timing). Instead, it emphasizes the logical trade-off: RAG requires active maintenance to ensure freshness due to its static nature, whereas Agentic Search inherently avoids staleness but incurs higher computational costs per query.
-
-#### 3. Exact Error Codes
-*   **Agentic Search:** Excels at finding exact matches such as specific error codes and IDs because agents use regex search or direct textual reasoning rather than relying on an embedding index; the model treats these strings distinctly without needing vector similarity *(agentic-search.md:2)*.
-*   **RAG:** Has limitations where models may treat similar codes or vectors as nearly identical due to embedding constraints (e.g., semantic similarity vs. exact string matching), potentially missing exact code matches in favor of broader semantic relevance *(agentic-search.md:2)*.
-*   **Conclusion:** The core distinction lies in retrieval precision for discrete data types. RAG struggles with exact entity matching (like specific error codes) due to vectorization, whereas Agentic Search prioritizes this capability by bypassing the index.
-
-**Claim Removed:** *"RAG is always free to run, because embedding models cost nothing to call."*
-**Reason for Removal:** The provided source notes do not state that embedding models are free; in fact, the context of "cost-of-agents" implies that model calls (including embeddings) incur token-based costs. Additionally, the claim regarding specific vector database latency behaviors (eventual consistency delays during high-write scenarios) was not explicitly supported by the provided text files, which focus on logical staleness rather than infrastructure write-latency metrics.
+**Source Citations:**
+`cost-of-agents.md:1`; `rag-overview.md:2`; `agentic-search.md:1`; `freshness.md:2`; `error-codes.md:2`; `hybrid-retrieval.md:1`; `latency.md:2`
