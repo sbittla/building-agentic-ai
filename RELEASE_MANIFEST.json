@@ -12,7 +12,7 @@
   },
   "exercises": 249,
   "capstones": 7,
-  "git_commit": "b0ac4fe66f76ebb05f9a99c7bb712caac0e4bdfe",
+  "git_commit": "6273ec644f3a4e71e77af1cdca71e5ca14859679",
   "python_version": "3.12.3",
   "dependency_lock_sha256": "c28c848a2447e2358d5d5ee80dbb69d99ac4c946c2c442d792bd9e1f3f28b119",
   "mcp_specification": "2026-07-28",
@@ -23,7 +23,7 @@
     "errors": 0,
     "skipped": 1,
     "tests": 595,
-    "environment": "course image sha256:f286c40c353a (local Docker)",
+    "environment": "course image sha256:2bcc86b04c5f (local Docker)",
     "model": "scripted stand-in (solutions/tests/fakemodel.py); no API key, no model provider called",
     "evidence": "verification/offline.json"
   },

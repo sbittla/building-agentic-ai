@@ -210,7 +210,7 @@ Every reference solution, capstone and exercise command, run against a scripted 
 | ---: | ---: | ---: | ---: | ---: |
 | 594 | 0 | 0 | 1 | 595 |
 
-Commit `b0ac4fe66f76`; `requirements.lock` sha256 `c28c848a2447`; course image sha256:f286c40c353a (local Docker); 2026-10-15. Skipped: 1 needs claude from the course image. Details: [verification/README.md](verification/README.md), [verification/offline.json](verification/offline.json).
+Commit `6273ec644f3a`; `requirements.lock` sha256 `c28c848a2447`; course image sha256:2bcc86b04c5f (local Docker); 2026-10-15. Skipped: 1 needs claude from the course image. Details: [verification/README.md](verification/README.md), [verification/offline.json](verification/offline.json).
 
 ### B. Exercises run with a real model
 
