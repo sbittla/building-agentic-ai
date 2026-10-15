@@ -23,7 +23,7 @@ This file is rewritten after every run.
 | [9](ch09/) | Chapter 9: Human-in-the-Loop Approval | 4 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 00:31 |
 | [10](ch10/) | Chapter 10: Feedback Loops | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 00:49 |
 | [A](A/) | Interlude: Asynchronous Python | 4 | 0 | 0 | 0 | qwen3.5:9b (local, through Ollama) | 2026-10-15 00:50 |
-| [11](ch11/) | Chapter 11: Multi-Agent Systems | 5 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 18:23 |
+| [11](ch11/) | Chapter 11: Multi-Agent Systems | 4 | 1 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 18:39 |
 | [12](ch12/) | Chapter 12: MCP Fundamentals and Your First Server | 1 | 0 | 6 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 01:16 |
 | [13](ch13/) | Chapter 13: Build Your Own MCP Client | 7 | 0 | 1 | 1 | qwen3.5:9b (local, through Ollama) | 2026-10-15 01:19 |
 | [14](ch14/) | Chapter 14: Using Servers You Didn't Write | 3 | 0 | 2 | 2 | qwen3.5:9b (local, through Ollama) | 2026-10-15 01:21 |

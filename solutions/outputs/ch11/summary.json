@@ -2,9 +2,9 @@
  "chapter": "11",
  "title": "Chapter 11: Multi-Agent Systems",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-15 18:23",
+ "date": "2026-10-15 18:39",
  "provenance": {
-  "commit": "c3169f59ef30",
+  "commit": "487442de6e61",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -66,12 +66,12 @@
    "id": "11.5",
    "title": "A critic agent",
    "kind": "run",
-   "status": "passed",
-   "reason": null,
-   "seconds": 103.7,
+   "status": "failed",
+   "reason": "output lacks /critic caught the planted claim: True/",
+   "seconds": 237.0,
    "log": "ch11/11.5.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "77cda2676746"
+   "commit": "487442de6e61"
   },
   {
    "id": "11.6",
