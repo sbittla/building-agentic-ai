@@ -338,4 +338,4 @@ To deploy the Chapter 30 agent API, build `ch30_service.Dockerfile` from your wo
 
 ## License
 
-Copyright © 2026 Srinivasa Rao Bittla. All rights reserved. You may download, run and modify the code, data and solutions for your own learning while working through the book *Building Agentic AI Systems*. Any other use, including redistribution or use in other products, requires the author's written permission. See [LICENSE](LICENSE).
+The code, data, solutions and documentation in this repository are released under the [MIT License](LICENSE), copyright © 2026 Srinivasa Rao Bittla: use them, change them and build them into your own products. The book's text, including the manuscript in `course/md/`, is not covered; it remains copyright © 2026 Srinivasa Rao Bittla, all rights reserved.

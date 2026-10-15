@@ -10,6 +10,7 @@ The first public release: the book's First edition and the repository release th
 
 ### Release candidate 4 manuscript (unreleased)
 At most the same 510 pages as rc2 and rc3 (LibreOffice 24.2), with six more figures.
+- **MIT License for the code.** The repository's code, data, solutions and documentation are now MIT-licensed (`LICENSE`, README, the copyright page). The book's text, including the manuscript in `course/md/`, stays all rights reserved.
 - **Figures in every chapter that lacked one:** what one `course.sh` command does (0), history resent on every call (4), how `_safe` resolves then checks a path (6), `_get_json`'s retry path (7), a disguised write stopping at the read-only connection (8), and who owns the stack from a custom loop to a managed service (24).
 - **Reading notes** at the start of Chapters 28, 29 and 30 name the core sections and the advanced ones, so the three longest chapters no longer read as one block.
 - **Verified against the Claude API reference** (models cached 2026-10-06): Claude Sonnet 5.5 added to the models that reject forced tools and disabled thinking (3.3, 4.8); effort defaults; the minimum cacheable prefix is 512 to 4,096 tokens; mid-conversation `system` messages don't apply to Claude Sonnet 5 (16.8). `CLAIMS_AUDIT.md` gains three rows.
