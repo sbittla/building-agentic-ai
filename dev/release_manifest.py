@@ -26,7 +26,7 @@ KIT = Path(__file__).resolve().parent.parent
 OUT = KIT / "RELEASE_MANIFEST.json"
 RELEASE = "1.0.0"
 TAG = f"book-v{RELEASE}"
-CANDIDATE = f"{TAG}-rc2"
+CANDIDATE = f"{TAG}-rc4"   # named after the manuscript it matches (the RC4 PDF)
 # Files whose change after the verified commit would make the test results stale.
 CODE_PATHS = ["course/code", "course/checks", "course/starters", "course/course.py", "course/data",
               "solutions/exercises", "solutions/capstones", "solutions/tests", "requirements.lock",
@@ -38,7 +38,44 @@ def git(*args):
     return r.stdout.strip() if r.returncode == 0 else None
 
 
-def live_runs():
+INSTALL = KIT / "verification/install.json"     # clean-checkout setup per operating system
+EXCEPTIONS = KIT / "verification/exceptions.json"   # {"3.7": {"reason": ..., "approved_by": ..., "date": ...}}
+
+
+def run_inputs(i, x, names, index):
+    """The files a recorded run depended on: its solution files, the script its log names,
+    the chapter's code and, for a capstone, its own folder. Tests don't affect a live run."""
+    paths = {names[Path(f).name] for f in index.get(i, []) if Path(f).name in names}
+    log = KIT / "solutions/outputs" / x.get("log", "")
+    if log.is_file():
+        m = re.search(r"^# Command:\s*(.*)$", log.read_text(encoding="utf-8", errors="replace"), re.M)
+        paths |= {names[Path(t).name] for t in (m.group(1).split() if m else []) if Path(t).name in names}
+    ch = re.match(r"(\d+)\.", i)
+    if ch:
+        paths.add(f"course/code/ch{int(ch.group(1)):02d}")
+    if i.startswith("C"):
+        paths |= {d.relative_to(KIT).as_posix() for d in (KIT / "solutions/capstones").glob(f"c{i[1:]}_*")}
+    return sorted(paths)
+
+
+def stale_runs(runs, verified):
+    """Runs whose inputs changed between the run's commit and the verified commit, so the
+    evidence may not hold for the release code. A '-modified' run is compared from its base."""
+    names = {p.name: p.relative_to(KIT).as_posix() for p in (KIT / "solutions").rglob("*") if p.is_file()
+             and not {"outputs", "tests", "__pycache__", "_index"} & set(p.parts)}
+    index = json.loads((KIT / "solutions/index.json").read_text(encoding="utf-8"))
+    stale = {}
+    for i, x in runs.items():
+        if x["status"] not in ("passed", "failed") or not x.get("commit") or not verified:
+            continue
+        paths = run_inputs(i, x, names, index)
+        changed = git("diff", "--name-only", x["commit"].replace("-modified", ""), verified, "--", *paths) if paths else None
+        if changed:
+            stale[i] = changed.splitlines()
+    return dict(sorted(stale.items(), key=lambda kv: [int(n) if n.isdigit() else n for n in re.split(r"(\d+)", kv[0])]))
+
+
+def live_runs(verified=None):
     """Book exercises and capstones -> latest recorded run, grouped by outcome and provider."""
     ex = json.loads((KIT / "course/exercises.json").read_text(encoding="utf-8"))
     runs = {}
@@ -72,6 +109,7 @@ def live_runs():
             "runs_by_provider": dict(provider), "not_run_yet": not_run,
             "dates": f"{min(dates)} to {max(dates)}" if dates else None,
             "commits": sorted(commits),
+            "runs_older_than_their_code": stale_runs({i: runs[i] for i in ids if i in runs}, verified),
             "evidence": "solutions/outputs/*/summary.json (each records its own commit and lock hash)"}
 
 
@@ -83,7 +121,7 @@ def build():
     lock = hashlib.sha256((KIT / "requirements.lock").read_bytes()).hexdigest()
     vm = (KIT / "VERSION_MATRIX.md").read_text(encoding="utf-8")
     mcp = re.search(r"Specification \*\*(\d{4}-\d{2}-\d{2})\*\*", vm)
-    live = live_runs()
+    live = live_runs(prov["commit"])
     limitations = []
     if "outside the course image" in prov["environment"]:
         limitations.append("The deterministic suite was run outside the course image; "
@@ -100,6 +138,7 @@ def build():
                        "(the free local model). If a registry stops serving them, see VERSION_MATRIX.md.")
     limitations.append("Production readiness is not claimed: the course kit is not production-hardened "
                        "(Appendix M of the book, SECURITY_MODEL.md).")
+    gates = open_gates(live, prov)
     return {
         "book_title": "Building Agentic AI Systems: From First Agent to MCP, Multi-Agent Orchestration, and Production",
         "author": "Srinivasa Rao Bittla",
@@ -107,6 +146,8 @@ def build():
         "book_release": RELEASE,
         "repository_tag": TAG,
         "release_candidate_tag": CANDIDATE,
+        "release_status": (f"candidate: {TAG} is not published until every open_gates entry is closed"
+                           if gates else f"released as {TAG}"),
         "isbn": {"paperback": "979-8177506326", "hardcover": "979-8177514734"},
         "exercises": len(ex),
         "capstones": capstones,
@@ -121,7 +162,7 @@ def build():
                                 "evidence": "verification/offline.json"},
         "model_test_status": live,
         "known_limitations": limitations,
-        "open_gates": open_gates(live, prov),
+        "open_gates": gates,
         "commit_note": ("git_commit is the commit the tests ran on. The release tag may sit on a later "
                         "commit that adds only verification artifacts and docs; release_manifest.py --check "
                         "fails if any code, solution, test or environment file changed in between."),
@@ -137,11 +178,19 @@ def open_gates(live, prov):
     if live["not_run_yet"]:
         gates.append("Record live-model runs for " + ", ".join(live["not_run_yet"]) +
                      " (./course.sh run-chapter <ids> --model claude), or approve them as exceptions here.")
-    if len(live.get("commits", [])) > 1:
-        gates.append(f"Live-model runs come from {len(live['commits'])} commits; rerun them on the release "
-                     "commit, or record for each exercise why its evidence still applies.")
-    gates += ["Clean setup from a fresh checkout on Windows, macOS and Linux "
-              "(./course.sh setup, build, selftest, quickstart).",
+    approved = json.loads(EXCEPTIONS.read_text(encoding="utf-8")) if EXCEPTIONS.exists() else {}
+    approved = {i for i, e in approved.items() if isinstance(e, dict) and e.get("approved_by") and e.get("reason")}
+    pending = [i for i in live.get("runs_older_than_their_code", {}) if i not in approved]
+    if pending:
+        gates.append("Code changed after the recorded run of " + ", ".join(pending) + ": rerun each "
+                     "(./course.sh run-chapter <ids>), or approve it in verification/exceptions.json "
+                     "with a reason and your name.")
+    install = json.loads(INSTALL.read_text(encoding="utf-8")) if INSTALL.exists() else {}
+    missing = [o for o in ("Windows", "macOS", "Linux") if not isinstance(install.get(o), dict)]
+    if missing:
+        gates.append("Clean setup from a fresh checkout on " + " and ".join(missing) +
+                     " (setup, build, selftest, quickstart), recorded in verification/install.json.")
+    gates += [
               "Independent technical review and a beginner-reader pilot (PILOT.md), with findings recorded.",
               "Final proof of the print files, and KDP preview of paperback and hardcover "
               "(trim, gutter, spine, cover, ISBN and metadata).",

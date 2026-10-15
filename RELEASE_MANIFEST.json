@@ -4,25 +4,26 @@
   "book_edition": "First edition",
   "book_release": "1.0.0",
   "repository_tag": "book-v1.0.0",
-  "release_candidate_tag": "book-v1.0.0-rc2",
+  "release_candidate_tag": "book-v1.0.0-rc4",
+  "release_status": "candidate: book-v1.0.0 is not published until every open_gates entry is closed",
   "isbn": {
     "paperback": "979-8177506326",
     "hardcover": "979-8177514734"
   },
   "exercises": 249,
   "capstones": 7,
-  "git_commit": "cf2a8a4c876e1fddbff90bddd29a22096c611e58",
+  "git_commit": "6273ec644f3a4e71e77af1cdca71e5ca14859679",
   "python_version": "3.12.3",
   "dependency_lock_sha256": "c28c848a2447e2358d5d5ee80dbb69d99ac4c946c2c442d792bd9e1f3f28b119",
   "mcp_specification": "2026-07-28",
   "verification_date": "2026-10-15",
   "offline_test_status": {
-    "passed": 592,
+    "passed": 594,
     "failed": 0,
     "errors": 0,
     "skipped": 1,
-    "tests": 593,
-    "environment": "course image sha256:f286c40c353a (local Docker)",
+    "tests": 595,
+    "environment": "course image sha256:2bcc86b04c5f (local Docker)",
     "model": "scripted stand-in (solutions/tests/fakemodel.py); no API key, no model provider called",
     "evidence": "verification/offline.json"
   },
@@ -42,13 +43,21 @@
     "dates": "2026-10-14 to 2026-10-15",
     "commits": [
       "059cdccbdb57-modified",
-      "523e58d47b0c-modified",
       "624e451df84b",
       "624e451df84b-modified",
+      "77cda2676746",
       "812cbfeb27af-modified",
-      "908d672046fc-modified",
+      "a78a0ff9ba85",
       "c7330a5deef3"
     ],
+    "runs_older_than_their_code": {
+      "3.7": [
+        "solutions/exercises/ch03/ex3_7_tool_search.py"
+      ],
+      "24.6": [
+        "solutions/exercises/ch24/ex24_6_skills.py"
+      ]
+    },
     "evidence": "solutions/outputs/*/summary.json (each records its own commit and lock hash)"
   },
   "known_limitations": [
@@ -57,8 +66,8 @@
     "Production readiness is not claimed: the course kit is not production-hardened (Appendix M of the book, SECURITY_MODEL.md)."
   ],
   "open_gates": [
-    "Live-model runs come from 7 commits; rerun them on the release commit, or record for each exercise why its evidence still applies.",
-    "Clean setup from a fresh checkout on Windows, macOS and Linux (./course.sh setup, build, selftest, quickstart).",
+    "Code changed after the recorded run of 3.7, 24.6: rerun each (./course.sh run-chapter <ids>), or approve it in verification/exceptions.json with a reason and your name.",
+    "Clean setup from a fresh checkout on macOS and Linux (setup, build, selftest, quickstart), recorded in verification/install.json.",
     "Independent technical review and a beginner-reader pilot (PILOT.md), with findings recorded.",
     "Final proof of the print files, and KDP preview of paperback and hardcover (trim, gutter, spine, cover, ISBN and metadata).",
     "Confirm the ISBN registrations match the title, subtitle, author and imprint.",

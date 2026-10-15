@@ -1,16 +1,16 @@
 # Exercise: 30.7  Ship it
 # Command:  AGENT_API_KEY=${AGENT_API_KEYS%%,*} python ch30_smoke_test.py http://127.0.0.1:8080 --chat
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-15 04:22:24 UTC
+# Date:     2026-10-15 18:19:17 UTC
 # Exit code: 0
-# Seconds:  6.6
+# Seconds:  10.5
 #-------------------------------------------------------------------------------
 Smoke test: http://127.0.0.1:8080
   PASS  uses HTTPS  (fine locally, never in production)
-  PASS  health endpoint answers  (200, 54 ms)
+  PASS  health endpoint answers  (200, 64 ms)
   PASS  no key is refused
   PASS  a wrong key is refused
   PASS  bad input is rejected (422)
-  PASS  a real question gets an answer  (200, 3.3 s)
+  PASS  a real question gets an answer  (200, 6.6 s)
 
 All checks passed.

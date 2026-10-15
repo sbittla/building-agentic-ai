@@ -10,7 +10,7 @@ Which book, code, environment and models belong together, and what the book was 
 
 ISBNs of the First edition: paperback 979-8177506326, hardcover 979-8177514734.
 
-**Release status.** `book-v1.0.0-rc2` is the release candidate (the deterministic suite ran on `book-v1.0.0-rc1`; rc2 changes only the manuscript and the documentation). It becomes `book-v1.0.0` on the same commit once the `open_gates` listed in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) are closed. Until then, treat the candidate as the code that matches the book.
+**Release status.** `book-v1.0.0` is **not published yet**. The current release candidate is `book-v1.0.0-rc4`, matching the RC4 manuscript; its deterministic suite ran on commit `cf2a8a4`, and the tag may sit on a later commit that changes only documentation (`release_manifest.py --check` fails otherwise). The final tag goes on the same code once every `open_gates` entry in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) is closed. `book-v1.0.0-rc1` and `-rc2` are earlier candidates whose verification no longer applies.
 
 **Development history.** This repository was developed through several internal manuscript and code snapshots before the book's first public edition. The historical tags `edition-1.0`, `edition-1.1` and `edition-1.2` are kept for traceability. They are development snapshots, not earlier commercial printings, and nothing in the book refers to them.
 

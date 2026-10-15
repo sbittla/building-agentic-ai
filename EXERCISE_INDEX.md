@@ -171,7 +171,7 @@ Logs: [`solutions/outputs/ch06/`](solutions/outputs/ch06/)
 | # | Exercise | Level | Type | Model needed | Solution | Latest result |
 | --- | --- | --- | --- | --- | --- | --- |
 | 6.1 | Break the sandbox | Concept | Written answer | No model | — | written answer |
-| 6.2 | Ask your notes | Simple | Chat with tools | Local or Claude | [`ANSWERS.md`](solutions/ANSWERS.md)<br>[`test_ch06_07.py`](solutions/tests/test_ch06_07.py)<br>[`ask.py`](solutions/exercises/ask.py) | ✔ passed (qwen3.5:9b, 61 s) |
+| 6.2 | Ask your notes | Simple | Chat with tools | Local or Claude | [`ANSWERS.md`](solutions/ANSWERS.md)<br>[`test_ch06_07.py`](solutions/tests/test_ch06_07.py)<br>[`ask.py`](solutions/exercises/ask.py) | ✔ passed (qwen3.5:9b, 91 s) |
 | 6.3 | Prove the sandbox | Simple | Write tests | Local or Claude | [`test_ex6_3_sandbox.py`](solutions/tests/test_ex6_3_sandbox.py) | ✔ passed (qwen3.5:9b, 6 s) |
 | 6.4 | Check the citations | Medium | Build | No model | [`ex6_4_citation_checker.py`](solutions/exercises/ch06/ex6_4_citation_checker.py) | ✔ passed (0 s) |
 | 6.5 | Search by filename and date | Medium | Chat with tools | Local or Claude | [`sol_ch06_notes_tools.py`](solutions/exercises/ch06/sol_ch06_notes_tools.py) | ✔ passed (qwen3.5:9b, 16 s) |
@@ -185,7 +185,7 @@ Logs: [`solutions/outputs/ch07/`](solutions/outputs/ch07/)
 | --- | --- | --- | --- | --- | --- | --- |
 | 7.1 | Failure table | Concept | Written answer | No model | — | written answer |
 | 7.2 | Cache or not? | Concept | Written answer | No model | — | written answer |
-| 7.3 | Pack for a trip | Simple | Chat with tools | Local or Claude | [`ANSWERS.md`](solutions/ANSWERS.md)<br>[`test_ch06_07.py`](solutions/tests/test_ch06_07.py)<br>[`ask.py`](solutions/exercises/ask.py) | ✔ passed (qwen3.5:9b, 91 s) |
+| 7.3 | Pack for a trip | Simple | Chat with tools | Local or Claude | [`ANSWERS.md`](solutions/ANSWERS.md)<br>[`test_ch06_07.py`](solutions/tests/test_ch06_07.py)<br>[`ask.py`](solutions/exercises/ask.py) | ✔ passed (qwen3.5:9b, 79 s) |
 | 7.4 | Handle the hard cases | Medium | Chat with tools | Local or Claude | [`ex7_4_hard_cases.py`](solutions/exercises/ch07/ex7_4_hard_cases.py) | ✔ passed (qwen3.5:9b, 23 s) |
 | 7.5 | Run tools in parallel | Medium | Build | Local or Claude | [`ex7_5_parallel.py`](solutions/exercises/ch07/ex7_5_parallel.py) | ✔ passed (qwen3.5:9b, 90 s) |
 | 7.6 | Multi-city trip with measurements | Complex | Build | Local or Claude | [`ex7_6_trip_benchmark.py`](solutions/exercises/ch07/ex7_6_trip_benchmark.py) | ✔ passed (qwen3.5:9b, 404 s) |
@@ -210,8 +210,8 @@ Logs: [`solutions/outputs/ch08/`](solutions/outputs/ch08/)
 | 8.2 | Define the terms | Concept | Written answer | No model | — | written answer |
 | 8.3 | Top customers | Simple | Run chapter code | Local or Claude | [`ANSWERS.md`](solutions/ANSWERS.md)<br>[`test_ch08_10.py`](solutions/tests/test_ch08_10.py) | ✔ passed (qwen3.5:9b, 28 s) |
 | 8.4 | Watch it self-correct | Simple | Chat with tools | Local or Claude | [`ex8_4_self_correct.py`](solutions/exercises/ch08/ex8_4_self_correct.py) | ✔ passed (qwen3.5:9b, 18 s) |
-| 8.5 | Retry budget and log | Medium | Chat with tools | Local or Claude | [`sol_ch08_sql_tools.py`](solutions/exercises/ch08/sol_ch08_sql_tools.py)<br>[`run8_5_tables.py`](solutions/exercises/ch08/run8_5_tables.py) | ✔ passed (qwen3.5:9b, 48 s) |
-| 8.6 | Confirm the tables | Medium | Chat with tools | Local or Claude | [`sol_ch08_sql_tools.py`](solutions/exercises/ch08/sol_ch08_sql_tools.py)<br>[`run8_5_tables.py`](solutions/exercises/ch08/run8_5_tables.py) | ✔ passed (qwen3.5:9b, 49 s) |
+| 8.5 | Retry budget and log | Medium | Chat with tools | Local or Claude | [`sol_ch08_sql_tools.py`](solutions/exercises/ch08/sol_ch08_sql_tools.py)<br>[`run8_5_tables.py`](solutions/exercises/ch08/run8_5_tables.py) | ✔ passed (qwen3.5:9b, 46 s) |
+| 8.6 | Confirm the tables | Medium | Chat with tools | Local or Claude | [`sol_ch08_sql_tools.py`](solutions/exercises/ch08/sol_ch08_sql_tools.py)<br>[`run8_5_tables.py`](solutions/exercises/ch08/run8_5_tables.py) | ✔ passed (qwen3.5:9b, 38 s) |
 | 8.7 | An evaluation harness | Complex | Build | Local or Claude | [`ex8_7_eval_harness.py`](solutions/exercises/ch08/ex8_7_eval_harness.py) | ✔ passed (qwen3.5:9b, 406 s) |
 
 ## Interlude: Measuring an Agent
@@ -270,10 +270,10 @@ Logs: [`solutions/outputs/ch11/`](solutions/outputs/ch11/)
 | --- | --- | --- | --- | --- | --- | --- |
 | 11.1 | One agent or many? | Concept | Written answer | No model | — | written answer |
 | 11.2 | Design the subtasks | Concept | Written answer | No model | — | written answer |
-| 11.3 | Run the team | Simple | Run chapter code | Local or Claude | [`ANSWERS.md`](solutions/ANSWERS.md)<br>[`test_ch11_12.py`](solutions/tests/test_ch11_12.py) | ✔ passed (qwen3.5:9b, 114 s) |
-| 11.4 | Better delegation | Medium | Run chapter code | Local or Claude | [`sol_ch11_research_team.py`](solutions/exercises/ch11/sol_ch11_research_team.py)<br>[`run11_team.py`](solutions/exercises/ch11/run11_team.py) | ✔ passed (qwen3.5:9b, 122 s) |
-| 11.5 | A critic agent | Medium | Run chapter code | Local or Claude | [`sol_ch11_research_team.py`](solutions/exercises/ch11/sol_ch11_research_team.py)<br>[`run11_team.py`](solutions/exercises/ch11/run11_team.py) | ✔ passed (qwen3.5:9b, 183 s) |
-| 11.6 | Is it worth it? | Complex | Build | Local or Claude | [`ex11_6_compare.py`](solutions/exercises/ch11/ex11_6_compare.py) | ✔ passed (qwen3.5:9b, 977 s) |
+| 11.3 | Run the team | Simple | Run chapter code | Local or Claude | [`ANSWERS.md`](solutions/ANSWERS.md)<br>[`test_ch11_12.py`](solutions/tests/test_ch11_12.py) | ✔ passed (qwen3.5:9b, 97 s) |
+| 11.4 | Better delegation | Medium | Run chapter code | Local or Claude | [`sol_ch11_research_team.py`](solutions/exercises/ch11/sol_ch11_research_team.py)<br>[`run11_team.py`](solutions/exercises/ch11/run11_team.py) | ✔ passed (qwen3.5:9b, 186 s) |
+| 11.5 | A critic agent | Medium | Run chapter code | Local or Claude | [`sol_ch11_research_team.py`](solutions/exercises/ch11/sol_ch11_research_team.py)<br>[`run11_team.py`](solutions/exercises/ch11/run11_team.py) | ✔ passed (qwen3.5:9b, 245 s) |
+| 11.6 | Is it worth it? | Complex | Build | Local or Claude | [`ex11_6_compare.py`](solutions/exercises/ch11/ex11_6_compare.py) | ✔ passed (qwen3.5:9b, 1050 s) |
 | 11.7 | Pick the pattern | Medium | Run chapter code | Local or Claude | [`ex11_7_patterns.py`](solutions/exercises/ch11/ex11_7_patterns.py)<br>[`test_multiagent.py`](solutions/tests/test_multiagent.py) | ✔ passed (qwen3.5:9b, 195 s) |
 
 ## Chapter 12: MCP Fundamentals and Your First Server
@@ -540,15 +540,15 @@ Logs: [`solutions/outputs/ch30/`](solutions/outputs/ch30/)
 | --- | --- | --- | --- | --- | --- | --- |
 | 30.1 | Pick the status code | Concept | Written answer | No model | — | written answer |
 | 30.2 | Call your agent API | Simple | Run chapter code | Local or Claude | [`ANSWERS.md`](solutions/ANSWERS.md) | ✔ passed (qwen3.5:9b, 37 s) |
-| 30.3 | Hit the limits | Simple | Run chapter code | Local or Claude | [`ANSWERS.md`](solutions/ANSWERS.md) | ✔ passed (qwen3.5:9b, 12 s) |
-| 30.4 | Stream the words | Medium | Run chapter code | Local or Claude | [`sol_ch30_service.py`](solutions/exercises/ch30/sol_ch30_service.py)<br>[`run30_4_words.py`](solutions/exercises/ch30/run30_4_words.py) | ✔ passed (qwen3.5:9b, 20 s) |
-| 30.5 | Remote MCP with your agent | Medium | Build | Local or Claude | [`ex30_5_remote_hub.py`](solutions/exercises/ch30/ex30_5_remote_hub.py)<br>[`servers_remote.json`](solutions/exercises/servers_remote.json) | ✔ passed (qwen3.5:9b, 46 s) |
-| 30.6 | Production drill | Complex | Build | Local or Claude | [`ex30_6_drill.py`](solutions/exercises/ch30/ex30_6_drill.py) | ✔ passed (qwen3.5:9b, 153 s) |
-| 30.7 | Ship it | Complex | Run chapter code | Local or Claude | [`ex30_7_deploy.sh`](solutions/exercises/ch30/ex30_7_deploy.sh)<br>[`test_ch16_30.py`](solutions/tests/test_ch16_30.py) | ✔ passed (qwen3.5:9b, 7 s) |
+| 30.3 | Hit the limits | Simple | Run chapter code | Local or Claude | [`ANSWERS.md`](solutions/ANSWERS.md) | ✔ passed (qwen3.5:9b, 14 s) |
+| 30.4 | Stream the words | Medium | Run chapter code | Local or Claude | [`sol_ch30_service.py`](solutions/exercises/ch30/sol_ch30_service.py)<br>[`run30_4_words.py`](solutions/exercises/ch30/run30_4_words.py) | ✔ passed (qwen3.5:9b, 21 s) |
+| 30.5 | Remote MCP with your agent | Medium | Build | Local or Claude | [`ex30_5_remote_hub.py`](solutions/exercises/ch30/ex30_5_remote_hub.py)<br>[`servers_remote.json`](solutions/exercises/servers_remote.json) | ✔ passed (qwen3.5:9b, 28 s) |
+| 30.6 | Production drill | Complex | Build | Local or Claude | [`ex30_6_drill.py`](solutions/exercises/ch30/ex30_6_drill.py) | ✔ passed (qwen3.5:9b, 150 s) |
+| 30.7 | Ship it | Complex | Run chapter code | Local or Claude | [`ex30_7_deploy.sh`](solutions/exercises/ch30/ex30_7_deploy.sh)<br>[`test_ch16_30.py`](solutions/tests/test_ch16_30.py) | ✔ passed (qwen3.5:9b, 10 s) |
 | 30.8 | Who asked for this, at company scale? | Concept | Written answer | No model | — | written answer |
 | 30.9 | Search what you may use | Medium | Build | No model | [`ex30_9_scoped_search.py`](solutions/exercises/ch30/ex30_9_scoped_search.py)<br>[`test_part5_mcp2026.py`](solutions/tests/test_part5_mcp2026.py) | ✔ passed (3 s) |
-| 30.10 | Fewer polls, safe retries | Medium | Build | No model | [`ex30_10_jobs.py`](solutions/exercises/ch30/ex30_10_jobs.py)<br>[`test_part5_mcp2026.py`](solutions/tests/test_part5_mcp2026.py) | ✔ passed (6 s) |
-| 30.11 | An agent behind the gateway | Complex | Build | Local or Claude | [`ex30_11_gateway_agent.py`](solutions/exercises/ch30/ex30_11_gateway_agent.py)<br>[`test_part5_mcp2026.py`](solutions/tests/test_part5_mcp2026.py) | ✔ passed (qwen3.5:9b, 34 s) |
+| 30.10 | Fewer polls, safe retries | Medium | Build | No model | [`ex30_10_jobs.py`](solutions/exercises/ch30/ex30_10_jobs.py)<br>[`test_part5_mcp2026.py`](solutions/tests/test_part5_mcp2026.py) | ✔ passed (7 s) |
+| 30.11 | An agent behind the gateway | Complex | Build | Local or Claude | [`ex30_11_gateway_agent.py`](solutions/exercises/ch30/ex30_11_gateway_agent.py)<br>[`test_part5_mcp2026.py`](solutions/tests/test_part5_mcp2026.py) | ✔ passed (qwen3.5:9b, 27 s) |
 | 30.12 | Catch it in shadow | Medium | Build | No model | [`ex30_12_shadow_slos.py`](solutions/exercises/ch30/ex30_12_shadow_slos.py)<br>[`test_ch30_improvement_loop.py`](solutions/tests/test_ch30_improvement_loop.py) | ✔ passed (2 s) |
 
 ## Chapter 31: From Prototype to Customer Production

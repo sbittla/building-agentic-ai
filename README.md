@@ -9,7 +9,7 @@ You need Docker (16 GB of RAM, about 15 GB of disk) and, for the paid path, a Cl
 ```bash
 git clone https://github.com/sbittla/building-agentic-ai.git
 cd building-agentic-ai
-git checkout book-v1.0.0          # the release that matches the First edition of the book
+git checkout book-v1.0.0          # the book's release (until it's published: book-v1.0.0-rc4)
 ./course.sh setup                 # checks Docker, creates .env, asks Claude or local model
 ./course.sh build                 # builds the image (5-10 minutes, once)
 ./course.sh quickstart            # your first agent, no key needed
@@ -64,9 +64,11 @@ On Windows, replace `./course.sh` with `.\course.cmd` in every command below.
 
 The book's **First edition** is matched by the repository release **`book-v1.0.0`**. Check it out before you start, not `main`: `git checkout book-v1.0.0`, then `git describe --tags` should print `book-v1.0.0`. `main` keeps moving, and fixes and compatibility updates land there, listed in [CHANGELOG.md](CHANGELOG.md), never silently. A tag never moves, so the code at the book's tag always matches the book. Mistakes in the printed text are in [ERRATA.md](ERRATA.md).
 
+**`book-v1.0.0` is not published yet.** It is tagged only when every `open_gates` entry in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) is closed. Until then, check out the current release candidate, `book-v1.0.0-rc4`, which matches the RC4 manuscript. The final tag goes on the same code; if a gate finds a problem, [CHANGELOG.md](CHANGELOG.md) says what changed.
+
 | Book asset | Exercises | Capstones | Matching repository release | Status |
 | --- | ---: | ---: | --- | --- |
-| First edition (2026) | 249 | 7 | `book-v1.0.0` | Release candidate `book-v1.0.0-rc2` until the `open_gates` in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) are closed |
+| First edition (2026) | 249 | 7 | `book-v1.0.0` | Not published. Current candidate: `book-v1.0.0-rc4` (RC4 manuscript); it becomes `book-v1.0.0` when the `open_gates` in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) are closed |
 | Development snapshots | — | — | Historical `edition-*` tags | Internal development history; not published book editions |
 
 This repository was developed through several internal manuscript and code snapshots before the book's first public edition. The historical development tags (`edition-1.0`, `edition-1.1`, `edition-1.2`) are kept for traceability. They do not indicate earlier commercial printings.
@@ -86,7 +88,7 @@ How exercises are counted: every numbered exercise in the book's 32 chapters and
    ```bash
    git clone https://github.com/sbittla/building-agentic-ai.git
    cd building-agentic-ai
-   git checkout book-v1.0.0
+   git checkout book-v1.0.0      # until it's published: book-v1.0.0-rc4
    ```
    No Git? Download the ZIP from the repository page and unzip it anywhere, for example `D:\Learning\building-agentic-ai`.
 3. **Choose a model.**
@@ -206,13 +208,13 @@ Every reference solution, capstone and exercise command, run against a scripted 
 
 | Passed | Failed | Errors | Skipped (not applicable here) | Tests |
 | ---: | ---: | ---: | ---: | ---: |
-| 592 | 0 | 0 | 1 | 593 |
+| 594 | 0 | 0 | 1 | 595 |
 
-Commit `cf2a8a4c876e`; `requirements.lock` sha256 `c28c848a2447`; course image sha256:f286c40c353a (local Docker); 2026-10-15. Skipped: 1 needs claude from the course image. Details: [verification/README.md](verification/README.md), [verification/offline.json](verification/offline.json).
+Commit `6273ec644f3a`; `requirements.lock` sha256 `c28c848a2447`; course image sha256:2bcc86b04c5f (local Docker); 2026-10-15. Skipped: 1 needs claude from the course image. Details: [verification/README.md](verification/README.md), [verification/offline.json](verification/offline.json).
 
 ### B. Exercises run with a real model
 
-Every exercise run with its reference solution by `run-chapter` (runs from 2026-10-14 to 2026-10-15; models: `claude-sonnet-5`, `qwen3.5:9b`). **189 of 189 executable checks pass automatically**, and **0** failed unexpectedly. A real model's answers vary from run to run, so these show that each exercise works end to end, not that it always will. Commits: `059cdccbdb57-modified`, `523e58d47b0c-modified`, `624e451df84b`, `624e451df84b-modified`, `812cbfeb27af-modified`, `908d672046fc-modified`, `c7330a5deef3`. Per-exercise results and logs: [EXERCISE_INDEX.md](EXERCISE_INDEX.md), `solutions/outputs/`.
+Every exercise run with its reference solution by `run-chapter` (runs from 2026-10-14 to 2026-10-15; models: `claude-sonnet-5`, `qwen3.5:9b`). **189 of 189 executable checks pass automatically**, and **0** failed unexpectedly. A real model's answers vary from run to run, so these show that each exercise works end to end, not that it always will. Commits: `059cdccbdb57-modified`, `624e451df84b`, `624e451df84b-modified`, `77cda2676746`, `812cbfeb27af-modified`, `a78a0ff9ba85`, `c7330a5deef3`. Per-exercise results and logs: [EXERCISE_INDEX.md](EXERCISE_INDEX.md), `solutions/outputs/`.
 
 How the totals count: the book has **249 exercises**; the table adds the 7 capstones, so it has 256 rows of work. Every count here, in EXERCISE_INDEX.md and in the book is computed from `course/exercises.json`. *Written answer* exercises have nothing to run; *needs a person* means a person at the keyboard, the Claude Desktop app, a GitHub token or a file the reader creates; *not run yet* means no run has been recorded for this version.
 

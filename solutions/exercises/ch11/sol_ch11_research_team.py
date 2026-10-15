@@ -40,11 +40,20 @@ async def research(question: str, parallel: bool = True, critic: bool = True,
     """plant: a claim to slip into the draft before the critic reads it (exercise 11.5),
     to check that the critic catches it and the revision removes it."""
     t0 = time.perf_counter()
-    plan = await _call(tools=[PLAN_TOOL], tool_choice={"type": "tool", "name": "make_plan"},
-                       messages=[{"role": "user", "content": question}])
-    subtasks = next(b.input["subtasks"] for b in plan.content if b.type == "tool_use")
-    if isinstance(subtasks, str):    # the whole list sent as text: don't split by character
-        subtasks = re.findall(r'"([^"]+)"', subtasks) or [subtasks]
+    messages = [{"role": "user", "content": question}]
+    for attempt in range(2):         # validate the plan before spending on it: 2-4 subtasks
+        plan = await _call(tools=[PLAN_TOOL], tool_choice={"type": "tool", "name": "make_plan"},
+                           messages=messages)
+        call = next(b for b in plan.content if b.type == "tool_use")
+        subtasks = call.input.get("subtasks", [])
+        if isinstance(subtasks, str):    # the whole list sent as text: don't split by character
+            subtasks = re.findall(r'"([^"]+)"', subtasks) or [subtasks]
+        if len(subtasks) >= 2 or attempt:
+            break
+        messages += [{"role": "assistant", "content": plan.content},
+                     {"role": "user", "content": [{"type": "tool_result", "tool_use_id": call.id,
+                      "content": f"That plan has {len(subtasks)} subtask. Split the question into "
+                                 "2-4 independent subtasks and call make_plan again."}]}]
     subtasks = subtasks[:4]
     for i, s in enumerate(subtasks):  # a model can skip or rename "required" fields: check
         if isinstance(s, str):
@@ -71,12 +80,21 @@ async def research(question: str, parallel: bool = True, critic: bool = True,
         review = await _call(tools=[CRITIC_TOOL], tool_choice={"type": "tool", "name": "review"},
                              messages=[{"role": "user", "content":
                                         f"Findings:\n{report}\n\nAnswer:\n{draft}"}])
-        unsupported = next(b.input["unsupported_claims"] for b in review.content
+        unsupported = next(b.input.get("unsupported_claims", []) for b in review.content
                            if b.type == "tool_use")
+        if isinstance(unsupported, str):           # the list sent as text: parse, don't iterate
+            try:
+                unsupported = json.loads(unsupported)
+            except ValueError:
+                unsupported = re.findall(r'"([^"]+)"', unsupported) or [unsupported]
+        if not isinstance(unsupported, list):
+            unsupported = [unsupported]
+        unsupported = [c for x in unsupported for c in (x if isinstance(x, list) else [x])]
         if unsupported:
             draft = text_of(await _call(messages=[{"role": "user", "content":
                 f"Revise this answer. Remove or fix these unsupported claims: "
-                f"{json.dumps(unsupported)}\n\nFindings:\n{report}\n\nAnswer:\n{draft}"}]))
+                f"{json.dumps(unsupported)}\n\nReturn only the revised answer; don't quote or "
+                f"mention the claims you removed.\n\nFindings:\n{report}\n\nAnswer:\n{draft}"}]))
     return {"answer": draft, "subtasks": subtasks, "unsupported": unsupported,
             "seconds": time.perf_counter() - t0, "usage": dict(usage)}
 

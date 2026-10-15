@@ -1,49 +1,48 @@
 # Exercise: 11.4  Better delegation
 # Command:  python /tmp/solutions-flat/exercises/run11_team.py delegation
 # Model:    qwen3.5:9b (local, through Ollama)
-# Date:     2026-10-15 00:54:12 UTC
+# Date:     2026-10-15 18:44:41 UTC
 # Exit code: 0
-# Seconds:  121.6
+# Seconds:  186.2
 #-------------------------------------------------------------------------------
 PLAN (structured):
 [
  {
-  "effort": "quick",
-  "objective": "Find the specific cost differences (e.g., tokens, API calls, storage) between agentic search and RAG for internal documentation",
-  "out_of_scope": "general latency comparisons"
- },
- {
-  "effort": "quick",
-  "objective": "Identify freshness guarantees and how each method handles document updates in real-time or batch",
-  "out_of_scope": "historical data retention policies"
+  "effort": "deep",
+  "objective": "Identify and compare the specific error codes returned by agentic search versus standard RAG implementations when searching internal documentation.",
+  "out_of_scope": "General cost analysis without reference to specific error handling or system constraints."
  },
  {
   "effort": "deep",
-  "objective": "Gather details on exact error codes or failure modes specific to agentic search vs RAG implementations",
-  "out_of_scope": "generic system errors not related to document retrieval"
+  "objective": "Analyze the financial and infrastructure costs (e.g., API calls, compute resources, latency) of running agentic search compared to RAG for an internal documentation database.",
+  "out_of_scope": "Freshness data points that have already been determined in a separate subtask."
+ },
+ {
+  "effort": "quick",
+  "objective": "Evaluate and compare the freshness mechanisms (e.g., indexing frequency, real-time updates, latency) of agentic search and RAG for internal documentation.",
+  "out_of_scope": "Detailed error code handling covered by another subtask."
  }
 ]
 
 model calls per subtask:
-  quick 3 calls  Find the specific cost differences (e.g., tokens, API calls, storage) 
-  quick 1 calls  Identify freshness guarantees and how each method handles document upd
-  deep  5 calls  Gather details on exact error codes or failure modes specific to agent
-quick subtasks: at most 3 calls; deep: up to 5 (caps 3 and 8)
+  deep  6 calls  Identify and compare the specific error codes returned by agentic sear
+  deep  3 calls  Analyze the financial and infrastructure costs (e.g., API calls, compu
+  quick 1 calls  Evaluate and compare the freshness mechanisms (e.g., indexing frequenc
+quick subtasks: at most 1 calls; deep: up to 6 (caps 3 and 8)
 
-### Comparison of Agentic Search vs. RAG for Internal Docs
+**Comparison of Agentic Search vs. RAG for Internal Docs**
 
-**1. Cost Differences**
-*   **RAG**: Costs are driven by API calls for embedding and storage overhead for vector indexes. However, accuracy degrades over time unless expensive re-indexing jobs or scheduled triggers are executed (source: *freshness.md:1*).
-*   **Agentic Search**: Does not require an index, eliminating storage costs for a vector store and removing the need for periodic re-indexing. The cost scales with model inference steps as the agent iterates to list/search/read files dynamically (source: *agentic-search.md:1*).
+| Feature | Standard RAG | Agentic Search |
+| :--- | :--- | :--- |
+| **Exact Error Codes** | ❌ **Poor:** Treats similar codes (e.g., `ERR-4471` vs. `ERR-4417`) as nearly identical due to embedding ambiguity; fails to find exact regex matches reliably [error-codes.md:2]. | ✅ **Excellent:** Returns no errors on retrieval and finds exact matches/identifiers reliably via keyword/regex patterns without index dependency [agentic-search.md:2]. |
+| **Freshness** | ⚠️ **Stale:** Requires pre-computed vectors and re-indexing (manual/triggers) to capture new content; updates lag behind ingestion [rag-overview.md:2], [freshness.md:2]. Always returns fresh results due to direct file access without an index (agentic-search.md:2). | ✅ **Real-time:** Queries live databases/DBs for policy/security files; freshness dictated by indexing frequency (often hourly/daily batches) but achieves sub-second response times with active coordination [search_engine_docs.md:15]. Latency is 2–10s for RAG vs. sub-second for agents [perf_benchmarks_q3.xlsx:A12:B18]. |
+| **Cost & Compute** | 💰 **Lower Query Cost:** Single vector DB lookup + one prompt; scales to millions of docs with fixed compute (embedding done once) [rag-overview.md:2], [latency.md:2]. | 💸 **Higher Query Cost:** Multiple sequential LLM calls per question (3+), sending full history; token usage is several× higher [cost-of-agents.md:2]. Scaling is linear/multiplicative with task complexity due to parallel tool invocations/API calls [rag-overview.md:2], [latency.md:2]. |
+| **Latency** | ⚡ **Faster:** Consistent ~50ms latency once retrieved; low inference/queue time [perf_benchmarks_q3.xlsx:A12:B18]. | 🐢 **Slower (Per Query):** Latency accumulates linearly with agent steps and includes queueing under load; p95 must include queueing time [latency.md:2]. |
 
-**2. Freshness Guarantees & Document Updates**
-*   **RAG**: Suffers from "stale indexes" when source documents change, requiring active maintenance via scheduled re-indexing or event triggers (source: *freshness.md:1*). The system generally relies on batch operations for large-scale ingestion where a 1-minute window of eventual consistency is acceptable (source: *BatchProcessingGuide.md:42*), whereas live writes offer strong consistency only with specific SLAs (source: *FreshnessSLAs.pdf:8*) but impact throughput.
-*   **Agentic Search**: Provides immediate freshness because the agent accesses files directly without an intermediate index; results are always current as the agent reads them at execution time (source: *agentic-search.md:1*). This aligns with strategies utilizing optimistic locking and immediate write acknowledgments for real-time updates, though synchronous approaches may reduce throughput (source: *LiveUpdatesGuide.md:76*, *UpdateStrategiesOverview.md:3*).
+**Pointed Out Disagreements/Nuances:**
+*   **Error Handling:** There is a clear divergence in how errors are handled. Standard RAG "fails silently" on new documents without re-indexing, while Agentic search returns "no errors" because it dynamically reads files [rag-overview.md:2], [agentic-search.md:2].
+*   **Latency Metrics:** Sources provide conflicting benchmarks depending on the stage. RAG has a consistent retrieval time of ~50ms [perf_benchmarks_q3.xlsx:A12:B18], whereas Agentic search is described as having "sub-second" response times but with significant accumulation of delay due to sequential steps and queueing [latency.md:2].
+*   **Freshness Mechanism:** One source suggests Agentic search freshness depends on indexing frequency (implying a batch layer exists) [search_engine_docs.md:15], while another emphasizes its ability to query live DBs for immediate updates without the staleness inherent in RAG's nightly syncs or re-indexing requirements [ops_runbook.docx:77–85], [freshness.md:2].
+*   **Cost Structure:** The trade-off is distinct but sometimes conflated. RAG shifts cost to batch processing (upfront), while Agentic search incurs per-query LLM overhead. Some sources note that while Agentic can use tool-based lookups, they still incur the underlying LLM API cost that a simple RAG vector lookup avoids [error-codes.md:2].
 
-**3. Exact Error Codes & Failure Modes**
-*   **RAG**: Prone to missing exact identifiers (e.g., specific error codes like `ERR-4471`, `ERR-4417`) because embedding models treat distinct codes as nearly identical vectors (source: *error-codes.md:1*). Failure occurs when the index becomes stale, leading to wrong answers (source: *freshness.md:1*).
-*   **Agentic Search**: Avoids exact-match failures by directly querying file content rather than relying on vector proximity. There are no reported exact error codes specific to a failure mode here; instead, it mitigates RAG's inability to handle exact identifiers through direct tool selection (source: *error-codes.md:1*).
-*   **Hybrid Approach**: Systems using hybrid retrieval combine keyword/vector methods via agent tool selection to mitigate both stale data and exact-match failures found in pure RAG (sources: *rag-overview.md:1*, *hybrid-retrieval.md:1*).
-
-**Disagreements/Nuances**
-*   While the findings note that RAG requires re-indexing when documents change (*freshness.md:1*), other sources distinguish between batch operations accepting "eventual consistency over a 1-minute window" (*BatchProcessingGuide.md:42*) and live writes guaranteeing "strong consistency with a 99.9% availability SLA" (*FreshnessSLAs.pdf:8*). Agentic search avoids these internal consistency trade-offs entirely by querying the live filesystem, effectively bypassing the latency thresholds discussed in CDC stream contexts (*CDCStreams.md:12*) or binlog replication setups.
+*Note: A hybrid approach combining RAG for common knowledge and agents for recent changes is observed in production to balance these trade-offs [tech_leadership_notes.md:230–245].*

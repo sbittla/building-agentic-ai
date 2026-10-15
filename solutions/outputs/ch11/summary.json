@@ -2,9 +2,9 @@
  "chapter": "11",
  "title": "Chapter 11: Multi-Agent Systems",
  "model": "qwen3.5:9b (local, through Ollama)",
- "date": "2026-10-15 05:26",
+ "date": "2026-10-15 18:48",
  "provenance": {
-  "commit": "908d672046fc-modified",
+  "commit": "a78a0ff9ba85",
   "python": "3.12.3",
   "packages_sha256": "ddf39c32b1ca5b67",
   "packages": {
@@ -46,10 +46,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 114.2,
+   "seconds": 96.9,
    "log": "ch11/11.3.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "908d672046fc-modified"
+   "commit": "77cda2676746"
   },
   {
    "id": "11.4",
@@ -57,10 +57,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 121.6,
+   "seconds": 186.2,
    "log": "ch11/11.4.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "c7330a5deef3"
+   "commit": "a78a0ff9ba85"
   },
   {
    "id": "11.5",
@@ -68,10 +68,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 182.6,
+   "seconds": 245.1,
    "log": "ch11/11.5.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "c7330a5deef3"
+   "commit": "a78a0ff9ba85"
   },
   {
    "id": "11.6",
@@ -79,10 +79,10 @@
    "kind": "build",
    "status": "passed",
    "reason": null,
-   "seconds": 977.2,
+   "seconds": 1049.5,
    "log": "ch11/11.6.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "c7330a5deef3"
+   "commit": "77cda2676746"
   },
   {
    "id": "11.7",
@@ -90,10 +90,10 @@
    "kind": "run",
    "status": "passed",
    "reason": null,
-   "seconds": 194.9,
+   "seconds": 195.1,
    "log": "ch11/11.7.log",
    "model": "qwen3.5:9b (local, through Ollama)",
-   "commit": "c7330a5deef3"
+   "commit": "77cda2676746"
   }
  ]
 }
