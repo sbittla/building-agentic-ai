@@ -296,7 +296,7 @@
  },
  "11.4": {
   "model": "any",
-  "note": "On qwen3.5:9b a plan can come back with one subtask, all quick, so there is nothing to compare. Ask again, or have the code request a new plan when it has fewer than two."
+  "note": "On qwen3.5:9b a plan can come back with one subtask, all quick, so there is nothing to compare. The reference solution asks for a new plan once when it gets fewer than two; rerun if it still lacks a deep subtask."
  },
  "11.5": {
   "model": "any"

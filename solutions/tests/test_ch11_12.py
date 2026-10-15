@@ -51,6 +51,25 @@ def test_11_4_effort_sets_steps(model, monkeypatch):
     assert seen == [("Objective: cost", 3), ("Objective: freshness", 8)]
     assert r["answer"] == "draft answer" and r["unsupported"] == []
 
+def test_11_4_one_subtask_plan_is_asked_again(model, monkeypatch):
+    import sol_ch11_research_team as t, ch11_research_team as base
+    seen, plans = [], []
+    async def fake_sub(task, max_iterations=6):
+        seen.append(task.splitlines()[0]); return "- f"
+    monkeypatch.setattr(base, "run_subagent", fake_sub)
+    team = _team_script([])
+    def respond(kw):
+        if (kw.get("tool_choice") or {}).get("name") == "make_plan":
+            plans.append(kw["messages"])
+            if len(plans) == 1:      # a small model's one-subtask plan
+                return [tool("make_plan", {"subtasks": [
+                    {"objective": "everything", "out_of_scope": "-", "effort": "quick"}]})]
+        return team(kw)
+    model.reset(default=respond)
+    asyncio.run(t.research("q"))
+    assert len(plans) == 2 and plans[1][-1]["content"][0]["type"] == "tool_result"
+    assert seen == ["Objective: cost", "Objective: freshness"]
+
 def test_11_5_critic_triggers_revision(model):
     import sol_ch11_research_team as t
     model.reset(default=_team_script(["RAG is free"]))

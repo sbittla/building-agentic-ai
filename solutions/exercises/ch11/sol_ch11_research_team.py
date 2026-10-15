@@ -40,11 +40,20 @@ async def research(question: str, parallel: bool = True, critic: bool = True,
     """plant: a claim to slip into the draft before the critic reads it (exercise 11.5),
     to check that the critic catches it and the revision removes it."""
     t0 = time.perf_counter()
-    plan = await _call(tools=[PLAN_TOOL], tool_choice={"type": "tool", "name": "make_plan"},
-                       messages=[{"role": "user", "content": question}])
-    subtasks = next(b.input["subtasks"] for b in plan.content if b.type == "tool_use")
-    if isinstance(subtasks, str):    # the whole list sent as text: don't split by character
-        subtasks = re.findall(r'"([^"]+)"', subtasks) or [subtasks]
+    messages = [{"role": "user", "content": question}]
+    for attempt in range(2):         # validate the plan before spending on it: 2-4 subtasks
+        plan = await _call(tools=[PLAN_TOOL], tool_choice={"type": "tool", "name": "make_plan"},
+                           messages=messages)
+        call = next(b for b in plan.content if b.type == "tool_use")
+        subtasks = call.input.get("subtasks", [])
+        if isinstance(subtasks, str):    # the whole list sent as text: don't split by character
+            subtasks = re.findall(r'"([^"]+)"', subtasks) or [subtasks]
+        if len(subtasks) >= 2 or attempt:
+            break
+        messages += [{"role": "assistant", "content": plan.content},
+                     {"role": "user", "content": [{"type": "tool_result", "tool_use_id": call.id,
+                      "content": f"That plan has {len(subtasks)} subtask. Split the question into "
+                                 "2-4 independent subtasks and call make_plan again."}]}]
     subtasks = subtasks[:4]
     for i, s in enumerate(subtasks):  # a model can skip or rename "required" fields: check
         if isinstance(s, str):

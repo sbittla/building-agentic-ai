@@ -1,0 +1,13 @@
+{
+ "_how": "An exercise whose code changed after its recorded run stays an open gate in RELEASE_MANIFEST.json until it is rerun or approved here. Approval needs a reason, the approver's name and a date; an entry without approved_by is only a proposal.",
+ "3.7": {
+  "reason": "Claude only. The run (2026-10-14 18:21 UTC) is recorded against 624e451, but its results (both setups 10/10, tool search at about half the input tokens) are the ones commit 8421420 reports for the rescored solution, which was in the working tree but not yet committed. ex3_7_tool_search.py hasn't changed since 8421420. A rerun needs a paid Claude call.",
+  "approved_by": "",
+  "date": ""
+ },
+ "24.6": {
+  "reason": "Claude recommended; recorded on Claude. After the run, cfb48a2 made the grader ignore read_skill names that aren't installed skills and turned a TypeError into an error message for the model. Neither changes a run in which the model names real skills, as the recorded one did. A rerun on Claude needs a paid call; on qwen3.5:9b it shows the small model's behavior, not Claude's.",
+  "approved_by": "",
+  "date": ""
+ }
+}
