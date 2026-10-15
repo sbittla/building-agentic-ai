@@ -178,7 +178,7 @@ def open_gates(live, prov):
         gates.append("Record live-model runs for " + ", ".join(live["not_run_yet"]) +
                      " (./course.sh run-chapter <ids> --model claude), or approve them as exceptions here.")
     approved = json.loads(EXCEPTIONS.read_text(encoding="utf-8")) if EXCEPTIONS.exists() else {}
-    approved = {i for i, e in approved.items() if e.get("approved_by") and e.get("reason")}
+    approved = {i for i, e in approved.items() if isinstance(e, dict) and e.get("approved_by") and e.get("reason")}
     pending = [i for i in live.get("runs_older_than_their_code", {}) if i not in approved]
     if pending:
         gates.append("Code changed after the recorded run of " + ", ".join(pending) + ": rerun each "

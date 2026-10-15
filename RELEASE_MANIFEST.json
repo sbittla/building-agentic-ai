@@ -12,17 +12,17 @@
   },
   "exercises": 249,
   "capstones": 7,
-  "git_commit": "cf2a8a4c876e1fddbff90bddd29a22096c611e58",
+  "git_commit": "097690319850268a6a053dd75dabf0fe00be41c6",
   "python_version": "3.12.3",
   "dependency_lock_sha256": "c28c848a2447e2358d5d5ee80dbb69d99ac4c946c2c442d792bd9e1f3f28b119",
   "mcp_specification": "2026-07-28",
   "verification_date": "2026-10-15",
   "offline_test_status": {
-    "passed": 592,
+    "passed": 593,
     "failed": 0,
     "errors": 0,
     "skipped": 1,
-    "tests": 593,
+    "tests": 594,
     "environment": "course image sha256:f286c40c353a (local Docker)",
     "model": "scripted stand-in (solutions/tests/fakemodel.py); no API key, no model provider called",
     "evidence": "verification/offline.json"
@@ -43,13 +43,24 @@
     "dates": "2026-10-14 to 2026-10-15",
     "commits": [
       "059cdccbdb57-modified",
-      "523e58d47b0c-modified",
       "624e451df84b",
       "624e451df84b-modified",
+      "77cda2676746",
       "812cbfeb27af-modified",
-      "908d672046fc-modified",
+      "c3169f59ef30",
       "c7330a5deef3"
     ],
+    "runs_older_than_their_code": {
+      "3.7": [
+        "solutions/exercises/ch03/ex3_7_tool_search.py"
+      ],
+      "11.5": [
+        "solutions/exercises/ch11/sol_ch11_research_team.py"
+      ],
+      "24.6": [
+        "solutions/exercises/ch24/ex24_6_skills.py"
+      ]
+    },
     "evidence": "solutions/outputs/*/summary.json (each records its own commit and lock hash)"
   },
   "known_limitations": [
@@ -58,7 +69,7 @@
     "Production readiness is not claimed: the course kit is not production-hardened (Appendix M of the book, SECURITY_MODEL.md)."
   ],
   "open_gates": [
-    "Live-model runs come from 7 commits; rerun them on the release commit, or record for each exercise why its evidence still applies.",
+    "Code changed after the recorded run of 3.7, 11.5, 24.6: rerun each (./course.sh run-chapter <ids>), or approve it in verification/exceptions.json with a reason and your name.",
     "Clean setup from a fresh checkout on Windows, macOS and Linux (./course.sh setup, build, selftest, quickstart).",
     "Independent technical review and a beginner-reader pilot (PILOT.md), with findings recorded.",
     "Final proof of the print files, and KDP preview of paperback and hardcover (trim, gutter, spine, cover, ISBN and metadata).",
