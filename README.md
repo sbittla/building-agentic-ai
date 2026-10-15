@@ -208,13 +208,13 @@ Every reference solution, capstone and exercise command, run against a scripted 
 
 | Passed | Failed | Errors | Skipped (not applicable here) | Tests |
 | ---: | ---: | ---: | ---: | ---: |
-| 592 | 0 | 0 | 1 | 593 |
+| 594 | 0 | 0 | 1 | 595 |
 
-Commit `cf2a8a4c876e`; `requirements.lock` sha256 `c28c848a2447`; course image sha256:f286c40c353a (local Docker); 2026-10-15. Skipped: 1 needs claude from the course image. Details: [verification/README.md](verification/README.md), [verification/offline.json](verification/offline.json).
+Commit `b0ac4fe66f76`; `requirements.lock` sha256 `c28c848a2447`; course image sha256:f286c40c353a (local Docker); 2026-10-15. Skipped: 1 needs claude from the course image. Details: [verification/README.md](verification/README.md), [verification/offline.json](verification/offline.json).
 
 ### B. Exercises run with a real model
 
-Every exercise run with its reference solution by `run-chapter` (runs from 2026-10-14 to 2026-10-15; models: `claude-sonnet-5`, `qwen3.5:9b`). **189 of 189 executable checks pass automatically**, and **0** failed unexpectedly. A real model's answers vary from run to run, so these show that each exercise works end to end, not that it always will. Commits: `059cdccbdb57-modified`, `523e58d47b0c-modified`, `624e451df84b`, `624e451df84b-modified`, `812cbfeb27af-modified`, `908d672046fc-modified`, `c7330a5deef3`. Per-exercise results and logs: [EXERCISE_INDEX.md](EXERCISE_INDEX.md), `solutions/outputs/`.
+Every exercise run with its reference solution by `run-chapter` (runs from 2026-10-14 to 2026-10-15; models: `claude-sonnet-5`, `qwen3.5:9b`). **189 of 189 executable checks pass automatically**, and **0** failed unexpectedly. A real model's answers vary from run to run, so these show that each exercise works end to end, not that it always will. Commits: `059cdccbdb57-modified`, `624e451df84b`, `624e451df84b-modified`, `77cda2676746`, `812cbfeb27af-modified`, `a78a0ff9ba85`, `c7330a5deef3`. Per-exercise results and logs: [EXERCISE_INDEX.md](EXERCISE_INDEX.md), `solutions/outputs/`.
 
 How the totals count: the book has **249 exercises**; the table adds the 7 capstones, so it has 256 rows of work. Every count here, in EXERCISE_INDEX.md and in the book is computed from `course/exercises.json`. *Written answer* exercises have nothing to run; *needs a person* means a person at the keyboard, the Claude Desktop app, a GitHub token or a file the reader creates; *not run yet* means no run has been recorded for this version.
 
