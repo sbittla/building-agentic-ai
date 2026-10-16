@@ -32,6 +32,7 @@ The repository is a course and a reference implementation. Start with the first 
 | [EXERCISE_INDEX.md](EXERCISE_INDEX.md) | Every exercise: type, model needed, solution file, latest result |
 | [LOCAL_MODEL.md](LOCAL_MODEL.md) | The free local model in depth (Appendix H of the book) |
 | [RESOURCES.md](RESOURCES.md) | Every reference from the book: each chapter's full Learn more list (from `course/learn_more.md`), courses, docs, where to ask for help |
+| [Ask Building Agentic AI Systems](docs/ask/index.html) | Ask a question and see the chapters that answer it, from every chapter's sections and key takeaways, the capstones, the case study, the appendices and the glossary. Open `docs/ask/index.html` in a browser: no key, no server. Generated from the manuscript by `dev/ask_page.py` |
 | [CHAPTER_OUTCOMES.md](CHAPTER_OUTCOMES.md) | What you should be able to do after each chapter, and how you'd know |
 | [FIELD_GUIDE.md](FIELD_GUIDE.md) | Running a customer engagement: the role, a week-by-week workflow, discovery, design-review, pilot and handoff checklists, the hard conversations and the demo (Chapter 31's companion) |
 | [INTERVIEW_PREP.md](INTERVIEW_PREP.md) | Bonus guide: the interview loop, questions with brief answers and practice cases for agent engineering and forward-deployed roles |
