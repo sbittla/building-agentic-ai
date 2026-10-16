@@ -133,7 +133,7 @@ Before you choose a model, see an agent work. Once the image is built, run:
 ./course.sh quickstart
 ```
 
-It runs the real agent loop from Chapter 4 with the real date tools from Chapter 3. Only the model is a scripted stand-in, so you need no key. You should see something like this, with today's date:
+It runs the real agent loop from Chapter 4 with the real date tools from Chapter 3. Only the model is a scripted stand-in, so you need no key. You should see something like this. The run below was captured on 5 October 2026; yours starts from the day you run it, so its dates and day count will differ:
 
 ```
 Question: How many days until July 4 next, and what weekday will it be?

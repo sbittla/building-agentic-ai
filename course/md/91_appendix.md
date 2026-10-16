@@ -868,7 +868,7 @@ Table: An architecture decision record
 
 ## Appendix L: From the Book to the Code
 
-This map shows, for every chapter and interlude, the concept, its exercises, the folder its listings come from and the capstones that build on it. Solutions use the same folder names under `solutions/exercises/`. `CURRICULUM_MAP.md` in the kit adds each exercise's level, model and solution file. Both come from one file, which `dev/curriculum_map.py` builds from the manuscript and the repository; CI fails if either is out of date.
+This map shows, for every chapter and interlude, the concept, its exercises, the folder its listings come from and the capstones that build on it. The Exercises column lists exercise numbers, not sections: Chapter 29's exercises run from 29.1 to 29.8, and exercise 29.8 practices section 29.9. Solutions use the same folder names under `solutions/exercises/`. `CURRICULUM_MAP.md` in the kit adds each exercise's level, model and solution file. Both come from one file, which `dev/curriculum_map.py` builds from the manuscript and the repository; CI fails if either is out of date.
 
 Table: Every chapter, its exercises, code and capstones
 @@curriculum-map
